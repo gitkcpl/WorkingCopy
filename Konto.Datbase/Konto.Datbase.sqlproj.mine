@@ -1,0 +1,191 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>Konto.Datbase</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{b491f822-023c-431d-aab7-5f9eb56d6d4b}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql100DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath>
+    </RootPath>
+    <RootNamespace>Konto.Datbase</RootNamespace>
+    <AssemblyName>Konto.Datbase</AssemblyName>
+    <ModelCollation>1033, CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+    <GenerateCreateScript>True</GenerateCreateScript>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <!-- Default to the v11.0 targets path if the targets file for the current VS version is not found -->
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Condition="'$(SQLDBExtensionsRefPath)' != ''" Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="Table" />
+    <Folder Include="Table\Masters" />
+    <Folder Include="PostScript" />
+    <Folder Include="Proc" />
+    <Folder Include="Table\Setup" />
+    <Folder Include="Table\Trans" />
+    <Folder Include="Table\Yarn" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="Table\Masters\Country.sql" />
+    <Build Include="Table\Masters\State.sql" />
+    <Build Include="Table\Masters\City.sql" />
+    <Build Include="Table\Masters\Area.sql" />
+    <Build Include="Table\Masters\ErpModule.sql" />
+    <Build Include="Table\Masters\AuditLog.sql" />
+    <None Include="PostScript\Statelist.sql" />
+    <Build Include="Table\Masters\Brand.sql" />
+    <Build Include="Table\Masters\ProductType.sql" />
+    <Build Include="Table\Masters\Uom.sql" />
+    <Build Include="Table\Masters\PGroup.sql" />
+    <Build Include="Table\Masters\PSubGroup.sql" />
+    <Build Include="Table\Masters\PCategory.sql" />
+    <Build Include="Table\Masters\PSize.sql" />
+    <Build Include="Table\Masters\Color.sql" />
+    <Build Include="Table\Masters\UserMaster.sql" />
+    <Build Include="Table\Masters\Roles.sql" />
+    <Build Include="Table\Masters\Permissions.sql" />
+    <Build Include="Table\Masters\Role_Permissions.sql" />
+    <Build Include="Table\Masters\Style.sql" />
+    <Build Include="Table\Masters\AcGroup.sql" />
+    <Build Include="Table\Masters\Acc.sql" />
+    <Build Include="Table\Masters\PartyGroup.sql" />
+    <Build Include="Table\Masters\Nop.sql" />
+    <Build Include="Table\Masters\Deductee.sql" />
+    <Build Include="Table\Masters\AccAddress.sql" />
+    <Build Include="Table\Masters\Route.sql" />
+    <Build Include="Table\Masters\AccBank.sql" />
+    <Build Include="Table\Masters\AccOther.sql" />
+    <Build Include="Table\Masters\Emp.sql" />
+    <Build Include="Table\Masters\Company.sql" />
+    <Build Include="Table\Masters\FinYear.sql" />
+    <Build Include="Table\Masters\AccBal.sql" />
+    <Build Include="Table\Masters\TaxMaster.sql" />
+    <Build Include="Proc\AccLookup.sql" />
+    <Build Include="Table\Masters\VoucherType.sql" />
+    <Build Include="Table\Masters\Voucher_Party.sql" />
+    <Build Include="Table\Masters\Voucher_Book.sql" />
+    <Build Include="Table\Masters\Voucher_Item.sql" />
+    <Build Include="Table\Masters\Product.sql" />
+    <Build Include="Table\Masters\ProductPrice.sql" />
+    <Build Include="Table\Masters\Branch.sql" />
+    <Build Include="Table\Masters\Division.sql" />
+    <Build Include="Table\Masters\ProductBal.sql" />
+    <Build Include="Table\Setup\SysPara.sql" />
+    <Build Include="Table\Setup\CompPara.sql" />
+    <Build Include="Table\Masters\Nar.sql" />
+    <Build Include="Table\Masters\Voucher.sql" />
+    <Build Include="Table\Masters\VchSetup.sql" />
+    <Build Include="Table\Masters\Dept.sql" />
+    <Build Include="Table\Masters\Store.sql" />
+    <Build Include="Table\Masters\PayTerms.sql" />
+    <Build Include="Table\Masters\Grade.sql" />
+    <Build Include="Table\Trans\Ord.sql" />
+    <Build Include="Table\Trans\OrdTrans.sql" />
+    <Build Include="Table\Masters\MiscList.sql" />
+    <Build Include="Table\Trans\Attchment.sql" />
+    <Build Include="Table\Masters\SerialNumbersShelf.sql" />
+    <Build Include="Proc\GenerateSerialNumberSp.sql" />
+    <Build Include="Table\Trans\OrdDelv.sql" />
+    <Build Include="Table\Trans\Prod.sql" />
+    <Build Include="Table\Trans\ChallanTrans.sql" />
+    <Build Include="Table\Trans\Challan.sql" />
+    <Build Include="Table\Trans\StockTrans.sql" />
+    <Build Include="Table\Trans\JobReceipt.sql" />
+    <Build Include="Table\Trans\ProdOut.sql" />
+    <Build Include="Table\Masters\Catalog.sql" />
+    <Build Include="Table\Masters\PFormula.sql" />
+    <Build Include="Table\Masters\PImage.sql" />
+    <Build Include="Table\Masters\MachineMaster.sql" />
+    <Build Include="Table\Masters\Prod_Emp.sql" />
+    <Build Include="Table\Masters\Prod_Weft.sql" />
+    <Build Include="Table\Yarn\Batch.sql" />
+    <Build Include="Table\Yarn\BatchTrans.sql" />
+    <Build Include="Table\Masters\PackingType.sql" />
+    <Build Include="Table\Trans\BillDelv.sql" />
+    <Build Include="Table\Trans\BillMain.sql" />
+    <Build Include="Table\Trans\BillTrans.sql" />
+    <Build Include="Proc\BeamprodList.sql" />
+    <Build Include="Proc\ChallanPrint.sql" />
+    <Build Include="Proc\DeliveryAddressList.sql" />
+    <Build Include="Proc\FreeMachineList.sql" />
+    <Build Include="Proc\MachineWiseTakaProdList.sql" />
+    <Build Include="Proc\OutwardBeamProd.sql" />
+    <Build Include="Proc\OutwardprodList.sql" />
+    <Build Include="Proc\OutwardRefinishTaka.sql" />
+    <Build Include="Proc\PendingBeamLoading.sql" />
+    <Build Include="Proc\PendingBill.sql" />
+    <Build Include="Proc\PendingChallanOnInvoice.sql" />
+    <Build Include="Proc\PendingChallanOnReturn.sql" />
+    <Build Include="Proc\PendingJOBonChallan.sql" />
+    <Build Include="Proc\PendingJOBReceipt.sql" />
+    <Build Include="Proc\PendingMillReceipt.sql" />
+    <Build Include="Proc\PendingMRProd.sql" />
+    <Build Include="Proc\PendingOrderonChallan.sql" />
+    <Build Include="Proc\RoleWiseMenu.sql" />
+    <Build Include="Proc\TakaprodList.sql" />
+    <Build Include="Table\Masters\TransType.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="Konto.Datbase.refactorlog" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Konto.Datbase.publish.xml" />
+    <None Include="PostScript\Menu.sql" />
+    <None Include="PostScript\defaultEntry.sql" />
+    <None Include="PostScript\Uom.sql" />
+    <None Include="PostScript\Permissions.sql" />
+    <None Include="PostScript\LedgerGroup.sql" />
+    <None Include="PostScript\Nop.sql" />
+    <None Include="PostScript\Acc.sql" />
+    <None Include="PostScript\SysPara.sql" />
+    <None Include="PostScript\VoucherType.sql" />
+    <None Include="PostScript\Voucher.sql" />
+    <None Include="PostScript\TransType.sql" />
+    <None Include="Proc\PendingBatch.sql" />
+    <None Include="Proc\GetOrderApproveList.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="ErpModule.PostDeployment.sql" />
+  </ItemGroup>
+</Project>

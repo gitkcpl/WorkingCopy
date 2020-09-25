@@ -1,0 +1,495 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.4.0\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B6030D3D-F21B-4E5E-BA2A-8D04B6B3A2D4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Konto.Reporting</RootNamespace>
+    <AssemblyName>Konto.Reporting</AssemblyName>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Accessibility" />
+    <Reference Include="Aspose.Cells">
+      <HintPath>..\RefTools\Aspose.Cells.dll</HintPath>
+    </Reference>
+    <Reference Include="C1.C1Excel.4.5.2, Version=4.5.20201.416, Culture=neutral, PublicKeyToken=79882d576c6336da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\RefTools\C1.C1Excel.4.5.2.dll</HintPath>
+    </Reference>
+    <Reference Include="C1.C1Pdf.4.5.2, Version=4.5.20201.416, Culture=neutral, PublicKeyToken=79882d576c6336da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\RefTools\C1.C1Pdf.4.5.2.dll</HintPath>
+    </Reference>
+    <Reference Include="C1.DataCollection, Version=1.0.20201.4, Culture=neutral, PublicKeyToken=79882d576c6336da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\RefTools\C1.DataCollection.dll</HintPath>
+    </Reference>
+    <Reference Include="C1.DataEngine.4.5.2, Version=4.5.20201.416, Culture=neutral, PublicKeyToken=79882d576c6336da" />
+    <Reference Include="C1.Win.4.5.2, Version=4.5.20201.416, Culture=neutral, PublicKeyToken=944ae1ea0e47ca04, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\RefTools\C1.Win.4.5.2.dll</HintPath>
+    </Reference>
+    <Reference Include="C1.Win.C1Chart.4.5.2, Version=4.5.20201.416, Culture=neutral, PublicKeyToken=a22e16972c085838, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\RefTools\C1.Win.C1Chart.4.5.2.dll</HintPath>
+    </Reference>
+    <Reference Include="C1.Win.C1Command.4.5.2, Version=4.5.20201.416, Culture=neutral, PublicKeyToken=e808566f358766d8, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\RefTools\C1.Win.C1Command.4.5.2.dll</HintPath>
+    </Reference>
+    <Reference Include="C1.Win.C1FlexGrid.4.5.2, Version=4.5.20201.416, Culture=neutral, PublicKeyToken=79882d576c6336da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\RefTools\C1.Win.C1FlexGrid.4.5.2.dll</HintPath>
+    </Reference>
+    <Reference Include="C1.Win.C1FlexGrid.ImportExport.4.5.2, Version=4.5.20201.416, Culture=neutral, PublicKeyToken=79882d576c6336da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\RefTools\C1.Win.C1FlexGrid.ImportExport.4.5.2.dll</HintPath>
+    </Reference>
+    <Reference Include="C1.Win.C1Input.4.5.2, Version=4.5.20201.416, Culture=neutral, PublicKeyToken=7e7ff60f0c214f9a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\RefTools\C1.Win.C1Input.4.5.2.dll</HintPath>
+    </Reference>
+    <Reference Include="C1.Win.FlexPivot.4.5.2, Version=4.5.20201.416, Culture=neutral, PublicKeyToken=79882d576c6336da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\RefTools\C1.Win.FlexPivot.4.5.2.dll</HintPath>
+    </Reference>
+    <Reference Include="C1.Win.FlexPivot.Slicer.4.5.2, Version=4.5.20201.416, Culture=neutral, PublicKeyToken=79882d576c6336da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\RefTools\C1.Win.FlexPivot.Slicer.4.5.2.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Data.v20.1, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Printing.v20.1.Core, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Sparkline.v20.1.Core, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Data.Desktop.v20.1, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Utils.v20.1, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraEditors.v20.1, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraGrid.v20.1, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraLayout.v20.1, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="FarPoint.CalcEngine">
+      <HintPath>I:\Program Files\v12.45.20181.0\bin\FarPoint.CalcEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="FarPoint.Excel">
+      <HintPath>I:\Program Files\v12.45.20181.0\bin\FarPoint.Excel.dll</HintPath>
+    </Reference>
+    <Reference Include="FarPoint.Localization">
+      <HintPath>I:\Program Files\v12.45.20181.0\bin\FarPoint.Localization.dll</HintPath>
+    </Reference>
+    <Reference Include="FarPoint.PDF">
+      <HintPath>I:\Program Files\v12.45.20181.0\bin\FarPoint.PDF.dll</HintPath>
+    </Reference>
+    <Reference Include="FarPoint.PluginCalendar.WinForms">
+      <HintPath>I:\Program Files\v12.45.20181.0\bin\FarPoint.PluginCalendar.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="FarPoint.Win, Version=12.45.20181.0, Culture=neutral, PublicKeyToken=327c3516b1b18457, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>I:\Program Files\v12.45.20181.0\bin\FarPoint.Win.dll</HintPath>
+    </Reference>
+    <Reference Include="FarPoint.Win.Chart">
+      <HintPath>I:\Program Files\v12.45.20181.0\bin\FarPoint.Win.Chart.dll</HintPath>
+    </Reference>
+    <Reference Include="FarPoint.Win.Spread, Version=12.45.20181.0, Culture=neutral, PublicKeyToken=327c3516b1b18457, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>I:\Program Files\v12.45.20181.0\bin\FarPoint.Win.Spread.dll</HintPath>
+    </Reference>
+    <Reference Include="GrapeCity.ActiveReports.Design.Win.v12, Version=12.1.12924.0, Culture=neutral, PublicKeyToken=cc4967777c49a3ff" />
+    <Reference Include="GrapeCity.ActiveReports.Extensibility.v12, Version=12.1.12924.0, Culture=neutral, PublicKeyToken=cc4967777c49a3ff" />
+    <Reference Include="GrapeCity.ActiveReports.Samples.EndUserDesigner, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+    <Reference Include="GrapeCity.ActiveReports.v12, Version=12.1.12924.0, Culture=neutral, PublicKeyToken=cc4967777c49a3ff, processorArchitecture=MSIL" />
+    <Reference Include="GrapeCity.CalcEngine">
+      <HintPath>I:\Program Files\v12.45.20181.0\bin\GrapeCity.CalcEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="GrapeCity.Spreadsheet">
+      <HintPath>..\RefTools\GrapeCity.Spreadsheet.dll</HintPath>
+    </Reference>
+    <Reference Include="GrapeCity.Spreadsheet.Win">
+      <HintPath>..\RefTools\GrapeCity.Spreadsheet.Win.dll</HintPath>
+    </Reference>
+    <Reference Include="GrapeCity.Win.PluginInputMan">
+      <HintPath>I:\Program Files\v12.45.20181.0\bin\GrapeCity.Win.PluginInputMan.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.2.9.0\lib\net46\Serilog.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Sinks.File, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.Sinks.File.4.1.0\lib\net45\Serilog.Sinks.File.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Grid.Windows, Version=18.1460.0.42, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL" />
+    <Reference Include="Syncfusion.GridConverter.Windows, Version=18.1460.0.42, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL" />
+    <Reference Include="Syncfusion.GridHelperClasses.Windows, Version=18.1460.0.42, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL" />
+    <Reference Include="Syncfusion.Linq.Base, Version=18.1460.0.42, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
+    <Reference Include="Syncfusion.PivotAnalysis.Base, Version=18.1460.0.42, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
+    <Reference Include="Syncfusion.PivotAnalysis.Windows, Version=18.1460.0.42, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL" />
+    <Reference Include="Syncfusion.Shared.Base, Version=18.1460.0.42, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
+    <Reference Include="Syncfusion.Shared.Windows, Version=18.1460.0.42, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL" />
+    <Reference Include="Syncfusion.Tools.Windows, Version=18.1460.0.42, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL" />
+    <Reference Include="Syncfusion.XlsIO.Base, Version=18.1460.0.42, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="UIAutomationTypes" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CustomRep\CustomeRepWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CustomRep\CustomeRepWindow.Designer.cs">
+      <DependentUpon>CustomeRepWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CustomRep\ReportLayoutBuilder.cs" />
+    <Compile Include="Para\BillPara\ParaMainView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Para\BillPara\ParaMainView.Designer.cs">
+      <DependentUpon>ParaMainView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Para\BlSheet\BlMainView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Para\BlSheet\BlMainView.Designer.cs">
+      <DependentUpon>BlMainView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Para\ChlPara\ChlParaMainView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Para\ChlPara\ChlParaMainView.Designer.cs">
+      <DependentUpon>ChlParaMainView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Para\Go\GoParaView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Para\Go\GoParaView.Designer.cs">
+      <DependentUpon>GoParaView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Para\GpRepPara.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Para\GpRepPara.Designer.cs">
+      <DependentUpon>GpRepPara.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Para\Gstr2\GsttwoMainView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Para\Gstr2\GsttwoMainView.Designer.cs">
+      <DependentUpon>GsttwoMainView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Para\Gst\GstMainView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Para\Gst\GstMainView.Designer.cs">
+      <DependentUpon>GstMainView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Para\Gst\GstRegView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Para\Gst\GstRegView.Designer.cs">
+      <DependentUpon>GstRegView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Para\Gst\GstSummaryView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Para\Gst\GstSummaryView.Designer.cs">
+      <DependentUpon>GstSummaryView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Para\Gst\HSNDetailListView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Para\Gst\HSNDetailListView.Designer.cs">
+      <DependentUpon>HSNDetailListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Para\Gst\WaitForm1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Para\Gst\WaitForm1.Designer.cs">
+      <DependentUpon>WaitForm1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Para\Ledger\AcGroupDto.cs" />
+    <Compile Include="Para\Ledger\InterestLedgerView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Para\Ledger\InterestLedgerView.Designer.cs">
+      <DependentUpon>InterestLedgerView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Para\Ledger\IntJournalView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Para\Ledger\IntJournalView.Designer.cs">
+      <DependentUpon>IntJournalView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Para\Ledger\LedgerMainView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Para\Ledger\LedgerMainView.Designer.cs">
+      <DependentUpon>LedgerMainView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Para\Ledger\LedgerParaView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Para\Ledger\LedgerParaView.Designer.cs">
+      <DependentUpon>LedgerParaView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Para\OrdPara\OrdParaMainView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Para\OrdPara\OrdParaMainView.Designer.cs">
+      <DependentUpon>OrdParaMainView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Para\Outs\OutsParaView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Para\Outs\OutsParaView.Designer.cs">
+      <DependentUpon>OutsParaView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Para\Outs\OutsMainView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Para\Outs\OutsMainView.Designer.cs">
+      <DependentUpon>OutsMainView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Para\Outs\RangeParaView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Para\Outs\RangeParaView.Designer.cs">
+      <DependentUpon>RangeParaView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Para\Reconcile\BankOpBal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Para\Reconcile\BankOpBal.Designer.cs">
+      <DependentUpon>BankOpBal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Para\Reconcile\BRMainView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Para\Reconcile\BRMainView.Designer.cs">
+      <DependentUpon>BRMainView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Para\Stock\StockDetailViewWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Para\Stock\StockDetailViewWindow.Designer.cs">
+      <DependentUpon>StockDetailViewWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Para\Stock\StockMainView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Para\Stock\StockMainView.Designer.cs">
+      <DependentUpon>StockMainView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Para\Stock\StockParaMainView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Para\Stock\StockParaMainView.Designer.cs">
+      <DependentUpon>StockParaMainView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Para\TDSPara\TDSMainView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Para\TDSPara\TDSMainView.Designer.cs">
+      <DependentUpon>TDSMainView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Para\TrailBalance\TbParaView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Para\TrailBalance\TbParaView.Designer.cs">
+      <DependentUpon>TbParaView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Para\TrailBalance\TrailMainView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Para\TrailBalance\TrailMainView.Designer.cs">
+      <DependentUpon>TrailMainView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+    <None Include="Properties\DataSources\Konto.Data.Models.Reports.GsttwoDto.datasource" />
+    <None Include="Properties\DataSources\Konto.Data.Models.Reports.OutSummaryDTO.datasource" />
+    <None Include="Properties\DataSources\Konto.Data.Models.Reports.ReconsileDTO.datasource" />
+    <None Include="Properties\DataSources\Konto.Data.Models.Reports.StockDetDto.datasource" />
+    <None Include="Properties\DataSources\Konto.Data.Models.Reports.TDsSummaryDto.datasource" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Konto.App.Shared\Konto.App.Shared.csproj">
+      <Project>{F9E8AE77-5F5F-4F20-9CAD-D21A874F4130}</Project>
+      <Name>Konto.App.Shared</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Konto.Core.Shared\Konto.Core.Shared.csproj">
+      <Project>{69C2E195-1DB0-4023-B81E-81851F5B3042}</Project>
+      <Name>Konto.Core.Shared</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Konto.Data.Migration\Konto.Data.Migration.csproj">
+      <Project>{344bb825-179d-462a-9ea4-441baad6bebf}</Project>
+      <Name>Konto.Data.Migration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Konto.Data\Konto.Data.csproj">
+      <Project>{462e3508-500d-4f85-8e0d-88b132b62d5c}</Project>
+      <Name>Konto.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Konto.Shared\Konto.Shared.csproj">
+      <Project>{ce5eaeb4-ddff-49f6-8cd5-b95c84107d3b}</Project>
+      <Name>Konto.Shared</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Konto.Trading\Konto.Trading.csproj">
+      <Project>{e830635a-d4f1-489e-8df6-ae784e9b8bbd}</Project>
+      <Name>Konto.Trading</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CustomRep\CustomeRepWindow.resx">
+      <DependentUpon>CustomeRepWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Para\BillPara\ParaMainView.resx">
+      <DependentUpon>ParaMainView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Para\BlSheet\BlMainView.resx">
+      <DependentUpon>BlMainView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Para\ChlPara\ChlParaMainView.resx">
+      <DependentUpon>ChlParaMainView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Para\Go\GoParaView.resx">
+      <DependentUpon>GoParaView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Para\GpRepPara.resx">
+      <DependentUpon>GpRepPara.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Para\Gstr2\GsttwoMainView.resx">
+      <DependentUpon>GsttwoMainView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Para\Gst\GstMainView.resx">
+      <DependentUpon>GstMainView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Para\Gst\GstRegView.resx">
+      <DependentUpon>GstRegView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Para\Gst\GstSummaryView.resx">
+      <DependentUpon>GstSummaryView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Para\Gst\HSNDetailListView.resx">
+      <DependentUpon>HSNDetailListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Para\Gst\WaitForm1.resx">
+      <DependentUpon>WaitForm1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Para\Ledger\InterestLedgerView.resx">
+      <DependentUpon>InterestLedgerView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Para\Ledger\IntJournalView.resx">
+      <DependentUpon>IntJournalView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Para\Ledger\LedgerMainView.resx">
+      <DependentUpon>LedgerMainView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Para\Ledger\LedgerParaView.resx">
+      <DependentUpon>LedgerParaView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Para\OrdPara\OrdParaMainView.resx">
+      <DependentUpon>OrdParaMainView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Para\Outs\OutsParaView.resx">
+      <DependentUpon>OutsParaView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Para\Outs\OutsMainView.resx">
+      <DependentUpon>OutsMainView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Para\Outs\RangeParaView.resx">
+      <DependentUpon>RangeParaView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Para\Reconcile\BankOpBal.resx">
+      <DependentUpon>BankOpBal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Para\Reconcile\BRMainView.resx">
+      <DependentUpon>BRMainView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Para\Stock\StockDetailViewWindow.resx">
+      <DependentUpon>StockDetailViewWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Para\Stock\StockMainView.resx">
+      <DependentUpon>StockMainView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Para\Stock\StockParaMainView.resx">
+      <DependentUpon>StockParaMainView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Para\TDSPara\TDSMainView.resx">
+      <DependentUpon>TDSMainView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Para\TrailBalance\TbParaView.resx">
+      <DependentUpon>TbParaView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Para\TrailBalance\TrailMainView.resx">
+      <DependentUpon>TrailMainView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.0\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.0\build\EntityFramework.targets'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.4.0\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.targets')" />
+</Project>

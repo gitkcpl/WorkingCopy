@@ -1,0 +1,20 @@
+﻿CREATE TABLE [dbo].[Color]
+(
+	[Id] INT IDENTITY NOT NULL ,
+	[ColorCode] VARCHAR(15) NULL, 
+    [ColorName] VARCHAR(50) NULL, 
+	[RGB] VARCHAR(50) NULL,
+    [Remark] VARCHAR(MAX) NULL, 
+    [Extra1] VARCHAR(50) NULL, 
+    [Extra2] VARCHAR(50) NULL,
+	[IsActive] BIT NOT NULL DEFAULT 1, 
+    [IsDeleted] BIT NOT NULL DEFAULT 0, 
+    [CreateDate] DATETIME2 NULL, 
+    [ModifyDate] DATETIME2 NULL, 
+    [CreateUser] VARCHAR(50) NULL, 
+    [ModifyUser] VARCHAR(50) NULL, 
+    [IpAddress] VARCHAR(100) NULL, 
+    [RowId] UNIQUEIDENTIFIER NOT NULL DEFAULT NewSequentialid(), 
+    CONSTRAINT [PK_Color] PRIMARY KEY NONCLUSTERED ([RowId]), 
+    CONSTRAINT [AK_Color] UNIQUE CLUSTERED ([Id]), 
+)

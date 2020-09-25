@@ -1,0 +1,35 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Konto.Data.Models.Transaction
+{
+    [Table("MachineMaster")]
+    [Serializable]
+    public class MachineMasterModel : AuditedEntity
+    {
+        public MachineMasterModel()
+        {
+            this.IsActive = true;
+            this.IsDeleted = false;
+        }
+        [MaxLength(25)]
+        [Display(Name = "machinename")]
+        public string MachineName { get; set; }
+
+        [MaxLength]
+        [Display(Name = "remark")]
+        public string Remark { get; set; }
+
+        [Display(Name = "Company ID")]
+        public int CompanyID { get; set; }
+
+        [Display(Name = "Div Id")]
+        public int? DivId { get; set; }
+    }
+
+}

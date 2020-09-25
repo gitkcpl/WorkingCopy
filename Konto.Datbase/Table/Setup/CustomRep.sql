@@ -1,0 +1,20 @@
+﻿CREATE TABLE [dbo].[CustomRep]
+(
+	[Id] INT NOT NULL  IDENTITY, 
+    [RepCode] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY NONCLUSTERED DEFAULT NewSequentialid(), 
+    [ReportTypes] VARCHAR(50) NULL, 
+    [RepId] INT NULL, 
+    [FieldName] VARCHAR(50) NULL, 
+    [Show] BIT NOT NULL default(0), 
+    [OrderIndex] INT NOT NULL Default(0), 
+    [Heading] VARCHAR(50) NULL, 
+    [Width] INT NOT NULL DEFAULT 0, 
+    [GroupIndex] INT NOT NULL DEFAULT 0, 
+    [SortIndex] INT NOT NULL DEFAULT 0, 
+    [Summary] BIT NOT NULL DEFAULT 0, 
+    [GroupSummary] BIT NOT NULL DEFAULT 0, 
+    [SummaryType] VARCHAR(50) NULL, 
+    [Appearance] VARCHAR(50) NULL, 
+    [HeaderText] VARCHAR(500) NULL, 
+    [FooterText] VARCHAR(500) NULL, 
+)

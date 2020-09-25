@@ -1,0 +1,22 @@
+﻿CREATE TABLE [dbo].[Voucher]
+(
+	[Id] INT IDENTITY NOT NULL , 
+    [VoucherName] VARCHAR(50) NULL, 
+    [SortName] VARCHAR(4) NULL, 
+    [VTypeId] INT NULL, 
+    [RefVoucherId] INT NULL,
+	[Extra1] VARCHAR(100) NULL, 
+    [Extra2] VARCHAR(50) NULL,
+	[IsActive] BIT NOT NULL DEFAULT 1, 
+    [IsDeleted] BIT NOT NULL DEFAULT 0, 
+    [CreateDate] DATETIME2 NULL, 
+    [ModifyDate] DATETIME2 NULL, 
+    [CreateUser] VARCHAR(50) NULL, 
+    [ModifyUser] VARCHAR(50) NULL, 
+    [IpAddress] VARCHAR(100) NULL, 
+    [RowId] UNIQUEIDENTIFIER NOT NULL DEFAULT NewSequentialid(), 
+    [BookAcId] INT NULL , 
+    CONSTRAINT [PK_Voucher] PRIMARY KEY NONCLUSTERED ([RowId]), 
+    CONSTRAINT [AK_Voucher_Id] UNIQUE CLUSTERED ([Id]), 
+    CONSTRAINT [FK_Voucher_VoucherType] FOREIGN KEY ([VTypeId]) REFERENCES [VoucherType]([Id]), 
+)

@@ -1,0 +1,1816 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.4.0\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{CE5EAEB4-DDFF-49F6-8CD5-B95C84107D3B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Konto.Shared</RootNamespace>
+    <AssemblyName>Konto.Shared</AssemblyName>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Accessibility" />
+    <Reference Include="AutoMapper, Version=9.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.9.0.0\lib\net461\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper.EF6, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.EF6.2.0.0\lib\net461\AutoMapper.EF6.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper.Extensions.Microsoft.DependencyInjection, Version=0.0.0.0, Culture=neutral, PublicKeyToken=e767ac9c89543656, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.Extensions.Microsoft.DependencyInjection.7.0.0\lib\netstandard2.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll</HintPath>
+    </Reference>
+    <Reference Include="DelegateDecompiler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=93b26a10a04705bd, processorArchitecture=MSIL">
+      <HintPath>..\packages\DelegateDecompiler.0.24.0\lib\net45\DelegateDecompiler.dll</HintPath>
+    </Reference>
+    <Reference Include="DelegateDecompiler.EntityFramework, Version=1.0.0.0, Culture=neutral, PublicKeyToken=93b26a10a04705bd, processorArchitecture=MSIL">
+      <HintPath>..\packages\DelegateDecompiler.EntityFramework.0.24.0\lib\net45\DelegateDecompiler.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Data.v19.2, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Dialogs.v19.2.Core, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Images.v19.2, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Office.v19.2.Core, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Pdf.v19.2.Core, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Printing.v19.2.Core, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.RichEdit.v19.2.Core, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Sparkline.v19.2.Core, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Utils.v19.2, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraBars.v19.2, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraDialogs.v19.2, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraEditors.v19.2, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraGrid.v19.2, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraLayout.v19.2, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraPrinting.v19.2, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraRichEdit.v19.2, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraTreeList.v19.2, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraVerticalGrid.v19.2, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="EnvDTE, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="GrapeCity.ActiveReports.Document.v12, Version=12.1.12924.0, Culture=neutral, PublicKeyToken=cc4967777c49a3ff, processorArchitecture=MSIL" />
+    <Reference Include="GrapeCity.ActiveReports.Interop, Version=14.0.19213.0, Culture=neutral, PublicKeyToken=cc4967777c49a3ff, processorArchitecture=MSIL">
+      <HintPath>..\packages\GrapeCity.ActiveReports.Interop.14.0.19213\lib\net462\GrapeCity.ActiveReports.Interop.dll</HintPath>
+    </Reference>
+    <Reference Include="GrapeCity.ActiveReports.v12, Version=12.1.12924.0, Culture=neutral, PublicKeyToken=cc4967777c49a3ff, processorArchitecture=MSIL" />
+    <Reference Include="GrapeCity.ActiveReports.Viewer.Win.v12, Version=12.1.12924.0, Culture=neutral, PublicKeyToken=cc4967777c49a3ff, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.2.0.0\lib\netstandard2.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.ConnectionInfo, Version=14.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\RefTools\Microsoft.SqlServer.ConnectionInfo.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.Smo, Version=14.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\RefTools\Microsoft.SqlServer.Smo.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.SmoExtended, Version=14.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\RefTools\Microsoft.SqlServer.SmoExtended.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Mono.Reflection, Version=1.1.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <HintPath>..\packages\Mono.Reflection.Core.1.1.1\lib\net45\Mono.Reflection.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.2.9.0\lib\net46\Serilog.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Sinks.File, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.Sinks.File.4.1.0\lib\net45\Serilog.Sinks.File.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.BulletGraph.Windows, Version=18.1460.0.42, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL" />
+    <Reference Include="Syncfusion.Core.WinForms, Version=18.1460.0.42, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL" />
+    <Reference Include="Syncfusion.DataSource.WinForms, Version=18.1460.0.42, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL" />
+    <Reference Include="Syncfusion.Grid.Base, Version=18.1460.0.42, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
+    <Reference Include="Syncfusion.Grid.Windows, Version=18.1460.0.42, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
+    <Reference Include="Syncfusion.GridCommon.WinForms, Version=18.1460.0.42, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL" />
+    <Reference Include="Syncfusion.SfInput.WinForms, Version=18.1460.0.42, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL" />
+    <Reference Include="Syncfusion.SfListView.WinForms, Version=18.1460.0.42, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL" />
+    <Reference Include="Syncfusion.Shared.Base, Version=18.1460.0.42, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL" />
+    <Reference Include="Syncfusion.Shared.Windows, Version=18.1460.0.42, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
+    <Reference Include="Syncfusion.SpellChecker.Base, Version=18.1460.0.42, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
+    <Reference Include="Syncfusion.Tools.Base, Version=18.1460.0.42, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
+    <Reference Include="Syncfusion.Tools.Windows, Version=18.1460.0.42, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.4.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Memory, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.0\lib\netstandard2.0\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.4.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.0\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Account\DRCRNote\DRCRNoteIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Account\DRCRNote\DRCRNoteIndex.Designer.cs">
+      <DependentUpon>DRCRNoteIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Account\DRCRNote\DRCRNoteListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Account\DRCRNote\DRCRNoteListView.Designer.cs">
+      <DependentUpon>DRCRNoteListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Account\GenExpense\GenExpenseIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Account\GenExpense\GenExpenseIndex.Designer.cs">
+      <DependentUpon>GenExpenseIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Account\GenExpense\GenExpenseListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Account\GenExpense\GenExpenseListView.Designer.cs">
+      <DependentUpon>GenExpenseListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Account\Jv\JvIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Account\Jv\JvIndex.Designer.cs">
+      <DependentUpon>JvIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Account\Jv\JvListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Account\Jv\JvListView.Designer.cs">
+      <DependentUpon>JvListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Account\Payment\PaymentIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Account\Payment\PaymentIndex.Designer.cs">
+      <DependentUpon>PaymentIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Account\Payment\PaymentListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Account\Payment\PaymentListView.Designer.cs">
+      <DependentUpon>PaymentListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Account\PendingBillViewWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Account\PendingBillViewWindow.Designer.cs">
+      <DependentUpon>PendingBillViewWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Account\Receipt\ReceiptIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Account\Receipt\ReceiptIndex.Designer.cs">
+      <DependentUpon>ReceiptIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Account\Receipt\ReceiptListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Account\Receipt\ReceiptListView.Designer.cs">
+      <DependentUpon>ReceiptListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BackupData\BackupMainView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BackupData\BackupMainView.Designer.cs">
+      <DependentUpon>BackupMainView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Class1.cs" />
+    <Compile Include="DataFreeze\DataFreezeDetail.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DataFreeze\DataFreezeDetail.Designer.cs">
+      <DependentUpon>DataFreezeDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Acc\AccBankView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\Acc\AccBankView.Designer.cs">
+      <DependentUpon>AccBankView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Acc\AccIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\Acc\AccIndex.Designer.cs">
+      <DependentUpon>AccIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Acc\AccListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Masters\Acc\AccListView.Designer.cs">
+      <DependentUpon>AccListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Acc\AddressLkpWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\Acc\AddressLkpWindow.Designer.cs">
+      <DependentUpon>AddressLkpWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Acc\AccLkpWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\Acc\AccLkpWindow.Designer.cs">
+      <DependentUpon>AccLkpWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Acc\AddressLookup.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Masters\Acc\AddressLookup.Designer.cs">
+      <DependentUpon>AddressLookup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Acc\AccLookup.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Masters\Acc\AccLookup.Designer.cs">
+      <DependentUpon>AccLookup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Acc\AddressView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\Acc\AddressView.Designer.cs">
+      <DependentUpon>AddressView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Acc\TcsView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\Acc\TcsView.Designer.cs">
+      <DependentUpon>TcsView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Acc\OpStockView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\Acc\OpStockView.Designer.cs">
+      <DependentUpon>OpStockView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Acc\InterestView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\Acc\InterestView.Designer.cs">
+      <DependentUpon>InterestView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Acc\TdsView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\Acc\TdsView.Designer.cs">
+      <DependentUpon>TdsView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Acc\DeprView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\Acc\DeprView.Designer.cs">
+      <DependentUpon>DeprView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Acc\OpBalBulkEditView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\Acc\OpBalBulkEditView.Designer.cs">
+      <DependentUpon>OpBalBulkEditView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Acc\WaitForm1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\Acc\WaitForm1.Designer.cs">
+      <DependentUpon>WaitForm1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Area\AreaIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\Area\AreaIndex.Designer.cs">
+      <DependentUpon>AreaIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Area\AreaListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Masters\Area\AreaListView.Designer.cs">
+      <DependentUpon>AreaListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Area\AreaLkpWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\Area\AreaLkpWindow.Designer.cs">
+      <DependentUpon>AreaLkpWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Area\AreaLookup.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Masters\Area\AreaLookup.Designer.cs">
+      <DependentUpon>AreaLookup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Branch\BranchIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\Branch\BranchIndex.Designer.cs">
+      <DependentUpon>BranchIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Branch\BranchListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Masters\Branch\BranchListView.Designer.cs">
+      <DependentUpon>BranchListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Branch\SelectBranchWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\Branch\SelectBranchWindow.Designer.cs">
+      <DependentUpon>SelectBranchWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Brand\BrandIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\Brand\BrandIndex.Designer.cs">
+      <DependentUpon>BrandIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Brand\BrandListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Masters\Brand\BrandListView.Designer.cs">
+      <DependentUpon>BrandListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Brand\BrandLkpWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\Brand\BrandLkpWindow.Designer.cs">
+      <DependentUpon>BrandLkpWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Brand\BrandLookup.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Masters\Brand\BrandLookup.Designer.cs">
+      <DependentUpon>BrandLookup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Catalog\CatalogIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\Catalog\CatalogIndex.Designer.cs">
+      <DependentUpon>CatalogIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Catalog\CatalogListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Masters\Catalog\CatalogListView.Designer.cs">
+      <DependentUpon>CatalogListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Catalog\CatelogLkpWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\Catalog\CatelogLkpWindow.Designer.cs">
+      <DependentUpon>CatelogLkpWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Catalog\CatelogLookup.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Masters\Catalog\CatelogLookup.Designer.cs">
+      <DependentUpon>CatelogLookup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Category\CategoryLkpWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\Category\CategoryLkpWindow.Designer.cs">
+      <DependentUpon>CategoryLkpWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Category\CategoryLookup.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Masters\Category\CategoryLookup.Designer.cs">
+      <DependentUpon>CategoryLookup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Category\CategoryIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\Category\CategoryIndex.Designer.cs">
+      <DependentUpon>CategoryIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Category\CategoryListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Masters\Category\CategoryListView.Designer.cs">
+      <DependentUpon>CategoryListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\City\CityIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\City\CityIndex.Designer.cs">
+      <DependentUpon>CityIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\City\CityListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Masters\City\CityListView.Designer.cs">
+      <DependentUpon>CityListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\City\CityLkpWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\City\CityLkpWindow.Designer.cs">
+      <DependentUpon>CityLkpWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\City\CityLookup.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Masters\City\CityLookup.Designer.cs">
+      <DependentUpon>CityLookup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Color\ColorLkpWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\Color\ColorLkpWindow.Designer.cs">
+      <DependentUpon>ColorLkpWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Color\ColorLookup.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Masters\Color\ColorLookup.Designer.cs">
+      <DependentUpon>ColorLookup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Color\ColorIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\Color\ColorIndex.Designer.cs">
+      <DependentUpon>ColorIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Color\ColorListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Masters\Color\ColorListView.Designer.cs">
+      <DependentUpon>ColorListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Comp\CompIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\Comp\CompIndex.Designer.cs">
+      <DependentUpon>CompIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Comp\CompListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Masters\Comp\CompListView.Designer.cs">
+      <DependentUpon>CompListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Comp\SelectCompanyView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\Comp\SelectCompanyView.Designer.cs">
+      <DependentUpon>SelectCompanyView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Country\CountryListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Masters\Country\CountryListView.Designer.cs">
+      <DependentUpon>CountryListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Country\CountryView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\Country\CountryView.Designer.cs">
+      <DependentUpon>CountryView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Country\TestView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\Country\TestView.Designer.cs">
+      <DependentUpon>TestView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Design\DesignIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\Design\DesignIndex.Designer.cs">
+      <DependentUpon>DesignIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Design\DesignListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Masters\Design\DesignListView.Designer.cs">
+      <DependentUpon>DesignListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Design\DesignLkpWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\Design\DesignLkpWindow.Designer.cs">
+      <DependentUpon>DesignLkpWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Design\DesignLookup.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Masters\Design\DesignLookup.Designer.cs">
+      <DependentUpon>DesignLookup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Div\DivIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\Div\DivIndex.Designer.cs">
+      <DependentUpon>DivIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Div\DivListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Masters\Div\DivListView.Designer.cs">
+      <DependentUpon>DivListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Emp\EmpIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\Emp\EmpIndex.Designer.cs">
+      <DependentUpon>EmpIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Emp\EmpListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Masters\Emp\EmpListView.Designer.cs">
+      <DependentUpon>EmpListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Emp\EmpLkpWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\Emp\EmpLkpWindow.Designer.cs">
+      <DependentUpon>EmpLkpWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Emp\EmpLookup.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Masters\Emp\EmpLookup.Designer.cs">
+      <DependentUpon>EmpLookup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\FinYear\SelectYearView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\FinYear\SelectYearView.Designer.cs">
+      <DependentUpon>SelectYearView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Grade\GradeLkpWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\Grade\GradeLkpWindow.Designer.cs">
+      <DependentUpon>GradeLkpWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Grade\GradeLookup.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Masters\Grade\GradeLookup.Designer.cs">
+      <DependentUpon>GradeLookup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Grade\GradeIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\Grade\GradeIndex.Designer.cs">
+      <DependentUpon>GradeIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Grade\GradeListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Masters\Grade\GradeListView.Designer.cs">
+      <DependentUpon>GradeListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Haste\HasteLkpWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\Haste\HasteLkpWindow.Designer.cs">
+      <DependentUpon>HasteLkpWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Haste\HasteLookup.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Masters\Haste\HasteLookup.Designer.cs">
+      <DependentUpon>HasteLookup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Haste\HasteIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\Haste\HasteIndex.Designer.cs">
+      <DependentUpon>HasteIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Haste\HasteListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Masters\Haste\HasteListView.Designer.cs">
+      <DependentUpon>HasteListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Item\ItemLookup.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Masters\Item\ProdOpBalBulkEditView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\Item\ProdOpBalBulkEditView.Designer.cs">
+      <DependentUpon>ProdOpBalBulkEditView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Item\ProductLkpWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\Item\ProductLkpWindow.Designer.cs">
+      <DependentUpon>ProductLkpWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Item\ProductLookup.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Masters\Item\ProductLookup.Designer.cs">
+      <DependentUpon>ProductLookup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Item\ProductIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\Item\ProductIndex.Designer.cs">
+      <DependentUpon>ProductIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Item\ProductListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Masters\Item\ProductListView.Designer.cs">
+      <DependentUpon>ProductListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\LedgerGroup\AcGroupIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\LedgerGroup\AcGroupIndex.Designer.cs">
+      <DependentUpon>AcGroupIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\LedgerGroup\AcGroupListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Masters\LedgerGroup\AcGroupListView.Designer.cs">
+      <DependentUpon>AcGroupListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\LedgerGroup\LedgerGroupLkpWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\LedgerGroup\LedgerGroupLkpWindow.Designer.cs">
+      <DependentUpon>LedgerGroupLkpWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\LedgerGroup\LedgerGroupLookup.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Masters\LedgerGroup\LedgerGroupLookup.Designer.cs">
+      <DependentUpon>LedgerGroupLookup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\LedgerGroup\GroupSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\LedgerGroup\GroupSettings.Designer.cs">
+      <DependentUpon>GroupSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Login\GroupSetupMainView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\Login\GroupSetupMainView.Designer.cs">
+      <DependentUpon>GroupSetupMainView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Login\LogInWindowView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\Login\LogInWindowView.Designer.cs">
+      <DependentUpon>LogInWindowView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Login\SelectGroupWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\Login\SelectGroupWindow.Designer.cs">
+      <DependentUpon>SelectGroupWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Merge\MergeIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\Merge\MergeIndex.Designer.cs">
+      <DependentUpon>MergeIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\PG\PgLkpWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\PG\PgLkpWindow.Designer.cs">
+      <DependentUpon>PgLkpWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\PG\PgLookup.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Masters\PG\PgLookup.Designer.cs">
+      <DependentUpon>PgLookup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\PG\PgIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\PG\PgIndex.Designer.cs">
+      <DependentUpon>PgIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\PG\PgListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Masters\PG\PgListView.Designer.cs">
+      <DependentUpon>PgListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Process\ProcessLkpWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\Process\ProcessLkpWindow.Designer.cs">
+      <DependentUpon>ProcessLkpWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Process\ProcessLookup.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Masters\Process\ProcessLookup.Designer.cs">
+      <DependentUpon>ProcessLookup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Process\ProcessIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\Process\ProcessIndex.Designer.cs">
+      <DependentUpon>ProcessIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Process\ProcessListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Masters\Process\ProcessListView.Designer.cs">
+      <DependentUpon>ProcessListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\ProductGroup\GroupLkpWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\ProductGroup\GroupLkpWindow.Designer.cs">
+      <DependentUpon>GroupLkpWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\ProductGroup\GroupLookup.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Masters\ProductGroup\GroupLookup.Designer.cs">
+      <DependentUpon>GroupLookup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\ProductGroup\GroupListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Masters\ProductGroup\GroupListView.Designer.cs">
+      <DependentUpon>GroupListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\ProductGroup\GroupIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\ProductGroup\GroupIndex.Designer.cs">
+      <DependentUpon>GroupIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\ProductType\PTypeLkpWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\ProductType\PTypeLkpWindow.Designer.cs">
+      <DependentUpon>PTypeLkpWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\ProductType\PTypeLookup.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Masters\ProductType\PTypeLookup.Designer.cs">
+      <DependentUpon>PTypeLookup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\ProductType\PTypeListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Masters\ProductType\PTypeListView.Designer.cs">
+      <DependentUpon>PTypeListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\ProductType\PTypeIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\ProductType\PTypeIndex.Designer.cs">
+      <DependentUpon>PTypeIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Recpayset\RecPayListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Masters\Recpayset\RecPayListView.Designer.cs">
+      <DependentUpon>RecPayListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Recpayset\RecPayIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\Recpayset\RecPayIndex.Designer.cs">
+      <DependentUpon>RecPayIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\RefBank\RefBankLkpWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\RefBank\RefBankLkpWindow.Designer.cs">
+      <DependentUpon>RefBankLkpWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\RefBank\RefBankLookup.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Masters\RefBank\RefBankLookup.Designer.cs">
+      <DependentUpon>RefBankLookup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\RefBank\RefBankIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\RefBank\RefBankIndex.Designer.cs">
+      <DependentUpon>RefBankIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\RefBank\RefBankListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Masters\RefBank\RefBankListView.Designer.cs">
+      <DependentUpon>RefBankListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Size\SizeLkpWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\Size\SizeLkpWindow.Designer.cs">
+      <DependentUpon>SizeLkpWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Size\SizeLookup.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Masters\Size\SizeLookup.Designer.cs">
+      <DependentUpon>SizeLookup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Size\SizeListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Masters\Size\SizeListView.Designer.cs">
+      <DependentUpon>SizeListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Size\SizeIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\Size\SizeIndex.Designer.cs">
+      <DependentUpon>SizeIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\State\StateIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\State\StateIndex.Designer.cs">
+      <DependentUpon>StateIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\State\StateListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Masters\State\StateListView.Designer.cs">
+      <DependentUpon>StateListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Store\StoreIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\Store\StoreIndex.Designer.cs">
+      <DependentUpon>StoreIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Store\StoreListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Masters\Store\StoreListView.Designer.cs">
+      <DependentUpon>StoreListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\SubGroup\SubGroupLkpWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\SubGroup\SubGroupLkpWindow.Designer.cs">
+      <DependentUpon>SubGroupLkpWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\SubGroup\SubGroupLookup.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Masters\SubGroup\SubGroupLookup.Designer.cs">
+      <DependentUpon>SubGroupLookup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\SubGroup\SubGroupListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Masters\SubGroup\SubGroupListView.Designer.cs">
+      <DependentUpon>SubGroupListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\SubGroup\SubGroupIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\SubGroup\SubGroupIndex.Designer.cs">
+      <DependentUpon>SubGroupIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Tax\TaxIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\Tax\TaxIndex.Designer.cs">
+      <DependentUpon>TaxIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Tax\TaxListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Masters\Tax\TaxListView.Designer.cs">
+      <DependentUpon>TaxListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Uom\UomIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\Uom\UomIndex.Designer.cs">
+      <DependentUpon>UomIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Uom\UomListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Masters\Uom\UomListView.Designer.cs">
+      <DependentUpon>UomListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Voucher\VoucherLkpWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\Voucher\VoucherLkpWindow.Designer.cs">
+      <DependentUpon>VoucherLkpWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Voucher\VoucherLookup.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Masters\Voucher\VoucherLookup.Designer.cs">
+      <DependentUpon>VoucherLookup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Voucher\VoucherIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\Voucher\VoucherIndex.Designer.cs">
+      <DependentUpon>VoucherIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Voucher\VoucherListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Masters\Voucher\VoucherListView.Designer.cs">
+      <DependentUpon>VoucherListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\VType\VTypeIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\VType\VTypeIndex.Designer.cs">
+      <DependentUpon>VTypeIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\VType\VTypeListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Masters\VType\VTypeListView.Designer.cs">
+      <DependentUpon>VTypeListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OpBill\SPOpBillIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OpBill\SPOpBillIndex.Designer.cs">
+      <DependentUpon>SPOpBillIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OpBill\SPOpBillListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="OpBill\SPOpBillListView.Designer.cs">
+      <DependentUpon>SPOpBillListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\DocPrintParaView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Reports\DocPrintParaView.Designer.cs">
+      <DependentUpon>DocPrintParaView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Security\AddPermission.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Security\AddPermission.Designer.cs">
+      <DependentUpon>AddPermission.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Security\MenuIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Security\MenuIndex.Designer.cs">
+      <DependentUpon>MenuIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Security\ReportSetupMainView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Security\ReportSetupMainView.Designer.cs">
+      <DependentUpon>ReportSetupMainView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Security\RoleIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Security\RoleIndex.Designer.cs">
+      <DependentUpon>RoleIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Security\RoleListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Security\RoleListView.Designer.cs">
+      <DependentUpon>RoleListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Security\UserIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Security\UserIndex.Designer.cs">
+      <DependentUpon>UserIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Security\UserListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Security\UserListView.Designer.cs">
+      <DependentUpon>UserListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Setup\SettingWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Setup\SettingWindow.Designer.cs">
+      <DependentUpon>SettingWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Trans\Brokerage\BrokerageIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Trans\Brokerage\BrokerageIndex.Designer.cs">
+      <DependentUpon>BrokerageIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Trans\Brokerage\BrokerageListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Trans\Brokerage\BrokerageListView.Designer.cs">
+      <DependentUpon>BrokerageListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Trans\Common\IssueItemDetailView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Trans\Common\IssueItemDetailView.Designer.cs">
+      <DependentUpon>IssueItemDetailView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Trans\Common\ItemDetailView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Trans\Common\ItemDetailView.Designer.cs">
+      <DependentUpon>ItemDetailView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Trans\Common\PendingStockView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Trans\Common\PendingStockView.Designer.cs">
+      <DependentUpon>PendingStockView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Trans\Common\PendingOrderView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Trans\Common\PendingOrderView.Designer.cs">
+      <DependentUpon>PendingOrderView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Trans\GRN\GRNIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Trans\GRN\GRNIndex.Designer.cs">
+      <DependentUpon>GRNIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Trans\GRN\GRNListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Trans\GRN\GRNListView.Designer.cs">
+      <DependentUpon>GRNListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Trans\JobIssue\JobIssueIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Trans\JobIssue\JobIssueIndex.Designer.cs">
+      <DependentUpon>JobIssueIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Trans\JobIssue\JobIssueListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Trans\JobIssue\JobIssueListView.Designer.cs">
+      <DependentUpon>JobIssueListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Trans\JobIssue\PendingGreyForMillView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Trans\JobIssue\PendingGreyForMillView.Designer.cs">
+      <DependentUpon>PendingGreyForMillView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Trans\PInvoice\PendingGrnForPurchase.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Trans\PInvoice\PendingGrnForPurchase.Designer.cs">
+      <DependentUpon>PendingGrnForPurchase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Trans\PInvoice\PInvoiceIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Trans\PInvoice\PInvoiceIndex.Designer.cs">
+      <DependentUpon>PInvoiceIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Trans\PInvoice\PInvoiceListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Trans\PInvoice\PInvoiceListView.Designer.cs">
+      <DependentUpon>PInvoiceListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Trans\Po\PoApproveIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Trans\Po\PoApproveIndex.Designer.cs">
+      <DependentUpon>PoApproveIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Trans\Po\PoIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Trans\Po\PoIndex.Designer.cs">
+      <DependentUpon>PoIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Trans\Po\PoListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Trans\Po\PoListView.Designer.cs">
+      <DependentUpon>PoListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Trans\PReturn\PReturnIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Trans\PReturn\PReturnIndex.Designer.cs">
+      <DependentUpon>PReturnIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Trans\PReturn\PReturnListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Trans\PReturn\PReturnListView.Designer.cs">
+      <DependentUpon>PReturnListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Trans\SalesChallan\ScIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Trans\SalesChallan\ScIndex.Designer.cs">
+      <DependentUpon>ScIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Trans\SalesChallan\ScListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Trans\SalesChallan\ScListView.Designer.cs">
+      <DependentUpon>ScListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Trans\SInvoice\SInvoiceIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Trans\SInvoice\SInvoiceIndex.Designer.cs">
+      <DependentUpon>SInvoiceIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Trans\SInvoice\SInvoiceListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Trans\SInvoice\SInvoiceListView.Designer.cs">
+      <DependentUpon>SInvoiceListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Trans\SO\SoIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Trans\SO\SoIndex.Designer.cs">
+      <DependentUpon>SoIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Trans\SO\SoListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Trans\SO\SoListView.Designer.cs">
+      <DependentUpon>SoListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Trans\SReturn\SReturnIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Trans\SReturn\SReturnIndex.Designer.cs">
+      <DependentUpon>SReturnIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Trans\SReturn\SReturnListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Trans\SReturn\SReturnListView.Designer.cs">
+      <DependentUpon>SReturnListView.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Konto.App.Shared\Konto.App.Shared.csproj">
+      <Project>{F9E8AE77-5F5F-4F20-9CAD-D21A874F4130}</Project>
+      <Name>Konto.App.Shared</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Konto.Core.Shared\Konto.Core.Shared.csproj">
+      <Project>{69C2E195-1DB0-4023-B81E-81851F5B3042}</Project>
+      <Name>Konto.Core.Shared</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Konto.Data\Konto.Data.csproj">
+      <Project>{462E3508-500D-4F85-8E0D-88B132B62D5C}</Project>
+      <Name>Konto.Data</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Account\DRCRNote\DRCRNoteIndex.resx">
+      <DependentUpon>DRCRNoteIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Account\DRCRNote\DRCRNoteListView.resx">
+      <DependentUpon>DRCRNoteListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Account\GenExpense\GenExpenseIndex.resx">
+      <DependentUpon>GenExpenseIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Account\GenExpense\GenExpenseListView.resx">
+      <DependentUpon>GenExpenseListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Account\Jv\JvIndex.resx">
+      <DependentUpon>JvIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Account\Jv\JvListView.resx">
+      <DependentUpon>JvListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Account\Payment\PaymentIndex.resx">
+      <DependentUpon>PaymentIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Account\Payment\PaymentListView.resx">
+      <DependentUpon>PaymentListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Account\PendingBillViewWindow.resx">
+      <DependentUpon>PendingBillViewWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Account\Receipt\ReceiptIndex.resx">
+      <DependentUpon>ReceiptIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Account\Receipt\ReceiptListView.resx">
+      <DependentUpon>ReceiptListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BackupData\BackupMainView.resx">
+      <DependentUpon>BackupMainView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataFreeze\DataFreezeDetail.resx">
+      <DependentUpon>DataFreezeDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Acc\AccBankView.resx">
+      <DependentUpon>AccBankView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Acc\AccIndex.resx">
+      <DependentUpon>AccIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Acc\AccListView.resx">
+      <DependentUpon>AccListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Acc\AddressLkpWindow.resx">
+      <DependentUpon>AddressLkpWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Acc\AccLkpWindow.resx">
+      <DependentUpon>AccLkpWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Acc\AddressLookup.resx">
+      <DependentUpon>AddressLookup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Acc\AccLookup.resx">
+      <DependentUpon>AccLookup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Acc\AddressView.resx">
+      <DependentUpon>AddressView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Acc\TcsView.resx">
+      <DependentUpon>TcsView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Acc\OpStockView.resx">
+      <DependentUpon>OpStockView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Acc\InterestView.resx">
+      <DependentUpon>InterestView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Acc\TdsView.resx">
+      <DependentUpon>TdsView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Acc\DeprView.resx">
+      <DependentUpon>DeprView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Acc\OpBalBulkEditView.resx">
+      <DependentUpon>OpBalBulkEditView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Acc\WaitForm1.resx">
+      <DependentUpon>WaitForm1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Area\AreaIndex.resx">
+      <DependentUpon>AreaIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Area\AreaListView.resx">
+      <DependentUpon>AreaListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Area\AreaLkpWindow.resx">
+      <DependentUpon>AreaLkpWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Area\AreaLookup.resx">
+      <DependentUpon>AreaLookup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Branch\BranchIndex.resx">
+      <DependentUpon>BranchIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Branch\BranchListView.resx">
+      <DependentUpon>BranchListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Branch\SelectBranchWindow.resx">
+      <DependentUpon>SelectBranchWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Brand\BrandIndex.resx">
+      <DependentUpon>BrandIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Brand\BrandListView.resx">
+      <DependentUpon>BrandListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Brand\BrandLkpWindow.resx">
+      <DependentUpon>BrandLkpWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Brand\BrandLookup.resx">
+      <DependentUpon>BrandLookup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Catalog\CatalogIndex.resx">
+      <DependentUpon>CatalogIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Catalog\CatalogListView.resx">
+      <DependentUpon>CatalogListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Catalog\CatelogLkpWindow.resx">
+      <DependentUpon>CatelogLkpWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Catalog\CatelogLookup.resx">
+      <DependentUpon>CatelogLookup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Category\CategoryLkpWindow.resx">
+      <DependentUpon>CategoryLkpWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Category\CategoryLookup.resx">
+      <DependentUpon>CategoryLookup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Category\CategoryIndex.resx">
+      <DependentUpon>CategoryIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Category\CategoryListView.resx">
+      <DependentUpon>CategoryListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\City\CityIndex.resx">
+      <DependentUpon>CityIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\City\CityListView.resx">
+      <DependentUpon>CityListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\City\CityLkpWindow.resx">
+      <DependentUpon>CityLkpWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\City\CityLookup.resx">
+      <DependentUpon>CityLookup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Color\ColorLkpWindow.resx">
+      <DependentUpon>ColorLkpWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Color\ColorLookup.resx">
+      <DependentUpon>ColorLookup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Color\ColorIndex.resx">
+      <DependentUpon>ColorIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Color\ColorListView.resx">
+      <DependentUpon>ColorListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Comp\CompIndex.resx">
+      <DependentUpon>CompIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Comp\CompListView.resx">
+      <DependentUpon>CompListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Comp\SelectCompanyView.resx">
+      <DependentUpon>SelectCompanyView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Country\CountryListView.resx">
+      <DependentUpon>CountryListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Country\CountryView.resx">
+      <DependentUpon>CountryView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Country\TestView.resx">
+      <DependentUpon>TestView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Design\DesignIndex.resx">
+      <DependentUpon>DesignIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Design\DesignListView.resx">
+      <DependentUpon>DesignListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Design\DesignLkpWindow.resx">
+      <DependentUpon>DesignLkpWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Design\DesignLookup.resx">
+      <DependentUpon>DesignLookup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Div\DivIndex.resx">
+      <DependentUpon>DivIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Div\DivListView.resx">
+      <DependentUpon>DivListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Emp\EmpIndex.resx">
+      <DependentUpon>EmpIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Emp\EmpListView.resx">
+      <DependentUpon>EmpListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Emp\EmpLkpWindow.resx">
+      <DependentUpon>EmpLkpWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Emp\EmpLookup.resx">
+      <DependentUpon>EmpLookup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\FinYear\SelectYearView.resx">
+      <DependentUpon>SelectYearView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Grade\GradeLkpWindow.resx">
+      <DependentUpon>GradeLkpWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Grade\GradeLookup.resx">
+      <DependentUpon>GradeLookup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Grade\GradeIndex.resx">
+      <DependentUpon>GradeIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Grade\GradeListView.resx">
+      <DependentUpon>GradeListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Haste\HasteLkpWindow.resx">
+      <DependentUpon>HasteLkpWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Haste\HasteLookup.resx">
+      <DependentUpon>HasteLookup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Haste\HasteIndex.resx">
+      <DependentUpon>HasteIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Haste\HasteListView.resx">
+      <DependentUpon>HasteListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Item\ProdOpBalBulkEditView.resx">
+      <DependentUpon>ProdOpBalBulkEditView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Item\ProductLkpWindow.resx">
+      <DependentUpon>ProductLkpWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Item\ProductLookup.resx">
+      <DependentUpon>ProductLookup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Item\ProductIndex.resx">
+      <DependentUpon>ProductIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Item\ProductListView.resx">
+      <DependentUpon>ProductListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\LedgerGroup\AcGroupIndex.resx">
+      <DependentUpon>AcGroupIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\LedgerGroup\AcGroupListView.resx">
+      <DependentUpon>AcGroupListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\LedgerGroup\LedgerGroupLkpWindow.resx">
+      <DependentUpon>LedgerGroupLkpWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\LedgerGroup\LedgerGroupLookup.resx">
+      <DependentUpon>LedgerGroupLookup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\LedgerGroup\GroupSettings.resx">
+      <DependentUpon>GroupSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Login\GroupSetupMainView.resx">
+      <DependentUpon>GroupSetupMainView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Login\LogInWindowView.resx">
+      <DependentUpon>LogInWindowView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Login\SelectGroupWindow.resx">
+      <DependentUpon>SelectGroupWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\PG\PgLkpWindow.resx">
+      <DependentUpon>PgLkpWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\PG\PgLookup.resx">
+      <DependentUpon>PgLookup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\PG\PgIndex.resx">
+      <DependentUpon>PgIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\PG\PgListView.resx">
+      <DependentUpon>PgListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Process\ProcessLkpWindow.resx">
+      <DependentUpon>ProcessLkpWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Process\ProcessLookup.resx">
+      <DependentUpon>ProcessLookup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Process\ProcessIndex.resx">
+      <DependentUpon>ProcessIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Process\ProcessListView.resx">
+      <DependentUpon>ProcessListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\ProductGroup\GroupLkpWindow.resx">
+      <DependentUpon>GroupLkpWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\ProductGroup\GroupLookup.resx">
+      <DependentUpon>GroupLookup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\ProductGroup\GroupListView.resx">
+      <DependentUpon>GroupListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\ProductGroup\GroupIndex.resx">
+      <DependentUpon>GroupIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\ProductType\PTypeLkpWindow.resx">
+      <DependentUpon>PTypeLkpWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\ProductType\PTypeLookup.resx">
+      <DependentUpon>PTypeLookup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\ProductType\PTypeIndex.resx">
+      <DependentUpon>PTypeIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\ProductType\PTypeListView.resx">
+      <DependentUpon>PTypeListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Recpayset\RecPayListView.resx">
+      <DependentUpon>RecPayListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Recpayset\RecPayIndex.resx">
+      <DependentUpon>RecPayIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\RefBank\RefBankLkpWindow.resx">
+      <DependentUpon>RefBankLkpWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\RefBank\RefBankLookup.resx">
+      <DependentUpon>RefBankLookup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\RefBank\RefBankIndex.resx">
+      <DependentUpon>RefBankIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\RefBank\RefBankListView.resx">
+      <DependentUpon>RefBankListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Size\SizeLkpWindow.resx">
+      <DependentUpon>SizeLkpWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Size\SizeLookup.resx">
+      <DependentUpon>SizeLookup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Size\SizeListView.resx">
+      <DependentUpon>SizeListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Size\SizeIndex.resx">
+      <DependentUpon>SizeIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\State\StateIndex.resx">
+      <DependentUpon>StateIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\State\StateListView.resx">
+      <DependentUpon>StateListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Store\StoreIndex.resx">
+      <DependentUpon>StoreIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Store\StoreListView.resx">
+      <DependentUpon>StoreListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\SubGroup\SubGroupLkpWindow.resx">
+      <DependentUpon>SubGroupLkpWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\SubGroup\SubGroupLookup.resx">
+      <DependentUpon>SubGroupLookup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\SubGroup\SubGroupListView.resx">
+      <DependentUpon>SubGroupListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\SubGroup\SubGroupIndex.resx">
+      <DependentUpon>SubGroupIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Tax\TaxIndex.resx">
+      <DependentUpon>TaxIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Tax\TaxListView.resx">
+      <DependentUpon>TaxListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Uom\UomIndex.resx">
+      <DependentUpon>UomIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Uom\UomListView.resx">
+      <DependentUpon>UomListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Voucher\VoucherLkpWindow.resx">
+      <DependentUpon>VoucherLkpWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Voucher\VoucherLookup.resx">
+      <DependentUpon>VoucherLookup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Voucher\VoucherIndex.resx">
+      <DependentUpon>VoucherIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Voucher\VoucherListView.resx">
+      <DependentUpon>VoucherListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\VType\VTypeIndex.resx">
+      <DependentUpon>VTypeIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\VType\VTypeListView.resx">
+      <DependentUpon>VTypeListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OpBill\SPOpBillIndex.resx">
+      <DependentUpon>SPOpBillIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OpBill\SPOpBillListView.resx">
+      <DependentUpon>SPOpBillListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\DocPrintParaView.resx">
+      <DependentUpon>DocPrintParaView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Security\AddPermission.resx">
+      <DependentUpon>AddPermission.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Security\MenuIndex.resx">
+      <DependentUpon>MenuIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Security\ReportSetupMainView.resx">
+      <DependentUpon>ReportSetupMainView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Security\RoleIndex.resx">
+      <DependentUpon>RoleIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Security\RoleListView.resx">
+      <DependentUpon>RoleListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Security\UserIndex.resx">
+      <DependentUpon>UserIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Security\UserListView.resx">
+      <DependentUpon>UserListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Setup\SettingWindow.resx">
+      <DependentUpon>SettingWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Trans\Brokerage\BrokerageIndex.resx">
+      <DependentUpon>BrokerageIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Trans\Brokerage\BrokerageListView.resx">
+      <DependentUpon>BrokerageListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Trans\Common\IssueItemDetailView.resx">
+      <DependentUpon>IssueItemDetailView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Trans\Common\ItemDetailView.resx">
+      <DependentUpon>ItemDetailView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Trans\Common\PendingStockView.resx">
+      <DependentUpon>PendingStockView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Trans\Common\PendingOrderView.resx">
+      <DependentUpon>PendingOrderView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Trans\GRN\GRNIndex.resx">
+      <DependentUpon>GRNIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Trans\GRN\GRNListView.resx">
+      <DependentUpon>GRNListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Trans\JobIssue\JobIssueIndex.resx">
+      <DependentUpon>JobIssueIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Trans\JobIssue\JobIssueListView.resx">
+      <DependentUpon>JobIssueListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Trans\JobIssue\PendingGreyForMillView.resx">
+      <DependentUpon>PendingGreyForMillView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Trans\PInvoice\PendingGrnForPurchase.resx">
+      <DependentUpon>PendingGrnForPurchase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Trans\PInvoice\PInvoiceIndex.resx">
+      <DependentUpon>PInvoiceIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Trans\PInvoice\PInvoiceListView.resx">
+      <DependentUpon>PInvoiceListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Trans\Po\PoApproveIndex.resx">
+      <DependentUpon>PoApproveIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Trans\Po\PoIndex.resx">
+      <DependentUpon>PoIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Trans\Po\PoListView.resx">
+      <DependentUpon>PoListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Trans\PReturn\PReturnIndex.resx">
+      <DependentUpon>PReturnIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Trans\PReturn\PReturnListView.resx">
+      <DependentUpon>PReturnListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Trans\SalesChallan\ScIndex.resx">
+      <DependentUpon>ScIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Trans\SalesChallan\ScListView.resx">
+      <DependentUpon>ScListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Trans\SInvoice\SInvoiceIndex.resx">
+      <DependentUpon>SInvoiceIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Trans\SInvoice\SInvoiceListView.resx">
+      <DependentUpon>SInvoiceListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Trans\SO\SoIndex.resx">
+      <DependentUpon>SoIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Trans\SO\SoListView.resx">
+      <DependentUpon>SoListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Trans\SReturn\SReturnIndex.resx">
+      <DependentUpon>SReturnIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Trans\SReturn\SReturnListView.resx">
+      <DependentUpon>SReturnListView.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Account\RGenExpense\" />
+    <Folder Include="Mapping\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\DataSources\Konto.Data.Models.Admin.Dtos.DBGroupDTO.datasource" />
+    <None Include="Properties\DataSources\Konto.Data.Models.Admin.ErpModule.datasource" />
+    <None Include="Properties\DataSources\Konto.Data.Models.Masters.BranchModel.datasource" />
+    <None Include="Properties\DataSources\Konto.Data.Models.Masters.CompModel.datasource" />
+    <None Include="Properties\DataSources\Konto.Data.Models.Masters.FinYearModel.datasource" />
+    <None Include="Properties\DataSources\Konto.Data.Models.Masters.ReportTypeModel.datasource" />
+    <None Include="Properties\DataSources\Konto.Data.Models.Transaction.Dtos.BankTransDto.datasource" />
+    <None Include="Properties\DataSources\Konto.Data.Models.Transaction.Dtos.BillTransDto.datasource" />
+    <None Include="Properties\DataSources\Konto.Data.Models.Transaction.Dtos.BrokTransDto.datasource" />
+    <None Include="Properties\DataSources\Konto.Data.Models.Transaction.Dtos.ExpTranDto.datasource" />
+    <None Include="Properties\DataSources\Konto.Data.Models.Transaction.Dtos.GrnTransDto.datasource" />
+    <None Include="Properties\DataSources\Konto.Data.Models.Transaction.Dtos.OrdAprvalDto.datasource" />
+    <None Include="Properties\DataSources\Konto.Data.Models.Transaction.Dtos.OrdTransDto.datasource" />
+    <None Include="Properties\DataSources\Konto.Data.Models.Transaction.Dtos.PendBillListDto.datasource" />
+    <None Include="Properties\DataSources\Konto.Data.Models.Transaction.Dtos.PendingChallanOnInvoice.datasource" />
+    <None Include="Resources\loginimage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\KeySoftLogo1_big.jpg" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.0\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.0\build\EntityFramework.targets'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.4.0\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.targets')" />
+</Project>

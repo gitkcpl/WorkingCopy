@@ -1,0 +1,26 @@
+﻿CREATE TABLE [dbo].[RCPUI]
+(
+	[Id] INT Identity NOT NULL, 
+	 [RowId] UNIQUEIDENTIFIER NOT NULL DEFAULT NewSequentialid(), 
+    [VoucherNo] VARCHAR(50) NULL, 
+    [VoucherDate] INT NULL, 
+    [ProductId] INT NULL, 
+    [ColorId] INT NULL, 
+    [Qty] NUMERIC(18, 4) NULL,
+	  [Remark] NVARCHAR(MAX) NULL, 
+	[IsActive] BIT NOT NULL DEFAULT 1, 
+	[IsClose] BIT NOT NULL DEFAULT 0, 
+    [IsDeleted] BIT NOT NULL DEFAULT 0, 
+    [CreateDate] DATETIME2 NULL, 
+    [ModifyDate] DATETIME2 NULL, 
+    [CreateUser] VARCHAR(50) NULL, 
+    [ModifyUser] VARCHAR(50) NULL, 
+    [IpAddress] VARCHAR(100) NULL, 
+	[VoucherId] INT NULL, 
+    [CompId] INT NULL, 
+    [YearId] INT NULL, 
+    [BranchId] INT NULL, 
+		[Description] [varchar](50) NULL,
+    CONSTRAINT [PK_ColorRId] PRIMARY KEY NONCLUSTERED ([RowId]), 
+    CONSTRAINT [AK_Color_Id] UNIQUE CLUSTERED ([Id])
+)

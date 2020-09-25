@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F9E8AE77-5F5F-4F20-9CAD-D21A874F4130}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Konto.App.Shared</RootNamespace>
+    <AssemblyName>Konto.App.Shared</AssemblyName>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GSTINValidator.cs" />
+    <Compile Include="KontoGlobals.cs" />
+    <Compile Include="KontoLayout.cs" />
+    <Compile Include="KontoMsg.cs" />
+    <Compile Include="MenuId.cs" />
+    <Compile Include="Para\BillPara.cs" />
+    <Compile Include="Para\GenExpPara.cs" />
+    <Compile Include="Para\GrayPara.cs" />
+    <Compile Include="Para\GRNPara.cs" />
+    <Compile Include="Para\JobIssPara.cs" />
+    <Compile Include="Para\JobRecPara.cs" />
+    <Compile Include="Para\MillIssPara.cs" />
+    <Compile Include="Para\MillRecPara.cs" />
+    <Compile Include="Para\PoPara.cs" />
+    <Compile Include="Para\ProdPara.cs" />
+    <Compile Include="Para\ProductPara.cs" />
+    <Compile Include="Para\PurchasePara.cs" />
+    <Compile Include="Para\PurchaseRetPara.cs" />
+    <Compile Include="Para\ReceiptPara.cs" />
+    <Compile Include="Para\SCPara.cs" />
+    <Compile Include="Para\SoPara.cs" />
+    <Compile Include="Para\StoreIssuePara.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

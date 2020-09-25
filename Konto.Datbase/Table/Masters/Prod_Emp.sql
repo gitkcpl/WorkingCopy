@@ -1,0 +1,26 @@
+﻿CREATE TABLE [dbo].[Prod_Emp]
+(
+[Id] INT NOT NULL IDENTITY,
+  [ProdId] INT NULL, 
+  [ProdDate] DATETIME2 NULL, 
+   [EmpId] INT NULL, 
+   [NightMtrs] numeric(18,2) NULL, 
+   [DayMtrs] numeric(18,2) NULL, 
+   [TotalMtrs] numeric(18,2) NULL, 
+   [Rate] numeric(18,2) NULL, 
+   [Amount] numeric(18,2) NULL, 
+    [Extra1] VARCHAR(100) NULL, 
+    [Extra2] VARCHAR(50) NULL,
+	[IsActive] BIT NOT NULL DEFAULT 1, 
+    [IsDeleted] BIT NOT NULL DEFAULT 0, 
+    [CreateDate] DATETIME2 NULL, 
+    [ModifyDate] DATETIME2 NULL, 
+    [CreateUser] VARCHAR(50) NULL, 
+    [ModifyUser] VARCHAR(50) NULL, 
+    [IpAddress] VARCHAR(100) NULL, 
+    [RowId] UNIQUEIDENTIFIER NOT NULL DEFAULT NewSequentialid(), 
+    [VoucherId] INT NULL, 
+    [LoadingTransId] INT NULL, 
+    CONSTRAINT [PK_Prod_Emp] PRIMARY KEY NONCLUSTERED ([RowId]), 
+    CONSTRAINT [AK_Prod_Emp_Id] UNIQUE CLUSTERED ([Id])
+)

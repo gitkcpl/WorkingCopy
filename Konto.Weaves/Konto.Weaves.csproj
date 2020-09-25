@@ -1,0 +1,424 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{65C93D8A-75F5-42D7-8A3A-BA8B54165C4E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Konto.Weaves</RootNamespace>
+    <AssemblyName>Konto.Weaves</AssemblyName>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Accessibility" />
+    <Reference Include="Aspose.Cells">
+      <HintPath>..\RefTools\Aspose.Cells.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper">
+      <HintPath>..\packages\AutoMapper.9.0.0\lib\net461\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper.EF6">
+      <HintPath>..\packages\AutoMapper.EF6.2.0.0\lib\net461\AutoMapper.EF6.dll</HintPath>
+    </Reference>
+    <Reference Include="C1.C1Pdf.4.5.2">
+      <HintPath>..\RefTools\C1.C1Pdf.4.5.2.dll</HintPath>
+    </Reference>
+    <Reference Include="C1.DataEngine.4.5.2">
+      <HintPath>..\RefTools\C1.DataEngine.4.5.2.dll</HintPath>
+    </Reference>
+    <Reference Include="C1.Win.4.5.2">
+      <HintPath>..\RefTools\C1.Win.4.5.2.dll</HintPath>
+    </Reference>
+    <Reference Include="C1.Win.C1Chart.4.5.2">
+      <HintPath>..\RefTools\C1.Win.C1Chart.4.5.2.dll</HintPath>
+    </Reference>
+    <Reference Include="C1.Win.C1Command.4.5.2">
+      <HintPath>..\RefTools\C1.Win.C1Command.4.5.2.dll</HintPath>
+    </Reference>
+    <Reference Include="C1.Win.C1FlexGrid.4.5.2">
+      <HintPath>..\RefTools\C1.Win.C1FlexGrid.4.5.2.dll</HintPath>
+    </Reference>
+    <Reference Include="C1.Win.C1FlexGrid.ImportExport.4.5.2">
+      <HintPath>..\RefTools\C1.Win.C1FlexGrid.ImportExport.4.5.2.dll</HintPath>
+    </Reference>
+    <Reference Include="C1.Win.C1Input.4.5.2">
+      <HintPath>..\RefTools\C1.Win.C1Input.4.5.2.dll</HintPath>
+    </Reference>
+    <Reference Include="C1.Win.FlexPivot.4.5.2">
+      <HintPath>..\RefTools\C1.Win.FlexPivot.4.5.2.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Data.Desktop.v20.1, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Data.v20.1, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Images.v20.1, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Office.v20.1.Core, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Pdf.v20.1.Core, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Printing.v20.1.Core, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.RichEdit.v20.1.Core, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Sparkline.v20.1.Core, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Utils.v20.1, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraBars.v20.1, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraEditors.v20.1, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraGrid.v20.1, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraLayout.v20.1, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraPrinting.v20.1, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraRichEdit.v20.1, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraVerticalGrid.v20.1, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EnvDTE, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="GrapeCity.ActiveReports.ArsClient.v12, Version=12.1.12924.0, Culture=neutral, PublicKeyToken=cc4967777c49a3ff, processorArchitecture=MSIL" />
+    <Reference Include="GrapeCity.ActiveReports.Chart.v12, Version=12.1.12924.0, Culture=neutral, PublicKeyToken=cc4967777c49a3ff" />
+    <Reference Include="GrapeCity.ActiveReports.Design.Win.v12, Version=12.1.12924.0, Culture=neutral, PublicKeyToken=cc4967777c49a3ff, processorArchitecture=MSIL" />
+    <Reference Include="GrapeCity.ActiveReports.Diagnostics.v12, Version=12.1.12924.0, Culture=neutral, PublicKeyToken=cc4967777c49a3ff" />
+    <Reference Include="GrapeCity.ActiveReports.Document.v12, Version=12.1.12924.0, Culture=neutral, PublicKeyToken=cc4967777c49a3ff, processorArchitecture=MSIL" />
+    <Reference Include="GrapeCity.ActiveReports.Export.Excel.v12, Version=12.1.12924.0, Culture=neutral, PublicKeyToken=cc4967777c49a3ff" />
+    <Reference Include="GrapeCity.ActiveReports.Export.Html.v12, Version=12.1.12924.0, Culture=neutral, PublicKeyToken=cc4967777c49a3ff" />
+    <Reference Include="GrapeCity.ActiveReports.Export.Image.v12, Version=12.1.12924.0, Culture=neutral, PublicKeyToken=cc4967777c49a3ff, processorArchitecture=MSIL" />
+    <Reference Include="GrapeCity.ActiveReports.Export.Pdf.v12, Version=12.1.12924.0, Culture=neutral, PublicKeyToken=cc4967777c49a3ff" />
+    <Reference Include="GrapeCity.ActiveReports.Export.Rdf.v12, Version=12.1.12924.0, Culture=neutral, PublicKeyToken=cc4967777c49a3ff" />
+    <Reference Include="GrapeCity.ActiveReports.Export.Word.v12, Version=12.1.12924.0, Culture=neutral, PublicKeyToken=cc4967777c49a3ff" />
+    <Reference Include="GrapeCity.ActiveReports.Export.Xml.v12, Version=12.1.12924.0, Culture=neutral, PublicKeyToken=cc4967777c49a3ff" />
+    <Reference Include="GrapeCity.ActiveReports.Extensibility.v12, Version=12.1.12924.0, Culture=neutral, PublicKeyToken=cc4967777c49a3ff, processorArchitecture=MSIL" />
+    <Reference Include="GrapeCity.ActiveReports.Samples.EndUserDesigner, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\RefTools\GrapeCity.ActiveReports.Samples.EndUserDesigner.dll</HintPath>
+    </Reference>
+    <Reference Include="GrapeCity.ActiveReports.v12, Version=12.1.12924.0, Culture=neutral, PublicKeyToken=cc4967777c49a3ff, processorArchitecture=MSIL" />
+    <Reference Include="GrapeCity.ActiveReports.Viewer.Win.v12, Version=12.1.12924.0, Culture=neutral, PublicKeyToken=cc4967777c49a3ff, processorArchitecture=MSIL" />
+    <Reference Include="Konto.App.Shared">
+      <HintPath>..\Konto.App.Shared\bin\Debug\Konto.App.Shared.dll</HintPath>
+    </Reference>
+    <Reference Include="Konto.Data">
+      <HintPath>..\Konto.Data\bin\Debug\Konto.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.ConnectionInfo, Version=14.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.SqlServer.Diagnostics.STrace, Version=14.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
+    <Reference Include="Microsoft.SqlServer.Dmf.Common, Version=14.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
+    <Reference Include="Microsoft.SqlServer.Management.Sdk.Sfc, Version=14.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
+    <Reference Include="Microsoft.SqlServer.RegSvrEnum, Version=14.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
+    <Reference Include="Microsoft.SqlServer.ServiceBrokerEnum, Version=14.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
+    <Reference Include="Microsoft.SqlServer.Smo, Version=14.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.SqlServer.SmoExtended, Version=14.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.SqlServer.SqlClrProvider, Version=14.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
+    <Reference Include="Microsoft.SqlServer.SqlEnum, Version=14.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed" />
+    <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, PublicKeyToken=null" />
+    <Reference Include="Serilog">
+      <HintPath>..\packages\Serilog.2.9.0\lib\net46\Serilog.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.BulletGraph.Windows, Version=16.1460.0.24, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\RefTools\Syncfusion.BulletGraph.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Core.WinForms, Version=16.1460.0.24, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\RefTools\Syncfusion.Core.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.DataSource.WinForms, Version=18.1460.0.42, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\RefTools\Syncfusion.DataSource.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Grid.Base, Version=16.1460.0.24, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\RefTools\Syncfusion.Grid.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Grid.Windows, Version=16.1460.0.24, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\RefTools\Syncfusion.Grid.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.GridCommon.WinForms, Version=16.1460.0.24, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\RefTools\Syncfusion.GridCommon.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.GridConverter.Windows, Version=16.1460.0.24, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\RefTools\Syncfusion.GridConverter.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.GridHelperClasses.Windows, Version=16.1460.0.24, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\RefTools\Syncfusion.GridHelperClasses.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.SfInput.WinForms, Version=16.1460.0.24, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\RefTools\Syncfusion.SfInput.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.SfListView.WinForms, Version=18.1460.0.42, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\RefTools\Syncfusion.SfListView.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Shared.Base, Version=16.1460.0.24, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\RefTools\Syncfusion.Shared.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Shared.Windows, Version=16.1460.0.24, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\RefTools\Syncfusion.Shared.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.SpellChecker.Base, Version=16.1460.0.24, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\RefTools\Syncfusion.SpellChecker.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Tools.Base, Version=16.1460.0.24, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\RefTools\Syncfusion.Tools.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Tools.Windows, Version=16.1460.0.24, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\RefTools\Syncfusion.Tools.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.XlsIO.Base, Version=16.1460.0.24, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\RefTools\Syncfusion.XlsIO.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="TaxProGST.API, Version=19.5.0.4, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\RefTools\TaxProGST.API.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BeamLoading\BeamLoadingIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BeamLoading\BeamLoadingIndex.Designer.cs">
+      <DependentUpon>BeamLoadingIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BeamLoading\BeamLoadingList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BeamLoading\BeamLoadingList.Designer.cs">
+      <DependentUpon>BeamLoadingList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BeamLoading\TakaViewWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BeamLoading\TakaViewWindow.Designer.cs">
+      <DependentUpon>TakaViewWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ColorMatching\ColorMIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ColorMatching\ColorMIndex.Designer.cs">
+      <DependentUpon>ColorMIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ColorMatching\ColorMListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ColorMatching\ColorMListView.Designer.cs">
+      <DependentUpon>ColorMListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TakaOp\TakaOpIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TakaOp\TakaOpIndex.Designer.cs">
+      <DependentUpon>TakaOpIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TakaOp\TakaOpList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TakaOp\TakaOpList.Designer.cs">
+      <DependentUpon>TakaOpList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="JobCard\PendingOrderJobCardView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="JobCard\PendingOrderJobCardView.Designer.cs">
+      <DependentUpon>PendingOrderJobCardView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="TakaConv\TakaConvIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TakaConv\TakaConvIndex.Designer.cs">
+      <DependentUpon>TakaConvIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TakaConv\TakaConvList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TakaConv\TakaConvList.Designer.cs">
+      <DependentUpon>TakaConvList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="JobCard\JobCardIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="JobCard\JobCardIndex.Designer.cs">
+      <DependentUpon>JobCardIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="JobCard\JobCardList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="JobCard\JobCardList.Designer.cs">
+      <DependentUpon>JobCardList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TakaCutting\TakaCuttingIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TakaCutting\TakaCuttingIndex.Designer.cs">
+      <DependentUpon>TakaCuttingIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TakaCutting\TakaCuttingList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TakaCutting\TakaCuttingList.Designer.cs">
+      <DependentUpon>TakaCuttingList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TakaProduction\TakaProdIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TakaProduction\TakaProdIndex.Designer.cs">
+      <DependentUpon>TakaProdIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TakaProduction\TakaProdList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TakaProduction\TakaProdList.Designer.cs">
+      <DependentUpon>TakaProdList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BeamProduction\BeamProdIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BeamProduction\BeamProdIndex.Designer.cs">
+      <DependentUpon>BeamProdIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BeamProduction\BeamProdList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BeamProduction\BeamProdList.Designer.cs">
+      <DependentUpon>BeamProdList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Class1.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Konto.Core.Shared\Konto.Core.Shared.csproj">
+      <Project>{69C2E195-1DB0-4023-B81E-81851F5B3042}</Project>
+      <Name>Konto.Core.Shared</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Konto.Data.Migration\Konto.Data.Migration.csproj">
+      <Project>{344bb825-179d-462a-9ea4-441baad6bebf}</Project>
+      <Name>Konto.Data.Migration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Konto.Shared\Konto.Shared.csproj">
+      <Project>{ce5eaeb4-ddff-49f6-8cd5-b95c84107d3b}</Project>
+      <Name>Konto.Shared</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="BeamLoading\BeamLoadingIndex.resx">
+      <DependentUpon>BeamLoadingIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BeamLoading\BeamLoadingList.resx">
+      <DependentUpon>BeamLoadingList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BeamLoading\TakaViewWindow.resx">
+      <DependentUpon>TakaViewWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ColorMatching\ColorMIndex.resx">
+      <DependentUpon>ColorMIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ColorMatching\ColorMListView.resx">
+      <DependentUpon>ColorMListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TakaOp\TakaOpIndex.resx">
+      <DependentUpon>TakaOpIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TakaOp\TakaOpList.resx">
+      <DependentUpon>TakaOpList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="JobCard\PendingOrderJobCardView.resx">
+      <DependentUpon>PendingOrderJobCardView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TakaConv\TakaConvIndex.resx">
+      <DependentUpon>TakaConvIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TakaConv\TakaConvList.resx">
+      <DependentUpon>TakaConvList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="JobCard\JobCardIndex.resx">
+      <DependentUpon>JobCardIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="JobCard\JobCardList.resx">
+      <DependentUpon>JobCardList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TakaCutting\TakaCuttingIndex.resx">
+      <DependentUpon>TakaCuttingIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TakaCutting\TakaCuttingList.resx">
+      <DependentUpon>TakaCuttingList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TakaProduction\TakaProdIndex.resx">
+      <DependentUpon>TakaProdIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TakaProduction\TakaProdList.resx">
+      <DependentUpon>TakaProdList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BeamProduction\BeamProdIndex.resx">
+      <DependentUpon>BeamProdIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BeamProduction\BeamProdList.resx">
+      <DependentUpon>BeamProdList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\DataSources\Konto.Data.Models.Masters.Dtos.WeftItemDto.datasource" />
+    <None Include="Properties\DataSources\Konto.Data.Models.Transaction.Dtos.BeamProdDto.datasource" />
+    <None Include="Properties\DataSources\Konto.Data.Models.Transaction.Dtos.GrnProdDto.datasource" />
+    <None Include="Properties\DataSources\Konto.Data.Models.Transaction.Dtos.GrnTransDto.datasource" />
+    <None Include="Properties\DataSources\Konto.Data.Models.Transaction.Dtos.JobCardTransDto.datasource" />
+    <None Include="Properties\DataSources\Konto.Data.Models.Transaction.Dtos.ProdWeftItemDTO.datasource" />
+    <None Include="Properties\DataSources\Konto.Data.Models.Transaction.Dtos.Prod_EmpDto.datasource" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

@@ -1,0 +1,79 @@
+<Import Project="$(ProjectDir).msbuild\DacVersionFromAssembly.targets" Condition="Exists('$(ProjectDir).msbuild\DacVersionFromAssembly.targets')" />
+  
+  <Target Name="PrepareDacVersionFromAssembly" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <EnableDacVersionFromAssembly>True</EnableDacVersionFromAssembly>
+      <ErrorText>This project references Custom MSBuild targets that are missing on this computer. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(ProjectDir).msbuild\DacVersionFromAssembly.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(ProjectDir).msbuild\DacVersionFromAssembly.targets'))" />
+  </Target>
+
+1 - In the Solution's root folder create a ".msbuild" folder.  You can do this by opening up a Command Prompt and typing - "md .msbuild" as Windows Explorer will not allow you to create a directory with dot as the first character.
+
+2 - Create a text file named "DacVersionFromAssembly.targets" in the ".msbuild" folder you created in step 1 and put the following code into it:
+
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+ 
+  <Target Name="SetDacVersionToAssemblyVersion" AfterTargets="CoreCompile" Condition=" '$(EnableDacVersionFromAssembly)' == 'True' ">
+    <GetAssemblyIdentity AssemblyFiles="$(IntermediateTargetFullFileName)">
+      <Output TaskParameter="Assemblies" PropertyName="IntermediateTargetAssembly" />
+    </GetAssemblyIdentity>
+    <PropertyGroup>
+      <DacVersion>$(IntermediateTargetAssembly.Split(',')[1].Split('=')[1])</DacVersion>
+    </PropertyGroup>
+  </Target>
+
+  <Target Name="CopyDacToDacPackagesFoldersAfterBuild" BeforeTargets="AfterBuild" Condition=" '$(EnableDacVersionFromAssembly)' == 'True' ">
+    <!-- Create the DacPackages\Latest and DacPackages\Archive directories if they do not exist. -->
+    <MakeDir Directories="$(ProjectDir)..\DacPackages\Latest" Condition="!Exists('$(ProjectDir)..\DacPackages\Latest')" />
+    <MakeDir Directories="$(ProjectDir)..\DacPackages\Archive\$(TargetName)" Condition="!Exists('$(ProjectDir)..\DacPackages\Archive\$(TargetName)')" />
+
+    <!-- Delete all DAC Packages in the DacPackages\Latest directory matching the DAC Package Target Name. -->
+    <ItemGroup>
+      <DacFileToDelete Include="$(ProjectDir)..\DacPackages\Latest\**\$(TargetName)*.dacpac" />
+    </ItemGroup>
+    <Delete Files="@(DacFileToDelete)" TreatErrorsAsWarnings="true" />
+
+    <!-- Copy the DAC Package to the DacPackages\Archive and DacPackages\Latest directories. -->
+    <Copy SourceFiles="$(OutputPath)$(TargetName).dacpac" DestinationFiles="$(ProjectDir)..\DacPackages\Latest\$(TargetName)_$(DacVersion).dacpac" />
+    <Copy SourceFiles="$(OutputPath)$(TargetName).dacpac" DestinationFiles="$(ProjectDir)..\DacPackages\Archive\$(TargetName)\$(TargetName)_$(DacVersion).dacpac" />
+  </Target>
+</Project>
+
+For each Data-Tier Application that you want to implement Automatic Versioning repeat the following steps:
+
+3 - Select the project from Solution Explorer and hit 'Alt-Enter' to open properties window and then click on 'SQLCLR' tab.
+
+4 - Open 'Assembly Information...' and put in 1.0.0.0 for Assembly version.  Leave file version blank as it is not necessary.  You can fill in the other fields but they will have no effect on the DAC Package.  This will create an 'AssemblyInfo.cs' file in the Properties folder.
+
+5 - Open up the 'AssemblyInfo.cs' file and set the AssemblyVersion like to something similar to this: [assembly: AssemblyVersion("1.0.*")].  You can delete the [assembly: FileVersion...] line if it exits.  Once done save the file.
+
+6 - Right-click on the project file and select 'Unload Project', then right-click again and select 'Edit $(ProjectName).sqlproj'.
+
+7 - At the very end of the file but before the final '</Project>' tag add the following to implement the custom Targets:
+
+  <Import Project="$(ProjectDir)..\.msbuild\DacVersionFromAssembly.targets" Condition="Exists('$(ProjectDir)..\.msbuild\DacVersionFromAssembly.targets')" />
+  <Target Name="PrepareDacVersionFromAssembly" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <EnableDacVersionFromAssembly>True</EnableDacVersionFromAssembly>
+      <ErrorText>This project references Custom MSBuild targets that are missing on this computer. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(ProjectDir)..\.msbuild\DacVersionFromAssembly.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(ProjectDir)..\.msbuild\DacVersionFromAssembly.targets'))" />
+  </Target>
+
+8 - Once done save the file and then right-click on the project in Solution Explorer and select 'Reload Project'.
+
+Take note of the 'EnableDacVersionFromAssembly' property.  Set this to anything other than 'True' will disable the custom Tasks from running.
+
+When you build the solution with one or more Data-Tier Application projects that have had the code above added to them they will run the 'SetDacVersionToAssemblyVersion' Target after the 'CoreCompile' task.  At this point the 'IntermediateTargetAssembly' (ProjectName.dll) will exist in the 'obj' folder.  That assembly will have an automatically generated version number assigned to it like any other .NET Assembly.  The custom target reads the 'IntermediateTargetAssembly' and extracts the four part version number and assigns it to the '<DacVersion>' msbuild property.  The rest of the standard build process runs and creates the DAC package but uses the assigned assembly version instead of the version specified in the project file.  The second custom task 'CopyDacToDacPackagesFoldersAfterBuild' does exactly what it's name says.  It takes the output DAC package and copies it to a "DacPackages" folder in the solution root folder.  Inside of that folder two sub-folders are created, 'Latest' and 'Archive'.  After each project is built the output DAC Package is is copied to both sub-folders.  The target deletes all DAC packages with the project name from the Latest folder before copying the output DAC package to it.
+
+At the end of the process you end up with only the latest DAC package for each Data-Tier Application project in the 'DacPackages\Latest' folder and all previously built DAC packages in the 'DacPackages\Archive\ProjectName' folders.
+
+Since this process does not alter the default output folder in any way you can press F5 and Debug the project using LocalDB like you can with a vanilla project.
+
+You can easily change the folder structure etc of the 'CopyDacToDacPackagesFoldersAfterBuild' Target to suite your environment needs.  I hope this helps anyone out there that was looking to implement this.  
+
+Bryan

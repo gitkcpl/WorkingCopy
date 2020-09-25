@@ -1,0 +1,20 @@
+﻿CREATE TABLE [dbo].[ChallanDelv]
+(
+[Id] INT IDENTITY NOT NULL , 
+	[ChlId] [int] NULL,
+	[AccId] [int] NULL,
+	[ChlDelDate] [datetime2](7) NULL,
+	[Qty] [numeric](18, 2) NULL,
+	[TotalAmount] [numeric](18, 2) NULL,
+	[Remark] [varchar](max) NULL,
+	[IsActive] [bit] NULL,
+	[IsDeleted] [bit] NULL,
+	[CreateDate] [datetime2](7) NULL,
+	[ModifyDate] [datetime2](7) NULL,
+	[CreateUser] [varchar](50) NULL,
+	[ModifyUser] [varchar](50) NULL,
+	[IpAddress] [varchar](100) NULL,
+  [RowId] UNIQUEIDENTIFIER NOT NULL DEFAULT NewSequentialid(), 
+    CONSTRAINT [PK_ChallanDelv] PRIMARY KEY NONCLUSTERED ([RowId]), 
+    CONSTRAINT [AK_ChallanDelv_Id] UNIQUE CLUSTERED ([Id]), 
+)

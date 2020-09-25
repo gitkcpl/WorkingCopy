@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.4.0\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{69C2E195-1DB0-4023-B81E-81851F5B3042}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Konto.Core.Shared</RootNamespace>
+    <AssemblyName>Konto.Core.Shared</AssemblyName>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="C1.C1Pdf.4.5.2, Version=4.5.20193.393, Culture=neutral, PublicKeyToken=79882d576c6336da" />
+    <Reference Include="C1.DataEngine.4.5.2, Version=4.5.20193.393, Culture=neutral, PublicKeyToken=79882d576c6336da" />
+    <Reference Include="C1.Win.4.5.2, Version=4.5.20193.393, Culture=neutral, PublicKeyToken=944ae1ea0e47ca04" />
+    <Reference Include="C1.Win.C1Chart.4.5.2, Version=4.5.20193.393, Culture=neutral, PublicKeyToken=a22e16972c085838" />
+    <Reference Include="C1.Win.C1Command.4.5.2, Version=4.5.20193.393, Culture=neutral, PublicKeyToken=e808566f358766d8" />
+    <Reference Include="C1.Win.C1FlexGrid.4.5.2, Version=4.5.20193.393, Culture=neutral, PublicKeyToken=79882d576c6336da" />
+    <Reference Include="C1.Win.C1FlexGrid.ImportExport.4.5.2, Version=4.5.20193.393, Culture=neutral, PublicKeyToken=79882d576c6336da" />
+    <Reference Include="C1.Win.C1Input.4.5.2, Version=4.5.20193.393, Culture=neutral, PublicKeyToken=7e7ff60f0c214f9a" />
+    <Reference Include="C1.Win.FlexPivot.4.5.2, Version=4.5.20193.393, Culture=neutral, PublicKeyToken=79882d576c6336da, processorArchitecture=MSIL" />
+    <Reference Include="C1.Win.TreeView.4.5.2, Version=4.5.20193.393, Culture=neutral, PublicKeyToken=79882d576c6336da, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.BonusSkins.v19.2, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Charts.v19.2.Core, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.CodeParser.v19.2, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Data.v19.2, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.DataAccess.v19.2, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.DataAccess.v19.2.UI, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Office.v19.2.Core, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.PivotGrid.v19.2.Core, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Printing.v19.2.Core, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.RichEdit.v19.2.Core, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Sparkline.v19.2.Core, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Utils.v19.2, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Utils.v19.2.UI, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraBars.v19.2, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraCharts.v19.2, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraCharts.v19.2.Extensions, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraCharts.v19.2.Wizard, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraEditors.v19.2, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraGauges.v19.2.Core, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraGrid.v19.2, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraLayout.v19.2, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraNavBar.v19.2, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraPivotGrid.v19.2, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraPrinting.v19.2, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraReports.v19.2, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraReports.v19.2.Extensions, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraRichEdit.v19.2, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraTreeList.v19.2, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraVerticalGrid.v19.2, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="EnvDTE, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="FastReport, Version=2020.1.10.0, Culture=neutral, PublicKeyToken=db7e5ce63278458c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\RefTools\FastReport.dll</HintPath>
+    </Reference>
+    <Reference Include="FastReport.Bars, Version=2020.1.10.0, Culture=neutral, PublicKeyToken=db7e5ce63278458c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\RefTools\FastReport.Bars.dll</HintPath>
+    </Reference>
+    <Reference Include="FastReport.Editor, Version=2020.1.10.0, Culture=neutral, PublicKeyToken=db7e5ce63278458c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\RefTools\FastReport.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="FastReport.Olap">
+      <HintPath>..\RefTools\FastReport.Olap.dll</HintPath>
+    </Reference>
+    <Reference Include="GrapeCity.ActiveReports.ArsClient.v12, Version=12.1.12924.0, Culture=neutral, PublicKeyToken=cc4967777c49a3ff" />
+    <Reference Include="GrapeCity.ActiveReports.Document.v12, Version=12.1.12924.0, Culture=neutral, PublicKeyToken=cc4967777c49a3ff" />
+    <Reference Include="GrapeCity.ActiveReports.Export.Image.v12, Version=12.1.12924.0, Culture=neutral, PublicKeyToken=cc4967777c49a3ff" />
+    <Reference Include="GrapeCity.ActiveReports.Extensibility.v12, Version=12.1.12924.0, Culture=neutral, PublicKeyToken=cc4967777c49a3ff" />
+    <Reference Include="GrapeCity.ActiveReports.v12, Version=12.1.12924.0, Culture=neutral, PublicKeyToken=cc4967777c49a3ff" />
+    <Reference Include="GrapeCity.ActiveReports.Viewer.Win.v12, Version=12.1.12924.0, Culture=neutral, PublicKeyToken=cc4967777c49a3ff, processorArchitecture=MSIL" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="Serilog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.2.9.0\lib\net46\Serilog.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Sinks.File, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.Sinks.File.4.1.0\lib\net45\Serilog.Sinks.File.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Core.WinForms, Version=18.1460.0.42, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
+    <Reference Include="Syncfusion.DataSource.WinForms, Version=18.1460.0.42, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
+    <Reference Include="Syncfusion.Grid.Base, Version=18.1460.0.42, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
+    <Reference Include="Syncfusion.Grid.Windows, Version=18.1460.0.42, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
+    <Reference Include="Syncfusion.GridCommon.WinForms, Version=18.1460.0.42, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
+    <Reference Include="Syncfusion.SfListView.WinForms, Version=18.1460.0.42, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL" />
+    <Reference Include="Syncfusion.Shared.Base, Version=18.1460.0.42, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL" />
+    <Reference Include="Syncfusion.Shared.Windows, Version=18.1460.0.42, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
+    <Reference Include="Syncfusion.SpellChecker.Base, Version=18.1460.0.42, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
+    <Reference Include="Syncfusion.Tools.Base, Version=18.1460.0.42, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
+    <Reference Include="Syncfusion.Tools.Windows, Version=18.1460.0.42, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.OracleClient" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Design" />
+    <Reference Include="System.Runtime.Remoting" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UIAutomationClient" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Class1.cs" />
+    <Compile Include="Export\ExportHelper.cs" />
+    <Compile Include="Export\ExportViewer.cs" />
+    <Compile Include="Export\ViewerHelper.cs" />
+    <Compile Include="Frms\AnalysisUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Frms\AnalysisUserControl.Designer.cs">
+      <DependentUpon>AnalysisUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frms\AnalysisView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frms\AnalysisView.Designer.cs">
+      <DependentUpon>AnalysisView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frms\GridPropertView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frms\GridPropertView.Designer.cs">
+      <DependentUpon>GridPropertView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frms\KontoMetroForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frms\KontoMetroForm.Designer.cs">
+      <DependentUpon>KontoMetroForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frms\KontoRepViewer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frms\KontoRepViewer.Designer.cs">
+      <DependentUpon>KontoRepViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frms\ListBaseView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Frms\ListBaseView.Designer.cs">
+      <DependentUpon>ListBaseView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frms\LookupForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frms\LookupForm.Designer.cs">
+      <DependentUpon>LookupForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frms\WaitForm1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frms\WaitForm1.Designer.cs">
+      <DependentUpon>WaitForm1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="KontoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="KontoForm.Designer.cs">
+      <DependentUpon>KontoForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="KontoSfForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="KontoSfForm.Designer.cs">
+      <DependentUpon>KontoSfForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Libs\ColumnProperties.cs" />
+    <Compile Include="Libs\CustomGridControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Libs\DecimaKontoTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Libs\DecimaKontoTextBox.Designer.cs">
+      <DependentUpon>DecimaKontoTextBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Libs\ExpressionBuilder.cs" />
+    <Compile Include="Libs\InputBox.cs" />
+    <Compile Include="Libs\KontoComboBoxEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Libs\KontoComboBoxEx.Designer.cs">
+      <DependentUpon>KontoComboBoxEx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Libs\KontoTextBoxExt.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Libs\KontoTextBoxExt.Designer.cs">
+      <DependentUpon>KontoTextBoxExt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Libs\ListAction.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Libs\ListAction.Designer.cs">
+      <DependentUpon>ListAction.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Libs\ListDateRange.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Libs\ListDateRange.Designer.cs">
+      <DependentUpon>ListDateRange.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Libs\lkpAction.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Libs\lkpAction.Designer.cs">
+      <DependentUpon>lkpAction.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Libs\LookupBase.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Libs\LookupBase.Designer.cs">
+      <DependentUpon>LookupBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Libs\NavAction.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Libs\NavAction.Designer.cs">
+      <DependentUpon>NavAction.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Libs\Utils.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="XtraForm1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="XtraForm1.Designer.cs">
+      <DependentUpon>XtraForm1.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Frms\AnalysisUserControl.resx">
+      <DependentUpon>AnalysisUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frms\AnalysisView.resx">
+      <DependentUpon>AnalysisView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frms\GridPropertView.resx">
+      <DependentUpon>GridPropertView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frms\KontoMetroForm.resx">
+      <DependentUpon>KontoMetroForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frms\KontoRepViewer.resx">
+      <DependentUpon>KontoRepViewer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frms\ListBaseView.resx">
+      <DependentUpon>ListBaseView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frms\LookupForm.resx">
+      <DependentUpon>LookupForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frms\WaitForm1.resx">
+      <DependentUpon>WaitForm1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="KontoForm.resx">
+      <DependentUpon>KontoForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="KontoSfForm.resx">
+      <DependentUpon>KontoSfForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Libs\ListAction.resx">
+      <DependentUpon>ListAction.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Libs\ListDateRange.resx">
+      <DependentUpon>ListDateRange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Libs\lkpAction.resx">
+      <DependentUpon>lkpAction.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Libs\LookupBase.resx">
+      <DependentUpon>LookupBase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Libs\NavAction.resx">
+      <DependentUpon>NavAction.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="XtraForm1.resx">
+      <DependentUpon>XtraForm1.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Konto.App.Shared\Konto.App.Shared.csproj">
+      <Project>{F9E8AE77-5F5F-4F20-9CAD-D21A874F4130}</Project>
+      <Name>Konto.App.Shared</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Konto.Data\Konto.Data.csproj">
+      <Project>{462E3508-500D-4F85-8E0D-88B132B62D5C}</Project>
+      <Name>Konto.Data</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Export16x16.ico" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.0\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.0\build\EntityFramework.targets'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.4.0\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.targets')" />
+</Project>

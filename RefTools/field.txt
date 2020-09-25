@@ -1,0 +1,688 @@
+remove extra voucher type like Mill Process Invoice
+
+IF NOT EXISTS(SELECT 1 FROM dbo.SysPara WHERE Id=172)
+INSERT INTO dbo.SysPara(Id,Descr,DefaultValue,ValueDescr,Category)
+Values(172,'Challan Required','N','Y for Yes N for No','Mrv')
+
+add new filed in account
+Grade
+CollDay
+CollById
+Add index in stocktrans table
+
+add new field in billmain
+RefVoucherId
+
+listpagesp remove detail for grey purchasse and summary from all list
+
+check storeprocedure for all grey purchase report
+
+List page id = 18 wrong Layout File Name
+
+ErpMoudle check assembly name for mIlllIssue
+
+OutwardBeamProd alter
+
+
+alter PROCEDURE dbo.PendingGreyOrderonChallan
+ 	@CompanyId int,
+	@AccountId int,
+	@VoucherTypeID int,
+	@ordStatus varchar(100) ='APPROVED'
+AS
+BEGIN
+	select o.VoucherNo OrderNo,o.VoucherDate, 
+     CONVERT(DATETIME2, CONVERT(VARCHAR(8), o.VoucherDate), 112) OrderDate,
+    p.ProductName as Product,
+	CAST(ot.Qty as numeric(18,2)) as OrderQty,
+	cast((ot.Qty-isnull(ct.Pcs,0))  as numeric(18,2)) as PendingQty,
+	ot.ProductId,ot.ColorId,ot.Cut,ot.DesignId,ot.GradeId,
+	ot.UomId,ot.NoOfLot 
+	,cast(ot.rate as numeric(18,2)) as rate,
+	ot.Disc,ot.Id as TransId,o.Id,o.VoucherId, o.Remarks,
+  tm.Sgst,tm.Cgst,tm.Igst
+  
+	from Ord o
+	left outer join OrdTrans ot on ot.OrdId=o.Id
+	left outer join Product p on p.Id=ot.ProductId
+  LEFT OUTER JOIN TaxMaster tm  ON tm.Id = p.TaxId
+	left outer join (select sum(Qty)as Qty , SUM(ct.Pcs) Pcs, ISNULL(ct.RefId,0) AS RefId, ISNULL(ct.RefVoucherId,0) AS RefVoucherId  from ChallanTrans ct
+			where ct.IsActive=1 and ct.IsDeleted=0 AND ct.RefId IS NOT NULL
+			group by ct.RefId, ISNULL(ct.RefVoucherId,0)
+	)ct on ct.RefId=ot.Id AND ct.RefVoucherId = o.VoucherId
+	left outer join Voucher v on v.Id=o.VoucherId 
+	WHERE ot.OrdStatus = @ordStatus--'APPROVED' 
+
+	AND  o.CompId = @CompanyId
+	 AND  v.VTypeId=@VoucherTypeID AND EXISTS (SELECT 1 FROM Acc ac WHERE ac.PGroupId = o.PGroupId AND ac.Id=@AccountId)
+	and ((ot.Qty-isnull(ct.Pcs,0)) >0) AND o.IsActive =1 AND o.IsDeleted = 0 AND ot.IsDeleted=0
+	--and (o.VoucherDate between @FromDate and @ToDate)
+END
+GO
+
+
+CREATE PROCEDURE dbo.GOList
+	@fromDate int ,
+	@ToDate int,
+	@CompanyId int,
+	@YearId int,
+    @VTypeId int, 
+	@BranchId int
+AS
+BEGIN
+	select o.VoucherNo OrderNo,
+                                 ISNULL(CONVERT(Date,Convert(varchar(8),o.VoucherDate),112),'') 
+								   OrdDate,
+								   v.VoucherName,
+								   pg.GroupName PartyGroup,
+                                  ac.AccName Party ,
+                                  o.RefNo,
+								  p.ProductName Quality,
+								  ot.NoOfLot,
+								  ot.LotPcs,
+								  ot.Cut PerLotMtrs,
+								  ot.Rate,
+								  ot.NetTotal,
+                                  o.AccId PartyId,
+								  o.VoucherId,
+                                  o.Id,
+    ISNULL(ct.Qty,0) RcptQty,ISNULL(ct.Pcs,0) RcptTaka, ot.Qty - ISNULL(ct.Pcs,0) PendPcs,
+     (ot.Qty - ISNULL(ct.Pcs,0))/12 PendLot
+                                  
+	from Ord o
+	left outer join Acc ac on ac.Id=o.AccId 
+	left outer join Acc Trans on Trans.Id=o.TransportId
+	left outer join PayTerms Pay on Pay.Id=o.PayTermsId
+	LEFT OUTER JOIN dbo.Voucher  v ON v.Id = o.VoucherId
+	LEFT OUTER JOIN dbo.OrdTrans ot ON ot.OrdId = o.Id
+	LEFT OUTER JOIN dbo.Product p ON p.Id = ot.ProductId
+	LEFT OUTER JOIN dbo.PartyGroup pg ON pg.Id = o.PGroupId
+left outer join (select sum(Qty)as Qty , SUM(ct.Pcs) Pcs, ISNULL(ct.RefId,0) AS RefId, ISNULL(ct.RefVoucherId,0) AS RefVoucherId  from ChallanTrans ct
+			where ct.IsActive=1 and ct.IsDeleted=0 AND ct.RefId IS NOT NULL
+			group by ct.RefId, ISNULL(ct.RefVoucherId,0)
+	)ct on ct.RefId=ot.Id AND ct.RefVoucherId = o.VoucherId
+	where o.IsActive=1 and o.IsDeleted=0
+	and o.CompId=@CompanyId and o.YearId=@YearId
+	 and (@BranchId=0 or o.BranchId=@BranchId)
+	 AND v.VTypeId=@VTypeId
+	
+END
+GO
+
+
+
+CREATE PROCEDURE dbo.OutwardprodList
+ 	@CompanyId int,
+	@VoucherID int,
+	@RefId int
+AS
+BEGIN
+
+select  p.Id,p.RowId,p.TransId,p.SrNo,p.ProductId,p.GradeId,
+p.ColorId,p.PackId,p.MacId,p.SubGradeId,p.TwistType,p.CompId,
+      p.YearId,p.VoucherId,p.VoucherDate,p.VoucherNo,p.RefId
+      ,p.Ply  ,p.Cops ,p.CopsWt,p.BoxWt,p.CartnWt,p.GrossWt,p.TareWt
+      ,p.NetWt,p.DivId,p.BranchId,p.JobId,p.CopsProductId
+      ,p.CopsRate,p.BoxProductId,p.BoxRate,p.PackEmpId
+      ,p.CheckEmpId,p.PalletProductId,p.PlyProductId,p.DrawingDate
+      ,p.WarpingDate,p.CloseDate,p.ProdStatus,p.Tops,p.Pallet
+      ,p.CurrQty,p.FinQty,p.IssueRefId,p.IssueRefVoucherId
+      ,p.Remark,p.IsClose,p.CreateDate,p.CreateUser,p.IpAddress
+	  ,p.ModifyDate,p.ModifyUser,p.IsActive,p.IsDeleted,p.LoadingDate as LoadingDate,po.TransId as RefTransId
+	  ,po.Id as ProdOutId,(po.Qty *-1) Qty,a.AccName Weaver,c.VoucherNo ChallanNo
+from Prodout po
+left outer join Prod p on p.Id=po.ProdId
+left outer join Voucher v on po.VoucherId=v.Id
+LEFT OUTER JOIN challan c ON c.Id = p.RefId
+LEFT OUTER JOIN acc a ON a.Id =c.AccId
+where p.IsActive = 1 and p.IsDeleted=0 
+and po.IsActive = 1 and po.IsDeleted=0 
+and po.RefId=@RefId
+	--and v.VTypeId=@VoucherID
+	and p.CompId=@CompanyId --and (p.VoucherDate between @FromDate and @ToDate)
+
+END
+
+
+
+CREATE PROCEDURE dbo.GPList
+@VTypeId int,
+ @CompanyId int,
+  @BranchId int,
+ @YearId int,
+ @FromDate int,
+ @ToDate int
+AS
+BEGIN 
+	 select 
+	-- c.VoucherDate ChlnDate,
+	 ISNULL(CONVERT(Date,Convert(varchar(8),c.VoucherDate),112),'')  as VoucherDate,
+	 c.RcdDate ChallanDate,
+	-- ISNULL(CONVERT(Date,Convert(varchar(8),c.VoucherDate),112),'')  as ChallanDate,
+	 c.VoucherNo VoucherNo,
+	 c.ChallanNo,
+	 c.BillNo,
+	 ac.PrintName Supplier,
+	 v.VoucherName VoucherName,
+	 p.ProductName Product,col.ColorName Color,
+	 ct.LotNo LotNo,
+	 ct.RefNo Panna,
+	 ct.CessPer Folding,
+	 g.GradeName Grade
+	 ,ct.Qty,
+	 Agent.PrintName,
+	 c.ChallanType,c.DName,c.DocDate
+	 ,c.DocNo,c.IsActive,c.IsDeleted,c.TotalPcs,c.TotalQty,tr.PrintName as Transport
+	 , c.TotalAmount, o.OrderNo OrderNo, 
+	 CASE when o.OrdDate >10101 then ISNULL(CONVERT(Date,Convert(varchar(8),o.OrdDate),112),'') end  as OrderDate,
+	  case when b.BillDate>10101 then ISNULL(CONVERT(Date,Convert(varchar(8),b.BillDate),112),'')  end as InvoiceDate,
+	  c.Id,ct.Id as TransId,c.VoucherId,
+    b.TaxableValue,b.Sgst,b.Cgst,b.Igst,b.BillId
+	--select *
+	 from Challan c
+	 left outer join Acc ac on c.AccId =ac.Id 
+     LEFT outer  join Acc tr on c.TransId = tr.Id
+     LEFT outer  join Acc Agent on c.AgentId = Agent.Id
+     LEFT outer join  Voucher v on c.VoucherId =v.Id
+     LEFT outer join ChallanTrans ct on ct.ChallanId=c.Id
+     LEFT outer join Product p on p.Id=ct.ProductId
+     LEFT outer join grade g on g.Id=ct.GradeId
+     LEFT outer join color col on col.Id=ct.ColorId
+     LEFT outer join (select o.VoucherNo as OrderNo,o.VoucherDate as OrdDate,Id as OrdId 
+			from Ord o where o.IsActive=1 and o.IsDeleted=0 group by o.Id ,o.VoucherNo,o.VoucherDate
+			)o on o.OrdId=ct.MiscId 
+  left outer join  (select b.VoucherNo as BillNo,b.VoucherDate as BillDate,b.Id as BillId,bt.RefTransId,
+    SUM(bt.Sgst)Sgst,SUM(bt.Cgst) Cgst, SUM(bt.Igst) Igst,SUM(bt.NetTotal-bt.Sgst-bt.Cgst-bt.Igst)TaxableValue
+			from BillTrans bt
+			left outer join BillMain b on b.Id =bt.BillId
+    LEFT OUTER JOIN voucher v ON v.Id = b.VoucherId
+			 where b.IsActive=1 and b.IsDeleted=0  AND bt.IsDeleted=0 AND v.VTypeId=36
+      group by b.Id ,b.VoucherNo,b.VoucherDate,bt.RefTransId
+			) b on b.RefTransId =ct.Id  
+
+ 
+ where c.IsActive=1 and c.IsDeleted=0 
+ and (c.VoucherDate  between @FromDate and @ToDate) and v.VTypeId=@VTypeId
+ order by c.VoucherDate DESC,c.Id desc
+    
+END
+GO
+
+
+
+CREATE PROCEDURE dbo.gp_analysis
+ @VTypeId int,
+ @CompanyId int,
+ @BranchId int,
+ @YearId int,
+ @FromDate int,
+ @ToDate int
+AS
+BEGIN 
+	 select 
+	 ISNULL(CONVERT(Date,Convert(varchar(8),c.VoucherDate),112))  as VoucherDate,
+    fy.YearCode FY,
+   'Q' + CONVERT(VARCHAR(1),DATEPART(QUARTER,CONVERT(Date,Convert(varchar(8),c.VoucherDate),112))) Qtr,
+   MONTHNAME(CONVERT(Date,Convert(varchar(8),c.VoucherDate),112)) [Month],
+   DATENAME(weekday,CONVERT(Date,Convert(varchar(8),c.VoucherDate),112)) [Day],
+	 ac.PrintName Supplier,
+	 v.VoucherName VoucherName,
+	 p.ProductName Product,
+    col.ColorName Color,
+	 ct.Meters,
+	 Agent.PrintName Agent,
+	 tr.PrintName as Transport
+	 , c.TotalAmount, 
+	  c.Id,ct.Id as TransId,c.VoucherId,
+    b.TaxableValue,b.Sgst,b.Cgst,b.Igst,b.BillId
+	 from Challan c
+	 left outer join Acc ac on c.AccId =ac.Id 
+     LEFT outer  join Acc tr on c.TransId = tr.Id
+     LEFT outer  join Acc Agent on c.AgentId = Agent.Id
+     LEFT outer join  Voucher v on c.VoucherId =v.Id
+     LEFT outer join ChallanTrans ct on ct.ChallanId=c.Id
+     LEFT outer join Product p on p.Id=ct.ProductId
+     LEFT outer join color col on col.Id=ct.ColorId
+     LEFT OUTER JOIN FinYear fy ON fy.Id = c.YearId
+  left outer join  (select b.VoucherNo as BillNo,b.VoucherDate as BillDate,b.Id as BillId,bt.RefTransId,
+    SUM(bt.Sgst)Sgst,SUM(bt.Cgst) Cgst, SUM(bt.Igst) Igst,SUM(bt.NetTotal-bt.Sgst-bt.Cgst-bt.Igst)TaxableValue
+			from BillTrans bt
+			left outer join BillMain b on b.Id =bt.BillId
+    LEFT OUTER JOIN voucher v ON v.Id = b.VoucherId
+			 where b.IsActive=1 and b.IsDeleted=0  AND bt.IsDeleted=0 AND v.VTypeId=36
+      group by b.Id ,b.VoucherNo,b.VoucherDate,bt.RefTransId
+			) b on b.RefTransId =ct.Id  
+
+ where c.IsActive=1 and c.IsDeleted=0 
+ and (c.VoucherDate  between @FromDate and @ToDate) and v.VTypeId=@VTypeId
+ order by c.VoucherDate DESC,c.Id desc
+    
+END
+GO
+
+
+CREATE PROCEDURE dbo.MiDetailList
+@VTypeId int,
+ @CompanyId int,
+  @BranchId int,
+ @YearId int,
+ @FromDate int,
+ @ToDate int
+AS
+BEGIN 
+	 SELECT dv.DivisionName ,tt.TypeName,
+	 ISNULL(CONVERT(Date,Convert(varchar(8),c.VoucherDate),112),'')  as ChallanDate, 
+	 c.VoucherNo ChallanNo,
+	 ac.PrintName Party,
+	 v.VoucherName VoucherName,
+	 p.ProductName Product,
+	 design.ProductName Design,
+	 col.ColorName Color,
+	 ct.Pcs,
+	 ct.Pcs - ISNULL(mr.Pcs,0) PendPcs,
+	 ct.Cops, 
+	 ct.Qty Mtrs,
+	 ct.Qty- ISNULL(mr.qty,0) PendMtrs,
+	 ct.Rate,
+	 ct.SgstPer,
+	 ct.Gross,
+	 ct.DiscPer,
+	 ct.Disc DiscAmt,
+	 ct.OtherAdd,ct.OtherLess,
+	 ct.CgstPer,ct.Cgst CgstAmt,
+	 ct.SgstPer,ct.Sgst SgstAmt, 
+	 ct.IgstPer,ct.Igst IgstAmt,
+	 ct.CessPer,ct.Cess,
+	 ct.Total,
+	 Agent.PrintName,
+	 c.BillNo, 
+	 c.DName Driver,
+	 c.DocDate LrDate,
+	 c.DocNo LrNo,
+	 tr.PrintName as Transport, 
+	 ct.LotNo
+	 ,ct.Remark,ct.Weight,c.Id,ct.Id as TransId,
+	 c.VoucherId,
+	 c.IsDeleted
+	 FROM Challan c
+	 LEFT OUTER JOIN dbo.TransType tt ON tt.Id = c.ChallanType
+	 LEFT OUTER JOIN dbo.Division dv ON dv.Id = c.DivId
+	 LEFT OUTER JOIN Acc ac ON  c.AccId =ac.Id 
+   LEFT OUTER JOIN Acc tr ON c.TransId = tr.Id
+   LEFT OUTER JOIN Acc Agent ON c.AgentId = Agent.Id
+   LEFT OUTER JOIN Voucher v ON c.VoucherId =v.Id
+   LEFT OUTER JOIN AccAddress adr ON c.DelvAdrId =adr.Id
+   LEFT OUTER JOIN ChallanTrans ct ON ct.ChallanId=c.Id
+   LEFT OUTER JOIN Product p ON p.Id=ct.ProductId
+   LEFT OUTER JOIN Product design ON design.Id=ct.DesignId
+   LEFT OUTER JOIN color col ON col.Id=ct.ColorId
+
+   LEFT OUTER JOIN (SELECT mrt.MiscId,mrt.RefId, mrt.RefVoucherId,SUM(mrt.Pcs) Pcs,SUM(mrt.Qty)Qty FROM Challan mr 
+    INNER JOIN ChallanTrans  mrt ON mr.Id = mrt.ChallanId
+    WHERE mr.IsDeleted = 0 AND mrt.IsDeleted=0
+    GROUP BY mrt.MiscId,mrt.RefVoucherId,mrt.RefId)mr ON c.Id = mr.MiscId AND c.VoucherId = mr.RefVoucherId AND ct.Id = mr.RefId
+
+      WHERE c.IsActive=1 and c.IsDeleted=0 AND ct.IsDeleted = 0
+      AND (c.VoucherDate  between @FromDate and @ToDate) and v.VTypeId=@VTypeId
+      ORDER BY c.VoucherDate desc
+    
+END
+GO
+
+
+CREATE PROCEDURE dbo.MiList
+@VTypeId int,
+ @CompanyId int,
+ @YearId int,
+ @FromDate int,
+ @ToDate int,
+ @Type int =1,
+ @BranchId int,
+ @Deleted INT = 0
+AS
+BEGIN 
+	 SELECT div.DivisionName, 
+	 tp.TypeName ChallanType,
+	 c.VoucherNo,
+	 v.VoucherName,
+	 ISNULL(CONVERT(Date,Convert(varchar(8),c.VoucherDate),112),'')  as ChallanDate, 
+	 c.ChallanNo ChallanNo,
+	 ac.PrintName Party,
+	 del.AccName DelParty,
+	 c.TotalPcs,
+   c.TotalPcs - ISNULL(mr.Pcs,0) PendPcs,
+   CAST(c.TotalQty AS NUMERIC(18,3)) AS TotalMtrs,
+    c.TotalQty - ISNULL(mr.Qty,0) PendMtrs,
+	 c.DName AS DriverName,c.DocDate AS Lr_Date
+	 ,c.DocNo AS Lr_No,Agent.AccName AS Agent,
+	 c.BillNo ,
+	 tr.AccName as Transport,
+	 CAST(c.TotalAmount AS NUMERIC(18,2) ) AS TotalAmount,
+	 c.Remark,
+	 c.CreateUser,
+	 c.CreateDate,
+	 c.ModifyUser,
+	 c.ModifyDate,
+	 c.VoucherId,c.Id, c.IsDeleted  
+	FROM Challan c
+	LEFT OUTER JOIN Acc ac on c.AccId =ac.Id 
+  LEFT OUTER JOIN Acc tr on c.TransId = tr.Id
+	LEFT OUTER JOIN Acc del on del.Id = c.DelvAccId
+  LEFT OUTER JOIN Acc Agent on ac.AgentId = Agent.Id
+  LEFT OUTER JOIN Voucher v on c.VoucherId =v.Id
+  LEFT OUTER JOIN AccAddress adr on c.DelvAdrId =adr.Id 
+  LEFT OUTER JOIN dbo.Division div ON div.Id = c.DivId
+	LEFT OUTER JOIN dbo.TransType tp ON tp.Id = c.ChallanType
+  LEFT OUTER JOIN (SELECT mrt.MiscId,mrt.RefVoucherId,SUM(mrt.Pcs) Pcs,SUM(mrt.Qty)Qty FROM Challan mr 
+    INNER JOIN ChallanTrans  mrt ON mr.Id = mrt.ChallanId
+    WHERE mr.IsDeleted = 0 AND mrt.IsDeleted=0
+    GROUP BY mrt.MiscId,mrt.RefVoucherId)mr ON c.Id = mr.MiscId AND c.VoucherId = mr.RefVoucherId
+   WHERE c.IsActive=1 and c.IsDeleted=@Deleted AND c.CompId = @CompanyId AND c.YearId = @YearId
+   AND (c.VoucherDate  between @FromDate and @ToDate) and v.VTypeId=@VTypeId
+   ORDER BY  c.VoucherDate desc, c.VoucherNo desc
+  
+END
+GO
+
+
+Create PROCEDURE dbo.gp_analysis
+ @VTypeId int,
+ @CompanyId int,
+ @BranchId int,
+ @YearId int,
+ @FromDate int,
+ @ToDate int
+AS
+BEGIN 
+	 select 
+	 ISNULL(CONVERT(Date,Convert(varchar(8),c.VoucherDate),112),'')  as VoucherDate,
+    fy.YearCode FY,
+   'Q' + CONVERT(VARCHAR(1),DATEPART(QUARTER,CONVERT(Date,Convert(varchar(8),c.VoucherDate),112))) Qtr,
+   DATENAME(MONTH, CONVERT(Date,Convert(varchar(8),c.VoucherDate),112)) [Month],
+   DATENAME(weekday,CONVERT(Date,Convert(varchar(8),c.VoucherDate),112)) [Day],
+	 ac.PrintName Supplier,
+   b.Book, 
+	 v.VoucherName VoucherName,
+	 p.ProductName Product,
+    col.ColorName Color,
+	 ct.Qty Meters,
+    ct.Pcs Pcs,
+	 Agent.PrintName Agent,
+	 tr.PrintName as Transport
+	 ,(b.TaxableValue+b.Sgst+b.Cgst+b.Igst) TotalAmount, 
+	  c.Id,ct.Id as TransId,c.VoucherId,
+    b.TaxableValue,b.Sgst,b.Cgst,b.Igst,b.BillId
+	 from Challan c
+	 left outer join Acc ac on c.AccId =ac.Id 
+     LEFT outer  join Acc tr on c.TransId = tr.Id
+     LEFT outer  join Acc Agent on c.AgentId = Agent.Id
+     LEFT outer join  Voucher v on c.VoucherId =v.Id
+     LEFT outer join ChallanTrans ct on ct.ChallanId=c.Id
+     LEFT outer join Product p on p.Id=ct.ProductId
+     LEFT outer join color col on col.Id=ct.ColorId
+     LEFT OUTER JOIN FinYear fy ON fy.Id = c.YearId
+    
+  left outer join  (select b.VoucherNo as BillNo,b.VoucherDate as BillDate,b.Id as BillId,bt.RefTransId,
+    SUM(bt.Sgst)Sgst,SUM(bt.Cgst) Cgst, SUM(bt.Igst) Igst,SUM(bt.NetTotal-bt.Sgst-bt.Cgst-bt.Igst)TaxableValue,
+    a.AccName Book
+			from BillTrans bt
+			left outer join BillMain b on b.Id =bt.BillId
+    LEFT OUTER JOIN voucher v ON v.Id = b.VoucherId
+    LEFT OUTER JOIN Acc a ON a.Id = b.BookAcId
+			 where b.IsActive=1 and b.IsDeleted=0  AND bt.IsDeleted=0 AND v.VTypeId=36
+      group by b.Id ,b.VoucherNo,b.VoucherDate,bt.RefTransId,a.AccName
+			) b on b.RefTransId =ct.Id  
+
+ where c.IsActive=1 and c.IsDeleted=0 
+ and (c.VoucherDate  between @FromDate and @ToDate) and v.VTypeId=@VTypeId
+ order by c.VoucherDate DESC,c.Id desc
+    
+END
+GO
+
+
+
+CREATE PROCEDURE [dbo].[ChallanDetailList]
+@VTypeId int,
+ @CompanyId int,
+  @BranchId int,
+ @YearId int,
+ @FromDate int,
+ @ToDate int
+AS
+BEGIN 
+	 SELECT dv.DivisionName ,tt.TypeName,
+	 ISNULL(CONVERT(Date,Convert(varchar(8),c.VoucherDate),112),'')  as ChallanDate, 
+	 c.VoucherNo ChallanNo,
+	 ac.PrintName Party,
+	 v.VoucherName VoucherName,
+	 p.ProductName Product,
+	 design.ProductName Design,
+	 col.ColorName Color,
+	 g.GradeName Grade,
+	 ct.Pcs,
+	-- ct.Pcs - ISNULL(b.Pcs,0) PendingPcs,
+	 ct.Cops, 
+	 ct.Qty,
+	-- ct.Qty- ISNULL(b.qty,0) PendingQty,
+	 ct.Rate,
+	 ct.SgstPer,
+	 ct.Gross,
+	 ct.DiscPer,
+	 ct.Disc DiscAmt,
+	 ct.OtherAdd,ct.OtherLess,
+	 ct.CgstPer,ct.Cgst CgstAmt,
+	 ct.SgstPer,ct.Sgst SgstAmt, 
+	 ct.IgstPer,ct.Igst IgstAmt,
+	 ct.CessPer,ct.Cess,
+	 ct.Total,
+	 Agent.PrintName,
+	 c.BillNo, 
+	 c.DName Driver,
+	 c.DocDate LrDate,
+	 c.DocNo LrNo,
+	 tr.PrintName as Transport, 
+	 o.OrderNo OrderNo, 
+	 CASE WHEN o.OrdDate >10101 THEN
+	 ISNULL(CONVERT(Date,Convert(varchar(8),o.OrdDate),112),'') end  as OrderDate,
+	 ct.IssuePcs,
+	 ct.IssueQty,ct.LotNo
+	 ,ct.Remark,ct.Weight,c.Id,ct.Id as TransId,
+	 c.VoucherId,
+	 c.IsDeleted
+	 FROM Challan c
+	 LEFT OUTER JOIN dbo.TransType tt ON tt.Id = c.ChallanType
+	 LEFT OUTER JOIN dbo.Division dv ON dv.Id = c.DivId
+	 LEFT OUTER JOIN Acc ac ON  c.AccId =ac.Id 
+     LEFT OUTER JOIN Acc tr ON c.TransId = tr.Id
+     LEFT OUTER JOIN Acc Agent ON c.AgentId = Agent.Id
+     LEFT OUTER JOIN Voucher v ON c.VoucherId =v.Id
+     LEFT OUTER JOIN AccAddress adr ON c.DelvAdrId =adr.Id
+     LEFT OUTER JOIN ChallanTrans ct ON ct.ChallanId=c.Id
+     LEFT OUTER JOIN Product p ON p.Id=ct.ProductId
+     LEFT OUTER JOIN Product design ON design.Id=ct.DesignId
+     LEFT OUTER JOIN grade g ON g.Id=ct.GradeId
+     LEFT OUTER JOIN color col ON col.Id=ct.ColorId
+     LEFT OUTER JOIN ( SELECT o.VoucherNo as OrderNo,o.VoucherDate AS OrdDate,Id AS OrdId 
+			FROM Ord o WHERE o.IsActive=1 and o.IsDeleted=0 
+			GROUP BY o.Id ,o.VoucherNo,o.VoucherDate
+			)o on o.OrdId=ct.MiscId 
+   --         LEFT outer join  ( SELECT bt.RefTransId, SUM(bt.Pcs) Pcs, SUM(bt.Qty) Qty
+			--FROM BillTrans bt
+			--WHERE bt.IsActive=1 and bt.IsDeleted=0  
+			--GROUP BY bt.RefTransId
+			--) b on b.RefTransId =ct.Id  
+
+      WHERE c.IsActive=1 and c.IsDeleted=0 AND ct.IsDeleted = 0
+      AND (c.VoucherDate  between @FromDate and @ToDate) and v.VTypeId=@VTypeId
+      ORDER BY c.VoucherDate desc
+    
+END
+GO
+
+
+
+CREATE PROCEDURE [dbo].[ChallanList]
+@VTypeId int,
+ @CompanyId int,
+ @YearId int,
+ @FromDate int,
+ @ToDate int,
+ @Type int =1,
+ @BranchId int,
+ @Deleted INT = 0
+AS
+BEGIN 
+	 SELECT div.DivisionName, 
+	 tp.TypeName ChallanType,
+	 c.VoucherNo,
+	 v.VoucherName,
+	 ISNULL(CONVERT(Date,Convert(varchar(8),c.VoucherDate),112),'')  as ChallanDate, 
+	 c.ChallanNo ChallanNo,
+	 ac.PrintName Party,
+	 del.AccName DelParty,
+	 c.TotalPcs,
+	 CAST(c.TotalQty AS NUMERIC(18,3)) AS TotalQty,
+	 c.DName AS DriverName,c.DocDate AS Lr_Date
+	 ,c.DocNo AS Lr_No,Agent.AccName AS Agent,
+	 c.BillNo ,
+	 tr.AccName as Transport,
+	 CAST(c.TotalAmount AS NUMERIC(18,2) ) AS TotalAmount,
+	 c.Remark,
+	 c.CreateUser,
+	 c.CreateDate,
+	 c.ModifyUser,
+	 c.ModifyDate,
+	 c.VoucherId,c.Id, c.IsDeleted  
+	FROM Challan c
+	LEFT OUTER JOIN Acc ac on c.AccId =ac.Id 
+    LEFT OUTER JOIN Acc tr on c.TransId = tr.Id
+	LEFT OUTER JOIN Acc del on del.Id = c.DelvAccId
+    LEFT OUTER JOIN Acc Agent on ac.AgentId = Agent.Id
+    LEFT OUTER JOIN Voucher v on c.VoucherId =v.Id
+    LEFT OUTER JOIN AccAddress adr on c.DelvAdrId =adr.Id 
+    LEFT OUTER JOIN dbo.Division div ON div.Id = c.DivId
+	LEFT OUTER JOIN dbo.TransType tp ON tp.Id = c.ChallanType
+   WHERE c.IsActive=1 and c.IsDeleted=@Deleted AND c.CompId = @CompanyId AND c.YearId = @YearId
+   AND (c.VoucherDate  between @FromDate and @ToDate) and v.VTypeId=@VTypeId
+   ORDER BY  c.VoucherDate desc, c.VoucherNo desc
+  
+END
+GO
+
+
+
+CREATE PROCEDURE dbo.mrv_challan_List
+@VTypeId int,
+ @CompanyId int,
+ @YearId int,
+ @FromDate int,
+ @ToDate int,
+ @Type int =1,
+ @BranchId int,
+ @Deleted INT = 0
+AS
+BEGIN 
+	 SELECT div.DivisionName, 
+	 tp.TypeName ChallanType,
+	 c.VoucherNo,
+	 v.VoucherName,
+	 ISNULL(CONVERT(Date,Convert(varchar(8),c.VoucherDate),112),'')  as ChallanDate, 
+	 c.ChallanNo ChallanNo,
+	 ac.PrintName Party,
+    ct.GreyPcs,ct.GreyMtrs,
+    ct.FinPcs,ct.FinMtrs,
+    j.ProcessName JobType,
+   c.DName AS DriverName,
+   c.DocDate AS Lr_Date
+	 ,c.DocNo AS Lr_No,
+   Agent.AccName AS Agent,
+	 c.BillNo ,
+	 tr.AccName as Transport,
+	 c.Remark,
+	 c.CreateUser,
+	 c.CreateDate,
+	 c.ModifyUser,
+	 c.ModifyDate,
+	 c.VoucherId,c.Id,
+    c.IsDeleted  
+	FROM Challan c
+	LEFT OUTER JOIN Acc ac on c.AccId =ac.Id 
+  LEFT OUTER JOIN Acc tr on c.TransId = tr.Id
+	LEFT OUTER JOIN Acc Agent on ac.AgentId = Agent.Id
+  LEFT OUTER JOIN Voucher v on c.VoucherId =v.Id
+    LEFT OUTER JOIN [Process] j ON c.ProcessId = j.Id
+  LEFT OUTER JOIN dbo.Division div ON div.Id = c.DivId
+	LEFT OUTER JOIN dbo.TransType tp ON tp.Id = c.ChallanType
+  LEFT OUTER JOIN (SELECT ct.ChallanId,SUM(ct.IssueQty)GreyMtrs,SUM(ct.IssuePcs)GreyPcs,
+   SUM(ct.Pcs)FinPcs,SUM(Ct.Qty) FinMtrs  FROM ChallanTrans ct
+    WHERE ct.IsDeleted=0 AND ct.IsActive=1
+    GROUP BY ct.ChallanId )ct ON ct.ChallanId = c.Id
+   WHERE c.IsActive=1 and c.IsDeleted=@Deleted AND c.CompId = @CompanyId AND c.YearId = @YearId
+   AND (c.VoucherDate  between @FromDate and @ToDate) and v.VTypeId=@VTypeId
+   ORDER BY  c.VoucherDate desc, c.VoucherNo desc
+  
+END
+GO
+
+
+CREATE PROCEDURE dbo.PendingBill
+ 	@CompanyId  INT = 1,
+	@AccountId INT,
+	@FromDate INT =20180401,
+	@ToDate INT = 20190331,
+	@VoucherTypeId INT,
+	@BillType VARCHAR(25),
+	@RefId INT,
+	@RefVoucherId INT = 0,
+	@RefTransId INT = 0
+  
+AS
+BEGIN
+	 SELECT  br.BillId,
+	 ISNULL(br.BillTransId,0) AS BillTransId,
+	 br.BillVoucherId,br.VoucherNo AS ChallanNo, 
+	 br.RowId AS RefCode, br.AccountId AS ToAccId,
+	 br.BillNo,
+	 br.VoucherDate AS ChlnDate,@RefTransId RefTransId,@RefVoucherId RefVoucherId,
+	 v.VoucherName,
+	 ac.AccName ,
+	 ISNULL(br.GrossAmt,0.00) AS Total,
+	 ISNULL(br.BillAmt,0.00) AS NetTotal,
+	 CAST(ISNULL(adj.Pay,0.00) + ISNULL(selfa.Amount,0) - ISNULL(bb.Pay,0) AS NUMERIC(18,2)) + ISNULL(br.AdjustAmt,0) AS PaidAmt,
+	 ISNULL(br.TdsAmt,0.00) AS TdsAmt,
+	 CAST(ISNULL(adj.Rg,0.00)- ISNULL(bb.Rg,0) AS NUMERIC(18,2)) + ISNULL(br.RetAmt,0) AS RetAmt ,	
+	 ROUND(br.BillAmt-ISNULL(br.TdsAmt,0) + ISNULL(br.TcsAmt,0) - ISNULL(selfa.Amount,0) - ISNULL(adj.Rg,0) -ISNULL(adj.Pay,0)  + ISNULL(bb.Rg,0) ,0) - ISNULL(br.RetAmt,0) - ISNULL(br.AdjustAmt,0) AS DueAmt, 
+	 CAST(ISNULL(bb.Amount,0) AS NUMERIC(18)) AS Amount,
+	 ISNULL(bb.Adla1,0.00) AS Adla1,  ISNULL(bb.Adla2,0.00) AS Adla2,  ISNULL(bb.Adla3,0.00) AS Adla3,  ISNULL(bb.Adla4,0.00) AS Adla4 , ISNULL(bb.Adla5,0.00) AS Adla5 , ISNULL(bb.Adla6,0.00) AS Adla6,
+	 ISNULL(bb.Adla7,0.00) AS Adla7, ISNULL(bb.Adla8,0.00) AS Adla8, ISNULL(bb.Adla9,0.00) AS Adla9, ISNULL(bb.Adla10,0.00) AS Adla10         
+FROM dbo.BillRef br
+LEFT OUTER JOIN dbo.Acc ac ON ac.Id   = br.AccountId
+LEFT OUTER JOIN dbo.Voucher v ON v.Id = br.BillVoucherId 
+LEFT OUTER JOIN ( 
+				SELECT SUM(bb.Amount) AS Amount,SUM(ISNULL(bb.Adla1,0)) AS Adla1,SUM(ISNULL(bb.Adla2,0)) AS Adla2,SUM(ISNULL(bb.Adla3,0)) AS Adla3,SUM(ISNULL(bb.Adla4,0)) AS Adla4,
+				SUM(ISNULL(bb.Adla5,0)) AS Adla5,SUM(ISNULL(bb.Adla6,0)) AS Adla6,SUM(ISNULL(bb.Adla7,0)) AS Adla7,SUM(ISNULL(bb.Adla8,0)) AS Adla8,SUM(ISNULL(bb.Adla9,0)) AS Adla9,
+				SUM(ISNULL(bb.Adla10,0)) AS Adla10,
+				SUM(CASE WHEN bb.TransType = 'Payment' THEN bb.Amount + ISNULL(bb.Adla1,0) + ISNULL(bb.Adla2,0) + ISNULL(bb.Adla3,0) + ISNULL(bb.Adla4,0) + ISNULL(bb.Adla5,0) + ISNULL(bb.Adla6,0) + ISNULL(bb.Adla7,0) + ISNULL(bb.Adla8,0) + ISNULL(bb.Adla9,0) + ISNULL(bb.Adla10,0) ELSE 0 END) Pay , 
+				SUM(CASE WHEN bb.TransType = 'Return' THEN bb.Amount ELSE 0 END) Rg ,
+				bb.RefCode
+				FROM dbo.BtoB bb 
+				WHERE bb.IsActive =1 AND bb.IsDeleted = 0 AND bb.RefId = @RefId AND bb.RefVoucherId = @RefVoucherId AND bb.RefTransId = @RefTransId
+				GROUP BY bb.RefCode) bb ON bb.RefCode = br.RowId 
+LEFT JOIN (
+			SELECT SUM(CASE WHEN b.TransType = 'Payment' THEN b.Amount + ISNULL(b.Adla1,0) + ISNULL(b.Adla2,0) + ISNULL(b.Adla3,0) + ISNULL(b.Adla4,0) + ISNULL(b.Adla5,0) + ISNULL(b.Adla6,0) + ISNULL(b.Adla7,0) + ISNULL(b.Adla8,0) + ISNULL(b.Adla9,0) + ISNULL(b.Adla10,0) ELSE 0 END) Pay , SUM(CASE WHEN b.TransType = 'Return' THEN b.Amount ELSE 0 END) Rg ,
+                      b.RefCode
+					              FROM dbo.BtoB b
+								  WHERE b.IsActive = 1 AND b.IsDeleted = 0  
+								    GROUP BY  b.RefCode
+	) adj ON adj.RefCode = br.RowId 
+
+LEFT OUTER JOIN ( 
+					SELECT SUM(selfa.Amount) + SUM(ISNULL(selfa.Adla1,0)) + SUM(ISNULL(selfa.Adla2,0)) + SUM(ISNULL(selfa.Adla3,0)) + SUM(ISNULL(selfa.Adla4,0)) + SUM(ISNULL(selfa.Adla5,0)) + SUM(ISNULL(selfa.Adla6,0)) + SUM(ISNULL(selfa.Adla7,0)) + SUM(ISNULL(selfa.Adla8,0)) + SUM(ISNULL(selfa.Adla9,0)) + SUM(ISNULL(selfa.Adla10,0)) AS Amount,selfa.RefId, selfa.RefVoucherId FROM dbo.BtoB selfa 
+					WHERE selfa.IsActive =1 AND selfa.IsDeleted = 0 
+					GROUP BY selfa.RefId,selfa.RefVoucherId ) selfa ON selfa.RefId = br.BillId AND selfa.RefVoucherId = br.BillVoucherId				
+WHERE br.AccountId=@AccountId AND (ROUND(br.BillAmt -ISNULL(selfa.Amount,0)-ISNULL(br.TdsAmt,0) + ISNULL(br.TcsAmt,0) - ISNULL(adj.Rg,0) -ISNULL(adj.Pay,0) +ISNULL(bb.Pay,0) + ISNULL(bb.Rg,0) ,0) - ISNULL(br.RetAmt,0) - ISNULL(br.AdjustAmt,0) > 0 OR CAST(bb.Amount AS NUMERIC(18))> 0)
+AND br.CompanyId = @CompanyId AND br.IsActive = 1 AND br.IsDeleted = 0 AND br.RefType = @BillType		
+ORDER BY br.VoucherDate, br.BillNo
+END
+GO
