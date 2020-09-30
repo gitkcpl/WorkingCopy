@@ -214,8 +214,25 @@ namespace Konto.Trading.JobReceipt
         public override void Print()
         {
             base.Print();
-          
-          
+
+            if (this.customGridView1.FocusedRowHandle < 0) return;
+            if (KontoView.Columns.ColumnByFieldName("Id") != null)
+            {
+                if (KontoView.Columns.ColumnByFieldName("IsDeleted") != null)
+                {
+                    if (Convert.ToBoolean(this.KontoView.GetRowCellValue(this.KontoView.FocusedRowHandle, "IsDeleted")))
+                    {
+                        return;
+                    }
+                }
+                var id = this.KontoView.GetRowCellValue(this.KontoView.FocusedRowHandle, "VoucherNo").ToString();
+
+                var frm = new DocPrintParaView(VoucherTypeEnum.JobReceipt, "Job Receipt Print", id, id, "JRB", "Id");
+                frm.EditKey = Convert.ToInt32(this.KontoView.GetRowCellValue(this.KontoView.FocusedRowHandle, "Id"));
+                frm.ShowDialog();
+
+
+            }
 
         }
     }

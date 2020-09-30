@@ -1144,29 +1144,55 @@ namespace Konto.Shared.Trans.GRN
             {
                 if (this.PrimaryKey == 0) return;
 
-                PageReport rpt = new PageReport();
+                if (GRNPara.Generate_Barcode)
+                {
+                    PageReport rpt = new PageReport();
 
-                rpt.Load(new FileInfo("reg\\doc\\GRNBarcode.rdlx"));
+                    rpt.Load(new FileInfo("reg\\doc\\GRNBarcode.rdlx"));
 
-                rpt.Report.DataSources[0].ConnectionProperties.ConnectString = KontoGlobals.sqlConnectionString.ConnectionString;
+                    rpt.Report.DataSources[0].ConnectionProperties.ConnectString = KontoGlobals.sqlConnectionString.ConnectionString;
 
-                GrapeCity.ActiveReports.Document.PageDocument doc = new GrapeCity.ActiveReports.Document.PageDocument(rpt);
+                    GrapeCity.ActiveReports.Document.PageDocument doc = new GrapeCity.ActiveReports.Document.PageDocument(rpt);
 
-                doc.Parameters["id"].CurrentValue = this.PrimaryKey;
-                doc.Parameters["challan"].CurrentValue = "N";
-                doc.Parameters["reportid"].CurrentValue = 0;
-                var frm = new KontoRepViewer(doc);
-                frm.Text = "Barcode";
-                var _tab = this.Parent.Parent as TabControlAdv;
-                if (_tab == null) return;
-                var pg1 = new TabPageAdv();
-                pg1.Text = "Barcode Print";
-                _tab.TabPages.Add(pg1);
-                _tab.SelectedTab = pg1;
-                frm.TopLevel = false;
-                frm.Parent = pg1;
-                frm.Location = new Point(pg1.Location.X + pg1.Width / 2 - frm.Width / 2, pg1.Location.Y + pg1.Height / 2 - frm.Height / 2);
-                frm.Show();// = true;
+                    doc.Parameters["id"].CurrentValue = this.PrimaryKey;
+                    doc.Parameters["challan"].CurrentValue = "N";
+                    doc.Parameters["reportid"].CurrentValue = 0;
+                    var frm = new KontoRepViewer(doc);
+                    frm.Text = "Barcode";
+                    var _tab = this.Parent.Parent as TabControlAdv;
+                    if (_tab == null) return;
+                    var pg1 = new TabPageAdv();
+                    pg1.Text = "Barcode Print";
+                    _tab.TabPages.Add(pg1);
+                    _tab.SelectedTab = pg1;
+                    frm.TopLevel = false;
+                    frm.Parent = pg1;
+                    frm.Location = new Point(pg1.Location.X + pg1.Width / 2 - frm.Width / 2, pg1.Location.Y + pg1.Height / 2 - frm.Height / 2);
+                    frm.Show();// = true;
+                }
+                PageReport rpt1 = new PageReport();
+
+                rpt1.Load(new FileInfo("reg\\doc\\GrnInwardChallan.rdlx"));
+
+                rpt1.Report.DataSources[0].ConnectionProperties.ConnectString = KontoGlobals.sqlConnectionString.ConnectionString;
+
+                GrapeCity.ActiveReports.Document.PageDocument doc1 = new GrapeCity.ActiveReports.Document.PageDocument(rpt1);
+
+                doc1.Parameters["id"].CurrentValue = this.PrimaryKey;
+                doc1.Parameters["challan"].CurrentValue = "N";
+                doc1.Parameters["reportid"].CurrentValue = 0;
+                var frm1 = new KontoRepViewer(doc1);
+                frm1.Text = "Grn Print";
+                var _tab1 = this.Parent.Parent as TabControlAdv;
+                if (_tab1 == null) return;
+                var pg2 = new TabPageAdv();
+                pg2.Text = "Grn Print";
+                _tab1.TabPages.Add(pg2);
+                _tab1.SelectedTab = pg2;
+                frm1.TopLevel = false;
+                frm1.Parent = pg2;
+                frm1.Location = new Point(pg2.Location.X + pg2.Width / 2 - frm1.Width / 2, pg2.Location.Y + pg2.Height / 2 - frm1.Height / 2);
+                frm1.Show();// = true;
 
             }
             catch (Exception ex)

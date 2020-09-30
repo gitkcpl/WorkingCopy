@@ -50,7 +50,7 @@
             this.colHsnCode = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colToAccId = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colParticular = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.lotNoRepositoryItemButtonEdit = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
+            this.productRepositoryItemButtonEdit = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
             this.colBatchId = new DevExpress.XtraGrid.Columns.GridColumn();
             this.taxRepositoryItemLookUpEdit = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
             this.colQty = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -75,9 +75,12 @@
             this.colCess = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colNetTotal = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colRemark = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.productRepositoryItemButtonEdit = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
+            this.colTdsAcId = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colTdsAmt = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colTdsPer = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colorRepositoryItemButtonEdit = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
             this.designRepositoryItemButtonEdit = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
+            this.lotNoRepositoryItemButtonEdit = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
             this.challanNoRrepositoryItemButtonEdit = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
             this.empLookup1 = new Konto.Shared.Masters.Emp.EmpLookup();
             this.rcmLookUpEdit = new DevExpress.XtraEditors.LookUpEdit();
@@ -137,13 +140,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grnTransDtoBindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lotNoRepositoryItemButtonEdit)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.productRepositoryItemButtonEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.taxRepositoryItemLookUpEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.uomRepositoryItemLookUpEdit)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.productRepositoryItemButtonEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.colorRepositoryItemButtonEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.designRepositoryItemButtonEdit)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lotNoRepositoryItemButtonEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.challanNoRrepositoryItemButtonEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.rcmLookUpEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.remarkTextEdit.Properties)).BeginInit();
@@ -298,7 +301,7 @@
             this.tdsAccLookup.SelectedText = null;
             this.tdsAccLookup.SelectedValue = null;
             this.tdsAccLookup.Size = new System.Drawing.Size(215, 24);
-            this.tdsAccLookup.TabIndex = 15;
+            this.tdsAccLookup.TabIndex = 16;
             this.tdsAccLookup.TaxType = "TDS";
             this.tdsAccLookup.TransportLookup = null;
             this.tdsAccLookup.VoucherType = Konto.App.Shared.VoucherTypeEnum.None;
@@ -343,7 +346,7 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.roundoffSpinEdit.Size = new System.Drawing.Size(121, 24);
             this.roundoffSpinEdit.StyleController = this.layoutControl1;
-            this.roundoffSpinEdit.TabIndex = 1;
+            this.roundoffSpinEdit.TabIndex = 15;
             this.roundoffSpinEdit.EditValueChanged += new System.EventHandler(this.roundoffSpinEdit_EditValueChanged);
             // 
             // bookLookup
@@ -568,7 +571,10 @@
             this.colCessPer,
             this.colCess,
             this.colNetTotal,
-            this.colRemark});
+            this.colRemark,
+            this.colTdsAcId,
+            this.colTdsAmt,
+            this.colTdsPer});
             this.gridView1.GridControl = this.gridControl1;
             this.gridView1.IndicatorWidth = 30;
             this.gridView1.Name = "gridView1";
@@ -613,17 +619,18 @@
             // 
             // colParticular
             // 
-            this.colParticular.ColumnEdit = this.lotNoRepositoryItemButtonEdit;
+            this.colParticular.Caption = "Tds Account";
+            this.colParticular.ColumnEdit = this.productRepositoryItemButtonEdit;
             this.colParticular.FieldName = "Particular";
             this.colParticular.Name = "colParticular";
             this.colParticular.Width = 171;
             // 
-            // lotNoRepositoryItemButtonEdit
+            // productRepositoryItemButtonEdit
             // 
-            this.lotNoRepositoryItemButtonEdit.AutoHeight = false;
-            this.lotNoRepositoryItemButtonEdit.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            this.productRepositoryItemButtonEdit.AutoHeight = false;
+            this.productRepositoryItemButtonEdit.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.lotNoRepositoryItemButtonEdit.Name = "lotNoRepositoryItemButtonEdit";
+            this.productRepositoryItemButtonEdit.Name = "productRepositoryItemButtonEdit";
             // 
             // colBatchId
             // 
@@ -854,6 +861,7 @@
             this.colNetTotal.DisplayFormat.FormatString = "F";
             this.colNetTotal.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.colNetTotal.FieldName = "NetTotal";
+            this.colNetTotal.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Right;
             this.colNetTotal.Name = "colNetTotal";
             this.colNetTotal.OptionsColumn.AllowEdit = false;
             this.colNetTotal.OptionsColumn.AllowFocus = false;
@@ -861,6 +869,7 @@
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "NetTotal", "{0:F}")});
             this.colNetTotal.Visible = true;
             this.colNetTotal.VisibleIndex = 21;
+            this.colNetTotal.Width = 96;
             // 
             // colRemark
             // 
@@ -871,12 +880,29 @@
             this.colRemark.VisibleIndex = 0;
             this.colRemark.Width = 198;
             // 
-            // productRepositoryItemButtonEdit
+            // colTdsAcId
             // 
-            this.productRepositoryItemButtonEdit.AutoHeight = false;
-            this.productRepositoryItemButtonEdit.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.productRepositoryItemButtonEdit.Name = "productRepositoryItemButtonEdit";
+            this.colTdsAcId.Caption = "Tds Account";
+            this.colTdsAcId.FieldName = "TdsAcId";
+            this.colTdsAcId.Name = "colTdsAcId";
+            this.colTdsAcId.OptionsColumn.AllowEdit = false;
+            this.colTdsAcId.OptionsColumn.AllowFocus = false;
+            this.colTdsAcId.Width = 175;
+            // 
+            // colTdsAmt
+            // 
+            this.colTdsAmt.FieldName = "TdsAmt";
+            this.colTdsAmt.Name = "colTdsAmt";
+            this.colTdsAmt.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
+            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TdsAmt", "{0:F}")});
+            this.colTdsAmt.Width = 80;
+            // 
+            // colTdsPer
+            // 
+            this.colTdsPer.Caption = "Tds %";
+            this.colTdsPer.FieldName = "TdsPer";
+            this.colTdsPer.Name = "colTdsPer";
+            this.colTdsPer.Width = 64;
             // 
             // colorRepositoryItemButtonEdit
             // 
@@ -891,6 +917,13 @@
             this.designRepositoryItemButtonEdit.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
             this.designRepositoryItemButtonEdit.Name = "designRepositoryItemButtonEdit";
+            // 
+            // lotNoRepositoryItemButtonEdit
+            // 
+            this.lotNoRepositoryItemButtonEdit.AutoHeight = false;
+            this.lotNoRepositoryItemButtonEdit.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton()});
+            this.lotNoRepositoryItemButtonEdit.Name = "lotNoRepositoryItemButtonEdit";
             // 
             // challanNoRrepositoryItemButtonEdit
             // 
@@ -945,7 +978,7 @@
             this.remarkTextEdit.Properties.AppearanceFocused.Options.UseBorderColor = true;
             this.remarkTextEdit.Size = new System.Drawing.Size(633, 24);
             this.remarkTextEdit.StyleController = this.layoutControl1;
-            this.remarkTextEdit.TabIndex = 18;
+            this.remarkTextEdit.TabIndex = 19;
             // 
             // billDateEdit
             // 
@@ -1068,7 +1101,7 @@
             this.tdsPerTextEdit.Properties.MaxLength = 25;
             this.tdsPerTextEdit.Size = new System.Drawing.Size(114, 24);
             this.tdsPerTextEdit.StyleController = this.layoutControl1;
-            this.tdsPerTextEdit.TabIndex = 16;
+            this.tdsPerTextEdit.TabIndex = 17;
             // 
             // tdsAmtTextEdit
             // 
@@ -1091,7 +1124,7 @@
             this.tdsAmtTextEdit.Properties.MaxLength = 25;
             this.tdsAmtTextEdit.Size = new System.Drawing.Size(120, 24);
             this.tdsAmtTextEdit.StyleController = this.layoutControl1;
-            this.tdsAmtTextEdit.TabIndex = 17;
+            this.tdsAmtTextEdit.TabIndex = 18;
             // 
             // layoutControlItem19
             // 
@@ -1463,13 +1496,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.grnTransDtoBindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lotNoRepositoryItemButtonEdit)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.productRepositoryItemButtonEdit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.taxRepositoryItemLookUpEdit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.uomRepositoryItemLookUpEdit)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.productRepositoryItemButtonEdit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.colorRepositoryItemButtonEdit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.designRepositoryItemButtonEdit)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lotNoRepositoryItemButtonEdit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.challanNoRrepositoryItemButtonEdit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.rcmLookUpEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.remarkTextEdit.Properties)).EndInit();
@@ -1600,5 +1633,8 @@
         private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit taxRepositoryItemLookUpEdit;
         private DevExpress.XtraEditors.SimpleButton billAdjustSimpleButton;
         private System.Windows.Forms.Label paidLabel;
+        private DevExpress.XtraGrid.Columns.GridColumn colTdsAcId;
+        private DevExpress.XtraGrid.Columns.GridColumn colTdsAmt;
+        private DevExpress.XtraGrid.Columns.GridColumn colTdsPer;
     }
 }

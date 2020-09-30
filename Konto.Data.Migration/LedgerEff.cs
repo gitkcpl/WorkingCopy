@@ -741,6 +741,67 @@ namespace Konto.Data
                 }
             }
 
+
+            //check for line level tds posting
+            if(trans.Any(x=>x.TdsAcId >0 && x.TdsAmt >0) )
+            {
+                foreach (var item in trans)
+                {
+                    if (item.TdsAcId <= 0 || item.TdsAmt <= 0) continue;
+                    ledger = new LedgerTransModel // tds account posting
+                    {
+                        RefId = model.RowId,
+                        VoucherId = model.VoucherId,
+                        CompanyId = model.CompId,
+                        YearId = model.YearId,
+                        BillNo = type == "Debit" ? model.VoucherNo : model.BillNo,
+                        VoucherNo = model.VoucherNo,
+                        VoucherDate = model.VoucherDate,
+                        TransDate = model.VDate,
+                        Remark = model.Remarks,
+                        Narration = model.Remarks,
+                        LrNo = model.DocNo,
+                        LrDate = model.DocDate,
+
+                        AccountId = item.TdsAcId,
+                        RefAccountId = model.AccId,
+                        Debit = type == "Credit" ? 0 : Convert.ToDecimal(item.TdsAmt),
+                        Credit = type == "Credit" ? Convert.ToDecimal(item.TdsAmt) : 0,
+                        BilllAmount = Convert.ToDecimal(item.NetTotal),
+                        Amount = type == "Credit" ? -1 * Convert.ToDecimal(item.TdsAmt) : Convert.ToDecimal(item.TdsAmt)
+                    };
+                    list.Add(ledger);
+
+
+                    ledger = new LedgerTransModel // effect in party account
+                    {
+                        RefId = model.RowId,
+                        VoucherId = model.VoucherId,
+                        CompanyId = model.CompId,
+                        YearId = model.YearId,
+                        BillNo = type == "Debit" ? model.VoucherNo : model.BillNo,
+                        VoucherNo = model.VoucherNo,
+                        VoucherDate = model.VoucherDate,
+                        TransDate = model.VDate,
+                        Remark = model.Remarks,
+                        Narration = model.Remarks,
+                        LrNo = model.DocNo,
+                        LrDate = model.DocDate,
+
+
+                        //  AccountId = type == "Credit" ? model.AccId : model.HasteId,
+                        //  RefAccountId = type == "Credit" ? model.HasteId : model.AccId,
+                        AccountId = model.AccId,
+                        RefAccountId = item.TdsAcId,
+                        Debit = type == "Credit" ? Convert.ToDecimal(item.TdsAmt) : 0,
+                        Credit = type == "Credit" ? 0 : Convert.ToDecimal(item.TdsAmt),
+                        BilllAmount = Convert.ToDecimal(item.NetTotal),
+                        Amount = type == "Credit" ? -1 * Convert.ToDecimal(item.TdsAmt) : Convert.ToDecimal(item.TdsAmt)
+                    };
+                    list.Add(ledger);
+                }
+            }
+
             //sgst
             if (sgst != 0)
             {

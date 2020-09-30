@@ -31,6 +31,7 @@ namespace Konto.App.Shared.Para
         public static int Rate_Decimal = 2;
         public static int Qty_Decimal = 2;
         public static bool Allow_Gst_Editable = false;
+        public static bool Tcs_Round_Off = true;
        
     }
 

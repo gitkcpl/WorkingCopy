@@ -30,6 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
+            this.tcsAmtTextEdit = new DevExpress.XtraEditors.SpinEdit();
+            this.tcsPerTextEdit = new DevExpress.XtraEditors.SpinEdit();
+            this.rcdDateEdit1 = new DevExpress.XtraEditors.DateEdit();
             this.extra1TextEdit = new DevExpress.XtraEditors.TextEdit();
             this.extra2TextEdit = new DevExpress.XtraEditors.TextEdit();
             this.stateLookUpEdit = new DevExpress.XtraEditors.LookUpEdit();
@@ -113,30 +116,31 @@
             this.invTypeLayoutControlItem = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.layoutControlItem23 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem7 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem22 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem10 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem14 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.layoutControlItem13 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.layoutControlItem15 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.layoutControlItem16 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.layoutControlItem9 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.jobBookLayoutControlItem = new DevExpress.XtraLayout.LayoutControlItem();
-            this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.layoutControlItem11 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.layoutControlItem8 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem18 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem25 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.jobBookLayoutControlItem = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem11 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem9 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem8 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.tcsPerlayoutControlItem = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem23 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.tcsAmountlayoutControlItem = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem21 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem24 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem13 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem17 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem15 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem16 = new DevExpress.XtraLayout.LayoutControlItem();
             this.paidLabel = new System.Windows.Forms.Label();
             this.billAdjustSimpleButton = new DevExpress.XtraEditors.SimpleButton();
-            this.rcdDateEdit1 = new DevExpress.XtraEditors.DateEdit();
-            this.layoutControlItem25 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)(this.tabControlAdv1)).BeginInit();
             this.tabControlAdv1.SuspendLayout();
             this.tabPageAdv1.SuspendLayout();
@@ -144,6 +148,10 @@
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tcsAmtTextEdit.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tcsPerTextEdit.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rcdDateEdit1.Properties.CalendarTimeProperties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rcdDateEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.extra1TextEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.extra2TextEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.stateLookUpEdit.Properties)).BeginInit();
@@ -181,29 +189,29 @@
             ((System.ComponentModel.ISupportInitialize)(this.invTypeLayoutControlItem)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem23)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem22)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem10)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem14)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem13)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem15)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem16)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.jobBookLayoutControlItem)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem11)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem18)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem25)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.jobBookLayoutControlItem)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem11)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tcsPerlayoutControlItem)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem23)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tcsAmountlayoutControlItem)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem21)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem24)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem13)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem17)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.rcdDateEdit1.Properties.CalendarTimeProperties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.rcdDateEdit1.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem25)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem15)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem16)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControlAdv1
@@ -246,6 +254,8 @@
             // 
             // layoutControl1
             // 
+            this.layoutControl1.Controls.Add(this.tcsAmtTextEdit);
+            this.layoutControl1.Controls.Add(this.tcsPerTextEdit);
             this.layoutControl1.Controls.Add(this.rcdDateEdit1);
             this.layoutControl1.Controls.Add(this.extra1TextEdit);
             this.layoutControl1.Controls.Add(this.extra2TextEdit);
@@ -281,6 +291,7 @@
             this.layoutControl1.Name = "layoutControl1";
             this.layoutControl1.OptionsCustomizationForm.DesignTimeCustomizationFormPositionAndSize = new System.Drawing.Rectangle(571, 328, 650, 400);
             this.layoutControl1.OptionsFocus.AllowFocusControlOnLabelClick = true;
+            this.layoutControl1.OptionsSerialization.DiscardOldItems = true;
             this.layoutControl1.OptionsView.HighlightFocusedItem = true;
             this.layoutControl1.Root = this.Root;
             this.layoutControl1.Size = new System.Drawing.Size(944, 419);
@@ -288,38 +299,105 @@
             this.layoutControl1.TabStop = false;
             this.layoutControl1.Text = "layoutControl1";
             // 
+            // tcsAmtTextEdit
+            // 
+            this.tcsAmtTextEdit.EditValue = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.tcsAmtTextEdit.EnterMoveNextControl = true;
+            this.tcsAmtTextEdit.Location = new System.Drawing.Point(829, 334);
+            this.tcsAmtTextEdit.Name = "tcsAmtTextEdit";
+            this.tcsAmtTextEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tcsAmtTextEdit.Properties.Appearance.Options.UseFont = true;
+            this.tcsAmtTextEdit.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.tcsAmtTextEdit.Properties.AppearanceFocused.Options.UseBorderColor = true;
+            this.tcsAmtTextEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.tcsAmtTextEdit.Properties.EditValueChangedFiringMode = DevExpress.XtraEditors.Controls.EditValueChangedFiringMode.Default;
+            this.tcsAmtTextEdit.Properties.Mask.EditMask = "N2";
+            this.tcsAmtTextEdit.Properties.Mask.UseMaskAsDisplayFormat = true;
+            this.tcsAmtTextEdit.Properties.MaxLength = 25;
+            this.tcsAmtTextEdit.Size = new System.Drawing.Size(110, 24);
+            this.tcsAmtTextEdit.StyleController = this.layoutControl1;
+            this.tcsAmtTextEdit.TabIndex = 22;
+            // 
+            // tcsPerTextEdit
+            // 
+            this.tcsPerTextEdit.EditValue = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.tcsPerTextEdit.EnterMoveNextControl = true;
+            this.tcsPerTextEdit.Location = new System.Drawing.Point(829, 306);
+            this.tcsPerTextEdit.Name = "tcsPerTextEdit";
+            this.tcsPerTextEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tcsPerTextEdit.Properties.Appearance.Options.UseFont = true;
+            this.tcsPerTextEdit.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.tcsPerTextEdit.Properties.AppearanceFocused.Options.UseBorderColor = true;
+            this.tcsPerTextEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.tcsPerTextEdit.Properties.EditValueChangedFiringMode = DevExpress.XtraEditors.Controls.EditValueChangedFiringMode.Default;
+            this.tcsPerTextEdit.Properties.Mask.EditMask = "N2";
+            this.tcsPerTextEdit.Properties.Mask.UseMaskAsDisplayFormat = true;
+            this.tcsPerTextEdit.Properties.MaxLength = 25;
+            this.tcsPerTextEdit.Size = new System.Drawing.Size(110, 24);
+            this.tcsPerTextEdit.StyleController = this.layoutControl1;
+            this.tcsPerTextEdit.TabIndex = 18;
+            // 
+            // rcdDateEdit1
+            // 
+            this.rcdDateEdit1.EditValue = null;
+            this.rcdDateEdit1.EnterMoveNextControl = true;
+            this.rcdDateEdit1.Location = new System.Drawing.Point(771, 33);
+            this.rcdDateEdit1.Name = "rcdDateEdit1";
+            this.rcdDateEdit1.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
+            this.rcdDateEdit1.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rcdDateEdit1.Properties.Appearance.Options.UseFont = true;
+            this.rcdDateEdit1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.rcdDateEdit1.Properties.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.rcdDateEdit1.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.DateTimeAdvancingCaret;
+            this.rcdDateEdit1.Properties.Mask.UseMaskAsDisplayFormat = true;
+            this.rcdDateEdit1.Size = new System.Drawing.Size(168, 24);
+            this.rcdDateEdit1.StyleController = this.layoutControl1;
+            this.rcdDateEdit1.TabIndex = 6;
+            // 
             // extra1TextEdit
             // 
             this.extra1TextEdit.EnterMoveNextControl = true;
-            this.extra1TextEdit.Location = new System.Drawing.Point(348, 390);
+            this.extra1TextEdit.Location = new System.Drawing.Point(443, 362);
             this.extra1TextEdit.Name = "extra1TextEdit";
             this.extra1TextEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.extra1TextEdit.Properties.Appearance.Options.UseFont = true;
             this.extra1TextEdit.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.extra1TextEdit.Properties.AppearanceFocused.Options.UseBorderColor = true;
             this.extra1TextEdit.Properties.MaxLength = 50;
-            this.extra1TextEdit.Size = new System.Drawing.Size(133, 24);
+            this.extra1TextEdit.Size = new System.Drawing.Size(272, 24);
             this.extra1TextEdit.StyleController = this.layoutControl1;
-            this.extra1TextEdit.TabIndex = 22;
+            this.extra1TextEdit.TabIndex = 24;
             // 
             // extra2TextEdit
             // 
             this.extra2TextEdit.EnterMoveNextControl = true;
-            this.extra2TextEdit.Location = new System.Drawing.Point(115, 390);
+            this.extra2TextEdit.Location = new System.Drawing.Point(634, 334);
             this.extra2TextEdit.Name = "extra2TextEdit";
             this.extra2TextEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.extra2TextEdit.Properties.Appearance.Options.UseFont = true;
             this.extra2TextEdit.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.extra2TextEdit.Properties.AppearanceFocused.Options.UseBorderColor = true;
             this.extra2TextEdit.Properties.MaxLength = 50;
-            this.extra2TextEdit.Size = new System.Drawing.Size(119, 24);
+            this.extra2TextEdit.Size = new System.Drawing.Size(81, 24);
             this.extra2TextEdit.StyleController = this.layoutControl1;
             this.extra2TextEdit.TabIndex = 21;
             // 
             // stateLookUpEdit
             // 
             this.stateLookUpEdit.EnterMoveNextControl = true;
-            this.stateLookUpEdit.Location = new System.Drawing.Point(839, 113);
+            this.stateLookUpEdit.Location = new System.Drawing.Point(771, 113);
             this.stateLookUpEdit.Name = "stateLookUpEdit";
             this.stateLookUpEdit.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
             this.stateLookUpEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -336,7 +414,7 @@
             this.stateLookUpEdit.Properties.ShowHeader = false;
             this.stateLookUpEdit.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
             this.stateLookUpEdit.Properties.ValueMember = "Id";
-            this.stateLookUpEdit.Size = new System.Drawing.Size(100, 24);
+            this.stateLookUpEdit.Size = new System.Drawing.Size(168, 24);
             this.stateLookUpEdit.StyleController = this.layoutControl1;
             this.stateLookUpEdit.TabIndex = 13;
             // 
@@ -345,7 +423,7 @@
             this.agentLookup.AgentLookup = null;
             this.agentLookup.FillParty = false;
             this.agentLookup.GroupId = 31;
-            this.agentLookup.Location = new System.Drawing.Point(477, 61);
+            this.agentLookup.Location = new System.Drawing.Point(443, 61);
             this.agentLookup.LookupDto = null;
             this.agentLookup.Name = "agentLookup";
             this.agentLookup.Nature = null;
@@ -354,7 +432,7 @@
             this.agentLookup.RequiredField = false;
             this.agentLookup.SelectedText = null;
             this.agentLookup.SelectedValue = null;
-            this.agentLookup.Size = new System.Drawing.Size(248, 24);
+            this.agentLookup.Size = new System.Drawing.Size(214, 24);
             this.agentLookup.TabIndex = 8;
             this.agentLookup.TaxType = null;
             this.agentLookup.TransportLookup = null;
@@ -363,42 +441,42 @@
             // vehicleNoTextEdit
             // 
             this.vehicleNoTextEdit.EnterMoveNextControl = true;
-            this.vehicleNoTextEdit.Location = new System.Drawing.Point(348, 362);
+            this.vehicleNoTextEdit.Location = new System.Drawing.Point(443, 334);
             this.vehicleNoTextEdit.Name = "vehicleNoTextEdit";
             this.vehicleNoTextEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.vehicleNoTextEdit.Properties.Appearance.Options.UseFont = true;
             this.vehicleNoTextEdit.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.vehicleNoTextEdit.Properties.AppearanceFocused.Options.UseBorderColor = true;
             this.vehicleNoTextEdit.Properties.MaxLength = 50;
-            this.vehicleNoTextEdit.Size = new System.Drawing.Size(133, 24);
+            this.vehicleNoTextEdit.Size = new System.Drawing.Size(77, 24);
             this.vehicleNoTextEdit.StyleController = this.layoutControl1;
-            this.vehicleNoTextEdit.TabIndex = 19;
+            this.vehicleNoTextEdit.TabIndex = 20;
             // 
             // ewayBillTextEdit
             // 
             this.ewayBillTextEdit.EnterMoveNextControl = true;
-            this.ewayBillTextEdit.Location = new System.Drawing.Point(595, 362);
+            this.ewayBillTextEdit.Location = new System.Drawing.Point(115, 362);
             this.ewayBillTextEdit.Name = "ewayBillTextEdit";
             this.ewayBillTextEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ewayBillTextEdit.Properties.Appearance.Options.UseFont = true;
             this.ewayBillTextEdit.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.ewayBillTextEdit.Properties.AppearanceFocused.Options.UseBorderColor = true;
             this.ewayBillTextEdit.Properties.MaxLength = 50;
-            this.ewayBillTextEdit.Size = new System.Drawing.Size(114, 24);
+            this.ewayBillTextEdit.Size = new System.Drawing.Size(214, 24);
             this.ewayBillTextEdit.StyleController = this.layoutControl1;
-            this.ewayBillTextEdit.TabIndex = 20;
+            this.ewayBillTextEdit.TabIndex = 23;
             // 
             // refNoTextEdit
             // 
             this.refNoTextEdit.EnterMoveNextControl = true;
-            this.refNoTextEdit.Location = new System.Drawing.Point(584, 113);
+            this.refNoTextEdit.Location = new System.Drawing.Point(540, 113);
             this.refNoTextEdit.Name = "refNoTextEdit";
             this.refNoTextEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.refNoTextEdit.Properties.Appearance.Options.UseFont = true;
             this.refNoTextEdit.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.refNoTextEdit.Properties.AppearanceFocused.Options.UseBorderColor = true;
             this.refNoTextEdit.Properties.MaxLength = 50;
-            this.refNoTextEdit.Size = new System.Drawing.Size(141, 24);
+            this.refNoTextEdit.Size = new System.Drawing.Size(117, 24);
             this.refNoTextEdit.StyleController = this.layoutControl1;
             this.refNoTextEdit.TabIndex = 12;
             // 
@@ -429,7 +507,7 @@
             this.delvLookup.RequiredField = true;
             this.delvLookup.SelectedText = null;
             this.delvLookup.SelectedValue = null;
-            this.delvLookup.Size = new System.Drawing.Size(248, 24);
+            this.delvLookup.Size = new System.Drawing.Size(214, 24);
             this.delvLookup.TabIndex = 7;
             this.delvLookup.TaxType = null;
             this.delvLookup.TransportLookup = null;
@@ -443,7 +521,7 @@
             0,
             0});
             this.billAmtSpinEdit.EnterMoveNextControl = true;
-            this.billAmtSpinEdit.Location = new System.Drawing.Point(823, 362);
+            this.billAmtSpinEdit.Location = new System.Drawing.Point(829, 390);
             this.billAmtSpinEdit.Name = "billAmtSpinEdit";
             this.billAmtSpinEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe Script", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.billAmtSpinEdit.Properties.Appearance.Options.UseFont = true;
@@ -454,7 +532,7 @@
             this.billAmtSpinEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.billAmtSpinEdit.Properties.ReadOnly = true;
-            this.billAmtSpinEdit.Size = new System.Drawing.Size(116, 24);
+            this.billAmtSpinEdit.Size = new System.Drawing.Size(110, 24);
             this.billAmtSpinEdit.StyleController = this.layoutControl1;
             this.billAmtSpinEdit.TabIndex = 1;
             this.billAmtSpinEdit.TabStop = false;
@@ -467,14 +545,14 @@
             0,
             0});
             this.roundoffSpinEdit.EnterMoveNextControl = true;
-            this.roundoffSpinEdit.Location = new System.Drawing.Point(823, 334);
+            this.roundoffSpinEdit.Location = new System.Drawing.Point(829, 362);
             this.roundoffSpinEdit.Name = "roundoffSpinEdit";
             this.roundoffSpinEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.roundoffSpinEdit.Properties.Appearance.Options.UseFont = true;
             this.roundoffSpinEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.roundoffSpinEdit.Properties.ReadOnly = true;
-            this.roundoffSpinEdit.Size = new System.Drawing.Size(116, 24);
+            this.roundoffSpinEdit.Size = new System.Drawing.Size(110, 24);
             this.roundoffSpinEdit.StyleController = this.layoutControl1;
             this.roundoffSpinEdit.TabIndex = 1;
             this.roundoffSpinEdit.TabStop = false;
@@ -493,7 +571,7 @@
             this.bookLookup.RequiredField = true;
             this.bookLookup.SelectedText = null;
             this.bookLookup.SelectedValue = null;
-            this.bookLookup.Size = new System.Drawing.Size(355, 24);
+            this.bookLookup.Size = new System.Drawing.Size(311, 24);
             this.bookLookup.TabIndex = 11;
             this.bookLookup.TaxType = null;
             this.bookLookup.TransportLookup = null;
@@ -503,7 +581,7 @@
             // 
             this.lrDateEdit.EditValue = null;
             this.lrDateEdit.EnterMoveNextControl = true;
-            this.lrDateEdit.Location = new System.Drawing.Point(629, 334);
+            this.lrDateEdit.Location = new System.Drawing.Point(634, 306);
             this.lrDateEdit.Name = "lrDateEdit";
             this.lrDateEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lrDateEdit.Properties.Appearance.Options.UseFont = true;
@@ -513,14 +591,14 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.lrDateEdit.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.DateTimeAdvancingCaret;
             this.lrDateEdit.Properties.Mask.UseMaskAsDisplayFormat = true;
-            this.lrDateEdit.Size = new System.Drawing.Size(80, 24);
+            this.lrDateEdit.Size = new System.Drawing.Size(81, 24);
             this.lrDateEdit.StyleController = this.layoutControl1;
             this.lrDateEdit.TabIndex = 17;
             // 
             // lrNotextEdit
             // 
             this.lrNotextEdit.EnterMoveNextControl = true;
-            this.lrNotextEdit.Location = new System.Drawing.Point(438, 334);
+            this.lrNotextEdit.Location = new System.Drawing.Point(443, 306);
             this.lrNotextEdit.Name = "lrNotextEdit";
             this.lrNotextEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lrNotextEdit.Properties.Appearance.Options.UseFont = true;
@@ -575,7 +653,7 @@
             this.invTypeLookUpEdit.Properties.ShowHeader = false;
             this.invTypeLookUpEdit.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
             this.invTypeLookUpEdit.Properties.ValueMember = "_Value";
-            this.invTypeLookUpEdit.Size = new System.Drawing.Size(167, 24);
+            this.invTypeLookUpEdit.Size = new System.Drawing.Size(140, 24);
             this.invTypeLookUpEdit.StyleController = this.layoutControl1;
             this.invTypeLookUpEdit.TabIndex = 0;
             // 
@@ -584,7 +662,7 @@
             this.transportLookup.AgentLookup = null;
             this.transportLookup.FillParty = true;
             this.transportLookup.GroupId = 32;
-            this.transportLookup.Location = new System.Drawing.Point(115, 334);
+            this.transportLookup.Location = new System.Drawing.Point(115, 306);
             this.transportLookup.LookupDto = null;
             this.transportLookup.Name = "transportLookup";
             this.transportLookup.Nature = null;
@@ -593,7 +671,7 @@
             this.transportLookup.RequiredField = false;
             this.transportLookup.SelectedText = null;
             this.transportLookup.SelectedValue = null;
-            this.transportLookup.Size = new System.Drawing.Size(209, 24);
+            this.transportLookup.Size = new System.Drawing.Size(214, 24);
             this.transportLookup.TabIndex = 15;
             this.transportLookup.TaxType = null;
             this.transportLookup.TransportLookup = null;
@@ -616,7 +694,7 @@
             this.repositoryItemTextEdit1,
             this.challanNoRrepositoryItemButtonEdit,
             this.taxRepositoryItemLookUpEdit});
-            this.gridControl1.Size = new System.Drawing.Size(934, 189);
+            this.gridControl1.Size = new System.Drawing.Size(934, 161);
             this.gridControl1.TabIndex = 14;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -1121,21 +1199,21 @@
             // remarkTextEdit
             // 
             this.remarkTextEdit.EnterMoveNextControl = true;
-            this.remarkTextEdit.Location = new System.Drawing.Point(595, 390);
+            this.remarkTextEdit.Location = new System.Drawing.Point(115, 390);
             this.remarkTextEdit.Name = "remarkTextEdit";
             this.remarkTextEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.remarkTextEdit.Properties.Appearance.Options.UseFont = true;
             this.remarkTextEdit.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.remarkTextEdit.Properties.AppearanceFocused.Options.UseBorderColor = true;
-            this.remarkTextEdit.Size = new System.Drawing.Size(344, 24);
+            this.remarkTextEdit.Size = new System.Drawing.Size(600, 24);
             this.remarkTextEdit.StyleController = this.layoutControl1;
-            this.remarkTextEdit.TabIndex = 23;
+            this.remarkTextEdit.TabIndex = 25;
             // 
             // voucherDateEdit
             // 
             this.voucherDateEdit.EditValue = null;
             this.voucherDateEdit.EnterMoveNextControl = true;
-            this.voucherDateEdit.Location = new System.Drawing.Point(396, 5);
+            this.voucherDateEdit.Location = new System.Drawing.Point(369, 5);
             this.voucherDateEdit.Name = "voucherDateEdit";
             this.voucherDateEdit.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
             this.voucherDateEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1146,21 +1224,21 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.voucherDateEdit.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.DateTimeAdvancingCaret;
             this.voucherDateEdit.Properties.Mask.UseMaskAsDisplayFormat = true;
-            this.voucherDateEdit.Size = new System.Drawing.Size(105, 24);
+            this.voucherDateEdit.Size = new System.Drawing.Size(73, 24);
             this.voucherDateEdit.StyleController = this.layoutControl1;
             this.voucherDateEdit.TabIndex = 2;
             // 
             // challanNotextEdit
             // 
             this.challanNotextEdit.EnterMoveNextControl = true;
-            this.challanNotextEdit.Location = new System.Drawing.Point(839, 61);
+            this.challanNotextEdit.Location = new System.Drawing.Point(771, 61);
             this.challanNotextEdit.Name = "challanNotextEdit";
             this.challanNotextEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.challanNotextEdit.Properties.Appearance.Options.UseFont = true;
             this.challanNotextEdit.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.challanNotextEdit.Properties.AppearanceFocused.Options.UseBorderColor = true;
             this.challanNotextEdit.Properties.MaxLength = 25;
-            this.challanNotextEdit.Size = new System.Drawing.Size(100, 24);
+            this.challanNotextEdit.Size = new System.Drawing.Size(168, 24);
             this.challanNotextEdit.StyleController = this.layoutControl1;
             this.challanNotextEdit.TabIndex = 9;
             // 
@@ -1178,7 +1256,7 @@
             this.accLookup1.RequiredField = true;
             this.accLookup1.SelectedText = null;
             this.accLookup1.SelectedValue = null;
-            this.accLookup1.Size = new System.Drawing.Size(610, 24);
+            this.accLookup1.Size = new System.Drawing.Size(542, 24);
             this.accLookup1.TabIndex = 5;
             this.accLookup1.TaxType = null;
             this.accLookup1.TransportLookup = this.transportLookup;
@@ -1188,27 +1266,27 @@
             // 
             this.voucherNoTextEdit.Enabled = false;
             this.voucherNoTextEdit.EnterMoveNextControl = true;
-            this.voucherNoTextEdit.Location = new System.Drawing.Point(839, 5);
+            this.voucherNoTextEdit.Location = new System.Drawing.Point(771, 5);
             this.voucherNoTextEdit.Name = "voucherNoTextEdit";
             this.voucherNoTextEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.voucherNoTextEdit.Properties.Appearance.Options.UseFont = true;
             this.voucherNoTextEdit.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.voucherNoTextEdit.Properties.AppearanceFocused.Options.UseBorderColor = true;
             this.voucherNoTextEdit.Properties.MaxLength = 50;
-            this.voucherNoTextEdit.Size = new System.Drawing.Size(100, 24);
+            this.voucherNoTextEdit.Size = new System.Drawing.Size(168, 24);
             this.voucherNoTextEdit.StyleController = this.layoutControl1;
             this.voucherNoTextEdit.TabIndex = 4;
             // 
             // voucherLookup1
             // 
             this.voucherLookup1.GroupDto = null;
-            this.voucherLookup1.Location = new System.Drawing.Point(615, 5);
+            this.voucherLookup1.Location = new System.Drawing.Point(556, 5);
             this.voucherLookup1.Name = "voucherLookup1";
             this.voucherLookup1.PrimaryKey = null;
             this.voucherLookup1.RequiredField = true;
             this.voucherLookup1.SelectedText = null;
             this.voucherLookup1.SelectedValue = null;
-            this.voucherLookup1.Size = new System.Drawing.Size(110, 24);
+            this.voucherLookup1.Size = new System.Drawing.Size(101, 24);
             this.voucherLookup1.TabIndex = 3;
             this.voucherLookup1.VTypeId = Konto.App.Shared.VoucherTypeEnum.SaleInvoice;
             // 
@@ -1219,7 +1297,7 @@
             0,
             0,
             0});
-            this.dueDaysTextEdit.Location = new System.Drawing.Point(115, 362);
+            this.dueDaysTextEdit.Location = new System.Drawing.Point(115, 334);
             this.dueDaysTextEdit.Name = "dueDaysTextEdit";
             this.dueDaysTextEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dueDaysTextEdit.Properties.Appearance.Options.UseFont = true;
@@ -1233,9 +1311,9 @@
             this.dueDaysTextEdit.Properties.Mask.SaveLiteral = false;
             this.dueDaysTextEdit.Properties.Mask.UseMaskAsDisplayFormat = true;
             this.dueDaysTextEdit.Properties.MaxLength = 50;
-            this.dueDaysTextEdit.Size = new System.Drawing.Size(119, 24);
+            this.dueDaysTextEdit.Size = new System.Drawing.Size(214, 24);
             this.dueDaysTextEdit.StyleController = this.layoutControl1;
-            this.dueDaysTextEdit.TabIndex = 18;
+            this.dueDaysTextEdit.TabIndex = 19;
             // 
             // layoutControlItem19
             // 
@@ -1269,27 +1347,29 @@
             this.invTypeLayoutControlItem,
             this.layoutControlItem1,
             this.layoutControlItem4,
-            this.layoutControlItem23,
             this.layoutControlItem7,
             this.layoutControlItem22,
             this.layoutControlItem10,
             this.layoutControlItem14,
             this.layoutControlItem6,
-            this.layoutControlItem13,
-            this.layoutControlItem15,
-            this.layoutControlItem16,
             this.layoutControlItem3,
             this.layoutControlItem18,
-            this.layoutControlItem21,
-            this.layoutControlItem24,
-            this.layoutControlItem17,
             this.layoutControlItem25,
             this.layoutControlItem5,
             this.jobBookLayoutControlItem,
             this.layoutControlItem11,
             this.layoutControlItem2,
             this.layoutControlItem9,
-            this.layoutControlItem8});
+            this.layoutControlItem8,
+            this.tcsPerlayoutControlItem,
+            this.layoutControlItem23,
+            this.tcsAmountlayoutControlItem,
+            this.layoutControlItem21,
+            this.layoutControlItem24,
+            this.layoutControlItem13,
+            this.layoutControlItem17,
+            this.layoutControlItem15,
+            this.layoutControlItem16});
             this.Root.Name = "Root";
             this.Root.Padding = new DevExpress.XtraLayout.Utils.Padding(3, 3, 3, 3);
             this.Root.Size = new System.Drawing.Size(944, 419);
@@ -1300,7 +1380,7 @@
             this.layoutControlItem20.Control = this.gridControl1;
             this.layoutControlItem20.Location = new System.Drawing.Point(0, 136);
             this.layoutControlItem20.Name = "layoutControlItem20";
-            this.layoutControlItem20.Size = new System.Drawing.Size(938, 193);
+            this.layoutControlItem20.Size = new System.Drawing.Size(938, 165);
             this.layoutControlItem20.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem20.TextVisible = false;
             // 
@@ -1312,7 +1392,7 @@
             this.invTypeLayoutControlItem.Control = this.invTypeLookUpEdit;
             this.invTypeLayoutControlItem.Location = new System.Drawing.Point(0, 0);
             this.invTypeLayoutControlItem.Name = "invTypeLayoutControlItem";
-            this.invTypeLayoutControlItem.Size = new System.Drawing.Size(281, 28);
+            this.invTypeLayoutControlItem.Size = new System.Drawing.Size(254, 28);
             this.invTypeLayoutControlItem.Text = "<color=255, 0, 0>*</color>Invoice Type:";
             this.invTypeLayoutControlItem.TextSize = new System.Drawing.Size(107, 17);
             // 
@@ -1324,9 +1404,9 @@
             this.layoutControlItem1.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem1.AppearanceItemCaption.Options.UseForeColor = true;
             this.layoutControlItem1.Control = this.voucherLookup1;
-            this.layoutControlItem1.Location = new System.Drawing.Point(500, 0);
+            this.layoutControlItem1.Location = new System.Drawing.Point(441, 0);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(224, 28);
+            this.layoutControlItem1.Size = new System.Drawing.Size(215, 28);
             this.layoutControlItem1.Text = "<color=255, 0, 0>*</color>Voucher:";
             this.layoutControlItem1.TextSize = new System.Drawing.Size(107, 17);
             // 
@@ -1340,27 +1420,16 @@
             this.layoutControlItem4.Control = this.accLookup1;
             this.layoutControlItem4.Location = new System.Drawing.Point(0, 28);
             this.layoutControlItem4.Name = "layoutControlItem4";
-            this.layoutControlItem4.Size = new System.Drawing.Size(724, 28);
+            this.layoutControlItem4.Size = new System.Drawing.Size(656, 28);
             this.layoutControlItem4.Text = "<color=255, 0, 0>*</color>Party:";
             this.layoutControlItem4.TextSize = new System.Drawing.Size(107, 17);
-            // 
-            // layoutControlItem23
-            // 
-            this.layoutControlItem23.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.layoutControlItem23.AppearanceItemCaption.Options.UseFont = true;
-            this.layoutControlItem23.Control = this.billAmtSpinEdit;
-            this.layoutControlItem23.Location = new System.Drawing.Point(708, 357);
-            this.layoutControlItem23.Name = "layoutControlItem23";
-            this.layoutControlItem23.Size = new System.Drawing.Size(230, 28);
-            this.layoutControlItem23.Text = "Bill Amount:";
-            this.layoutControlItem23.TextSize = new System.Drawing.Size(107, 17);
             // 
             // layoutControlItem7
             // 
             this.layoutControlItem7.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.layoutControlItem7.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem7.Control = this.lrNotextEdit;
-            this.layoutControlItem7.Location = new System.Drawing.Point(323, 329);
+            this.layoutControlItem7.Location = new System.Drawing.Point(328, 301);
             this.layoutControlItem7.Name = "layoutControlItem7";
             this.layoutControlItem7.Size = new System.Drawing.Size(191, 28);
             this.layoutControlItem7.Text = "Lr No:";
@@ -1371,9 +1440,9 @@
             this.layoutControlItem22.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.layoutControlItem22.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem22.Control = this.roundoffSpinEdit;
-            this.layoutControlItem22.Location = new System.Drawing.Point(708, 329);
+            this.layoutControlItem22.Location = new System.Drawing.Point(714, 357);
             this.layoutControlItem22.Name = "layoutControlItem22";
-            this.layoutControlItem22.Size = new System.Drawing.Size(230, 28);
+            this.layoutControlItem22.Size = new System.Drawing.Size(224, 28);
             this.layoutControlItem22.Text = "Round off:";
             this.layoutControlItem22.TextSize = new System.Drawing.Size(107, 17);
             // 
@@ -1382,9 +1451,9 @@
             this.layoutControlItem10.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.layoutControlItem10.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem10.Control = this.transportLookup;
-            this.layoutControlItem10.Location = new System.Drawing.Point(0, 329);
+            this.layoutControlItem10.Location = new System.Drawing.Point(0, 301);
             this.layoutControlItem10.Name = "layoutControlItem10";
-            this.layoutControlItem10.Size = new System.Drawing.Size(323, 28);
+            this.layoutControlItem10.Size = new System.Drawing.Size(328, 28);
             this.layoutControlItem10.Text = "Transport:";
             this.layoutControlItem10.TextSize = new System.Drawing.Size(107, 17);
             // 
@@ -1393,9 +1462,9 @@
             this.layoutControlItem14.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.layoutControlItem14.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem14.Control = this.lrDateEdit;
-            this.layoutControlItem14.Location = new System.Drawing.Point(514, 329);
+            this.layoutControlItem14.Location = new System.Drawing.Point(519, 301);
             this.layoutControlItem14.Name = "layoutControlItem14";
-            this.layoutControlItem14.Size = new System.Drawing.Size(194, 28);
+            this.layoutControlItem14.Size = new System.Drawing.Size(195, 28);
             this.layoutControlItem14.Text = "Lr Date:";
             this.layoutControlItem14.TextSize = new System.Drawing.Size(107, 17);
             // 
@@ -1407,55 +1476,11 @@
             this.layoutControlItem6.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem6.AppearanceItemCaption.Options.UseForeColor = true;
             this.layoutControlItem6.Control = this.voucherDateEdit;
-            this.layoutControlItem6.Location = new System.Drawing.Point(281, 0);
+            this.layoutControlItem6.Location = new System.Drawing.Point(254, 0);
             this.layoutControlItem6.Name = "layoutControlItem6";
-            this.layoutControlItem6.Size = new System.Drawing.Size(219, 28);
+            this.layoutControlItem6.Size = new System.Drawing.Size(187, 28);
             this.layoutControlItem6.Text = "<color=255, 0, 0>*</color>Date:";
             this.layoutControlItem6.TextSize = new System.Drawing.Size(107, 17);
-            // 
-            // layoutControlItem13
-            // 
-            this.layoutControlItem13.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.layoutControlItem13.AppearanceItemCaption.Options.UseFont = true;
-            this.layoutControlItem13.Control = this.dueDaysTextEdit;
-            this.layoutControlItem13.Location = new System.Drawing.Point(0, 357);
-            this.layoutControlItem13.Name = "layoutControlItem13";
-            this.layoutControlItem13.Size = new System.Drawing.Size(233, 28);
-            this.layoutControlItem13.Text = "Due Days:";
-            this.layoutControlItem13.TextSize = new System.Drawing.Size(107, 17);
-            // 
-            // layoutControlItem15
-            // 
-            this.layoutControlItem15.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.layoutControlItem15.AppearanceItemCaption.Options.UseFont = true;
-            this.layoutControlItem15.Control = this.ewayBillTextEdit;
-            this.layoutControlItem15.Location = new System.Drawing.Point(480, 357);
-            this.layoutControlItem15.Name = "layoutControlItem15";
-            this.layoutControlItem15.Size = new System.Drawing.Size(228, 28);
-            this.layoutControlItem15.Text = "EWay Bill No:";
-            this.layoutControlItem15.TextSize = new System.Drawing.Size(107, 17);
-            // 
-            // layoutControlItem16
-            // 
-            this.layoutControlItem16.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.layoutControlItem16.AppearanceItemCaption.Options.UseFont = true;
-            this.layoutControlItem16.Control = this.vehicleNoTextEdit;
-            this.layoutControlItem16.Location = new System.Drawing.Point(233, 357);
-            this.layoutControlItem16.Name = "layoutControlItem16";
-            this.layoutControlItem16.Size = new System.Drawing.Size(247, 28);
-            this.layoutControlItem16.Text = "Vehicle No:";
-            this.layoutControlItem16.TextSize = new System.Drawing.Size(107, 17);
-            // 
-            // layoutControlItem9
-            // 
-            this.layoutControlItem9.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.layoutControlItem9.AppearanceItemCaption.Options.UseFont = true;
-            this.layoutControlItem9.Control = this.agentLookup;
-            this.layoutControlItem9.Location = new System.Drawing.Point(362, 56);
-            this.layoutControlItem9.Name = "layoutControlItem9";
-            this.layoutControlItem9.Size = new System.Drawing.Size(362, 28);
-            this.layoutControlItem9.Text = "Agent:";
-            this.layoutControlItem9.TextSize = new System.Drawing.Size(107, 17);
             // 
             // layoutControlItem3
             // 
@@ -1464,35 +1489,33 @@
             this.layoutControlItem3.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem3.AppearanceItemCaption.Options.UseForeColor = true;
             this.layoutControlItem3.Control = this.voucherNoTextEdit;
-            this.layoutControlItem3.Location = new System.Drawing.Point(724, 0);
+            this.layoutControlItem3.Location = new System.Drawing.Point(656, 0);
             this.layoutControlItem3.Name = "layoutControlItem3";
-            this.layoutControlItem3.Size = new System.Drawing.Size(214, 28);
+            this.layoutControlItem3.Size = new System.Drawing.Size(282, 28);
             this.layoutControlItem3.Text = "Invoice No:";
             this.layoutControlItem3.TextSize = new System.Drawing.Size(107, 17);
             // 
-            // layoutControlItem2
+            // layoutControlItem18
             // 
-            this.layoutControlItem2.AllowHtmlStringInCaption = true;
-            this.layoutControlItem2.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.layoutControlItem2.AppearanceItemCaption.Options.UseFont = true;
-            this.layoutControlItem2.Control = this.delvLookup;
-            this.layoutControlItem2.Location = new System.Drawing.Point(0, 56);
-            this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(362, 28);
-            this.layoutControlItem2.Text = "<color=255, 0, 0>*</color>Delv Party:";
-            this.layoutControlItem2.TextSize = new System.Drawing.Size(107, 17);
+            this.layoutControlItem18.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.layoutControlItem18.AppearanceItemCaption.Options.UseFont = true;
+            this.layoutControlItem18.Control = this.stateLookUpEdit;
+            this.layoutControlItem18.Location = new System.Drawing.Point(656, 108);
+            this.layoutControlItem18.Name = "layoutControlItem18";
+            this.layoutControlItem18.Size = new System.Drawing.Size(282, 28);
+            this.layoutControlItem18.Text = "Pos:";
+            this.layoutControlItem18.TextSize = new System.Drawing.Size(107, 17);
             // 
-            // jobBookLayoutControlItem
+            // layoutControlItem25
             // 
-            this.jobBookLayoutControlItem.AllowHtmlStringInCaption = true;
-            this.jobBookLayoutControlItem.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.jobBookLayoutControlItem.AppearanceItemCaption.Options.UseFont = true;
-            this.jobBookLayoutControlItem.Control = this.bookLookup;
-            this.jobBookLayoutControlItem.Location = new System.Drawing.Point(0, 108);
-            this.jobBookLayoutControlItem.Name = "jobBookLayoutControlItem";
-            this.jobBookLayoutControlItem.Size = new System.Drawing.Size(469, 28);
-            this.jobBookLayoutControlItem.Text = "<color=255, 0, 0>*</color>Sales A/c:";
-            this.jobBookLayoutControlItem.TextSize = new System.Drawing.Size(107, 17);
+            this.layoutControlItem25.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.layoutControlItem25.AppearanceItemCaption.Options.UseFont = true;
+            this.layoutControlItem25.Control = this.rcdDateEdit1;
+            this.layoutControlItem25.Location = new System.Drawing.Point(656, 28);
+            this.layoutControlItem25.Name = "layoutControlItem25";
+            this.layoutControlItem25.Size = new System.Drawing.Size(282, 28);
+            this.layoutControlItem25.Text = "Challan Date:";
+            this.layoutControlItem25.TextSize = new System.Drawing.Size(107, 17);
             // 
             // layoutControlItem5
             // 
@@ -1502,22 +1525,57 @@
             this.layoutControlItem5.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem5.AppearanceItemCaption.Options.UseForeColor = true;
             this.layoutControlItem5.Control = this.challanNotextEdit;
-            this.layoutControlItem5.Location = new System.Drawing.Point(724, 56);
+            this.layoutControlItem5.Location = new System.Drawing.Point(656, 56);
             this.layoutControlItem5.Name = "layoutControlItem5";
-            this.layoutControlItem5.Size = new System.Drawing.Size(214, 28);
+            this.layoutControlItem5.Size = new System.Drawing.Size(282, 28);
             this.layoutControlItem5.Text = "Challan No:";
             this.layoutControlItem5.TextSize = new System.Drawing.Size(107, 17);
+            // 
+            // jobBookLayoutControlItem
+            // 
+            this.jobBookLayoutControlItem.AllowHtmlStringInCaption = true;
+            this.jobBookLayoutControlItem.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.jobBookLayoutControlItem.AppearanceItemCaption.Options.UseFont = true;
+            this.jobBookLayoutControlItem.Control = this.bookLookup;
+            this.jobBookLayoutControlItem.Location = new System.Drawing.Point(0, 108);
+            this.jobBookLayoutControlItem.Name = "jobBookLayoutControlItem";
+            this.jobBookLayoutControlItem.Size = new System.Drawing.Size(425, 28);
+            this.jobBookLayoutControlItem.Text = "<color=255, 0, 0>*</color>Sales A/c:";
+            this.jobBookLayoutControlItem.TextSize = new System.Drawing.Size(107, 17);
             // 
             // layoutControlItem11
             // 
             this.layoutControlItem11.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.layoutControlItem11.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem11.Control = this.refNoTextEdit;
-            this.layoutControlItem11.Location = new System.Drawing.Point(469, 108);
+            this.layoutControlItem11.Location = new System.Drawing.Point(425, 108);
             this.layoutControlItem11.Name = "layoutControlItem11";
-            this.layoutControlItem11.Size = new System.Drawing.Size(255, 28);
+            this.layoutControlItem11.Size = new System.Drawing.Size(231, 28);
             this.layoutControlItem11.Text = "Order No:";
             this.layoutControlItem11.TextSize = new System.Drawing.Size(107, 17);
+            // 
+            // layoutControlItem2
+            // 
+            this.layoutControlItem2.AllowHtmlStringInCaption = true;
+            this.layoutControlItem2.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.layoutControlItem2.AppearanceItemCaption.Options.UseFont = true;
+            this.layoutControlItem2.Control = this.delvLookup;
+            this.layoutControlItem2.Location = new System.Drawing.Point(0, 56);
+            this.layoutControlItem2.Name = "layoutControlItem2";
+            this.layoutControlItem2.Size = new System.Drawing.Size(328, 28);
+            this.layoutControlItem2.Text = "<color=255, 0, 0>*</color>Delv Party:";
+            this.layoutControlItem2.TextSize = new System.Drawing.Size(107, 17);
+            // 
+            // layoutControlItem9
+            // 
+            this.layoutControlItem9.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.layoutControlItem9.AppearanceItemCaption.Options.UseFont = true;
+            this.layoutControlItem9.Control = this.agentLookup;
+            this.layoutControlItem9.Location = new System.Drawing.Point(328, 56);
+            this.layoutControlItem9.Name = "layoutControlItem9";
+            this.layoutControlItem9.Size = new System.Drawing.Size(328, 28);
+            this.layoutControlItem9.Text = "Agent:";
+            this.layoutControlItem9.TextSize = new System.Drawing.Size(107, 17);
             // 
             // layoutControlItem8
             // 
@@ -1530,25 +1588,47 @@
             this.layoutControlItem8.Text = "Delv Address:";
             this.layoutControlItem8.TextSize = new System.Drawing.Size(107, 17);
             // 
-            // layoutControlItem18
+            // tcsPerlayoutControlItem
             // 
-            this.layoutControlItem18.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.layoutControlItem18.AppearanceItemCaption.Options.UseFont = true;
-            this.layoutControlItem18.Control = this.stateLookUpEdit;
-            this.layoutControlItem18.Location = new System.Drawing.Point(724, 108);
-            this.layoutControlItem18.Name = "layoutControlItem18";
-            this.layoutControlItem18.Size = new System.Drawing.Size(214, 28);
-            this.layoutControlItem18.Text = "Pos:";
-            this.layoutControlItem18.TextSize = new System.Drawing.Size(107, 17);
+            this.tcsPerlayoutControlItem.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tcsPerlayoutControlItem.AppearanceItemCaption.Options.UseFont = true;
+            this.tcsPerlayoutControlItem.Control = this.tcsPerTextEdit;
+            this.tcsPerlayoutControlItem.Location = new System.Drawing.Point(714, 301);
+            this.tcsPerlayoutControlItem.Name = "tcsPerlayoutControlItem";
+            this.tcsPerlayoutControlItem.Size = new System.Drawing.Size(224, 28);
+            this.tcsPerlayoutControlItem.Text = "Tcs %";
+            this.tcsPerlayoutControlItem.TextSize = new System.Drawing.Size(107, 17);
+            // 
+            // layoutControlItem23
+            // 
+            this.layoutControlItem23.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.layoutControlItem23.AppearanceItemCaption.Options.UseFont = true;
+            this.layoutControlItem23.Control = this.billAmtSpinEdit;
+            this.layoutControlItem23.Location = new System.Drawing.Point(714, 385);
+            this.layoutControlItem23.Name = "layoutControlItem23";
+            this.layoutControlItem23.Size = new System.Drawing.Size(224, 28);
+            this.layoutControlItem23.Text = "Bill Amount:";
+            this.layoutControlItem23.TextSize = new System.Drawing.Size(107, 17);
+            // 
+            // tcsAmountlayoutControlItem
+            // 
+            this.tcsAmountlayoutControlItem.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tcsAmountlayoutControlItem.AppearanceItemCaption.Options.UseFont = true;
+            this.tcsAmountlayoutControlItem.Control = this.tcsAmtTextEdit;
+            this.tcsAmountlayoutControlItem.Location = new System.Drawing.Point(714, 329);
+            this.tcsAmountlayoutControlItem.Name = "tcsAmountlayoutControlItem";
+            this.tcsAmountlayoutControlItem.Size = new System.Drawing.Size(224, 28);
+            this.tcsAmountlayoutControlItem.Text = "Tcs Amount:";
+            this.tcsAmountlayoutControlItem.TextSize = new System.Drawing.Size(107, 17);
             // 
             // layoutControlItem21
             // 
             this.layoutControlItem21.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.layoutControlItem21.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem21.Control = this.extra2TextEdit;
-            this.layoutControlItem21.Location = new System.Drawing.Point(0, 385);
+            this.layoutControlItem21.Location = new System.Drawing.Point(519, 329);
             this.layoutControlItem21.Name = "layoutControlItem21";
-            this.layoutControlItem21.Size = new System.Drawing.Size(233, 28);
+            this.layoutControlItem21.Size = new System.Drawing.Size(195, 28);
             this.layoutControlItem21.Text = "Bale No:";
             this.layoutControlItem21.TextSize = new System.Drawing.Size(107, 17);
             // 
@@ -1557,22 +1637,55 @@
             this.layoutControlItem24.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.layoutControlItem24.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem24.Control = this.extra1TextEdit;
-            this.layoutControlItem24.Location = new System.Drawing.Point(233, 385);
+            this.layoutControlItem24.Location = new System.Drawing.Point(328, 357);
             this.layoutControlItem24.Name = "layoutControlItem24";
-            this.layoutControlItem24.Size = new System.Drawing.Size(247, 28);
+            this.layoutControlItem24.Size = new System.Drawing.Size(386, 28);
             this.layoutControlItem24.Text = "Others Reference:";
             this.layoutControlItem24.TextSize = new System.Drawing.Size(107, 17);
+            // 
+            // layoutControlItem13
+            // 
+            this.layoutControlItem13.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.layoutControlItem13.AppearanceItemCaption.Options.UseFont = true;
+            this.layoutControlItem13.Control = this.dueDaysTextEdit;
+            this.layoutControlItem13.Location = new System.Drawing.Point(0, 329);
+            this.layoutControlItem13.Name = "layoutControlItem13";
+            this.layoutControlItem13.Size = new System.Drawing.Size(328, 28);
+            this.layoutControlItem13.Text = "Due Days:";
+            this.layoutControlItem13.TextSize = new System.Drawing.Size(107, 17);
             // 
             // layoutControlItem17
             // 
             this.layoutControlItem17.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.layoutControlItem17.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem17.Control = this.remarkTextEdit;
-            this.layoutControlItem17.Location = new System.Drawing.Point(480, 385);
+            this.layoutControlItem17.Location = new System.Drawing.Point(0, 385);
             this.layoutControlItem17.Name = "layoutControlItem17";
-            this.layoutControlItem17.Size = new System.Drawing.Size(458, 28);
+            this.layoutControlItem17.Size = new System.Drawing.Size(714, 28);
             this.layoutControlItem17.Text = "Remark:";
             this.layoutControlItem17.TextSize = new System.Drawing.Size(107, 17);
+            // 
+            // layoutControlItem15
+            // 
+            this.layoutControlItem15.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.layoutControlItem15.AppearanceItemCaption.Options.UseFont = true;
+            this.layoutControlItem15.Control = this.ewayBillTextEdit;
+            this.layoutControlItem15.Location = new System.Drawing.Point(0, 357);
+            this.layoutControlItem15.Name = "layoutControlItem15";
+            this.layoutControlItem15.Size = new System.Drawing.Size(328, 28);
+            this.layoutControlItem15.Text = "EWay Bill No:";
+            this.layoutControlItem15.TextSize = new System.Drawing.Size(107, 17);
+            // 
+            // layoutControlItem16
+            // 
+            this.layoutControlItem16.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.layoutControlItem16.AppearanceItemCaption.Options.UseFont = true;
+            this.layoutControlItem16.Control = this.vehicleNoTextEdit;
+            this.layoutControlItem16.Location = new System.Drawing.Point(328, 329);
+            this.layoutControlItem16.Name = "layoutControlItem16";
+            this.layoutControlItem16.Size = new System.Drawing.Size(191, 28);
+            this.layoutControlItem16.Text = "Vehicle No:";
+            this.layoutControlItem16.TextSize = new System.Drawing.Size(107, 17);
             // 
             // paidLabel
             // 
@@ -1596,36 +1709,6 @@
             this.billAdjustSimpleButton.TabStop = false;
             this.billAdjustSimpleButton.Text = "Bill To Bill";
             // 
-            // rcdDateEdit1
-            // 
-            this.rcdDateEdit1.EditValue = null;
-            this.rcdDateEdit1.EnterMoveNextControl = true;
-            this.rcdDateEdit1.Location = new System.Drawing.Point(839, 33);
-            this.rcdDateEdit1.Name = "rcdDateEdit1";
-            this.rcdDateEdit1.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
-            this.rcdDateEdit1.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rcdDateEdit1.Properties.Appearance.Options.UseFont = true;
-            this.rcdDateEdit1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.rcdDateEdit1.Properties.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.rcdDateEdit1.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.DateTimeAdvancingCaret;
-            this.rcdDateEdit1.Properties.Mask.UseMaskAsDisplayFormat = true;
-            this.rcdDateEdit1.Size = new System.Drawing.Size(100, 24);
-            this.rcdDateEdit1.StyleController = this.layoutControl1;
-            this.rcdDateEdit1.TabIndex = 6;
-            // 
-            // layoutControlItem25
-            // 
-            this.layoutControlItem25.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.layoutControlItem25.AppearanceItemCaption.Options.UseFont = true;
-            this.layoutControlItem25.Control = this.rcdDateEdit1;
-            this.layoutControlItem25.Location = new System.Drawing.Point(724, 28);
-            this.layoutControlItem25.Name = "layoutControlItem25";
-            this.layoutControlItem25.Size = new System.Drawing.Size(214, 28);
-            this.layoutControlItem25.Text = "Challan Date:";
-            this.layoutControlItem25.TextSize = new System.Drawing.Size(107, 17);
-            // 
             // SInvoiceIndex
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1647,6 +1730,10 @@
             this.panelControl1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.tcsAmtTextEdit.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tcsPerTextEdit.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rcdDateEdit1.Properties.CalendarTimeProperties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rcdDateEdit1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.extra1TextEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.extra2TextEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.stateLookUpEdit.Properties)).EndInit();
@@ -1684,29 +1771,29 @@
             ((System.ComponentModel.ISupportInitialize)(this.invTypeLayoutControlItem)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem23)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem22)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem10)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem14)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem13)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem15)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem16)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.jobBookLayoutControlItem)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem11)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem18)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem25)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.jobBookLayoutControlItem)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem11)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tcsPerlayoutControlItem)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem23)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tcsAmountlayoutControlItem)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem21)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem24)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem13)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem17)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.rcdDateEdit1.Properties.CalendarTimeProperties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.rcdDateEdit1.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem25)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem15)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem16)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1821,5 +1908,9 @@
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem24;
         private DevExpress.XtraEditors.DateEdit rcdDateEdit1;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem25;
+        private DevExpress.XtraEditors.SpinEdit tcsPerTextEdit;
+        private DevExpress.XtraLayout.LayoutControlItem tcsPerlayoutControlItem;
+        private DevExpress.XtraEditors.SpinEdit tcsAmtTextEdit;
+        private DevExpress.XtraLayout.LayoutControlItem tcsAmountlayoutControlItem;
     }
 }

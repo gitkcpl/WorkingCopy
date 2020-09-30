@@ -96,5 +96,10 @@ namespace Konto.Data.Models.Transaction.Dtos
         public string Remark { get; set; }
 
         public int ProductId { get; set; }
+
+        public int TdsAcId { get; set; }
+        public decimal TdsAmt { get; set; }
+        public decimal TdsPer { get; set; }
+        
     }
 }

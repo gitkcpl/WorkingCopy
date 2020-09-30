@@ -15,6 +15,7 @@ using Konto.Data;
 using Konto.Data.Models.Masters.Dtos;
 using Konto.Data.Models.Transaction;
 using Konto.Data.Models.Transaction.Dtos;
+using Konto.Shared.Masters.Acc;
 using Konto.Shared.Trans.PInvoice;
 using Serilog;
 using Syncfusion.Windows.Forms;
@@ -41,6 +42,7 @@ namespace Konto.Shared.Account.GenExpense
         TextEdit headerEdit = new TextEdit();
         GridColumn activeCol = null;
         private bool isImortOrSez = false;
+        private bool IsLoadData = false;
         public GenExpIndex()
         {
             InitializeComponent();
@@ -58,13 +60,14 @@ namespace Konto.Shared.Account.GenExpense
             gridView1.ValidateRow += GridView1_ValidateRow;
             gridView1.MouseUp += GridView1_MouseUp;
             gridView1.InvalidRowException += GridView1_InvalidRowException;
-
+            
             gridView1.DoubleClick += GridView1_DoubleClick;
             this.MainLayoutFile = KontoFileLayout.Gen_Expense_Index;
             this.GridLayoutFile = KontoFileLayout.Gen_Expense_Trans;
             this.challanNotextEdit.TextChanged += ChallanNotextEdit_TextChanged;
             this.invTypeLookUpEdit.EditValueChanged += InvTypeLookUpEdit_EditValueChanged;
             this.rcmLookUpEdit.EditValueChanged += RcmLookUpEdit_EditValueChanged;
+            this.productRepositoryItemButtonEdit.ButtonClick += ProductRepositoryItemButtonEdit_ButtonClick;
             FillLookup();
             SetParameter();
 
@@ -80,6 +83,12 @@ namespace Konto.Shared.Account.GenExpense
             voucherLookup1.SelectedValueChanged += VoucherLookup1_SelectedValueChanged;
             this.Load += GenExpIndex_Load;
             //this.accLookup1.ShownPopup += AccLookup1_ShownPopup;
+        }
+
+        private void ProductRepositoryItemButtonEdit_ButtonClick(object sender, ButtonPressedEventArgs e)
+        {
+            var dr = PreOpenLookup();
+            OpenAccLookup(dr.TdsAcId, dr);
         }
 
         private void RcmLookUpEdit_EditValueChanged(object sender, EventArgs e)
@@ -397,6 +406,10 @@ namespace Konto.Shared.Account.GenExpense
             colQty.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             colQty.DisplayFormat.FormatString = "n" + GenExpPara.Qty_Decimal.ToString();
 
+            colParticular.VisibleIndex = -1;
+            colTdsAmt.VisibleIndex = -1;
+            colTdsPer.VisibleIndex = -1;
+
         }
         private ExpTransDto PreOpenLookup()
         {
@@ -448,6 +461,8 @@ namespace Konto.Shared.Account.GenExpense
                 er.Igst = decimal.Round(gross * er.IgstPer / 100, 2, MidpointRounding.AwayFromZero);
             }
 
+            
+
             //  er.Cess = decimal.Round(er.Qty * er.CessPer, 2, MidpointRounding.AwayFromZero);
             if (rcmLookUpEdit.EditValue.ToString() == "YES" || isImortOrSez)
             {
@@ -464,6 +479,7 @@ namespace Konto.Shared.Account.GenExpense
         }
         private void FinalTotal()
         {
+            if (IsLoadData) return;
             var Trans = grnTransDtoBindingSource1.DataSource as List<ExpTransDto>;
             if (Trans == null) return;
             var gross = Trans.Sum(x => x.NetTotal) - Trans.Sum(x => x.Cgst) - Trans.Sum(x => x.Sgst) -
@@ -504,7 +520,7 @@ namespace Konto.Shared.Account.GenExpense
 
             roundoffSpinEdit.Value = round;
             billAmtSpinEdit.Value = ntotal;
-            paybleTextEdit.Text = (ntotal - tdsAmtTextEdit.Value).ToString("F");
+            paybleTextEdit.Text = (ntotal - (tdsAmtTextEdit.Value + Convert.ToDecimal(colTdsAmt.SummaryItem.SummaryValue))).ToString("F");
 
         }
         private void SetParameter()
@@ -558,6 +574,14 @@ namespace Konto.Shared.Account.GenExpense
 
                                 if (!string.IsNullOrEmpty(value) && Convert.ToInt32(value) >= 2 && Convert.ToInt32(value) <= 3)
                                     GenExpPara.Qty_Decimal = Convert.ToInt32(value);
+                                break;
+                            }
+
+                        case 224:
+                            {
+
+                                GenExpPara.Tds_On_Line_Level = (value == "Y") ? true : false;
+                                break;
                                 break;
                             }
                     }
@@ -776,7 +800,9 @@ namespace Konto.Shared.Account.GenExpense
 
         private void LoadData(BillModel model)
         {
+           
             this.ResetPage();
+            IsLoadData = true;
             this.PrimaryKey = model.Id;
             invTypeLookUpEdit.EditValue = model.BillType;
             rcmLookUpEdit.EditValue = model.Rcm;
@@ -818,13 +844,20 @@ namespace Konto.Shared.Account.GenExpense
                 tdsAccLookup.SetAcc((int)model.HasteId);
             }
 
-            tdsPerTextEdit.Value = model.TdsPer;
-            tdsAmtTextEdit.Value = model.TdsAmt;
-            billAmtSpinEdit.Value = model.TotalAmount;
-            roundoffSpinEdit.Value = Convert.ToDecimal(model.RoundOff);
-            paybleTextEdit.EditValue = model.TotalAmount - model.TdsAmt;
+           
             createdLabelControl.Text = "Created By: " + model.CreateUser + " [ " + model.CreateDate + " ]";
             modifyLabelControl.Text = "Modified By: " + model.ModifyUser + " [ " + model.ModifyDate ?? string.Empty  + " ]";
+
+
+            if(model.TdsAmt > 0)
+            {
+                colTdsPer.VisibleIndex = -1;
+                colTdsAmt.VisibleIndex = -1;
+                colParticular.VisibleIndex = -1;
+                tdsAcLayoutControlItem.ContentVisible = true;
+                tdsPerLayoutControlItem.ContentVisible = true;
+                tdsAmtLayoutControlItem.ContentVisible = true;
+            }
 
             using (var _context = new KontoContext())
             {
@@ -834,6 +867,8 @@ namespace Konto.Shared.Account.GenExpense
                             from rb in joinRb.DefaultIfEmpty()
                             join um in _context.Uoms on bt.UomId equals um.Id into joinum
                             from um in joinum.DefaultIfEmpty()
+                            join ac in _context.Accs on bt.TdsAcId equals ac.Id into joinac
+                            from ac in joinac.DefaultIfEmpty()
                             orderby bt.Id
                             where bt.BillId == model.Id && !bt.IsDeleted
                             select new ExpTransDto
@@ -862,11 +897,22 @@ namespace Konto.Shared.Account.GenExpense
                                 Sgst = bt.Sgst,
                                 SgstPer = bt.SgstPer,
                                 ToAccId = bt.ToAccId,
-                                Total = bt.Total
+                                Total = bt.Total,
+                                TdsAcId = bt.TdsAcId,
+                                TdsPer = bt.TdsPer,
+                                TdsAmt = bt.TdsAmt,
+                                Particular = ac.AccName  // tds account
                             }
                              ).ToList();
 
                 grnTransDtoBindingSource1.DataSource = _lst;
+
+                tdsPerTextEdit.Value = model.TdsPer;
+
+                billAmtSpinEdit.Value = model.TotalAmount;
+                roundoffSpinEdit.Value = Convert.ToDecimal(model.RoundOff);
+                paybleTextEdit.EditValue = model.TotalAmount - model.TdsAmt;
+                tdsAmtTextEdit.Value = model.TdsAmt;
 
                 var paid = _context.BtoBs.Where(x => x.BillId == model.Id && x.BillVoucherId == model.VoucherId
                                             && !x.IsDeleted)
@@ -883,6 +929,8 @@ namespace Konto.Shared.Account.GenExpense
                 {
                     paidLabel.Text = "UN-PAID";
                 }
+
+                IsLoadData = false;
             }
 
            // FinalTotal();
@@ -980,6 +1028,20 @@ namespace Konto.Shared.Account.GenExpense
                 GridCalculation(er, true);
             else
                 GridCalculation(er, false);
+
+            if(e.Column == colTdsPer)
+            {
+                decimal gross = er.Total - er.DiscAmt+ er.Freight + er.OtherAdd - er.OtherLess;
+                if (er.TdsPer > 0)
+                {
+                    er.TdsAmt = decimal.Round(gross * er.TdsPer / 100, 2);
+                }
+
+                if (GenExpPara.TDS_RoundOff)
+                    er.TdsAmt = decimal.Round(er.TdsAmt + (decimal)0.01);
+            }
+            if (e.Column == colTdsPer || e.Column == colTdsAmt)
+                FinalTotal();
         }
         private void GridView1_KeyDown(object sender, KeyEventArgs e)
         {
@@ -1002,6 +1064,20 @@ namespace Konto.Shared.Account.GenExpense
         {
             var rw = gridView1.GetRow(e.RowHandle) as ExpTransDto;
             rw.Id = -1 * gridView1.RowCount;
+
+            if(accLookup1.LookupDto!=null && GenExpPara.Tds_On_Line_Level && 
+                    accLookup1.LookupDto.TdsReq.ToUpper() == "YES")
+            {
+                rw.TdsAcId = Convert.ToInt32(accLookup1.LookupDto.TdsAccId);
+                rw.TdsPer = accLookup1.LookupDto.TdsPer;
+                if (rw.TdsAcId > 0)
+                {
+                    using (var db = new KontoContext())
+                    {
+                        rw.Particular = db.Accs.Find(rw.TdsAcId).AccName;
+                    }
+                }
+            }
         }
 
         private void GridControl1_ProcessGridKey(object sender, KeyEventArgs e)
@@ -1009,29 +1085,35 @@ namespace Konto.Shared.Account.GenExpense
             try
             {
                 if (Convert.ToInt32(accLookup1.SelectedValue) == 0) return;
-           ///     var dr = PreOpenLookup();
-             //   if (dr == null) return;
+               var dr = PreOpenLookup();
+                if (dr == null) return;
                 
-                //else if (gridView1.FocusedColumn.FieldName == "Particular")
-                //{
+                 if (gridView1.FocusedColumn.FieldName == "Particular")
+                {
 
-                //    if (e.KeyCode == Keys.Return)
-                //    {
-                //        if (dr.ToAccId == 0)
-                //        {
-                //            //OpenItemLookup(dr.ProductId, dr);
-                //            // e.Handled = true;
-                //        }
-                //    }
-                //    else if (e.KeyCode == Keys.F1)
-                //    {
-                //        //OpenItemLookup(dr.ProductId, dr);
-                //        e.Handled = true;
-                //    }
-                //}
-               
-              
-                
+                    if (e.KeyCode == Keys.Return)
+                    {
+                        if (dr.TdsAcId == 0)
+                        {
+                            OpenAccLookup(dr.TdsAcId, dr);
+                            // e.Handled = false;
+                        }
+                    }
+                    else if (e.KeyCode == Keys.F1)
+                    {
+                        OpenAccLookup(dr.TdsAcId, dr);
+                       // e.Handled = true;
+                    }
+                    else if(e.KeyCode == Keys.Delete)
+                    {
+                        dr.TdsAcId = 0;
+                        dr.Particular = string.Empty;
+                        gridView1.UpdateCurrentRow();
+                    }
+                }
+
+
+
             }
             catch (Exception ex)
             {
@@ -1041,8 +1123,24 @@ namespace Konto.Shared.Account.GenExpense
             }
 
         }
-       
-       
+
+        private void OpenAccLookup(int _selvalue, ExpTransDto er)
+        {
+            var frm = new AccLkpWindow();
+            frm.Tag = MenuId.Account;
+            frm.SelectedValue = _selvalue;
+            frm.VoucherType = VoucherTypeEnum.None;
+            frm.TaxType = "TDS";
+            frm.ShowDialog();
+            if (frm.DialogResult == DialogResult.OK)
+            {
+                er.TdsAcId = frm.SelectedValue;
+                er.Particular = frm.SelectedTex;
+                gridView1.UpdateCurrentRow();
+                //gridView1.FocusedColumn = gridView1.get .GetNearestCanFocusedColumn(gridView1.FocusedColumn);
+            }
+
+        }
 
         #endregion
 
@@ -1098,14 +1196,41 @@ namespace Konto.Shared.Account.GenExpense
             //        rw.CgstPer = 0;
             //    }
             //}
-            if (accLookup1.LookupDto.TdsReq == "Yes")
+            if (!GenExpPara.Tds_On_Line_Level && accLookup1.LookupDto.TdsReq.ToUpper() == "YES")
             {
                 tdsPerTextEdit.Value = accLookup1.LookupDto.TdsPer;
-                if (Convert.ToInt32(accLookup1.LookupDto.TdsAccId) > 0)
+                if ( Convert.ToInt32(accLookup1.LookupDto.TdsAccId) > 0)
                 {
                     tdsAccLookup.SelectedValue = accLookup1.LookupDto.TdsAccId;
                     tdsAccLookup.SetAcc(Convert.ToInt32(accLookup1.LookupDto.TdsAccId));
                 }
+            }
+            if (GenExpPara.Tds_On_Line_Level && accLookup1.LookupDto.TdsReq.ToUpper() == "YES")
+            {
+                colTdsPer.VisibleIndex = gridView1.VisibleColumns.Count-2;
+                colTdsAmt.VisibleIndex = gridView1.VisibleColumns.Count-1;
+                colParticular.VisibleIndex = gridView1.VisibleColumns.Count;
+                tdsAcLayoutControlItem.ContentVisible = false;
+                tdsPerLayoutControlItem.ContentVisible = false;
+                tdsAmtLayoutControlItem.ContentVisible = false;
+            }
+            else if(accLookup1.LookupDto.TdsReq.ToUpper() == "YES")
+            {
+                colTdsPer.VisibleIndex = -1;
+                colTdsAmt.VisibleIndex = -1;
+                colParticular.VisibleIndex = -1;
+                tdsAcLayoutControlItem.ContentVisible = true;
+                tdsPerLayoutControlItem.ContentVisible = true;
+                tdsAmtLayoutControlItem.ContentVisible = true;
+            }
+            else
+            {
+                colTdsPer.VisibleIndex = -1;
+                colTdsAmt.VisibleIndex = -1;
+                colParticular.VisibleIndex = -1;
+                tdsAcLayoutControlItem.ContentVisible = false;
+                tdsPerLayoutControlItem.ContentVisible = false;
+                tdsAmtLayoutControlItem.ContentVisible = false;
             }
             UpdateGst();
         }
@@ -1216,6 +1341,7 @@ namespace Konto.Shared.Account.GenExpense
         public override void NewRec()
         {
             base.NewRec();
+            IsLoadData = false;
             this.FilterView = new List<BillModel>();
             this.Text = "Gen Expense [Add New]";
             rcmLookUpEdit.EditValue = "NO";
@@ -1250,7 +1376,7 @@ namespace Konto.Shared.Account.GenExpense
         public override void ResetPage()
         {
             base.ResetPage();
-            
+            IsLoadData = false;
             accLookup1.SetEmpty();
             bookLookup.SetEmpty();
             challanNotextEdit.Text = string.Empty;

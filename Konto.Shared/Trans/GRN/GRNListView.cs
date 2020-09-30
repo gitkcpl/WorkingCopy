@@ -182,7 +182,7 @@ namespace Konto.Shared.Trans.GRN
         public override void Print()
         {
             base.Print();
-            if (this.customGridView1.FocusedRowHandle <= 0) return;
+            if (this.customGridView1.FocusedRowHandle < 0) return;
             if (KontoView.Columns.ColumnByFieldName("Id") != null)
             {
                 if (KontoView.Columns.ColumnByFieldName("IsDeleted") != null)

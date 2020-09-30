@@ -189,7 +189,7 @@ namespace Konto.Shared.Reports
 
                     }
                     else if (this.TableName == "MI" || this.TableName == "JIB" || this.TableName == "challan" ||
-                        this.TableName == "JSC" || this.TableName=="GRN")
+                        this.TableName == "JSC" || this.TableName=="GRN" || this.TableName == "JRB")
                     {
                         var BillId = new List<IdListDto>();
                         if (filterTypeLookUpEdit.EditValue.ToString() == "Party Wise")

@@ -45,6 +45,7 @@ namespace Konto.Shared.Trans.PInvoice
         private List<PendBillListDto> DelBill = new List<PendBillListDto>();
         private List<PendBillListDto> BillList = new List<PendBillListDto>();
         private List<PendBillListDto> AllBill = new List<PendBillListDto>();
+        private bool IsLoadData = false;
         public PInvoiceIndex()
         {
             InitializeComponent();
@@ -545,6 +546,7 @@ namespace Konto.Shared.Trans.PInvoice
         }
         private void FinalTotal()
         {
+            if (IsLoadData) return;
             var Trans = grnTransDtoBindingSource1.DataSource as List<BillTransDto>;
             if (Trans == null) return;
             var gross = Trans.Sum(x => x.NetTotal) - Trans.Sum(x => x.Cgst) - Trans.Sum(x => x.Sgst) -
@@ -868,6 +870,7 @@ namespace Konto.Shared.Trans.PInvoice
         private void LoadData(BillModel model)
         {
             this.ResetPage();
+            IsLoadData = true;
             this.PrimaryKey = model.Id;
             invTypeLookUpEdit.EditValue = model.BillType;
             rcmLookUpEdit.EditValue = model.Rcm;
@@ -995,10 +998,11 @@ namespace Konto.Shared.Trans.PInvoice
                 {
                     paidLabel.Text = "UN-PAID";
                 }
+                
             }
 
-
-           // FinalTotal();
+            IsLoadData = false;
+            // FinalTotal();
             this.Text = "Purchase Voucher [View/Modify]";
 
         }
@@ -1453,6 +1457,7 @@ namespace Konto.Shared.Trans.PInvoice
         public override void NewRec()
         {
             base.NewRec();
+            IsLoadData = false;
             this.FilterView = new List<BillModel>();
             this.Text = "Purchase Voucher [Add New]";
             rcmLookUpEdit.EditValue = "NO";
@@ -1490,7 +1495,7 @@ namespace Konto.Shared.Trans.PInvoice
         public override void ResetPage()
         {
             base.ResetPage();
-            
+            IsLoadData = false;
             accLookup1.SetEmpty();
             bookLookup.SetEmpty();
             agentLookup.SetEmpty();

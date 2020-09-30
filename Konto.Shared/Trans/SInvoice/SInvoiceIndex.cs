@@ -50,7 +50,7 @@ namespace Konto.Shared.Trans.SInvoice
         private List<PendBillListDto> DelBill = new List<PendBillListDto>();
         private List<PendBillListDto> BillList = new List<PendBillListDto>();
         private List<PendBillListDto> AllBill = new List<PendBillListDto>();
-        
+        private bool IsLoadData = false;
         public SInvoiceIndex()
         {
             InitializeComponent();
@@ -93,8 +93,20 @@ namespace Konto.Shared.Trans.SInvoice
             stateLookUpEdit.EditValueChanged += StateLookUpEdit_EditValueChanged;
             
             voucherLookup1.SelectedValueChanged += VoucherLookup1_SelectedValueChanged;
+            tcsPerTextEdit.EditValueChanged += TcsPerTextEdit_EditValueChanged;
+            tcsAmtTextEdit.EditValueChanged += TcsAmtTextEdit_EditValueChanged;
             this.Shown += SInvoiceIndex_Shown;
            
+        }
+
+        private void TcsAmtTextEdit_EditValueChanged(object sender, EventArgs e)
+        {
+            FinalTotal();
+        }
+
+        private void TcsPerTextEdit_EditValueChanged(object sender, EventArgs e)
+        {
+            FinalTotal();
         }
 
         private void AddressLookup1_SelectedValueChanged(object sender, EventArgs e)
@@ -615,6 +627,7 @@ namespace Konto.Shared.Trans.SInvoice
         }
         private void FinalTotal()
         {
+            if (IsLoadData) return;
             var Trans = grnTransDtoBindingSource1.DataSource as List<BillTransDto>;
             var gross = Trans.Sum(x => x.NetTotal) - Trans.Sum(x => x.Cgst) - Trans.Sum(x => x.Sgst) -
                 Trans.Sum(x => x.Igst) - Trans.Sum(x => x.Cess);
@@ -622,6 +635,17 @@ namespace Konto.Shared.Trans.SInvoice
           
             gridView1.UpdateTotalSummary();
             var ntotal = Convert.ToDecimal(colNetTotal.SummaryItem.SummaryValue);
+
+
+            if(tcsPerTextEdit.Value > 0) // tcs applicable
+            {
+                if (BillPara.Tcs_Round_Off)
+                    tcsAmtTextEdit.Value = decimal.Round((ntotal * tcsPerTextEdit.Value / 100) + (decimal)0.01);
+                else
+                    tcsAmtTextEdit.Value = decimal.Round(ntotal * tcsPerTextEdit.Value / 100, 2);
+            }
+            
+            ntotal = ntotal + tcsAmtTextEdit.Value;
 
             var x1 = ntotal - Math.Truncate(ntotal);
 
@@ -648,6 +672,7 @@ namespace Konto.Shared.Trans.SInvoice
             roundoffSpinEdit.Value = round;
             billAmtSpinEdit.Value = ntotal;
            
+
 
         }
         private void SetParameter()
@@ -721,6 +746,12 @@ namespace Konto.Shared.Trans.SInvoice
 
                                 if (!string.IsNullOrEmpty(value) && Convert.ToInt32(value) >= 2 && Convert.ToInt32(value) <= 3)
                                     BillPara.Qty_Decimal = Convert.ToInt32(value);
+                                break;
+                            }
+
+                        case 225:
+                            {
+                                BillPara.Tcs_Round_Off = (value == "Y") ? true : false;
                                 break;
                             }
                     }
@@ -933,6 +964,7 @@ namespace Konto.Shared.Trans.SInvoice
         private void LoadData(BillModel model)
         {
             this.ResetPage();
+            IsLoadData = true;
             this.PrimaryKey = model.Id;
             invTypeLookUpEdit.EditValue = model.BillType;
           
@@ -990,7 +1022,8 @@ namespace Konto.Shared.Trans.SInvoice
             createdLabelControl.Text = "Created By: " + model.CreateUser + " [ " + model.CreateDate + " ]";
             modifyLabelControl.Text = "Modified By: " + model.ModifyUser + " [ " + model.ModifyDate ?? string.Empty  + " ]";
 
-           
+            tcsPerTextEdit.Value = model.TcsPer;
+            tcsAmtTextEdit.Value = model.TcsAmt;
 
             using (var _context = new KontoContext())
             {
@@ -1080,6 +1113,7 @@ namespace Konto.Shared.Trans.SInvoice
                 {
                     paidLabel.Text = "UN-PAID";
                 }
+                IsLoadData = false;
             }
 
 
@@ -1353,10 +1387,26 @@ namespace Konto.Shared.Trans.SInvoice
                 addressLookup1.SelectedValue = this.delvLookup.LookupDto.AddressId;
                 //addressLookup1.buttonEdit1.Text = this.delvLookup.LookupDto.FullAddress;
                 dueDaysTextEdit.Text = this.accLookup1.LookupDto.CrDays.ToString();
-                
+                if (this.accLookup1.LookupDto.TcsReq.ToUpper() == "YES")
+                    tcsPerTextEdit.Value = accLookup1.LookupDto.TcsPer;
 
             }
+            if (this.accLookup1.LookupDto.TcsReq.ToUpper() == "YES")
+            {
+                if(tcsPerlayoutControlItem.IsHidden)
+                    tcsPerlayoutControlItem.RestoreFromCustomization();
+                
+                if(tcsAmountlayoutControlItem.IsHidden)
+                    tcsAmountlayoutControlItem.RestoreFromCustomization();
 
+                tcsPerlayoutControlItem.ContentVisible = true;
+                tcsAmountlayoutControlItem.ContentVisible = true;
+            }
+            else
+            {
+                tcsPerlayoutControlItem.ContentVisible = false;
+                tcsAmountlayoutControlItem.ContentVisible = false;
+            }
            
            
         }
@@ -1485,7 +1535,7 @@ namespace Konto.Shared.Trans.SInvoice
             base.NewRec();
             this.FilterView = new List<BillModel>();
             this.Text = "Sales Voucher [Add New]";
-            
+            IsLoadData = false;
             paidLabel.Text = "UN-PAID";
 
             invTypeLookUpEdit.EditValue = "Regular";
@@ -1522,7 +1572,7 @@ namespace Konto.Shared.Trans.SInvoice
         public override void ResetPage()
         {
             base.ResetPage();
-            
+            IsLoadData = false;
             accLookup1.SetEmpty();
             bookLookup.SetEmpty();
             delvLookup.SetEmpty();
@@ -1844,6 +1894,8 @@ namespace Konto.Shared.Trans.SInvoice
             model.Extra1 = extra1TextEdit.Text.Trim();
             model.Duedays = Convert.ToInt32(dueDaysTextEdit.Value);
             model.VehicleNo = vehicleNoTextEdit.Text.Trim();
+            model.TcsPer = tcsPerTextEdit.Value;
+            model.TcsAmt = tcsAmtTextEdit.Value;
 
             if (model.Id == 0)
             {
