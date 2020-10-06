@@ -1009,7 +1009,7 @@ namespace Konto.Shared.Trans.PInvoice
         
         private DataTable GetPurchaseTable()
         {
-            using (var con = new SqlConnection(KontoGlobals.Conn))
+            using (var con = new SqlConnection(KontoGlobals.sqlConnectionString.ConnectionString))
             {
 
                 using (var cmd = new SqlCommand("dbo.bill_analysis", con))

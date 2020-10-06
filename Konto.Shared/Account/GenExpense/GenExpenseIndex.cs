@@ -582,7 +582,7 @@ namespace Konto.Shared.Account.GenExpense
 
                                 GenExpPara.Tds_On_Line_Level = (value == "Y") ? true : false;
                                 break;
-                                break;
+                                
                             }
                     }
                 }

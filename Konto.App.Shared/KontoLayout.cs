@@ -222,7 +222,7 @@ namespace Konto.App.Shared
 
         public const string BeamProd_Index = "Weaving\\BeamProd_Index.xml";
         public const string BeamProd_Trans = "Weaving\\BeamProd_Trans.xml";
-
+        public const string BeamProd_List = "Weaving\\BeamProd_List.xml";
         public const string BeamLoading_Index = "Weaving\\BeamProd_Index.xml";
         public const string BeamLoading_Trans = "Weaving\\BeamProd_Trans.xml";
         public const string BeamLoading_List = "Weaving\\BeamLoading_List.xml";

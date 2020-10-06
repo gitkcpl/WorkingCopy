@@ -47,7 +47,7 @@ namespace Konto.Trading.GP
 
         TextEdit headerEdit = new TextEdit();
         GridColumn activeCol = null;
-
+        private bool IsLoadingData = false;
         public GPIndex()
         {
             InitializeComponent();
@@ -90,8 +90,13 @@ namespace Konto.Trading.GP
             this.gridView1.ValidateRow += GridView1_ValidateRow;
             this.gridView1.InvalidRowException += GridView1_InvalidRowException;
             voucherLookup1.SelectedValueChanged += VoucherLookup1_SelectedValueChanged;
+           
             this.Load += GPIndex_Load;
         }
+
+       
+
+       
 
         private void GPIndex_Load(object sender, EventArgs e)
         {
@@ -228,6 +233,7 @@ namespace Konto.Trading.GP
         }
         private void FinalTotal()
         {
+            if (IsLoadingData) return;
             gridView1.UpdateTotalSummary();
             var ntotal = Convert.ToDecimal(colNetTotal.SummaryItem.SummaryValue);
 
@@ -579,6 +585,7 @@ namespace Konto.Trading.GP
         private void LoadData(ChallanModel model)
         {
             this.ResetPage();
+            IsLoadingData = true;
             this.PrimaryKey = model.Id;
             invTypeLookUpEdit.EditValue = model.BillType;
             rcmLookUpEdit.EditValue = model.Rcm;
@@ -619,7 +626,8 @@ namespace Konto.Trading.GP
             lrDateEdit.EditValue = model.DocDate;
             remarkTextEdit.Text = model.Remark;
             ewayTextEdit.Text = model.Extra1;
-
+            billAmtSpinEdit.Value = model.TotalAmount;
+            roundoffSpinEdit.Value = Convert.ToDecimal(model.RoundOff);
 
             createdLabelControl.Text = "Created By: " + model.CreateUser + " [ " + model.CreateDate + " ]";
             modifyLabelControl.Text = "Modified By: " + model.ModifyUser + " [ " + model.ModifyDate ?? string.Empty + " ]";
@@ -699,8 +707,9 @@ namespace Konto.Trading.GP
                 this.grnTransDtoBindingSource1.DataSource = _list;
             }
 
-
-            FinalTotal();
+            
+          //  FinalTotal();
+            IsLoadingData = false;
             this.Text = "Grey Purchase [View/Modify]";
 
         }
@@ -1311,6 +1320,7 @@ namespace Konto.Trading.GP
         public override void NewRec()
         {
             base.NewRec();
+            this.IsLoadingData = false;
             this.FilterView = new List<ChallanModel>();
             this.Text = "Grey Purchase [Add New]";
             rcmLookUpEdit.EditValue = "NO";
@@ -1341,7 +1351,7 @@ namespace Konto.Trading.GP
         public override void ResetPage()
         {
             base.ResetPage();
-
+            this.IsLoadingData = false;
             accLookup1.SetEmpty();
             bookLookup.SetEmpty();
             challanNotextEdit.Text = string.Empty;
@@ -1394,6 +1404,7 @@ namespace Konto.Trading.GP
         public override void NextRec()
         {
             base.NextRec();
+           
 
             LoadData(FilterView[this.RecordNo]);
 
@@ -1862,7 +1873,7 @@ namespace Konto.Trading.GP
 
         private DataTable GetPurchaseTable()
         {
-            using (var con = new SqlConnection(KontoGlobals.Conn))
+            using (var con = new SqlConnection(KontoGlobals.sqlConnectionString.ConnectionString))
             {
 
                 using (var cmd = new SqlCommand("dbo.gp_analysis", con))
@@ -1885,6 +1896,19 @@ namespace Konto.Trading.GP
                     return DtCriterias;
                 }
             }
+        }
+
+      
+
+        private void roundoffSpinEdit_ValueChanged(object sender, EventArgs e)
+        {
+            if (!roundoffSpinEdit.ContainsFocus) return;
+            gridView1.UpdateTotalSummary();
+            var ntotal = Convert.ToDecimal(colNetTotal.SummaryItem.SummaryValue);
+
+            ntotal = ntotal + roundoffSpinEdit.Value;
+
+            billAmtSpinEdit.Value = ntotal;
         }
     }
 }

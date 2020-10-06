@@ -1325,4 +1325,81 @@ INSERT INTO dbo.ListPage
 )values (200, 'Deleted List','dbo.ChallanList','TakaJR\DeletedView.xml',51,null,null,'Deleted')
 END
 
+/*Sales Invoice */
+if NOT exists (select 1 from ListPage em where em.Id=201)
+BEGIN
+INSERT INTO dbo.ListPage
+(
+   Id, Descr,SpName,LayoutFile,VTypeId,GroupCol,SumCol,Extra1
+)values (201, 'Party_Monthly','dbo.bill_analysis','analysis\sale\party_monthly.olapx',12,null,null,'analysis')
+END
+
+if NOT exists (select 1 from ListPage em where em.Id=202)
+BEGIN
+INSERT INTO dbo.ListPage
+(
+   Id, Descr,SpName,LayoutFile,VTypeId,GroupCol,SumCol,Extra1
+)values (202, 'Party_Item_Monthly','dbo.bill_analysis','analysis\sale\party_item_monthly.olapx',12,null,null,'analysis')
+END
+
+if NOT exists (select 1 from ListPage em where em.Id=203)
+BEGIN
+INSERT INTO dbo.ListPage
+(
+   Id, Descr,SpName,LayoutFile,VTypeId,GroupCol,SumCol,Extra1
+)values (203, 'Item_Monthly','dbo.bill_analysis','analysis\sale\item_monthly.olapx',12,null,null,'analysis')
+END
+
+
+/*Sales Return Invoice */
+if NOT exists (select 1 from ListPage em where em.Id=204)
+BEGIN
+INSERT INTO dbo.ListPage
+(
+   Id, Descr,SpName,LayoutFile,VTypeId,GroupCol,SumCol,Extra1
+)values (204, 'Party_Monthly','dbo.bill_analysis','analysis\saleret\party_monthly.olapx',19,null,null,'analysis')
+END
+
+if NOT exists (select 1 from ListPage em where em.Id=205)
+BEGIN
+INSERT INTO dbo.ListPage
+(
+   Id, Descr,SpName,LayoutFile,VTypeId,GroupCol,SumCol,Extra1
+)values (205, 'Party_Item_Monthly','dbo.bill_analysis','analysis\saleret\party_item_monthly.olapx',19,null,null,'analysis')
+END
+
+if NOT exists (select 1 from ListPage em where em.Id=206)
+BEGIN
+INSERT INTO dbo.ListPage
+(
+   Id, Descr,SpName,LayoutFile,VTypeId,GroupCol,SumCol,Extra1
+)values (206, 'Item_Monthly','dbo.bill_analysis','analysis\saleret\item_monthly.olapx',19,null,null,'analysis')
+END
+
+
+/*Purchase Return Invoice */
+if NOT exists (select 1 from ListPage em where em.Id=207)
+BEGIN
+INSERT INTO dbo.ListPage
+(
+   Id, Descr,SpName,LayoutFile,VTypeId,GroupCol,SumCol,Extra1
+)values (207, 'Party_Monthly','dbo.bill_analysis','analysis\purret\party_monthly.olapx',18,null,null,'analysis')
+END
+
+if NOT exists (select 1 from ListPage em where em.Id=208)
+BEGIN
+INSERT INTO dbo.ListPage
+(
+   Id, Descr,SpName,LayoutFile,VTypeId,GroupCol,SumCol,Extra1
+)values (208, 'Party_Item_Monthly','dbo.bill_analysis','analysis\purret\party_item_monthly.olapx',18,null,null,'analysis')
+END
+
+if NOT exists (select 1 from ListPage em where em.Id=209)
+BEGIN
+INSERT INTO dbo.ListPage
+(
+   Id, Descr,SpName,LayoutFile,VTypeId,GroupCol,SumCol,Extra1
+)values (209, 'Item_Monthly','dbo.bill_analysis','analysis\purret\item_monthly.olapx',18,null,null,'analysis')
+END
+
 SET IDENTITY_INSERT dbo.ListPage OFF

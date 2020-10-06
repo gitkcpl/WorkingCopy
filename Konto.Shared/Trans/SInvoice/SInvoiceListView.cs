@@ -54,6 +54,12 @@ namespace Konto.Shared.Trans.SInvoice
 
         private void ListDateRange1_GetButtonClick(object sender, EventArgs e)
         {
+            if (listDateRange1.SelectedItem.Extra1 == "Revised")
+            {
+                //cmd.Parameters.Add("@Cancelled", SqlDbType.Int).Value = 0;
+                MessageBox.Show("Not Implemented.. thank u");
+                return;
+            }
             this.GridLayoutFileName = listDateRange1.SelectedItem.LayoutFile;
             var DtCriterias = new DataTable();
             try
@@ -79,6 +85,7 @@ namespace Konto.Shared.Trans.SInvoice
                         {
                             cmd.Parameters.Add("@Cancelled", SqlDbType.Int).Value = 0;
                         }
+                       
                         if (listDateRange1.SelectedItem.GroupCol != null)
                         {
                             string grpCol = listDateRange1.SelectedItem.GroupCol;

@@ -340,11 +340,13 @@
             this.roundoffSpinEdit.Properties.Appearance.Options.UseFont = true;
             this.roundoffSpinEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.roundoffSpinEdit.Properties.ReadOnly = true;
+            this.roundoffSpinEdit.Properties.Mask.EditMask = "N";
+            this.roundoffSpinEdit.Properties.Mask.UseMaskAsDisplayFormat = true;
             this.roundoffSpinEdit.Size = new System.Drawing.Size(147, 24);
             this.roundoffSpinEdit.StyleController = this.layoutControl1;
             this.roundoffSpinEdit.TabIndex = 1;
-            this.roundoffSpinEdit.TabStop = false;
+            this.roundoffSpinEdit.ValueChanged += new System.EventHandler(this.roundoffSpinEdit_ValueChanged);
+
             // 
             // bookLookup
             // 

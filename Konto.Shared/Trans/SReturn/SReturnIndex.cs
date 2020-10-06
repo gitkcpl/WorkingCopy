@@ -984,7 +984,7 @@ namespace Konto.Shared.Trans.SReturn
 
         private DataTable GetPurchaseTable()
         {
-            using (var con = new SqlConnection(KontoGlobals.Conn))
+            using (var con = new SqlConnection(KontoGlobals.sqlConnectionString.ConnectionString))
             {
 
                 using (var cmd = new SqlCommand("dbo.bill_analysis", con))
@@ -1284,7 +1284,7 @@ namespace Konto.Shared.Trans.SReturn
                 voucherLookup1.Focus();
                 return;
             }
-            if (tabPageAdv2.Controls.Count > 0)
+            if (tabControlAdv1.SelectedIndex == 1 && tabPageAdv2.Controls.Count > 0)
             {
                 var _list = tabPageAdv2.Controls[0] as SReturnListView;
                 _list.ActiveControl = _list.KontoGrid;

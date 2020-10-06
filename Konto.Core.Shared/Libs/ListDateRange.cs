@@ -45,7 +45,7 @@ namespace Konto.Core.Shared.Libs
             using (KontoContext db = new KontoContext())
             {
                 if(!IsAnalysis)
-                    listPageModels = db.ListPages.Where(k => k.VTypeId == (int)this.VoucherType).ToList();
+                    listPageModels = db.ListPages.Where(k => k.VTypeId == (int)this.VoucherType && k.Extra1 != "analysis").ToList();
                 else
                     listPageModels = db.ListPages.Where(k => k.VTypeId == (int)this.VoucherType && k.Extra1=="analysis").ToList();
 

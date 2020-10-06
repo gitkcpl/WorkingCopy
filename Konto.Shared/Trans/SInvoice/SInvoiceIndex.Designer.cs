@@ -339,8 +339,10 @@
             this.tcsPerTextEdit.Properties.AppearanceFocused.Options.UseBorderColor = true;
             this.tcsPerTextEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.tcsPerTextEdit.Properties.DisplayFormat.FormatString = "N3";
+            this.tcsPerTextEdit.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.tcsPerTextEdit.Properties.EditValueChangedFiringMode = DevExpress.XtraEditors.Controls.EditValueChangedFiringMode.Default;
-            this.tcsPerTextEdit.Properties.Mask.EditMask = "N2";
+            this.tcsPerTextEdit.Properties.Mask.EditMask = "N3";
             this.tcsPerTextEdit.Properties.Mask.UseMaskAsDisplayFormat = true;
             this.tcsPerTextEdit.Properties.MaxLength = 25;
             this.tcsPerTextEdit.Size = new System.Drawing.Size(110, 24);

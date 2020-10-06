@@ -54,6 +54,8 @@ namespace Konto.Data
             modelBuilder.Entity<BillTransModel>().Property(p => p.Qty).HasPrecision(18, 3);
             modelBuilder.Entity<ChallanTransModel>().Property(p => p.Rate).HasPrecision(18, 4);
             modelBuilder.Entity<ChallanTransModel>().Property(p => p.Qty).HasPrecision(18, 3);
+            modelBuilder.Entity<BillModel>().Property(p => p.TcsPer).HasPrecision(18, 3);
+            modelBuilder.Entity<AccOtherModel>().Property(p => p.TcsPer).HasPrecision(18, 3);
         }
 
 

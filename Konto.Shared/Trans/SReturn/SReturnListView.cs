@@ -33,6 +33,12 @@ namespace Konto.Shared.Trans.SReturn
         private void ListDateRange1_GetButtonClick(object sender, EventArgs e)
         {
             this.GridLayoutFileName = listDateRange1.SelectedItem.LayoutFile;
+            if (listDateRange1.SelectedItem.Extra1 == "Revised")
+            {
+                //cmd.Parameters.Add("@Cancelled", SqlDbType.Int).Value = 0;
+                MessageBox.Show("Not Implemented...thank u");
+                return;
+            }
             var DtCriterias = new DataTable();
             try
             {

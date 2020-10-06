@@ -22,7 +22,7 @@ namespace Konto.Weaves.BeamProduction
         public BeamProdList()
         {
             InitializeComponent();
-           // this.GridLayoutFileName = KontoFileLayout.DivMaster_List_Layout; 
+            this.GridLayoutFileName = KontoFileLayout.BeamProd_List; 
         }
         public override void RefreshGrid()
         {
