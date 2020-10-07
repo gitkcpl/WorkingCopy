@@ -45,6 +45,7 @@
             this.colTotalAmount = new Konto.Core.Shared.Libs.CustomGridColumn();
             this.colPanNo = new Konto.Core.Shared.Libs.CustomGridColumn();
             this.colTdsPer = new Konto.Core.Shared.Libs.CustomGridColumn();
+            this.colAcsValue1 = new Konto.Core.Shared.Libs.CustomGridColumn();
             this.colTdsAmt = new Konto.Core.Shared.Libs.CustomGridColumn();
             this.colPayable = new Konto.Core.Shared.Libs.CustomGridColumn();
             this.colTDSAccount1 = new Konto.Core.Shared.Libs.CustomGridColumn();
@@ -61,6 +62,7 @@
             this.colTDSAmount = new Konto.Core.Shared.Libs.CustomGridColumn();
             this.colPayRec = new Konto.Core.Shared.Libs.CustomGridColumn();
             this.colTDSAccount = new Konto.Core.Shared.Libs.CustomGridColumn();
+            this.colAcsValue = new Konto.Core.Shared.Libs.CustomGridColumn();
             this.colTDSAC = new Konto.Core.Shared.Libs.CustomGridColumn();
             this.colTdsList = new Konto.Core.Shared.Libs.CustomGridColumn();
             this.okSimpleButton = new DevExpress.XtraEditors.SimpleButton();
@@ -197,6 +199,7 @@
             this.colTotalAmount,
             this.colPanNo,
             this.colTdsPer,
+            this.colAcsValue1,
             this.colTdsAmt,
             this.colPayable,
             this.colTDSAccount1,
@@ -241,11 +244,12 @@
             // 
             // colChallanDate
             // 
+            this.colChallanDate.Caption = "Voucher Date";
             this.colChallanDate.FieldName = "ChallanDate";
             this.colChallanDate.Name = "colChallanDate";
             this.colChallanDate.Visible = true;
             this.colChallanDate.VisibleIndex = 1;
-            this.colChallanDate.Width = 105;
+            this.colChallanDate.Width = 108;
             // 
             // colHasteId
             // 
@@ -256,6 +260,8 @@
             // 
             this.colTotalAmount.FieldName = "TotalAmount";
             this.colTotalAmount.Name = "colTotalAmount";
+            this.colTotalAmount.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
+            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalAmount", "{0:F}")});
             this.colTotalAmount.Visible = true;
             this.colTotalAmount.VisibleIndex = 3;
             this.colTotalAmount.Width = 126;
@@ -264,6 +270,8 @@
             // 
             this.colPanNo.FieldName = "PanNo";
             this.colPanNo.Name = "colPanNo";
+            this.colPanNo.Visible = true;
+            this.colPanNo.VisibleIndex = 9;
             this.colPanNo.Width = 124;
             // 
             // colTdsPer
@@ -271,23 +279,39 @@
             this.colTdsPer.FieldName = "TdsPer";
             this.colTdsPer.Name = "colTdsPer";
             this.colTdsPer.Visible = true;
-            this.colTdsPer.VisibleIndex = 4;
+            this.colTdsPer.VisibleIndex = 5;
             this.colTdsPer.Width = 88;
+            // 
+            // colAcsValue1
+            // 
+            this.colAcsValue1.Caption = "Accessible value";
+            this.colAcsValue1.FieldName = "AcsValue";
+            this.colAcsValue1.Name = "colAcsValue1";
+            this.colAcsValue1.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
+            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "AcsValue", "{0:F}")});
+            this.colAcsValue1.Visible = true;
+            this.colAcsValue1.VisibleIndex = 4;
+            this.colAcsValue1.Width = 114;
             // 
             // colTdsAmt
             // 
             this.colTdsAmt.FieldName = "TdsAmt";
             this.colTdsAmt.Name = "colTdsAmt";
+            this.colTdsAmt.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
+            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TdsAmt", "{0:F}")});
             this.colTdsAmt.Visible = true;
-            this.colTdsAmt.VisibleIndex = 5;
+            this.colTdsAmt.VisibleIndex = 6;
             this.colTdsAmt.Width = 83;
             // 
             // colPayable
             // 
             this.colPayable.FieldName = "Payable";
             this.colPayable.Name = "colPayable";
+            this.colPayable.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
+            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Payable", "{0:F}")});
             this.colPayable.Visible = true;
-            this.colPayable.VisibleIndex = 6;
+            this.colPayable.VisibleIndex = 7;
+            this.colPayable.Width = 86;
             // 
             // colTDSAccount1
             // 
@@ -318,7 +342,7 @@
             this.colDescr.FieldName = "Descr";
             this.colDescr.Name = "colDescr";
             this.colDescr.Visible = true;
-            this.colDescr.VisibleIndex = 7;
+            this.colDescr.VisibleIndex = 8;
             this.colDescr.Width = 203;
             // 
             // gridControl1
@@ -358,6 +382,7 @@
             this.colTDSAmount,
             this.colPayRec,
             this.colTDSAccount,
+            this.colAcsValue,
             this.colTDSAC,
             this.colTdsList});
             this.gridView1.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFullFocus;
@@ -402,8 +427,11 @@
             // 
             // colBillAmount
             // 
+            this.colBillAmount.Caption = "Total Amount";
             this.colBillAmount.FieldName = "BillAmount";
             this.colBillAmount.Name = "colBillAmount";
+            this.colBillAmount.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
+            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "BillAmount", "{0:F}")});
             this.colBillAmount.Visible = true;
             this.colBillAmount.VisibleIndex = 2;
             this.colBillAmount.Width = 110;
@@ -412,23 +440,38 @@
             // 
             this.colTDSAmount.FieldName = "TDSAmount";
             this.colTDSAmount.Name = "colTDSAmount";
+            this.colTDSAmount.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
+            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TDSAmount", "{0:F}")});
             this.colTDSAmount.Visible = true;
-            this.colTDSAmount.VisibleIndex = 3;
-            this.colTDSAmount.Width = 110;
+            this.colTDSAmount.VisibleIndex = 4;
+            this.colTDSAmount.Width = 121;
             // 
             // colPayRec
             // 
             this.colPayRec.Caption = "Pyable";
             this.colPayRec.FieldName = "PayRec";
             this.colPayRec.Name = "colPayRec";
+            this.colPayRec.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
+            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "PayRec", "{0:F}")});
             this.colPayRec.Visible = true;
-            this.colPayRec.VisibleIndex = 4;
+            this.colPayRec.VisibleIndex = 5;
             this.colPayRec.Width = 116;
             // 
             // colTDSAccount
             // 
             this.colTDSAccount.FieldName = "TDSAccount";
             this.colTDSAccount.Name = "colTDSAccount";
+            // 
+            // colAcsValue
+            // 
+            this.colAcsValue.Caption = "Accessible value";
+            this.colAcsValue.FieldName = "AcsValue";
+            this.colAcsValue.Name = "colAcsValue";
+            this.colAcsValue.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
+            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "AcsValue", "{0:F}")});
+            this.colAcsValue.Visible = true;
+            this.colAcsValue.VisibleIndex = 3;
+            this.colAcsValue.Width = 112;
             // 
             // colTDSAC
             // 
@@ -466,7 +509,7 @@
             this.accLookup1.Nature = null;
             this.accLookup1.NewGroupId = 27;
             this.accLookup1.PrimaryKey = null;
-            this.accLookup1.RequiredField = true;
+            this.accLookup1.RequiredField = false;
             this.accLookup1.SelectedText = null;
             this.accLookup1.SelectedValue = null;
             this.accLookup1.Size = new System.Drawing.Size(306, 28);
@@ -702,5 +745,7 @@
         private Core.Shared.Libs.CustomGridColumn colVoucherName;
         private Core.Shared.Libs.CustomGridColumn colDescr;
         private Core.Shared.Libs.CustomGridColumn colPanNo1;
+        private Core.Shared.Libs.CustomGridColumn colAcsValue;
+        private Core.Shared.Libs.CustomGridColumn colAcsValue1;
     }
 }

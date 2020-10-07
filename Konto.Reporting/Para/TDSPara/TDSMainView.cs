@@ -80,7 +80,7 @@ namespace Konto.Reporting.Para.TDSPara
                 doc.Parameters["todate"].CurrentValue = Convert.ToInt32(tDateEdit.DateTime.ToString("yyyyMMdd"));
 
             if (doc.Parameters["TDSAcID"] != null)
-                doc.Parameters["TDSAcID"].CurrentValue = accLookup1.SelectedValue;
+                doc.Parameters["TDSAcID"].CurrentValue = Convert.ToInt32( accLookup1.SelectedValue);
 
             var _tab = this.Parent.Parent as TabControlAdv;
             if (_tab == null) return;
@@ -101,12 +101,12 @@ namespace Konto.Reporting.Para.TDSPara
         {
             try
             {
-                if(Convert.ToInt32(accLookup1.SelectedValue) ==0)
-                {
-                    MessageBox.Show("Invalid Tds Account");
-                    accLookup1.Focus();
-                    return;
-                }
+                //if(Convert.ToInt32(accLookup1.SelectedValue) ==0)
+                //{
+                //    MessageBox.Show("Invalid Tds Account");
+                //    accLookup1.Focus();
+                //    return;
+                //}
                 using (var _db = new KontoContext())
                 {
                     _db.Database.CommandTimeout = 0;
@@ -123,9 +123,10 @@ namespace Konto.Reporting.Para.TDSPara
                         AccountID = x.Key.AccountID,
                         BillAmount = x.Sum(k => k.TotalAmount),
                         TDSAmount = x.Sum(k => k.TdsAmt),
-                        PayRec = x.Sum(k => k.TotalAmount - k.TdsAmt),
+                        PayRec = x.Sum(k=>k.Payable),
                         TDSAccount = x.Key.TDSAccount,
                         PanNo = x.Key.PanNo,
+                        AcsValue = x.Sum(k=>k.AcsValue),
                         TdsList = Tran.Where(p => p.AccountID == x.Key.AccountID).ToList()
                     }).ToList();
 

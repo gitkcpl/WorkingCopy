@@ -143,7 +143,7 @@ namespace Konto.Shared.Masters.VType
                 var _ListView = new VTypeListView();
                 _ListView.Dock = DockStyle.Fill;
                 tabPageAdv2.Controls.Add(_ListView);
-                this.Text = "Color Master [View]";
+                this.Text = "Voucher Type [View]";
 
             }
         }
@@ -215,7 +215,7 @@ namespace Konto.Shared.Masters.VType
         {
             base.NewRec();
             this.FilterView = new List<VoucherTypeModel>();
-            this.Text = "Color Master [Add New]";
+            this.Text = "Voucher Type [Add New]";
             this.ActiveControl = nameTextEdit;
             SetGridData();
             tabbedControlGroup1.SelectedTabPageIndex = 0;
@@ -354,7 +354,11 @@ namespace Konto.Shared.Masters.VType
             bool IsSaved = false;
             if (!ValidateData()) return;
             VoucherTypeModel model = new VoucherTypeModel();
-
+            if(this.PrimaryKey == 0)
+            {
+                MessageBox.Show("Not Permission For Add New");
+                return;
+            }
             using (var db = new KontoContext())
             {
                 using(var _tran = db.Database.BeginTransaction())

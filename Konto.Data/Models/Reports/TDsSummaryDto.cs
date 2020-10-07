@@ -16,6 +16,7 @@ namespace Konto.Data.Models.Reports
         public string TDSAccount { get; set; }
         public string TDSAC { get; set; }
         public string PanNo { get; set; }
+        public decimal AcsValue { get; set; }
         public List<TDSDto> TdsList { get; set; }
     }
 
@@ -36,5 +37,6 @@ namespace Konto.Data.Models.Reports
         public string GroupName { get; set; }
         public string VoucherName { get; set; }
         public string Descr { get; set; }
+        public decimal AcsValue { get; set; }
     }
 }
