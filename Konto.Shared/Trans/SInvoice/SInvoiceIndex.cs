@@ -1103,7 +1103,8 @@ namespace Konto.Shared.Trans.SInvoice
                                         .Sum(x => x.Amount);
                 if (paid > 0)
                 {
-                    okSimpleButton.Enabled = false;
+                    if(KontoGlobals.UserRoleId!=1)
+                        okSimpleButton.Enabled = false;
                     if (model.TotalAmount - paid - model.TdsAmt == 0)
                         paidLabel.Text = "PAID";
                     else

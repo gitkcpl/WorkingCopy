@@ -1464,12 +1464,6 @@
     <Compile Include="Trans\Template\TemplateListView.Designer.cs">
       <DependentUpon>TemplateListView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Utils\BulkDeleteView.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Utils\BulkDeleteView.Designer.cs">
-      <DependentUpon>BulkDeleteView.cs</DependentUpon>
-    </Compile>
     <Compile Include="Utils\UpdateLedgerView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -2139,9 +2133,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Trans\Template\TemplateListView.resx">
       <DependentUpon>TemplateListView.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Utils\BulkDeleteView.resx">
-      <DependentUpon>BulkDeleteView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Utils\UpdateLedgerView.resx">
       <DependentUpon>UpdateLedgerView.cs</DependentUpon>
