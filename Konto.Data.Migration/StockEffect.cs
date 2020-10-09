@@ -128,7 +128,7 @@ namespace Konto.Data
 
 
         public static bool StockTransChlnEntry(ChallanModel Model, ChallanTransModel item,
-                 bool IsIssue, string tableName, string userName, KontoContext _db)
+                 bool IsIssue, string tableName, string userName, KontoContext _db,bool _stockForReturnProduct=false)
                
         {
 
@@ -141,17 +141,20 @@ namespace Konto.Data
             stock.BranchId = Model.BranchId != null ? Convert.ToInt32(Model.BranchId) : 0;
             stock.GodownId = Model.StoreId != null ? (int)(Model.StoreId) : 0;
 
-            if (item.ColorId != null && item.ColorId != 0)
-                stock.ColorId = (int)item.ColorId;
+            if (!_stockForReturnProduct)
+            {
+                if (item.ColorId != null && item.ColorId != 0)
+                    stock.ColorId = (int)item.ColorId;
 
-            if (item.BatchId != null && item.BatchId != 0)
-                stock.BatchId = (int)item.BatchId;
+                if (item.BatchId != null && item.BatchId != 0)
+                    stock.BatchId = (int)item.BatchId;
 
-            if (item.GradeId != null && item.GradeId != 0)
-                stock.GradeId = (int)item.GradeId;
+                if (item.GradeId != null && item.GradeId != 0)
+                    stock.GradeId = (int)item.GradeId;
 
-            if (item.DesignId != null && item.DesignId != 0)
-                stock.DesignId = (int)item.DesignId;
+                if (item.DesignId != null && item.DesignId != 0)
+                    stock.DesignId = (int)item.DesignId;
+            }
 
             stock.ChallanType = Model.ChallanType;
             stock.Cut = item.Cops;
@@ -167,10 +170,14 @@ namespace Konto.Data
             //stock.TransDate = DateTime.ParseExact(Model.VoucherDate.ToString(), "yyyyMMdd",
             //     System.Globalization.CultureInfo.CurrentCulture);
 
-            stock.VoucherId = Model.VoucherId != null ? Convert.ToInt32(Model.VoucherId) : 0;
+            stock.VoucherId = Model.VoucherId;
             stock.BillNo = Model.ChallanNo;
             stock.VoucherNo = Model.VoucherNo;
-            stock.ItemId = item.ProductId != null ? Convert.ToInt32(item.ProductId) : 0;
+            
+            if (!_stockForReturnProduct)
+                stock.ItemId = item.ProductId != null ? Convert.ToInt32(item.ProductId) : 0;
+            else
+                stock.ItemId = item.NProductId != null ? Convert.ToInt32(item.NProductId) : 0;
 
             stock.Rate = item.Rate;
             stock.Amount = item.Total;
@@ -192,10 +199,20 @@ namespace Konto.Data
             }
             else
             {
-                stock.RcptNos = item.Pcs;
-                stock.RcptQty = item.Qty;
-                stock.Qty = item.Qty;
-                stock.Pcs = item.Pcs;
+                if (!_stockForReturnProduct)
+                {
+                    stock.RcptNos = item.Pcs;
+                    stock.RcptQty = item.Qty;
+                    stock.Qty = item.Qty;
+                    stock.Pcs = item.Pcs;
+                }
+                else
+                {
+                    stock.RcptNos = item.PlainPcs;
+                    stock.RcptQty = item.PlainQty;
+                    stock.Qty = item.PlainQty;
+                    stock.Pcs = item.PlainPcs;
+                }
             }
 
             stock.TransDateTime = DateTime.Now;

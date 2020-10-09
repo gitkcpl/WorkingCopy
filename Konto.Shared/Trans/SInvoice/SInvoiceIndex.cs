@@ -88,7 +88,7 @@ namespace Konto.Shared.Trans.SInvoice
             headerEdit.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             headerEdit.Leave += new EventHandler(headerEdit_Leave);
             billAdjustSimpleButton.Click += BillAdjustSimpleButton_Click;
-           // delvLookup.SelectedValueChanged += DelvLookup_SelectedValueChanged;
+            delvLookup.SelectedValueChanged += DelvLookup_SelectedValueChanged;
             addressLookup1.SelectedValueChanged += AddressLookup1_SelectedValueChanged;
             stateLookUpEdit.EditValueChanged += StateLookUpEdit_EditValueChanged;
             
@@ -159,7 +159,14 @@ namespace Konto.Shared.Trans.SInvoice
         private void DelvLookup_SelectedValueChanged(object sender, EventArgs e)
         {
             if (delvLookup.LookupDto == null) return;
-            stateLookUpEdit.EditValue = delvLookup.LookupDto.StateId;
+            if (this.PrimaryKey == 0)
+            {
+                //addressLookup1.sel
+                addressLookup1.SetValue(this.delvLookup.LookupDto.AddressId);
+                addressLookup1.SelectedValue = this.delvLookup.LookupDto.AddressId;
+                stateLookUpEdit.EditValue = delvLookup.LookupDto.StateId;
+            }
+           
         }
 
         private void BillAdjustSimpleButton_Click(object sender, EventArgs e)
@@ -1384,8 +1391,8 @@ namespace Konto.Shared.Trans.SInvoice
                 this.delvLookup.SelectedValue = this.accLookup1.SelectedValue;
                 this.delvLookup.buttonEdit1.Text = this.accLookup1.SelectedText;
                 this.delvLookup.SelectedText = this.accLookup1.SelectedText;
-                addressLookup1.SetValue(this.delvLookup.LookupDto.AddressId);
-                addressLookup1.SelectedValue = this.delvLookup.LookupDto.AddressId;
+               // addressLookup1.SetValue(this.delvLookup.LookupDto.AddressId);
+               // addressLookup1.SelectedValue = this.delvLookup.LookupDto.AddressId;
                 //addressLookup1.buttonEdit1.Text = this.delvLookup.LookupDto.FullAddress;
                 dueDaysTextEdit.Text = this.accLookup1.LookupDto.CrDays.ToString();
                 if (this.accLookup1.LookupDto.TcsReq.ToUpper() == "YES")

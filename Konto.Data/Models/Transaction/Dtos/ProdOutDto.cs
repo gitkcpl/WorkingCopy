@@ -87,5 +87,6 @@ namespace Konto.Data.Models.Transaction.Dtos
         [Display(Name = "TakaStatus")]
         public virtual string TakaStatus { get; set; }
         public virtual string LotNo { get; set; }
+         public virtual decimal PlainQty { get; set; }
     }
 }

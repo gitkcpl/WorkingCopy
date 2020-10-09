@@ -246,6 +246,12 @@
     <Compile Include="Para\Gst\HSNDetailListView.Designer.cs">
       <DependentUpon>HSNDetailListView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Para\Gst\PaymentAssist.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Para\Gst\PaymentAssist.Designer.cs">
+      <DependentUpon>PaymentAssist.cs</DependentUpon>
+    </Compile>
     <Compile Include="Para\Gst\WaitForm1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -424,6 +430,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Para\Gst\HSNDetailListView.resx">
       <DependentUpon>HSNDetailListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Para\Gst\PaymentAssist.resx">
+      <DependentUpon>PaymentAssist.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Para\Gst\WaitForm1.resx">
       <DependentUpon>WaitForm1.cs</DependentUpon>

@@ -110,6 +110,10 @@ namespace Konto.Data.Models.Transaction
         [Range(0.0000, 999999999)]
         public decimal Cess { get; set; }
 
+        public int PlainPcs { get; set; }
+        
+        public decimal PlainQty { get; set; }
+
         //[NotMapped]
         //public string ProductName { get; set; }
 
@@ -122,7 +126,7 @@ namespace Konto.Data.Models.Transaction
         //[NotMapped]
         //public string DesignNo { get; set; }
 
-       
+
         //[NotMapped]
         //public int? ODate { get; set; }
 

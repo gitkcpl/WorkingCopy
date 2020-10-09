@@ -109,5 +109,11 @@ namespace Konto.Data.Models.Transaction.Dtos
         public string ChallanNo { get; set; }
         public string RefNo { get; set; }
         public string GreyQuality { get; set; }
+
+        public int PlainPcs { get; set; }
+
+        public decimal PlainQty { get; set; }
+
+        public int? NProductId { get; set; }
     }
 }

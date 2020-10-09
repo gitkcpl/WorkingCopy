@@ -99,6 +99,8 @@ namespace Konto.Data.Models.Transaction
 
         public virtual string LotNo { get; set; }
 
+        public virtual decimal PlainQty { get; set; }
+
         [ForeignKey("VoucherId")]
         public virtual VoucherModel voucher { get; set; }
 

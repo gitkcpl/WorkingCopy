@@ -14,9 +14,12 @@ using System.Windows.Forms;
 
 namespace Konto.Core.Shared.Libs
 {
-    public class KontoUtils
+    public static class KontoUtils
     {
-
+        public static string ZeroIfEmpty(this string s)
+        {
+            return string.IsNullOrEmpty(s) ? "0" : s;
+        }
         public static DateTime IToD(int date)
         {
             DateTime dt;

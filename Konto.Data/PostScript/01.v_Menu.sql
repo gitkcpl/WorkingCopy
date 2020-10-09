@@ -2818,3 +2818,16 @@ insert into ErpModule ([Id],[ParentId],[ModuleDesc],[OrderIndex],[LinkButton],[S
 end
 
 update dbo.ErpModule set IconPath='/Konto.Wpf;component/MenuIcon/setup.png' where id=912
+
+
+if NOT exists (select 1 from ErpModule em where em.Id=1073)
+begin
+insert into ErpModule ([Id],[ParentId],[ModuleDesc],[OrderIndex],[LinkButton],[ShortCutKey],[PackageId]
+           ,[DefaultReport],[DefaultLayout],[TableName],[AssemblyName],[MainAssembly]
+           ,[ListAssembly],[MDI],[Title],[Visible],[IconPath],[CheckRight]
+           ,[VisibleOnDashBoard],[VisibleOnSideBar],[IsSeprator],[Extra1],[Extra2],[Offline],CreateDate)
+		   values(1073,829,'Gst Payment Assist',2,null,null,0,
+		   null,null,null,null,null,
+		   null,null,'Gst',1,'/Konto.Wpf;component/MenuIcon/tax.png',0,
+		   0,0,0,null,null,1,GETDATE())
+end

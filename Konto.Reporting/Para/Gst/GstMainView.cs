@@ -810,8 +810,20 @@ namespace Konto.Reporting.Para.Gst
 
         private void CancelSimpleButton_Click(object sender, EventArgs e)
         {
-            this.Close();
-            this.Dispose();
+             this.Close();
+             this.Dispose();
+            //var frm = new PaymentAssist();
+            //var _tab = this.Parent.Parent as TabControlAdv;
+            //if (_tab == null) return;
+            //var pg1 = new TabPageAdv();
+            //pg1.Text = "Gst Payment Assist";
+            //_tab.TabPages.Add(pg1);
+            //_tab.SelectedTab = pg1;
+            //frm.WindowState = FormWindowState.Maximized;
+            //frm.TopLevel = false;
+            //frm.Parent = pg1;
+            //frm.Location = new Point(pg1.Location.X + pg1.Width / 2 - frm.Width / 2, pg1.Location.Y + pg1.Height / 2 - frm.Height / 2);
+            //frm.Show();// = true;
         }
 
         private void FillLookup()

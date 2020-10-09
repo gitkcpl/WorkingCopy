@@ -128,7 +128,7 @@ namespace Konto.Trading.MillReceipt
             var er = gridView1.GetRow(e.RowHandle) as ProdOutDto;
             if (er == null) return;
             er.FinMrt = er.TP1 + er.TP2 + er.TP3 + er.TP4 + er.TP5;
-            er.ShMtr = er.GrayMtr - er.FinMrt;
+            er.ShMtr = er.GrayMtr - (er.FinMrt + er.PlainQty);
             er.ShPer = decimal.Round(Convert.ToInt32(er.ShMtr) * 100 / Convert.ToDecimal( er.GrayMtr), 2, System.MidpointRounding.AwayFromZero);
         }
         void headerEdit_Leave(object sender, EventArgs e)

@@ -73,6 +73,6 @@ namespace Konto.Data.Models.Transaction.Dtos
 
         public int? VoucherId { get; set; }
 
-       
+        public int? OrgProductId { get; set; }
     }
 }

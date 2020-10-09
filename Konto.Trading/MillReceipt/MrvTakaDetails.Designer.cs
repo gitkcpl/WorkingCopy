@@ -77,6 +77,7 @@
             this.colIpAddress = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colorRepositoryItemButtonEdit = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
             this.gradeRepositoryItemButtonEdit = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
+            this.colPlainQty = new DevExpress.XtraGrid.Columns.GridColumn();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.prodOutModelBindingSource)).BeginInit();
@@ -180,6 +181,7 @@
             this.colTP3,
             this.colTP4,
             this.colTP5,
+            this.colPlainQty,
             this.colShMtr,
             this.colShPer,
             this.colQty,
@@ -377,9 +379,9 @@
             this.colShMtr.Name = "colShMtr";
             this.colShMtr.OptionsColumn.AllowFocus = false;
             this.colShMtr.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
-            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "ShMtr", "{0:0.##}")});
+            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "ShMtr", "{0:F}")});
             this.colShMtr.Visible = true;
-            this.colShMtr.VisibleIndex = 9;
+            this.colShMtr.VisibleIndex = 10;
             // 
             // colShPer
             // 
@@ -390,7 +392,7 @@
             this.colShPer.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Average, "ShPer", "AVG={0:0.##}")});
             this.colShPer.Visible = true;
-            this.colShPer.VisibleIndex = 10;
+            this.colShPer.VisibleIndex = 11;
             // 
             // colQty
             // 
@@ -402,7 +404,7 @@
             this.colIsOk.FieldName = "IsOk";
             this.colIsOk.Name = "colIsOk";
             this.colIsOk.Visible = true;
-            this.colIsOk.VisibleIndex = 8;
+            this.colIsOk.VisibleIndex = 9;
             this.colIsOk.Width = 53;
             // 
             // colRemark
@@ -494,6 +496,18 @@
             new DevExpress.XtraEditors.Controls.EditorButton()});
             this.gradeRepositoryItemButtonEdit.Name = "gradeRepositoryItemButtonEdit";
             // 
+            // colPlainQty
+            // 
+            this.colPlainQty.Caption = "Plain Mtrs";
+            this.colPlainQty.DisplayFormat.FormatString = "F";
+            this.colPlainQty.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.colPlainQty.FieldName = "PlainQty";
+            this.colPlainQty.Name = "colPlainQty";
+            this.colPlainQty.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
+            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "PlainQty", "{0:F}")});
+            this.colPlainQty.Visible = true;
+            this.colPlainQty.VisibleIndex = 8;
+            // 
             // MrvTakaDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -565,5 +579,6 @@
         private DevExpress.XtraGrid.Columns.GridColumn colIpAddress;
         private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit repositoryItemTextEdit1;
         public System.Windows.Forms.BindingSource prodOutModelBindingSource;
+        private DevExpress.XtraGrid.Columns.GridColumn colPlainQty;
     }
 }

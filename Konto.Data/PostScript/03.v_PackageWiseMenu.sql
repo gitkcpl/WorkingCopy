@@ -5813,6 +5813,53 @@ INSERT INTO dbo.Menu_Package
    Id,PackageId,MenuId
 )values (919,1,374)
 
+-- gst payment assist
+IF NOT EXISTS (select 1 from dbo.Menu_Package em where em.Id=920)
+INSERT INTO dbo.Menu_Package
+(
+   Id,PackageId,MenuId
+)values (920,1,1073)
+
+IF NOT EXISTS (select 1 from dbo.Menu_Package em where em.Id=921)
+INSERT INTO dbo.Menu_Package
+(
+   Id,PackageId,MenuId
+)values (921,2,1073)
+
+
+IF NOT EXISTS (select 1 from dbo.Menu_Package em where em.Id=922)
+INSERT INTO dbo.Menu_Package
+(
+   Id,PackageId,MenuId
+)values (922,3,1073)
+
+IF NOT EXISTS (select 1 from dbo.Menu_Package em where em.Id=923)
+INSERT INTO dbo.Menu_Package
+(
+   Id,PackageId,MenuId
+)values (923,4,1073)
+
+
+IF NOT EXISTS (select 1 from dbo.Menu_Package em where em.Id=924)
+INSERT INTO dbo.Menu_Package
+(
+   Id,PackageId,MenuId
+)values (924,6,1073)
+
+
+IF NOT EXISTS (select 1 from dbo.Menu_Package em where em.Id=925)
+INSERT INTO dbo.Menu_Package
+(
+   Id,PackageId,MenuId
+)values (925,7,1073)
+
+IF NOT EXISTS (select 1 from dbo.Menu_Package em where em.Id=926)
+INSERT INTO dbo.Menu_Package
+(
+   Id,PackageId,MenuId
+)values (926,11,1073)
+
+
 
 
 SET IDENTITY_INSERT dbo.Menu_Package OFF

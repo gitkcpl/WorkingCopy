@@ -43,6 +43,9 @@ namespace Konto.Trading.MillReceipt
         TextEdit headerEdit = new TextEdit();
         GridColumn activeCol = null;
         private bool isImortOrSez = false;
+
+        private bool IsLoadData = false;
+
         public MrvIndex()
         {
             InitializeComponent();
@@ -219,6 +222,8 @@ namespace Konto.Trading.MillReceipt
         }
         private void FinalTotal()
         {
+            if (IsLoadData) return;
+
             var Trans = grnTransDtoBindingSource1.DataSource as List<MrvTransDto>;
             var gross = Trans.Sum(x => x.Total) - Trans.Sum(x => x.Cgst) - Trans.Sum(x => x.Sgst) -
                 Trans.Sum(x => x.Igst) - Trans.Sum(x => x.Cess);
@@ -615,6 +620,7 @@ namespace Konto.Trading.MillReceipt
         private void LoadData(ChallanModel model)
         {
             this.ResetPage();
+            IsLoadData = true;
             this.PrimaryKey = model.Id;
             invTypeLookUpEdit.EditValue = model.BillType;
             rcmLookUpEdit.EditValue = model.Rcm;
@@ -659,8 +665,14 @@ namespace Konto.Trading.MillReceipt
                 tdsAccLookup.SelectedValue = model.BillId;
                 tdsAccLookup.SetAcc((int)model.BillId);
             }
+
             tdsPerTextEdit.Value = model.TdsPer;
             tdsAmtTextEdit.Value = model.TdsAmt;
+
+            billAmtSpinEdit.Value = model.TotalAmount;
+            roundoffSpinEdit.Value = Convert.ToDecimal(model.RoundOff);
+            paybleTextEdit.EditValue = model.TotalAmount - model.TdsAmt;
+           
 
             createdLabelControl.Text = "Created By: " + model.CreateUser + " [ " + model.CreateDate + " ]";
             modifyLabelControl.Text = "Modified By: " + model.ModifyUser + " [ " + model.ModifyDate ?? string.Empty + " ]";
@@ -696,7 +708,8 @@ namespace Konto.Trading.MillReceipt
                                  IgstPer = ct.IgstPer, LotNo = ct.LotNo, MiscId = ct.MiscId, OtherAdd = ct.OtherAdd, OtherLess = ct.OtherLess,
                                  Pcs = ct.Pcs, ProductId = (int)ct.ProductId, ProductName = pd.ProductName, Qty = ct.Qty, Rate = ct.Rate, RefId = ct.RefId,
                                  RefVoucherId = ct.RefVoucherId, Remark = ct.Remark, Sgst = ct.Sgst, SgstPer = ct.SgstPer, Total = ct.Total, UomId = (int)ct.UomId,
-                                 ChallanNo = mi.VoucherNo,GreyQuality = gp.ProductName,ShQty = ct.IssueQty- ct.Qty,ShPer = ((ct.IssueQty-ct.Qty)/ct.IssueQty)*100
+                                 ChallanNo = mi.VoucherNo,GreyQuality = gp.ProductName,ShQty = ct.IssueQty- ct.Qty,ShPer = ((ct.IssueQty-ct.Qty)/ct.IssueQty)*100,
+                                 NProductId = ct.NProductId,PlainQty = ct.PlainQty,PlainPcs=ct.PlainPcs,RefNo=ct.RefNo
                              }).ToList();
 
                var  _prodDtos = _context.ProdOuts.Where(x => x.RefId == model.Id && !x.IsDeleted).ToList();
@@ -708,8 +721,8 @@ namespace Konto.Trading.MillReceipt
                 this.grnTransDtoBindingSource1.DataSource = _list;
             }
 
-
-            FinalTotal();
+            IsLoadData = false;
+            //  FinalTotal();
             this.Text = "Mill Receipt [View/Modify]";
 
         }
@@ -726,6 +739,7 @@ namespace Konto.Trading.MillReceipt
             if (ord == null) return;
             if (ct.RefId > 0) return;
             ct.GreyQuality = ord.GreyQuality;
+            ct.NProductId = ord.OrgProductId;
             if (!string.IsNullOrEmpty(ord.FinishQuality))
             {
                 ct.ProductId = Convert.ToInt32(ord.ProductId);
@@ -849,7 +863,8 @@ namespace Konto.Trading.MillReceipt
             int FinPcs = 0;
             int GryPcs = 0;
             decimal ShMrt = 0;
-
+            decimal plainMtr = 0;
+            int plainPcs = 0;
             foreach (var pro in tempprod)
             {
                 pro.RefId = this.PrimaryKey;
@@ -866,12 +881,16 @@ namespace Konto.Trading.MillReceipt
                     FinPcs = FinPcs + 1;
                 if (pro.TP5 > 0)
                     FinPcs = FinPcs + 1;
+
                 decimal gm = pro.FinMrt == null || pro.FinMrt == 0 ? 0 : (decimal)pro.GrayMtr;
                 decimal fm = pro.FinMrt == null || pro.FinMrt == 0 ? 0 : (decimal)pro.FinMrt;
                 decimal sm = pro.ShMtr == null ? 0 : (decimal)pro.ShMtr;
                 if (pro.FinMrt > 0)
+                {
                     GryPcs = GryPcs + 1;
-
+                    
+                }
+                
                 GrayMtr = GrayMtr + gm;
                 FinMtr = FinMtr + fm;
                 ShMrt = ShMrt + sm;
@@ -885,7 +904,9 @@ namespace Konto.Trading.MillReceipt
             er.Pcs = FinPcs;
             er.IssuePcs = GryPcs;
             er.IssueQty = GrayMtr;
-            er.ShQty = GrayMtr - FinMtr;
+            er.PlainPcs = tempprod.Where(x => x.PlainQty > 0).Count();
+            er.PlainQty = tempprod.Sum(x => x.PlainQty);
+            er.ShQty = GrayMtr - (FinMtr + er.PlainQty);
             er.ShPer = decimal.Round(er.ShQty * 100 / GrayMtr, 2, MidpointRounding.AwayFromZero);
 
 
@@ -936,7 +957,7 @@ namespace Konto.Trading.MillReceipt
         }
         private void GridView1_ShowingEditor(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (!"Pcs,Qty,IssuePcs,IssueQty".Contains(gridView1.FocusedColumn.FieldName)) return;
+            if (!"Pcs,Qty,IssuePcs,IssueQty,PlainPcs,PlainQty".Contains(gridView1.FocusedColumn.FieldName)) return;
             if (!(gridView1.GetFocusedRow() is MrvTransDto itm)) return;
             if (this.prodDtos.Any(x => x.TransId == itm.Id))
                 e.Cancel = true;
@@ -1285,6 +1306,7 @@ namespace Konto.Trading.MillReceipt
         public override void NewRec()
         {
             base.NewRec();
+            IsLoadData = false;
             this.FilterView = new List<ChallanModel>();
             this.Text = "Mill Receipt [Add New]";
             rcmLookUpEdit.EditValue = "NO";
@@ -1315,7 +1337,7 @@ namespace Konto.Trading.MillReceipt
         public override void ResetPage()
         {
             base.ResetPage();
-            
+            IsLoadData = false;
             accLookup1.SetEmpty();
             bookLookup.SetEmpty();
             challanNotextEdit.Text = string.Empty;
@@ -1583,8 +1605,9 @@ namespace Konto.Trading.MillReceipt
                             
                            // var prList = ProdList.Where(x => x.TransId == item.Id).ToList();
                             StockEffect.StockTransChlnEntry(_find, item,false, TableName, KontoGlobals.UserName, db);
-                            
-                        }
+                            if(item.PlainQty > 0 && Convert.ToInt32(item.NProductId) >0)
+                                StockEffect.StockTransChlnEntry(_find, item, false, TableName, KontoGlobals.UserName, db,true);
+                        }   
 
                         if (!MillRecPara.Challan_Required)
                         {
@@ -1830,6 +1853,18 @@ namespace Konto.Trading.MillReceipt
         private void MrvIndex_Load(object sender, EventArgs e)
         {
             
+        }
+
+        private void roundoffSpinEdit_EditValueChanged(object sender, EventArgs e)
+        {
+            if (!roundoffSpinEdit.ContainsFocus) return;
+            gridView1.UpdateTotalSummary();
+            var ntotal = Convert.ToDecimal(colNetTotal.SummaryItem.SummaryValue);
+
+            ntotal = ntotal + roundoffSpinEdit.Value;
+
+            billAmtSpinEdit.Value = ntotal;
+            paybleTextEdit.Text = (ntotal - tdsAmtTextEdit.Value).ToString("F");
         }
     }
 }
