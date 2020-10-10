@@ -215,4 +215,8 @@ IF NOT EXISTS(SELECT 1 FROM dbo.SPCollection WHERE Id=55)
 INSERT INTO dbo.SPCollection(Id,Name,Section, Remark)
 Values(55,'PendingOrderonIssue','JobIssue','Used to show Pending of Order in Job issue, storeIssue' )
 
+IF NOT EXISTS(SELECT 1 FROM dbo.SPCollection WHERE Id=56)
+INSERT INTO dbo.SPCollection(Id,Name,Section, Remark)
+Values(56,'dbo.PendingReturnable','Grn','Used to show Pending of Returnable Issued, Grn' )
+
 SET IDENTITY_INSERT dbo.SPCollection OFF

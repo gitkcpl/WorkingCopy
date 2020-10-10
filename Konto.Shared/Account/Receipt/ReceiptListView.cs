@@ -14,6 +14,7 @@ using DevExpress.XtraGrid.Views.Grid;
 using GrapeCity.ActiveReports;
 using System.IO;
 using Konto.Data.Models.Masters;
+using Konto.Data.Models.Transaction.Dtos;
 
 namespace Konto.Shared.Account.Receipt
 {
@@ -27,9 +28,42 @@ namespace Konto.Shared.Account.Receipt
             InitializeComponent();
             this.listDateRange1.GetButtonClick += ListDateRange1_GetButtonClick;
             //  this.GridLayoutFileName = KontoFileLayout.Op_Bill_List;
-
+            this.customGridView1.FocusedRowChanged += CustomGridView1_FocusedRowChanged;
             this.ReportPrint = true;
             listAction1.EditDeleteDisabled(false);
+        }
+
+        private void CustomGridView1_FocusedRowChanged(object sender, DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventArgs e)
+        {
+            try
+            {
+                if (customGridView1.FocusedRowHandle < 0) return;
+                var _id = Convert.ToInt32(this.customGridView1.GetRowCellValue(customGridView1.FocusedRowHandle, "Id"));
+                var _vid = Convert.ToInt32(this.customGridView1.GetRowCellValue(customGridView1.FocusedRowHandle, "VoucherId"));
+                var _acid = Convert.ToInt32(this.customGridView1.GetRowCellValue(customGridView1.FocusedRowHandle, "ToAccId"));
+                var _transid = Convert.ToInt32(this.customGridView1.GetRowCellValue(customGridView1.FocusedRowHandle, "TransId"));
+                using (var db = new KontoContext())
+                {
+                    var proc = "dbo.PendingBill";
+                    var spcol = db.SpCollections.FirstOrDefault(k => k.Id ==
+                        (int)SpCollectionEnum.PendingBill);
+                    if (spcol != null) proc = spcol.Name;
+
+                    var BillList = db.Database.SqlQuery<PendBillListDto>(
+                            spcol.Name + " @CompanyId={0},@AccountId={1},@VoucherTypeId={2},@BillType={3}" +
+                            ",@RefId={4},@RefTransId={5},@RefVoucherId={6}",
+                             KontoGlobals.CompanyId, _acid,(int)VoucherTypeEnum.ReceiptVoucher, "DEBIT", _id, _transid, _vid).ToList();
+
+                    gridControl1.DataSource = BillList.Where(x=>x.Amount > 0).ToList();
+                }   
+
+            }
+            catch (Exception ex)
+            {
+
+                Log.Error(ex, "Receipt List");
+                
+            }
         }
 
         private void ListDateRange1_GetButtonClick(object sender, EventArgs e)
@@ -325,6 +359,11 @@ namespace Konto.Shared.Account.Receipt
             base.ImportExcel();
             var _exp = new RecImport();
             _exp.ShowDialog();
+        }
+
+        private void ReceiptListView_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

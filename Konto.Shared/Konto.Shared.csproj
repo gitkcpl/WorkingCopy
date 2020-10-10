@@ -1260,6 +1260,12 @@
     <Compile Include="Trans\GRN\LotOptionView.Designer.cs">
       <DependentUpon>LotOptionView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Trans\GRN\PendingReturnableForGrnView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Trans\GRN\PendingReturnableForGrnView.Designer.cs">
+      <DependentUpon>PendingReturnableForGrnView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Trans\JobIssue\JobIssueBarCode.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -2032,6 +2038,9 @@
     <EmbeddedResource Include="Trans\GRN\LotOptionView.resx">
       <DependentUpon>LotOptionView.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Trans\GRN\PendingReturnableForGrnView.resx">
+      <DependentUpon>PendingReturnableForGrnView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Trans\JobIssue\JobIssueBarCode.resx">
       <DependentUpon>JobIssueBarCode.cs</DependentUpon>
     </EmbeddedResource>
@@ -2163,6 +2172,7 @@
     <None Include="Properties\DataSources\Konto.Data.Models.Transaction.Dtos.OrdTransDto.datasource" />
     <None Include="Properties\DataSources\Konto.Data.Models.Transaction.Dtos.PendBillListDto.datasource" />
     <None Include="Properties\DataSources\Konto.Data.Models.Transaction.Dtos.PendingChallanOnInvoice.datasource" />
+    <None Include="Properties\DataSources\Konto.Data.Models.Transaction.Dtos.PendingReturnableDto.datasource" />
     <None Include="Properties\DataSources\Konto.Data.Models.Transaction.TradingDto.JobIssueBarcodeDto.datasource" />
     <None Include="Resources\loginimage.png" />
   </ItemGroup>

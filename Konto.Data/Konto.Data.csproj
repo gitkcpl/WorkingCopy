@@ -259,6 +259,7 @@
     <Compile Include="Models\Transaction\Dtos\PendingMillReceiptSp.cs" />
     <Compile Include="Models\Transaction\Dtos\PendingMRProd.cs" />
     <Compile Include="Models\Transaction\Dtos\PendingOrderDto.cs" />
+    <Compile Include="Models\Transaction\Dtos\PendingReturnableDto.cs" />
     <Compile Include="Models\Transaction\Dtos\ProdOutDto.cs" />
     <Compile Include="Models\Transaction\Dtos\ProdWeftItemDTO.cs" />
     <Compile Include="Models\Transaction\Dtos\Prod_EmpDto.cs" />

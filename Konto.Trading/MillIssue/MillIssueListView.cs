@@ -62,6 +62,7 @@ namespace Konto.Trading.MillIssue
             if (customGridView1.FocusedRowHandle < 0) return;
             var _id = Convert.ToInt32(this.customGridView1.GetRowCellValue(customGridView1.FocusedRowHandle, "Id"));
             var _vid = Convert.ToInt32(this.customGridView1.GetRowCellValue(customGridView1.FocusedRowHandle, "VoucherId"));
+            
 
             using (var _context = new KontoContext())
             {

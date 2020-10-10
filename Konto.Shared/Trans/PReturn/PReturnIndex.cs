@@ -111,6 +111,7 @@ namespace Konto.Shared.Trans.PReturn
             var grnfrm = new PendingGrnForPurchase();
             grnfrm.VoucherType = VoucherTypeEnum.SalesChallan;
             grnfrm.ChallanType = ChallanTypeEnum.PURCHASE_RETURN;
+            grnfrm.ChallanTypeId = "12";
             grnfrm.Text = "Pending Return Challan";
             grnfrm.AccId = Convert.ToInt32(accLookup1.SelectedValue);
             if (grnfrm.ShowDialog() != DialogResult.OK) return;

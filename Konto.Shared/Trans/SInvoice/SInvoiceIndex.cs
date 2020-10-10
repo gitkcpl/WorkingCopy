@@ -207,6 +207,7 @@ namespace Konto.Shared.Trans.SInvoice
                 var grnfrm = new PendingGrnForPurchase();
                 grnfrm.VoucherType = VoucherTypeEnum.SalesChallan;
                 grnfrm.ChallanType = ChallanTypeEnum.SALES_CHALLAN;
+                grnfrm.ChallanTypeId = "6,9";
                 grnfrm.AccId = Convert.ToInt32(accLookup1.SelectedValue);
                 grnfrm.Text = "Select Pending Challan";
                 if (grnfrm.ShowDialog() != DialogResult.OK) return;

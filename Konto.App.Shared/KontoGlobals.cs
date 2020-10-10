@@ -235,7 +235,10 @@ namespace Konto.App.Shared
             REFINISH_ISSUE = 11,
             PURCHASE_RETURN = 12,
             INWARD_FROM_JOB = 13,
-            Mill_Return = 14
+            ALL=14,
+            RETURNABLE_ITEM=15,
+            NON_RETURNABLE_ITEM=16
+            
         }
         public enum ProductTypeEnum
         {
@@ -299,7 +302,8 @@ namespace Konto.App.Shared
             GetWeftById = 52,
             PendingMillIssue = 53,
             PendingBatchLot = 54,
-            PendingOrderonIssue=55
+            PendingOrderonIssue=55,
+            PendingReturnableForGrn=56
     }
 
     public enum Permission : int

@@ -85,4 +85,17 @@ BEGIN
 	VALUES(14,'All','Report','','',GETDATE(),'Admin',1,0,NEWID())
 END
 
+IF NOT EXISTS (SELECT 1 FROM dbo.TransType WHERE Id=15)
+BEGIN
+	INSERT INTO dbo.TransType(Id,TypeName,Category,Extra1,Extra2,CreateDate,CreateUser,IsActive,IsDeleted,RowId)
+	VALUES(15,'Returnable Item','OutWard','','',GETDATE(),'Admin',1,0,NEWID())
+END
+
+
+IF NOT EXISTS (SELECT 1 FROM dbo.TransType WHERE Id=16)
+BEGIN
+	INSERT INTO dbo.TransType(Id,TypeName,Category,Extra1,Extra2,CreateDate,CreateUser,IsActive,IsDeleted,RowId)
+	VALUES(16,'Non-Returnable Item','OutWard','','',GETDATE(),'Admin',1,0,NEWID())
+END
+
 --SET IDENTITY_INSERT dbo.TransType OFF

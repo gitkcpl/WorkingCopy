@@ -406,12 +406,12 @@ namespace Konto.Shared.Trans.SalesChallan
                 accLookup1.Focus();
                 return false;
             }
-            //else if (string.IsNullOrEmpty(challanNotextEdit.Text.Trim()))
-            //{
-            //    MessageBoxAdv.Show(this, "Invalid Challan No.", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            //    challanNotextEdit.Focus();
-            //    return false;
-            //}
+            else if (string.IsNullOrEmpty(challanNotextEdit.Text.Trim()))
+            {
+                MessageBoxAdv.Show(this, "Invalid Ref No.", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                challanNotextEdit.Focus();
+                return false;
+            }
             else if (string.IsNullOrEmpty(grnTypeLookUpEdit.Text))
             {
                 MessageBoxAdv.Show(this, "Invalid Outward Type", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);

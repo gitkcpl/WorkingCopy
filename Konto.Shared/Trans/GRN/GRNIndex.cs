@@ -424,7 +424,7 @@ namespace Konto.Shared.Trans.GRN
             using (var db = new KontoContext())
             {
                var  TransTypeList = (from p in  db.transTypes
-                                        where p.IsActive && !p.IsDeleted && (p.Category.ToUpper() == "INWARD" || p.Category == null)
+                                        where p.IsActive && !p.IsDeleted && (p.Category.ToUpper() == "INWARD" || p.Id == (int)ChallanTypeEnum.RETURNABLE_ITEM || p.Category == null )
                                      select new BaseLookupDto()
                                      {
                                          DisplayText = p.TypeName,Id = p.Id
@@ -978,6 +978,12 @@ namespace Konto.Shared.Trans.GRN
         private void AccLookup1_ShownPopup(object sender, EventArgs e)
         {
             if (Convert.ToInt32(accLookup1.SelectedValue) == 0 || this.PrimaryKey != 0) return;
+
+            if( Convert.ToInt32(grnTypeLookUpEdit.EditValue) == (int)ChallanTypeEnum.RETURNABLE_ITEM)
+            {
+                GetReturnablePending();
+            }
+
             if (grnTypeLookUpEdit.Text.ToUpper() != "PURCHASE") return;
             var ordfrm = new PendingOrderView();
             ordfrm.VoucherType = VoucherTypeEnum.PurchaseOrder;
@@ -1027,6 +1033,72 @@ namespace Konto.Shared.Trans.GRN
                 ct.ColorName = ord.ColorName;
                 ct.DesignNo = ord.DesignNo;
                 ct.GradeName = ord.GradeName;
+
+                ct.Gross = decimal.Round(ct.Qty * ct.Rate, 2);
+
+                decimal gross = ct.Gross - ct.Disc + ct.OtherAdd - ct.OtherLess + ct.Freight;
+
+                ct.Sgst = decimal.Round(gross * ct.SgstPer / 100, 2);
+                ct.Cgst = decimal.Round(gross * ct.CgstPer / 100, 2);//, MidpointRounding.AwayFromZero);
+                ct.Igst = decimal.Round(gross * ct.IgstPer / 100, 2);//, MidpointRounding.AwayFromZero);
+
+                ct.Total = gross + ct.Sgst + ct.Cgst + ct.Igst;
+                transDtos.Add(ct);
+            }
+            grnTransDtoBindingSource1.DataSource = transDtos;
+        }
+
+        private void GetReturnablePending()
+        {
+            var ordfrm = new PendingReturnableForGrnView();
+            ordfrm.VoucherType = VoucherTypeEnum.SalesChallan;
+            ordfrm.AccId = Convert.ToInt32(accLookup1.SelectedValue);
+            ordfrm.ChallanType = ChallanTypeEnum.RETURNABLE_ITEM;
+            if (ordfrm.ShowDialog() != DialogResult.OK) return;
+
+            Int32[] selectedRowHandles = ordfrm.SelectedRows;
+            if (selectedRowHandles == null || selectedRowHandles.Count() == 0) return;
+            List<GrnTransDto> transDtos = new List<GrnTransDto>();
+            int id = 0;
+            foreach (var item in selectedRowHandles)
+            {
+                var ord = ordfrm.gridView1.GetRow(item) as PendingReturnableDto;
+                GrnTransDto ct = new GrnTransDto();
+                id = id - 1;
+                ct.ProductId = Convert.ToInt32(ord.ProductId);
+                ct.ProductName = ord.Product;
+                ct.Pcs = ord.PendingPcs != null ? (int)ord.PendingPcs : 0;
+                ct.Cops = 0;// ord.Cut != 0 ? ord.Cut : 0;
+                ct.Qty = ord.PendingQty != null ? (decimal)ord.PendingQty : 0;
+                ct.Rate = ord.rate != null ? (decimal)ord.rate : 0;
+                ct.LotNo = voucherNoTextEdit.Text.Substring(4, voucherNoTextEdit.Text.Length - 4);
+                //ct.FreightRate = ord.FreightRate != null ? (decimal)ord.FreightRate : 0;
+                //ct.Freight = ord.Freight != null ? (decimal)ord.Freight : 0;
+                //ct.OtherAdd = ord.OtherAdd != null ? (decimal)ord.OtherAdd : 0;
+                //ct.OtherLess = ord.OtherLess != null ? (decimal)ord.OtherLess : 0;
+                ct.DiscPer = ord.Disc != null ? (decimal)ord.Disc : 0;
+                ct.Disc = ord.DiscAmt != null ? (decimal)ord.DiscAmt : 0;
+                ct.Sgst = ord.SgstAmt != null ? (decimal)ord.SgstAmt : 0;
+                ct.SgstPer = ord.Sgst != null ? (decimal)ord.Sgst : 0;
+                ct.Cgst = ord.CgstAmt;// != null ? (decimal)ord.CgstAmt : 0;
+                ct.CgstPer = ord.Cgst;// != null ? (decimal)ord.Cgst : 0;
+                ct.Igst = ord.IgstAmt; // != null ? (decimal)ord.IgstAmt : 0;
+                ct.IgstPer = ord.Igst; // != null ? (decimal)ord.Igst : 0;
+                                       //ct.CessPer = ord.cess; // != null ? (decimal)ord.Cess : 0;
+                                       //  ct.Cess = ord.CessAmt; // != null ? (decimal)ord.CessAmt : 0;
+                ct.UomId = Convert.ToInt32(ord.UomId);
+                ct.DesignId = Convert.ToInt32(ord.DesignId);
+                ct.ColorId = Convert.ToInt32(ord.ColorId);
+                ct.GradeId = Convert.ToInt32(ord.GradeId);
+                ct.OrdNo = ord.VoucherNo;
+               // ct.ODate = ord.VoucherDate;
+                //ct.OrdDate = ord.VouchDate;
+                ct.RefId = ord.TransId;
+                ct.MiscId = ord.Id;
+                ct.RefVoucherId = ord.VoucherId;
+               // ct.ColorName = ord.ColorName;
+               // ct.DesignNo = ord.DesignNo;
+               // ct.GradeName = ord.GradeName;
 
                 ct.Gross = decimal.Round(ct.Qty * ct.Rate, 2);
 

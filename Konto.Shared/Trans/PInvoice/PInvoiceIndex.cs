@@ -157,6 +157,7 @@ namespace Konto.Shared.Trans.PInvoice
             var grnfrm = new PendingGrnForPurchase();
             grnfrm.VoucherType = VoucherTypeEnum.Inward;
             grnfrm.ChallanType = ChallanTypeEnum.PURCHASE;
+            grnfrm.ChallanTypeId = "1,13";
             grnfrm.AccId = Convert.ToInt32(accLookup1.SelectedValue);
             if (grnfrm.ShowDialog() != DialogResult.OK) return;
 

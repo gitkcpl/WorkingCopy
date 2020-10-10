@@ -180,6 +180,7 @@ namespace Konto.Shared.Trans.SReturn
             var grnfrm = new PendingGrnForPurchase();
             grnfrm.VoucherType = VoucherTypeEnum.Inward;
             grnfrm.ChallanType = ChallanTypeEnum.SALES_RETURN;
+            grnfrm.ChallanTypeId = "3";
             grnfrm.Text = "Pending Return Challan";
             grnfrm.AccId = Convert.ToInt32(accLookup1.SelectedValue);
             if (grnfrm.ShowDialog() != DialogResult.OK) return;

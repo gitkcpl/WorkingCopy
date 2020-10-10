@@ -22,6 +22,7 @@ namespace Konto.Shared.Trans.PInvoice
         public int AccId { get; set; }
         public VoucherTypeEnum VoucherType { get; set; }
         public ChallanTypeEnum ChallanType { get; set; }
+        public string ChallanTypeId { get; set; }
         public int[] SelectedRows { get; set; }
         public PendingGrnForPurchase()
         {
@@ -45,13 +46,13 @@ namespace Konto.Shared.Trans.PInvoice
                     {
                         listDtos = db.Database.SqlQuery<PendingChallanOnInvoiceDto>(
                        "dbo.PendingChallanOnInvoice @CompanyId={0},@AccountId={1},@VoucherTypeID={2},@ChallanTypeID={3}",
-                       KontoGlobals.CompanyId, this.AccId, (int)VoucherType, (int)ChallanType).ToList();
+                       KontoGlobals.CompanyId, this.AccId, (int)VoucherType, ChallanTypeId).ToList();
                     }
                     else
                     {
                         listDtos = db.Database.SqlQuery<PendingChallanOnInvoiceDto>(
                          spcol.Name + "  @CompanyId={0},@AccountId={1},@VoucherTypeID={2},@ChallanTypeID={3}",
-                          KontoGlobals.CompanyId, this.AccId, (int)VoucherType, (int)ChallanType).ToList();
+                          KontoGlobals.CompanyId, this.AccId, (int)VoucherType, ChallanTypeId).ToList();
                     }
                     if (listDtos.Count == 0)
                     {
