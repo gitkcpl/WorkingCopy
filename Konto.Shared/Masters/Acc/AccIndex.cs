@@ -219,24 +219,24 @@ namespace Konto.Shared.Masters.Acc
                 return false;
             }
 
-            if (!string.IsNullOrEmpty(gstInTextBoxExt.Text.Trim()))
-            {
-                try
-                {
-                    if (!GSTINValidator.IsValid(gstInTextBoxExt.Text.Trim()))
-                    {
-                        MessageBox.Show("Invalid GSTIN");
-                        gstInTextBoxExt.Focus();
-                        return false;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                    gstInTextBoxExt.Focus();
-                    return false;
-                }
-            }
+            //if (!string.IsNullOrEmpty(gstInTextBoxExt.Text.Trim()))
+            //{
+            //    try
+            //    {
+            //        if (!GSTINValidator.IsValid(gstInTextBoxExt.Text.Trim()))
+            //        {
+            //            MessageBox.Show("Invalid GSTIN");
+            //            gstInTextBoxExt.Focus();
+            //            return false;
+            //        }
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        MessageBox.Show(ex.Message);
+            //        gstInTextBoxExt.Focus();
+            //        return false;
+            //    }
+            //}
 
             using (var db = new KontoContext())
             {

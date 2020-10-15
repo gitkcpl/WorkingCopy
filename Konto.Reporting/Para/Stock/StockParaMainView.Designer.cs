@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StockParaMainView));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.customSimpleButton = new DevExpress.XtraEditors.SimpleButton();
             this.cancelSimpleButton = new DevExpress.XtraEditors.SimpleButton();
             this.okSimpleButton = new DevExpress.XtraEditors.SimpleButton();
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
@@ -91,7 +92,6 @@
             this.layoutControlItem13 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem14 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem9 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.customSimpleButton = new DevExpress.XtraEditors.SimpleButton();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
@@ -150,6 +150,17 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(743, 37);
             this.tableLayoutPanel1.TabIndex = 1;
+            // 
+            // customSimpleButton
+            // 
+            this.customSimpleButton.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.customSimpleButton.Appearance.Options.UseFont = true;
+            this.customSimpleButton.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("customSimpleButton.ImageOptions.SvgImage")));
+            this.customSimpleButton.Location = new System.Drawing.Point(3, 3);
+            this.customSimpleButton.Name = "customSimpleButton";
+            this.customSimpleButton.Size = new System.Drawing.Size(109, 31);
+            this.customSimpleButton.TabIndex = 13;
+            this.customSimpleButton.Text = "Customize";
             // 
             // cancelSimpleButton
             // 
@@ -891,17 +902,6 @@
             this.layoutControlItem9.Size = new System.Drawing.Size(342, 28);
             this.layoutControlItem9.Text = "Division:";
             this.layoutControlItem9.TextSize = new System.Drawing.Size(84, 17);
-            // 
-            // customSimpleButton
-            // 
-            this.customSimpleButton.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.customSimpleButton.Appearance.Options.UseFont = true;
-            this.customSimpleButton.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("customSimpleButton.ImageOptions.SvgImage")));
-            this.customSimpleButton.Location = new System.Drawing.Point(3, 3);
-            this.customSimpleButton.Name = "customSimpleButton";
-            this.customSimpleButton.Size = new System.Drawing.Size(109, 31);
-            this.customSimpleButton.TabIndex = 13;
-            this.customSimpleButton.Text = "Customize";
             // 
             // StockParaMainView
             // 

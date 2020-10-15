@@ -15,6 +15,7 @@ using Aspose.Cells;
 using Konto.Shared.Trans.Common;
 using DevExpress.Utils.Menu;
 using DevExpress.XtraGrid.Views.Grid;
+using Konto.Data.Models.Transaction.Dtos;
 
 namespace Konto.Shared.Trans.SInvoice
 {
@@ -30,15 +31,82 @@ namespace Konto.Shared.Trans.SInvoice
             this.listDateRange1.GetButtonClick += ListDateRange1_GetButtonClick;
             //  this.GridLayoutFileName = KontoFileLayout.Op_Bill_List;
             this.customGridView1.PopupMenuShowing += customGridView1_PopupMenuShowing_1;
+            this.customGridView1.FocusedRowChanged += CustomGridView1_FocusedRowChanged;
             this.ReportPrint = true;
             listAction1.EditDeleteDisabled(false);
 
             
         }
 
-        
+        private void CustomGridView1_FocusedRowChanged(object sender, DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventArgs e)
+        {
+            try
+            {
+                if (customGridView1.FocusedRowHandle < 0) return;
+                var row = customGridView1.GetDataRow(customGridView1.FocusedRowHandle);
 
-        
+                var _id = Convert.ToInt32(row["Id"]);
+                using (var db = new KontoContext())
+                {
+                    var lst = (from p in db.BtoBs
+                               join o2 in db.BillTrans
+                               on new { A = p.RefId, B = (int)p.RefTransId } equals new { A = o2.BillId, B = o2.Id } into LEFTJOIN
+                               from result in LEFTJOIN.DefaultIfEmpty()
+                               join o1 in db.Bills on result.BillId equals o1.Id
+                               join v1 in db.Vouchers on o1.VoucherId equals v1.Id
+                               join br in db.BillRefs on p.RefCode equals br.RowId
+                               where !br.IsDeleted && !o1.IsDeleted && !p.IsDeleted
+                                && br.BillId == _id && p.TransType == "Payment"
+                               select new PaymentHistoryDto()
+                               {
+                                   VoucherNo = o1.VoucherNo,
+                                   ChlnDate = o1.VoucherDate,
+                                   Amount = (decimal)p.Amount,
+                                   Remark = result.Remark,
+                                   ChqNo = result.ChequeNo,
+                                   Type = v1.VoucherName
+
+                               }
+                               ).ToList();
+                    customGridView2.Columns.Clear();
+                    customGridControl2.DataSource = lst;
+                    customGridView2.PopulateColumns();
+                    customGridView2.Columns["ChlnDate"].VisibleIndex = -1;
+                    customGridView2.BestFitColumns();
+
+                    //var lstRet =
+                    var lstRet = (from p in db.BtoBs
+                                  join o1 in db.Bills on p.RefId equals o1.Id
+                                  join v1 in db.Vouchers on o1.VoucherId equals v1.Id
+                                  join br in db.BillRefs on p.RefCode equals br.RowId
+                                  where !br.IsDeleted && !o1.IsDeleted && !p.IsDeleted
+                                   && br.BillId == _id && p.TransType == "Return"
+                                  select new PaymentHistoryDto()
+                                  {
+                                      VoucherNo = o1.VoucherNo,
+                                      ChlnDate = o1.VoucherDate,
+                                      Amount = (decimal)p.Amount,
+                                      Remark = o1.Remarks,
+                                      Type = v1.VoucherName
+
+                                  }
+                               ).ToList();
+
+                    customGridView3.Columns.Clear();
+                    customGridControl3.DataSource = lstRet;
+                    customGridView3.PopulateColumns();
+                    customGridView3.Columns["ChlnDate"].VisibleIndex = -1;
+                    customGridView3.Columns["ChqNo"].VisibleIndex = -1;
+                    customGridView3.BestFitColumns();
+                }
+            }
+            catch (Exception ex)
+            {
+
+                Log.Error(ex, "purchase list");
+            }
+        }
+
         DXMenuItem CreateMenuItemCancel(GridView view, int rowHandle)
         {
             DXMenuItem checkItem = new DXMenuItem("Cancel Invoice", new EventHandler(OnCancelRowClick));

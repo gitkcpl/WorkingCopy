@@ -362,7 +362,7 @@ namespace Konto.Reporting.Para.Gst
            
             var lst = new List<GstDto>();
             WorkbookDesigner wd = new WorkbookDesigner();
-            wd.Workbook = new Aspose.Cells.Workbook("Excel\\GSTR1_Excel_Workbook_Template_V1.5.xlsx");
+            wd.Workbook = new Aspose.Cells.Workbook("Excel\\GSTR1_Excel_Workbook_Template_V1.7.xlsx");
 
             Worksheet w = wd.Workbook.Worksheets[1];
 
@@ -386,7 +386,7 @@ namespace Konto.Reporting.Para.Gst
 
             var _db = new KontoContext();
 
-            if (File.Exists("Excel\\GSTR1_Excel_Workbook_Template_V1.5.xlsx"))
+            if (File.Exists("Excel\\GSTR1_Excel_Workbook_Template_V1.7.xlsx"))
             {
                 _db.Database.CommandTimeout = 0;
 
@@ -440,7 +440,7 @@ namespace Konto.Reporting.Para.Gst
                     w.Cells["G" + row].PutValue(t.TaxableValue);
                     w.Cells["H" + row].PutValue(t.Cess);
                     w.Cells["I" + row].PutValue("");
-                    w.Cells["J" + row].PutValue(t.BondedWH);
+                 //   w.Cells["J" + row].PutValue(t.BondedWH);
 
                     row += 1;
 
@@ -484,16 +484,19 @@ namespace Konto.Reporting.Para.Gst
                         w.Cells["B" + row].PutValue(t.Account);
                         w.Cells["C" + row].PutValue(t.InvoiceNo);
                         w.Cells["D" + row].PutValue(t.InvoiceDate);
-                        w.Cells["E" + row].PutValue(t.VoucherNo);
-                        w.Cells["F" + row].PutValue(t.VoucherDate);
-                        w.Cells["G" + row].PutValue(t.NoteType);
-                        w.Cells["H" + row].PutValue(t.StateName);
+                        w.Cells["E" + row].PutValue(t.NoteType);
+                        w.Cells["F" + row].PutValue(t.StateName);
+                        w.Cells["G" + row].PutValue("N");
+                        w.Cells["H" + row].PutValue("Regular");
                         w.Cells["I" + row].PutValue(t.BillAmount);
                         w.Cells["J" + row].PutValue("");
                         w.Cells["K" + row].PutValue(t.GSTRate);
                         w.Cells["L" + row].PutValue(t.TaxableValue);
                         w.Cells["M" + row].PutValue(t.Cess);
-                        w.Cells["N" + row].PutValue("N");
+                        // 
+                        //w.Cells["E" + row].PutValue(t.VoucherNo);
+                        //w.Cells["F" + row].PutValue(t.VoucherDate);
+                        //w.Cells["N" + row].PutValue("N");
 
                         row += 1;
                     }
@@ -526,15 +529,21 @@ namespace Konto.Reporting.Para.Gst
                     w.Cells["B" + row].PutValue(t.VoucherNo);
                     w.Cells["C" + row].PutValue(t.VoucherDate);
                     w.Cells["D" + row].PutValue(t.NoteType);
-                    w.Cells["E" + row].PutValue(t.InvoiceNo);
-                    w.Cells["F" + row].PutValue(t.InvoiceDate);
-                    w.Cells["G" + row].PutValue(t.StateName);
-                    w.Cells["H" + row].PutValue(t.BillAmount);
-                    w.Cells["I" + row].PutValue("");
-                    w.Cells["J" + row].PutValue(t.GSTRate);
-                    w.Cells["K" + row].PutValue(t.TaxableValue);
-                    w.Cells["L" + row].PutValue(t.Cess);
-                    w.Cells["M" + row].PutValue("N");
+                    w.Cells["E" + row].PutValue(t.StateName);
+                    w.Cells["F" + row].PutValue(t.BillAmount);
+                    w.Cells["H" + row].PutValue(t.GSTRate);
+                    w.Cells["I" + row].PutValue(t.TaxableValue);
+
+                    w.Cells["J" + row].PutValue(t.Cess);
+
+                    //w.Cells["E" + row].PutValue(t.InvoiceNo);
+                    //w.Cells["F" + row].PutValue(t.InvoiceDate);
+                    
+                    
+                    //w.Cells["I" + row].PutValue("");
+                    
+                   
+                  //  w.Cells["M" + row].PutValue("N");
 
                     row += 1;
 
@@ -810,20 +819,8 @@ namespace Konto.Reporting.Para.Gst
 
         private void CancelSimpleButton_Click(object sender, EventArgs e)
         {
-             this.Close();
-             this.Dispose();
-            //var frm = new PaymentAssist();
-            //var _tab = this.Parent.Parent as TabControlAdv;
-            //if (_tab == null) return;
-            //var pg1 = new TabPageAdv();
-            //pg1.Text = "Gst Payment Assist";
-            //_tab.TabPages.Add(pg1);
-            //_tab.SelectedTab = pg1;
-            //frm.WindowState = FormWindowState.Maximized;
-            //frm.TopLevel = false;
-            //frm.Parent = pg1;
-            //frm.Location = new Point(pg1.Location.X + pg1.Width / 2 - frm.Width / 2, pg1.Location.Y + pg1.Height / 2 - frm.Height / 2);
-            //frm.Show();// = true;
+            this.Close();
+            this.Dispose();
         }
 
         private void FillLookup()

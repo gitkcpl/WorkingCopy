@@ -253,6 +253,7 @@
     <Compile Include="Models\Transaction\Dtos\OpBillListDto.cs" />
     <Compile Include="Models\Transaction\Dtos\OrdAprvalDto.cs" />
     <Compile Include="Models\Transaction\Dtos\OrdDto.cs" />
+    <Compile Include="Models\Transaction\Dtos\PaymentHistoryDto.cs" />
     <Compile Include="Models\Transaction\Dtos\PendBillListDto.cs" />
     <Compile Include="Models\Transaction\Dtos\PendingChallanOnInvoiceDto.cs" />
     <Compile Include="Models\Transaction\Dtos\PendingChallanOnInvoiceDetDto.cs" />

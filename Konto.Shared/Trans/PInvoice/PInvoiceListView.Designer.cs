@@ -93,7 +93,7 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 74F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 113F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(991, 113);
             this.tableLayoutPanel1.TabIndex = 15;
             // 
@@ -134,7 +134,6 @@
             this.customGridView3.OptionsLayout.StoreAppearance = true;
             this.customGridView3.OptionsMenu.ShowAddNewSummaryItem = DevExpress.Utils.DefaultBoolean.True;
             this.customGridView3.OptionsView.ColumnAutoWidth = false;
-            this.customGridView3.OptionsView.ShowFooter = true;
             this.customGridView3.OptionsView.ShowGroupPanel = false;
             // 
             // customGridControl2
@@ -174,7 +173,6 @@
             this.customGridView2.OptionsLayout.StoreAppearance = true;
             this.customGridView2.OptionsMenu.ShowAddNewSummaryItem = DevExpress.Utils.DefaultBoolean.True;
             this.customGridView2.OptionsView.ColumnAutoWidth = false;
-            this.customGridView2.OptionsView.ShowFooter = true;
             this.customGridView2.OptionsView.ShowGroupPanel = false;
             // 
             // customGridControl1

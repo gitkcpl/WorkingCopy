@@ -561,7 +561,7 @@
             // 
             // bookLookup
             // 
-            this.bookLookup.AgentLookup = this.agentLookup;
+            this.bookLookup.AgentLookup = null;
             this.bookLookup.FillParty = false;
             this.bookLookup.GroupId = 0;
             this.bookLookup.Location = new System.Drawing.Point(115, 113);
