@@ -79,15 +79,15 @@
             this.customGridView1.OptionsView.ShowIndicator = false;
             this.customGridView1.RowHeight = 30;
             // 
-            // EmpLkpWindow
+            // HasteLkpWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(285, 309);
             this.Controls.Add(this.customGridControl1);
             this.KontoView = this.customGridView1;
-            this.Name = "EmpLkpWindow";
-            this.Text = "Select A Salesman/Employee";
+            this.Name = "HasteLkpWindow";
+            this.Text = "Select Name From List";
             this.Shown += new System.EventHandler(this.AreaLkpWindow_Shown);
             this.Controls.SetChildIndex(this.panelControl1, 0);
             this.Controls.SetChildIndex(this.customGridControl1, 0);

@@ -10,6 +10,8 @@ using Konto.Data.Models.Masters.Dtos;
 using Konto.Data.Models.Transaction;
 using Konto.Reporting.CustomRep;
 using Serilog;
+using Stimulsoft.Report;
+using Stimulsoft.Report.Dictionary;
 using Syncfusion.Windows.Forms.Tools;
 using System;
 using System.Collections.Generic;
@@ -170,20 +172,28 @@ namespace Konto.Reporting.Para.ChlPara
                 MessageBox.Show("No Report Exist from Preview..");
                 return;
             }
+
+            var rw = repGridView1.GetRow(repGridView1.FocusedRowHandle) as ReportTypeModel;
+            string dr = "";
+
+            if (rw == null)
+                rw = repGridView1.GetRow(0) as ReportTypeModel;
+            dr = rw.FileName;
+
+
+            if (dr.Substring(dr.Length-3,3) == "mrt")
+            {
+                ShowStimulSoft(dr);
+                return;
+            }
             try
             {
                 GrapeCity.ActiveReports.PageReport _pageReport = new GrapeCity.ActiveReports.PageReport();
-                string dr = "";
-
-                var rw = repGridView1.GetRow(repGridView1.FocusedRowHandle) as ReportTypeModel;
-                if (rw == null)
-                    rw = repGridView1.GetRow(0) as ReportTypeModel;
-                dr = rw.FileName;
-
+            
 
                 _pageReport.Load(new System.IO.FileInfo(dr));
 
-                _pageReport.Report.DataSources[0].ConnectionProperties.ConnectString = KontoGlobals.sqlConnectionString.ConnectionString;
+               // _pageReport.Report.DataSources[0].ConnectionProperties.ConnectString = KontoGlobals.sqlConnectionString.ConnectionString;
 
                 var tble = _pageReport.Report.Body.ReportItems["Table1"] as GrapeCity.ActiveReports.PageReportModel.Table;
                 if (checkEdit1.CheckState == CheckState.Checked)
@@ -194,75 +204,15 @@ namespace Konto.Reporting.Para.ChlPara
                     grp.Grouping.PageBreakAtEnd = true;
                 }
 
+
+               // _pageReport.Document.LocateDataSource += new GrapeCity.ActiveReports.LocateDataSourceEventHandler(Doc_LocateDataSource);
                 GrapeCity.ActiveReports.Document.PageDocument doc = new GrapeCity.ActiveReports.Document.PageDocument(_pageReport);
+                //doc.LocateDataSource += Doc_LocateDataSource;
                 _pageReport.Report.DataSources[0].ConnectionProperties.ConnectString = KontoGlobals.sqlConnectionString.ConnectionString;
-                var _paraList = new List<ReportParaModel>();
+               
                 int _ReportId = 0;
-                using (var _db = new KontoContext())
-                {
-                    var reportid = _db.ReportParas.DefaultIfEmpty().Max(k => k == null ? 0 : k.ReportId);
-                    _ReportId = reportid + 1;
 
-                    ReportParaModel ModelReport;
-
-                    if (ledgerGridView.SelectedRowsCount > 0)
-                    {
-                        doc.Parameters["party"].CurrentValue = "Y";
-                        foreach (var item in ledgerGridView.GetSelectedRows())
-                        {
-                            var _acc = ledgerGridView.GetRow(item) as AccLookupDto;
-                            ModelReport = new ReportParaModel();
-                            ModelReport.ReportId = _ReportId;
-                            ModelReport.ParameterName = "party";
-                            ModelReport.ParameterValue = _acc.Id;
-                            _paraList.Add(ModelReport);
-                        }
-                    }
-
-                    if (itemGridView.SelectedRowsCount > 0)
-                    {
-                        doc.Parameters["item"].CurrentValue = "Y";
-                        foreach (var item in itemGridView.GetSelectedRows())
-                        {
-                            var _acc = itemGridView.GetRow(item) as BaseLookupDto;
-                            ModelReport = new ReportParaModel();
-                            ModelReport.ReportId = _ReportId;
-                            ModelReport.ParameterName = "product";
-                            ModelReport.ParameterValue = _acc.Id;
-                            _paraList.Add(ModelReport);
-                        }
-                    }
-
-                    if (designGridView1.SelectedRowsCount > 0)
-                    {
-                        doc.Parameters["design"].CurrentValue = "Y";
-                        foreach (var item in designGridView1.GetSelectedRows())
-                        {
-                            var _acc = designGridView1.GetRow(item) as BaseLookupDto;
-                            ModelReport = new ReportParaModel();
-                            ModelReport.ReportId = _ReportId;
-                            ModelReport.ParameterName = "design";
-                            ModelReport.ParameterValue = _acc.Id;
-                            _paraList.Add(ModelReport);
-                        }
-                    }
-                    if (colorGridView.SelectedRowsCount > 0)
-                    {
-                        doc.Parameters["color"].CurrentValue = "Y";
-                        foreach (var item in colorGridView.GetSelectedRows())
-                        {
-                            var _acc = colorGridView.GetRow(item) as BaseLookupDto;
-                            ModelReport = new ReportParaModel();
-                            ModelReport.ReportId = _ReportId;
-                            ModelReport.ParameterName = "color";
-                            ModelReport.ParameterValue = _acc.Id;
-                            _paraList.Add(ModelReport);
-                        }
-                    }
-
-                    _db.ReportParas.AddRange(_paraList);
-                    _db.SaveChanges();
-                }
+              _ReportId=  SetCheckedParameters(doc,null);
 
  
                 if (doc.Parameters["companyid"] != null)
@@ -372,6 +322,174 @@ namespace Konto.Reporting.Para.ChlPara
             }
 
         }
+
+        private int SetCheckedParameters(GrapeCity.ActiveReports.Document.PageDocument doc,
+                Stimulsoft.Report.StiReport _rep)
+        {
+            int _ReportId = 0;
+            var _paraList = new List<ReportParaModel>();
+            using (var _db = new KontoContext())
+            {
+                var reportid = _db.ReportParas.DefaultIfEmpty().Max(k => k == null ? 0 : k.ReportId);
+              _ReportId = reportid + 1;
+
+                ReportParaModel ModelReport;
+
+                if (ledgerGridView.SelectedRowsCount > 0)
+                {
+                    if (doc != null)
+                        doc.Parameters["party"].CurrentValue = "Y";
+                    else
+                      _rep["party"] = "Y";
+
+                    foreach (var item in ledgerGridView.GetSelectedRows())
+                    {
+                        var _acc = ledgerGridView.GetRow(item) as AccLookupDto;
+                        ModelReport = new ReportParaModel();
+                        ModelReport.ReportId = _ReportId;
+                        ModelReport.ParameterName = "party";
+                        ModelReport.ParameterValue = _acc.Id;
+                        _paraList.Add(ModelReport);
+                    }
+                }
+
+                if (itemGridView.SelectedRowsCount > 0)
+                {
+                    if (doc != null)
+                        doc.Parameters["item"].CurrentValue = "Y";
+                    else
+                        _rep["item"] = "Y";
+                    foreach (var item in itemGridView.GetSelectedRows())
+                    {
+                        var _acc = itemGridView.GetRow(item) as BaseLookupDto;
+                        ModelReport = new ReportParaModel();
+                        ModelReport.ReportId = _ReportId;
+                        ModelReport.ParameterName = "product";
+                        ModelReport.ParameterValue = _acc.Id;
+                        _paraList.Add(ModelReport);
+                    }
+                }
+
+                if (designGridView1.SelectedRowsCount > 0)
+                {
+                    if (doc != null)
+                        doc.Parameters["design"].CurrentValue = "Y";
+                    else
+                        _rep["design"] = "Y";
+
+                    foreach (var item in designGridView1.GetSelectedRows())
+                    {
+                        var _acc = designGridView1.GetRow(item) as BaseLookupDto;
+                        ModelReport = new ReportParaModel();
+                        ModelReport.ReportId = _ReportId;
+                        ModelReport.ParameterName = "design";
+                        ModelReport.ParameterValue = _acc.Id;
+                        _paraList.Add(ModelReport);
+                    }
+                }
+                if (colorGridView.SelectedRowsCount > 0)
+                {
+                    if (doc != null)
+                        doc.Parameters["color"].CurrentValue = "Y";
+                    else
+                        _rep["color"] = "Y";
+
+                    foreach (var item in colorGridView.GetSelectedRows())
+                    {
+                        var _acc = colorGridView.GetRow(item) as BaseLookupDto;
+                        ModelReport = new ReportParaModel();
+                        ModelReport.ReportId = _ReportId;
+                        ModelReport.ParameterName = "color";
+                        ModelReport.ParameterValue = _acc.Id;
+                        _paraList.Add(ModelReport);
+                    }
+                }
+
+                _db.ReportParas.AddRange(_paraList);
+                _db.SaveChanges();
+            }
+            return _ReportId;
+
+        }
+
+
+       private void ShowStimulSoft(string _filename)
+        {
+            try
+            {
+
+                StiReport _rep = new StiReport();
+                _rep.Load(_filename);
+                _rep.Compile();
+
+                int _ReportId= SetCheckedParameters(null,_rep);
+
+                _rep["companyid"] = KontoGlobals.CompanyId;
+
+                _rep["yearid"] = KontoGlobals.YearId;
+
+                 _rep["fromdate"]= Convert.ToInt32(fDateEdit.DateTime.ToString("yyyyMMdd"));
+
+                  _rep["todate"] = Convert.ToInt32(tDateEdit.DateTime.ToString("yyyyMMdd"));
+
+                  _rep["reportid"] = _ReportId;
+
+                if (Convert.ToInt32(voucherLookup1.SelectedValue) > 0)
+                {
+                     _rep["voucherid"] = Convert.ToInt32(voucherLookup1.SelectedValue);
+                }
+
+                
+
+                var reptype = reportTypeModelBindingSource.DataSource as List<ReportTypeModel>;
+
+                var rep = reptype.FirstOrDefault();
+                
+                 _rep["vtypeid"] = rep.VoucherTypeId;
+
+                if (!string.IsNullOrEmpty(branchLookUpEdit1.Text))
+                {
+                     _rep["branchid"] = Convert.ToInt32(branchLookUpEdit1.EditValue);
+                }
+
+                if (!string.IsNullOrEmpty(divLookUpEdit.Text))
+                {
+                    
+                       _rep["divid"] = Convert.ToInt32(divLookUpEdit.EditValue);
+                }
+
+                if (!string.IsNullOrEmpty(titleTextEdit.Text))
+                {
+                    
+                    _rep["report_title"] = titleTextEdit.Text;
+                }
+                if (!string.IsNullOrEmpty(footerTextEdit.Text))
+                {
+                    
+                       _rep["report_footer"] = footerTextEdit.Text;
+                }
+
+                if (!string.IsNullOrEmpty(groupOnLookUpEdit.Text))
+                {
+                   
+                        _rep["GroupOn"]= groupOnLookUpEdit.EditValue;
+                }
+                if (!string.IsNullOrEmpty(challanTypeLookUpEdit.Text))
+                {
+                   _rep["ChallanType"] = challanTypeLookUpEdit.EditValue;
+                }
+
+                ((StiSqlDatabase) _rep.Dictionary.Databases["cnn"]).ConnectionString= KontoGlobals.sqlConnectionString.ConnectionString;
+                StiOptions.Viewer.ViewerTitle = "Issue Vs Receipt";
+                _rep.ShowWithRibbonGUI();
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
         private void LedgerParaView_Load(object sender, EventArgs e)
         {
             using (var db = new KontoContext())
@@ -461,7 +579,7 @@ namespace Konto.Reporting.Para.ChlPara
 
         private void acGroupGridControl_Click(object sender, EventArgs e)
         {
-
+            
         }
     }
 }

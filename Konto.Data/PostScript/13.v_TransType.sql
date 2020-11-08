@@ -98,4 +98,6 @@ BEGIN
 	VALUES(16,'Non-Returnable Item','OutWard','','',GETDATE(),'Admin',1,0,NEWID())
 END
 
+
+
 --SET IDENTITY_INSERT dbo.TransType OFF

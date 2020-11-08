@@ -133,6 +133,8 @@
             this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
             this.paidLabel = new System.Windows.Forms.Label();
             this.billAdjustSimpleButton = new DevExpress.XtraEditors.SimpleButton();
+            this.dueDaysTextEdit = new DevExpress.XtraEditors.SpinEdit();
+            this.layoutControlItem11 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)(this.tabControlAdv1)).BeginInit();
             this.tabControlAdv1.SuspendLayout();
             this.tabPageAdv1.SuspendLayout();
@@ -197,6 +199,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.paybleLayoutControlItem)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dueDaysTextEdit.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem11)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControlAdv1
@@ -239,6 +243,7 @@
             // 
             // layoutControl1
             // 
+            this.layoutControl1.Controls.Add(this.dueDaysTextEdit);
             this.layoutControl1.Controls.Add(this.agentLookup);
             this.layoutControl1.Controls.Add(this.paybleTextEdit);
             this.layoutControl1.Controls.Add(this.tdsAccLookup);
@@ -285,7 +290,7 @@
             this.agentLookup.AgentLookup = null;
             this.agentLookup.FillParty = false;
             this.agentLookup.GroupId = 31;
-            this.agentLookup.Location = new System.Drawing.Point(96, 85);
+            this.agentLookup.Location = new System.Drawing.Point(96, 89);
             this.agentLookup.LookupDto = null;
             this.agentLookup.Name = "agentLookup";
             this.agentLookup.Nature = null;
@@ -294,8 +299,8 @@
             this.agentLookup.RequiredField = false;
             this.agentLookup.SelectedText = null;
             this.agentLookup.SelectedValue = null;
-            this.agentLookup.Size = new System.Drawing.Size(316, 20);
-            this.agentLookup.TabIndex = 20;
+            this.agentLookup.Size = new System.Drawing.Size(316, 24);
+            this.agentLookup.TabIndex = 11;
             this.agentLookup.TaxType = null;
             this.agentLookup.TransportLookup = null;
             this.agentLookup.VoucherType = Konto.App.Shared.VoucherTypeEnum.None;
@@ -338,7 +343,7 @@
             this.tdsAccLookup.SelectedText = null;
             this.tdsAccLookup.SelectedValue = null;
             this.tdsAccLookup.Size = new System.Drawing.Size(212, 24);
-            this.tdsAccLookup.TabIndex = 16;
+            this.tdsAccLookup.TabIndex = 18;
             this.tdsAccLookup.TaxType = "TDS";
             this.tdsAccLookup.TransportLookup = null;
             this.tdsAccLookup.VoucherType = Konto.App.Shared.VoucherTypeEnum.None;
@@ -383,7 +388,7 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.roundoffSpinEdit.Size = new System.Drawing.Size(128, 24);
             this.roundoffSpinEdit.StyleController = this.layoutControl1;
-            this.roundoffSpinEdit.TabIndex = 15;
+            this.roundoffSpinEdit.TabIndex = 17;
             this.roundoffSpinEdit.EditValueChanged += new System.EventHandler(this.roundoffSpinEdit_EditValueChanged);
             // 
             // bookLookup
@@ -460,7 +465,7 @@
             this.lrDateEdit.Properties.Mask.UseMaskAsDisplayFormat = true;
             this.lrDateEdit.Size = new System.Drawing.Size(100, 24);
             this.lrDateEdit.StyleController = this.layoutControl1;
-            this.lrDateEdit.TabIndex = 14;
+            this.lrDateEdit.TabIndex = 16;
             // 
             // lrNotextEdit
             // 
@@ -474,7 +479,7 @@
             this.lrNotextEdit.Properties.MaxLength = 500;
             this.lrNotextEdit.Size = new System.Drawing.Size(118, 24);
             this.lrNotextEdit.StyleController = this.layoutControl1;
-            this.lrNotextEdit.TabIndex = 13;
+            this.lrNotextEdit.TabIndex = 15;
             // 
             // storeLookUpEdit
             // 
@@ -539,7 +544,7 @@
             this.transportLookup.SelectedText = null;
             this.transportLookup.SelectedValue = null;
             this.transportLookup.Size = new System.Drawing.Size(212, 24);
-            this.transportLookup.TabIndex = 12;
+            this.transportLookup.TabIndex = 14;
             this.transportLookup.TaxType = null;
             this.transportLookup.TransportLookup = null;
             this.transportLookup.VoucherType = Konto.App.Shared.VoucherTypeEnum.None;
@@ -547,7 +552,7 @@
             // gridControl1
             // 
             this.gridControl1.DataSource = this.grnTransDtoBindingSource1;
-            this.gridControl1.Location = new System.Drawing.Point(5, 109);
+            this.gridControl1.Location = new System.Drawing.Point(5, 117);
             this.gridControl1.LookAndFeel.SkinName = "Office 2016 Colorful";
             this.gridControl1.LookAndFeel.UseDefaultLookAndFeel = false;
             this.gridControl1.MainView = this.gridView1;
@@ -561,8 +566,8 @@
             this.repositoryItemTextEdit1,
             this.challanNoRrepositoryItemButtonEdit,
             this.taxRepositoryItemLookUpEdit});
-            this.gridControl1.Size = new System.Drawing.Size(934, 221);
-            this.gridControl1.TabIndex = 11;
+            this.gridControl1.Size = new System.Drawing.Size(934, 213);
+            this.gridControl1.TabIndex = 13;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
             // 
@@ -1098,7 +1103,7 @@
             this.remarkTextEdit.Properties.AppearanceFocused.Options.UseBorderColor = true;
             this.remarkTextEdit.Size = new System.Drawing.Size(620, 24);
             this.remarkTextEdit.StyleController = this.layoutControl1;
-            this.remarkTextEdit.TabIndex = 19;
+            this.remarkTextEdit.TabIndex = 21;
             // 
             // billDateEdit
             // 
@@ -1165,7 +1170,7 @@
             this.accLookup1.RequiredField = true;
             this.accLookup1.SelectedText = null;
             this.accLookup1.SelectedValue = null;
-            this.accLookup1.Size = new System.Drawing.Size(316, 20);
+            this.accLookup1.Size = new System.Drawing.Size(316, 24);
             this.accLookup1.TabIndex = 8;
             this.accLookup1.TaxType = null;
             this.accLookup1.TransportLookup = null;
@@ -1221,7 +1226,7 @@
             this.tdsPerTextEdit.Properties.MaxLength = 25;
             this.tdsPerTextEdit.Size = new System.Drawing.Size(118, 24);
             this.tdsPerTextEdit.StyleController = this.layoutControl1;
-            this.tdsPerTextEdit.TabIndex = 17;
+            this.tdsPerTextEdit.TabIndex = 19;
             // 
             // tdsAmtTextEdit
             // 
@@ -1244,7 +1249,7 @@
             this.tdsAmtTextEdit.Properties.MaxLength = 25;
             this.tdsAmtTextEdit.Size = new System.Drawing.Size(100, 24);
             this.tdsAmtTextEdit.StyleController = this.layoutControl1;
-            this.tdsAmtTextEdit.TabIndex = 18;
+            this.tdsAmtTextEdit.TabIndex = 20;
             // 
             // layoutControlItem19
             // 
@@ -1309,7 +1314,8 @@
             this.tdsAmtLayoutControlItem,
             this.layoutControlItem8,
             this.paybleLayoutControlItem,
-            this.layoutControlItem2});
+            this.layoutControlItem2,
+            this.layoutControlItem11});
             this.Root.Name = "Root";
             this.Root.Padding = new DevExpress.XtraLayout.Utils.Padding(3, 3, 3, 3);
             this.Root.Size = new System.Drawing.Size(944, 419);
@@ -1341,9 +1347,9 @@
             // layoutControlItem20
             // 
             this.layoutControlItem20.Control = this.gridControl1;
-            this.layoutControlItem20.Location = new System.Drawing.Point(0, 104);
+            this.layoutControlItem20.Location = new System.Drawing.Point(0, 112);
             this.layoutControlItem20.Name = "layoutControlItem20";
-            this.layoutControlItem20.Size = new System.Drawing.Size(938, 225);
+            this.layoutControlItem20.Size = new System.Drawing.Size(938, 217);
             this.layoutControlItem20.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem20.TextVisible = false;
             // 
@@ -1379,7 +1385,7 @@
             this.layoutControlItem9.Control = this.billNoTextEdit;
             this.layoutControlItem9.Location = new System.Drawing.Point(674, 56);
             this.layoutControlItem9.Name = "layoutControlItem9";
-            this.layoutControlItem9.Size = new System.Drawing.Size(264, 48);
+            this.layoutControlItem9.Size = new System.Drawing.Size(264, 56);
             this.layoutControlItem9.Text = "Bill No:";
             this.layoutControlItem9.TextSize = new System.Drawing.Size(88, 17);
             // 
@@ -1419,7 +1425,7 @@
             this.layoutControlItem4.Control = this.accLookup1;
             this.layoutControlItem4.Location = new System.Drawing.Point(0, 56);
             this.layoutControlItem4.Name = "layoutControlItem4";
-            this.layoutControlItem4.Size = new System.Drawing.Size(411, 24);
+            this.layoutControlItem4.Size = new System.Drawing.Size(411, 28);
             this.layoutControlItem4.Text = "<color=255, 0, 0>*</color>Party:";
             this.layoutControlItem4.TextSize = new System.Drawing.Size(88, 17);
             // 
@@ -1547,7 +1553,7 @@
             this.layoutControlItem8.Control = this.billDateEdit;
             this.layoutControlItem8.Location = new System.Drawing.Point(411, 56);
             this.layoutControlItem8.Name = "layoutControlItem8";
-            this.layoutControlItem8.Size = new System.Drawing.Size(263, 48);
+            this.layoutControlItem8.Size = new System.Drawing.Size(263, 28);
             this.layoutControlItem8.Text = "<color=255, 0, 0>*</color>Bill Date:";
             this.layoutControlItem8.TextSize = new System.Drawing.Size(88, 17);
             // 
@@ -1567,9 +1573,9 @@
             this.layoutControlItem2.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.layoutControlItem2.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem2.Control = this.agentLookup;
-            this.layoutControlItem2.Location = new System.Drawing.Point(0, 80);
+            this.layoutControlItem2.Location = new System.Drawing.Point(0, 84);
             this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(411, 24);
+            this.layoutControlItem2.Size = new System.Drawing.Size(411, 28);
             this.layoutControlItem2.Text = "Agent:";
             this.layoutControlItem2.TextSize = new System.Drawing.Size(88, 17);
             // 
@@ -1594,6 +1600,42 @@
             this.billAdjustSimpleButton.TabIndex = 4;
             this.billAdjustSimpleButton.TabStop = false;
             this.billAdjustSimpleButton.Text = "Bill To Bill";
+            // 
+            // dueDaysTextEdit
+            // 
+            this.dueDaysTextEdit.EditValue = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.dueDaysTextEdit.Location = new System.Drawing.Point(507, 89);
+            this.dueDaysTextEdit.Name = "dueDaysTextEdit";
+            this.dueDaysTextEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dueDaysTextEdit.Properties.Appearance.Options.UseFont = true;
+            this.dueDaysTextEdit.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.dueDaysTextEdit.Properties.AppearanceFocused.Options.UseBorderColor = true;
+            this.dueDaysTextEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.dueDaysTextEdit.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.dueDaysTextEdit.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.dueDaysTextEdit.Properties.EditValueChangedFiringMode = DevExpress.XtraEditors.Controls.EditValueChangedFiringMode.Default;
+            this.dueDaysTextEdit.Properties.Mask.SaveLiteral = false;
+            this.dueDaysTextEdit.Properties.Mask.UseMaskAsDisplayFormat = true;
+            this.dueDaysTextEdit.Properties.MaxLength = 50;
+            this.dueDaysTextEdit.Size = new System.Drawing.Size(168, 24);
+            this.dueDaysTextEdit.StyleController = this.layoutControl1;
+            this.dueDaysTextEdit.TabIndex = 12;
+            // 
+            // layoutControlItem11
+            // 
+            this.layoutControlItem11.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.layoutControlItem11.AppearanceItemCaption.Options.UseFont = true;
+            this.layoutControlItem11.Control = this.dueDaysTextEdit;
+            this.layoutControlItem11.Location = new System.Drawing.Point(411, 84);
+            this.layoutControlItem11.Name = "layoutControlItem11";
+            this.layoutControlItem11.Size = new System.Drawing.Size(263, 28);
+            this.layoutControlItem11.Text = "Due Days:";
+            this.layoutControlItem11.TextSize = new System.Drawing.Size(88, 17);
             // 
             // PInvoiceIndex
             // 
@@ -1673,6 +1715,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.paybleLayoutControlItem)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dueDaysTextEdit.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem11)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1783,5 +1827,7 @@
         private DevExpress.XtraEditors.SimpleButton billAdjustSimpleButton;
         private Masters.Acc.AccLookup agentLookup;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem2;
+        private DevExpress.XtraEditors.SpinEdit dueDaysTextEdit;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem11;
     }
 }

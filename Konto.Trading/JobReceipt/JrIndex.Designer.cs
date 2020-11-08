@@ -124,10 +124,10 @@
             this.paybleLayoutControlItem = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.layoutControlItem9 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem12 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem9 = new DevExpress.XtraLayout.LayoutControlItem();
             this.consumeSimpleButton = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.tabControlAdv1)).BeginInit();
             this.tabControlAdv1.SuspendLayout();
@@ -188,10 +188,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.paybleLayoutControlItem)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem12)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControlAdv1
@@ -386,7 +386,7 @@
             this.bookLookup.TabIndex = 8;
             this.bookLookup.TaxType = null;
             this.bookLookup.TransportLookup = null;
-            this.bookLookup.VoucherType = Konto.App.Shared.VoucherTypeEnum.JobReceiptVoucher;
+            this.bookLookup.VoucherType = Konto.App.Shared.VoucherTypeEnum.JobReceipt;
             // 
             // itcLookUpEdit
             // 
@@ -1132,7 +1132,7 @@
             this.accLookup1.TabIndex = 11;
             this.accLookup1.TaxType = null;
             this.accLookup1.TransportLookup = null;
-            this.accLookup1.VoucherType = Konto.App.Shared.VoucherTypeEnum.JobReceiptVoucher;
+            this.accLookup1.VoucherType = Konto.App.Shared.VoucherTypeEnum.JobReceipt;
             // 
             // voucherNoTextEdit
             // 
@@ -1488,31 +1488,6 @@
             this.layoutControlItem6.Text = "<color=255, 0, 0>*</color>Date:";
             this.layoutControlItem6.TextSize = new System.Drawing.Size(86, 17);
             // 
-            // layoutControlItem5
-            // 
-            this.layoutControlItem5.AllowHtmlStringInCaption = true;
-            this.layoutControlItem5.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.layoutControlItem5.AppearanceItemCaption.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(78)))), ((int)(((byte)(77)))), ((int)(((byte)(77)))));
-            this.layoutControlItem5.AppearanceItemCaption.Options.UseFont = true;
-            this.layoutControlItem5.AppearanceItemCaption.Options.UseForeColor = true;
-            this.layoutControlItem5.Control = this.challanNotextEdit;
-            this.layoutControlItem5.Location = new System.Drawing.Point(411, 56);
-            this.layoutControlItem5.Name = "layoutControlItem5";
-            this.layoutControlItem5.Size = new System.Drawing.Size(263, 28);
-            this.layoutControlItem5.Text = "<color=255, 0, 0>*</color>Challan No:";
-            this.layoutControlItem5.TextSize = new System.Drawing.Size(86, 17);
-            // 
-            // layoutControlItem9
-            // 
-            this.layoutControlItem9.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.layoutControlItem9.AppearanceItemCaption.Options.UseFont = true;
-            this.layoutControlItem9.Control = this.billNoTextEdit;
-            this.layoutControlItem9.Location = new System.Drawing.Point(674, 56);
-            this.layoutControlItem9.Name = "layoutControlItem9";
-            this.layoutControlItem9.Size = new System.Drawing.Size(264, 28);
-            this.layoutControlItem9.Text = "Bill No:";
-            this.layoutControlItem9.TextSize = new System.Drawing.Size(86, 17);
-            // 
             // layoutControlItem3
             // 
             this.layoutControlItem3.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1537,6 +1512,31 @@
             this.layoutControlItem12.Size = new System.Drawing.Size(264, 28);
             this.layoutControlItem12.Text = "<color=255, 0, 0>*</color>Store:";
             this.layoutControlItem12.TextSize = new System.Drawing.Size(86, 17);
+            // 
+            // layoutControlItem5
+            // 
+            this.layoutControlItem5.AllowHtmlStringInCaption = true;
+            this.layoutControlItem5.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.layoutControlItem5.AppearanceItemCaption.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(78)))), ((int)(((byte)(77)))), ((int)(((byte)(77)))));
+            this.layoutControlItem5.AppearanceItemCaption.Options.UseFont = true;
+            this.layoutControlItem5.AppearanceItemCaption.Options.UseForeColor = true;
+            this.layoutControlItem5.Control = this.challanNotextEdit;
+            this.layoutControlItem5.Location = new System.Drawing.Point(411, 56);
+            this.layoutControlItem5.Name = "layoutControlItem5";
+            this.layoutControlItem5.Size = new System.Drawing.Size(263, 28);
+            this.layoutControlItem5.Text = "<color=255, 0, 0>*</color>Challan No:";
+            this.layoutControlItem5.TextSize = new System.Drawing.Size(86, 17);
+            // 
+            // layoutControlItem9
+            // 
+            this.layoutControlItem9.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.layoutControlItem9.AppearanceItemCaption.Options.UseFont = true;
+            this.layoutControlItem9.Control = this.billNoTextEdit;
+            this.layoutControlItem9.Location = new System.Drawing.Point(674, 56);
+            this.layoutControlItem9.Name = "layoutControlItem9";
+            this.layoutControlItem9.Size = new System.Drawing.Size(264, 28);
+            this.layoutControlItem9.Text = "Bill No:";
+            this.layoutControlItem9.TextSize = new System.Drawing.Size(86, 17);
             // 
             // consumeSimpleButton
             // 
@@ -1620,10 +1620,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.paybleLayoutControlItem)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem12)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).EndInit();
             this.ResumeLayout(false);
 
         }

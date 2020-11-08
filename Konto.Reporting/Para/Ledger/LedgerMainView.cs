@@ -36,6 +36,7 @@ namespace Konto.Reporting.Para.Ledger
         public int AccId { get; set; }
         public DateTime _fromDate { get; set; }
         public DateTime _toDate { get; set; }
+
         public LedgerMainView()
         {
             InitializeComponent();
@@ -52,6 +53,7 @@ namespace Konto.Reporting.Para.Ledger
             this.monthlyGridView.KeyDown += MonthlyGridView_KeyDown;
             this.FormClosed += LedgerMainView_FormClosed;
             this.Load += LedgerMainView_Load;
+            this.printSimpleButton.Click += PrintSimpleButton_Click;
             using(var db = new KontoContext())
             {
                 var cmp = (from f in db.Companies
@@ -61,6 +63,18 @@ namespace Konto.Reporting.Para.Ledger
                 lookUpEdit1.Properties.DataSource = cmp;
 
             }
+        }
+
+        private void PrintSimpleButton_Click(object sender, EventArgs e)
+        {
+            GrapeCity.ActiveReports.PageReport _pageReport = new GrapeCity.ActiveReports.PageReport();
+            string dr = "";
+
+
+           
+
+
+            _pageReport.Load(new System.IO.FileInfo(dr));
         }
 
         private void DetailsGridControl1_ProcessGridKey(object sender, KeyEventArgs e)

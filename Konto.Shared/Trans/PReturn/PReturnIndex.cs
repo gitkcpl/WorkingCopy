@@ -633,6 +633,9 @@ namespace Konto.Shared.Trans.PReturn
                 new ComboBoxPairs("Inputs", "Inputs"),
                 new ComboBoxPairs("Capital Goods", "Capital Goods"),
                 new ComboBoxPairs("Input Services", "Input Services"),
+                new ComboBoxPairs("Inputs Ineligible", "Inputs Ineligible"),
+                new ComboBoxPairs("Capital Goods Ineligible", "Capital Goods Ineligible"),
+                new ComboBoxPairs("Input Services Ineligible", "Input Services Ineligible"),
                 new ComboBoxPairs("Ineligible","Ineligible")
             };
            itcLookUpEdit.Properties.DataSource = ibp;

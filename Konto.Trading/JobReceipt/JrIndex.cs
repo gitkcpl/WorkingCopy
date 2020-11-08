@@ -590,9 +590,12 @@ namespace Konto.Trading.JobReceipt
 
             List<ComboBoxPairs> ibp = new List<ComboBoxPairs>
             {
-                new ComboBoxPairs("Inputs", "Inputs"),
+               new ComboBoxPairs("Inputs", "Inputs"),
                 new ComboBoxPairs("Capital Goods", "Capital Goods"),
                 new ComboBoxPairs("Input Services", "Input Services"),
+                new ComboBoxPairs("Inputs Ineligible", "Inputs Ineligible"),
+                new ComboBoxPairs("Capital Goods Ineligible", "Capital Goods Ineligible"),
+                new ComboBoxPairs("Input Services Ineligible", "Input Services Ineligible"),
                 new ComboBoxPairs("Ineligible","Ineligible")
             };
             itcLookUpEdit.Properties.DataSource = ibp;
@@ -1347,6 +1350,14 @@ namespace Konto.Trading.JobReceipt
             using (var db = new KontoContext())
             {
                 var bill = db.Challans.Find(_key);
+
+                if (bill == null)
+                {
+                    var ch = db.Bills.Find( _key);
+                    if (ch != null)
+                        bill = db.Challans.Find(ch.RefId);
+                }
+
                 if (bill != null)
                 {
                     LoadData(bill);

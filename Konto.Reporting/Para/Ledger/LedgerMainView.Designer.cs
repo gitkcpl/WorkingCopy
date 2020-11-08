@@ -114,6 +114,8 @@
             this.detailsLayoutControlItem9 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem8 = new DevExpress.XtraLayout.LayoutControlItem();
             this.tabPageAdv2 = new Syncfusion.Windows.Forms.Tools.TabPageAdv();
+            this.printSimpleButton = new DevExpress.XtraEditors.SimpleButton();
+            this.layoutControlItem9 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)(this.tabControlAdv1)).BeginInit();
             this.tabControlAdv1.SuspendLayout();
             this.tabPageAdv1.SuspendLayout();
@@ -143,6 +145,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.monthlyLayoutControlItem8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.detailsLayoutControlItem9)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControlAdv1
@@ -176,6 +179,7 @@
             // 
             // layoutControl1
             // 
+            this.layoutControl1.Controls.Add(this.printSimpleButton);
             this.layoutControl1.Controls.Add(this.radioGroup1);
             this.layoutControl1.Controls.Add(this.detailsGridControl1);
             this.layoutControl1.Controls.Add(this.gridControl1);
@@ -198,14 +202,14 @@
             // 
             this.radioGroup1.EditValue = "M";
             this.radioGroup1.EnterMoveNextControl = true;
-            this.radioGroup1.Location = new System.Drawing.Point(394, 37);
+            this.radioGroup1.Location = new System.Drawing.Point(377, 37);
             this.radioGroup1.Name = "radioGroup1";
             this.radioGroup1.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radioGroup1.Properties.Appearance.Options.UseFont = true;
             this.radioGroup1.Properties.Items.AddRange(new DevExpress.XtraEditors.Controls.RadioGroupItem[] {
             new DevExpress.XtraEditors.Controls.RadioGroupItem("M", "Monthly"),
             new DevExpress.XtraEditors.Controls.RadioGroupItem("D", "Details")});
-            this.radioGroup1.Size = new System.Drawing.Size(173, 34);
+            this.radioGroup1.Size = new System.Drawing.Size(166, 34);
             this.radioGroup1.StyleController = this.layoutControl1;
             this.radioGroup1.TabIndex = 4;
             this.radioGroup1.TabStop = false;
@@ -213,12 +217,12 @@
             // detailsGridControl1
             // 
             this.detailsGridControl1.DataSource = this.ledgertransDtoBindingSource;
-            this.detailsGridControl1.Location = new System.Drawing.Point(5, 259);
+            this.detailsGridControl1.Location = new System.Drawing.Point(5, 240);
             this.detailsGridControl1.LookAndFeel.SkinName = "Office 2016 Colorful";
             this.detailsGridControl1.LookAndFeel.UseDefaultLookAndFeel = false;
             this.detailsGridControl1.MainView = this.gridView1;
             this.detailsGridControl1.Name = "detailsGridControl1";
-            this.detailsGridControl1.Size = new System.Drawing.Size(824, 164);
+            this.detailsGridControl1.Size = new System.Drawing.Size(824, 183);
             this.detailsGridControl1.TabIndex = 7;
             this.detailsGridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -587,7 +591,7 @@
             this.gridControl1.LookAndFeel.UseDefaultLookAndFeel = false;
             this.gridControl1.MainView = this.monthlyGridView;
             this.gridControl1.Name = "gridControl1";
-            this.gridControl1.Size = new System.Drawing.Size(824, 180);
+            this.gridControl1.Size = new System.Drawing.Size(824, 161);
             this.gridControl1.TabIndex = 6;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.monthlyGridView});
@@ -738,9 +742,9 @@
             this.multiSimpleButton.Appearance.Options.UseForeColor = true;
             this.multiSimpleButton.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("multiSimpleButton.ImageOptions.SvgImage")));
             this.multiSimpleButton.ImageOptions.SvgImageSize = new System.Drawing.Size(24, 24);
-            this.multiSimpleButton.Location = new System.Drawing.Point(764, 5);
+            this.multiSimpleButton.Location = new System.Drawing.Point(731, 5);
             this.multiSimpleButton.Name = "multiSimpleButton";
-            this.multiSimpleButton.Size = new System.Drawing.Size(65, 28);
+            this.multiSimpleButton.Size = new System.Drawing.Size(98, 28);
             this.multiSimpleButton.StyleController = this.layoutControl1;
             this.multiSimpleButton.TabIndex = 9;
             this.multiSimpleButton.TabStop = false;
@@ -764,7 +768,7 @@
             this.lookUpEdit1.Properties.ShowHeader = false;
             this.lookUpEdit1.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
             this.lookUpEdit1.Properties.ValueMember = "Id";
-            this.lookUpEdit1.Size = new System.Drawing.Size(315, 24);
+            this.lookUpEdit1.Size = new System.Drawing.Size(298, 24);
             this.lookUpEdit1.StyleController = this.layoutControl1;
             this.lookUpEdit1.TabIndex = 3;
             this.lookUpEdit1.TabStop = false;
@@ -777,7 +781,7 @@
             this.okSimpleButton.Appearance.Options.UseForeColor = true;
             this.okSimpleButton.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("okSimpleButton.ImageOptions.SvgImage")));
             this.okSimpleButton.ImageOptions.SvgImageSize = new System.Drawing.Size(24, 24);
-            this.okSimpleButton.Location = new System.Drawing.Point(654, 37);
+            this.okSimpleButton.Location = new System.Drawing.Point(598, 37);
             this.okSimpleButton.Name = "okSimpleButton";
             this.okSimpleButton.Size = new System.Drawing.Size(80, 28);
             this.okSimpleButton.StyleController = this.layoutControl1;
@@ -788,7 +792,7 @@
             // 
             this.tDateEdit.EditValue = null;
             this.tDateEdit.EnterMoveNextControl = true;
-            this.tDateEdit.Location = new System.Drawing.Point(276, 5);
+            this.tDateEdit.Location = new System.Drawing.Point(267, 5);
             this.tDateEdit.Name = "tDateEdit";
             this.tDateEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tDateEdit.Properties.Appearance.Options.UseFont = true;
@@ -798,7 +802,7 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.tDateEdit.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.DateTimeAdvancingCaret;
             this.tDateEdit.Properties.Mask.UseMaskAsDisplayFormat = true;
-            this.tDateEdit.Size = new System.Drawing.Size(114, 24);
+            this.tDateEdit.Size = new System.Drawing.Size(106, 24);
             this.tDateEdit.StyleController = this.layoutControl1;
             this.tDateEdit.TabIndex = 1;
             // 
@@ -816,7 +820,7 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.fDateEdit.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.DateTimeAdvancingCaret;
             this.fDateEdit.Properties.Mask.UseMaskAsDisplayFormat = true;
-            this.fDateEdit.Size = new System.Drawing.Size(142, 24);
+            this.fDateEdit.Size = new System.Drawing.Size(133, 24);
             this.fDateEdit.StyleController = this.layoutControl1;
             this.fDateEdit.TabIndex = 0;
             // 
@@ -825,7 +829,7 @@
             this.accLookup1.AgentLookup = null;
             this.accLookup1.FillParty = false;
             this.accLookup1.GroupId = 0;
-            this.accLookup1.Location = new System.Drawing.Point(464, 5);
+            this.accLookup1.Location = new System.Drawing.Point(447, 5);
             this.accLookup1.LookupDto = null;
             this.accLookup1.Name = "accLookup1";
             this.accLookup1.Nature = null;
@@ -834,7 +838,7 @@
             this.accLookup1.RequiredField = true;
             this.accLookup1.SelectedText = null;
             this.accLookup1.SelectedValue = null;
-            this.accLookup1.Size = new System.Drawing.Size(296, 28);
+            this.accLookup1.Size = new System.Drawing.Size(280, 28);
             this.accLookup1.TabIndex = 2;
             this.accLookup1.TaxType = null;
             this.accLookup1.TransportLookup = null;
@@ -849,9 +853,9 @@
             this.cancelSimpleButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cancelSimpleButton.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("cancelSimpleButton.ImageOptions.SvgImage")));
             this.cancelSimpleButton.ImageOptions.SvgImageSize = new System.Drawing.Size(24, 24);
-            this.cancelSimpleButton.Location = new System.Drawing.Point(738, 37);
+            this.cancelSimpleButton.Location = new System.Drawing.Point(682, 37);
             this.cancelSimpleButton.Name = "cancelSimpleButton";
-            this.cancelSimpleButton.Size = new System.Drawing.Size(91, 28);
+            this.cancelSimpleButton.Size = new System.Drawing.Size(76, 28);
             this.cancelSimpleButton.StyleController = this.layoutControl1;
             this.cancelSimpleButton.TabIndex = 8;
             this.cancelSimpleButton.Text = "Cancel";
@@ -871,7 +875,8 @@
             this.emptySpaceItem1,
             this.monthlyLayoutControlItem8,
             this.detailsLayoutControlItem9,
-            this.layoutControlItem8});
+            this.layoutControlItem8,
+            this.layoutControlItem9});
             this.Root.Name = "Root";
             this.Root.Padding = new DevExpress.XtraLayout.Utils.Padding(3, 3, 3, 3);
             this.Root.Size = new System.Drawing.Size(834, 428);
@@ -884,7 +889,7 @@
             this.layoutControlItem2.Control = this.fDateEdit;
             this.layoutControlItem2.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(216, 32);
+            this.layoutControlItem2.Size = new System.Drawing.Size(207, 32);
             this.layoutControlItem2.Text = "From Date:";
             this.layoutControlItem2.TextSize = new System.Drawing.Size(67, 17);
             // 
@@ -893,9 +898,9 @@
             this.layoutControlItem3.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.layoutControlItem3.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem3.Control = this.tDateEdit;
-            this.layoutControlItem3.Location = new System.Drawing.Point(216, 0);
+            this.layoutControlItem3.Location = new System.Drawing.Point(207, 0);
             this.layoutControlItem3.Name = "layoutControlItem3";
-            this.layoutControlItem3.Size = new System.Drawing.Size(173, 32);
+            this.layoutControlItem3.Size = new System.Drawing.Size(165, 32);
             this.layoutControlItem3.Text = "To Date:";
             this.layoutControlItem3.TextAlignMode = DevExpress.XtraLayout.TextAlignModeItem.AutoSize;
             this.layoutControlItem3.TextSize = new System.Drawing.Size(50, 17);
@@ -906,18 +911,18 @@
             this.layoutControlItem1.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.layoutControlItem1.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem1.Control = this.accLookup1;
-            this.layoutControlItem1.Location = new System.Drawing.Point(389, 0);
+            this.layoutControlItem1.Location = new System.Drawing.Point(372, 0);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(370, 32);
+            this.layoutControlItem1.Size = new System.Drawing.Size(354, 32);
             this.layoutControlItem1.Text = "Account:";
             this.layoutControlItem1.TextSize = new System.Drawing.Size(67, 17);
             // 
             // layoutControlItem7
             // 
             this.layoutControlItem7.Control = this.multiSimpleButton;
-            this.layoutControlItem7.Location = new System.Drawing.Point(759, 0);
+            this.layoutControlItem7.Location = new System.Drawing.Point(726, 0);
             this.layoutControlItem7.Name = "layoutControlItem7";
-            this.layoutControlItem7.Size = new System.Drawing.Size(69, 32);
+            this.layoutControlItem7.Size = new System.Drawing.Size(102, 32);
             this.layoutControlItem7.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem7.TextVisible = false;
             // 
@@ -930,14 +935,14 @@
             this.layoutControlItem5.Control = this.lookUpEdit1;
             this.layoutControlItem5.Location = new System.Drawing.Point(0, 32);
             this.layoutControlItem5.Name = "layoutControlItem5";
-            this.layoutControlItem5.Size = new System.Drawing.Size(389, 38);
+            this.layoutControlItem5.Size = new System.Drawing.Size(372, 38);
             this.layoutControlItem5.Text = "Company:";
             this.layoutControlItem5.TextSize = new System.Drawing.Size(67, 17);
             // 
             // layoutControlItem4
             // 
             this.layoutControlItem4.Control = this.okSimpleButton;
-            this.layoutControlItem4.Location = new System.Drawing.Point(649, 32);
+            this.layoutControlItem4.Location = new System.Drawing.Point(593, 32);
             this.layoutControlItem4.Name = "layoutControlItem4";
             this.layoutControlItem4.Size = new System.Drawing.Size(84, 38);
             this.layoutControlItem4.TextSize = new System.Drawing.Size(0, 0);
@@ -948,9 +953,9 @@
             this.layoutControlItem6.Control = this.cancelSimpleButton;
             this.layoutControlItem6.ControlAlignment = System.Drawing.ContentAlignment.TopLeft;
             this.layoutControlItem6.CustomizationFormText = "layoutControlItem4";
-            this.layoutControlItem6.Location = new System.Drawing.Point(733, 32);
+            this.layoutControlItem6.Location = new System.Drawing.Point(677, 32);
             this.layoutControlItem6.Name = "layoutControlItem6";
-            this.layoutControlItem6.Size = new System.Drawing.Size(95, 38);
+            this.layoutControlItem6.Size = new System.Drawing.Size(80, 38);
             this.layoutControlItem6.Text = "layoutControlItem4";
             this.layoutControlItem6.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem6.TextVisible = false;
@@ -958,9 +963,9 @@
             // emptySpaceItem1
             // 
             this.emptySpaceItem1.AllowHotTrack = false;
-            this.emptySpaceItem1.Location = new System.Drawing.Point(566, 32);
+            this.emptySpaceItem1.Location = new System.Drawing.Point(542, 32);
             this.emptySpaceItem1.Name = "emptySpaceItem1";
-            this.emptySpaceItem1.Size = new System.Drawing.Size(83, 38);
+            this.emptySpaceItem1.Size = new System.Drawing.Size(51, 38);
             this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
             // 
             // monthlyLayoutControlItem8
@@ -968,16 +973,16 @@
             this.monthlyLayoutControlItem8.Control = this.gridControl1;
             this.monthlyLayoutControlItem8.Location = new System.Drawing.Point(0, 70);
             this.monthlyLayoutControlItem8.Name = "monthlyLayoutControlItem8";
-            this.monthlyLayoutControlItem8.Size = new System.Drawing.Size(828, 184);
+            this.monthlyLayoutControlItem8.Size = new System.Drawing.Size(828, 165);
             this.monthlyLayoutControlItem8.TextSize = new System.Drawing.Size(0, 0);
             this.monthlyLayoutControlItem8.TextVisible = false;
             // 
             // detailsLayoutControlItem9
             // 
             this.detailsLayoutControlItem9.Control = this.detailsGridControl1;
-            this.detailsLayoutControlItem9.Location = new System.Drawing.Point(0, 254);
+            this.detailsLayoutControlItem9.Location = new System.Drawing.Point(0, 235);
             this.detailsLayoutControlItem9.Name = "detailsLayoutControlItem9";
-            this.detailsLayoutControlItem9.Size = new System.Drawing.Size(828, 168);
+            this.detailsLayoutControlItem9.Size = new System.Drawing.Size(828, 187);
             this.detailsLayoutControlItem9.TextSize = new System.Drawing.Size(0, 0);
             this.detailsLayoutControlItem9.TextVisible = false;
             this.detailsLayoutControlItem9.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
@@ -985,9 +990,9 @@
             // layoutControlItem8
             // 
             this.layoutControlItem8.Control = this.radioGroup1;
-            this.layoutControlItem8.Location = new System.Drawing.Point(389, 32);
+            this.layoutControlItem8.Location = new System.Drawing.Point(372, 32);
             this.layoutControlItem8.Name = "layoutControlItem8";
-            this.layoutControlItem8.Size = new System.Drawing.Size(177, 38);
+            this.layoutControlItem8.Size = new System.Drawing.Size(170, 38);
             this.layoutControlItem8.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem8.TextVisible = false;
             // 
@@ -1002,6 +1007,30 @@
             this.tabPageAdv2.TabIndex = 2;
             this.tabPageAdv2.Text = "Print View";
             this.tabPageAdv2.ThemesEnabled = false;
+            // 
+            // printSimpleButton
+            // 
+            this.printSimpleButton.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.printSimpleButton.Appearance.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.printSimpleButton.Appearance.Options.UseFont = true;
+            this.printSimpleButton.Appearance.Options.UseForeColor = true;
+            this.printSimpleButton.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("simpleButton1.ImageOptions.SvgImage")));
+            this.printSimpleButton.ImageOptions.SvgImageSize = new System.Drawing.Size(24, 24);
+            this.printSimpleButton.Location = new System.Drawing.Point(762, 37);
+            this.printSimpleButton.Name = "printSimpleButton";
+            this.printSimpleButton.Size = new System.Drawing.Size(67, 28);
+            this.printSimpleButton.StyleController = this.layoutControl1;
+            this.printSimpleButton.TabIndex = 10;
+            this.printSimpleButton.Text = "Print";
+            // 
+            // layoutControlItem9
+            // 
+            this.layoutControlItem9.Control = this.printSimpleButton;
+            this.layoutControlItem9.Location = new System.Drawing.Point(757, 32);
+            this.layoutControlItem9.Name = "layoutControlItem9";
+            this.layoutControlItem9.Size = new System.Drawing.Size(71, 38);
+            this.layoutControlItem9.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem9.TextVisible = false;
             // 
             // LedgerMainView
             // 
@@ -1045,6 +1074,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.monthlyLayoutControlItem8)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.detailsLayoutControlItem9)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1135,5 +1165,7 @@
         private Core.Shared.Libs.CustomGridColumn colVoucherDate;
         private DevExpress.XtraEditors.RadioGroup radioGroup1;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem8;
+        private DevExpress.XtraEditors.SimpleButton printSimpleButton;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem9;
     }
 }

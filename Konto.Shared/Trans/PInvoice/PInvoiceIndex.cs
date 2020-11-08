@@ -693,7 +693,11 @@ namespace Konto.Shared.Trans.PInvoice
                 new ComboBoxPairs("Inputs", "Inputs"),
                 new ComboBoxPairs("Capital Goods", "Capital Goods"),
                 new ComboBoxPairs("Input Services", "Input Services"),
+                new ComboBoxPairs("Inputs Ineligible", "Inputs Ineligible"),
+                new ComboBoxPairs("Capital Goods Ineligible", "Capital Goods Ineligible"),
+                new ComboBoxPairs("Input Services Ineligible", "Input Services Ineligible"),
                 new ComboBoxPairs("Ineligible","Ineligible")
+
             };
            itcLookUpEdit.Properties.DataSource = ibp;
 
@@ -916,7 +920,7 @@ namespace Konto.Shared.Trans.PInvoice
                 tdsAccLookup.SelectedValue = model.HasteId;
                 tdsAccLookup.SetAcc((int)model.HasteId);
             }
-
+            dueDaysTextEdit.Value = Convert.ToDecimal(model.Duedays);
             tdsPerTextEdit.Value = model.TdsPer;
             tdsAmtTextEdit.Value = model.TdsAmt;
             billAmtSpinEdit.Value = model.TotalAmount;
@@ -1343,13 +1347,19 @@ namespace Konto.Shared.Trans.PInvoice
             //        rw.CgstPer = 0;
             //    }
             //}
-            if (accLookup1.LookupDto.TdsReq == "Yes")
+
+            if (this.PrimaryKey == 0 && Convert.ToInt32(this.accLookup1.SelectedValue) > 0)
             {
-                tdsPerTextEdit.Value = accLookup1.LookupDto.TdsPer;
-                if (Convert.ToInt32(accLookup1.LookupDto.TdsAccId) > 0)
+                dueDaysTextEdit.Text = this.accLookup1.LookupDto.CrDays.ToString();
+
+                if (accLookup1.LookupDto.TdsReq == "Yes")
                 {
-                    tdsAccLookup.SelectedValue = accLookup1.LookupDto.TdsAccId;
-                    tdsAccLookup.SetAcc(Convert.ToInt32(accLookup1.LookupDto.TdsAccId));
+                    tdsPerTextEdit.Value = accLookup1.LookupDto.TdsPer;
+                    if (Convert.ToInt32(accLookup1.LookupDto.TdsAccId) > 0)
+                    {
+                        tdsAccLookup.SelectedValue = accLookup1.LookupDto.TdsAccId;
+                        tdsAccLookup.SetAcc(Convert.ToInt32(accLookup1.LookupDto.TdsAccId));
+                    }
                 }
             }
             UpdateGst();
@@ -1787,7 +1797,7 @@ namespace Konto.Shared.Trans.PInvoice
             model.YearId = KontoGlobals.YearId;
             model.BranchId = KontoGlobals.BranchId;
             model.RoundOff = roundoffSpinEdit.Value;
-
+            model.Duedays = Convert.ToInt32(dueDaysTextEdit.Value);
             model.HasteId = Convert.ToInt32(tdsAccLookup.SelectedValue);
             model.TdsPer = tdsPerTextEdit.Value;
             model.TdsAmt = tdsAmtTextEdit.Value;

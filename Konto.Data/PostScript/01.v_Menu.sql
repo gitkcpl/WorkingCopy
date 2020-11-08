@@ -2020,7 +2020,7 @@ insert into ErpModule ([Id],[ParentId],[ModuleDesc],[OrderIndex],[LinkButton],[S
 end
  	   update dbo.ErpModule set IconPath='/Konto.Wpf;component/MenuIcon/tax.png' where id=833
 
- if NOT exists (select 1 from ErpModule em where em.Id=834)
+if NOT exists (select 1 from ErpModule em where em.Id=834)
 begin
 insert into ErpModule ([Id],[ParentId],[ModuleDesc],[OrderIndex],[LinkButton],[ShortCutKey],[PackageId]
            ,[DefaultReport],[DefaultLayout],[TableName],[AssemblyName],[MainAssembly]
@@ -2031,9 +2031,10 @@ insert into ErpModule ([Id],[ParentId],[ModuleDesc],[OrderIndex],[LinkButton],[S
 		   null,null,'Gstr-2 Reconcile',1,null,0,
 		   0,0,0,null,null,1,GETDATE())
 end
- 	   update dbo.ErpModule set IconPath='/Konto.Wpf;component/MenuIcon/tax.png' where id=834
 
- if NOT exists (select 1 from ErpModule em where em.Id=835)
+update dbo.ErpModule set [AssemblyName] = 'Konto.Reporting.Para.Gstr2.Gst2Reconcile' where id=834
+
+if NOT exists (select 1 from ErpModule em where em.Id=835)
 begin
 insert into ErpModule ([Id],[ParentId],[ModuleDesc],[OrderIndex],[LinkButton],[ShortCutKey],[PackageId]
            ,[DefaultReport],[DefaultLayout],[TableName],[AssemblyName],[MainAssembly]

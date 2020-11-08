@@ -129,10 +129,15 @@ namespace Konto.Core.Shared.Frms
             this.pdfSimpleButton.Click += PdfSimpleButton_Click;
             this.excelSimpleButton.Click += ExcelSimpleButton_Click;
             _doc = doc;
+            _doc.LocateDataSource += new GrapeCity.ActiveReports.LocateDataSourceEventHandler(Doc_LocateDataSource);
             
             viewer1.LoadDocument(doc);
             //viewer1.Sidebar.Visible = true;
             //viewer1.Sidebar.SelectedIndex = 3;
+        }
+        private void Doc_LocateDataSource(object sender, GrapeCity.ActiveReports.LocateDataSourceEventArgs args)
+        {
+            args.Report.PageReport.Report.DataSources[0].ConnectionProperties.ConnectString = KontoGlobals.sqlConnectionString.ConnectionString;
         }
         public void LoadDocument(FileInfo file)
         {

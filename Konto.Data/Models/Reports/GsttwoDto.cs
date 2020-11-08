@@ -19,7 +19,8 @@ namespace Konto.Data.Models.Reports
         public string VNo { get; set; }
         public string BillNo { get; set; }
         public DateTime Date { get; set; }
-        public DateTime BillDate { get; set; }
+
+        public DateTime VoucherDate { get; set; }
         public string VoucherName { get; set; }
         public string BookName { get; set; }
         public string HsnCode { get; set; }
@@ -44,5 +45,6 @@ namespace Konto.Data.Models.Reports
         public decimal GSTRate { get; set; }
         public string RevChg { get; set; }
         public string Itc { get; set; }
+        public int VTypeId { get; set; }
     }
 }
