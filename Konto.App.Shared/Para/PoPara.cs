@@ -20,4 +20,19 @@ namespace Konto.App.Shared.Para
         public static bool Currency_Required = false;
         public static bool Cess_Required = false;
     }
+
+    public class IndentPara
+    {
+        public static bool Color_Required = false;
+        public static bool Design_Required = false;
+        public static bool Grade_Required = false;
+
+        public static bool Grey_Details_Textiles_Required = false;
+        public static bool Checker_In_Required = false;
+        public static bool Checker_Out_Required = false;
+        public static string Default_Order_Status = "PENDING";
+        public static int Min_Odr_Qty = 1;
+        public static bool Currency_Required = false;
+        public static bool Cess_Required = false;
+    }
 }

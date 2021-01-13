@@ -87,6 +87,7 @@
     <Reference Include="DevExpress.Data.v20.1, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.DataAccess.v20.1, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.DataAccess.v20.1.UI, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Images.v20.1, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Office.v20.1.Core, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Printing.v20.1.Core, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.RichEdit.v20.1.Core, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
@@ -245,6 +246,12 @@
       <DependentUpon>CustomeRepWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="CustomRep\ReportLayoutBuilder.cs" />
+    <Compile Include="Para\BeamProdPara\BPParaMainView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Para\BeamProdPara\BPParaMainView.Designer.cs">
+      <DependentUpon>BPParaMainView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Para\BillPara\ParaMainView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -414,11 +421,23 @@
     <Compile Include="Para\Stock\StockParaMainView.Designer.cs">
       <DependentUpon>StockParaMainView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Para\TakaPara\TakaParaMainView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Para\TakaPara\TakaParaMainView.Designer.cs">
+      <DependentUpon>TakaParaMainView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Para\TDSPara\TDSMainView.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Para\TDSPara\TDSMainView.Designer.cs">
       <DependentUpon>TDSMainView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Para\TDSPara\TdsPrintView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Para\TDSPara\TdsPrintView.Designer.cs">
+      <DependentUpon>TdsPrintView.cs</DependentUpon>
     </Compile>
     <Compile Include="Para\TrailBalance\TbParaView.cs">
       <SubType>Form</SubType>
@@ -481,6 +500,9 @@
   <ItemGroup>
     <EmbeddedResource Include="CustomRep\CustomeRepWindow.resx">
       <DependentUpon>CustomeRepWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Para\BeamProdPara\BPParaMainView.resx">
+      <DependentUpon>BPParaMainView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Para\BillPara\ParaMainView.resx">
       <DependentUpon>ParaMainView.cs</DependentUpon>
@@ -563,8 +585,14 @@
     <EmbeddedResource Include="Para\Stock\StockParaMainView.resx">
       <DependentUpon>StockParaMainView.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Para\TakaPara\TakaParaMainView.resx">
+      <DependentUpon>TakaParaMainView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Para\TDSPara\TDSMainView.resx">
       <DependentUpon>TDSMainView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Para\TDSPara\TdsPrintView.resx">
+      <DependentUpon>TdsPrintView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Para\TrailBalance\TbParaView.resx">
       <DependentUpon>TbParaView.cs</DependentUpon>

@@ -15,6 +15,8 @@ namespace Konto.Core.Shared.Libs
        
 
         public object PrimaryKey { get; set; }
+        public string LookupTitle { get; set; }
+
         public event EventHandler SelectedValueChanged;
         public LookupBase()
         {

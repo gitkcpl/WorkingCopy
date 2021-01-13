@@ -8,6 +8,7 @@ namespace Konto.Shared.Masters.Emp
 {
     public partial class EmpLookup : LookupBase
     {
+        
         public EmpLookup()
         {
             InitializeComponent();
@@ -44,6 +45,10 @@ namespace Konto.Shared.Masters.Emp
                 SelectedValue = Convert.ToInt32(this.SelectedValue),
                 Tag = MenuId.Emp
             };
+
+            if (!string.IsNullOrEmpty(this.LookupTitle))
+                frm.Text = this.LookupTitle;
+
             frm.ShowDialog(this.Parent.Parent.Parent);
             if (frm.DialogResult == DialogResult.OK)
             {

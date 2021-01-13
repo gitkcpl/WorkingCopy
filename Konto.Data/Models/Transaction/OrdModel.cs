@@ -1,12 +1,8 @@
 ﻿using Konto.Data.Models.Masters;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Konto.Data.Models.Transaction
 {
@@ -68,9 +64,9 @@ namespace Konto.Data.Models.Transaction
         public string RefNo { get; set; }
 
         [Display(Name = "Acc Id")]
-        [Required]
-        [Range(1, Int32.MaxValue)]
-        public int AccId { get; set; }
+      //  [Required]
+      //  [Range(1, Int32.MaxValue)]
+        public int? AccId { get; set; }
 
         [Display(Name = "Order Status")]
         [Required]
@@ -354,6 +350,7 @@ namespace Konto.Data.Models.Transaction
         public string CancelReason { get; set; }
 
         
+        public DateTime RequireDate { get; set; }
 
         // dbo.OrdTrans.OrdId -> dbo.Ord.Id (FK_OrdTrans_Ord)
         [ForeignKey("OrdId")]

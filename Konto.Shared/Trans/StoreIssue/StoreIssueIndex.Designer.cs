@@ -92,7 +92,7 @@
             this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
             this.barcodeLayoutControlItem = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
-            this.layoutControlItem22 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.orderNolayoutControlItem = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.emptySpaceItem3 = new DevExpress.XtraLayout.EmptySpaceItem();
             ((System.ComponentModel.ISupportInitialize)(this.tabControlAdv1)).BeginInit();
@@ -138,7 +138,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.barcodeLayoutControlItem)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem22)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.orderNolayoutControlItem)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).BeginInit();
             this.SuspendLayout();
@@ -203,6 +203,7 @@
             // empLookup1
             // 
             this.empLookup1.Location = new System.Drawing.Point(106, 68);
+            this.empLookup1.LookupTitle = null;
             this.empLookup1.Name = "empLookup1";
             this.empLookup1.PrimaryKey = null;
             this.empLookup1.RequiredField = true;
@@ -239,6 +240,7 @@
             // 
             this.voucherLookup1.GroupDto = null;
             this.voucherLookup1.Location = new System.Drawing.Point(447, 12);
+            this.voucherLookup1.LookupTitle = null;
             this.voucherLookup1.Name = "voucherLookup1";
             this.voucherLookup1.PrimaryKey = null;
             this.voucherLookup1.RequiredField = true;
@@ -602,6 +604,7 @@
             this.transportLookup.GroupId = 32;
             this.transportLookup.Location = new System.Drawing.Point(106, 321);
             this.transportLookup.LookupDto = null;
+            this.transportLookup.LookupTitle = null;
             this.transportLookup.Name = "transportLookup";
             this.transportLookup.Nature = null;
             this.transportLookup.NewGroupId = 32;
@@ -693,6 +696,7 @@
             // 
             // RefNobuttonEdit
             // 
+            this.RefNobuttonEdit.EnterMoveNextControl = true;
             this.RefNobuttonEdit.Location = new System.Drawing.Point(442, 68);
             this.RefNobuttonEdit.Name = "RefNobuttonEdit";
             this.RefNobuttonEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.25F, System.Drawing.FontStyle.Bold);
@@ -722,7 +726,7 @@
             this.layoutControlItem2,
             this.barcodeLayoutControlItem,
             this.emptySpaceItem1,
-            this.layoutControlItem22,
+            this.orderNolayoutControlItem,
             this.emptySpaceItem2,
             this.emptySpaceItem3});
             this.Root.Name = "Root";
@@ -904,18 +908,18 @@
             this.emptySpaceItem1.Size = new System.Drawing.Size(993, 34);
             this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
             // 
-            // layoutControlItem22
+            // orderNolayoutControlItem
             // 
-            this.layoutControlItem22.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.layoutControlItem22.AppearanceItemCaption.Options.UseFont = true;
-            this.layoutControlItem22.Control = this.RefNobuttonEdit;
-            this.layoutControlItem22.ControlAlignment = System.Drawing.ContentAlignment.TopLeft;
-            this.layoutControlItem22.CustomizationFormText = "Ref/Order No:";
-            this.layoutControlItem22.Location = new System.Drawing.Point(336, 56);
-            this.layoutControlItem22.Name = "layoutControlItem22";
-            this.layoutControlItem22.Size = new System.Drawing.Size(366, 26);
-            this.layoutControlItem22.Text = "Ref/Order No:";
-            this.layoutControlItem22.TextSize = new System.Drawing.Size(91, 17);
+            this.orderNolayoutControlItem.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.orderNolayoutControlItem.AppearanceItemCaption.Options.UseFont = true;
+            this.orderNolayoutControlItem.Control = this.RefNobuttonEdit;
+            this.orderNolayoutControlItem.ControlAlignment = System.Drawing.ContentAlignment.TopLeft;
+            this.orderNolayoutControlItem.CustomizationFormText = "Ref/Order No:";
+            this.orderNolayoutControlItem.Location = new System.Drawing.Point(336, 56);
+            this.orderNolayoutControlItem.Name = "orderNolayoutControlItem";
+            this.orderNolayoutControlItem.Size = new System.Drawing.Size(366, 26);
+            this.orderNolayoutControlItem.Text = "Ref/Order No:";
+            this.orderNolayoutControlItem.TextSize = new System.Drawing.Size(91, 17);
             // 
             // emptySpaceItem2
             // 
@@ -987,7 +991,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.barcodeLayoutControlItem)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem22)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.orderNolayoutControlItem)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).EndInit();
             this.ResumeLayout(false);
@@ -1058,7 +1062,7 @@
         private DevExpress.XtraEditors.SimpleButton barcodeSimpleButton;
         private DevExpress.XtraLayout.LayoutControlItem barcodeLayoutControlItem;
         private DevExpress.XtraEditors.ButtonEdit RefNobuttonEdit;
-        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem22;
+        private DevExpress.XtraLayout.LayoutControlItem orderNolayoutControlItem;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem2;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem3;
     }

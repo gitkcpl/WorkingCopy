@@ -30,6 +30,7 @@
         {
             this.customGridControl1 = new Konto.Core.Shared.Libs.CustomGridControl();
             this.customGridView1 = new Konto.Core.Shared.Libs.CustomGridView();
+            this.listDateRange1 = new Konto.Core.Shared.Libs.ListDateRange();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).BeginInit();
             this.panelControl2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).BeginInit();
@@ -39,7 +40,10 @@
             // 
             // panelControl2
             // 
+            this.panelControl2.Controls.Add(this.listDateRange1);
             this.panelControl2.Size = new System.Drawing.Size(1050, 35);
+            this.panelControl2.Controls.SetChildIndex(this.listAction1, 0);
+            this.panelControl2.Controls.SetChildIndex(this.listDateRange1, 0);
             // 
             // panelControl3
             // 
@@ -86,14 +90,27 @@
             this.customGridView1.OptionsView.ShowFooter = true;
             this.customGridView1.OptionsView.ShowGroupPanel = false;
             // 
-            // TakaCuttingList
+            // listDateRange1
+            // 
+            this.listDateRange1.FromDate = 0;
+            this.listDateRange1.IsAnalysis = false;
+            this.listDateRange1.KontoGrid = null;
+            this.listDateRange1.Location = new System.Drawing.Point(479, 4);
+            this.listDateRange1.Name = "listDateRange1";
+            this.listDateRange1.SelectedItem = null;
+            this.listDateRange1.Size = new System.Drawing.Size(514, 25);
+            this.listDateRange1.TabIndex = 3;
+            this.listDateRange1.ToDate = 0;
+            this.listDateRange1.VoucherType = Konto.App.Shared.VoucherTypeEnum.JobCard;
+            // 
+            // JobCardList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.customGridControl1);
             this.KontoGrid = this.customGridControl1;
             this.KontoView = this.customGridView1;
-            this.Name = "TakaCuttingList";
+            this.Name = "JobCardList";
             this.Size = new System.Drawing.Size(1050, 450);
             this.Controls.SetChildIndex(this.panelControl2, 0);
             this.Controls.SetChildIndex(this.panelControl3, 0);
@@ -111,5 +128,6 @@
 
         private Core.Shared.Libs.CustomGridControl customGridControl1;
         private Core.Shared.Libs.CustomGridView customGridView1;
+        private Core.Shared.Libs.ListDateRange listDateRange1;
     }
 }

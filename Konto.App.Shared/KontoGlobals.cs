@@ -189,9 +189,10 @@ namespace Konto.App.Shared
             MillReturn = 49,
             BrokerageVoucher = 50,
             TakaWiseJobReceipt = 51,
-            StockJournal = 52
+            StockJournal = 52,
+            GateInward = 53
 
-        }
+    }
         public enum TypeEnum
         {
             Inward = 1,

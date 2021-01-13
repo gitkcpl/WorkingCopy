@@ -147,6 +147,11 @@ namespace Konto.Shared.Masters.Div
             remarkTextBoxExt.Text = model.Remark;
             toggleSwitch1.EditValue = model.IsActive;
             toggleSwitch1.Enabled = true;
+            qcCheckEdit.Checked = model.IsQc;
+            qcOutCheckEdit.Checked = model.IsQcOut;
+            outCheckEdit.Checked = model.IsOutward;
+            finCheckEdit.Checked = model.IsFinishWareHouse;
+
             divNameTextBox.Focus();
             this.Text = "Division Master [View/Modify]";
             createdLabelControl.Text = "Created By: " + model.CreateUser + " [ " + model.CreateDate + " ]";
@@ -221,6 +226,10 @@ namespace Konto.Shared.Masters.Div
 
                 model.Remark = remarkTextBoxExt.Text.Trim();
                 model.IsActive = Convert.ToBoolean(toggleSwitch1.EditValue);
+                model.IsQc = qcCheckEdit.Checked;
+                model.IsQcOut = qcOutCheckEdit.Checked;
+                model.IsOutward = outCheckEdit.Checked;
+                model.IsFinishWareHouse = finCheckEdit.Checked;
 
                 if (this.PrimaryKey == 0)
                 {

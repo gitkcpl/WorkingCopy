@@ -39,7 +39,15 @@ namespace Konto.Weaves.BeamProduction
 
             this.MainLayoutFile = KontoFileLayout.BeamProd_Index;
             this.GridLayoutFile = KontoFileLayout.BeamProd_Trans;
+            voucherLookup11.SelectedValueChanged += VoucherLookup11_SelectedValueChanged;
+        }
 
+        private void VoucherLookup11_SelectedValueChanged(object sender, EventArgs e)
+        {
+            if (this.PrimaryKey == 0 && Convert.ToInt32(voucherLookup11.SelectedValue) > 0)
+            {
+                BeamNotextEdit.Text = "New-" + DbUtils.NextSerialNo(Convert.ToInt32(voucherLookup11.SelectedValue), 1);
+            }
         }
 
         private void BeamProdIndex_Load(object sender, EventArgs e)
@@ -185,7 +193,7 @@ namespace Konto.Weaves.BeamProduction
 
             divLookUpEdit.EditValue = 1;
             this.ActiveControl = voucherLookup11.buttonEdit1;
-            voucherLookup11.SetDefault();
+            
             voucherDateEdit.EditValue = DateTime.Now;
 
             WarperLookup1.SelectedValue = 1;
@@ -197,7 +205,8 @@ namespace Konto.Weaves.BeamProduction
 
             createdLabelControl.Text = "Create By: " + KontoGlobals.UserName;
             modifyLabelControl.Text = string.Empty;
-
+            voucherLookup11.SetDefault();
+            divLookUpEdit.Focus();
         }
         public override void ResetPage()
         {
@@ -217,7 +226,7 @@ namespace Konto.Weaves.BeamProduction
             DrawerDateDateEdit.EditValue = DateTime.Now;
             WDateDateEdit1.EditValue = DateTime.Now;
 
-            BeamNotextEdit.Text = "New";
+          //  BeamNotextEdit.Text = "New";
             MtrspinEdit.Value = 0;
             DenierspinEdit.Value = 0;
             WastagespinEdit.Value = 0;
@@ -233,6 +242,8 @@ namespace Konto.Weaves.BeamProduction
             IsClosecheckEdit.Checked = false;
 
             RemarkTextBoxExt.Text = string.Empty;
+
+            divLookUpEdit.Focus();
         }
         public override void EditPage(int _key)
         {
@@ -287,6 +298,7 @@ namespace Konto.Weaves.BeamProduction
             {
                 filter.Add(new Filter { PropertyName = "DivId", Operation = Op.Equals, Value = Convert.ToInt32(divLookUpEdit.EditValue) });
             }
+
             if (Convert.ToInt32(BeamLookup.SelectedValue) > 0)
             {
                 filter.Add(new Filter { PropertyName = "ProductId", Operation = Op.Equals, Value = Convert.ToInt32(BeamLookup.SelectedValue) });
@@ -378,7 +390,8 @@ namespace Konto.Weaves.BeamProduction
                         _find.CompId = KontoGlobals.CompanyId;
                         _find.YearId = KontoGlobals.YearId;
                         _find.BranchId = KontoGlobals.BranchId;
-
+                        _find.CProductId = _find.ProductId;
+                        _find.IsOk = true;
                         // _find.VoucherNo = BeamNotextEdit.Text;
                         if (string.IsNullOrEmpty(_find.VoucherNo))
                         {
@@ -388,6 +401,8 @@ namespace Konto.Weaves.BeamProduction
                         }
                         if (_find.Id <= 0)
                         {
+                            _find.ProdStatus = "STOCK";
+
                             db.Prods.Add(_find);
                         }
                         db.SaveChanges();
@@ -419,34 +434,34 @@ namespace Konto.Weaves.BeamProduction
                         }
                         StockEffect.StockTransProdEntry(_find, IsIssue, RcptQty, IssueQty, qty, pcs, TableName, db);
                         db.SaveChanges();
-                        if (ProdPara.AutoYarnConsumption)
-                        {
-                            IsIssue = true;
-                            TableName = "Beam Production";
+                        //if (ProdPara.AutoYarnConsumption)
+                        //{
+                        //    IsIssue = true;
+                        //    TableName = "Beam Production";
 
-                            var yarnlist = db.WeftItems.Where(k => k.IsActive && !k.IsDeleted && k.RefId == _find.ProductId).ToList();
-                            var map = new Mapper(config);
-                            ProdModel model;
-                            foreach (var item in yarnlist)
-                            {
-                                RcptQty = 0;
-                                if (item.TypeId == 2)
-                                {
-                                    if (_find.Ply != 0 && item.Qty != null && item.Mtr != null)
-                                    {
-                                        IssueQty = ((decimal)_find.Ply * (decimal)item.Qty) / (decimal)item.Mtr;
-                                        qty = ((decimal)_find.Ply * (decimal)item.Qty) / (decimal)item.Mtr;
-                                    }
-                                }
-                                pcs = 1;
+                        //    var yarnlist = db.WeftItems.Where(k => k.IsActive && !k.IsDeleted && k.RefId == _find.ProductId).ToList();
+                        //    var map = new Mapper(config);
+                        //    ProdModel model;
+                        //    foreach (var item in yarnlist)
+                        //    {
+                        //        RcptQty = 0;
+                        //        if (item.TypeId == 2)
+                        //        {
+                        //            if (_find.Ply != 0 && item.Qty != null && item.Mtr != null)
+                        //            {
+                        //                IssueQty = ((decimal)_find.Ply * (decimal)item.Qty) / (decimal)item.Mtr;
+                        //                qty = ((decimal)_find.Ply * (decimal)item.Qty) / (decimal)item.Mtr;
+                        //            }
+                        //        }
+                        //        pcs = 1;
 
-                                model = new ProdModel();
-                                map.Map(_find, model);
-                                model.ProductId = (int)item.ProductId;
-                                StockEffect.StockTransProdEntry(model, IsIssue, RcptQty, IssueQty, qty, pcs, TableName, db);
-                                db.SaveChanges();
-                            }
-                        }
+                        //        model = new ProdModel();
+                        //        map.Map(_find, model);
+                        //        model.ProductId = (int)item.ProductId;
+                        //        StockEffect.StockTransProdEntry(model, IsIssue, RcptQty, IssueQty, qty, pcs, TableName, db);
+                        //        db.SaveChanges();
+                        //    }
+                        //}
 
                         _tran.Commit();
                         IsSaved = true;
@@ -540,7 +555,7 @@ namespace Konto.Weaves.BeamProduction
             }
             else if (closeDate > dt)
             {
-                MessageBoxAdv.Show(this, "Close Date Cant Not be grater than order date", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBoxAdv.Show(this, "Close Date Can Not be grater than order date", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 CloseDateDateEdit.Focus();
                 return false;
             }
@@ -584,6 +599,8 @@ namespace Konto.Weaves.BeamProduction
             IsClosecheckEdit.Checked = pdata.IsClose;
 
             RemarkTextBoxExt.Text = pdata.Remark;
+
+            divLookUpEdit.Focus();
         }
 
         #endregion

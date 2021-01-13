@@ -840,6 +840,7 @@ namespace Konto.Trading.MillReceipt
                 pm.IsOk = true;
                 pm.ShMtr = prod.GrayMtr;
                 pm.TransId = ct.Id;
+               // pm.IssueRefId = prod.Id;
                 this.prodDtos.Add(pm);
             }
 
@@ -1001,6 +1002,7 @@ namespace Konto.Trading.MillReceipt
                 var row = view.GetRow(view.FocusedRowHandle) as MrvTransDto;
                 view.DeleteRow(view.FocusedRowHandle);
                 DelTrans.Add(row);
+                FinalTotal();
             }
             else if (e.KeyCode == Keys.Delete)
             {
@@ -1544,24 +1546,31 @@ namespace Konto.Trading.MillReceipt
                             foreach (var p in prlist)
                             {
                                 var pOut = new ProdOutModel();
+                                
                                 if (p.Id > 0)
                                     pOut = db.ProdOuts.Find(p.Id);
+                                
+                                
+                                
                                 map.Map(p, pOut);
+
                                 pOut.IsActive = true;
 
                                 
-                                var _orgPd = db.Prods.Find(p.ProdId);
-                                if (_orgPd != null)
-                                {
-                                    _orgPd.CProductId = tranModel.ProductId;
-                                    if(Convert.ToInt32(tranModel.ColorId)!=0)
-                                    _orgPd.ColorId = tranModel.ColorId;
-                                    _orgPd.PalletProductId = tranModel.DesignId;
-                                    if(p.Id==0 && MillRecPara.Generate_Barcode)
-                                        _orgPd.Extra1 = _time + _orgPd.SrNo.ToString().PadLeft(2, '0');
-                                }
+
+                                //var _orgPd = db.Prods.Find(p.ProdId);
+                                //if (_orgPd != null)
+                                //{
+                                //    _orgPd.CProductId = tranModel.ProductId;
+                                //    if(Convert.ToInt32(tranModel.ColorId)!=0)
+                                //    _orgPd.ColorId = tranModel.ColorId;
+                                //    _orgPd.PalletProductId = tranModel.DesignId;
+                                //    if(p.Id==0 && MillRecPara.Generate_Barcode)
+                                //        _orgPd.Extra1 = _time + _orgPd.SrNo.ToString().PadLeft(2, '0');
+                                //}
 
                                 pOut.Qty = p.FinMrt;
+
                                 if (p.Id==0)
                                 {
                                     pOut.VoucherNo = _find.VoucherNo;

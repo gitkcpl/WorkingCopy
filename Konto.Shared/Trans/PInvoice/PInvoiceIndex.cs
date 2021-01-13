@@ -20,6 +20,7 @@ using Konto.Shared.Masters.Color;
 using Konto.Shared.Masters.Design;
 using Konto.Shared.Masters.Grade;
 using Konto.Shared.Masters.Item;
+using Konto.Shared.Trans.Common;
 using Serilog;
 using Syncfusion.Windows.Forms;
 using Syncfusion.Windows.Forms.Tools;
@@ -39,6 +40,8 @@ namespace Konto.Shared.Trans.PInvoice
     {
         private List<BillModel> FilterView = new List<BillModel>();
         private List<BillTransDto> DelTrans = new List<BillTransDto>();
+        private List<AttachmentModel> _DelFile = new List<AttachmentModel>();
+        private List<AttachmentModel> _TransFile = new List<AttachmentModel>();
         TextEdit headerEdit = new TextEdit();
         GridColumn activeCol = null;
         private bool isImortOrSez = false;
@@ -89,6 +92,31 @@ namespace Konto.Shared.Trans.PInvoice
             voucherLookup1.SelectedValueChanged += VoucherLookup1_SelectedValueChanged;
             this.Load += PInvoiceIndex_Load;
             this.rcmLookUpEdit.EditValueChanged += RcmLookUpEdit_EditValueChanged;
+            this.attachSimpleButton.Click += AttachSimpleButton_Click;
+
+            tcsPerTextEdit.EditValueChanged += TcsPerTextEdit_EditValueChanged;
+            tcsAmtTextEdit.EditValueChanged += TcsAmtTextEdit_EditValueChanged;
+        }
+        private void TcsAmtTextEdit_EditValueChanged(object sender, EventArgs e)
+        {
+            FinalTotal();
+        }
+
+        private void TcsPerTextEdit_EditValueChanged(object sender, EventArgs e)
+        {
+            FinalTotal();
+        }
+
+        private void AttachSimpleButton_Click(object sender, EventArgs e)
+        {
+            var frm = new AttachmentView();
+            frm.Trans = this._TransFile;
+            frm.DelTrans = this._DelFile;
+            if(frm.ShowDialog() == DialogResult.OK)
+            {
+                this._TransFile = frm.Trans;
+                this._DelFile = frm.DelTrans;
+            }
         }
 
         private void RcmLookUpEdit_EditValueChanged(object sender, EventArgs e)
@@ -377,7 +405,11 @@ namespace Konto.Shared.Trans.PInvoice
                 var model = frm.SelectedItem as ProductLookupDto;
                 er.UomId = model.PurUomId;
                 er.Rate = model.DealerPrice;
+                
+                er.SaleRate = decimal.Round((model.DealerPrice + (model.DealerPrice * model.Igst / 100)), 2, MidpointRounding.AwayFromZero);
+
                 er.Cut = model.Cut;
+
                 if (accLookup1.LookupDto.IsGst && !isImortOrSez)
                 {
                     er.SgstPer = model.Sgst;
@@ -484,6 +516,16 @@ namespace Konto.Shared.Trans.PInvoice
       
         public void GridCalculation(BillTransDto er, string fldName="NA")
         {
+            if (fldName == "SaleRate")
+            {
+                er.Rate = decimal.Round((er.SaleRate * 100) / (100 + (er.SgstPer + er.CgstPer + er.IgstPer)), 2, MidpointRounding.AwayFromZero);
+            }
+
+            else if (fldName == "Rate")
+            {
+                er.SaleRate = decimal.Round((er.Rate + (er.Rate * (er.SgstPer + er.CgstPer + er.IgstPer) / 100)), 2, MidpointRounding.AwayFromZero);
+            }
+
 
             if (er.Cut > 0 && er.Pcs > 0)
                 er.Qty = decimal.Round(er.Pcs * er.Cut, 2, MidpointRounding.AwayFromZero);
@@ -553,6 +595,11 @@ namespace Konto.Shared.Trans.PInvoice
             var gross = Trans.Sum(x => x.NetTotal) - Trans.Sum(x => x.Cgst) - Trans.Sum(x => x.Sgst) -
                 Trans.Sum(x => x.Igst) - Trans.Sum(x => x.Cess);
 
+
+          
+
+
+
             if (tdsPerTextEdit.Value > 0)
             {
                 if(PurchasePara.TDS_RoundOff)
@@ -563,6 +610,17 @@ namespace Konto.Shared.Trans.PInvoice
 
             gridView1.UpdateTotalSummary();
             var ntotal = Convert.ToDecimal(colNetTotal.SummaryItem.SummaryValue);
+
+
+            if (tcsPerTextEdit.Value > 0) // tcs applicable
+            {
+                if (PurchasePara.Tcs_Round_Off)
+                    tcsAmtTextEdit.Value = decimal.Round((ntotal * tcsPerTextEdit.Value / 100) + (decimal)0.01);
+                else
+                    tcsAmtTextEdit.Value = decimal.Round(ntotal * tcsPerTextEdit.Value / 100, 2);
+            }
+
+            ntotal = ntotal + tcsAmtTextEdit.Value;
 
             var x1 = ntotal - Math.Truncate(ntotal);
 
@@ -714,6 +772,14 @@ namespace Konto.Shared.Trans.PInvoice
                                      Id = p.Id
                                  }).ToList();
 
+                var _costlists = (from p in db.CostHeads
+                                  where p.IsActive && !p.IsDeleted
+                                  select new BaseLookupDto()
+                                  {
+                                      DisplayText = p.HeadName,
+                                      Id = p.Id
+                                  }).ToList();
+
                 var _uomlist = (from p in db.Uoms
                                 where !p.IsDeleted & p.IsActive
                                 orderby p.UnitName
@@ -740,6 +806,7 @@ namespace Konto.Shared.Trans.PInvoice
 
                 taxRepositoryItemLookUpEdit.DataSource = gstList;
                 storeLookUpEdit.Properties.DataSource = _storeLists;
+                costLookUpEdi.Properties.DataSource = _costlists;
             }
         }
 
@@ -929,7 +996,15 @@ namespace Konto.Shared.Trans.PInvoice
             createdLabelControl.Text = "Created By: " + model.CreateUser + " [ " + model.CreateDate + " ]";
             modifyLabelControl.Text = "Modified By: " + model.ModifyUser + " [ " + model.ModifyDate ?? string.Empty  + " ]";
 
-         
+            if (model.CostHeadId != 0)
+            {
+                costLookUpEdi.EditValue = model.CostHeadId;
+            }
+
+            tcsPerTextEdit.Value = model.TcsPer;
+            tcsAmtTextEdit.Value = model.TcsAmt;
+
+
             using (var _context = new KontoContext())
             {
 
@@ -982,7 +1057,7 @@ namespace Konto.Shared.Trans.PInvoice
                                 ColorName=cl.ColorName,Cut= bt.Cut,DesignName= dm.ProductCode,GradeName= gd.GradeName,
                                 LotNo = bt.LotNo,OrdDate= or.VoucherDate,OrderNo= or.VoucherNo,OrdId= or.Id,
                                 Pcs= bt.Pcs,ProductId =(int)bt.ProductId,ProductName= p.ProductName,RefId= bt.RefId,
-                                RefTransId= bt.RefTransId,RefVoucherId=bt.RefVoucherId
+                                RefTransId= bt.RefTransId,RefVoucherId=bt.RefVoucherId,SaleRate=bt.SaleRate
                             }
                              ).ToList();
                              
@@ -991,6 +1066,9 @@ namespace Konto.Shared.Trans.PInvoice
                 var paid = _context.BtoBs.Where(x => x.BillId == model.Id && x.BillVoucherId == model.VoucherId
                                            && !x.IsDeleted)
                                          .Sum(x => x.Amount);
+
+                _TransFile = _context.Attachments.Where(x => x.RefVoucherId == model.Id && x.VoucherId == model.VoucherId && !x.IsDeleted).ToList();
+
                 if (paid > 0)
                 {
                     if (KontoGlobals.UserRoleId != 1)
@@ -1158,6 +1236,7 @@ namespace Konto.Shared.Trans.PInvoice
                 var row = view.GetRow(view.FocusedRowHandle) as BillTransDto;
                 view.DeleteRow(view.FocusedRowHandle);
                 DelTrans.Add(row);
+                FinalTotal();
             }
             else if (e.KeyCode == Keys.Delete)
             {
@@ -1361,7 +1440,31 @@ namespace Konto.Shared.Trans.PInvoice
                         tdsAccLookup.SetAcc(Convert.ToInt32(accLookup1.LookupDto.TdsAccId));
                     }
                 }
+
+
+                if (this.accLookup1.LookupDto.TcsReq.ToUpper() == "YES")
+                    tcsPerTextEdit.Value = accLookup1.LookupDto.TcsPer;
+
             }
+
+
+            if (this.accLookup1.LookupDto.TcsReq.ToUpper() == "YES")
+            {
+                if (tcsPerlayoutControlItem.IsHidden)
+                    tcsPerlayoutControlItem.RestoreFromCustomization();
+
+                if (tcsAmountlayoutControlItem.IsHidden)
+                    tcsAmountlayoutControlItem.RestoreFromCustomization();
+
+                tcsPerlayoutControlItem.ContentVisible = true;
+                tcsAmountlayoutControlItem.ContentVisible = true;
+            }
+            else
+            {
+                tcsPerlayoutControlItem.ContentVisible = false;
+                tcsAmountlayoutControlItem.ContentVisible = false;
+            }
+
             UpdateGst();
         }
 
@@ -1481,6 +1584,7 @@ namespace Konto.Shared.Trans.PInvoice
             billDateEdit.EditValue = DateTime.Now;
             empLookup1.SelectedValue = 1;
             empLookup1.SetGroup();
+            costLookUpEdi.EditValue = 1;
             createdLabelControl.Text = "Create By: " + KontoGlobals.UserName;
             modifyLabelControl.Text = string.Empty;
             this.ActiveControl = voucherLookup1.buttonEdit1;
@@ -1501,6 +1605,8 @@ namespace Konto.Shared.Trans.PInvoice
             DelBill = new List<PendBillListDto>();
             BillList = new List<PendBillListDto>();
             AllBill = new List<PendBillListDto>();
+            _TransFile = new List<AttachmentModel>();
+            _DelFile = new List<AttachmentModel>();
             this.grnTransDtoBindingSource1.DataSource = new List<BillTransDto>();
             
         }
@@ -1516,7 +1622,9 @@ namespace Konto.Shared.Trans.PInvoice
             voucherDateEdit.DateTime = DateTime.Now;
             billDateEdit.DateTime = DateTime.Now;
             voucherNoTextEdit.Text = string.Empty;
-           
+
+            costLookUpEdi.EditValue = 1;
+
             transportLookup.SetEmpty();
             empLookup1.SetEmpty();
             lrNotextEdit.Text = string.Empty;
@@ -1526,6 +1634,8 @@ namespace Konto.Shared.Trans.PInvoice
             tdsPerTextEdit.Value = 0;
             tdsAmtTextEdit.Value = 0;
             paybleTextEdit.Text = "0";
+            tcsPerTextEdit.Value = 0;
+            tcsAmtTextEdit.Value = 0;
 
             roundoffSpinEdit.Value = 0;
             billAmtSpinEdit.Value = 0;
@@ -1534,6 +1644,8 @@ namespace Konto.Shared.Trans.PInvoice
             DelBill = new List<PendBillListDto>();
             BillList = new List<PendBillListDto>();
             AllBill = new List<PendBillListDto>();
+            _TransFile = new List<AttachmentModel>();
+            _DelFile = new List<AttachmentModel>();
         }
         public override void EditPage(int _key)
         {
@@ -1674,12 +1786,53 @@ namespace Konto.Shared.Trans.PInvoice
                             Trans.Add(tranModel);
                            
                         }
+
+                        // attachment
+                        foreach (var item in _TransFile)
+                        {
+                            
+                            item.RefVoucherId = _find.Id;
+                            item.VoucherId = _find.VoucherId;
+                            if (item.Id == 0)
+                            {
+                                string fpath = item.FilePath;// uploadedFile.FileNameInStorage.ToString(); 
+                                int lst = fpath.LastIndexOf(".");
+                                string xtn = fpath.Substring(lst);
+
+                                var _file = string.Format(@"{0}." + xtn, DateTime.Now.Ticks + "__" + _find.Id);
+
+                                var _filePath = "\\attachment\\" + _file;
+
+                                string destFile = (System.IO.Path.GetDirectoryName(System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName)) + _filePath;
+                                System.IO.File.Copy(fpath, destFile, true);
+
+                                item.FilePath = _file;
+
+                                db.Attachments.Add(item);
+                            }
+                            else
+                            {
+                                var _at = db.Attachments.Find(item.Id);
+                                _at.FileDescr = item.FileDescr;
+                               // _at.FilePath = item.FilePath;
+                            }
+                        }
+
+
                         //delete item from  trans
                         foreach (var item in DelTrans)
                         {
                             if (item.Id == 0) continue;
                             var _model = db.BillTrans.Find(item.Id);
                             _model.IsDeleted = true;
+                        }
+                        // delete from Attachment
+                        foreach (var item in _DelFile)
+                        {
+                            if (item.Id == 0) continue;
+                            var _model = db.Attachments.Find(item.Id);
+                            _model.IsDeleted = true;
+
                         }
 
                         //Bill Reference Update
@@ -1808,6 +1961,13 @@ namespace Konto.Shared.Trans.PInvoice
             model.TotalPcs = 0;
             model.RoundOff = roundoffSpinEdit.Value;
             model.IsActive = true;
+            model.TcsPer = tcsPerTextEdit.Value;
+            model.TcsAmt = tcsAmtTextEdit.Value;
+
+            if (!string.IsNullOrEmpty(costLookUpEdi.Text))
+            {
+                model.CostHeadId = Convert.ToInt32(costLookUpEdi.EditValue);
+            }
            
           
 

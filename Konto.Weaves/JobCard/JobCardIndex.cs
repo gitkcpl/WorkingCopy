@@ -17,12 +17,16 @@ using Konto.Shared.Masters.Item;
 using Konto.Weaves.BeamLoading;
 using Serilog;
 using Syncfusion.Windows.Forms;
+using Syncfusion.Windows.Forms.Tools;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using Konto.Shared;
+using GrapeCity.ActiveReports;
+using System.IO;
 
 namespace Konto.Weaves.JobCard
 {
@@ -798,7 +802,7 @@ namespace Konto.Weaves.JobCard
 
         private void SelectSimpleButton_Click(object sender, EventArgs e)
         {
-            var stf = new TakaViewWindow();
+            var stf = new PendingBeamLoadingView();
             KontoContext _db = new KontoContext();
 
             var _list = new List<BeamProdDto>();
@@ -842,6 +846,53 @@ namespace Konto.Weaves.JobCard
         public override void Print()
         {
             base.Print();
+
+            try
+            {
+                if (this.PrimaryKey == 0) return;
+
+                PageReport rpt = new PageReport();
+
+                rpt.Load(new FileInfo("reg\\JobCardPrint.rdlx"));
+
+                rpt.Report.DataSources[0].ConnectionProperties.ConnectString = KontoGlobals.sqlConnectionString.ConnectionString;
+
+                GrapeCity.ActiveReports.Document.PageDocument doc = new GrapeCity.ActiveReports.Document.PageDocument(rpt);
+                doc.Parameters["id"].CurrentValue = this.PrimaryKey;
+
+                KontoContext db = new KontoContext();
+                var ItemTrans = db.jobCardTrans.Where(k => k.JobCardId == this.PrimaryKey).ToList();
+                var shadelst = ItemTrans.GroupBy(k => k.ItemId).ToList();
+                int i = 0;
+                foreach (var item in shadelst)
+                {
+                    i = i + 1;
+                    doc.Parameters["ShadeId" + i].CurrentValue = item.Key;
+                }
+
+                //rpt.ResourceLocator = new MySubreportLocator();
+
+
+                var frm = new KontoRepViewer(doc);
+                frm.Text = "Job Card Print";
+                var _tab = this.Parent.Parent as TabControlAdv;
+                if (_tab == null) return;
+                var pg1 = new TabPageAdv();
+                pg1.Text = "Job Card Print";
+                _tab.TabPages.Add(pg1);
+                _tab.SelectedTab = pg1;
+                frm.TopLevel = false;
+                frm.Parent = pg1;
+                frm.Location = new Point(pg1.Location.X + pg1.Width / 2 - frm.Width / 2, pg1.Location.Y + pg1.Height / 2 - frm.Height / 2);
+                frm.Show();// = true;
+
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Job Card print");
+                MessageBoxAdv.Show(this, "Error While Print !!", "Exception ", ex.ToString());
+
+            }
         }
         public override void NewRec()
         {
@@ -874,6 +925,8 @@ namespace Konto.Weaves.JobCard
             this.SelectSimpleButton.Enabled = true;
 
             OpenPendingJobCard();
+
+            divLookUpEdit.Focus();
         }
 
         public override void ResetPage()
@@ -900,6 +953,8 @@ namespace Konto.Weaves.JobCard
             DelYarnDetail = new List<JobCardTransDto>();
 
             this.SelectSimpleButton.Enabled = true;
+
+            divLookUpEdit.Focus();
         }
         public override void EditPage(int _key)
         {
@@ -1134,7 +1189,7 @@ namespace Konto.Weaves.JobCard
                     base.SaveDataAsync(newmode);
                     this.ResetPage();
                     this.NewRec();
-                    voucherLookup.Focus();
+                    divLookUpEdit.Focus();
                 }
                 else
                 {
@@ -1238,7 +1293,6 @@ namespace Konto.Weaves.JobCard
                 ProductLookup.SelectedValue = pdata.ProductId;
                 ProductLookup.SetGroup((int)pdata.ProductId);
             }
-            
 
             if (pdata.OrdDate != null)
                 OrderDateEdit.DateTime = (DateTime)pdata.OrdDate;
@@ -1341,6 +1395,7 @@ namespace Konto.Weaves.JobCard
 
             DelYarnDetail = new List<JobCardTransDto>();
             DelOrder = new List<JobCardTransDto>();
+            divLookUpEdit.Focus();
         }
 
         #endregion

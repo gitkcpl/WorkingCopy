@@ -417,7 +417,7 @@ namespace Konto.Shared.Trans.SO
             stageLookUpEdit.EditValue = model.OrderStatusId;
             voucherDateEdit.EditValue = KontoUtils.IToD(model.VoucherDate);
             accLookup1.SelectedValue = model.AccId;
-            accLookup1.SetAcc(model.AccId);
+            accLookup1.SetAcc((int)model.AccId);
             refNotextEdit.Text = model.RefNo;
             requireDateEdit.EditValue = model.RequireDate;
             if (model.AgentId != 0)

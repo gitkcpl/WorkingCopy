@@ -387,7 +387,19 @@ namespace Konto.Shared.Trans.SReturn
                 er.ProductName = frm.SelectedTex;
                 var model = frm.SelectedItem as ProductLookupDto;
                 er.UomId = model.UomId;
-                er.Rate = model.SaleRate;
+                
+                if (model.SaleRateTaxInc)
+                {
+                    er.SaleRate = model.SaleRate;
+                    var rt = decimal.Round((model.SaleRate * 100) / (100 + (model.Sgst + model.Cgst)), 2, MidpointRounding.AwayFromZero);
+                    er.Rate = rt;
+                }
+                else
+                {
+                    er.SaleRate = decimal.Round((model.SaleRate + (model.SaleRate * model.Igst / 100)), 2, MidpointRounding.AwayFromZero);
+                    er.Rate = model.SaleRate;
+                }
+
                 er.Cut = model.Cut;
                 er.Disc = this._DiscPer;
                 if (accLookup1.LookupDto.IsGst)
@@ -496,6 +508,16 @@ namespace Konto.Shared.Trans.SReturn
       
         public void GridCalculation(BillTransDto er, string fldName="NA")
         {
+            if (fldName == "SaleRate")
+            {
+                er.Rate = decimal.Round((er.SaleRate * 100) / (100 + (er.SgstPer + er.CgstPer + er.IgstPer)), 2, MidpointRounding.AwayFromZero);
+            }
+
+            else if (fldName == "Rate")
+            {
+                er.SaleRate = decimal.Round((er.Rate + (er.Rate * (er.SgstPer + er.CgstPer + er.IgstPer) / 100)), 2, MidpointRounding.AwayFromZero);
+            }
+
 
             if (er.Cut > 0 && er.Pcs > 0)
                 er.Qty = decimal.Round(er.Pcs * er.Cut, 2, MidpointRounding.AwayFromZero);
@@ -741,7 +763,18 @@ namespace Konto.Shared.Trans.SReturn
 
         private bool ValidateData()
         {
-            var dt = Convert.ToInt32(voucherDateEdit.DateTime.ToString("yyyyMMdd"));
+
+            
+            var dt = Convert.ToInt32(Convert.ToDateTime(voucherDateEdit.EditValue).ToString("yyyyMMdd"));
+
+            
+            if(dt.ToString().Length < 8)
+            {
+                MessageBoxAdv.Show(this, "Invalid Voucher Date", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                voucherDateEdit.Focus();
+                return false;
+            }
+
             var trans = grnTransDtoBindingSource1.DataSource as List<BillTransDto>;
             
             var Sum = BillList.Sum(k => k.Amount);
@@ -969,7 +1002,8 @@ namespace Konto.Shared.Trans.SReturn
                                 ProductName = p.ProductName,
                                 RefId = bt.RefId,
                                 RefTransId = bt.RefTransId,
-                                RefVoucherId = bt.RefVoucherId
+                                RefVoucherId = bt.RefVoucherId,
+                                SaleRate= bt.SaleRate
                             }
                             ).ToList();
 
@@ -1084,6 +1118,7 @@ namespace Konto.Shared.Trans.SReturn
                 var row = view.GetRow(view.FocusedRowHandle) as BillTransDto;
                 view.DeleteRow(view.FocusedRowHandle);
                 DelTrans.Add(row);
+                FinalTotal();
             }
             else if (e.KeyCode == Keys.Delete)
             {
@@ -1681,7 +1716,8 @@ namespace Konto.Shared.Trans.SReturn
 
         
             model.VoucherId = Convert.ToInt32(voucherLookup1.SelectedValue);
-            model.VoucherDate = Convert.ToInt32(voucherDateEdit.DateTime.ToString("yyyyMMdd"));
+
+            model.VoucherDate = Convert.ToInt32(Convert.ToDateTime(voucherDateEdit.EditValue).ToString("yyyyMMdd"));
 
             model.AccId = Convert.ToInt32(accLookup1.SelectedValue);
             model.BookAcId = Convert.ToInt32(bookLookup.SelectedValue);

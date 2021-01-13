@@ -45,6 +45,8 @@ namespace Konto.Shared.Trans.GRN
         private List<GrnTransDto> DelTrans = new List<GrnTransDto>();
         private List<GrnProdDto> prodDtos = new List<GrnProdDto>();
         private List<GrnProdDto> DelProd = new List<GrnProdDto>();
+        private int GateId = 0;
+        private int GateVoucherId = 0;
 
         TextEdit headerEdit = new TextEdit();
         GridColumn activeCol = null;
@@ -580,6 +582,9 @@ namespace Konto.Shared.Trans.GRN
             lrNotextEdit.Text = model.DocNo;
             lrDateEdit.EditValue = model.DocDate;
             remarkTextEdit.Text = model.Remark;
+            gateSrNoTextEdit.Text = model.Extra1;
+            this.GateId = model.RefId;
+            this.GateVoucherId = model.RefVoucherId;
 
             createdLabelControl.Text = "Created By: " + model.CreateUser + " [ " + model.CreateDate + " ]";
             modifyLabelControl.Text = "Modified By: " + model.ModifyUser + " [ " + model.ModifyDate ?? string.Empty  + " ]";
@@ -1300,6 +1305,9 @@ namespace Konto.Shared.Trans.GRN
             if (this.Create_Permission)
                 okSimpleButton.Enabled = true;
             grnTypeLookUpEdit.Focus();
+
+            this.GateId = 0;
+            this.GateVoucherId = 0;
         }
         public override void ResetPage()
         {
@@ -1324,6 +1332,8 @@ namespace Konto.Shared.Trans.GRN
             remarkTextEdit.Text = string.Empty;
             DelTrans = new List<GrnTransDto>();
             DelProd = new List<GrnProdDto>();
+            this.GateId = 0;
+            this.GateVoucherId = 0;
         }
         public override void EditPage(int _key)
         {
@@ -1458,6 +1468,9 @@ namespace Konto.Shared.Trans.GRN
             model.YearId = KontoGlobals.YearId;
             model.BranchId = KontoGlobals.BranchId;
             model.IsActive = true;
+            model.RefId = this.GateId;
+            model.RefVoucherId = this.GateVoucherId;
+            model.Extra1 = gateSrNoTextEdit.Text.Trim();
 
             var _find = new ChallanModel();
             var config = new MapperConfiguration(cfg =>
@@ -1706,6 +1719,20 @@ namespace Konto.Shared.Trans.GRN
 
 
         #endregion
-       
+
+        private void gateSrNoTextEdit_ButtonClick(object sender, ButtonPressedEventArgs e)
+        {
+            if (Convert.ToInt32(accLookup1.SelectedValue) == 0) return;
+            var frm = new PendingGateInwardView();
+            frm.AccId = Convert.ToInt32(accLookup1.SelectedValue);
+            if(frm.ShowDialog()== DialogResult.OK)
+            {
+                var rw = frm.gridView1.GetRow(frm.gridView1.FocusedRowHandle) as PendingGateDto;
+                this.GateId = rw.Id;
+                this.GateVoucherId = rw.VoucherId;
+                this.gateSrNoTextEdit.Text = rw.SrNo;
+            }
+            
+        }
     }
 }

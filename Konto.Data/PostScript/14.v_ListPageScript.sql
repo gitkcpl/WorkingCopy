@@ -1402,4 +1402,48 @@ INSERT INTO dbo.ListPage
 )values (209, 'Item_Monthly','dbo.bill_analysis','analysis\purret\item_monthly.olapx',18,null,null,'analysis')
 END
 
+
+
+if NOT exists (select 1 from ListPage em where em.Id=235)
+BEGIN
+INSERT INTO dbo.ListPage
+(
+   Id, Descr,SpName,LayoutFile,VTypeId,GroupCol,SumCol,Extra1
+)values (235, 'Bom List','dbo.bomList','apparel\bom_list.xml',34,null,null,'bom')
+END
+
+
+-- taka production
+if NOT exists (select 1 from ListPage em where em.Id=236)
+BEGIN
+INSERT INTO dbo.ListPage
+(
+   Id, Descr,SpName,LayoutFile,VTypeId,GroupCol,SumCol
+)values (236, 'Normal List','dbo.TakaprodList','weaving\tp_NormalListView.xml',17,null,null)
+END
+ 
+if NOT exists (select 1 from ListPage em where em.Id=237)
+BEGIN
+INSERT INTO dbo.ListPage
+(
+   Id, Descr,SpName,LayoutFile,VTypeId,GroupCol,SumCol
+)values (237, 'Product Wise Summary','dbo.TakaProdSummaryList','weaving\tp_product_summaryList.xml',17,'pd.ProductName',null)
+END
+
+if NOT exists (select 1 from ListPage em where em.Id=238)
+BEGIN
+INSERT INTO dbo.ListPage
+(
+   Id, Descr,SpName,LayoutFile,VTypeId,GroupCol,SumCol
+)values (238, 'Machine Wise Summary','dbo.TakaProdSummaryList','weaving\tp_mach_summaryList.xml',17,'m.MachineName',null)
+END
+
+if NOT exists (select 1 from ListPage em where em.Id=239)
+BEGIN
+INSERT INTO dbo.ListPage
+(
+   Id, Descr,SpName,LayoutFile,VTypeId,GroupCol,SumCol,Extra1
+)values (239, 'Deleted List','dbo.TakaprodList','weaving\tp_DeletedView.xml',17,null,null,'Deleted')
+END
+
 SET IDENTITY_INSERT dbo.ListPage OFF

@@ -54,6 +54,8 @@ namespace Konto.Data.Models.Transaction
         [MaxLength]
         [Display(Name = "Remark")]
         public string Remark { get; set; }
+
+        public int RefTransId { get; set; }
        
     }
 }

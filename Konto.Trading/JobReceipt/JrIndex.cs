@@ -235,7 +235,7 @@ namespace Konto.Trading.JobReceipt
             frm.ShowDialog();
            
             this.JrList = frm.pendingMillReceiptSpBindingSource.DataSource as List<JobReceiptDTO>;
-            this.JrList = this.JrList.Where(x => x.Pcs > 0).ToList();
+            this.JrList = this.JrList.Where(x => x.Qty > 0).ToList();
             if (this.PrimaryKey != 0) return;
             var id = -1;
             var db = new KontoContext();
@@ -973,6 +973,7 @@ namespace Konto.Trading.JobReceipt
                 var row = view.GetRow(view.FocusedRowHandle) as MrvTransDto;
                 view.DeleteRow(view.FocusedRowHandle);
                 DelTrans.Add(row);
+                FinalTotal();
             }
             else if (e.KeyCode == Keys.Delete)
             {
@@ -1220,7 +1221,7 @@ namespace Konto.Trading.JobReceipt
             {
                 if (this.PrimaryKey == 0) return;
 
-                if (GRNPara.Generate_Barcode)
+                if (JobRecPara.Generate_Barcode)
                 {
                     PageReport rpt = new PageReport();
 

@@ -213,6 +213,8 @@ namespace Konto.Shared.Trans.StoreIssue
         private void MrTakaDetails_Load(object sender, EventArgs e)
         {
             this.DelProd = new List<GrnProdDto>();
+            KontoUtils.RestoreLayoutGrid(this.GridLayoutFileName, gridView1);
+            this.ActiveControl = gridControl1;
         }
 
         

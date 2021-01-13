@@ -54,6 +54,7 @@ namespace Konto.Shared.Masters.Item
                     foreach (DataRow item in _dataTable.Rows)
                     {
                         var _imp = new ProductModel();
+                        
                         string _name = item[1].ToString().ToUpper();
                         var exist = db.Products.Any(x => x.ProductName == _name);
                         if (exist)
@@ -61,10 +62,18 @@ namespace Konto.Shared.Masters.Item
                         if (item[1].ToString().Length < 2)
                             continue;
 
+                        
                         _imp.ProductName = item[1].ToString().ToUpper();
                         _imp.ProductCode = item[0].ToString().ToUpper();
-                        _imp.ProductDesc = item[1].ToString().ToUpper();
+
+
                         
+                        if(string.IsNullOrEmpty(item[15].ToString()))
+                            _imp.ProductDesc = item[1].ToString().ToUpper();
+                        else
+                            _imp.ProductDesc = item[15].ToString().ToUpper();
+
+
                         string typName = item[2].ToString();
                         var typ = db.ProductTypes.FirstOrDefault(k => k.TypeName.ToUpper() == typName.ToUpper());
                         if (typ != null)
@@ -108,17 +117,75 @@ namespace Konto.Shared.Masters.Item
                         else
                             _imp.GroupId = 1;
 
-                        _imp.SubGroupId = 1;
-                        _imp.CategoryId = 1;
+
+                        var _subname = item[7].ToString();
+                        if (!string.IsNullOrEmpty(_subname))
+                        {
+                            var _subgrp = db.PSubGroups.FirstOrDefault(x => x.SubName.ToUpper() == _subname.ToUpper());
+                            if (_subgrp != null)
+                                _imp.SubGroupId = _subgrp.Id;
+                        }
+                        
+                        if(_imp.SubGroupId==0)
+                            _imp.SubGroupId = 1;
+
+
+                        var _category = item[8].ToString();
+                        if (!string.IsNullOrEmpty(_category))
+                        {
+                            var _cat = db.CategroyModels.FirstOrDefault(x => x.CatName.ToUpper() == _category.ToUpper());
+                            if (_cat != null)
+                                _imp.CategoryId = _cat.Id;
+                        }
+
+                        if(_imp.CategoryId==0)
+                            _imp.CategoryId = 1;
+                        
+                      
+                        var _color = item[16].ToString();
+                        if (!string.IsNullOrEmpty(_color))
+                        {
+                            var _col = db.ColorModels.FirstOrDefault(x => x.ColorName.ToUpper() == _color.ToUpper());
+                            if (_col != null)
+                                _imp.ColorId = _col.Id;
+                        }
+
+                        if(_imp.ColorId==0)
+                            _imp.ColorId = 1;
+
+                        var _brand = item[17].ToString();
+
+                        if (!string.IsNullOrEmpty(_brand))
+                        {
+                            var br = db.Brands.FirstOrDefault(x => x.BrandName.ToUpper() == _brand.ToUpper());
+                            if (br != null)
+                                _imp.BrandId = br.Id;
+                        }
+
+                        if(_imp.BrandId==0)
                         _imp.BrandId = 1;
-                        _imp.ColorId = 1;
+
+                        var _size = item[18].ToString();
+
+                        if (!string.IsNullOrEmpty(_size)){
+                            var _sz= db.SizeModels.FirstOrDefault(x => x.SizeName.ToUpper() == _size.ToUpper());
+                            if (_sz != null)
+                                _imp.SizeId = _sz.Id;
+                        }
+
+                        if(_imp.SizeId==0)
+                            _imp.SizeId = 1;
+
+                        _imp.AccId = Convert.ToInt32(item[19].ToString()); //pcs per pack
+
                         _imp.StyleId = 1;
-                        _imp.SizeId = 1;
-                         _imp.StyleId = 1;
+                        
                         _imp.ItemType = "I";
-                        //_imp.GroupCode = "00";
+                        _imp.ActualCost = Convert.ToDecimal(item[12]);
                         _imp.IsActive = true;
                         impList.Add(_imp);
+
+                        
 
                     }
                     if (impList.Count > 0)
@@ -131,11 +198,20 @@ namespace Konto.Shared.Masters.Item
                                 db.SaveChanges();
                                 foreach (var item in impList)
                                 {
+                                    var _Dt = _dataTable.Select("ProductName='" + item.ProductName + "'");
+
+                                    var _dt = _dataTable.AsEnumerable().Where(x => x.Field<string>("PRODUCTNAME") == item.ProductName).FirstOrDefault();
                                     var price = new PriceModel();
                                     price.ProductId = item.Id;
-                                    price.DealerPrice = 0;
+                                    if (_Dt != null && _Dt.Length > 0)
+                                    {
+                                        price.Mrp = Convert.ToDecimal(_Dt[0][9]);
+                                        price.DealerPrice = Convert.ToDecimal(_Dt[0][10]);
+                                        price.SaleRate = Convert.ToDecimal(_Dt[0][11]);
+                                        price.Rate1 = Convert.ToDecimal(_Dt[0][13]);
+                                        price.Rate1 = Convert.ToDecimal(_Dt[0][14]);
+                                    }
                                     price.IssueQty = 0;
-                                    price.Mrp = 0;
                                     price.Qty = 0;
                                     price.BranchId = KontoGlobals.BranchId;
                                     price.CreateUser = KontoGlobals.UserName;

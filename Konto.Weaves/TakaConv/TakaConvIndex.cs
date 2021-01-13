@@ -553,6 +553,8 @@ namespace Konto.Weaves.TakaConv
             DelBeamProd = new List<BeamProdDto>();
             DelCT = new List<GrnTransDto>();
             this.SelectSimpleButton.Enabled = true;
+
+            voucherLookup.Focus();
         }
         public override void ResetPage()
         {
@@ -569,6 +571,7 @@ namespace Konto.Weaves.TakaConv
             DelCT = new List<GrnTransDto>();
 
             this.SelectSimpleButton.Enabled = true;
+            voucherLookup.Focus();
         }
         public override void EditPage(int _key)
         {
@@ -973,6 +976,8 @@ namespace Konto.Weaves.TakaConv
 
             DelBeamProd = new List<BeamProdDto>();
             DelCT = new List<GrnTransDto>();
+
+            voucherLookup.Focus();
         }
 
         #endregion

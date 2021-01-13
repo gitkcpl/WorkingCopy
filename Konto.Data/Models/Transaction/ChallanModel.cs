@@ -161,6 +161,9 @@ namespace Konto.Data.Models.Transaction
         [MaxLength(200)]
         public string JobCardNo { get; set; }
 
+        public int RefId { get; set; }
+        public int RefVoucherId { get; set; }
+
         public virtual ICollection<ChallanTransModel> ChallanTrans { get; set; }
 
     }

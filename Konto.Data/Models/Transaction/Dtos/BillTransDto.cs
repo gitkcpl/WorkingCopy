@@ -114,5 +114,6 @@ namespace Konto.Data.Models.Transaction.Dtos
         public int? OrdId { get; set; }
         public int? OrdDate { get; set; }
         public int? ChDate { get; set; }
+        public decimal SaleRate { get; set; }
     }
 }

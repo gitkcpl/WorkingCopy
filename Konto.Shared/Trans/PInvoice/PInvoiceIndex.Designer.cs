@@ -29,7 +29,11 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PInvoiceIndex));
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
+            this.tcsPerTextEdit = new DevExpress.XtraEditors.SpinEdit();
+            this.costLookUpEdi = new DevExpress.XtraEditors.LookUpEdit();
+            this.dueDaysTextEdit = new DevExpress.XtraEditors.SpinEdit();
             this.agentLookup = new Konto.Shared.Masters.Acc.AccLookup();
             this.paybleTextEdit = new DevExpress.XtraEditors.TextEdit();
             this.tdsAccLookup = new Konto.Shared.Masters.Acc.AccLookup();
@@ -61,6 +65,7 @@
             this.colCut = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colQty = new DevExpress.XtraGrid.Columns.GridColumn();
             this.repositoryItemTextEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
+            this.colSaleRate = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colUomId = new DevExpress.XtraGrid.Columns.GridColumn();
             this.uomRepositoryItemLookUpEdit = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
             this.colRate = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -131,10 +136,15 @@
             this.layoutControlItem8 = new DevExpress.XtraLayout.LayoutControlItem();
             this.paybleLayoutControlItem = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem11 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem13 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.tcsPerlayoutControlItem = new DevExpress.XtraLayout.LayoutControlItem();
             this.paidLabel = new System.Windows.Forms.Label();
             this.billAdjustSimpleButton = new DevExpress.XtraEditors.SimpleButton();
-            this.dueDaysTextEdit = new DevExpress.XtraEditors.SpinEdit();
-            this.layoutControlItem11 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.attachSimpleButton = new DevExpress.XtraEditors.SimpleButton();
+            this.tcsAmtTextEdit = new DevExpress.XtraEditors.SpinEdit();
+            this.tcsAmountlayoutControlItem = new DevExpress.XtraLayout.LayoutControlItem();
+            this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
             ((System.ComponentModel.ISupportInitialize)(this.tabControlAdv1)).BeginInit();
             this.tabControlAdv1.SuspendLayout();
             this.tabPageAdv1.SuspendLayout();
@@ -142,6 +152,9 @@
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tcsPerTextEdit.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.costLookUpEdi.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dueDaysTextEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.paybleTextEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.billAmtSpinEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.roundoffSpinEdit.Properties)).BeginInit();
@@ -199,8 +212,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.paybleLayoutControlItem)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dueDaysTextEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem11)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem13)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tcsPerlayoutControlItem)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tcsAmtTextEdit.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tcsAmountlayoutControlItem)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControlAdv1
@@ -222,12 +239,14 @@
             // 
             // panelControl1
             // 
+            this.panelControl1.Controls.Add(this.attachSimpleButton);
             this.panelControl1.Controls.Add(this.paidLabel);
             this.panelControl1.Controls.Add(this.billAdjustSimpleButton);
             this.panelControl1.Size = new System.Drawing.Size(944, 35);
             this.panelControl1.Controls.SetChildIndex(this.navAction1, 0);
             this.panelControl1.Controls.SetChildIndex(this.billAdjustSimpleButton, 0);
             this.panelControl1.Controls.SetChildIndex(this.paidLabel, 0);
+            this.panelControl1.Controls.SetChildIndex(this.attachSimpleButton, 0);
             // 
             // tabPageAdv2
             // 
@@ -243,6 +262,9 @@
             // 
             // layoutControl1
             // 
+            this.layoutControl1.Controls.Add(this.tcsAmtTextEdit);
+            this.layoutControl1.Controls.Add(this.tcsPerTextEdit);
+            this.layoutControl1.Controls.Add(this.costLookUpEdi);
             this.layoutControl1.Controls.Add(this.dueDaysTextEdit);
             this.layoutControl1.Controls.Add(this.agentLookup);
             this.layoutControl1.Controls.Add(this.paybleTextEdit);
@@ -285,6 +307,82 @@
             this.layoutControl1.TabStop = false;
             this.layoutControl1.Text = "layoutControl1";
             // 
+            // tcsPerTextEdit
+            // 
+            this.tcsPerTextEdit.EditValue = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.tcsPerTextEdit.EnterMoveNextControl = true;
+            this.tcsPerTextEdit.Location = new System.Drawing.Point(811, 278);
+            this.tcsPerTextEdit.Name = "tcsPerTextEdit";
+            this.tcsPerTextEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tcsPerTextEdit.Properties.Appearance.Options.UseFont = true;
+            this.tcsPerTextEdit.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.tcsPerTextEdit.Properties.AppearanceFocused.Options.UseBorderColor = true;
+            this.tcsPerTextEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.tcsPerTextEdit.Properties.DisplayFormat.FormatString = "N3";
+            this.tcsPerTextEdit.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.tcsPerTextEdit.Properties.EditValueChangedFiringMode = DevExpress.XtraEditors.Controls.EditValueChangedFiringMode.Default;
+            this.tcsPerTextEdit.Properties.Mask.EditMask = "N3";
+            this.tcsPerTextEdit.Properties.Mask.UseMaskAsDisplayFormat = true;
+            this.tcsPerTextEdit.Properties.MaxLength = 25;
+            this.tcsPerTextEdit.Size = new System.Drawing.Size(128, 24);
+            this.tcsPerTextEdit.StyleController = this.layoutControl1;
+            this.tcsPerTextEdit.TabIndex = 18;
+            // 
+            // costLookUpEdi
+            // 
+            this.costLookUpEdi.EnterMoveNextControl = true;
+            this.costLookUpEdi.Location = new System.Drawing.Point(770, 89);
+            this.costLookUpEdi.Name = "costLookUpEdi";
+            this.costLookUpEdi.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
+            this.costLookUpEdi.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.costLookUpEdi.Properties.Appearance.Options.UseFont = true;
+            this.costLookUpEdi.Properties.AppearanceDropDown.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.costLookUpEdi.Properties.AppearanceDropDown.Options.UseFont = true;
+            this.costLookUpEdi.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.costLookUpEdi.Properties.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("DisplayText", "Name3")});
+            this.costLookUpEdi.Properties.DisplayMember = "DisplayText";
+            this.costLookUpEdi.Properties.ImmediatePopup = true;
+            this.costLookUpEdi.Properties.NullText = "";
+            this.costLookUpEdi.Properties.ShowHeader = false;
+            this.costLookUpEdi.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
+            this.costLookUpEdi.Properties.ValueMember = "Id";
+            this.costLookUpEdi.Size = new System.Drawing.Size(169, 24);
+            this.costLookUpEdi.StyleController = this.layoutControl1;
+            this.costLookUpEdi.TabIndex = 13;
+            // 
+            // dueDaysTextEdit
+            // 
+            this.dueDaysTextEdit.EditValue = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.dueDaysTextEdit.EnterMoveNextControl = true;
+            this.dueDaysTextEdit.Location = new System.Drawing.Point(507, 89);
+            this.dueDaysTextEdit.Name = "dueDaysTextEdit";
+            this.dueDaysTextEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dueDaysTextEdit.Properties.Appearance.Options.UseFont = true;
+            this.dueDaysTextEdit.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.dueDaysTextEdit.Properties.AppearanceFocused.Options.UseBorderColor = true;
+            this.dueDaysTextEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.dueDaysTextEdit.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.dueDaysTextEdit.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.dueDaysTextEdit.Properties.EditValueChangedFiringMode = DevExpress.XtraEditors.Controls.EditValueChangedFiringMode.Default;
+            this.dueDaysTextEdit.Properties.Mask.SaveLiteral = false;
+            this.dueDaysTextEdit.Properties.Mask.UseMaskAsDisplayFormat = true;
+            this.dueDaysTextEdit.Properties.MaxLength = 50;
+            this.dueDaysTextEdit.Size = new System.Drawing.Size(168, 24);
+            this.dueDaysTextEdit.StyleController = this.layoutControl1;
+            this.dueDaysTextEdit.TabIndex = 12;
+            // 
             // agentLookup
             // 
             this.agentLookup.AgentLookup = null;
@@ -292,6 +390,7 @@
             this.agentLookup.GroupId = 31;
             this.agentLookup.Location = new System.Drawing.Point(96, 89);
             this.agentLookup.LookupDto = null;
+            this.agentLookup.LookupTitle = null;
             this.agentLookup.Name = "agentLookup";
             this.agentLookup.Nature = null;
             this.agentLookup.NewGroupId = 31;
@@ -335,6 +434,7 @@
             this.tdsAccLookup.GroupId = 0;
             this.tdsAccLookup.Location = new System.Drawing.Point(96, 362);
             this.tdsAccLookup.LookupDto = null;
+            this.tdsAccLookup.LookupTitle = null;
             this.tdsAccLookup.Name = "tdsAccLookup";
             this.tdsAccLookup.Nature = "";
             this.tdsAccLookup.NewGroupId = 0;
@@ -343,7 +443,7 @@
             this.tdsAccLookup.SelectedText = null;
             this.tdsAccLookup.SelectedValue = null;
             this.tdsAccLookup.Size = new System.Drawing.Size(212, 24);
-            this.tdsAccLookup.TabIndex = 18;
+            this.tdsAccLookup.TabIndex = 21;
             this.tdsAccLookup.TaxType = "TDS";
             this.tdsAccLookup.TransportLookup = null;
             this.tdsAccLookup.VoucherType = Konto.App.Shared.VoucherTypeEnum.None;
@@ -388,7 +488,7 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.roundoffSpinEdit.Size = new System.Drawing.Size(128, 24);
             this.roundoffSpinEdit.StyleController = this.layoutControl1;
-            this.roundoffSpinEdit.TabIndex = 17;
+            this.roundoffSpinEdit.TabIndex = 20;
             this.roundoffSpinEdit.EditValueChanged += new System.EventHandler(this.roundoffSpinEdit_EditValueChanged);
             // 
             // bookLookup
@@ -398,6 +498,7 @@
             this.bookLookup.GroupId = 0;
             this.bookLookup.Location = new System.Drawing.Point(96, 33);
             this.bookLookup.LookupDto = null;
+            this.bookLookup.LookupTitle = null;
             this.bookLookup.Name = "bookLookup";
             this.bookLookup.Nature = "";
             this.bookLookup.NewGroupId = 0;
@@ -453,7 +554,7 @@
             // 
             this.lrDateEdit.EditValue = null;
             this.lrDateEdit.EnterMoveNextControl = true;
-            this.lrDateEdit.Location = new System.Drawing.Point(616, 334);
+            this.lrDateEdit.Location = new System.Drawing.Point(616, 278);
             this.lrDateEdit.Name = "lrDateEdit";
             this.lrDateEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lrDateEdit.Properties.Appearance.Options.UseFont = true;
@@ -465,12 +566,12 @@
             this.lrDateEdit.Properties.Mask.UseMaskAsDisplayFormat = true;
             this.lrDateEdit.Size = new System.Drawing.Size(100, 24);
             this.lrDateEdit.StyleController = this.layoutControl1;
-            this.lrDateEdit.TabIndex = 16;
+            this.lrDateEdit.TabIndex = 17;
             // 
             // lrNotextEdit
             // 
             this.lrNotextEdit.EnterMoveNextControl = true;
-            this.lrNotextEdit.Location = new System.Drawing.Point(403, 334);
+            this.lrNotextEdit.Location = new System.Drawing.Point(403, 278);
             this.lrNotextEdit.Name = "lrNotextEdit";
             this.lrNotextEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lrNotextEdit.Properties.Appearance.Options.UseFont = true;
@@ -479,7 +580,7 @@
             this.lrNotextEdit.Properties.MaxLength = 500;
             this.lrNotextEdit.Size = new System.Drawing.Size(118, 24);
             this.lrNotextEdit.StyleController = this.layoutControl1;
-            this.lrNotextEdit.TabIndex = 15;
+            this.lrNotextEdit.TabIndex = 16;
             // 
             // storeLookUpEdit
             // 
@@ -534,8 +635,9 @@
             this.transportLookup.AgentLookup = null;
             this.transportLookup.FillParty = true;
             this.transportLookup.GroupId = 32;
-            this.transportLookup.Location = new System.Drawing.Point(96, 334);
+            this.transportLookup.Location = new System.Drawing.Point(96, 278);
             this.transportLookup.LookupDto = null;
+            this.transportLookup.LookupTitle = null;
             this.transportLookup.Name = "transportLookup";
             this.transportLookup.Nature = null;
             this.transportLookup.NewGroupId = 32;
@@ -544,7 +646,7 @@
             this.transportLookup.SelectedText = null;
             this.transportLookup.SelectedValue = null;
             this.transportLookup.Size = new System.Drawing.Size(212, 24);
-            this.transportLookup.TabIndex = 14;
+            this.transportLookup.TabIndex = 15;
             this.transportLookup.TaxType = null;
             this.transportLookup.TransportLookup = null;
             this.transportLookup.VoucherType = Konto.App.Shared.VoucherTypeEnum.None;
@@ -566,8 +668,8 @@
             this.repositoryItemTextEdit1,
             this.challanNoRrepositoryItemButtonEdit,
             this.taxRepositoryItemLookUpEdit});
-            this.gridControl1.Size = new System.Drawing.Size(934, 213);
-            this.gridControl1.TabIndex = 13;
+            this.gridControl1.Size = new System.Drawing.Size(934, 157);
+            this.gridControl1.TabIndex = 14;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
             // 
@@ -598,6 +700,7 @@
             this.colPcs,
             this.colCut,
             this.colQty,
+            this.colSaleRate,
             this.colUomId,
             this.colRate,
             this.colTotal,
@@ -763,6 +866,15 @@
             this.repositoryItemTextEdit1.Mask.UseMaskAsDisplayFormat = true;
             this.repositoryItemTextEdit1.Name = "repositoryItemTextEdit1";
             // 
+            // colSaleRate
+            // 
+            this.colSaleRate.Caption = "Net Rate";
+            this.colSaleRate.ColumnEdit = this.repositoryItemTextEdit1;
+            this.colSaleRate.FieldName = "SaleRate";
+            this.colSaleRate.Name = "colSaleRate";
+            this.colSaleRate.Visible = true;
+            this.colSaleRate.VisibleIndex = 8;
+            // 
             // colUomId
             // 
             this.colUomId.ColumnEdit = this.uomRepositoryItemLookUpEdit;
@@ -793,7 +905,7 @@
             this.colRate.FieldName = "Rate";
             this.colRate.Name = "colRate";
             this.colRate.Visible = true;
-            this.colRate.VisibleIndex = 8;
+            this.colRate.VisibleIndex = 9;
             // 
             // colTotal
             // 
@@ -806,14 +918,14 @@
             this.colTotal.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Total", "{0:F}")});
             this.colTotal.Visible = true;
-            this.colTotal.VisibleIndex = 9;
+            this.colTotal.VisibleIndex = 10;
             // 
             // colDisc
             // 
             this.colDisc.FieldName = "Disc";
             this.colDisc.Name = "colDisc";
             this.colDisc.Visible = true;
-            this.colDisc.VisibleIndex = 10;
+            this.colDisc.VisibleIndex = 11;
             // 
             // colDiscAmt
             // 
@@ -824,14 +936,14 @@
             this.colDiscAmt.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "DiscAmt", "{0:F}")});
             this.colDiscAmt.Visible = true;
-            this.colDiscAmt.VisibleIndex = 11;
+            this.colDiscAmt.VisibleIndex = 12;
             // 
             // colFreightRate
             // 
             this.colFreightRate.FieldName = "FreightRate";
             this.colFreightRate.Name = "colFreightRate";
             this.colFreightRate.Visible = true;
-            this.colFreightRate.VisibleIndex = 12;
+            this.colFreightRate.VisibleIndex = 13;
             this.colFreightRate.Width = 86;
             // 
             // colFreight
@@ -843,7 +955,7 @@
             this.colFreight.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Freight", "{0:F}")});
             this.colFreight.Visible = true;
-            this.colFreight.VisibleIndex = 13;
+            this.colFreight.VisibleIndex = 14;
             // 
             // colOtherAdd
             // 
@@ -854,7 +966,7 @@
             this.colOtherAdd.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "OtherAdd", "{0:F}")});
             this.colOtherAdd.Visible = true;
-            this.colOtherAdd.VisibleIndex = 14;
+            this.colOtherAdd.VisibleIndex = 15;
             // 
             // colOtherLess
             // 
@@ -865,14 +977,14 @@
             this.colOtherLess.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "OtherLess", "{0:F}")});
             this.colOtherLess.Visible = true;
-            this.colOtherLess.VisibleIndex = 15;
+            this.colOtherLess.VisibleIndex = 16;
             // 
             // colSgstPer
             // 
             this.colSgstPer.FieldName = "SgstPer";
             this.colSgstPer.Name = "colSgstPer";
             this.colSgstPer.Visible = true;
-            this.colSgstPer.VisibleIndex = 16;
+            this.colSgstPer.VisibleIndex = 17;
             // 
             // colSgst
             // 
@@ -883,14 +995,14 @@
             this.colSgst.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Sgst", "{0:F}")});
             this.colSgst.Visible = true;
-            this.colSgst.VisibleIndex = 17;
+            this.colSgst.VisibleIndex = 18;
             // 
             // colCgstPer
             // 
             this.colCgstPer.FieldName = "CgstPer";
             this.colCgstPer.Name = "colCgstPer";
             this.colCgstPer.Visible = true;
-            this.colCgstPer.VisibleIndex = 18;
+            this.colCgstPer.VisibleIndex = 19;
             // 
             // colCgst
             // 
@@ -901,14 +1013,14 @@
             this.colCgst.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Cgst", "{0:F}")});
             this.colCgst.Visible = true;
-            this.colCgst.VisibleIndex = 19;
+            this.colCgst.VisibleIndex = 20;
             // 
             // colIgstPer
             // 
             this.colIgstPer.FieldName = "IgstPer";
             this.colIgstPer.Name = "colIgstPer";
             this.colIgstPer.Visible = true;
-            this.colIgstPer.VisibleIndex = 20;
+            this.colIgstPer.VisibleIndex = 21;
             // 
             // colIgst
             // 
@@ -919,14 +1031,14 @@
             this.colIgst.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Igst", "{0:F}")});
             this.colIgst.Visible = true;
-            this.colIgst.VisibleIndex = 21;
+            this.colIgst.VisibleIndex = 22;
             // 
             // colCessPer
             // 
             this.colCessPer.FieldName = "CessPer";
             this.colCessPer.Name = "colCessPer";
             this.colCessPer.Visible = true;
-            this.colCessPer.VisibleIndex = 22;
+            this.colCessPer.VisibleIndex = 23;
             // 
             // colCess
             // 
@@ -937,7 +1049,7 @@
             this.colCess.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Cess", "{0:F}")});
             this.colCess.Visible = true;
-            this.colCess.VisibleIndex = 23;
+            this.colCess.VisibleIndex = 24;
             // 
             // colNetTotal
             // 
@@ -951,7 +1063,7 @@
             this.colNetTotal.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "NetTotal", "{0:F}")});
             this.colNetTotal.Visible = true;
-            this.colNetTotal.VisibleIndex = 29;
+            this.colNetTotal.VisibleIndex = 30;
             this.colNetTotal.Width = 113;
             // 
             // colOrderDate
@@ -960,7 +1072,7 @@
             this.colOrderDate.Name = "colOrderDate";
             this.colOrderDate.OptionsColumn.AllowFocus = false;
             this.colOrderDate.Visible = true;
-            this.colOrderDate.VisibleIndex = 28;
+            this.colOrderDate.VisibleIndex = 29;
             // 
             // colChallanDate
             // 
@@ -968,7 +1080,7 @@
             this.colChallanDate.Name = "colChallanDate";
             this.colChallanDate.OptionsColumn.AllowFocus = false;
             this.colChallanDate.Visible = true;
-            this.colChallanDate.VisibleIndex = 26;
+            this.colChallanDate.VisibleIndex = 27;
             this.colChallanDate.Width = 106;
             // 
             // colOrderNo
@@ -977,7 +1089,7 @@
             this.colOrderNo.Name = "colOrderNo";
             this.colOrderNo.OptionsColumn.AllowFocus = false;
             this.colOrderNo.Visible = true;
-            this.colOrderNo.VisibleIndex = 27;
+            this.colOrderNo.VisibleIndex = 28;
             this.colOrderNo.Width = 76;
             // 
             // colChallanNo
@@ -986,7 +1098,7 @@
             this.colChallanNo.Name = "colChallanNo";
             this.colChallanNo.OptionsColumn.AllowFocus = false;
             this.colChallanNo.Visible = true;
-            this.colChallanNo.VisibleIndex = 25;
+            this.colChallanNo.VisibleIndex = 26;
             // 
             // colRemark
             // 
@@ -994,7 +1106,7 @@
             this.colRemark.FieldName = "Remark";
             this.colRemark.Name = "colRemark";
             this.colRemark.Visible = true;
-            this.colRemark.VisibleIndex = 24;
+            this.colRemark.VisibleIndex = 25;
             this.colRemark.Width = 198;
             // 
             // colColorId
@@ -1060,6 +1172,7 @@
             // empLookup1
             // 
             this.empLookup1.Location = new System.Drawing.Point(306, 89);
+            this.empLookup1.LookupTitle = null;
             this.empLookup1.Name = "empLookup1";
             this.empLookup1.PrimaryKey = null;
             this.empLookup1.RequiredField = true;
@@ -1103,7 +1216,7 @@
             this.remarkTextEdit.Properties.AppearanceFocused.Options.UseBorderColor = true;
             this.remarkTextEdit.Size = new System.Drawing.Size(620, 24);
             this.remarkTextEdit.StyleController = this.layoutControl1;
-            this.remarkTextEdit.TabIndex = 21;
+            this.remarkTextEdit.TabIndex = 24;
             // 
             // billDateEdit
             // 
@@ -1163,6 +1276,7 @@
             this.accLookup1.GroupId = 0;
             this.accLookup1.Location = new System.Drawing.Point(96, 61);
             this.accLookup1.LookupDto = null;
+            this.accLookup1.LookupTitle = null;
             this.accLookup1.Name = "accLookup1";
             this.accLookup1.Nature = null;
             this.accLookup1.NewGroupId = 0;
@@ -1195,6 +1309,7 @@
             // 
             this.voucherLookup1.GroupDto = null;
             this.voucherLookup1.Location = new System.Drawing.Point(770, 5);
+            this.voucherLookup1.LookupTitle = null;
             this.voucherLookup1.Name = "voucherLookup1";
             this.voucherLookup1.PrimaryKey = null;
             this.voucherLookup1.RequiredField = true;
@@ -1226,7 +1341,7 @@
             this.tdsPerTextEdit.Properties.MaxLength = 25;
             this.tdsPerTextEdit.Size = new System.Drawing.Size(118, 24);
             this.tdsPerTextEdit.StyleController = this.layoutControl1;
-            this.tdsPerTextEdit.TabIndex = 19;
+            this.tdsPerTextEdit.TabIndex = 22;
             // 
             // tdsAmtTextEdit
             // 
@@ -1249,7 +1364,7 @@
             this.tdsAmtTextEdit.Properties.MaxLength = 25;
             this.tdsAmtTextEdit.Size = new System.Drawing.Size(100, 24);
             this.tdsAmtTextEdit.StyleController = this.layoutControl1;
-            this.tdsAmtTextEdit.TabIndex = 20;
+            this.tdsAmtTextEdit.TabIndex = 23;
             // 
             // layoutControlItem19
             // 
@@ -1305,7 +1420,6 @@
             this.jobBookLayoutControlItem,
             this.layoutControlItem6,
             this.layoutControlItem23,
-            this.layoutControlItem7,
             this.layoutControlItem22,
             this.layoutControlItem10,
             this.layoutControlItem14,
@@ -1315,7 +1429,12 @@
             this.layoutControlItem8,
             this.paybleLayoutControlItem,
             this.layoutControlItem2,
-            this.layoutControlItem11});
+            this.layoutControlItem11,
+            this.layoutControlItem13,
+            this.tcsPerlayoutControlItem,
+            this.tcsAmountlayoutControlItem,
+            this.emptySpaceItem1,
+            this.layoutControlItem7});
             this.Root.Name = "Root";
             this.Root.Padding = new DevExpress.XtraLayout.Utils.Padding(3, 3, 3, 3);
             this.Root.Size = new System.Drawing.Size(944, 419);
@@ -1349,7 +1468,7 @@
             this.layoutControlItem20.Control = this.gridControl1;
             this.layoutControlItem20.Location = new System.Drawing.Point(0, 112);
             this.layoutControlItem20.Name = "layoutControlItem20";
-            this.layoutControlItem20.Size = new System.Drawing.Size(938, 217);
+            this.layoutControlItem20.Size = new System.Drawing.Size(938, 161);
             this.layoutControlItem20.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem20.TextVisible = false;
             // 
@@ -1385,7 +1504,7 @@
             this.layoutControlItem9.Control = this.billNoTextEdit;
             this.layoutControlItem9.Location = new System.Drawing.Point(674, 56);
             this.layoutControlItem9.Name = "layoutControlItem9";
-            this.layoutControlItem9.Size = new System.Drawing.Size(264, 56);
+            this.layoutControlItem9.Size = new System.Drawing.Size(264, 28);
             this.layoutControlItem9.Text = "Bill No:";
             this.layoutControlItem9.TextSize = new System.Drawing.Size(88, 17);
             // 
@@ -1471,7 +1590,7 @@
             this.layoutControlItem7.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.layoutControlItem7.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem7.Control = this.lrNotextEdit;
-            this.layoutControlItem7.Location = new System.Drawing.Point(307, 329);
+            this.layoutControlItem7.Location = new System.Drawing.Point(307, 273);
             this.layoutControlItem7.Name = "layoutControlItem7";
             this.layoutControlItem7.Size = new System.Drawing.Size(213, 28);
             this.layoutControlItem7.Text = "Lr No:";
@@ -1493,7 +1612,7 @@
             this.layoutControlItem10.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.layoutControlItem10.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem10.Control = this.transportLookup;
-            this.layoutControlItem10.Location = new System.Drawing.Point(0, 329);
+            this.layoutControlItem10.Location = new System.Drawing.Point(0, 273);
             this.layoutControlItem10.Name = "layoutControlItem10";
             this.layoutControlItem10.Size = new System.Drawing.Size(307, 28);
             this.layoutControlItem10.Text = "Transport:";
@@ -1504,9 +1623,9 @@
             this.layoutControlItem14.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.layoutControlItem14.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem14.Control = this.lrDateEdit;
-            this.layoutControlItem14.Location = new System.Drawing.Point(520, 329);
+            this.layoutControlItem14.Location = new System.Drawing.Point(520, 273);
             this.layoutControlItem14.Name = "layoutControlItem14";
-            this.layoutControlItem14.Size = new System.Drawing.Size(195, 28);
+            this.layoutControlItem14.Size = new System.Drawing.Size(195, 84);
             this.layoutControlItem14.Text = "Lr Date:";
             this.layoutControlItem14.TextSize = new System.Drawing.Size(88, 17);
             // 
@@ -1579,6 +1698,39 @@
             this.layoutControlItem2.Text = "Agent:";
             this.layoutControlItem2.TextSize = new System.Drawing.Size(88, 17);
             // 
+            // layoutControlItem11
+            // 
+            this.layoutControlItem11.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.layoutControlItem11.AppearanceItemCaption.Options.UseFont = true;
+            this.layoutControlItem11.Control = this.dueDaysTextEdit;
+            this.layoutControlItem11.Location = new System.Drawing.Point(411, 84);
+            this.layoutControlItem11.Name = "layoutControlItem11";
+            this.layoutControlItem11.Size = new System.Drawing.Size(263, 28);
+            this.layoutControlItem11.Text = "Due Days:";
+            this.layoutControlItem11.TextSize = new System.Drawing.Size(88, 17);
+            // 
+            // layoutControlItem13
+            // 
+            this.layoutControlItem13.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.layoutControlItem13.AppearanceItemCaption.Options.UseFont = true;
+            this.layoutControlItem13.Control = this.costLookUpEdi;
+            this.layoutControlItem13.Location = new System.Drawing.Point(674, 84);
+            this.layoutControlItem13.Name = "layoutControlItem13";
+            this.layoutControlItem13.Size = new System.Drawing.Size(264, 28);
+            this.layoutControlItem13.Text = "Cost Center:";
+            this.layoutControlItem13.TextSize = new System.Drawing.Size(88, 17);
+            // 
+            // tcsPerlayoutControlItem
+            // 
+            this.tcsPerlayoutControlItem.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tcsPerlayoutControlItem.AppearanceItemCaption.Options.UseFont = true;
+            this.tcsPerlayoutControlItem.Control = this.tcsPerTextEdit;
+            this.tcsPerlayoutControlItem.Location = new System.Drawing.Point(715, 273);
+            this.tcsPerlayoutControlItem.Name = "tcsPerlayoutControlItem";
+            this.tcsPerlayoutControlItem.Size = new System.Drawing.Size(223, 28);
+            this.tcsPerlayoutControlItem.Text = "Tcs %:";
+            this.tcsPerlayoutControlItem.TextSize = new System.Drawing.Size(88, 17);
+            // 
             // paidLabel
             // 
             this.paidLabel.AutoSize = true;
@@ -1601,41 +1753,60 @@
             this.billAdjustSimpleButton.TabStop = false;
             this.billAdjustSimpleButton.Text = "Bill To Bill";
             // 
-            // dueDaysTextEdit
+            // attachSimpleButton
             // 
-            this.dueDaysTextEdit.EditValue = new decimal(new int[] {
+            this.attachSimpleButton.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.attachSimpleButton.Appearance.Options.UseFont = true;
+            this.attachSimpleButton.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("attachSimpleButton.ImageOptions.Image")));
+            this.attachSimpleButton.Location = new System.Drawing.Point(588, 3);
+            this.attachSimpleButton.Name = "attachSimpleButton";
+            this.attachSimpleButton.Size = new System.Drawing.Size(103, 28);
+            this.attachSimpleButton.TabIndex = 6;
+            this.attachSimpleButton.TabStop = false;
+            this.attachSimpleButton.Text = "Attachment";
+            // 
+            // tcsAmtTextEdit
+            // 
+            this.tcsAmtTextEdit.EditValue = new decimal(new int[] {
             0,
             0,
             0,
             0});
-            this.dueDaysTextEdit.Location = new System.Drawing.Point(507, 89);
-            this.dueDaysTextEdit.Name = "dueDaysTextEdit";
-            this.dueDaysTextEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dueDaysTextEdit.Properties.Appearance.Options.UseFont = true;
-            this.dueDaysTextEdit.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.dueDaysTextEdit.Properties.AppearanceFocused.Options.UseBorderColor = true;
-            this.dueDaysTextEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            this.tcsAmtTextEdit.EnterMoveNextControl = true;
+            this.tcsAmtTextEdit.Location = new System.Drawing.Point(811, 306);
+            this.tcsAmtTextEdit.Name = "tcsAmtTextEdit";
+            this.tcsAmtTextEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tcsAmtTextEdit.Properties.Appearance.Options.UseFont = true;
+            this.tcsAmtTextEdit.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.tcsAmtTextEdit.Properties.AppearanceFocused.Options.UseBorderColor = true;
+            this.tcsAmtTextEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.dueDaysTextEdit.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            this.dueDaysTextEdit.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            this.dueDaysTextEdit.Properties.EditValueChangedFiringMode = DevExpress.XtraEditors.Controls.EditValueChangedFiringMode.Default;
-            this.dueDaysTextEdit.Properties.Mask.SaveLiteral = false;
-            this.dueDaysTextEdit.Properties.Mask.UseMaskAsDisplayFormat = true;
-            this.dueDaysTextEdit.Properties.MaxLength = 50;
-            this.dueDaysTextEdit.Size = new System.Drawing.Size(168, 24);
-            this.dueDaysTextEdit.StyleController = this.layoutControl1;
-            this.dueDaysTextEdit.TabIndex = 12;
+            this.tcsAmtTextEdit.Properties.EditValueChangedFiringMode = DevExpress.XtraEditors.Controls.EditValueChangedFiringMode.Default;
+            this.tcsAmtTextEdit.Properties.Mask.EditMask = "N2";
+            this.tcsAmtTextEdit.Properties.Mask.UseMaskAsDisplayFormat = true;
+            this.tcsAmtTextEdit.Properties.MaxLength = 25;
+            this.tcsAmtTextEdit.Size = new System.Drawing.Size(128, 24);
+            this.tcsAmtTextEdit.StyleController = this.layoutControl1;
+            this.tcsAmtTextEdit.TabIndex = 19;
             // 
-            // layoutControlItem11
+            // tcsAmountlayoutControlItem
             // 
-            this.layoutControlItem11.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.layoutControlItem11.AppearanceItemCaption.Options.UseFont = true;
-            this.layoutControlItem11.Control = this.dueDaysTextEdit;
-            this.layoutControlItem11.Location = new System.Drawing.Point(411, 84);
-            this.layoutControlItem11.Name = "layoutControlItem11";
-            this.layoutControlItem11.Size = new System.Drawing.Size(263, 28);
-            this.layoutControlItem11.Text = "Due Days:";
-            this.layoutControlItem11.TextSize = new System.Drawing.Size(88, 17);
+            this.tcsAmountlayoutControlItem.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tcsAmountlayoutControlItem.AppearanceItemCaption.Options.UseFont = true;
+            this.tcsAmountlayoutControlItem.Control = this.tcsAmtTextEdit;
+            this.tcsAmountlayoutControlItem.Location = new System.Drawing.Point(715, 301);
+            this.tcsAmountlayoutControlItem.Name = "tcsAmountlayoutControlItem";
+            this.tcsAmountlayoutControlItem.Size = new System.Drawing.Size(223, 28);
+            this.tcsAmountlayoutControlItem.Text = "Tcs Amount:";
+            this.tcsAmountlayoutControlItem.TextSize = new System.Drawing.Size(88, 17);
+            // 
+            // emptySpaceItem1
+            // 
+            this.emptySpaceItem1.AllowHotTrack = false;
+            this.emptySpaceItem1.Location = new System.Drawing.Point(0, 301);
+            this.emptySpaceItem1.Name = "emptySpaceItem1";
+            this.emptySpaceItem1.Size = new System.Drawing.Size(520, 56);
+            this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
             // 
             // PInvoiceIndex
             // 
@@ -1658,6 +1829,9 @@
             this.panelControl1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.tcsPerTextEdit.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.costLookUpEdi.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dueDaysTextEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.paybleTextEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.billAmtSpinEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.roundoffSpinEdit.Properties)).EndInit();
@@ -1715,8 +1889,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.paybleLayoutControlItem)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dueDaysTextEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem11)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem13)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tcsPerlayoutControlItem)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tcsAmtTextEdit.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tcsAmountlayoutControlItem)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1829,5 +2007,14 @@
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem2;
         private DevExpress.XtraEditors.SpinEdit dueDaysTextEdit;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem11;
+        private DevExpress.XtraGrid.Columns.GridColumn colSaleRate;
+        private DevExpress.XtraEditors.SimpleButton attachSimpleButton;
+        private DevExpress.XtraEditors.LookUpEdit costLookUpEdi;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem13;
+        private DevExpress.XtraEditors.SpinEdit tcsPerTextEdit;
+        private DevExpress.XtraLayout.LayoutControlItem tcsPerlayoutControlItem;
+        private DevExpress.XtraEditors.SpinEdit tcsAmtTextEdit;
+        private DevExpress.XtraLayout.LayoutControlItem tcsAmountlayoutControlItem;
+        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem1;
     }
 }

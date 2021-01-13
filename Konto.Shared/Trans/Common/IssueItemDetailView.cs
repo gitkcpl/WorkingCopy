@@ -21,7 +21,7 @@ namespace Konto.Shared.Trans.Common
         public ProductTypeEnum TypeEnum { get; set; }
         public BindingList<GrnProdDto> prodDtos { get; set; }
         public List<GrnProdDto> DelProd { get; set; }
-
+        public bool IsEditableQty { get; set; }
         public int TransId { get; set; }
         public int ItemId { get; set; }
         public string GridLayoutFileName { get; set; }
@@ -91,7 +91,7 @@ namespace Konto.Shared.Trans.Common
 
         private void GridControl1_ProcessGridKey(object sender, KeyEventArgs e)
         {
-            //if()
+            
         }
         
         private void GridView1_KeyDown(object sender, KeyEventArgs e)
@@ -167,23 +167,42 @@ namespace Konto.Shared.Trans.Common
         }
         private void ItemDetailView_Load(object sender, System.EventArgs e)
         {
+            
             this.gridControl1.DataSource = prodDtos;
             DelProd = new List<GrnProdDto>();
             KontoUtils.RestoreLayoutGrid(this.GridLayoutFileName,gridView1);
             this.ActiveControl = gridControl1;
+
+            this.gridView1.OptionsBehavior.Editable = true;
+            this.gridView1.OptionsBehavior.ReadOnly = false;
+
+            foreach (GridColumn item in gridView1.Columns)
+            {
+                if (this.IsEditableQty && item.FieldName == "NetWt")
+                    item.OptionsColumn.ReadOnly = false;
+                else
+                    item.OptionsColumn.ReadOnly = true;
+            }
         }
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-            if (keyData == (Keys.F2 | Keys.Control))
+            if (keyData == (Keys.F1 | Keys.Shift))
             {
+                KontoUtils.SaveLayoutGrid(this.GridLayoutFileName, this.gridView1);
+                return true;
+            }
+            else if (keyData == (Keys.F2 | Keys.Shift))
+            {
+
                 var frm = new GridPropertView();
                 frm.gridControl1.DataSource = this.gridControl1.DataSource;
                 frm.gridView1.Assign(this.gridView1, false);
-                if (frm.ShowDialog() != DialogResult.OK) return true; ;
+                if (frm.ShowDialog() != DialogResult.OK) return true;
                 this.gridView1.Assign(frm.gridView1, false);
                 KontoUtils.SaveLayoutGrid(this.GridLayoutFileName, this.gridView1);
                 return true;
             }
+           
 
             return base.ProcessCmdKey(ref msg, keyData);
         }

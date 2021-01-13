@@ -4,6 +4,7 @@ using DevExpress.XtraEditors.Controls;
 using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Grid;
 using DevExpress.XtraGrid.Views.Grid.ViewInfo;
+using GrapeCity.ActiveReports;
 using Konto.App.Shared;
 using Konto.Core.Shared.Frms;
 using Konto.Core.Shared.Libs;
@@ -12,22 +13,17 @@ using Konto.Data.Models.Masters.Dtos;
 using Konto.Data.Models.Transaction;
 using Konto.Data.Models.Transaction.Dtos;
 using Konto.Shared.Masters.Color;
-using Konto.Shared.Masters.Design;
-using Konto.Shared.Masters.Emp;
-using Konto.Shared.Masters.Grade;
 using Konto.Shared.Masters.Item;
-using Konto.Shared.Trans.Common;
 using Konto.Weaves.BeamLoading;
 using Serilog;
 using Syncfusion.Windows.Forms;
+using Syncfusion.Windows.Forms.Tools;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Konto.Weaves.TakaCutting
@@ -37,6 +33,7 @@ namespace Konto.Weaves.TakaCutting
         private List<ProdOutModel> FilterView = new List<ProdOutModel>();
         private List<BeamProdDto> DelBeamProd = new List<BeamProdDto>();
         private int ProdId = 0;
+        private int? Colorid;
 
         TextEdit headerEdit = new TextEdit();
         GridColumn activeCol = null;
@@ -114,7 +111,6 @@ namespace Konto.Weaves.TakaCutting
                 ProdgridView.EndDataUpdate();
                 ProdgridView.FocusedColumn = ProdgridView.GetVisibleColumn(colColorName.VisibleIndex + 1);
             }
-
         }
 
         #endregion
@@ -203,7 +199,12 @@ namespace Konto.Weaves.TakaCutting
         {
             var rw = ProdgridView.GetRow(e.RowHandle) as BeamProdDto;
             rw.Id = -1 * ProdgridView.RowCount;
+            rw.VoucherNo = TakaNoTextEdit.Text + "/" + ProdgridView.RowCount;
+            rw.ProductId = Convert.ToInt32(productLookup1.SelectedValue);
+            rw.ColorId = this.Colorid;
+            rw.Remark = PoNoTextEdit.Text;
         }
+
         private void ProdgridView_InvalidRowException(object sender, DevExpress.XtraGrid.Views.Base.InvalidRowExceptionEventArgs e)
         {
             e.ExceptionMode = ExceptionMode.NoAction;
@@ -240,7 +241,7 @@ namespace Konto.Weaves.TakaCutting
             }
             catch (Exception ex)
             {
-                Log.Error(ex, "Taka Cutting Invoice Save");
+                Log.Error(ex, "Taka Cutting Save");
                 MessageBoxAdv.Show(this, "Error While Save !!", "Exception ", ex.ToString());
             }
         }
@@ -265,7 +266,9 @@ namespace Konto.Weaves.TakaCutting
         private void SelectSimpleButton_Click(object sender, EventArgs e)
         {
 
-            var stf = new TakaViewWindow();
+            if (Convert.ToInt32(productLookup1.SelectedValue) == 0) return;
+
+            var stf = new PendingBeamLoadingView();
             KontoContext _db = new KontoContext();
 
             var _list = new List<BeamProdDto>();
@@ -276,13 +279,13 @@ namespace Konto.Weaves.TakaCutting
             {
                 _list = (_db.Database.SqlQuery<BeamProdDto>(
                             "dbo.OutwardBeamProd @CompanyId={0} ,@ProductId={1},@IsOk={2}",
-                            KontoGlobals.CompanyId, Convert.ToInt32(ProductLookup.SelectedValue), 1).ToList());
+                            KontoGlobals.CompanyId, Convert.ToInt32(productLookup1.SelectedValue), 1).ToList());
             }
             else
             {
                 _list = (_db.Database.SqlQuery<BeamProdDto>(
                     spcol.Name + " @CompanyId={0} ,@ProductId={1},@IsOk={2}",
-                            KontoGlobals.CompanyId, Convert.ToInt32(ProductLookup.SelectedValue), 1).ToList());
+                            KontoGlobals.CompanyId, Convert.ToInt32(productLookup1.SelectedValue), 1).ToList());
             }
 
             if (_list.Count == 0) return;
@@ -298,7 +301,9 @@ namespace Konto.Weaves.TakaCutting
                 QtyTextEdit.Text = stf.SelectedRow.Qty.ToString();
 
                 ProdId = stf.SelectedRow.Id;
+                Colorid = stf.SelectedRow.ColorId;
             }
+            PoNoTextEdit.Focus();
         }
         #endregion
         #region Parent Function
@@ -306,6 +311,41 @@ namespace Konto.Weaves.TakaCutting
         public override void Print()
         {
             base.Print();
+            try
+            {
+                if (this.PrimaryKey == 0) return;
+
+                PageReport rpt = new PageReport();
+
+                rpt.Load(new FileInfo("reg\\Outs\\takacuttingsticker.rdlx"));
+
+                rpt.Report.DataSources[0].ConnectionProperties.ConnectString = KontoGlobals.sqlConnectionString.ConnectionString;
+
+                GrapeCity.ActiveReports.Document.PageDocument doc = new GrapeCity.ActiveReports.Document.PageDocument(rpt);
+                doc.Parameters["id"].CurrentValue = this.PrimaryKey;
+
+                doc.Parameters["SingleTaka"].CurrentValue = 'N';
+
+                var frm = new KontoRepViewer(doc);
+                frm.Text = "Taka Cutting Print";
+                var _tab = this.Parent.Parent as TabControlAdv;
+                if (_tab == null) return;
+                var pg1 = new TabPageAdv();
+                pg1.Text = "Taka Cutting Print";
+                _tab.TabPages.Add(pg1);
+                _tab.SelectedTab = pg1;
+                frm.TopLevel = false;
+                frm.Parent = pg1;
+                frm.Location = new Point(pg1.Location.X + pg1.Width / 2 - frm.Width / 2, pg1.Location.Y + pg1.Height / 2 - frm.Height / 2);
+                frm.Show();// = true;
+
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Taka Cutting print");
+                MessageBoxAdv.Show(this, "Error While Print !!", "Exception ", ex.ToString());
+
+            }
         }
         public override void NewRec()
         {
@@ -317,7 +357,7 @@ namespace Konto.Weaves.TakaCutting
             voucherLookup.SetDefault();
             voucherDateEdit.EditValue = DateTime.Now;
             VoucherNotextEdit.Text = "New";
-            ProductLookup.SetEmpty();
+            productLookup1.SetEmpty();
 
             PoNoTextEdit.Text = string.Empty;
             TakaNoTextEdit.Text = string.Empty;
@@ -331,6 +371,9 @@ namespace Konto.Weaves.TakaCutting
 
             DelBeamProd = new List<BeamProdDto>();
             this.SelectSimpleButton.Enabled = true;
+            this.ProdId = 0;
+            this.Colorid = 0;
+            voucherLookup.Focus();
         }
         public override void ResetPage()
         {
@@ -339,7 +382,7 @@ namespace Konto.Weaves.TakaCutting
 
             voucherLookup.SetDefault();
             voucherDateEdit.EditValue = DateTime.Now;
-            ProductLookup.SetEmpty();
+            productLookup1.SetEmpty();
 
             PoNoTextEdit.Text = string.Empty;
             TakaNoTextEdit.Text = string.Empty;
@@ -352,6 +395,7 @@ namespace Konto.Weaves.TakaCutting
             DelBeamProd = new List<BeamProdDto>();
 
             this.SelectSimpleButton.Enabled = true;
+            voucherLookup.Focus();
         }
         public override void EditPage(int _key)
         {
@@ -411,9 +455,9 @@ namespace Konto.Weaves.TakaCutting
                 filter.Add(new Filter { PropertyName = "VoucherId", Operation = Op.Equals, Value = Convert.ToInt32(voucherLookup.SelectedValue) });
             }
 
-            if (Convert.ToInt32(ProductLookup.SelectedValue) > 0)
+            if (Convert.ToInt32(productLookup1.SelectedValue) > 0)
             {
-                filter.Add(new Filter { PropertyName = "ProductId", Operation = Op.Equals, Value = Convert.ToInt32(ProductLookup.SelectedValue) });
+                filter.Add(new Filter { PropertyName = "ProductId", Operation = Op.Equals, Value = Convert.ToInt32(productLookup1.SelectedValue) });
             }
 
             filter.Add(new Filter { PropertyName = "CompId", Operation = Op.Equals, Value = KontoGlobals.CompanyId });
@@ -473,10 +517,11 @@ namespace Konto.Weaves.TakaCutting
                         _find.Qty = -1 * _prodlist.Sum(k => k.NetWt);
 
                         _find.VoucherId = Convert.ToInt32(voucherLookup.SelectedValue);
-                        _find.ProductId = Convert.ToInt32(ProductLookup.SelectedValue);
+                        _find.ProductId = Convert.ToInt32(productLookup1.SelectedValue);
                         _find.ColorId = pm.ColorId;
                         _find.Remark = PoNoTextEdit.Text;
-
+                        _find.TakaStatus = "CUTTING";
+                        _find.GrayMtr = -1 * _prodlist.Sum(k => k.NetWt);
                         _find.CompId = KontoGlobals.CompanyId;
                         _find.YearId = KontoGlobals.YearId;
 
@@ -531,12 +576,18 @@ namespace Konto.Weaves.TakaCutting
                             map = new Mapper(config);
                             map.Map(item, pmodel);
 
+                            pmodel.IsOk = true;
+                            pmodel.BranchId = KontoGlobals.BranchId;
+                            pmodel.DivId = pm.DivId;
+
                             if (item.Id > 0)
                             {
+                                pmodel.SrNo = CutvoucherNo;
 
                                 pmodel.NetWt = (decimal)item.NetWt;
                                 pmodel.TwistType = item.TwistType;
-
+                                pmodel.CProductId = _find.ProductId;
+                                pmodel.ProductId = _find.ProductId;
                                 pmodel.ColorId = item.ColorId;
                                 pmodel.ModifyUser = KontoGlobals.UserName;
                                 pmodel.ModifyDate = DateTime.Now;
@@ -544,7 +595,7 @@ namespace Konto.Weaves.TakaCutting
                             else
                             {
                                 pmodel = new ProdModel();
-                                pmodel.SrNo = item.SrNo;
+                                
                                 //pmodel.VoucherNo = item.VoucherNo;
                                 pmodel.NetWt = (decimal)item.NetWt;
                                 //pmodel.ProductId = item.ProductId;
@@ -559,6 +610,8 @@ namespace Konto.Weaves.TakaCutting
                                 pmodel.CreateDate = DateTime.Now;
 
                                 pmodel.ProductId = (_find.ProductId);
+                                pmodel.CProductId = _find.ProductId;
+                               
                                 pmodel.ColorId = (item.ColorId > 0) ? item.ColorId : _find.ColorId;
                                 pmodel.Remark = _find.Remark;
                                 pmodel.VoucherNo = _find.VoucherNo + "/" + CutvoucherNo;
@@ -629,21 +682,34 @@ namespace Konto.Weaves.TakaCutting
                 voucherLookup.Focus();
                 return false;
             }
+           else  if (string.IsNullOrEmpty(TakaNoTextEdit.Text))
+            {
+                MessageBoxAdv.Show(this, "Invalid Taka Selected", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                SelectSimpleButton.Focus();
+                return false;
+            }
             else if (dt > KontoGlobals.ToDate || dt < KontoGlobals.FromDate)
             {
                 MessageBoxAdv.Show(this, "Date out of financial range", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 voucherDateEdit.Focus();
                 return false;
             }
-            else if (Convert.ToInt32(ProductLookup.SelectedValue) <= 0 && this.PrimaryKey <= 0)
+            else if (Convert.ToInt32(productLookup1.SelectedValue) <= 0 && this.PrimaryKey <= 0)
             {
                 MessageBoxAdv.Show(this, "Invalid Product", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                ProductLookup.Focus();
+                productLookup1.Focus();
                 return false;
             }
             else if (prds.Count <= 0)
             {
                 MessageBoxAdv.Show(this, "Atleast one transaction must be entered!", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                ProdgridView.Focus();
+                return false;
+            }
+
+            else if(Convert.ToDecimal(QtyTextEdit.Text) < Convert.ToDecimal(ProdgridView.Columns["NetWt"].SummaryItem.SummaryValue))
+            {
+                MessageBox.Show("Mtrs can not be greater parent taka");
                 ProdgridView.Focus();
                 return false;
             }
@@ -657,6 +723,8 @@ namespace Konto.Weaves.TakaCutting
             voucherLookup.SelectedValue = pdata.VoucherId;
             VoucherNotextEdit.Text = pdata.VoucherNo;
             PoNoTextEdit.Text = pdata.Remark;
+            productLookup1.SelectedValue = pdata.ProductId;
+            productLookup1.SetGroup(Convert.ToInt32(pdata.ProductId));
 
             var _list1 = (from pd in db.Prods
                           join v in db.Vouchers on pd.VoucherId equals v.Id into vou_join
@@ -712,7 +780,7 @@ namespace Konto.Weaves.TakaCutting
             var _prodModel = db.Prods.FirstOrDefault(k => k.Id == pdata.ProdId);
             TakaNoTextEdit.Text = _prodModel.VoucherNo;
             QtyTextEdit.Text = _prodModel.NetWt.ToString();
-            ProductLookup.SelectedValue = _prodModel.ProductId;
+            productLookup1.SelectedValue = _prodModel.ProductId;
 
             ProdId = _prodModel.Id;
 
@@ -720,6 +788,7 @@ namespace Konto.Weaves.TakaCutting
                 ColorTextEdit.Text = db.ColorModels.FirstOrDefault(k => k.Id == _prodModel.ColorId).ColorName;
 
             DelBeamProd = new List<BeamProdDto>();
+            voucherLookup.Focus();
         }
 
         #endregion

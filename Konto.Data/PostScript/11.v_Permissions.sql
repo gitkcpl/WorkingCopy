@@ -3576,5 +3576,10 @@ BEGIN
 	INSERT INTO dbo.Permissions(Id,PermissionDescription,RowId,ModuleId,PermissionType,PermissionTypeId)
 	values(568,'Grey-Order-Print',NEWID(),373,'Transaction',6)
 END
+-- BOM
+
+
+
+
 
 SET IDENTITY_INSERT dbo.Permissions OFF

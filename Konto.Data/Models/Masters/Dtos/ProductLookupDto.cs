@@ -40,5 +40,7 @@ namespace Konto.Data.Models.Masters.Dtos
         public string SerialReq { get; set; }
         public decimal Cut { get; set; }
         public int TaxId { get; set; }
+        public bool SaleRateTaxInc { get; set; }
+        public string   SizeName { get; set; }
     }
 }

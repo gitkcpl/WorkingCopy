@@ -95,6 +95,7 @@
             this.accLookup1 = new Konto.Shared.Masters.Acc.AccLookup();
             this.voucherNoTextEdit = new DevExpress.XtraEditors.TextEdit();
             this.voucherLookup1 = new Konto.Shared.Masters.Voucher.VoucherLookup();
+            this.gateSrNoTextEdit = new DevExpress.XtraEditors.ButtonEdit();
             this.Root = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
@@ -114,7 +115,7 @@
             this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem9 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.layoutControlItem15 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)(this.tabControlAdv1)).BeginInit();
             this.tabControlAdv1.SuspendLayout();
             this.tabPageAdv1.SuspendLayout();
@@ -147,6 +148,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.voucherDateEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.challanNotextEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.voucherNoTextEdit.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gateSrNoTextEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Root)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).BeginInit();
@@ -166,7 +168,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem15)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControlAdv1
@@ -222,6 +224,7 @@
             this.layoutControl1.Controls.Add(this.accLookup1);
             this.layoutControl1.Controls.Add(this.voucherNoTextEdit);
             this.layoutControl1.Controls.Add(this.voucherLookup1);
+            this.layoutControl1.Controls.Add(this.gateSrNoTextEdit);
             this.layoutControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.layoutControl1.Location = new System.Drawing.Point(0, 35);
             this.layoutControl1.Name = "layoutControl1";
@@ -263,7 +266,7 @@
             this.lrDateEdit.Properties.Mask.UseMaskAsDisplayFormat = true;
             this.lrDateEdit.Size = new System.Drawing.Size(92, 24);
             this.lrDateEdit.StyleController = this.layoutControl1;
-            this.lrDateEdit.TabIndex = 16;
+            this.lrDateEdit.TabIndex = 17;
             // 
             // vehicleTextEdit
             // 
@@ -277,7 +280,7 @@
             this.vehicleTextEdit.Properties.MaxLength = 500;
             this.vehicleTextEdit.Size = new System.Drawing.Size(101, 24);
             this.vehicleTextEdit.StyleController = this.layoutControl1;
-            this.vehicleTextEdit.TabIndex = 17;
+            this.vehicleTextEdit.TabIndex = 18;
             // 
             // lrNotextEdit
             // 
@@ -291,7 +294,7 @@
             this.lrNotextEdit.Properties.MaxLength = 500;
             this.lrNotextEdit.Size = new System.Drawing.Size(88, 24);
             this.lrNotextEdit.StyleController = this.layoutControl1;
-            this.lrNotextEdit.TabIndex = 15;
+            this.lrNotextEdit.TabIndex = 16;
             // 
             // storeLookUpEdit
             // 
@@ -348,6 +351,7 @@
             this.agentLookup.GroupId = 31;
             this.agentLookup.Location = new System.Drawing.Point(94, 61);
             this.agentLookup.LookupDto = null;
+            this.agentLookup.LookupTitle = null;
             this.agentLookup.Name = "agentLookup";
             this.agentLookup.Nature = null;
             this.agentLookup.NewGroupId = 31;
@@ -356,7 +360,7 @@
             this.agentLookup.SelectedText = null;
             this.agentLookup.SelectedValue = null;
             this.agentLookup.Size = new System.Drawing.Size(379, 24);
-            this.agentLookup.TabIndex = 7;
+            this.agentLookup.TabIndex = 8;
             this.agentLookup.TaxType = null;
             this.agentLookup.TransportLookup = null;
             this.agentLookup.VoucherType = Konto.App.Shared.VoucherTypeEnum.None;
@@ -368,6 +372,7 @@
             this.transportLookup.GroupId = 32;
             this.transportLookup.Location = new System.Drawing.Point(94, 362);
             this.transportLookup.LookupDto = null;
+            this.transportLookup.LookupTitle = null;
             this.transportLookup.Name = "transportLookup";
             this.transportLookup.Nature = null;
             this.transportLookup.NewGroupId = 32;
@@ -376,7 +381,7 @@
             this.transportLookup.SelectedText = null;
             this.transportLookup.SelectedValue = null;
             this.transportLookup.Size = new System.Drawing.Size(285, 24);
-            this.transportLookup.TabIndex = 13;
+            this.transportLookup.TabIndex = 15;
             this.transportLookup.TaxType = null;
             this.transportLookup.TransportLookup = null;
             this.transportLookup.VoucherType = Konto.App.Shared.VoucherTypeEnum.None;
@@ -398,7 +403,7 @@
             this.repositoryItemHyperLinkEdit1,
             this.lotNoRepositoryItemButtonEdit});
             this.gridControl1.Size = new System.Drawing.Size(934, 241);
-            this.gridControl1.TabIndex = 13;
+            this.gridControl1.TabIndex = 14;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
             // 
@@ -874,13 +879,14 @@
             // empLookup1
             // 
             this.empLookup1.Location = new System.Drawing.Point(94, 89);
+            this.empLookup1.LookupTitle = null;
             this.empLookup1.Name = "empLookup1";
             this.empLookup1.PrimaryKey = null;
             this.empLookup1.RequiredField = true;
             this.empLookup1.SelectedText = null;
             this.empLookup1.SelectedValue = null;
             this.empLookup1.Size = new System.Drawing.Size(379, 24);
-            this.empLookup1.TabIndex = 10;
+            this.empLookup1.TabIndex = 11;
             // 
             // grnTypeLookUpEdit
             // 
@@ -917,7 +923,7 @@
             this.remarkTextEdit.Properties.AppearanceFocused.Options.UseBorderColor = true;
             this.remarkTextEdit.Size = new System.Drawing.Size(845, 24);
             this.remarkTextEdit.StyleController = this.layoutControl1;
-            this.remarkTextEdit.TabIndex = 18;
+            this.remarkTextEdit.TabIndex = 19;
             // 
             // receiveDateEdit
             // 
@@ -977,15 +983,16 @@
             this.accLookup1.GroupId = 0;
             this.accLookup1.Location = new System.Drawing.Point(94, 33);
             this.accLookup1.LookupDto = null;
+            this.accLookup1.LookupTitle = null;
             this.accLookup1.Name = "accLookup1";
             this.accLookup1.Nature = null;
-            this.accLookup1.NewGroupId = 25;
+            this.accLookup1.NewGroupId = 21;
             this.accLookup1.PrimaryKey = null;
             this.accLookup1.RequiredField = true;
             this.accLookup1.SelectedText = null;
             this.accLookup1.SelectedValue = null;
             this.accLookup1.Size = new System.Drawing.Size(379, 24);
-            this.accLookup1.TabIndex = 4;
+            this.accLookup1.TabIndex = 5;
             this.accLookup1.TaxType = null;
             this.accLookup1.TransportLookup = this.transportLookup;
             this.accLookup1.VoucherType = Konto.App.Shared.VoucherTypeEnum.Inward;
@@ -1009,14 +1016,33 @@
             // 
             this.voucherLookup1.GroupDto = null;
             this.voucherLookup1.Location = new System.Drawing.Point(566, 5);
+            this.voucherLookup1.LookupTitle = null;
             this.voucherLookup1.Name = "voucherLookup1";
             this.voucherLookup1.PrimaryKey = null;
             this.voucherLookup1.RequiredField = true;
             this.voucherLookup1.SelectedText = null;
             this.voucherLookup1.SelectedValue = null;
             this.voucherLookup1.Size = new System.Drawing.Size(146, 24);
-            this.voucherLookup1.TabIndex = 2;
+            this.voucherLookup1.TabIndex = 3;
             this.voucherLookup1.VTypeId = Konto.App.Shared.VoucherTypeEnum.Inward;
+            // 
+            // gateSrNoTextEdit
+            // 
+            this.gateSrNoTextEdit.EnterMoveNextControl = true;
+            this.gateSrNoTextEdit.Location = new System.Drawing.Point(805, 89);
+            this.gateSrNoTextEdit.Name = "gateSrNoTextEdit";
+            this.gateSrNoTextEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gateSrNoTextEdit.Properties.Appearance.Options.UseFont = true;
+            this.gateSrNoTextEdit.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.gateSrNoTextEdit.Properties.AppearanceFocused.Options.UseBorderColor = true;
+            this.gateSrNoTextEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton()});
+            this.gateSrNoTextEdit.Properties.MaxLength = 25;
+            this.gateSrNoTextEdit.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+            this.gateSrNoTextEdit.Size = new System.Drawing.Size(134, 24);
+            this.gateSrNoTextEdit.StyleController = this.layoutControl1;
+            this.gateSrNoTextEdit.TabIndex = 13;
+            this.gateSrNoTextEdit.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.gateSrNoTextEdit_ButtonClick);
             // 
             // Root
             // 
@@ -1041,7 +1067,7 @@
             this.layoutControlItem2,
             this.layoutControlItem5,
             this.layoutControlItem9,
-            this.emptySpaceItem1});
+            this.layoutControlItem15});
             this.Root.Name = "Root";
             this.Root.Padding = new DevExpress.XtraLayout.Utils.Padding(3, 3, 3, 3);
             this.Root.Size = new System.Drawing.Size(944, 419);
@@ -1263,13 +1289,16 @@
             this.layoutControlItem9.Text = "Bill No:";
             this.layoutControlItem9.TextSize = new System.Drawing.Size(86, 17);
             // 
-            // emptySpaceItem1
+            // layoutControlItem15
             // 
-            this.emptySpaceItem1.AllowHotTrack = false;
-            this.emptySpaceItem1.Location = new System.Drawing.Point(711, 84);
-            this.emptySpaceItem1.Name = "emptySpaceItem1";
-            this.emptySpaceItem1.Size = new System.Drawing.Size(227, 28);
-            this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem15.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.layoutControlItem15.AppearanceItemCaption.Options.UseFont = true;
+            this.layoutControlItem15.Control = this.gateSrNoTextEdit;
+            this.layoutControlItem15.Location = new System.Drawing.Point(711, 84);
+            this.layoutControlItem15.Name = "layoutControlItem15";
+            this.layoutControlItem15.Size = new System.Drawing.Size(227, 28);
+            this.layoutControlItem15.Text = "Gate Sr No:";
+            this.layoutControlItem15.TextSize = new System.Drawing.Size(86, 17);
             // 
             // GRNIndex
             // 
@@ -1315,6 +1344,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.voucherDateEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.challanNotextEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.voucherNoTextEdit.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gateSrNoTextEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Root)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).EndInit();
@@ -1334,7 +1364,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem15)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1412,7 +1442,6 @@
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem14;
         private DevExpress.XtraEditors.TextEdit billNoTextEdit;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem9;
-        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem1;
         private DevExpress.XtraGrid.Columns.GridColumn colChallanId;
         private DevExpress.XtraGrid.Columns.GridColumn colCops;
         private DevExpress.XtraGrid.Columns.GridColumn colLotNo;
@@ -1427,5 +1456,7 @@
         private DevExpress.XtraGrid.Columns.GridColumn colOrdNo;
         private DevExpress.XtraEditors.Repository.RepositoryItemHyperLinkEdit repositoryItemHyperLinkEdit1;
         private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit lotNoRepositoryItemButtonEdit;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem15;
+        private DevExpress.XtraEditors.ButtonEdit gateSrNoTextEdit;
     }
 }

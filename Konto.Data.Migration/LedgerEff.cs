@@ -647,6 +647,15 @@ namespace Konto.Data
             }
             //   if (model.HasteId == null)
             //       model.HasteId = 28;
+            var billdate = Convert.ToInt32(Convert.ToDateTime(model.RcdDate).ToString("yyyyMMdd"));
+
+            bool _SaveBillDate = false;
+            if( (model.TypeId == (int)VoucherTypeEnum.PurchaseInvoice || model.TypeId == (int)VoucherTypeEnum.GenExpense ||
+                model.TypeId == (int)VoucherTypeEnum.JobReceiptVoucher || model.TypeId == (int)VoucherTypeEnum.MillReceiptVoucher)
+                && model.RcdDate != null)
+            {
+                _SaveBillDate = true;
+            }
 
             //for party
             ledger = new LedgerTransModel
@@ -657,7 +666,7 @@ namespace Konto.Data
                 YearId = model.YearId,
                 BillNo = type == "Debit" ? model.VoucherNo : model.BillNo,
                 VoucherNo = model.VoucherNo,
-                VoucherDate = model.VoucherDate,
+                VoucherDate = _SaveBillDate ?  billdate: model.VoucherDate,
                 TransDate = model.VDate,
                 Remark = model.Remarks,
                 Narration = model.Remarks,
@@ -685,7 +694,7 @@ namespace Konto.Data
                     YearId = model.YearId,
                     BillNo = type == "Debit" ? model.VoucherNo : model.BillNo,
                     VoucherNo = model.VoucherNo,
-                    VoucherDate = model.VoucherDate,
+                    VoucherDate = _SaveBillDate ? billdate : model.VoucherDate,
                     TransDate = model.VDate,
                     Remark = model.Remarks,
                     Narration = model.Remarks,
@@ -721,7 +730,7 @@ namespace Konto.Data
                         YearId = model.YearId,
                         BillNo = type == "Debit" ? model.VoucherNo : model.BillNo,
                         VoucherNo = model.VoucherNo,
-                        VoucherDate = model.VoucherDate,
+                        VoucherDate = _SaveBillDate ? billdate : model.VoucherDate,
                         TransDate = model.VDate,
                         Remark = model.Remarks,
                         Narration = model.Remarks,
@@ -756,7 +765,7 @@ namespace Konto.Data
                         YearId = model.YearId,
                         BillNo = type == "Debit" ? model.VoucherNo : model.BillNo,
                         VoucherNo = model.VoucherNo,
-                        VoucherDate = model.VoucherDate,
+                        VoucherDate = _SaveBillDate ? billdate : model.VoucherDate,
                         TransDate = model.VDate,
                         Remark = model.Remarks,
                         Narration = model.Remarks,
@@ -781,7 +790,7 @@ namespace Konto.Data
                         YearId = model.YearId,
                         BillNo = type == "Debit" ? model.VoucherNo : model.BillNo,
                         VoucherNo = model.VoucherNo,
-                        VoucherDate = model.VoucherDate,
+                        VoucherDate = _SaveBillDate ? billdate : model.VoucherDate,
                         TransDate = model.VDate,
                         Remark = model.Remarks,
                         Narration = model.Remarks,
@@ -814,7 +823,7 @@ namespace Konto.Data
                 ledger.YearId = model.YearId;
                 ledger.BillNo = type == "Debit" ? model.VoucherNo : model.BillNo;
                 ledger.VoucherNo = model.VoucherNo;
-                ledger.VoucherDate = model.VoucherDate;
+                    ledger.VoucherDate = model.VoucherDate;
                 ledger.TransDate = model.VDate;
                 ledger.Remark = model.Remarks;
                 ledger.Narration = model.Remarks;
@@ -4483,7 +4492,8 @@ namespace Konto.Data
 
         public static bool DataFreezeStatus(int MDate, int VTypeId, KontoContext _db)
         {
-            DataFreezeModel cds = _db.DFreeze.Where(p => p.VoucherTypeID == VTypeId && p.FromDate <= MDate && p.ToDate >= MDate && p.Freeze == true).FirstOrDefault();
+            DataFreezeModel cds = _db.DFreeze.Where(p => p.VoucherTypeID == VTypeId && p.FromDate <= MDate && p.ToDate >= MDate && p.Freeze == true
+            && p.CompanyID == KontoGlobals.CompanyId).FirstOrDefault();
             if (cds != null)
             {
                 return false;

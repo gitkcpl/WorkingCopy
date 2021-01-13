@@ -20,6 +20,8 @@ namespace Konto.Shared.Masters.Item
 
        // public ProductLookupDto SelectedProduct { get; set; }
         public ProductTypeEnum PTypeId { get; set; }
+
+        
         public ProductLkpWindow()
         {
             InitializeComponent();
@@ -52,6 +54,8 @@ namespace Konto.Shared.Masters.Item
                                join pt in _context.ProductTypes on pd.PTypeId equals pt.Id
                                join tx in _context.TaxMasters on pd.TaxId equals tx.Id
                                join um in _context.Uoms on pd.UomId equals um.Id
+                               join sz in _context.SizeModels on pd.SizeId equals sz.Id into sz_join
+                               from sz1 in sz_join.DefaultIfEmpty()
                                join ac in _context.Accs on pd.VendorId equals ac.Id into ac_join
                                from ac in ac_join.DefaultIfEmpty()
                                orderby pd.ProductName
@@ -88,7 +92,7 @@ namespace Konto.Shared.Masters.Item
                                    Cess = tx.CessRate,
                                    SerialReq = pd.SerialReq,
                                    Cut = pd.Cut,
-                                   TaxId = pd.TaxId
+                                   TaxId = pd.TaxId,SaleRateTaxInc = pd.SaleRateTaxInc,SizeName = sz1.SizeName
                                }
                 ).ToList();
 
@@ -108,7 +112,15 @@ namespace Konto.Shared.Masters.Item
 
         private void AreaLkpWindow_Shown(object sender, EventArgs e)
         {
-            if (this.SelectedValue <= 0) return;
+            if (this.SelectedValue <= 0)
+            {
+                if (!string.IsNullOrEmpty(this.SearchText))
+                    customGridView1.StartIncrementalSearch(this.SearchText);
+
+                return;
+
+            }
+            
             var item = _modelList.FirstOrDefault(x => x.Id == this.SelectedValue);
             var index = _modelList.IndexOf(item);
             if (index >= 0)

@@ -19,5 +19,6 @@ namespace Konto.App.Shared.Para
         public static int Rate_Decimal = 2;
         public static int Qty_Decimal = 2;
         public static bool Tds_On_Line_Level = false;
+        public static bool Tcs_Round_Off = true;
     }
 }

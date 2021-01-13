@@ -432,6 +432,7 @@ namespace Konto.Shared.Trans.Brokerage
                 var row = view.GetRow(view.FocusedRowHandle) as BrokTransDto;
                 view.DeleteRow(view.FocusedRowHandle);
                 DelTrans.Add(row);
+                FinalTotal();
             }
             
         }

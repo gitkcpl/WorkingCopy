@@ -16,6 +16,7 @@ using Konto.Data.Models.Masters.Dtos;
 using Konto.Data.Models.Transaction;
 using Konto.Data.Models.Transaction.Dtos;
 using Konto.Shared.Masters.Acc;
+using Konto.Shared.Trans.Common;
 using Konto.Shared.Trans.PInvoice;
 using Serilog;
 using Syncfusion.Windows.Forms;
@@ -39,6 +40,8 @@ namespace Konto.Shared.Account.GenExpense
         private List<PendBillListDto> DelBill = new List<PendBillListDto>();
         private List<PendBillListDto> BillList = new List<PendBillListDto>();
         private List<PendBillListDto> AllBill = new List<PendBillListDto>();
+        private List<AttachmentModel> _DelFile = new List<AttachmentModel>();
+        private List<AttachmentModel> _TransFile = new List<AttachmentModel>();
         TextEdit headerEdit = new TextEdit();
         GridColumn activeCol = null;
         private bool isImortOrSez = false;
@@ -82,9 +85,20 @@ namespace Konto.Shared.Account.GenExpense
             billAdjustSimpleButton.Click += BillAdjustSimpleButton_Click;
             voucherLookup1.SelectedValueChanged += VoucherLookup1_SelectedValueChanged;
             this.Load += GenExpIndex_Load;
+            tcsPerTextEdit.EditValueChanged += TcsPerTextEdit_EditValueChanged;
+            tcsAmtTextEdit.EditValueChanged += TcsAmtTextEdit_EditValueChanged;
+
             //this.accLookup1.ShownPopup += AccLookup1_ShownPopup;
         }
+        private void TcsAmtTextEdit_EditValueChanged(object sender, EventArgs e)
+        {
+            FinalTotal();
+        }
 
+        private void TcsPerTextEdit_EditValueChanged(object sender, EventArgs e)
+        {
+            FinalTotal();
+        }
         private void ProductRepositoryItemButtonEdit_ButtonClick(object sender, ButtonPressedEventArgs e)
         {
             var dr = PreOpenLookup();
@@ -496,6 +510,17 @@ namespace Konto.Shared.Account.GenExpense
             gridView1.UpdateTotalSummary();
             var ntotal = Convert.ToDecimal(colNetTotal.SummaryItem.SummaryValue);
 
+
+            if (tcsPerTextEdit.Value > 0) // tcs applicable
+            {
+                if (GenExpPara.Tcs_Round_Off)
+                    tcsAmtTextEdit.Value = decimal.Round((ntotal * tcsPerTextEdit.Value / 100) + (decimal)0.01);
+                else
+                    tcsAmtTextEdit.Value = decimal.Round(ntotal * tcsPerTextEdit.Value / 100, 2);
+            }
+
+            ntotal = ntotal + tcsAmtTextEdit.Value;
+
             var x1 = ntotal - Math.Truncate(ntotal);
 
 
@@ -642,6 +667,15 @@ namespace Konto.Shared.Account.GenExpense
                                     Id = p.Id,RateOn = p.RateOn
                                 }).ToList();
 
+                var _costlists = (from p in db.CostHeads
+                                  where p.IsActive && !p.IsDeleted
+                                  select new BaseLookupDto()
+                                  {
+                                      DisplayText = p.HeadName,
+                                      Id = p.Id
+                                  }).ToList();
+
+
                 var gstList = (from p in db.TaxMasters
                               where !p.IsDeleted && p.IsActive
                               orderby p.TaxName
@@ -659,6 +693,7 @@ namespace Konto.Shared.Account.GenExpense
 
                 taxRepositoryItemLookUpEdit.DataSource = gstList;
                 storeLookUpEdit.Properties.DataSource = _storeLists;
+                costLookUpEdi.Properties.DataSource = _costlists;
             }
         }
 
@@ -862,6 +897,17 @@ namespace Konto.Shared.Account.GenExpense
                 tdsAmtLayoutControlItem.ContentVisible = true;
             }
 
+            if (model.CostHeadId != 0)
+            {
+                costLookUpEdi.EditValue = model.CostHeadId;
+            }
+            dueDaysTextEdit.Value = Convert.ToDecimal(model.Duedays);
+
+            tcsPerTextEdit.Value = model.TcsPer;
+            tcsAmtTextEdit.Value = model.TcsAmt;
+
+
+
             using (var _context = new KontoContext())
             {
 
@@ -920,7 +966,11 @@ namespace Konto.Shared.Account.GenExpense
                 var paid = _context.BtoBs.Where(x => x.BillId == model.Id && x.BillVoucherId == model.VoucherId
                                             && !x.IsDeleted)
                                           .Sum(x => x.Amount);
-                if(paid >0)
+
+                _TransFile = _context.Attachments.Where(x => x.RefVoucherId == model.Id && x.VoucherId == model.VoucherId && !x.IsDeleted).ToList();
+
+
+                if (paid >0)
                 {
                     okSimpleButton.Enabled = false;
                     if (model.TotalAmount-paid-model.TdsAmt == 0)
@@ -1157,57 +1207,29 @@ namespace Konto.Shared.Account.GenExpense
         {
             if (accLookup1.LookupDto == null) return;
 
-            //if (accLookup1.LookupDto.IsGst && !isImortOrSez)
-            //{
-            //    colSgst.Visible = true;
-            //    colSgstPer.Visible = true;
-            //    colCgst.Visible = true;
-            //    colCgstPer.Visible = true;
-            //    colIgst.Visible = false;
-            //    colIgstPer.Visible = false;
-            //    for (int i = 0; i < gridView1.RowCount - 1; i++)
-            //    {
-            //        var rw = gridView1.GetRow(i) as BillTransDto;
-            //        var gst = rw.Igst + rw.Cgst + rw.Sgst;
-            //        var gstPer = rw.IgstPer + rw.CgstPer + rw.SgstPer;
-            //        rw.Igst = 0;
-            //        rw.IgstPer = 0;
-            //        rw.Sgst = gst / 2;
-            //        rw.Cgst = gst / 2;
-            //        rw.SgstPer = gstPer / 2;
-            //        rw.CgstPer = gstPer / 2;
-            //    }
-            //}
-            //else if(accLookup1.LookupDto.IsIgst)
-            //{
-            //    colSgst.Visible = false;
-            //    colSgstPer.Visible = false;
-            //    colCgst.Visible = false;
-            //    colCgstPer.Visible = false;
-            //    colIgst.Visible = true;
-            //    colIgstPer.Visible = true;
-            //    for (int i = 0; i < gridView1.RowCount - 1; i++)
-            //    {
-            //        var rw = gridView1.GetRow(i) as BillTransDto;
-            //        var gst = rw.Igst + rw.Cgst + rw.Sgst;
-            //        var gstPer = rw.IgstPer + rw.CgstPer + rw.SgstPer;
-            //        rw.IgstPer = gstPer;
-            //        rw.Igst = gst;
-            //        rw.Sgst = 0;
-            //        rw.Cgst = 0;
-            //        rw.SgstPer = 0;
-            //        rw.CgstPer = 0;
-            //    }
-            //}
-            if (!GenExpPara.Tds_On_Line_Level && accLookup1.LookupDto.TdsReq.ToUpper() == "YES")
+            
+            dueDaysTextEdit.Text = this.accLookup1.LookupDto.CrDays.ToString();
+
+            if (!GenExpPara.Tds_On_Line_Level && accLookup1.LookupDto.TdsReq.ToUpper() == "YES" && this.PrimaryKey==0)
             {
                 tdsPerTextEdit.Value = accLookup1.LookupDto.TdsPer;
+
                 if ( Convert.ToInt32(accLookup1.LookupDto.TdsAccId) > 0)
                 {
                     tdsAccLookup.SelectedValue = accLookup1.LookupDto.TdsAccId;
                     tdsAccLookup.SetAcc(Convert.ToInt32(accLookup1.LookupDto.TdsAccId));
                 }
+
+
             }
+
+            if (this.PrimaryKey == 0)
+            {
+                if (this.accLookup1.LookupDto.TcsReq.ToUpper() == "YES")
+                    tcsPerTextEdit.Value = accLookup1.LookupDto.TcsPer;
+            }
+
+
             if (GenExpPara.Tds_On_Line_Level && accLookup1.LookupDto.TdsReq.ToUpper() == "YES")
             {
                 colTdsPer.VisibleIndex = gridView1.VisibleColumns.Count-2;
@@ -1217,6 +1239,7 @@ namespace Konto.Shared.Account.GenExpense
                 tdsPerLayoutControlItem.ContentVisible = false;
                 tdsAmtLayoutControlItem.ContentVisible = false;
             }
+
             else if(accLookup1.LookupDto.TdsReq.ToUpper() == "YES")
             {
                 colTdsPer.VisibleIndex = -1;
@@ -1235,6 +1258,27 @@ namespace Konto.Shared.Account.GenExpense
                 tdsPerLayoutControlItem.ContentVisible = false;
                 tdsAmtLayoutControlItem.ContentVisible = false;
             }
+
+
+            //tcs
+            if (this.accLookup1.LookupDto.TcsReq.ToUpper() == "YES")
+            {
+                if (tcsPerlayoutControlItem.IsHidden)
+                    tcsPerlayoutControlItem.RestoreFromCustomization();
+
+                if (tcsAmountlayoutControlItem.IsHidden)
+                    tcsAmountlayoutControlItem.RestoreFromCustomization();
+
+                tcsPerlayoutControlItem.ContentVisible = true;
+                tcsAmountlayoutControlItem.ContentVisible = true;
+            }
+            else
+            {
+                tcsPerlayoutControlItem.ContentVisible = false;
+                tcsAmountlayoutControlItem.ContentVisible = false;
+            }
+
+
             UpdateGst();
         }
 
@@ -1356,6 +1400,7 @@ namespace Konto.Shared.Account.GenExpense
             billDateEdit.EditValue = DateTime.Now;
             empLookup1.SelectedValue = 1;
             empLookup1.SetGroup();
+            costLookUpEdi.EditValue = 1;
             createdLabelControl.Text = "Create By: " + KontoGlobals.UserName;
             modifyLabelControl.Text = string.Empty;
             this.ActiveControl = voucherLookup1.buttonEdit1;
@@ -1372,6 +1417,8 @@ namespace Konto.Shared.Account.GenExpense
             DelBill = new List<PendBillListDto>();
             BillList = new List<PendBillListDto>();
             AllBill = new List<PendBillListDto>();
+            _TransFile = new List<AttachmentModel>();
+            _DelFile = new List<AttachmentModel>();
 
             this.grnTransDtoBindingSource1.DataSource = new List<ExpTransDto>();
             
@@ -1387,7 +1434,7 @@ namespace Konto.Shared.Account.GenExpense
             voucherDateEdit.DateTime = DateTime.Now;
             billDateEdit.DateTime = DateTime.Now;
             voucherNoTextEdit.Text = string.Empty;
-           
+            costLookUpEdi.EditValue = 1;
             transportLookup.SetEmpty();
             empLookup1.SetEmpty();
             lrNotextEdit.Text = string.Empty;
@@ -1397,14 +1444,17 @@ namespace Konto.Shared.Account.GenExpense
             tdsPerTextEdit.Value = 0;
             tdsAmtTextEdit.Value = 0;
             paybleTextEdit.Text = "0";
-
+            tcsPerTextEdit.Value = 0;
+            tcsAmtTextEdit.Value = 0;
             roundoffSpinEdit.Value = 0;
             billAmtSpinEdit.Value = 0;
-            
+            dueDaysTextEdit.Value = 0;
             DelTrans = new List<ExpTransDto>();
             DelBill = new List<PendBillListDto>();
             BillList = new List<PendBillListDto>();
             AllBill = new List<PendBillListDto>();
+            _TransFile = new List<AttachmentModel>();
+            _DelFile = new List<AttachmentModel>();
 
         }
         public override void EditPage(int _key)
@@ -1549,6 +1599,47 @@ namespace Konto.Shared.Account.GenExpense
                             Trans.Add(tranModel);
                            
                         }
+
+                        //attachment
+                        foreach (var item in _TransFile)
+                        {
+
+                            item.RefVoucherId = _find.Id;
+                            item.VoucherId = _find.VoucherId;
+                            if (item.Id == 0)
+                            {
+                                string fpath = item.FilePath;// uploadedFile.FileNameInStorage.ToString(); 
+                                int lst = fpath.LastIndexOf(".");
+                                string xtn = fpath.Substring(lst);
+
+                                var _file = string.Format(@"{0}." + xtn, DateTime.Now.Ticks + "__" + _find.Id);
+
+                                var _filePath = "\\attachment\\" + _file;
+
+                                string destFile = (System.IO.Path.GetDirectoryName(System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName)) + _filePath;
+                                System.IO.File.Copy(fpath, destFile, true);
+
+                                item.FilePath = _file;
+
+                                db.Attachments.Add(item);
+                            }
+                            else
+                            {
+                                var _at = db.Attachments.Find(item.Id);
+                                _at.FileDescr = item.FileDescr;
+                                // _at.FilePath = item.FilePath;
+                            }
+                        }
+                        
+                        // delete from Attachment
+                        foreach (var item in _DelFile)
+                        {
+                            if (item.Id == 0) continue;
+                            var _model = db.Attachments.Find(item.Id);
+                            _model.IsDeleted = true;
+
+                        }
+
                         //delete item from  trans
                         foreach (var item in DelTrans)
                         {
@@ -1648,8 +1739,16 @@ namespace Konto.Shared.Account.GenExpense
             model.TotalPcs = 0;
             model.RoundOff = roundoffSpinEdit.Value;
             model.IsActive = true;
-           
-          
+
+            model.TcsPer = tcsPerTextEdit.Value;
+            model.TcsAmt = tcsAmtTextEdit.Value;
+            model.Duedays = Convert.ToInt32(dueDaysTextEdit.Value);
+
+            if (!string.IsNullOrEmpty(costLookUpEdi.Text))
+            {
+                model.CostHeadId = Convert.ToInt32(costLookUpEdi.EditValue);
+            }
+
 
             if (model.Id == 0)
             {
@@ -1679,6 +1778,18 @@ namespace Konto.Shared.Account.GenExpense
 
             billAmtSpinEdit.Value = ntotal;
             paybleTextEdit.Text = (ntotal - tdsAmtTextEdit.Value).ToString("F");
+        }
+
+        private void attachSimpleButton_Click(object sender, EventArgs e)
+        {
+            var frm = new AttachmentView();
+            frm.Trans = this._TransFile;
+            frm.DelTrans = this._DelFile;
+            if (frm.ShowDialog() == DialogResult.OK)
+            {
+                this._TransFile = frm.Trans;
+                this._DelFile = frm.DelTrans;
+            }
         }
     }
 }

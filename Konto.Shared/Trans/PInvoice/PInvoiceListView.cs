@@ -26,12 +26,13 @@ namespace Konto.Shared.Trans.PInvoice
             InitializeComponent();
             this.listDateRange1.GetButtonClick += ListDateRange1_GetButtonClick;
             //  this.GridLayoutFileName = KontoFileLayout.Op_Bill_List;
-            this.customGridView1.FocusedColumnChanged += CustomGridView1_FocusedColumnChanged;
+            this.customGridView1.FocusedRowChanged += CustomGridView1_FocusedRowChanged;
             this.ReportPrint = true;
             listAction1.EditDeleteDisabled(false);
+            this.attachSimpleButton.Click += AttachSimpleButton_Click;
         }
 
-        private void CustomGridView1_FocusedColumnChanged(object sender, DevExpress.XtraGrid.Views.Base.FocusedColumnChangedEventArgs e)
+        private void CustomGridView1_FocusedRowChanged(object sender, DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventArgs e)
         {
             try
             {
@@ -43,7 +44,7 @@ namespace Konto.Shared.Trans.PInvoice
                 {
                     var lst = (from p in db.BtoBs
                                join o2 in db.BillTrans
-                               on new {A= p.RefId,B= (int) p.RefTransId } equals new {A= o2.BillId,B= o2.Id } into LEFTJOIN
+                               on new { A = p.RefId, B = (int)p.RefTransId } equals new { A = o2.BillId, B = o2.Id } into LEFTJOIN
                                from result in LEFTJOIN.DefaultIfEmpty()
                                join o1 in db.Bills on result.BillId equals o1.Id
                                join v1 in db.Vouchers on o1.VoucherId equals v1.Id
@@ -54,10 +55,10 @@ namespace Konto.Shared.Trans.PInvoice
                                {
                                    VoucherNo = o1.VoucherNo,
                                    ChlnDate = o1.VoucherDate,
-                                   Amount = (decimal) p.Amount,
+                                   Amount = (decimal)p.Amount,
                                    Remark = result.Remark,
                                    ChqNo = result.ChequeNo,
-                                   Type =   v1.VoucherName
+                                   Type = v1.VoucherName
 
                                }
                                ).ToList();
@@ -69,20 +70,20 @@ namespace Konto.Shared.Trans.PInvoice
 
                     //var lstRet =
                     var lstRet = (from p in db.BtoBs
-                               join o1 in db.Bills on p.RefId equals o1.Id
-                               join v1 in db.Vouchers on o1.VoucherId equals v1.Id
-                               join br in db.BillRefs on p.RefCode equals br.RowId
-                               where !br.IsDeleted && !o1.IsDeleted && !p.IsDeleted
-                                && br.BillId == _id && p.TransType == "Return"
-                                select new PaymentHistoryDto()
-                               {
-                                   VoucherNo = o1.VoucherNo,
-                                   ChlnDate = o1.VoucherDate,
-                                   Amount = (decimal)p.Amount,
-                                   Remark = o1.Remarks,
-                                   Type = v1.VoucherName
+                                  join o1 in db.Bills on p.RefId equals o1.Id
+                                  join v1 in db.Vouchers on o1.VoucherId equals v1.Id
+                                  join br in db.BillRefs on p.RefCode equals br.RowId
+                                  where !br.IsDeleted && !o1.IsDeleted && !p.IsDeleted
+                                   && br.BillId == _id && p.TransType == "Return"
+                                  select new PaymentHistoryDto()
+                                  {
+                                      VoucherNo = o1.VoucherNo,
+                                      ChlnDate = o1.VoucherDate,
+                                      Amount = (decimal)p.Amount,
+                                      Remark = o1.Remarks,
+                                      Type = v1.VoucherName
 
-                               }
+                                  }
                                ).ToList();
 
                     customGridView3.Columns.Clear();
@@ -99,6 +100,36 @@ namespace Konto.Shared.Trans.PInvoice
                 Log.Error(ex, "purchase list");
             }
         }
+
+        private void AttachSimpleButton_Click(object sender, EventArgs e)
+        {
+            if (customGridView1.FocusedRowHandle < 0) return;
+            var row = customGridView1.GetDataRow(customGridView1.FocusedRowHandle);
+
+           
+            if (KontoView.Columns.ColumnByFieldName("Id") != null)
+            {
+                var _id = Convert.ToInt32(row["Id"]);
+                var _vid = Convert.ToInt32(row["VoucherId"]);
+                using (var db = new KontoContext())
+                {
+                    var _atc = db.Attachments.Where(x => x.RefVoucherId == _id && x.VoucherId == _vid && !x.IsDeleted).ToList();
+                    if(_atc.Count()==0)
+                    {
+                        MessageBox.Show("No Attachemnt Found..");
+                        return;
+                    }
+                    var frm = new AttachmentView();
+                    frm.Trans = _atc;
+                    frm.ShowDialog();
+                }
+
+            }
+
+
+        }
+
+       
 
         private void ListDateRange1_GetButtonClick(object sender, EventArgs e)
         {

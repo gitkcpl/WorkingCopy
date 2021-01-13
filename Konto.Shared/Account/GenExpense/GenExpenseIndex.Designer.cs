@@ -29,7 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GenExpIndex));
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
+            this.costLookUpEdi = new DevExpress.XtraEditors.LookUpEdit();
             this.paybleTextEdit = new DevExpress.XtraEditors.TextEdit();
             this.tdsAccLookup = new Konto.Shared.Masters.Acc.AccLookup();
             this.billAmtSpinEdit = new DevExpress.XtraEditors.SpinEdit();
@@ -118,8 +120,16 @@
             this.tdsAmtLayoutControlItem = new DevExpress.XtraLayout.LayoutControlItem();
             this.paybleLayoutControlItem = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem8 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
             this.billAdjustSimpleButton = new DevExpress.XtraEditors.SimpleButton();
             this.paidLabel = new System.Windows.Forms.Label();
+            this.attachSimpleButton = new DevExpress.XtraEditors.SimpleButton();
+            this.tcsPerTextEdit = new DevExpress.XtraEditors.SpinEdit();
+            this.tcsPerlayoutControlItem = new DevExpress.XtraLayout.LayoutControlItem();
+            this.tcsAmtTextEdit = new DevExpress.XtraEditors.SpinEdit();
+            this.tcsAmountlayoutControlItem = new DevExpress.XtraLayout.LayoutControlItem();
+            this.dueDaysTextEdit = new DevExpress.XtraEditors.SpinEdit();
+            this.layoutControlItem15 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)(this.tabControlAdv1)).BeginInit();
             this.tabControlAdv1.SuspendLayout();
             this.tabPageAdv1.SuspendLayout();
@@ -127,6 +137,7 @@
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.costLookUpEdi.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.paybleTextEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.billAmtSpinEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.roundoffSpinEdit.Properties)).BeginInit();
@@ -183,6 +194,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.tdsAmtLayoutControlItem)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.paybleLayoutControlItem)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tcsPerTextEdit.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tcsPerlayoutControlItem)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tcsAmtTextEdit.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tcsAmountlayoutControlItem)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dueDaysTextEdit.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem15)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControlAdv1
@@ -204,12 +222,14 @@
             // 
             // panelControl1
             // 
+            this.panelControl1.Controls.Add(this.attachSimpleButton);
             this.panelControl1.Controls.Add(this.paidLabel);
             this.panelControl1.Controls.Add(this.billAdjustSimpleButton);
             this.panelControl1.Size = new System.Drawing.Size(944, 35);
             this.panelControl1.Controls.SetChildIndex(this.navAction1, 0);
             this.panelControl1.Controls.SetChildIndex(this.billAdjustSimpleButton, 0);
             this.panelControl1.Controls.SetChildIndex(this.paidLabel, 0);
+            this.panelControl1.Controls.SetChildIndex(this.attachSimpleButton, 0);
             // 
             // tabPageAdv2
             // 
@@ -225,6 +245,10 @@
             // 
             // layoutControl1
             // 
+            this.layoutControl1.Controls.Add(this.dueDaysTextEdit);
+            this.layoutControl1.Controls.Add(this.tcsAmtTextEdit);
+            this.layoutControl1.Controls.Add(this.tcsPerTextEdit);
+            this.layoutControl1.Controls.Add(this.costLookUpEdi);
             this.layoutControl1.Controls.Add(this.paybleTextEdit);
             this.layoutControl1.Controls.Add(this.tdsAccLookup);
             this.layoutControl1.Controls.Add(this.billAmtSpinEdit);
@@ -265,6 +289,30 @@
             this.layoutControl1.TabStop = false;
             this.layoutControl1.Text = "layoutControl1";
             // 
+            // costLookUpEdi
+            // 
+            this.costLookUpEdi.EnterMoveNextControl = true;
+            this.costLookUpEdi.Location = new System.Drawing.Point(93, 89);
+            this.costLookUpEdi.Name = "costLookUpEdi";
+            this.costLookUpEdi.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
+            this.costLookUpEdi.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.costLookUpEdi.Properties.Appearance.Options.UseFont = true;
+            this.costLookUpEdi.Properties.AppearanceDropDown.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.costLookUpEdi.Properties.AppearanceDropDown.Options.UseFont = true;
+            this.costLookUpEdi.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.costLookUpEdi.Properties.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("DisplayText", "Name3")});
+            this.costLookUpEdi.Properties.DisplayMember = "DisplayText";
+            this.costLookUpEdi.Properties.ImmediatePopup = true;
+            this.costLookUpEdi.Properties.NullText = "";
+            this.costLookUpEdi.Properties.ShowHeader = false;
+            this.costLookUpEdi.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
+            this.costLookUpEdi.Properties.ValueMember = "Id";
+            this.costLookUpEdi.Size = new System.Drawing.Size(319, 24);
+            this.costLookUpEdi.StyleController = this.layoutControl1;
+            this.costLookUpEdi.TabIndex = 11;
+            // 
             // paybleTextEdit
             // 
             this.paybleTextEdit.EnterMoveNextControl = true;
@@ -293,6 +341,7 @@
             this.tdsAccLookup.GroupId = 0;
             this.tdsAccLookup.Location = new System.Drawing.Point(93, 362);
             this.tdsAccLookup.LookupDto = null;
+            this.tdsAccLookup.LookupTitle = null;
             this.tdsAccLookup.Name = "tdsAccLookup";
             this.tdsAccLookup.Nature = "";
             this.tdsAccLookup.NewGroupId = 39;
@@ -301,7 +350,7 @@
             this.tdsAccLookup.SelectedText = null;
             this.tdsAccLookup.SelectedValue = null;
             this.tdsAccLookup.Size = new System.Drawing.Size(215, 24);
-            this.tdsAccLookup.TabIndex = 16;
+            this.tdsAccLookup.TabIndex = 20;
             this.tdsAccLookup.TaxType = "TDS";
             this.tdsAccLookup.TransportLookup = null;
             this.tdsAccLookup.VoucherType = Konto.App.Shared.VoucherTypeEnum.None;
@@ -346,7 +395,7 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.roundoffSpinEdit.Size = new System.Drawing.Size(121, 24);
             this.roundoffSpinEdit.StyleController = this.layoutControl1;
-            this.roundoffSpinEdit.TabIndex = 15;
+            this.roundoffSpinEdit.TabIndex = 19;
             this.roundoffSpinEdit.EditValueChanged += new System.EventHandler(this.roundoffSpinEdit_EditValueChanged);
             // 
             // bookLookup
@@ -356,6 +405,7 @@
             this.bookLookup.GroupId = 0;
             this.bookLookup.Location = new System.Drawing.Point(93, 33);
             this.bookLookup.LookupDto = null;
+            this.bookLookup.LookupTitle = null;
             this.bookLookup.Name = "bookLookup";
             this.bookLookup.Nature = "";
             this.bookLookup.NewGroupId = 33;
@@ -411,7 +461,7 @@
             // 
             this.lrDateEdit.EditValue = null;
             this.lrDateEdit.EnterMoveNextControl = true;
-            this.lrDateEdit.Location = new System.Drawing.Point(606, 334);
+            this.lrDateEdit.Location = new System.Drawing.Point(606, 278);
             this.lrDateEdit.Name = "lrDateEdit";
             this.lrDateEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lrDateEdit.Properties.Appearance.Options.UseFont = true;
@@ -423,12 +473,12 @@
             this.lrDateEdit.Properties.Mask.UseMaskAsDisplayFormat = true;
             this.lrDateEdit.Size = new System.Drawing.Size(120, 24);
             this.lrDateEdit.StyleController = this.layoutControl1;
-            this.lrDateEdit.TabIndex = 14;
+            this.lrDateEdit.TabIndex = 16;
             // 
             // lrNotextEdit
             // 
             this.lrNotextEdit.EnterMoveNextControl = true;
-            this.lrNotextEdit.Location = new System.Drawing.Point(400, 334);
+            this.lrNotextEdit.Location = new System.Drawing.Point(400, 278);
             this.lrNotextEdit.Name = "lrNotextEdit";
             this.lrNotextEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lrNotextEdit.Properties.Appearance.Options.UseFont = true;
@@ -437,7 +487,7 @@
             this.lrNotextEdit.Properties.MaxLength = 500;
             this.lrNotextEdit.Size = new System.Drawing.Size(114, 24);
             this.lrNotextEdit.StyleController = this.layoutControl1;
-            this.lrNotextEdit.TabIndex = 13;
+            this.lrNotextEdit.TabIndex = 15;
             // 
             // storeLookUpEdit
             // 
@@ -492,8 +542,9 @@
             this.transportLookup.AgentLookup = null;
             this.transportLookup.FillParty = true;
             this.transportLookup.GroupId = 32;
-            this.transportLookup.Location = new System.Drawing.Point(93, 334);
+            this.transportLookup.Location = new System.Drawing.Point(93, 278);
             this.transportLookup.LookupDto = null;
+            this.transportLookup.LookupTitle = null;
             this.transportLookup.Name = "transportLookup";
             this.transportLookup.Nature = null;
             this.transportLookup.NewGroupId = 32;
@@ -501,8 +552,8 @@
             this.transportLookup.RequiredField = false;
             this.transportLookup.SelectedText = null;
             this.transportLookup.SelectedValue = null;
-            this.transportLookup.Size = new System.Drawing.Size(215, 24);
-            this.transportLookup.TabIndex = 12;
+            this.transportLookup.Size = new System.Drawing.Size(215, 80);
+            this.transportLookup.TabIndex = 14;
             this.transportLookup.TaxType = null;
             this.transportLookup.TransportLookup = null;
             this.transportLookup.VoucherType = Konto.App.Shared.VoucherTypeEnum.None;
@@ -510,7 +561,7 @@
             // gridControl1
             // 
             this.gridControl1.DataSource = this.grnTransDtoBindingSource1;
-            this.gridControl1.Location = new System.Drawing.Point(5, 89);
+            this.gridControl1.Location = new System.Drawing.Point(5, 117);
             this.gridControl1.LookAndFeel.SkinName = "Office 2016 Colorful";
             this.gridControl1.LookAndFeel.UseDefaultLookAndFeel = false;
             this.gridControl1.MainView = this.gridView1;
@@ -524,8 +575,8 @@
             this.repositoryItemTextEdit1,
             this.challanNoRrepositoryItemButtonEdit,
             this.taxRepositoryItemLookUpEdit});
-            this.gridControl1.Size = new System.Drawing.Size(934, 241);
-            this.gridControl1.TabIndex = 11;
+            this.gridControl1.Size = new System.Drawing.Size(934, 157);
+            this.gridControl1.TabIndex = 13;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
             // 
@@ -935,6 +986,7 @@
             // empLookup1
             // 
             this.empLookup1.Location = new System.Drawing.Point(306, 89);
+            this.empLookup1.LookupTitle = null;
             this.empLookup1.Name = "empLookup1";
             this.empLookup1.PrimaryKey = null;
             this.empLookup1.RequiredField = true;
@@ -978,7 +1030,7 @@
             this.remarkTextEdit.Properties.AppearanceFocused.Options.UseBorderColor = true;
             this.remarkTextEdit.Size = new System.Drawing.Size(633, 24);
             this.remarkTextEdit.StyleController = this.layoutControl1;
-            this.remarkTextEdit.TabIndex = 19;
+            this.remarkTextEdit.TabIndex = 23;
             // 
             // billDateEdit
             // 
@@ -1038,6 +1090,7 @@
             this.accLookup1.GroupId = 0;
             this.accLookup1.Location = new System.Drawing.Point(93, 61);
             this.accLookup1.LookupDto = null;
+            this.accLookup1.LookupTitle = null;
             this.accLookup1.Name = "accLookup1";
             this.accLookup1.Nature = null;
             this.accLookup1.NewGroupId = 25;
@@ -1070,6 +1123,7 @@
             // 
             this.voucherLookup1.GroupDto = null;
             this.voucherLookup1.Location = new System.Drawing.Point(767, 5);
+            this.voucherLookup1.LookupTitle = null;
             this.voucherLookup1.Name = "voucherLookup1";
             this.voucherLookup1.PrimaryKey = null;
             this.voucherLookup1.RequiredField = true;
@@ -1101,7 +1155,7 @@
             this.tdsPerTextEdit.Properties.MaxLength = 25;
             this.tdsPerTextEdit.Size = new System.Drawing.Size(114, 24);
             this.tdsPerTextEdit.StyleController = this.layoutControl1;
-            this.tdsPerTextEdit.TabIndex = 17;
+            this.tdsPerTextEdit.TabIndex = 21;
             // 
             // tdsAmtTextEdit
             // 
@@ -1124,7 +1178,7 @@
             this.tdsAmtTextEdit.Properties.MaxLength = 25;
             this.tdsAmtTextEdit.Size = new System.Drawing.Size(120, 24);
             this.tdsAmtTextEdit.StyleController = this.layoutControl1;
-            this.tdsAmtTextEdit.TabIndex = 18;
+            this.tdsAmtTextEdit.TabIndex = 22;
             // 
             // layoutControlItem19
             // 
@@ -1188,7 +1242,11 @@
             this.tdsPerLayoutControlItem,
             this.tdsAmtLayoutControlItem,
             this.paybleLayoutControlItem,
-            this.layoutControlItem8});
+            this.layoutControlItem8,
+            this.layoutControlItem2,
+            this.tcsPerlayoutControlItem,
+            this.tcsAmountlayoutControlItem,
+            this.layoutControlItem15});
             this.Root.Name = "Root";
             this.Root.Padding = new DevExpress.XtraLayout.Utils.Padding(3, 3, 3, 3);
             this.Root.Size = new System.Drawing.Size(944, 419);
@@ -1220,9 +1278,9 @@
             // layoutControlItem20
             // 
             this.layoutControlItem20.Control = this.gridControl1;
-            this.layoutControlItem20.Location = new System.Drawing.Point(0, 84);
+            this.layoutControlItem20.Location = new System.Drawing.Point(0, 112);
             this.layoutControlItem20.Name = "layoutControlItem20";
-            this.layoutControlItem20.Size = new System.Drawing.Size(938, 245);
+            this.layoutControlItem20.Size = new System.Drawing.Size(938, 161);
             this.layoutControlItem20.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem20.TextVisible = false;
             // 
@@ -1258,7 +1316,7 @@
             this.layoutControlItem9.Control = this.billNoTextEdit;
             this.layoutControlItem9.Location = new System.Drawing.Point(674, 56);
             this.layoutControlItem9.Name = "layoutControlItem9";
-            this.layoutControlItem9.Size = new System.Drawing.Size(264, 28);
+            this.layoutControlItem9.Size = new System.Drawing.Size(264, 56);
             this.layoutControlItem9.Text = "Bill No:";
             this.layoutControlItem9.TextSize = new System.Drawing.Size(85, 17);
             // 
@@ -1344,9 +1402,9 @@
             this.layoutControlItem7.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.layoutControlItem7.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem7.Control = this.lrNotextEdit;
-            this.layoutControlItem7.Location = new System.Drawing.Point(307, 329);
+            this.layoutControlItem7.Location = new System.Drawing.Point(307, 273);
             this.layoutControlItem7.Name = "layoutControlItem7";
-            this.layoutControlItem7.Size = new System.Drawing.Size(206, 28);
+            this.layoutControlItem7.Size = new System.Drawing.Size(206, 84);
             this.layoutControlItem7.Text = "Lr No:";
             this.layoutControlItem7.TextSize = new System.Drawing.Size(85, 17);
             // 
@@ -1366,9 +1424,9 @@
             this.layoutControlItem10.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.layoutControlItem10.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem10.Control = this.transportLookup;
-            this.layoutControlItem10.Location = new System.Drawing.Point(0, 329);
+            this.layoutControlItem10.Location = new System.Drawing.Point(0, 273);
             this.layoutControlItem10.Name = "layoutControlItem10";
-            this.layoutControlItem10.Size = new System.Drawing.Size(307, 28);
+            this.layoutControlItem10.Size = new System.Drawing.Size(307, 84);
             this.layoutControlItem10.Text = "Transport:";
             this.layoutControlItem10.TextSize = new System.Drawing.Size(85, 17);
             // 
@@ -1377,9 +1435,9 @@
             this.layoutControlItem14.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.layoutControlItem14.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem14.Control = this.lrDateEdit;
-            this.layoutControlItem14.Location = new System.Drawing.Point(513, 329);
+            this.layoutControlItem14.Location = new System.Drawing.Point(513, 273);
             this.layoutControlItem14.Name = "layoutControlItem14";
-            this.layoutControlItem14.Size = new System.Drawing.Size(212, 28);
+            this.layoutControlItem14.Size = new System.Drawing.Size(212, 84);
             this.layoutControlItem14.Text = "Lr Date:";
             this.layoutControlItem14.TextSize = new System.Drawing.Size(85, 17);
             // 
@@ -1441,6 +1499,17 @@
             this.layoutControlItem8.Text = "<color=255, 0, 0>*</color>Bill Date:";
             this.layoutControlItem8.TextSize = new System.Drawing.Size(85, 17);
             // 
+            // layoutControlItem2
+            // 
+            this.layoutControlItem2.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.layoutControlItem2.AppearanceItemCaption.Options.UseFont = true;
+            this.layoutControlItem2.Control = this.costLookUpEdi;
+            this.layoutControlItem2.Location = new System.Drawing.Point(0, 84);
+            this.layoutControlItem2.Name = "layoutControlItem2";
+            this.layoutControlItem2.Size = new System.Drawing.Size(411, 28);
+            this.layoutControlItem2.Text = "Cost Center:";
+            this.layoutControlItem2.TextSize = new System.Drawing.Size(85, 17);
+            // 
             // billAdjustSimpleButton
             // 
             this.billAdjustSimpleButton.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1457,11 +1526,133 @@
             this.paidLabel.AutoSize = true;
             this.paidLabel.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.paidLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(22)))), ((int)(((byte)(91)))));
-            this.paidLabel.Location = new System.Drawing.Point(622, 6);
+            this.paidLabel.Location = new System.Drawing.Point(611, 6);
             this.paidLabel.Name = "paidLabel";
             this.paidLabel.Size = new System.Drawing.Size(74, 21);
             this.paidLabel.TabIndex = 3;
             this.paidLabel.Text = "UN-PAID";
+            // 
+            // attachSimpleButton
+            // 
+            this.attachSimpleButton.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.attachSimpleButton.Appearance.Options.UseFont = true;
+            this.attachSimpleButton.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("attachSimpleButton.ImageOptions.Image")));
+            this.attachSimpleButton.Location = new System.Drawing.Point(836, 3);
+            this.attachSimpleButton.Name = "attachSimpleButton";
+            this.attachSimpleButton.Size = new System.Drawing.Size(103, 28);
+            this.attachSimpleButton.TabIndex = 4;
+            this.attachSimpleButton.TabStop = false;
+            this.attachSimpleButton.Text = "Attachment";
+            this.attachSimpleButton.Click += new System.EventHandler(this.attachSimpleButton_Click);
+            // 
+            // tcsPerTextEdit
+            // 
+            this.tcsPerTextEdit.EditValue = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.tcsPerTextEdit.EnterMoveNextControl = true;
+            this.tcsPerTextEdit.Location = new System.Drawing.Point(818, 278);
+            this.tcsPerTextEdit.Name = "tcsPerTextEdit";
+            this.tcsPerTextEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tcsPerTextEdit.Properties.Appearance.Options.UseFont = true;
+            this.tcsPerTextEdit.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.tcsPerTextEdit.Properties.AppearanceFocused.Options.UseBorderColor = true;
+            this.tcsPerTextEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.tcsPerTextEdit.Properties.DisplayFormat.FormatString = "N3";
+            this.tcsPerTextEdit.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.tcsPerTextEdit.Properties.EditValueChangedFiringMode = DevExpress.XtraEditors.Controls.EditValueChangedFiringMode.Default;
+            this.tcsPerTextEdit.Properties.Mask.EditMask = "N3";
+            this.tcsPerTextEdit.Properties.Mask.UseMaskAsDisplayFormat = true;
+            this.tcsPerTextEdit.Properties.MaxLength = 25;
+            this.tcsPerTextEdit.Size = new System.Drawing.Size(121, 24);
+            this.tcsPerTextEdit.StyleController = this.layoutControl1;
+            this.tcsPerTextEdit.TabIndex = 17;
+            // 
+            // tcsPerlayoutControlItem
+            // 
+            this.tcsPerlayoutControlItem.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tcsPerlayoutControlItem.AppearanceItemCaption.Options.UseFont = true;
+            this.tcsPerlayoutControlItem.Control = this.tcsPerTextEdit;
+            this.tcsPerlayoutControlItem.Location = new System.Drawing.Point(725, 273);
+            this.tcsPerlayoutControlItem.Name = "tcsPerlayoutControlItem";
+            this.tcsPerlayoutControlItem.Size = new System.Drawing.Size(213, 28);
+            this.tcsPerlayoutControlItem.Text = "Tcs %:";
+            this.tcsPerlayoutControlItem.TextSize = new System.Drawing.Size(85, 17);
+            // 
+            // tcsAmtTextEdit
+            // 
+            this.tcsAmtTextEdit.EditValue = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.tcsAmtTextEdit.EnterMoveNextControl = true;
+            this.tcsAmtTextEdit.Location = new System.Drawing.Point(818, 306);
+            this.tcsAmtTextEdit.Name = "tcsAmtTextEdit";
+            this.tcsAmtTextEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tcsAmtTextEdit.Properties.Appearance.Options.UseFont = true;
+            this.tcsAmtTextEdit.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.tcsAmtTextEdit.Properties.AppearanceFocused.Options.UseBorderColor = true;
+            this.tcsAmtTextEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.tcsAmtTextEdit.Properties.EditValueChangedFiringMode = DevExpress.XtraEditors.Controls.EditValueChangedFiringMode.Default;
+            this.tcsAmtTextEdit.Properties.Mask.EditMask = "N2";
+            this.tcsAmtTextEdit.Properties.Mask.UseMaskAsDisplayFormat = true;
+            this.tcsAmtTextEdit.Properties.MaxLength = 25;
+            this.tcsAmtTextEdit.Size = new System.Drawing.Size(121, 24);
+            this.tcsAmtTextEdit.StyleController = this.layoutControl1;
+            this.tcsAmtTextEdit.TabIndex = 18;
+            // 
+            // tcsAmountlayoutControlItem
+            // 
+            this.tcsAmountlayoutControlItem.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tcsAmountlayoutControlItem.AppearanceItemCaption.Options.UseFont = true;
+            this.tcsAmountlayoutControlItem.Control = this.tcsAmtTextEdit;
+            this.tcsAmountlayoutControlItem.Location = new System.Drawing.Point(725, 301);
+            this.tcsAmountlayoutControlItem.Name = "tcsAmountlayoutControlItem";
+            this.tcsAmountlayoutControlItem.Size = new System.Drawing.Size(213, 28);
+            this.tcsAmountlayoutControlItem.Text = "Tcs Amount:";
+            this.tcsAmountlayoutControlItem.TextSize = new System.Drawing.Size(85, 17);
+            // 
+            // dueDaysTextEdit
+            // 
+            this.dueDaysTextEdit.EditValue = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.dueDaysTextEdit.EnterMoveNextControl = true;
+            this.dueDaysTextEdit.Location = new System.Drawing.Point(504, 89);
+            this.dueDaysTextEdit.Name = "dueDaysTextEdit";
+            this.dueDaysTextEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dueDaysTextEdit.Properties.Appearance.Options.UseFont = true;
+            this.dueDaysTextEdit.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.dueDaysTextEdit.Properties.AppearanceFocused.Options.UseBorderColor = true;
+            this.dueDaysTextEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.dueDaysTextEdit.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.dueDaysTextEdit.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.dueDaysTextEdit.Properties.EditValueChangedFiringMode = DevExpress.XtraEditors.Controls.EditValueChangedFiringMode.Default;
+            this.dueDaysTextEdit.Properties.Mask.SaveLiteral = false;
+            this.dueDaysTextEdit.Properties.Mask.UseMaskAsDisplayFormat = true;
+            this.dueDaysTextEdit.Properties.MaxLength = 50;
+            this.dueDaysTextEdit.Size = new System.Drawing.Size(171, 24);
+            this.dueDaysTextEdit.StyleController = this.layoutControl1;
+            this.dueDaysTextEdit.TabIndex = 12;
+            // 
+            // layoutControlItem15
+            // 
+            this.layoutControlItem15.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.layoutControlItem15.AppearanceItemCaption.Options.UseFont = true;
+            this.layoutControlItem15.Control = this.dueDaysTextEdit;
+            this.layoutControlItem15.Location = new System.Drawing.Point(411, 84);
+            this.layoutControlItem15.Name = "layoutControlItem15";
+            this.layoutControlItem15.Size = new System.Drawing.Size(263, 28);
+            this.layoutControlItem15.Text = "Due Days:";
+            this.layoutControlItem15.TextSize = new System.Drawing.Size(85, 17);
             // 
             // GenExpIndex
             // 
@@ -1483,6 +1674,7 @@
             this.panelControl1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.costLookUpEdi.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.paybleTextEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.billAmtSpinEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.roundoffSpinEdit.Properties)).EndInit();
@@ -1539,6 +1731,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.tdsAmtLayoutControlItem)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.paybleLayoutControlItem)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tcsPerTextEdit.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tcsPerlayoutControlItem)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tcsAmtTextEdit.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tcsAmountlayoutControlItem)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dueDaysTextEdit.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem15)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1636,5 +1835,14 @@
         private DevExpress.XtraGrid.Columns.GridColumn colTdsAcId;
         private DevExpress.XtraGrid.Columns.GridColumn colTdsAmt;
         private DevExpress.XtraGrid.Columns.GridColumn colTdsPer;
+        private DevExpress.XtraEditors.SimpleButton attachSimpleButton;
+        private DevExpress.XtraEditors.LookUpEdit costLookUpEdi;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem2;
+        private DevExpress.XtraEditors.SpinEdit tcsPerTextEdit;
+        private DevExpress.XtraLayout.LayoutControlItem tcsPerlayoutControlItem;
+        private DevExpress.XtraEditors.SpinEdit tcsAmtTextEdit;
+        private DevExpress.XtraLayout.LayoutControlItem tcsAmountlayoutControlItem;
+        private DevExpress.XtraEditors.SpinEdit dueDaysTextEdit;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem15;
     }
 }

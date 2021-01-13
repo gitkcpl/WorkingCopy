@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 namespace Konto.Data.Models.Transaction
 {
     [Table("Attachment")]
-    public class AttachmentModel : BaseEntity
+    public class AttachmentModel : AuditedEntity
     {
         public AttachmentModel()
         {
             IsActive = true;
-            Id = 0;
+           // Id = 0;
         }
         public int RefVoucherId { get; set; }
         public int VoucherId { get; set; }

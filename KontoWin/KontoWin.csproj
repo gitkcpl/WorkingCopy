@@ -285,6 +285,10 @@
       <Project>{F9E8AE77-5F5F-4F20-9CAD-D21A874F4130}</Project>
       <Name>Konto.App.Shared</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Konto.Apparel\Konto.Apparel.csproj">
+      <Project>{dc2299a7-a87a-4afd-91ac-ab1b3e741346}</Project>
+      <Name>Konto.Apparel</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Konto.Core.Shared\Konto.Core.Shared.csproj">
       <Project>{69C2E195-1DB0-4023-B81E-81851F5B3042}</Project>
       <Name>Konto.Core.Shared</Name>
@@ -312,6 +316,10 @@
     <ProjectReference Include="..\Konto.Weaves\Konto.Weaves.csproj">
       <Project>{65c93d8a-75f5-42d7-8a3a-ba8b54165c4e}</Project>
       <Name>Konto.Weaves</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Konto.Yarn\Konto.Yarn.csproj">
+      <Project>{3d5981bb-1e18-435b-9bda-51be18f95514}</Project>
+      <Name>Konto.Yarn</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

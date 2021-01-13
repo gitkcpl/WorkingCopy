@@ -20,6 +20,8 @@ using Konto.Shared.Trans.SReturn;
 using Konto.Trading.GP;
 using Konto.Trading.JobReceipt;
 using Konto.Trading.MillReceipt;
+using Serilog;
+using Syncfusion.Windows.Forms;
 using Syncfusion.Windows.Forms.Tools;
 using System;
 using System.Collections.Generic;
@@ -54,27 +56,152 @@ namespace Konto.Reporting.Para.Ledger
             this.FormClosed += LedgerMainView_FormClosed;
             this.Load += LedgerMainView_Load;
             this.printSimpleButton.Click += PrintSimpleButton_Click;
-            using(var db = new KontoContext())
+            outsSimpleButton.Click += OutsSimpleButton_Click;
+            //using(var db = new KontoContext())
+            //{
+            //    var cmp = (from f in db.Companies
+            //               orderby f.CompName
+            //               select new BaseLookupDto { DisplayText = f.CompName, Id = f.Id }).ToList();
+
+            //    lookUpEdit1.Properties.DataSource = cmp;
+
+            //}
+        }
+
+        private void OutsSimpleButton_Click(object sender, EventArgs e)
+        {
+            try
             {
-                var cmp = (from f in db.Companies
-                           orderby f.CompName
-                           select new BaseLookupDto { DisplayText = f.CompName, Id = f.Id }).ToList();
+                if (Convert.ToInt32(accLookup1.SelectedValue) == 0)
+                {
+                    MessageBox.Show("Please select a account to print..");
+                    accLookup1.Focus();
+                    return;
+                }
 
-                lookUpEdit1.Properties.DataSource = cmp;
+                GrapeCity.ActiveReports.PageReport _pageReport = new GrapeCity.ActiveReports.PageReport();
 
+                string dr = "outs\\outs_ar.rdlx";
+
+
+                _pageReport.Load(new System.IO.FileInfo(dr));
+
+                _pageReport.Report.DataSources[0].ConnectionProperties.ConnectString = KontoGlobals.sqlConnectionString.ConnectionString;
+                GrapeCity.ActiveReports.Document.PageDocument doc = new GrapeCity.ActiveReports.Document.PageDocument(_pageReport);
+                doc.Parameters["partyid"].CurrentValue = Convert.ToInt32(accLookup1.SelectedValue);
+                doc.Parameters["GroupOn"].CurrentValue = "None";
+                doc.Parameters["paid"].CurrentValue = "UNPAID";
+                doc.Parameters["branchid"].CurrentValue = 0;
+                doc.Parameters["companyid"].CurrentValue = KontoGlobals.CompanyId;
+                doc.Parameters["yearid"].CurrentValue = KontoGlobals.YearId;
+                doc.Parameters["fromdate"].CurrentValue = Convert.ToInt32(this.fDateEdit.DateTime.ToString("yyyyMMdd"));
+                doc.Parameters["todate"].CurrentValue = Convert.ToInt32(this.tDateEdit.DateTime.ToString("yyyyMMdd"));
+
+                doc.Parameters["payfromdate"].CurrentValue = 20000401;
+
+                doc.Parameters["paytodate"].CurrentValue = Convert.ToInt32(this.tDateEdit.DateTime.ToString("yyyyMMdd"));
+                doc.Parameters["reportid"].CurrentValue = 0;
+                doc.Parameters["report_title"].CurrentValue = "Outstanding" + " For The Period " + this.fDateEdit.DateTime.ToShortDateString() + " To " +
+                                                              this.tDateEdit.DateTime.ToShortDateString();
+
+                var db = new KontoContext();
+                var grp = db.AcGroupModels.Find(accLookup1.LookupDto.GroupId);
+                if (grp != null)
+                {
+                    if (grp.Extra1!=null && grp.Extra1 == "R")
+                    {
+                        doc.Parameters["nature"].CurrentValue = "R";
+                    }
+                    else
+                    {
+                        doc.Parameters["nature"].CurrentValue = "P";
+                    }
+                }
+
+                var _tab = this.Parent.Parent as TabControlAdv;
+                if (_tab == null) return;
+                var frm = new KontoRepViewer(doc);
+                frm.Text = accLookup1.SelectedText; 
+
+                var pg1 = new TabPageAdv();
+                pg1.Text = "Oustanding Print";
+                _tab.TabPages.Add(pg1);
+                _tab.SelectedTab = pg1;
+                frm.TopLevel = false;
+                frm.Parent = pg1;
+                frm.Location = new Point(pg1.Location.X + pg1.Width / 2 - frm.Width / 2, pg1.Location.Y + pg1.Height / 2 - frm.Height / 2);
+                frm.Show();// = true;
+
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.ToString());
+                Log.Error(ex.ToString());
             }
         }
 
         private void PrintSimpleButton_Click(object sender, EventArgs e)
         {
-            GrapeCity.ActiveReports.PageReport _pageReport = new GrapeCity.ActiveReports.PageReport();
-            string dr = "";
+            try
+            {
+                if (Convert.ToInt32(accLookup1.SelectedValue) == 0)
+                {
+                    MessageBox.Show("Please select a account to print..");
+                    accLookup1.Focus();
+                    return;
+                }
+
+                GrapeCity.ActiveReports.PageReport _pageReport = new GrapeCity.ActiveReports.PageReport();
+
+                string dr = "outs\\ledger_details.rdlx";
 
 
+                _pageReport.Load(new System.IO.FileInfo(dr));
+
+                _pageReport.Report.DataSources[0].ConnectionProperties.ConnectString = KontoGlobals.sqlConnectionString.ConnectionString;
+                GrapeCity.ActiveReports.Document.PageDocument doc = new GrapeCity.ActiveReports.Document.PageDocument(_pageReport);
+
+                doc.Parameters["partyid"].CurrentValue = Convert.ToInt32(accLookup1.SelectedValue);
+                doc.Parameters["branchid"].CurrentValue = 0;
+
+                doc.Parameters["companyid"].CurrentValue = KontoGlobals.CompanyId;
+                doc.Parameters["yearid"].CurrentValue = KontoGlobals.YearId;
+                doc.Parameters["fromdate"].CurrentValue = Convert.ToInt32(this.fDateEdit.DateTime.ToString("yyyyMMdd"));
+                doc.Parameters["todate"].CurrentValue = Convert.ToInt32(this.tDateEdit.DateTime.ToString("yyyyMMdd"));
+                if (doc.Parameters.Contains("from_date"))
+                    doc.Parameters["from_date"].CurrentValue = this.fDateEdit.DateTime.ToString("dd-MM-yyyy");
+
+                if (doc.Parameters.Contains("to_date"))
+                    doc.Parameters["to_date"].CurrentValue = this.tDateEdit.DateTime.ToString("dd-MM-yyyy");
+
+                doc.Parameters["reportid"].CurrentValue = 0;
+                doc.Parameters["report_title"].CurrentValue = "Ledger" + " For The Period " + this.fDateEdit.DateTime.ToShortDateString() + " To " +
+                                                              this.tDateEdit.DateTime.ToShortDateString();
+
+                var frm = new KontoRepViewer(doc);
+               
+                    var _tab = this.Parent.Parent as TabControlAdv;
+                    if (_tab == null) return;
+
+                    var pg1 = new TabPageAdv();
+                    pg1.Text = "Ledger Print";
+                    _tab.TabPages.Add(pg1);
+                    _tab.SelectedTab = pg1;
+                    frm.TopLevel = false;
+                frm.Text = accLookup1.SelectedText;
+                    frm.Parent = pg1;
+                    frm.Location = new Point(pg1.Location.X + pg1.Width / 2 - frm.Width / 2, pg1.Location.Y + pg1.Height / 2 - frm.Height / 2);
+                    frm.Show();// = true;
+                
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.ToString());
+                Log.Error(ex.ToString());
+            }
            
-
-
-            _pageReport.Load(new System.IO.FileInfo(dr));
         }
 
         private void DetailsGridControl1_ProcessGridKey(object sender, KeyEventArgs e)
@@ -310,13 +437,29 @@ namespace Konto.Reporting.Para.Ledger
                 accLookup1.Focus();
                 return;
             }
+            var fdate = Convert.ToInt32(this.fDateEdit.DateTime.ToString("yyyyMMdd"));
+            var tdate = Convert.ToInt32(this.tDateEdit.DateTime.ToString("yyyyMMdd"));
+
+            if (fdate > KontoGlobals.ToDate || fdate < KontoGlobals.FromDate)
+            {
+                MessageBoxAdv.Show(this, "From date out of financial range", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                fDateEdit.Focus();
+                return;
+            }
+
+            if (tdate > KontoGlobals.ToDate || tdate < KontoGlobals.FromDate)
+            {
+                MessageBoxAdv.Show(this, "To date out of financial range", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                tDateEdit.Focus();
+                return;
+            }
+
             var AccId = Convert.ToInt32(accLookup1.SelectedValue);
             if (radioGroup1.SelectedIndex == 0)
                 GenerateMonthly(AccId);
             else
             {
-                var fdate = Convert.ToInt32(this.fDateEdit.DateTime.ToString("yyyyMMdd"));
-                var tdate = Convert.ToInt32(this.tDateEdit.DateTime.ToString("yyyyMMdd"));
+                
               
                 GenerateDetails(AccId,fdate,tdate);
             }

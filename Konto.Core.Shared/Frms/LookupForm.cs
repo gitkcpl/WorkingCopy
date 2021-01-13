@@ -25,6 +25,8 @@ namespace Konto.Core.Shared.Frms
         public virtual void LoadData() { }
         public virtual void Ok() { }
 
+        public string SearchText { get; set; }
+
         private bool GridSetting;
         public LookupForm()
         {

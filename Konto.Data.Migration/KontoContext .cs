@@ -1,5 +1,6 @@
 ﻿using Konto.App.Shared;
 using Konto.Data.Models.Admin;
+using Konto.Data.Models.Apparel;
 using Konto.Data.Models.Masters;
 using Konto.Data.Models.Transaction;
 using System;
@@ -56,6 +57,8 @@ namespace Konto.Data
             modelBuilder.Entity<ChallanTransModel>().Property(p => p.Qty).HasPrecision(18, 3);
             modelBuilder.Entity<BillModel>().Property(p => p.TcsPer).HasPrecision(18, 3);
             modelBuilder.Entity<AccOtherModel>().Property(p => p.TcsPer).HasPrecision(18, 3);
+
+            //modelBuilder.Entity<AttachmentModel>().Property(p => p.Id).HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity);
         }
 
 
@@ -116,7 +119,7 @@ namespace Konto.Data
         }
 
         public Func<DateTime> TimestampProvider { get; set; } = ()
-           => DateTime.UtcNow;
+           => DateTime.Now;
 
         object GetPrimaryKeyValue(DbEntityEntry entry)
         {
@@ -297,6 +300,10 @@ namespace Konto.Data
         public DbSet<PFormulaModel> PFormulas { get; set; }
         public DbSet<WeftItemModel> WeftItems { get; set; }
         public DbSet<RefBankModel> RefBanks { get; set; }
+        public DbSet<CostHeadModel> CostHeads { get; set; }
+
+        public DbSet<BomModel> Boms { get; set; }
+        public DbSet<BOMTransModel> BOMTranses { get; set; }
 
         #endregion
 
@@ -326,13 +333,15 @@ namespace Konto.Data
 
         #endregion
         #region Weavings
-
+        public DbSet<PositionModel> Positions { get; set; }
+        public DbSet<PackingTypeModel> PackingTypes { get; set; }
         public DbSet<JobCardModel> jobCards { get; set; }
         public DbSet<JobCardTransModel> jobCardTrans { get; set; }
         public DbSet<Prod_WeftModel> prod_Wefts { get; set; }
         public DbSet<MachineMasterModel> MachineMasters { get; set; }
         public DbSet<LoadingTranModel> loadingTranModels { get; set; }
         public DbSet<Prod_EmpModel> Prod_Emps { get; set; }
+        public DbSet<EmpRate> EmpRates { get; set; }
         #endregion
 
         #endregion

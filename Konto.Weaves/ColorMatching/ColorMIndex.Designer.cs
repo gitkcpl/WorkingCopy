@@ -30,8 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
             this.WeftgridControl = new DevExpress.XtraGrid.GridControl();
             this.WeftbindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.WeftgridView = new DevExpress.XtraGrid.Views.Grid.GridView();
@@ -63,7 +61,6 @@
             this.repositoryItemButtonEdit5 = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
             this.repositoryItemHyperLinkEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemHyperLinkEdit();
             this.repositoryItemButtonEdit6 = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.WarpgridControl = new DevExpress.XtraGrid.GridControl();
             this.WarpbindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.WarpgridView = new DevExpress.XtraGrid.Views.Grid.GridView();
@@ -136,7 +133,11 @@
             this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.layoutControlItem23 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.tabbedControlGroup1 = new DevExpress.XtraLayout.TabbedControlGroup();
+            this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlGroup2 = new DevExpress.XtraLayout.LayoutControlGroup();
+            this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)(this.tabControlAdv1)).BeginInit();
             this.tabControlAdv1.SuspendLayout();
             this.tabPageAdv1.SuspendLayout();
@@ -144,8 +145,6 @@
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
-            this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.WeftgridControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.WeftbindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.WeftgridView)).BeginInit();
@@ -157,7 +156,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemButtonEdit5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemHyperLinkEdit1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemButtonEdit6)).BeginInit();
-            this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.WarpgridControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.WarpbindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.WarpgridView)).BeginInit();
@@ -211,13 +209,17 @@
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem23)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tabbedControlGroup1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControlAdv1
             // 
-            this.tabControlAdv1.BeforeTouchSize = new System.Drawing.Size(1074, 495);
-            this.tabControlAdv1.Size = new System.Drawing.Size(1074, 495);
+            this.tabControlAdv1.BeforeTouchSize = new System.Drawing.Size(1028, 495);
+            this.tabControlAdv1.Size = new System.Drawing.Size(1028, 495);
             this.tabControlAdv1.ThemeStyle.PrimitiveButtonStyle.DisabledNextPageImage = null;
             this.tabControlAdv1.Controls.SetChildIndex(this.tabPageAdv4, 0);
             this.tabControlAdv1.Controls.SetChildIndex(this.tabPageAdv3, 0);
@@ -227,13 +229,13 @@
             // tabPageAdv1
             // 
             this.tabPageAdv1.Controls.Add(this.layoutControl1);
-            this.tabPageAdv1.Size = new System.Drawing.Size(1049, 492);
+            this.tabPageAdv1.Size = new System.Drawing.Size(1003, 492);
             this.tabPageAdv1.Controls.SetChildIndex(this.panelControl1, 0);
             this.tabPageAdv1.Controls.SetChildIndex(this.layoutControl1, 0);
             // 
             // panelControl1
             // 
-            this.panelControl1.Size = new System.Drawing.Size(1049, 35);
+            this.panelControl1.Size = new System.Drawing.Size(1003, 35);
             // 
             // tabPageAdv2
             // 
@@ -249,7 +251,8 @@
             // 
             // layoutControl1
             // 
-            this.layoutControl1.Controls.Add(this.tabControl1);
+            this.layoutControl1.Controls.Add(this.WeftgridControl);
+            this.layoutControl1.Controls.Add(this.WarpgridControl);
             this.layoutControl1.Controls.Add(this.colorLookup1);
             this.layoutControl1.Controls.Add(this.ProductLookup);
             this.layoutControl1.Controls.Add(this.voucherDateEdit);
@@ -273,39 +276,17 @@
             this.layoutControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.layoutControl1.Location = new System.Drawing.Point(0, 35);
             this.layoutControl1.Name = "layoutControl1";
+            this.layoutControl1.OptionsFocus.AllowFocusTabbedGroups = false;
             this.layoutControl1.Root = this.Root;
-            this.layoutControl1.Size = new System.Drawing.Size(1049, 419);
+            this.layoutControl1.Size = new System.Drawing.Size(1003, 419);
             this.layoutControl1.TabIndex = 8;
             this.layoutControl1.Text = "layoutControl1";
-            // 
-            // tabControl1
-            // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabControl1.Location = new System.Drawing.Point(12, 68);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1025, 222);
-            this.tabControl1.TabIndex = 37;
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.Controls.Add(this.WeftgridControl);
-            this.tabPage1.Location = new System.Drawing.Point(4, 26);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1017, 192);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Weft";
-            this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // WeftgridControl
             // 
             this.WeftgridControl.DataSource = this.WeftbindingSource;
-            this.WeftgridControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.WeftgridControl.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.WeftgridControl.Location = new System.Drawing.Point(3, 3);
+            this.WeftgridControl.Location = new System.Drawing.Point(18, 101);
             this.WeftgridControl.LookAndFeel.SkinName = "Office 2016 Colorful";
             this.WeftgridControl.LookAndFeel.UseDefaultLookAndFeel = false;
             this.WeftgridControl.MainView = this.WeftgridView;
@@ -319,8 +300,8 @@
             this.repositoryItemHyperLinkEdit1,
             this.repositoryItemButtonEdit6,
             this.AccrepositoryItemButtonEdit});
-            this.WeftgridControl.Size = new System.Drawing.Size(1011, 186);
-            this.WeftgridControl.TabIndex = 36;
+            this.WeftgridControl.Size = new System.Drawing.Size(986, 166);
+            this.WeftgridControl.TabIndex = 1;
             this.WeftgridControl.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.WeftgridView});
             // 
@@ -371,6 +352,7 @@
             this.WeftgridView.OptionsLayout.Columns.StoreAppearance = true;
             this.WeftgridView.OptionsLayout.StoreAllOptions = true;
             this.WeftgridView.OptionsLayout.StoreAppearance = true;
+            this.WeftgridView.OptionsNavigation.EnterMoveNextColumn = true;
             this.WeftgridView.OptionsNavigation.UseTabKey = false;
             this.WeftgridView.OptionsView.ColumnAutoWidth = false;
             this.WeftgridView.OptionsView.NewItemRowPosition = DevExpress.XtraGrid.Views.Grid.NewItemRowPosition.Bottom;
@@ -386,7 +368,6 @@
             // 
             this.colProductName.FieldName = "ProductName";
             this.colProductName.Name = "colProductName";
-            this.colProductName.OptionsColumn.AllowFocus = false;
             this.colProductName.OptionsColumn.ReadOnly = true;
             this.colProductName.Visible = true;
             this.colProductName.VisibleIndex = 0;
@@ -401,7 +382,6 @@
             // 
             this.colColorName.FieldName = "ColorName";
             this.colColorName.Name = "colColorName";
-            this.colColorName.OptionsColumn.AllowFocus = false;
             this.colColorName.OptionsColumn.ReadOnly = true;
             this.colColorName.Visible = true;
             this.colColorName.VisibleIndex = 1;
@@ -603,23 +583,11 @@
             new DevExpress.XtraEditors.Controls.EditorButton()});
             this.repositoryItemButtonEdit6.Name = "repositoryItemButtonEdit6";
             // 
-            // tabPage2
-            // 
-            this.tabPage2.Controls.Add(this.WarpgridControl);
-            this.tabPage2.Location = new System.Drawing.Point(4, 26);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(990, 175);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Warp";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
             // WarpgridControl
             // 
             this.WarpgridControl.DataSource = this.WarpbindingSource;
-            this.WarpgridControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.WarpgridControl.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.WarpgridControl.Location = new System.Drawing.Point(3, 3);
+            this.WarpgridControl.Location = new System.Drawing.Point(18, 101);
             this.WarpgridControl.LookAndFeel.SkinName = "Office 2016 Colorful";
             this.WarpgridControl.LookAndFeel.UseDefaultLookAndFeel = false;
             this.WarpgridControl.MainView = this.WarpgridView;
@@ -633,8 +601,8 @@
             this.repositoryItemHyperLinkEdit11,
             this.lotNoRepositoryItemButtonEdit,
             this.AccrepositoryItemButtonEdit1});
-            this.WarpgridControl.Size = new System.Drawing.Size(984, 169);
-            this.WarpgridControl.TabIndex = 35;
+            this.WarpgridControl.Size = new System.Drawing.Size(986, 166);
+            this.WarpgridControl.TabIndex = 7;
             this.WarpgridControl.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.WarpgridView});
             // 
@@ -683,6 +651,7 @@
             this.WarpgridView.OptionsLayout.Columns.StoreAppearance = true;
             this.WarpgridView.OptionsLayout.StoreAllOptions = true;
             this.WarpgridView.OptionsLayout.StoreAppearance = true;
+            this.WarpgridView.OptionsNavigation.EnterMoveNextColumn = true;
             this.WarpgridView.OptionsNavigation.UseTabKey = false;
             this.WarpgridView.OptionsView.ColumnAutoWidth = false;
             this.WarpgridView.OptionsView.NewItemRowPosition = DevExpress.XtraGrid.Views.Grid.NewItemRowPosition.Bottom;
@@ -699,7 +668,6 @@
             // 
             this.colProductName1.FieldName = "ProductName";
             this.colProductName1.Name = "colProductName1";
-            this.colProductName1.OptionsColumn.AllowFocus = false;
             this.colProductName1.OptionsColumn.ReadOnly = true;
             this.colProductName1.Visible = true;
             this.colProductName1.VisibleIndex = 0;
@@ -714,7 +682,6 @@
             // 
             this.colColorName1.FieldName = "ColorName";
             this.colColorName1.Name = "colColorName1";
-            this.colColorName1.OptionsColumn.AllowFocus = false;
             this.colColorName1.OptionsColumn.ReadOnly = true;
             this.colColorName1.Visible = true;
             this.colColorName1.VisibleIndex = 1;
@@ -898,26 +865,28 @@
             // 
             // colorLookup1
             // 
-            this.colorLookup1.Location = new System.Drawing.Point(807, 12);
+            this.colorLookup1.Location = new System.Drawing.Point(790, 12);
+            this.colorLookup1.LookupTitle = null;
             this.colorLookup1.Name = "colorLookup1";
             this.colorLookup1.PrimaryKey = null;
-            this.colorLookup1.RequiredField = false;
+            this.colorLookup1.RequiredField = true;
             this.colorLookup1.SelectedText = null;
             this.colorLookup1.SelectedValue = null;
-            this.colorLookup1.Size = new System.Drawing.Size(230, 24);
+            this.colorLookup1.Size = new System.Drawing.Size(220, 24);
             this.colorLookup1.TabIndex = 36;
             // 
             // ProductLookup
             // 
             this.ProductLookup.GroupDto = null;
-            this.ProductLookup.Location = new System.Drawing.Point(463, 12);
+            this.ProductLookup.Location = new System.Drawing.Point(455, 12);
+            this.ProductLookup.LookupTitle = null;
             this.ProductLookup.Name = "ProductLookup";
             this.ProductLookup.PrimaryKey = null;
             this.ProductLookup.PTypeId = Konto.App.Shared.ProductTypeEnum.GREY;
             this.ProductLookup.RequiredField = true;
             this.ProductLookup.SelectedText = null;
             this.ProductLookup.SelectedValue = null;
-            this.ProductLookup.Size = new System.Drawing.Size(196, 24);
+            this.ProductLookup.Size = new System.Drawing.Size(187, 24);
             this.ProductLookup.TabIndex = 4;
             this.ProductLookup.VoucherType = Konto.App.Shared.VoucherTypeEnum.None;
             // 
@@ -936,9 +905,9 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.voucherDateEdit.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.DateTimeAdvancingCaret;
             this.voucherDateEdit.Properties.Mask.UseMaskAsDisplayFormat = true;
-            this.voucherDateEdit.Size = new System.Drawing.Size(159, 24);
+            this.voucherDateEdit.Size = new System.Drawing.Size(151, 24);
             this.voucherDateEdit.StyleController = this.layoutControl1;
-            this.voucherDateEdit.TabIndex = 2;
+            this.voucherDateEdit.TabIndex = 0;
             // 
             // TotalPickspinEdit
             // 
@@ -954,9 +923,9 @@
             this.TotalPickspinEdit.Properties.Appearance.Options.UseFont = true;
             this.TotalPickspinEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.TotalPickspinEdit.Size = new System.Drawing.Size(159, 24);
+            this.TotalPickspinEdit.Size = new System.Drawing.Size(151, 24);
             this.TotalPickspinEdit.StyleController = this.layoutControl1;
-            this.TotalPickspinEdit.TabIndex = 14;
+            this.TotalPickspinEdit.TabIndex = 4;
             // 
             // PickOnLoomsspinEdit
             // 
@@ -966,15 +935,15 @@
             0,
             0});
             this.PickOnLoomsspinEdit.EnterMoveNextControl = true;
-            this.PickOnLoomsspinEdit.Location = new System.Drawing.Point(463, 40);
+            this.PickOnLoomsspinEdit.Location = new System.Drawing.Point(455, 40);
             this.PickOnLoomsspinEdit.Name = "PickOnLoomsspinEdit";
             this.PickOnLoomsspinEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.PickOnLoomsspinEdit.Properties.Appearance.Options.UseFont = true;
             this.PickOnLoomsspinEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.PickOnLoomsspinEdit.Size = new System.Drawing.Size(196, 24);
+            this.PickOnLoomsspinEdit.Size = new System.Drawing.Size(187, 24);
             this.PickOnLoomsspinEdit.StyleController = this.layoutControl1;
-            this.PickOnLoomsspinEdit.TabIndex = 14;
+            this.PickOnLoomsspinEdit.TabIndex = 5;
             // 
             // PannaspinEdit
             // 
@@ -984,15 +953,15 @@
             0,
             0});
             this.PannaspinEdit.EnterMoveNextControl = true;
-            this.PannaspinEdit.Location = new System.Drawing.Point(807, 40);
+            this.PannaspinEdit.Location = new System.Drawing.Point(790, 40);
             this.PannaspinEdit.Name = "PannaspinEdit";
             this.PannaspinEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.PannaspinEdit.Properties.Appearance.Options.UseFont = true;
             this.PannaspinEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.PannaspinEdit.Size = new System.Drawing.Size(230, 24);
+            this.PannaspinEdit.Size = new System.Drawing.Size(220, 24);
             this.PannaspinEdit.StyleController = this.layoutControl1;
-            this.PannaspinEdit.TabIndex = 14;
+            this.PannaspinEdit.TabIndex = 6;
             // 
             // LengthInInchSpintEdit
             // 
@@ -1002,7 +971,7 @@
             0,
             0});
             this.LengthInInchSpintEdit.EnterMoveNextControl = true;
-            this.LengthInInchSpintEdit.Location = new System.Drawing.Point(162, 321);
+            this.LengthInInchSpintEdit.Location = new System.Drawing.Point(162, 304);
             this.LengthInInchSpintEdit.Name = "LengthInInchSpintEdit";
             this.LengthInInchSpintEdit.Properties.AllowFocused = false;
             this.LengthInInchSpintEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1012,9 +981,9 @@
             this.LengthInInchSpintEdit.Properties.DisplayFormat.FormatString = "F";
             this.LengthInInchSpintEdit.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.LengthInInchSpintEdit.Properties.ReadOnly = true;
-            this.LengthInInchSpintEdit.Size = new System.Drawing.Size(55, 24);
+            this.LengthInInchSpintEdit.Size = new System.Drawing.Size(50, 24);
             this.LengthInInchSpintEdit.StyleController = this.layoutControl1;
-            this.LengthInInchSpintEdit.TabIndex = 11;
+            this.LengthInInchSpintEdit.TabIndex = 8;
             // 
             // LengthinMeterspinEdit
             // 
@@ -1024,7 +993,7 @@
             0,
             0});
             this.LengthinMeterspinEdit.EnterMoveNextControl = true;
-            this.LengthinMeterspinEdit.Location = new System.Drawing.Point(365, 321);
+            this.LengthinMeterspinEdit.Location = new System.Drawing.Point(360, 304);
             this.LengthinMeterspinEdit.Name = "LengthinMeterspinEdit";
             this.LengthinMeterspinEdit.Properties.AllowFocused = false;
             this.LengthinMeterspinEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1034,9 +1003,9 @@
             this.LengthinMeterspinEdit.Properties.DisplayFormat.FormatString = "F";
             this.LengthinMeterspinEdit.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.LengthinMeterspinEdit.Properties.ReadOnly = true;
-            this.LengthinMeterspinEdit.Size = new System.Drawing.Size(55, 24);
+            this.LengthinMeterspinEdit.Size = new System.Drawing.Size(50, 24);
             this.LengthinMeterspinEdit.StyleController = this.layoutControl1;
-            this.LengthinMeterspinEdit.TabIndex = 12;
+            this.LengthinMeterspinEdit.TabIndex = 9;
             // 
             // QualityWeightspinEdit
             // 
@@ -1046,7 +1015,7 @@
             0,
             0});
             this.QualityWeightspinEdit.EnterMoveNextControl = true;
-            this.QualityWeightspinEdit.Location = new System.Drawing.Point(568, 321);
+            this.QualityWeightspinEdit.Location = new System.Drawing.Point(558, 304);
             this.QualityWeightspinEdit.Name = "QualityWeightspinEdit";
             this.QualityWeightspinEdit.Properties.AllowFocused = false;
             this.QualityWeightspinEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1056,9 +1025,9 @@
             this.QualityWeightspinEdit.Properties.DisplayFormat.FormatString = "F";
             this.QualityWeightspinEdit.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.QualityWeightspinEdit.Properties.ReadOnly = true;
-            this.QualityWeightspinEdit.Size = new System.Drawing.Size(56, 24);
+            this.QualityWeightspinEdit.Size = new System.Drawing.Size(50, 24);
             this.QualityWeightspinEdit.StyleController = this.layoutControl1;
-            this.QualityWeightspinEdit.TabIndex = 13;
+            this.QualityWeightspinEdit.TabIndex = 10;
             // 
             // WastageInPerspinEdit
             // 
@@ -1068,7 +1037,7 @@
             0,
             0});
             this.WastageInPerspinEdit.EnterMoveNextControl = true;
-            this.WastageInPerspinEdit.Location = new System.Drawing.Point(162, 349);
+            this.WastageInPerspinEdit.Location = new System.Drawing.Point(162, 332);
             this.WastageInPerspinEdit.Name = "WastageInPerspinEdit";
             this.WastageInPerspinEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.WastageInPerspinEdit.Properties.Appearance.Options.UseFont = true;
@@ -1076,9 +1045,9 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.WastageInPerspinEdit.Properties.DisplayFormat.FormatString = "F";
             this.WastageInPerspinEdit.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            this.WastageInPerspinEdit.Size = new System.Drawing.Size(55, 24);
+            this.WastageInPerspinEdit.Size = new System.Drawing.Size(50, 24);
             this.WastageInPerspinEdit.StyleController = this.layoutControl1;
-            this.WastageInPerspinEdit.TabIndex = 14;
+            this.WastageInPerspinEdit.TabIndex = 13;
             // 
             // NetWeightSpinEdit
             // 
@@ -1088,7 +1057,7 @@
             0,
             0});
             this.NetWeightSpinEdit.EnterMoveNextControl = true;
-            this.NetWeightSpinEdit.Location = new System.Drawing.Point(365, 349);
+            this.NetWeightSpinEdit.Location = new System.Drawing.Point(360, 332);
             this.NetWeightSpinEdit.Name = "NetWeightSpinEdit";
             this.NetWeightSpinEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.NetWeightSpinEdit.Properties.Appearance.Options.UseFont = true;
@@ -1096,9 +1065,9 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.NetWeightSpinEdit.Properties.DisplayFormat.FormatString = "F";
             this.NetWeightSpinEdit.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            this.NetWeightSpinEdit.Size = new System.Drawing.Size(55, 24);
+            this.NetWeightSpinEdit.Size = new System.Drawing.Size(50, 24);
             this.NetWeightSpinEdit.StyleController = this.layoutControl1;
-            this.NetWeightSpinEdit.TabIndex = 15;
+            this.NetWeightSpinEdit.TabIndex = 14;
             // 
             // JobChargeSpinEdit
             // 
@@ -1108,7 +1077,7 @@
             0,
             0});
             this.JobChargeSpinEdit.EnterMoveNextControl = true;
-            this.JobChargeSpinEdit.Location = new System.Drawing.Point(568, 349);
+            this.JobChargeSpinEdit.Location = new System.Drawing.Point(558, 332);
             this.JobChargeSpinEdit.Name = "JobChargeSpinEdit";
             this.JobChargeSpinEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.JobChargeSpinEdit.Properties.Appearance.Options.UseFont = true;
@@ -1116,9 +1085,9 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.JobChargeSpinEdit.Properties.DisplayFormat.FormatString = "F";
             this.JobChargeSpinEdit.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            this.JobChargeSpinEdit.Size = new System.Drawing.Size(56, 24);
+            this.JobChargeSpinEdit.Size = new System.Drawing.Size(50, 24);
             this.JobChargeSpinEdit.StyleController = this.layoutControl1;
-            this.JobChargeSpinEdit.TabIndex = 16;
+            this.JobChargeSpinEdit.TabIndex = 15;
             // 
             // YarnCostspinEdit
             // 
@@ -1128,7 +1097,7 @@
             0,
             0});
             this.YarnCostspinEdit.EnterMoveNextControl = true;
-            this.YarnCostspinEdit.Location = new System.Drawing.Point(772, 321);
+            this.YarnCostspinEdit.Location = new System.Drawing.Point(756, 304);
             this.YarnCostspinEdit.Name = "YarnCostspinEdit";
             this.YarnCostspinEdit.Properties.AllowFocused = false;
             this.YarnCostspinEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1138,9 +1107,9 @@
             this.YarnCostspinEdit.Properties.DisplayFormat.FormatString = "F";
             this.YarnCostspinEdit.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.YarnCostspinEdit.Properties.ReadOnly = true;
-            this.YarnCostspinEdit.Size = new System.Drawing.Size(55, 24);
+            this.YarnCostspinEdit.Size = new System.Drawing.Size(50, 24);
             this.YarnCostspinEdit.StyleController = this.layoutControl1;
-            this.YarnCostspinEdit.TabIndex = 13;
+            this.YarnCostspinEdit.TabIndex = 11;
             // 
             // CostWithWastagespinEdit
             // 
@@ -1150,7 +1119,7 @@
             0,
             0});
             this.CostWithWastagespinEdit.EnterMoveNextControl = true;
-            this.CostWithWastagespinEdit.Location = new System.Drawing.Point(772, 349);
+            this.CostWithWastagespinEdit.Location = new System.Drawing.Point(756, 332);
             this.CostWithWastagespinEdit.Name = "CostWithWastagespinEdit";
             this.CostWithWastagespinEdit.Properties.AllowFocused = false;
             this.CostWithWastagespinEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1160,9 +1129,9 @@
             this.CostWithWastagespinEdit.Properties.DisplayFormat.FormatString = "F";
             this.CostWithWastagespinEdit.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.CostWithWastagespinEdit.Properties.ReadOnly = true;
-            this.CostWithWastagespinEdit.Size = new System.Drawing.Size(55, 24);
+            this.CostWithWastagespinEdit.Size = new System.Drawing.Size(50, 24);
             this.CostWithWastagespinEdit.StyleController = this.layoutControl1;
-            this.CostWithWastagespinEdit.TabIndex = 13;
+            this.CostWithWastagespinEdit.TabIndex = 16;
             // 
             // AveragePickspinEdit
             // 
@@ -1172,7 +1141,7 @@
             0,
             0});
             this.AveragePickspinEdit.EnterMoveNextControl = true;
-            this.AveragePickspinEdit.Location = new System.Drawing.Point(975, 321);
+            this.AveragePickspinEdit.Location = new System.Drawing.Point(954, 304);
             this.AveragePickspinEdit.Name = "AveragePickspinEdit";
             this.AveragePickspinEdit.Properties.AllowFocused = false;
             this.AveragePickspinEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1182,9 +1151,9 @@
             this.AveragePickspinEdit.Properties.DisplayFormat.FormatString = "F";
             this.AveragePickspinEdit.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.AveragePickspinEdit.Properties.ReadOnly = true;
-            this.AveragePickspinEdit.Size = new System.Drawing.Size(56, 24);
+            this.AveragePickspinEdit.Size = new System.Drawing.Size(50, 24);
             this.AveragePickspinEdit.StyleController = this.layoutControl1;
-            this.AveragePickspinEdit.TabIndex = 13;
+            this.AveragePickspinEdit.TabIndex = 12;
             // 
             // OneMeterCostspinEdit
             // 
@@ -1194,7 +1163,7 @@
             0,
             0});
             this.OneMeterCostspinEdit.EnterMoveNextControl = true;
-            this.OneMeterCostspinEdit.Location = new System.Drawing.Point(975, 349);
+            this.OneMeterCostspinEdit.Location = new System.Drawing.Point(954, 332);
             this.OneMeterCostspinEdit.Name = "OneMeterCostspinEdit";
             this.OneMeterCostspinEdit.Properties.AllowFocused = false;
             this.OneMeterCostspinEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1204,9 +1173,9 @@
             this.OneMeterCostspinEdit.Properties.DisplayFormat.FormatString = "F";
             this.OneMeterCostspinEdit.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.OneMeterCostspinEdit.Properties.ReadOnly = true;
-            this.OneMeterCostspinEdit.Size = new System.Drawing.Size(56, 24);
+            this.OneMeterCostspinEdit.Size = new System.Drawing.Size(50, 24);
             this.OneMeterCostspinEdit.StyleController = this.layoutControl1;
-            this.OneMeterCostspinEdit.TabIndex = 13;
+            this.OneMeterCostspinEdit.TabIndex = 17;
             // 
             // WastespinEdit
             // 
@@ -1216,7 +1185,7 @@
             0,
             0});
             this.WastespinEdit.EnterMoveNextControl = true;
-            this.WastespinEdit.Location = new System.Drawing.Point(162, 377);
+            this.WastespinEdit.Location = new System.Drawing.Point(162, 360);
             this.WastespinEdit.Name = "WastespinEdit";
             this.WastespinEdit.Properties.AllowFocused = false;
             this.WastespinEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1226,9 +1195,9 @@
             this.WastespinEdit.Properties.DisplayFormat.FormatString = "F";
             this.WastespinEdit.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.WastespinEdit.Properties.ReadOnly = true;
-            this.WastespinEdit.Size = new System.Drawing.Size(55, 24);
+            this.WastespinEdit.Size = new System.Drawing.Size(50, 24);
             this.WastespinEdit.StyleController = this.layoutControl1;
-            this.WastespinEdit.TabIndex = 13;
+            this.WastespinEdit.TabIndex = 18;
             // 
             // WastePerspinEdit
             // 
@@ -1238,7 +1207,7 @@
             0,
             0});
             this.WastePerspinEdit.EnterMoveNextControl = true;
-            this.WastePerspinEdit.Location = new System.Drawing.Point(365, 377);
+            this.WastePerspinEdit.Location = new System.Drawing.Point(360, 360);
             this.WastePerspinEdit.Name = "WastePerspinEdit";
             this.WastePerspinEdit.Properties.AllowFocused = false;
             this.WastePerspinEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1248,9 +1217,9 @@
             this.WastePerspinEdit.Properties.DisplayFormat.FormatString = "F";
             this.WastePerspinEdit.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.WastePerspinEdit.Properties.ReadOnly = true;
-            this.WastePerspinEdit.Size = new System.Drawing.Size(55, 24);
+            this.WastePerspinEdit.Size = new System.Drawing.Size(50, 24);
             this.WastePerspinEdit.StyleController = this.layoutControl1;
-            this.WastePerspinEdit.TabIndex = 13;
+            this.WastePerspinEdit.TabIndex = 19;
             // 
             // JobChargeOneSareespinEdit
             // 
@@ -1260,7 +1229,7 @@
             0,
             0});
             this.JobChargeOneSareespinEdit.EnterMoveNextControl = true;
-            this.JobChargeOneSareespinEdit.Location = new System.Drawing.Point(568, 377);
+            this.JobChargeOneSareespinEdit.Location = new System.Drawing.Point(558, 360);
             this.JobChargeOneSareespinEdit.Name = "JobChargeOneSareespinEdit";
             this.JobChargeOneSareespinEdit.Properties.AllowFocused = false;
             this.JobChargeOneSareespinEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1270,9 +1239,9 @@
             this.JobChargeOneSareespinEdit.Properties.DisplayFormat.FormatString = "F";
             this.JobChargeOneSareespinEdit.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.JobChargeOneSareespinEdit.Properties.ReadOnly = true;
-            this.JobChargeOneSareespinEdit.Size = new System.Drawing.Size(56, 24);
+            this.JobChargeOneSareespinEdit.Size = new System.Drawing.Size(50, 24);
             this.JobChargeOneSareespinEdit.StyleController = this.layoutControl1;
-            this.JobChargeOneSareespinEdit.TabIndex = 13;
+            this.JobChargeOneSareespinEdit.TabIndex = 20;
             // 
             // CostWithoutWastagespinEdit1
             // 
@@ -1282,7 +1251,7 @@
             0,
             0});
             this.CostWithoutWastagespinEdit1.EnterMoveNextControl = true;
-            this.CostWithoutWastagespinEdit1.Location = new System.Drawing.Point(772, 377);
+            this.CostWithoutWastagespinEdit1.Location = new System.Drawing.Point(756, 360);
             this.CostWithoutWastagespinEdit1.Name = "CostWithoutWastagespinEdit1";
             this.CostWithoutWastagespinEdit1.Properties.AllowFocused = false;
             this.CostWithoutWastagespinEdit1.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1292,9 +1261,9 @@
             this.CostWithoutWastagespinEdit1.Properties.DisplayFormat.FormatString = "F";
             this.CostWithoutWastagespinEdit1.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.CostWithoutWastagespinEdit1.Properties.ReadOnly = true;
-            this.CostWithoutWastagespinEdit1.Size = new System.Drawing.Size(55, 24);
+            this.CostWithoutWastagespinEdit1.Size = new System.Drawing.Size(50, 24);
             this.CostWithoutWastagespinEdit1.StyleController = this.layoutControl1;
-            this.CostWithoutWastagespinEdit1.TabIndex = 13;
+            this.CostWithoutWastagespinEdit1.TabIndex = 21;
             // 
             // Root
             // 
@@ -1308,9 +1277,9 @@
             this.layoutControlItem6,
             this.layoutControlGroup4,
             this.layoutControlItem1,
-            this.layoutControlItem3});
+            this.tabbedControlGroup1});
             this.Root.Name = "Root";
-            this.Root.Size = new System.Drawing.Size(1049, 419);
+            this.Root.Size = new System.Drawing.Size(1022, 402);
             this.Root.TextVisible = false;
             // 
             // layoutControlItem2
@@ -1321,7 +1290,7 @@
             this.layoutControlItem2.Control = this.voucherDateEdit;
             this.layoutControlItem2.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(307, 28);
+            this.layoutControlItem2.Size = new System.Drawing.Size(299, 28);
             this.layoutControlItem2.Text = "<color=255, 0, 0>*</color>Date:";
             this.layoutControlItem2.TextSize = new System.Drawing.Size(141, 17);
             // 
@@ -1331,9 +1300,9 @@
             this.layoutControlItem19.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
             this.layoutControlItem19.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem19.Control = this.ProductLookup;
-            this.layoutControlItem19.Location = new System.Drawing.Point(307, 0);
+            this.layoutControlItem19.Location = new System.Drawing.Point(299, 0);
             this.layoutControlItem19.Name = "layoutControlItem19";
-            this.layoutControlItem19.Size = new System.Drawing.Size(344, 28);
+            this.layoutControlItem19.Size = new System.Drawing.Size(335, 28);
             this.layoutControlItem19.Text = "<color=255, 0, 0>*</color>Product :";
             this.layoutControlItem19.TextSize = new System.Drawing.Size(141, 17);
             // 
@@ -1346,7 +1315,7 @@
             this.layoutControlItem13.CustomizationFormText = "Sale Rate:";
             this.layoutControlItem13.Location = new System.Drawing.Point(0, 28);
             this.layoutControlItem13.Name = "layoutControlItem13";
-            this.layoutControlItem13.Size = new System.Drawing.Size(307, 28);
+            this.layoutControlItem13.Size = new System.Drawing.Size(299, 28);
             this.layoutControlItem13.Text = "Total Pick:";
             this.layoutControlItem13.TextSize = new System.Drawing.Size(141, 17);
             // 
@@ -1357,9 +1326,9 @@
             this.layoutControlItem5.Control = this.PickOnLoomsspinEdit;
             this.layoutControlItem5.ControlAlignment = System.Drawing.ContentAlignment.TopLeft;
             this.layoutControlItem5.CustomizationFormText = "Sale Rate:";
-            this.layoutControlItem5.Location = new System.Drawing.Point(307, 28);
+            this.layoutControlItem5.Location = new System.Drawing.Point(299, 28);
             this.layoutControlItem5.Name = "layoutControlItem5";
-            this.layoutControlItem5.Size = new System.Drawing.Size(344, 28);
+            this.layoutControlItem5.Size = new System.Drawing.Size(335, 28);
             this.layoutControlItem5.Text = "Pick On Looms:";
             this.layoutControlItem5.TextSize = new System.Drawing.Size(141, 17);
             // 
@@ -1370,9 +1339,9 @@
             this.layoutControlItem6.Control = this.PannaspinEdit;
             this.layoutControlItem6.ControlAlignment = System.Drawing.ContentAlignment.TopLeft;
             this.layoutControlItem6.CustomizationFormText = "Sale Rate:";
-            this.layoutControlItem6.Location = new System.Drawing.Point(651, 28);
+            this.layoutControlItem6.Location = new System.Drawing.Point(634, 28);
             this.layoutControlItem6.Name = "layoutControlItem6";
-            this.layoutControlItem6.Size = new System.Drawing.Size(378, 28);
+            this.layoutControlItem6.Size = new System.Drawing.Size(368, 28);
             this.layoutControlItem6.Text = "Panna:";
             this.layoutControlItem6.TextSize = new System.Drawing.Size(141, 17);
             // 
@@ -1395,10 +1364,10 @@
             this.layoutControlItem22,
             this.emptySpaceItem2,
             this.layoutControlItem23});
-            this.layoutControlGroup4.Location = new System.Drawing.Point(0, 282);
+            this.layoutControlGroup4.Location = new System.Drawing.Point(0, 265);
             this.layoutControlGroup4.Name = "layoutControlGroup4";
             this.layoutControlGroup4.Padding = new DevExpress.XtraLayout.Utils.Padding(3, 3, 3, 3);
-            this.layoutControlGroup4.Size = new System.Drawing.Size(1029, 117);
+            this.layoutControlGroup4.Size = new System.Drawing.Size(1002, 117);
             this.layoutControlGroup4.Text = "Other Detail";
             // 
             // layoutControlItem7
@@ -1410,7 +1379,7 @@
             this.layoutControlItem7.CustomizationFormText = "Cost Price:";
             this.layoutControlItem7.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem7.Name = "layoutControlItem7";
-            this.layoutControlItem7.Size = new System.Drawing.Size(203, 28);
+            this.layoutControlItem7.Size = new System.Drawing.Size(198, 28);
             this.layoutControlItem7.Text = "Length in Inch:";
             this.layoutControlItem7.TextSize = new System.Drawing.Size(141, 17);
             // 
@@ -1421,9 +1390,9 @@
             this.layoutControlItem11.Control = this.LengthinMeterspinEdit;
             this.layoutControlItem11.ControlAlignment = System.Drawing.ContentAlignment.TopLeft;
             this.layoutControlItem11.CustomizationFormText = "Pur. Rate:";
-            this.layoutControlItem11.Location = new System.Drawing.Point(203, 0);
+            this.layoutControlItem11.Location = new System.Drawing.Point(198, 0);
             this.layoutControlItem11.Name = "layoutControlItem11";
-            this.layoutControlItem11.Size = new System.Drawing.Size(203, 28);
+            this.layoutControlItem11.Size = new System.Drawing.Size(198, 28);
             this.layoutControlItem11.Text = "Length in Meter:";
             this.layoutControlItem11.TextSize = new System.Drawing.Size(141, 17);
             // 
@@ -1434,9 +1403,9 @@
             this.layoutControlItem12.Control = this.QualityWeightspinEdit;
             this.layoutControlItem12.ControlAlignment = System.Drawing.ContentAlignment.TopLeft;
             this.layoutControlItem12.CustomizationFormText = "Pur. Disc %:";
-            this.layoutControlItem12.Location = new System.Drawing.Point(406, 0);
+            this.layoutControlItem12.Location = new System.Drawing.Point(396, 0);
             this.layoutControlItem12.Name = "layoutControlItem12";
-            this.layoutControlItem12.Size = new System.Drawing.Size(204, 28);
+            this.layoutControlItem12.Size = new System.Drawing.Size(198, 28);
             this.layoutControlItem12.Text = "Quality Weight:";
             this.layoutControlItem12.TextSize = new System.Drawing.Size(141, 17);
             // 
@@ -1449,7 +1418,7 @@
             this.layoutControlItem8.CustomizationFormText = "Sale Rate:";
             this.layoutControlItem8.Location = new System.Drawing.Point(0, 28);
             this.layoutControlItem8.Name = "layoutControlItem8";
-            this.layoutControlItem8.Size = new System.Drawing.Size(203, 28);
+            this.layoutControlItem8.Size = new System.Drawing.Size(198, 28);
             this.layoutControlItem8.Text = "Wastage In %:";
             this.layoutControlItem8.TextSize = new System.Drawing.Size(141, 17);
             // 
@@ -1460,9 +1429,9 @@
             this.layoutControlItem14.Control = this.NetWeightSpinEdit;
             this.layoutControlItem14.ControlAlignment = System.Drawing.ContentAlignment.TopLeft;
             this.layoutControlItem14.CustomizationFormText = "MRP:";
-            this.layoutControlItem14.Location = new System.Drawing.Point(203, 28);
+            this.layoutControlItem14.Location = new System.Drawing.Point(198, 28);
             this.layoutControlItem14.Name = "layoutControlItem14";
-            this.layoutControlItem14.Size = new System.Drawing.Size(203, 28);
+            this.layoutControlItem14.Size = new System.Drawing.Size(198, 28);
             this.layoutControlItem14.Text = "Net Weight:";
             this.layoutControlItem14.TextSize = new System.Drawing.Size(141, 17);
             // 
@@ -1473,9 +1442,9 @@
             this.layoutControlItem15.Control = this.JobChargeSpinEdit;
             this.layoutControlItem15.ControlAlignment = System.Drawing.ContentAlignment.TopLeft;
             this.layoutControlItem15.CustomizationFormText = "Sale Disc %:";
-            this.layoutControlItem15.Location = new System.Drawing.Point(406, 28);
+            this.layoutControlItem15.Location = new System.Drawing.Point(396, 28);
             this.layoutControlItem15.Name = "layoutControlItem15";
-            this.layoutControlItem15.Size = new System.Drawing.Size(204, 28);
+            this.layoutControlItem15.Size = new System.Drawing.Size(198, 28);
             this.layoutControlItem15.Text = "Job Charge:";
             this.layoutControlItem15.TextSize = new System.Drawing.Size(141, 17);
             // 
@@ -1486,9 +1455,9 @@
             this.layoutControlItem9.Control = this.YarnCostspinEdit;
             this.layoutControlItem9.ControlAlignment = System.Drawing.ContentAlignment.TopLeft;
             this.layoutControlItem9.CustomizationFormText = "Pur. Disc %:";
-            this.layoutControlItem9.Location = new System.Drawing.Point(610, 0);
+            this.layoutControlItem9.Location = new System.Drawing.Point(594, 0);
             this.layoutControlItem9.Name = "layoutControlItem9";
-            this.layoutControlItem9.Size = new System.Drawing.Size(203, 28);
+            this.layoutControlItem9.Size = new System.Drawing.Size(198, 28);
             this.layoutControlItem9.Text = "Yarn Cost:";
             this.layoutControlItem9.TextSize = new System.Drawing.Size(141, 17);
             // 
@@ -1499,9 +1468,9 @@
             this.layoutControlItem16.Control = this.CostWithWastagespinEdit;
             this.layoutControlItem16.ControlAlignment = System.Drawing.ContentAlignment.TopLeft;
             this.layoutControlItem16.CustomizationFormText = "Pur. Disc %:";
-            this.layoutControlItem16.Location = new System.Drawing.Point(610, 28);
+            this.layoutControlItem16.Location = new System.Drawing.Point(594, 28);
             this.layoutControlItem16.Name = "layoutControlItem16";
-            this.layoutControlItem16.Size = new System.Drawing.Size(203, 28);
+            this.layoutControlItem16.Size = new System.Drawing.Size(198, 28);
             this.layoutControlItem16.Text = "Cost With Wastage:";
             this.layoutControlItem16.TextSize = new System.Drawing.Size(141, 17);
             // 
@@ -1512,9 +1481,9 @@
             this.layoutControlItem17.Control = this.AveragePickspinEdit;
             this.layoutControlItem17.ControlAlignment = System.Drawing.ContentAlignment.TopLeft;
             this.layoutControlItem17.CustomizationFormText = "Pur. Disc %:";
-            this.layoutControlItem17.Location = new System.Drawing.Point(813, 0);
+            this.layoutControlItem17.Location = new System.Drawing.Point(792, 0);
             this.layoutControlItem17.Name = "layoutControlItem17";
-            this.layoutControlItem17.Size = new System.Drawing.Size(204, 28);
+            this.layoutControlItem17.Size = new System.Drawing.Size(198, 28);
             this.layoutControlItem17.Text = "Average Pick:";
             this.layoutControlItem17.TextSize = new System.Drawing.Size(141, 17);
             // 
@@ -1525,9 +1494,9 @@
             this.layoutControlItem18.Control = this.OneMeterCostspinEdit;
             this.layoutControlItem18.ControlAlignment = System.Drawing.ContentAlignment.TopLeft;
             this.layoutControlItem18.CustomizationFormText = "Pur. Disc %:";
-            this.layoutControlItem18.Location = new System.Drawing.Point(813, 28);
+            this.layoutControlItem18.Location = new System.Drawing.Point(792, 28);
             this.layoutControlItem18.Name = "layoutControlItem18";
-            this.layoutControlItem18.Size = new System.Drawing.Size(204, 28);
+            this.layoutControlItem18.Size = new System.Drawing.Size(198, 28);
             this.layoutControlItem18.Text = "One Meter Cost:";
             this.layoutControlItem18.TextSize = new System.Drawing.Size(141, 17);
             // 
@@ -1540,7 +1509,7 @@
             this.layoutControlItem20.CustomizationFormText = "Pur. Disc %:";
             this.layoutControlItem20.Location = new System.Drawing.Point(0, 56);
             this.layoutControlItem20.Name = "layoutControlItem20";
-            this.layoutControlItem20.Size = new System.Drawing.Size(203, 28);
+            this.layoutControlItem20.Size = new System.Drawing.Size(198, 28);
             this.layoutControlItem20.Text = "Waste:";
             this.layoutControlItem20.TextSize = new System.Drawing.Size(141, 17);
             // 
@@ -1551,9 +1520,9 @@
             this.layoutControlItem21.Control = this.WastePerspinEdit;
             this.layoutControlItem21.ControlAlignment = System.Drawing.ContentAlignment.TopLeft;
             this.layoutControlItem21.CustomizationFormText = "Pur. Disc %:";
-            this.layoutControlItem21.Location = new System.Drawing.Point(203, 56);
+            this.layoutControlItem21.Location = new System.Drawing.Point(198, 56);
             this.layoutControlItem21.Name = "layoutControlItem21";
-            this.layoutControlItem21.Size = new System.Drawing.Size(203, 28);
+            this.layoutControlItem21.Size = new System.Drawing.Size(198, 28);
             this.layoutControlItem21.Text = "Waste %:";
             this.layoutControlItem21.TextSize = new System.Drawing.Size(141, 17);
             // 
@@ -1564,18 +1533,18 @@
             this.layoutControlItem22.Control = this.JobChargeOneSareespinEdit;
             this.layoutControlItem22.ControlAlignment = System.Drawing.ContentAlignment.TopLeft;
             this.layoutControlItem22.CustomizationFormText = "Pur. Disc %:";
-            this.layoutControlItem22.Location = new System.Drawing.Point(406, 56);
+            this.layoutControlItem22.Location = new System.Drawing.Point(396, 56);
             this.layoutControlItem22.Name = "layoutControlItem22";
-            this.layoutControlItem22.Size = new System.Drawing.Size(204, 28);
+            this.layoutControlItem22.Size = new System.Drawing.Size(198, 28);
             this.layoutControlItem22.Text = "JobCharge 1Saree:";
             this.layoutControlItem22.TextSize = new System.Drawing.Size(141, 17);
             // 
             // emptySpaceItem2
             // 
             this.emptySpaceItem2.AllowHotTrack = false;
-            this.emptySpaceItem2.Location = new System.Drawing.Point(813, 56);
+            this.emptySpaceItem2.Location = new System.Drawing.Point(792, 56);
             this.emptySpaceItem2.Name = "emptySpaceItem2";
-            this.emptySpaceItem2.Size = new System.Drawing.Size(204, 28);
+            this.emptySpaceItem2.Size = new System.Drawing.Size(198, 28);
             this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
             // 
             // layoutControlItem23
@@ -1585,9 +1554,9 @@
             this.layoutControlItem23.Control = this.CostWithoutWastagespinEdit1;
             this.layoutControlItem23.ControlAlignment = System.Drawing.ContentAlignment.TopLeft;
             this.layoutControlItem23.CustomizationFormText = "Pur. Disc %:";
-            this.layoutControlItem23.Location = new System.Drawing.Point(610, 56);
+            this.layoutControlItem23.Location = new System.Drawing.Point(594, 56);
             this.layoutControlItem23.Name = "layoutControlItem23";
-            this.layoutControlItem23.Size = new System.Drawing.Size(203, 28);
+            this.layoutControlItem23.Size = new System.Drawing.Size(198, 28);
             this.layoutControlItem23.Text = "Cost Without Wastage:";
             this.layoutControlItem23.TextSize = new System.Drawing.Size(141, 17);
             // 
@@ -1596,28 +1565,69 @@
             this.layoutControlItem1.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
             this.layoutControlItem1.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem1.Control = this.colorLookup1;
-            this.layoutControlItem1.Location = new System.Drawing.Point(651, 0);
+            this.layoutControlItem1.Location = new System.Drawing.Point(634, 0);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(378, 28);
+            this.layoutControlItem1.Size = new System.Drawing.Size(368, 28);
             this.layoutControlItem1.Text = "Shade:";
             this.layoutControlItem1.TextSize = new System.Drawing.Size(141, 17);
             // 
+            // tabbedControlGroup1
+            // 
+            this.tabbedControlGroup1.AppearanceTabPage.HeaderActive.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tabbedControlGroup1.AppearanceTabPage.HeaderActive.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.tabbedControlGroup1.AppearanceTabPage.HeaderActive.Options.UseFont = true;
+            this.tabbedControlGroup1.AppearanceTabPage.HeaderActive.Options.UseForeColor = true;
+            this.tabbedControlGroup1.Location = new System.Drawing.Point(0, 56);
+            this.tabbedControlGroup1.Name = "tabbedControlGroup1";
+            this.tabbedControlGroup1.Padding = new DevExpress.XtraLayout.Utils.Padding(3, 3, 3, 3);
+            this.tabbedControlGroup1.SelectedTabPage = this.layoutControlGroup2;
+            this.tabbedControlGroup1.Size = new System.Drawing.Size(1002, 209);
+            this.tabbedControlGroup1.TabPages.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.layoutControlGroup1,
+            this.layoutControlGroup2});
+            // 
+            // layoutControlGroup1
+            // 
+            this.layoutControlGroup1.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.layoutControlItem3});
+            this.layoutControlGroup1.Location = new System.Drawing.Point(0, 0);
+            this.layoutControlGroup1.Name = "layoutControlGroup1";
+            this.layoutControlGroup1.Size = new System.Drawing.Size(990, 170);
+            this.layoutControlGroup1.Text = "Weft";
+            // 
             // layoutControlItem3
             // 
-            this.layoutControlItem3.Control = this.tabControl1;
-            this.layoutControlItem3.Location = new System.Drawing.Point(0, 56);
+            this.layoutControlItem3.Control = this.WeftgridControl;
+            this.layoutControlItem3.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem3.Name = "layoutControlItem3";
-            this.layoutControlItem3.Size = new System.Drawing.Size(1029, 226);
+            this.layoutControlItem3.Size = new System.Drawing.Size(990, 170);
             this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem3.TextVisible = false;
+            // 
+            // layoutControlGroup2
+            // 
+            this.layoutControlGroup2.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.layoutControlItem4});
+            this.layoutControlGroup2.Location = new System.Drawing.Point(0, 0);
+            this.layoutControlGroup2.Name = "layoutControlGroup2";
+            this.layoutControlGroup2.Size = new System.Drawing.Size(990, 170);
+            this.layoutControlGroup2.Text = "Warp";
+            // 
+            // layoutControlItem4
+            // 
+            this.layoutControlItem4.Control = this.WarpgridControl;
+            this.layoutControlItem4.Location = new System.Drawing.Point(0, 0);
+            this.layoutControlItem4.Name = "layoutControlItem4";
+            this.layoutControlItem4.Size = new System.Drawing.Size(990, 170);
+            this.layoutControlItem4.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem4.TextVisible = false;
             // 
             // ColorMIndex
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1074, 521);
+            this.ClientSize = new System.Drawing.Size(1028, 521);
             this.KontoLayout = this.layoutControl1;
-            this.KontoMainView = this.WarpgridView;
             this.Name = "ColorMIndex";
             this.Text = "Color Matching";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
@@ -1629,8 +1639,6 @@
             this.panelControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
-            this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.WeftgridControl)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.WeftbindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.WeftgridView)).EndInit();
@@ -1642,7 +1650,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemButtonEdit5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemHyperLinkEdit1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemButtonEdit6)).EndInit();
-            this.tabPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.WarpgridControl)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.WarpbindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.WarpgridView)).EndInit();
@@ -1696,7 +1703,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem23)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tabbedControlGroup1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1711,16 +1722,6 @@
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem19;
         private System.Windows.Forms.BindingSource WarpbindingSource;
         private System.Windows.Forms.BindingSource WeftbindingSource;
-        private DevExpress.XtraGrid.GridControl WarpgridControl;
-        private DevExpress.XtraGrid.Views.Grid.GridView WarpgridView;
-        private DevExpress.XtraGrid.Columns.GridColumn colId1;
-        private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit productRepositoryItemButtonEdit1;
-        private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit designRepositoryItemButtonEdit;
-        private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit uomRepositoryItemLookUpEdit;
-        private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit colorRepositoryItemButtonEdit1;
-        private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit gradeRepositoryItemButtonEdit;
-        private DevExpress.XtraEditors.Repository.RepositoryItemHyperLinkEdit repositoryItemHyperLinkEdit11;
-        private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit lotNoRepositoryItemButtonEdit;
         private DevExpress.XtraEditors.SpinEdit TotalPickspinEdit;
         private DevExpress.XtraEditors.SpinEdit PickOnLoomsspinEdit;
         private DevExpress.XtraEditors.SpinEdit PannaspinEdit;
@@ -1757,6 +1758,41 @@
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem2;
         private DevExpress.XtraEditors.SpinEdit CostWithoutWastagespinEdit1;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem23;
+        private Shared.Masters.Color.ColorLookup colorLookup1;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
+        private DevExpress.XtraGrid.GridControl WeftgridControl;
+        private DevExpress.XtraGrid.Views.Grid.GridView WeftgridView;
+        private DevExpress.XtraGrid.Columns.GridColumn colId;
+        private DevExpress.XtraGrid.Columns.GridColumn colProductName;
+        private DevExpress.XtraGrid.Columns.GridColumn colProductId;
+        private DevExpress.XtraGrid.Columns.GridColumn colColorName;
+        private DevExpress.XtraGrid.Columns.GridColumn colColorId;
+        private DevExpress.XtraGrid.Columns.GridColumn colAccName;
+        private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit AccrepositoryItemButtonEdit;
+        private DevExpress.XtraGrid.Columns.GridColumn colAccId;
+        private DevExpress.XtraGrid.Columns.GridColumn colCard;
+        private DevExpress.XtraGrid.Columns.GridColumn colTar;
+        private DevExpress.XtraGrid.Columns.GridColumn colDenier;
+        private DevExpress.XtraGrid.Columns.GridColumn colPI;
+        private DevExpress.XtraGrid.Columns.GridColumn colRS;
+        private DevExpress.XtraGrid.Columns.GridColumn colMtr;
+        private DevExpress.XtraGrid.Columns.GridColumn colChange;
+        private DevExpress.XtraGrid.Columns.GridColumn colQty;
+        private DevExpress.XtraGrid.Columns.GridColumn colEnds;
+        private DevExpress.XtraGrid.Columns.GridColumn colRate;
+        private DevExpress.XtraGrid.Columns.GridColumn colCosting;
+        private DevExpress.XtraGrid.Columns.GridColumn colRemark;
+        private DevExpress.XtraGrid.Columns.GridColumn colRefId;
+        private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit repositoryItemLookUpEdit1;
+        private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit ItemrepositoryItemButtonEdit;
+        private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit ColorrepositoryItemButtonEdit;
+        private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit repositoryItemButtonEdit4;
+        private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit repositoryItemButtonEdit5;
+        private DevExpress.XtraEditors.Repository.RepositoryItemHyperLinkEdit repositoryItemHyperLinkEdit1;
+        private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit repositoryItemButtonEdit6;
+        private DevExpress.XtraGrid.GridControl WarpgridControl;
+        private DevExpress.XtraGrid.Views.Grid.GridView WarpgridView;
+        private DevExpress.XtraGrid.Columns.GridColumn colId1;
         private DevExpress.XtraGrid.Columns.GridColumn colProductName1;
         private DevExpress.XtraGrid.Columns.GridColumn colProductId1;
         private DevExpress.XtraGrid.Columns.GridColumn colColorName1;
@@ -1775,41 +1811,17 @@
         private DevExpress.XtraGrid.Columns.GridColumn colCosting1;
         private DevExpress.XtraGrid.Columns.GridColumn colRemark1;
         private DevExpress.XtraGrid.Columns.GridColumn colRefId1;
-        private Shared.Masters.Color.ColorLookup colorLookup1;
-        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
-        private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
-        private DevExpress.XtraGrid.GridControl WeftgridControl;
-        private DevExpress.XtraGrid.Views.Grid.GridView WeftgridView;
-        private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit ItemrepositoryItemButtonEdit;
-        private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit ColorrepositoryItemButtonEdit;
-        private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit AccrepositoryItemButtonEdit;
-        private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit repositoryItemLookUpEdit1;
-        private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit repositoryItemButtonEdit4;
-        private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit repositoryItemButtonEdit5;
-        private DevExpress.XtraEditors.Repository.RepositoryItemHyperLinkEdit repositoryItemHyperLinkEdit1;
-        private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit repositoryItemButtonEdit6;
-        private System.Windows.Forms.TabPage tabPage2;
+        private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit uomRepositoryItemLookUpEdit;
+        private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit productRepositoryItemButtonEdit1;
+        private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit colorRepositoryItemButtonEdit1;
+        private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit designRepositoryItemButtonEdit;
+        private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit gradeRepositoryItemButtonEdit;
+        private DevExpress.XtraEditors.Repository.RepositoryItemHyperLinkEdit repositoryItemHyperLinkEdit11;
+        private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit lotNoRepositoryItemButtonEdit;
+        private DevExpress.XtraLayout.TabbedControlGroup tabbedControlGroup1;
+        private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup1;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem3;
-        private DevExpress.XtraGrid.Columns.GridColumn colId;
-        private DevExpress.XtraGrid.Columns.GridColumn colProductName;
-        private DevExpress.XtraGrid.Columns.GridColumn colProductId;
-        private DevExpress.XtraGrid.Columns.GridColumn colColorName;
-        private DevExpress.XtraGrid.Columns.GridColumn colColorId;
-        private DevExpress.XtraGrid.Columns.GridColumn colAccName;
-        private DevExpress.XtraGrid.Columns.GridColumn colAccId;
-        private DevExpress.XtraGrid.Columns.GridColumn colCard;
-        private DevExpress.XtraGrid.Columns.GridColumn colTar;
-        private DevExpress.XtraGrid.Columns.GridColumn colDenier;
-        private DevExpress.XtraGrid.Columns.GridColumn colPI;
-        private DevExpress.XtraGrid.Columns.GridColumn colRS;
-        private DevExpress.XtraGrid.Columns.GridColumn colMtr;
-        private DevExpress.XtraGrid.Columns.GridColumn colChange;
-        private DevExpress.XtraGrid.Columns.GridColumn colQty;
-        private DevExpress.XtraGrid.Columns.GridColumn colEnds;
-        private DevExpress.XtraGrid.Columns.GridColumn colRate;
-        private DevExpress.XtraGrid.Columns.GridColumn colCosting;
-        private DevExpress.XtraGrid.Columns.GridColumn colRemark;
-        private DevExpress.XtraGrid.Columns.GridColumn colRefId;
+        private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup2;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem4;
     }
 }

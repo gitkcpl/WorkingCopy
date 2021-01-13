@@ -197,7 +197,7 @@ namespace Konto.Trading.GreyOrder
             pgLookup1.SelectedValue = model.PGroupId;
             pgLookup1.SetGroup();
             accLookup1.SelectedValue = model.AccId;
-            accLookup1.SetAcc(model.AccId);
+            accLookup1.SetAcc((int)model.AccId);
             refNoTextEdit.Text = model.RefNo;
             requireDateEdit.EditValue = model.RequireDate;
             daysSpinEdit.Value = Convert.ToDecimal(model.Extra1);

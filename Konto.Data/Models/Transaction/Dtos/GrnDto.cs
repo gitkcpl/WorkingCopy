@@ -42,5 +42,11 @@ namespace Konto.Data.Models.Transaction.Dtos
 
         public int? ProcessId { get; set; }
 
+        public int RefId { get; set; }
+
+        public int RefVoucherId { get; set; }
+
+        public string Extra1 { get; set; }
+
     }
 }

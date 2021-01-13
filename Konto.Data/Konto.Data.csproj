@@ -76,6 +76,10 @@
     <Compile Include="Models\Admin\SPCollectionModel.cs" />
     <Compile Include="Models\Admin\SysParaModel.cs" />
     <Compile Include="Models\Admin\UserMaster.cs" />
+    <Compile Include="Models\Apparel\BomModel.cs" />
+    <Compile Include="Models\Apparel\BOMTransModel.cs" />
+    <Compile Include="Models\Apparel\Dtos\BomOrderDto.cs" />
+    <Compile Include="Models\Apparel\Dtos\BomTransDto.cs" />
     <Compile Include="Models\Masters\AccAddressModel.cs" />
     <Compile Include="Models\Masters\AccBalModel.cs" />
     <Compile Include="Models\Masters\AccBankModel.cs" />
@@ -93,6 +97,7 @@
     <Compile Include="Models\Masters\CountryModel.cs" />
     <Compile Include="Models\Masters\CustomRepModel.cs" />
     <Compile Include="Models\Masters\DeducteeModel.cs" />
+    <Compile Include="Models\Masters\CostHeadModel.cs" />
     <Compile Include="Models\Masters\DivisionModel.cs" />
     <Compile Include="Models\Masters\Dtos\AccBalDto.cs" />
     <Compile Include="Models\Masters\Dtos\AccDto.cs" />
@@ -115,9 +120,11 @@
     <Compile Include="Models\Masters\Dtos\ColorLookupDto.cs" />
     <Compile Include="Models\Masters\Dtos\CompListDto.cs" />
     <Compile Include="Models\Masters\Dtos\CountryListViewDto.cs" />
+    <Compile Include="Models\Masters\Dtos\CostHeadListDto.cs" />
     <Compile Include="Models\Masters\Dtos\DivListDto.cs" />
     <Compile Include="Models\Masters\Dtos\EmpListDto.cs" />
     <Compile Include="Models\Masters\Dtos\EmpLookupDto.cs" />
+    <Compile Include="Models\Masters\Dtos\EmpRateDto.cs" />
     <Compile Include="Models\Masters\Dtos\GradeListDtp.cs" />
     <Compile Include="Models\Masters\Dtos\GradeLookupDto.cs" />
     <Compile Include="Models\Masters\Dtos\GroupLookupDto.cs" />
@@ -127,9 +134,12 @@
     <Compile Include="Models\Masters\Dtos\LedgerGroupLookupDto.cs" />
     <Compile Include="Models\Masters\Dtos\LookupDto.cs" />
     <Compile Include="Models\Masters\Dtos\MachineListDto.cs" />
+    <Compile Include="Models\Masters\Dtos\PackingTypeListDto.cs" />
     <Compile Include="Models\Masters\Dtos\PartyGroupListDto.cs" />
+    <Compile Include="Models\Masters\Dtos\PFormulaDto.cs" />
     <Compile Include="Models\Masters\Dtos\PgLookupDto.cs" />
     <Compile Include="Models\Masters\Dtos\PGroupListDto.cs" />
+    <Compile Include="Models\Masters\Dtos\PositionListDto.cs" />
     <Compile Include="Models\Masters\Dtos\ProcessListDto.cs" />
     <Compile Include="Models\Masters\Dtos\ProcessLookupDto.cs" />
     <Compile Include="Models\Masters\Dtos\ProductListDto.cs" />
@@ -156,17 +166,20 @@
     <Compile Include="Models\Masters\Dtos\VTypeListDto.cs" />
     <Compile Include="Models\Masters\Dtos\WeftItemDto.cs" />
     <Compile Include="Models\Masters\EmpModel.cs" />
+    <Compile Include="Models\Masters\EmpRate.cs" />
     <Compile Include="Models\Masters\FinYearModel.cs" />
     <Compile Include="Models\Masters\GradeModel.cs" />
     <Compile Include="Models\Masters\HasteModel.cs" />
     <Compile Include="Models\Masters\MachineMasterModel.cs" />
     <Compile Include="Models\Masters\Nob.cs" />
     <Compile Include="Models\Masters\NopModule.cs" />
+    <Compile Include="Models\Masters\PackingTypeModel.cs" />
     <Compile Include="Models\Masters\PartyGroupModel.cs" />
     <Compile Include="Models\Masters\PCategroyModel.cs" />
     <Compile Include="Models\Masters\PFormulaModel.cs" />
     <Compile Include="Models\Masters\PGroupModel.cs" />
     <Compile Include="Models\Masters\PImageModel.cs" />
+    <Compile Include="Models\Masters\PositionModel.cs" />
     <Compile Include="Models\Masters\PriceModel.cs" />
     <Compile Include="Models\Masters\ProcessModel.cs" />
     <Compile Include="Models\Masters\ProductModel.cs" />
@@ -215,6 +228,7 @@
     <Compile Include="Models\Reports\TDsSummaryDto.cs" />
     <Compile Include="Models\Reports\TrialDto.cs" />
     <Compile Include="Models\Transaction\AttachmentModel.cs" />
+    <Compile Include="Models\Transaction\Barcode.cs" />
     <Compile Include="Models\Transaction\BatchModel.cs" />
     <Compile Include="Models\Transaction\BatchTransModel.cs" />
     <Compile Include="Models\Transaction\BillDelvModel.cs" />
@@ -228,6 +242,7 @@
     <Compile Include="Models\Transaction\DataFreezeModel.cs" />
     <Compile Include="Models\Transaction\Dtos\BankTransDto.cs" />
     <Compile Include="Models\Transaction\Dtos\BeamProdDto.cs" />
+    <Compile Include="Models\Transaction\Dtos\BeamStatusByMachineDto.cs" />
     <Compile Include="Models\Transaction\Dtos\BillTransDto.cs" />
     <Compile Include="Models\Transaction\Dtos\BrokTransDto.cs" />
     <Compile Include="Models\Transaction\Dtos\CuttingListDto.cs" />
@@ -257,8 +272,11 @@
     <Compile Include="Models\Transaction\Dtos\PendBillListDto.cs" />
     <Compile Include="Models\Transaction\Dtos\PendingChallanOnInvoiceDto.cs" />
     <Compile Include="Models\Transaction\Dtos\PendingChallanOnInvoiceDetDto.cs" />
+    <Compile Include="Models\Transaction\Dtos\PendingGateDto.cs" />
+    <Compile Include="Models\Transaction\Dtos\PendingLotDto.cs" />
     <Compile Include="Models\Transaction\Dtos\PendingMillReceiptSp.cs" />
     <Compile Include="Models\Transaction\Dtos\PendingMRProd.cs" />
+    <Compile Include="Models\Transaction\Dtos\PndingIndentDto.cs" />
     <Compile Include="Models\Transaction\Dtos\PendingOrderDto.cs" />
     <Compile Include="Models\Transaction\Dtos\PendingReturnableDto.cs" />
     <Compile Include="Models\Transaction\Dtos\ProdOutDto.cs" />
@@ -493,6 +511,7 @@
   <ItemGroup>
     <EmbeddedResource Include="Proc\GetBoxTakaByBarcode.sql" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

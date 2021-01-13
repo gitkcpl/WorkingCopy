@@ -327,6 +327,7 @@ namespace Konto.Shared.Trans.PReturn
                 var model = frm.SelectedItem as ProductLookupDto;
                 er.UomId = model.PurUomId;
                 er.Rate = model.DealerPrice;
+                er.SaleRate = decimal.Round((model.DealerPrice + (model.DealerPrice * model.Igst / 100)), 2, MidpointRounding.AwayFromZero);
                 er.Cut = model.Cut;
                 if (accLookup1.LookupDto.IsGst)
                 {
@@ -433,6 +434,15 @@ namespace Konto.Shared.Trans.PReturn
       
         public void GridCalculation(BillTransDto er, string fldName="NA")
         {
+            if (fldName == "SaleRate")
+            {
+                er.Rate = decimal.Round((er.SaleRate * 100) / (100 + (er.SgstPer + er.CgstPer + er.IgstPer)), 2, MidpointRounding.AwayFromZero);
+            }
+
+            else if (fldName == "Rate")
+            {
+                er.SaleRate = decimal.Round((er.Rate + (er.Rate * (er.SgstPer + er.CgstPer + er.IgstPer) / 100)), 2, MidpointRounding.AwayFromZero);
+            }
 
             if (er.Cut > 0 && er.Pcs > 0)
                 er.Qty = decimal.Round(er.Pcs * er.Cut, 2, MidpointRounding.AwayFromZero);
@@ -914,7 +924,7 @@ namespace Konto.Shared.Trans.PReturn
                                 ProductName = p.ProductName,
                                 RefId = bt.RefId,
                                 RefTransId = bt.RefTransId,
-                                RefVoucherId = bt.RefVoucherId
+                                RefVoucherId = bt.RefVoucherId, SaleRate= bt.SaleRate
                             }
                             ).ToList();
 
@@ -1029,6 +1039,7 @@ namespace Konto.Shared.Trans.PReturn
                 var row = view.GetRow(view.FocusedRowHandle) as BillTransDto;
                 view.DeleteRow(view.FocusedRowHandle);
                 DelTrans.Add(row);
+                FinalTotal();
             }
             else if (e.KeyCode == Keys.Delete)
             {

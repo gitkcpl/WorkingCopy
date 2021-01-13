@@ -28,10 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TakaConvIndex));
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
             this.CTgridControl = new DevExpress.XtraGrid.GridControl();
-            this.CTbindingSource = new System.Windows.Forms.BindingSource();
+            this.CTbindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.CTgridView = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.gridColumn1 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colChallanId = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -55,7 +56,7 @@
             this.repositoryItemButtonEdit5 = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
             this.SelectSimpleButton = new DevExpress.XtraEditors.SimpleButton();
             this.prodgridControl = new DevExpress.XtraGrid.GridControl();
-            this.ProdbindingSource = new System.Windows.Forms.BindingSource();
+            this.ProdbindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.ProdgridView = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colId1 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colSrNo = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -193,7 +194,7 @@
             this.repositoryItemHyperLinkEdit1,
             this.repositoryItemButtonEdit5});
             this.CTgridControl.Size = new System.Drawing.Size(488, 331);
-            this.CTgridControl.TabIndex = 32;
+            this.CTgridControl.TabIndex = 4;
             this.CTgridControl.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.CTgridView});
             // 
@@ -408,7 +409,7 @@
             this.SelectSimpleButton.Name = "SelectSimpleButton";
             this.SelectSimpleButton.Size = new System.Drawing.Size(96, 22);
             this.SelectSimpleButton.StyleController = this.layoutControl1;
-            this.SelectSimpleButton.TabIndex = 31;
+            this.SelectSimpleButton.TabIndex = 3;
             this.SelectSimpleButton.Text = "Select";
             // 
             // prodgridControl
@@ -625,7 +626,7 @@
             this.ProductLookup.SelectedText = null;
             this.ProductLookup.SelectedValue = null;
             this.ProductLookup.Size = new System.Drawing.Size(423, 22);
-            this.ProductLookup.TabIndex = 4;
+            this.ProductLookup.TabIndex = 2;
             this.ProductLookup.VoucherType = Konto.App.Shared.VoucherTypeEnum.None;
             // 
             // voucherDateEdit
@@ -645,7 +646,7 @@
             this.voucherDateEdit.Properties.Mask.UseMaskAsDisplayFormat = true;
             this.voucherDateEdit.Size = new System.Drawing.Size(418, 24);
             this.voucherDateEdit.StyleController = this.layoutControl1;
-            this.voucherDateEdit.TabIndex = 2;
+            this.voucherDateEdit.TabIndex = 1;
             // 
             // voucherLookup
             // 
@@ -657,7 +658,7 @@
             this.voucherLookup.SelectedText = null;
             this.voucherLookup.SelectedValue = null;
             this.voucherLookup.Size = new System.Drawing.Size(429, 24);
-            this.voucherLookup.TabIndex = 1;
+            this.voucherLookup.TabIndex = 0;
             this.voucherLookup.VTypeId = Konto.App.Shared.VoucherTypeEnum.TakaConv;
             // 
             // Root

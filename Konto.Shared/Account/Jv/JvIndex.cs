@@ -570,21 +570,21 @@ namespace Konto.Shared.Account.Jv
 
                 PageReport rpt = new PageReport();
 
-                rpt.Load(new FileInfo("reg\\doc\\grn.rdlx"));
+                rpt.Load(new FileInfo("reg\\doc\\JVPrint.rdlx"));
 
-                rpt.Report.DataSources[0].ConnectionProperties.ConnectString = KontoGlobals.Conn;
+                rpt.Report.DataSources[0].ConnectionProperties.ConnectString = KontoGlobals.sqlConnectionString.ConnectionString;
 
                 GrapeCity.ActiveReports.Document.PageDocument doc = new GrapeCity.ActiveReports.Document.PageDocument(rpt);
 
                 doc.Parameters["id"].CurrentValue = this.PrimaryKey;
-                doc.Parameters["Ord"].CurrentValue = "N";
+                doc.Parameters["Bill"].CurrentValue = "N";
                 doc.Parameters["reportid"].CurrentValue = 0;
                 var frm = new KontoRepViewer(doc);
-                frm.Text = "Purchase Order";
+                frm.Text = "Journal Print";
                 var _tab = this.Parent.Parent as TabControlAdv;
                 if (_tab == null) return;
                 var pg1 = new TabPageAdv();
-                pg1.Text = "Order Print";
+                pg1.Text = "Journal Print";
                 _tab.TabPages.Add(pg1);
                 _tab.SelectedTab = pg1;
                 frm.TopLevel = false;

@@ -14,6 +14,7 @@ using Konto.Shared.Masters.Color;
 using Konto.Shared.Masters.Design;
 using Konto.Shared.Masters.Grade;
 using Konto.Shared.Masters.Item;
+using Konto.Shared.Trans.Common;
 using Serilog;
 using Syncfusion.Windows.Forms;
 using Syncfusion.Windows.Forms.Tools;
@@ -31,7 +32,8 @@ namespace Konto.Shared.Trans.Po
     public partial class PoIndex : KontoMetroForm
     {
         private List<OrdDto> FilterView = new List<OrdDto>();
-        private List<OrdTransDto> DelTrans = new List<OrdTransDto>(); 
+        private List<OrdTransDto> DelTrans = new List<OrdTransDto>();
+        private string _SearchText = "";
         //private ProductDto _selectedProdudt;
         public PoIndex()
         {
@@ -46,6 +48,7 @@ namespace Konto.Shared.Trans.Po
             gradeRepositoryItemButtonEdit.ButtonClick += GradeRepositoryItemButtonEdit_ButtonClick;
             designRepositoryItemButtonEdit.ButtonClick += DesignRepositoryItemButtonEdit_ButtonClick;
             accLookup1.SelectedValueChanged += AccLookup1_SelectedValueChanged;
+            accLookup1.ShownPopup += AccLookup1_ShownPopup;
             gridView1.InitNewRow += GridView1_InitNewRow;
             gridView1.CellValueChanged += GridView1_CellValueChanged;
             gridView1.KeyDown += GridView1_KeyDown;
@@ -62,7 +65,64 @@ namespace Konto.Shared.Trans.Po
             voucherLookup1.SelectedValueChanged += VoucherLookup1_SelectedValueChanged;
         }
 
-        
+        private void AccLookup1_ShownPopup(object sender, EventArgs e)
+        {
+            if (Convert.ToInt32(accLookup1.SelectedValue) == 0 || this.PrimaryKey != 0) return;
+            var ordfrm = new PendingIndentView();
+            
+            if (ordfrm.ShowDialog() != DialogResult.OK) return;
+
+            Int32[] selectedRowHandles = ordfrm.SelectedRows;
+            if (selectedRowHandles == null || selectedRowHandles.Count() == 0) return;
+            List<OrdTransDto> transDtos = new List<OrdTransDto>();
+            int id = 0;
+            foreach (var item in selectedRowHandles)
+            {
+                var ord = ordfrm.gridView1.GetRow(item) as PendingIndentDto;
+                OrdTransDto ct = new OrdTransDto();
+                id = id - 1;
+                ct.ProductId = Convert.ToInt32(ord.ProductId);
+                ct.ProductName = ord.Product;
+                ct.Qty = ord.PendQty;
+                ct.Rate = ord.Rate;
+                ct.Remark = ord.RequestNo;
+                ct.UomId = Convert.ToInt32(ord.UomId);
+
+                ct.DesignId = Convert.ToInt32(ord.DesignId);
+                ct.ColorId = Convert.ToInt32(ord.ColorId);
+                ct.GradeId = Convert.ToInt32(ord.GradeId);
+                ct.RefId = Convert.ToInt32( ord.TransId);
+                ct.RefVoucherId = ord.VoucherId;
+                ct.ColorName = ord.ColorName;
+                ct.DesignNo = ord.DesignNo;
+                ct.GradeName = ord.GradeName;
+                ct.OrdStatus = PoPara.Default_Order_Status;
+                if (accLookup1.LookupDto.IsGst)
+                {
+                    ct.Sgst = ord.Sgst;
+                    ct.Cgst = ord.Cgst;
+                    ct.Igst = 0;
+                }
+                else
+                {
+                    ct.Igst = ord.Igst;
+                    ct.Sgst = 0;
+                    ct.Cgst = 0;
+                }
+
+                ct.Total = decimal.Round(ct.Qty * ct.Rate, 2);
+
+                decimal gross = ct.Total - ct.Disc;
+
+                ct.SgstAmt = decimal.Round(gross * ct.Sgst  / 100, 2);
+                ct.CgstAmt = decimal.Round(gross * ct.Cgst / 100, 2);//, MidpointRounding.AwayFromZero);
+                ct.IgstAmt = decimal.Round(gross * ct.Igst / 100, 2);//, MidpointRounding.AwayFromZero);
+
+                ct.Total = gross + ct.SgstAmt + ct.CgstAmt + ct.IgstAmt;
+                transDtos.Add(ct);
+            }
+            ordTransDtoBindingSource1.DataSource = transDtos;
+        }
 
         private void VoucherLookup1_SelectedValueChanged(object sender, EventArgs e)
         {
@@ -118,6 +178,8 @@ namespace Konto.Shared.Trans.Po
             {
                 e.Cancel = true;
             }
+            if (itm.ProductId != 0)
+                e.Cancel = true;
         }
         private void PoIndex_Shown(object sender, EventArgs e)
         {
@@ -125,6 +187,8 @@ namespace Konto.Shared.Trans.Po
 
             if (this.EditKey > 0)
                 this.EditPage(this.EditKey);
+
+            //colProductName.OptionsColumn.ReadOnly = false;
         }
 
 
@@ -241,6 +305,8 @@ namespace Konto.Shared.Trans.Po
             frm.Tag = MenuId.Product_Master;
             frm.SelectedValue = _selvalue;
 
+           // frm.SearchText = this._SearchText;
+
             frm.VoucherType = VoucherTypeEnum.PurchaseOrder;
 
             frm.ShowDialog();
@@ -250,7 +316,7 @@ namespace Konto.Shared.Trans.Po
                 er.ProductName = frm.SelectedTex;
                 var model = frm.SelectedItem as ProductLookupDto;
                 er.UomId = model.UomId;
-                er.Rate = model.SaleRate;
+                er.Rate = model.DealerPrice;
                 if (accLookup1.LookupDto.IsGst)
                 {
                     er.Sgst = model.Sgst;
@@ -445,7 +511,7 @@ namespace Konto.Shared.Trans.Po
             stageLookUpEdit.EditValue = model.OrderStatusId;
             voucherDateEdit.EditValue = KontoUtils.IToD(model.VoucherDate);
             accLookup1.SelectedValue = model.AccId;
-            accLookup1.SetAcc(model.AccId);
+            accLookup1.SetAcc((int) model.AccId);
             refNotextEdit.Text = model.RefNo;
             requireDateEdit.EditValue = model.RequireDate;
             
@@ -536,6 +602,9 @@ namespace Konto.Shared.Trans.Po
         }
         private void GridView1_CellValueChanged(object sender, DevExpress.XtraGrid.Views.Base.CellValueChangedEventArgs e)
         {
+            //if (e.Column.FieldName == "ProductName" && e.Value!=null)
+            //    _SearchText = e.Value.ToString();
+
             if (e.Column == null) return;
             var er = gridView1.GetRow(e.RowHandle) as OrdTransDto;
             if (er == null) return;
@@ -597,6 +666,7 @@ namespace Konto.Shared.Trans.Po
                     {
                         if (dr.ProductId == 0)
                         {
+                            
                             OpenItemLookup(dr.ProductId, dr);
                             // e.Handled = true;
                         }
@@ -1084,7 +1154,7 @@ namespace Konto.Shared.Trans.Po
                 NewRec();
                 base.SaveDataAsync(newmode);
                 MessageBoxAdv.Show(this, KontoGlobals.SaveMessage +" Order No.: " + model.VoucherNo, "Saved !", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                if (this.voucherLookup1.GroupDto.PrintAfterSave && MessageBox.Show("Print Challan ?", "Print", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                if (this.voucherLookup1.GroupDto.PrintAfterSave && MessageBox.Show("Print Order ?", "Print", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     this.PrimaryKey = model.Id;
                     Print();

@@ -213,14 +213,15 @@ namespace Konto.Weaves.ColorMatching
         {
             if (QualityWeightspinEdit.Value == 0 || NetWeightSpinEdit == null) return;
             WastespinEdit.Value = QualityWeightspinEdit.Value - NetWeightSpinEdit.Value;
-            WastePerspinEdit.Value = (NetWeightSpinEdit.Value * 100 / QualityWeightspinEdit.Value) - 100;
+            WastePerspinEdit.Value = decimal.Round( ((NetWeightSpinEdit.Value * 100 / QualityWeightspinEdit.Value) - 100),2, MidpointRounding.AwayFromZero);
 
             if (JobChargeSpinEdit.Value == 0 || AveragePickspinEdit.Value == null
                 || AveragePickspinEdit.Value == 0 || LengthinMeterspinEdit.Value == null || LengthinMeterspinEdit.Value == 0) return;
-            JobChargeOneSareespinEdit.Value = JobChargeSpinEdit.Value * AveragePickspinEdit.Value * LengthinMeterspinEdit.Value;
+
+            JobChargeOneSareespinEdit.Value = decimal.Round( JobChargeSpinEdit.Value * AveragePickspinEdit.Value * LengthinMeterspinEdit.Value,2,MidpointRounding.AwayFromZero);
             CostWithWastagespinEdit.Value = YarnCostspinEdit.Value + JobChargeOneSareespinEdit.Value;
-            CostWithWastagespinEdit.Value = (CostWithoutWastagespinEdit1.Value * WastageInPerspinEdit.Value / 100) + CostWithoutWastagespinEdit1.Value;
-            OneMeterCostspinEdit.Value = CostWithWastagespinEdit.Value / LengthinMeterspinEdit.Value;
+            CostWithWastagespinEdit.Value = decimal.Round( ((CostWithoutWastagespinEdit1.Value * WastageInPerspinEdit.Value / 100) + CostWithoutWastagespinEdit1.Value),2, MidpointRounding.AwayFromZero);
+            OneMeterCostspinEdit.Value = decimal.Round( CostWithWastagespinEdit.Value / LengthinMeterspinEdit.Value,2, MidpointRounding.AwayFromZero);
         }
 
         #endregion
@@ -230,12 +231,12 @@ namespace Konto.Weaves.ColorMatching
             var rw = WeftgridView.GetRow(e.RowHandle) as WeftItemDto;
             rw.Id = -1 * WeftgridView.RowCount;
 
-            rw.ItemId = Convert.ToInt32(ProductLookup.SelectedValue);
-            rw.ProductId = Convert.ToInt32(ProductLookup.SelectedValue);
-            rw.ProductName = ProductLookup.SelectedText;
+            //rw.ItemId = Convert.ToInt32(ProductLookup.SelectedValue);
+            //rw.ProductId = Convert.ToInt32(ProductLookup.SelectedValue);
+            //rw.ProductName = ProductLookup.SelectedText;
 
-            rw.ColorId = Convert.ToInt32(colorLookup1.SelectedValue);
-            rw.ColorName = colorLookup1.SelectedText;
+            //rw.ColorId = Convert.ToInt32(colorLookup1.SelectedValue);
+            //rw.ColorName = colorLookup1.SelectedText;
         }
 
         private void WeftgridControl_ProcessGridKey(object sender, KeyEventArgs e)
@@ -367,7 +368,7 @@ namespace Konto.Weaves.ColorMatching
         }
         private void WeftgridControl_Enter(object sender, EventArgs e)
         {
-            WeftgridView.FocusedColumn = WeftgridView.VisibleColumns[2];
+            WeftgridView.FocusedColumn = WeftgridView.VisibleColumns[0];
         }
         private void WeftgridView_ShowingEditor(object sender, System.ComponentModel.CancelEventArgs e)
         {
@@ -454,10 +455,10 @@ namespace Konto.Weaves.ColorMatching
                     q = (decimal)er.Card / (decimal)PickOnLoomsspinEdit.Value;
                     ModelMtr = q;
                     var r = (decimal)TotalPickspinEdit.Value / q;
-                    LengthInInchSpintEdit.Value = q;
+                    LengthInInchSpintEdit.Value = decimal.Round(q,2,MidpointRounding.AwayFromZero) ; 
                     q = q / (decimal)39.37;
-                    LengthinMeterspinEdit.Value = q;
-                    AveragePickspinEdit.Value = r;
+                    LengthinMeterspinEdit.Value = decimal.Round( q,2,MidpointRounding.AwayFromZero);
+                    AveragePickspinEdit.Value = decimal.Round(r,2,MidpointRounding.AwayFromZero);
                 }
             }
 
@@ -477,12 +478,12 @@ namespace Konto.Weaves.ColorMatching
                 }
                 if (ProductPara.RS_In_Inch)
                 {
-                    Qty = (denier * Epi * RS) / 90000;
+                    Qty = decimal.Round( ((denier * Epi * RS) / 90000),2,MidpointRounding.AwayFromZero);
                     //  Qty = Qty + Qty * Change / 100;
                 }
                 else
                 {
-                    Qty = ((((denier * Epi * RS) / 9000) + (((denier * Epi * RS) / 9000) * 10 / 100)) * 100) / 1000;
+                    Qty = decimal.Round( (((((denier * Epi * RS) / 9000) + (((denier * Epi * RS) / 9000) * 10 / 100)) * 100) / 1000) ,2, MidpointRounding.AwayFromZero) ;
                     //  Qty = Qty + Qty * Change / 100;
                 }
 
@@ -498,9 +499,9 @@ namespace Konto.Weaves.ColorMatching
                 //    var i = er.Totcard / vm.Model.TotPick;
 
                 er.PI = er.Ends * er.Tar;
-                er.Qty = er.PI * ModelMtr * PannaspinEdit.Value * er.Denier / 354330000;
+                er.Qty = decimal.Round( ( (decimal) er.PI * ModelMtr * PannaspinEdit.Value * (decimal) er.Denier / 354330000),2, MidpointRounding.AwayFromZero);
                 Qty = (decimal)er.Qty;
-                Qty = Qty + Qty * Change / 100;
+                Qty =  Qty + decimal.Round(( Qty * Change / 100),2,MidpointRounding.AwayFromZero);
                 er.Costing = Qty * er.Rate;
                 er.RS = PannaspinEdit.Value;
             }
@@ -509,7 +510,7 @@ namespace Konto.Weaves.ColorMatching
                 Qty = 0;
             }
 
-            er.Qty = Qty;
+            er.Qty = decimal.Round( Qty,2, MidpointRounding.AwayFromZero);
 
             //var total = vm.Trans.Where(k => k.IsDeleted == false).Sum(k => k.Qty);
             //var wefts = WeftbindingSource.DataSource as List<WeftItemDto>;
@@ -526,8 +527,8 @@ namespace Konto.Weaves.ColorMatching
             if (warps.Sum(k => k.Costing) > 0)
                 costing = costing + warps.Sum(k => k.Costing);
 
-            YarnCostspinEdit.Value = costing;
-            CostWithoutWastagespinEdit1.Value = costing;
+            YarnCostspinEdit.Value = decimal.Round( costing,2,MidpointRounding.AwayFromZero);
+            CostWithoutWastagespinEdit1.Value = decimal.Round( costing,2,MidpointRounding.AwayFromZero);
         }
 
 
@@ -623,22 +624,22 @@ namespace Konto.Weaves.ColorMatching
             var rw = WarpgridView.GetRow(e.RowHandle) as WeftItemDto;
             rw.Id = -1 * WarpgridView.RowCount;
 
-            if (string.IsNullOrEmpty(ProductLookup.SelectedText))
-            {
-                MessageBoxAdv.Show("Select Product!!!");
-                return;
-            }
-            if (string.IsNullOrEmpty(colorLookup1.SelectedText))
-            {
-                MessageBoxAdv.Show("Select Color!!!");
-                return;
-            }
-            rw.ItemId = Convert.ToInt32(ProductLookup.SelectedValue);
-            rw.ProductId = Convert.ToInt32(ProductLookup.SelectedValue);
-            rw.ProductName = ProductLookup.SelectedText;
+            //if (string.IsNullOrEmpty(ProductLookup.SelectedText))
+            //{
+            //    MessageBoxAdv.Show("Select Product!!!");
+            //    return;
+            //}
+            //if (string.IsNullOrEmpty(colorLookup1.SelectedText))
+            //{
+            //    MessageBoxAdv.Show("Select Color!!!");
+            //    return;
+            //}
+            //rw.ItemId = Convert.ToInt32(ProductLookup.SelectedValue);
+            //rw.ProductId = Convert.ToInt32(ProductLookup.SelectedValue);
+            //rw.ProductName = ProductLookup.SelectedText;
 
-            rw.ColorId = Convert.ToInt32(colorLookup1.SelectedValue);
-            rw.ColorName = colorLookup1.SelectedText;
+            //rw.ColorId = Convert.ToInt32(colorLookup1.SelectedValue);
+            //rw.ColorName = colorLookup1.SelectedText;
 
         }
         private void ProdgridView_InvalidRowException(object sender, DevExpress.XtraGrid.Views.Base.InvalidRowExceptionEventArgs e)
@@ -794,9 +795,9 @@ namespace Konto.Weaves.ColorMatching
             {
                 err.RS = PannaspinEdit.Value;
                 err.PI = PickOnLoomsspinEdit.Value;
-                err.Qty = ModelMtr * err.Tar * err.Denier / 354330000;
+                err.Qty = decimal.Round( (ModelMtr * err.Tar * (decimal) err.Denier / 354330000),2,MidpointRounding.AwayFromZero);
                 Qty = (decimal)err.Qty;
-                err.Costing = Qty * err.Rate;
+                err.Costing = decimal.Round(Qty * err.Rate,2, MidpointRounding.AwayFromZero);
 
                 var warps = WarpbindingSource.DataSource as List<WeftItemDto>;
                 var wefts = WeftbindingSource.DataSource as List<WeftItemDto>;
@@ -808,15 +809,15 @@ namespace Konto.Weaves.ColorMatching
                 var costing = wefts.Sum(k => k.Costing);
 
                 costing = costing + warps.Sum(k => k.Costing);
-                YarnCostspinEdit.Value = costing;
-                CostWithoutWastagespinEdit1.Value = costing;
+                YarnCostspinEdit.Value = decimal.Round( costing,2, MidpointRounding.AwayFromZero);
+                CostWithoutWastagespinEdit1.Value = decimal.Round(costing,2,MidpointRounding.AwayFromZero);
                 //  Qty = 0;
             }
             else
             {
                 Qty = 0;
             }
-            err.Qty = Qty;
+            err.Qty = decimal.Round( Qty,2,MidpointRounding.AwayFromZero);
         }
 
         #endregion
@@ -1384,18 +1385,18 @@ namespace Konto.Weaves.ColorMatching
                 colorLookup1.Focus();
                 return false;
             }
-            else if (weft.Count <= 0)
+            else if (weft.Count == 0 && warp.Count ==0)
             {
                 MessageBoxAdv.Show(this, "Atleast one transaction must be entered!", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 WeftgridView.Focus();
                 return false;
             }
-            else if (warp.Count <= 0)
-            {
-                MessageBoxAdv.Show(this, "Atleast one Warp Product transaction must be entered!", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                WarpgridView.Focus();
-                return false;
-            }
+            //else if (warp.Count <= 0)
+            //{
+            //    MessageBoxAdv.Show(this, "Atleast one Warp Product transaction must be entered!", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //    WarpgridView.Focus();
+            //    return false;
+            //}
 
             return true;
         }

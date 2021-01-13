@@ -62,6 +62,7 @@ namespace Konto.App.Shared
         public const string Haste_Lookup_List_Layout = "masters\\haste_lookup.xml";
 
         public const string AccountMaster_Layout = "masters\\accIndex.xml";
+
         public const string Voucher_Type = "masters\\VTypeIndex.xml";
         
         public const string Voucher_Master = "masters\\VoucherIndex.xml";
@@ -77,6 +78,9 @@ namespace Konto.App.Shared
         public const string Role_List_Layout = "masters\\role_list.xml";
         public const string User_List_Layout = "masters\\User_list.xml";
 
+        public const string PackingType_List_Layout = "masters\\pack_type_list.xml";
+        public const string CostHead_List_Layout = "masters\\cost_head_list.xml";
+
         #endregion
 
         #region opening
@@ -84,7 +88,13 @@ namespace Konto.App.Shared
         public const string Op_Bill_Main = "op\\op_bill.xml";
         #endregion
         #region Transaction
-       
+
+        public const string Gate_Inward_Index = "po\\gate_inward_index.xml";
+
+
+        public const string Indent_Index = "po\\indent_index.xml";
+
+        public const string Indent_Trans = "po\\indent_trans.xml";
         public const string So_Index = "so\\so_index.xml";
         public const string So_Trans = "so\\so_trans.xml";
         public const string Po_Index = "po\\po_index.xml";
@@ -223,9 +233,9 @@ namespace Konto.App.Shared
         public const string BeamProd_Index = "Weaving\\BeamProd_Index.xml";
         public const string BeamProd_Trans = "Weaving\\BeamProd_Trans.xml";
         public const string BeamProd_List = "Weaving\\BeamProd_List.xml";
-        public const string BeamLoading_Index = "Weaving\\BeamProd_Index.xml";
-        public const string BeamLoading_Trans = "Weaving\\BeamProd_Trans.xml";
-        public const string BeamLoading_List = "Weaving\\BeamLoading_List.xml";
+        public const string BeamLoading_Index = "Weaving\\beam_loading_Index.xml";
+        public const string BeamLoading_Trans = "Weaving\\beam_loading_Trans.xml";
+        public const string BeamLoading_List = "Weaving\\beam_loading_List.xml";
 
         public const string TakaProd_Index = "Weaving\\TakaProd_Index.xml";
         public const string TakaProd_Trans = "Weaving\\TakaProd_Trans.xml";
@@ -252,5 +262,19 @@ namespace Konto.App.Shared
         public const string TakaOp_Trans = "Weaving\\TakaOp_Trans.xml";
 
         #endregion
+
+        #region Yarm
+        public const string Batch_Index = "yarn\\batch_index.xml";
+        public const string Batch_List = "yarn\\batch_list.xml";
+        public const string Batch_Trans = "yarn\\batch_trans.xml";
+
+        public const string Yarn_Packing_Index = "yarn\\packing_index.xml";
+        public const string Yarn_Packing_List = "yarn\\packing_list.xml";
+        public const string Yarn_Packing_Trans = "yarn\\packing_trans.xml";
+        #endregion
+
+        // apparel
+        public const string BOM_Layout = "apparel\\BOM_Layout.xml";
+        public const string BOM_List_Layout = "apparel\\BOM_List_Layout.xml";
     }
 }

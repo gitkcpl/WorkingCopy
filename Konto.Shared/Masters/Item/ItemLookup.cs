@@ -14,6 +14,7 @@ using DevExpress.Utils;
 using System.Windows.Forms;
 using Konto.App.Shared;
 using Konto.Data.Models.Masters.Dtos;
+using Konto.Data;
 
 namespace Konto.Shared.Masters.Item
 {
@@ -54,6 +55,7 @@ namespace Konto.Shared.Masters.Item
                 if (_SelectedValue != value)
                 {
                     _SelectedValue = value;
+                    
                     OnPropertiesChanged();
                 }
             }
@@ -64,9 +66,9 @@ namespace Konto.Shared.Masters.Item
             get { return _LkpDto; }
             set
             {
-                if (_SelectedValue != value)
+                if (_LkpDto != value)
                 {
-                    _SelectedValue = value;
+                    _LkpDto = value;
                     OnPropertiesChanged();
                 }
             }
@@ -120,6 +122,7 @@ namespace Konto.Shared.Masters.Item
 
         public override string EditorTypeName => RepositoryItemItemLookup.CustomEditName;
 
+        
         protected override void OnClickButton(DevExpress.XtraEditors.Drawing.EditorButtonObjectInfoArgs buttonInfo)
         {
             ShowList();
@@ -137,11 +140,13 @@ namespace Konto.Shared.Masters.Item
             frm.ShowDialog(this.Parent.Parent.Parent);
             if (frm.DialogResult == DialogResult.OK)
             {
-                this.Properties.LkpDto= frm.customGridView1.GetRow(frm.customGridView1.FocusedRowHandle) as ProductLookupDto;
-                this.Properties.DisplayText = this.Properties.LkpDto.ProductName;
+                
+               
                 this.Properties.SelectedValue = frm.SelectedValue;
+               
+                this.Properties.LkpDto = frm.customGridView1.GetRow(frm.customGridView1.FocusedRowHandle) as ProductLookupDto;
+                this.Properties.DisplayText = this.Properties.LkpDto.ProductName;
                 this.Text = this.Properties.LkpDto.ProductName;
-
             }
             this.Parent.SelectNextControl(this, true, true, true, false);
         }

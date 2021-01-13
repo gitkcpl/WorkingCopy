@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PInvoiceListView));
             this.listDateRange1 = new Konto.Core.Shared.Libs.ListDateRange();
             this.panel1 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -37,9 +38,11 @@
             this.customGridView2 = new Konto.Core.Shared.Libs.CustomGridView();
             this.customGridControl1 = new Konto.Core.Shared.Libs.CustomGridControl();
             this.customGridView1 = new Konto.Core.Shared.Libs.CustomGridView();
+            this.attachSimpleButton = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).BeginInit();
             this.panelControl2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).BeginInit();
+            this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.customGridControl3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.customGridView3)).BeginInit();
@@ -75,6 +78,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.attachSimpleButton);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel1.Location = new System.Drawing.Point(0, 281);
             this.panel1.Name = "panel1";
@@ -215,6 +219,18 @@
             this.customGridView1.OptionsView.ShowFooter = true;
             this.customGridView1.OptionsView.ShowGroupPanel = false;
             // 
+            // attachSimpleButton
+            // 
+            this.attachSimpleButton.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.attachSimpleButton.Appearance.Options.UseFont = true;
+            this.attachSimpleButton.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("attachSimpleButton.ImageOptions.Image")));
+            this.attachSimpleButton.Location = new System.Drawing.Point(3, 3);
+            this.attachSimpleButton.Name = "attachSimpleButton";
+            this.attachSimpleButton.Size = new System.Drawing.Size(103, 24);
+            this.attachSimpleButton.TabIndex = 7;
+            this.attachSimpleButton.TabStop = false;
+            this.attachSimpleButton.Text = "Attachment";
+            // 
             // PInvoiceListView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -234,6 +250,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).EndInit();
             this.panelControl2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).EndInit();
+            this.panel1.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.customGridControl3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.customGridView3)).EndInit();
@@ -255,5 +272,6 @@
         private Core.Shared.Libs.CustomGridView customGridView2;
         private Core.Shared.Libs.CustomGridControl customGridControl1;
         private Core.Shared.Libs.CustomGridView customGridView1;
+        private DevExpress.XtraEditors.SimpleButton attachSimpleButton;
     }
 }

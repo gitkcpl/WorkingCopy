@@ -502,8 +502,8 @@ namespace Konto.Trading.MillIssue
                                   Gross=ct.Gross,Igst=ct.Igst,
                                   IgstPer=ct.IgstPer,LotNo=ct.LotNo,MiscId=ct.MiscId,OtherAdd=ct.OtherAdd,OtherLess=ct.OtherLess,
                                   Pcs=ct.Pcs,ProductId=(int)ct.ProductId,ProductName=pd.ProductName,Qty=ct.Qty,Rate=ct.Rate,RefId=ct.RefId,
-                                  RefVoucherId=ct.RefVoucherId,Remark=ct.Remark,Sgst=ct.Sgst,SgstPer=ct.SgstPer,Total=ct.Total,UomId=(int)ct.UomId
-                                 
+                                  RefVoucherId=ct.RefVoucherId,Remark=ct.Remark,Sgst=ct.Sgst,SgstPer=ct.SgstPer,Total=ct.Total,UomId=(int)ct.UomId,
+                                    FinishQuality = np.ProductName,NProductId = (int)ct.NProductId,RefNo = ct.RefNo,Cops=ct.Cops                                 
                                   
                               }).ToList();
 
@@ -1119,6 +1119,7 @@ namespace Konto.Trading.MillIssue
             DelTrans = new List<MiTransDto>();
             DelProd = new List<GrnProdDto>();
             this.prodDtos = new List<GrnProdDto>();
+            
         }
         public override void EditPage(int _key)
         {

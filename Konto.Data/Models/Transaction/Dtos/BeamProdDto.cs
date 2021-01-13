@@ -37,7 +37,7 @@ namespace Konto.Data.Models.Transaction.Dtos
         public decimal? CopsRate { get; set; }
         public decimal? BoxRate { get; set; }
         public decimal? CopsWt { get; set; }
-
+        public decimal CartnWt { get; set; }
         public string ProdStatus { get; set; }
         public string LotNo { get; set; }
 
@@ -91,6 +91,11 @@ namespace Konto.Data.Models.Transaction.Dtos
         public int? SubGradeId { get; set; }
         public string TwistType { get; set; }
         public string YarnName { get; set; } 
-        public string MendorName { get; set; } 
+        public string MendorName { get; set; }
+        public string BatchName { get; set; }
+        public string GradeName { get; set; }
+        public string BoxItem { get; set; }
+        public string SubGradeName { get; set; }
+        public decimal? BoxWt { get; set; }
     }
 }

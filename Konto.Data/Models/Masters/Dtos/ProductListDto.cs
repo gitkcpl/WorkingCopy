@@ -35,6 +35,9 @@ namespace Konto.Data.Models.Masters.Dtos
         public int OpPcs { get; set; }
         public decimal OpQty { get; set; }
         public string SerialReq { get; set; }
+        public string   Size { get; set; }
+
+        public bool SaleRateTaxInc { get; set; }
 
     }
 }

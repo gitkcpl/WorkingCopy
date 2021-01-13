@@ -171,6 +171,9 @@ namespace Konto.Shared.Account.Jv
         public override void Print()
         {
             base.Print();
+            
+          //  MessageBox.Show("Not Implemented");
+
             if (this.customGridView1.FocusedRowHandle <= 0) return;
             if (KontoView.Columns.ColumnByFieldName("Id") != null)
             {
@@ -183,14 +186,14 @@ namespace Konto.Shared.Account.Jv
                 }
                 var id = this.KontoView.GetRowCellValue(this.KontoView.FocusedRowHandle, "VoucherNo").ToString();
 
-                var frm = new DocPrintParaView(VoucherTypeEnum.Inward, "Grn Print",id,id, "ORD", "OrdId");
+                var frm = new DocPrintParaView(VoucherTypeEnum.JournalVoucher, "Journal Print", id, id, "JVP", "BillId");
                 frm.ShowDialog();
 
 
             }
 
-           
-          
+
+
 
         }
     }

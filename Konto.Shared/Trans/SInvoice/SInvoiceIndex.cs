@@ -462,7 +462,19 @@ namespace Konto.Shared.Trans.SInvoice
                 er.ProductName = frm.SelectedTex;
                 var model = frm.SelectedItem as ProductLookupDto;
                 er.UomId = model.UomId;
-                er.Rate = model.SaleRate;
+
+                if (model.SaleRateTaxInc)
+                {
+                    er.SaleRate = model.SaleRate;
+                    var rt = decimal.Round((model.SaleRate * 100) / (100 + (model.Sgst + model.Cgst)), 2, MidpointRounding.AwayFromZero);
+                    er.Rate = rt;
+                }
+                else
+                {
+                    er.SaleRate = decimal.Round((model.SaleRate + (model.SaleRate * model.Igst / 100)), 2, MidpointRounding.AwayFromZero);
+                    er.Rate = model.SaleRate;
+                }
+
                 er.Cut = model.Cut;
                 er.Disc = _DiscPer;
                 if (isGst)
@@ -572,6 +584,16 @@ namespace Konto.Shared.Trans.SInvoice
       
         public void GridCalculation(BillTransDto er, string fldName="NA")
         {
+            if (fldName == "SaleRate")
+            {
+                er.Rate = decimal.Round((er.SaleRate * 100) / (100 + (er.SgstPer + er.CgstPer + er.IgstPer)), 2, MidpointRounding.AwayFromZero);
+            }
+            
+            else if (fldName == "Rate")
+            {
+                er.SaleRate = decimal.Round((er.Rate + (er.Rate * (er.SgstPer + er.CgstPer + er.IgstPer) / 100)), 2, MidpointRounding.AwayFromZero);
+            }
+
 
             if (er.Cut > 0 && er.Pcs > 0)
                 er.Qty = decimal.Round(er.Pcs * er.Cut, 2, MidpointRounding.AwayFromZero);
@@ -1100,7 +1122,8 @@ namespace Konto.Shared.Trans.SInvoice
                                 ProductName = p.ProductName,
                                 RefId = bt.RefId,
                                 RefTransId = bt.RefTransId,
-                                RefVoucherId = bt.RefVoucherId
+                                RefVoucherId = bt.RefVoucherId,
+                                SaleRate=bt.SaleRate
                             }
                             ).ToList();
 
@@ -1241,6 +1264,7 @@ namespace Konto.Shared.Trans.SInvoice
                 var row = view.GetRow(view.FocusedRowHandle) as BillTransDto;
                 view.DeleteRow(view.FocusedRowHandle);
                 DelTrans.Add(row);
+                FinalTotal();
             }
             else if (e.KeyCode == Keys.Delete)
             {
@@ -1603,6 +1627,8 @@ namespace Konto.Shared.Trans.SInvoice
             ewayBillTextEdit.Text = string.Empty;
             roundoffSpinEdit.Value = 0;
             billAmtSpinEdit.Value = 0;
+            tcsAmtTextEdit.Value = 0;
+            tcsPerTextEdit.Value = 0;
             extra1TextEdit.Text = string.Empty;
             extra2TextEdit.Text = string.Empty;
             

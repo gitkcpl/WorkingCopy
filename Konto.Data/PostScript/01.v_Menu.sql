@@ -537,7 +537,11 @@ insert into ErpModule ([Id],[ParentId],[ModuleDesc],[OrderIndex],[LinkButton],[S
 		   0,0,0,null,null,1,GETDATE(),GETDATE(),21,1,0,NEWID())
 end
 go
-	   update dbo.ErpModule set IconPath='/Konto.Wpf;component/MenuIcon/voucher.png' where id=135
+
+	   
+
+
+
 
 if NOT exists (select 1 from ErpModule em where em.Id=1071)
 begin
@@ -1256,7 +1260,7 @@ insert into ErpModule ([Id],[ParentId],[ModuleDesc],[OrderIndex],[LinkButton],[S
            ,[DefaultReport],[DefaultLayout],[TableName],[AssemblyName],[MainAssembly]
            ,[ListAssembly],[MDI],[Title],[Visible],[IconPath],[CheckRight]
            ,[VisibleOnDashBoard],[VisibleOnSideBar],[IsSeprator],[Extra1],[Extra2],[Offline],CreateDate)
-		   values(371,378,'Production',12,null,null,0,
+		   values(371,378,'Yarn Production',12,null,null,0,
 		   null,null,'Production (Packing List)','Konto.Yarn.YarnProduction.YarnProdIndex','Konto.Yarn',
 		   null,null,'Production',1,'/Konto.Wpf;component/MenuIcon/gray.png',0,
 		   0,0,0,null,null,1,GETDATE())
@@ -2614,7 +2618,7 @@ insert into ErpModule ([Id],[ParentId],[ModuleDesc],[OrderIndex],[LinkButton],[S
 		   null,null,'Opening Cheque',0,'/Konto.Wpf;component/MenuIcon/opening.png',0,
 		   0,0,0,null,null,1,GETDATE(),GETDATE())
 end  
- 	   update dbo.ErpModule set IconPath='/Konto.Wpf;component/MenuIcon/opening.png' where id=148
+ 	   
 
 if NOT exists (select 1 from ErpModule em where em.Id=150)
 begin
@@ -2628,7 +2632,7 @@ insert into ErpModule ([Id],[ParentId],[ModuleDesc],[OrderIndex],[LinkButton],[S
 		   null,null,'Opening Taka Stock',0,'/Konto.Wpf;component/MenuIcon/opening.png',0,
 		   0,0,0,null,null,1,GETDATE(),GETDATE())
 end  
- 	   update dbo.ErpModule set IconPath='/Konto.Wpf;component/MenuIcon/opening.png' where id=150
+ 	  
 
 if NOT exists (select 1 from ErpModule em where em.Id=151)
 begin
@@ -2670,7 +2674,20 @@ insert into ErpModule ([Id],[ParentId],[ModuleDesc],[OrderIndex],[LinkButton],[S
 		   null,null,'Warp Item',1,'/Konto.Wpf;component/MenuIcon/opening.png',0,
 		   0,0,0,null,null,1,GETDATE(),GETDATE())
 end
- 	   update dbo.ErpModule set IconPath='/Konto.Wpf;component/MenuIcon/opening.png' where id=153
+
+if NOT exists (select 1 from ErpModule em where em.Id=154)
+begin
+insert into ErpModule ([Id],[ParentId],[ModuleDesc],[OrderIndex],[LinkButton],[ShortCutKey],[PackageId]
+           ,[DefaultReport],[DefaultLayout],[TableName],[AssemblyName],[MainAssembly]
+           ,[ListAssembly],[MDI],[Title],[Visible],[IconPath],[CheckRight]
+           ,[VisibleOnDashBoard],[VisibleOnSideBar],[IsSeprator],[Extra1],[Extra2],[Offline],
+		   [CreateDate],[ModifyDate])
+		   values(154,100,'Machine Position',8,null,null,0,
+		   null,null,'Machine Position','Konto.Shared.Masters.Position.PositionIndex','Konto.Shared',
+		   null,null,'Machine Position',1,'/Konto.Wpf;component/MenuIcon/opening.png',0,
+		   0,0,0,null,null,1,GETDATE(),GETDATE())
+end
+ 	  
 
 if NOT exists (select 1 from ErpModule em where em.Id=1061)
 begin

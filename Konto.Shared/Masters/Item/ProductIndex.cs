@@ -1,9 +1,12 @@
-﻿using DevExpress.XtraGrid.Views.Grid;
+﻿using AutoMapper;
+using DevExpress.XtraGrid.Views.Grid;
 using Konto.App.Shared;
+using Konto.App.Shared.Para;
 using Konto.Core.Shared.Frms;
 using Konto.Core.Shared.Libs;
 using Konto.Data;
 using Konto.Data.Models.Masters;
+using Konto.Data.Models.Masters.Dtos;
 using Serilog;
 using Syncfusion.Windows.Forms;
 using System;
@@ -21,7 +24,12 @@ namespace Konto.Shared.Masters.Item
         private List<ProductModel> FilterView = new List<ProductModel>();
         private BindingList<PImageModel> _trans = new BindingList<PImageModel>();
         private List<PImageModel> _delImg = new List<PImageModel>();
-
+        private List<WeftItemDto> _Wefttrans = new List<WeftItemDto>();
+        private List<WeftItemDto> _DelWefttrans = new List<WeftItemDto>();
+        private List<WeftItemDto> _Warptrans = new List<WeftItemDto>();
+        private List<WeftItemDto> _DelWarptrans = new List<WeftItemDto>();
+        private List<PFormulaDto> _FormulaTrans = new List<PFormulaDto>();
+        private List<PFormulaDto> _DelFormula = new List<PFormulaDto>();
         public ProductIndex()
         {
             InitializeComponent();
@@ -35,12 +43,87 @@ namespace Konto.Shared.Masters.Item
             gridView1.InitNewRow += GridView1_InitNewRow;
             gridView1.KeyDown += GridView1_KeyDown;
             maxOrdSpinEdit.KeyDown += MaxOrdSpinEdit_KeyDown;
-
+            purRatespinEdit.EditValueChanged += PurRatespinEdit_EditValueChanged;
+            taxTypelookUpEdit.EditValueChanged += TaxTypelookUpEdit_EditValueChanged;
+            purDiscspinEdit.EditValueChanged += PurDiscspinEdit_EditValueChanged;
+            formulaSimpleButton.Click += FormulaSimpleButton_Click;
             this.MainLayoutFile = KontoFileLayout.Product_Master_Layout;
-
+            SetParameter();
             FillLookup();
+
+            if (KontoGlobals.PackageId != 3 || KontoGlobals.PackageId != 7)
+                weavingSimpleButton.Visible = false;
         }
 
+        private void FormulaSimpleButton_Click(object sender, EventArgs e)
+        {
+            var fr = new ItemFormulaView();
+            fr.FormulaData = this._FormulaTrans;
+            fr.DelData = this._DelFormula;
+            fr.ShowDialog();
+        }
+
+        private void PurDiscspinEdit_EditValueChanged(object sender, EventArgs e)
+        {
+            CalculateCostPrice();
+        }
+
+        private void TaxTypelookUpEdit_EditValueChanged(object sender, EventArgs e)
+        {
+            CalculateCostPrice();
+
+
+        }
+
+        private void PurRatespinEdit_EditValueChanged(object sender, EventArgs e)
+        {
+            CalculateCostPrice();
+        }
+        private void CalculateCostPrice()
+        {
+            if (string.IsNullOrEmpty(taxTypelookUpEdit.Text)) return;
+
+            decimal igst = Convert.ToDecimal(taxTypelookUpEdit.GetColumnValue("Igst"));
+            decimal dp = 0;
+            decimal dp_disc = 0;
+            decimal cost_price = 0;
+
+            dp =purRatespinEdit.Value;
+            dp_disc = dp - ((dp * purDiscspinEdit.Value) / 100);
+            cost_price = dp_disc;
+            costSpintEdit.Text = dp_disc.ToString();
+           
+            if (ProductPara.Cost_Rate_Inc_Gst)
+            {
+                cost_price = cost_price + ((dp_disc * igst) / 100);
+                costSpintEdit.Text = cost_price.ToString();
+            }
+        }
+        private void SetParameter()
+        {
+            using (var db = new KontoContext())
+            {
+                var _paralists = db.CompParas.Include("SysPara")
+                              .Where(x => x.SysPara.Category == "Product Master" && x.CompId == KontoGlobals.CompanyId)
+                             .ToList();
+
+                foreach (var item in _paralists)
+                {
+                    var value = item.ParaValue;
+                    switch (item.ParaId)
+                    {
+
+                        case 227:
+                            {
+                                ProductPara.Cost_Rate_Inc_Gst = (value == "Y") ? true : false;
+                                break;
+                            }
+                        
+                    }
+                }
+            }
+
+        }
         private void MaxOrdSpinEdit_KeyDown(object sender, KeyEventArgs e)
         {
             if(e.KeyData == Keys.Return)
@@ -109,7 +192,7 @@ namespace Konto.Shared.Masters.Item
             serialComboBoxEx.DataSource = cbp;
             batchComboBoxEx.DataSource = cbp;
 
-            taxTypelookUpEdit.Properties.DisplayMember = "DisplayText";
+            taxTypelookUpEdit.Properties.DisplayMember = "TaxName";
             taxTypelookUpEdit.Properties.ValueMember = "Id";
 
             purUnitlookUpEdit.Properties.DisplayMember = "DisplayText";
@@ -119,14 +202,10 @@ namespace Konto.Shared.Masters.Item
             unitLookUpEdit.Properties.ValueMember = "Id";
             using (var db = new KontoContext())
             {
-                var model = (from p in db.TaxMasters
-                             where !p.IsDeleted && p.IsActive
-                             orderby p.TaxName
-                             select new BaseLookupDto
-                             {
-                                 DisplayText = p.TaxName,
-                                 Id = p.Id
-                             }).ToList();
+                var model = db.TaxMasters
+                             .Where(p=> !p.IsDeleted && p.IsActive)
+                             .OrderBy(p=> p.TaxName).ToList();
+                             
                 taxTypelookUpEdit.Properties.DataSource = model;
 
                 var uom = (from p in db.Uoms
@@ -286,6 +365,11 @@ namespace Konto.Shared.Masters.Item
 
             _trans = new BindingList<PImageModel>();
             _delImg = new List<PImageModel>();
+            _Wefttrans = new List<WeftItemDto>();
+            _Warptrans = new List<WeftItemDto>();
+            _DelWarptrans = new List<WeftItemDto>();
+            _DelWefttrans = new List<WeftItemDto>();
+
             gridControl1.DataSource = _trans;
             tabbedControlGroup1.SelectedTabPageIndex = 0;
 
@@ -322,6 +406,11 @@ namespace Konto.Shared.Masters.Item
             base.ResetPage();
             _trans = new BindingList<PImageModel>();
             _delImg = new List<PImageModel>();
+            _Wefttrans = new List<WeftItemDto>();
+            _Warptrans = new List<WeftItemDto>();
+            _DelWarptrans = new List<WeftItemDto>();
+            _DelWefttrans = new List<WeftItemDto>();
+
             gridControl1.DataSource = _trans;
 
             barcodeTextBoxExt.Clear();
@@ -344,6 +433,7 @@ namespace Konto.Shared.Masters.Item
             rolSpinEdit.Value = 0;
             minStockSpinEdit.Value = 0;
             maxStockSpinEdit.Value = 0;
+            taxIncCheckEdit.Checked = false;
             groupLookup1.SetEmpty();
             subGroupLookup1.SetEmpty();
             brandLookup1.SetEmpty();
@@ -396,6 +486,7 @@ namespace Konto.Shared.Masters.Item
             maxOrdSpinEdit.Value = model.MaxOrdQty;
             rolSpinEdit.Value = model.Rol;
             costSpintEdit.Value = model.ActualCost;
+            taxIncCheckEdit.Checked = model.SaleRateTaxInc;
             toggleSwitch1.Enabled = true;
             groupLookup1.SelectedValue = model.GroupId;
             groupLookup1.SetGroup();
@@ -417,7 +508,90 @@ namespace Konto.Shared.Masters.Item
             {
                 pm = db.Prices.FirstOrDefault(x => x.ProductId == model.Id);
                 _trans = new BindingList<PImageModel>(db.PImagies.Where(x => x.ProductId == model.Id && !x.IsDeleted && x.Category == "P").ToList());
+
+                _Wefttrans = (from wi in db.WeftItems
+                              join pd in db.Products on wi.ProductId equals pd.Id into join_pd
+                              from pd in join_pd.DefaultIfEmpty()
+                              join ac in db.Accs on wi.AccId equals ac.Id into join_ac
+                              from ac in join_ac.DefaultIfEmpty()
+                              join co in db.ColorModels on wi.ColorId equals co.Id into join_co
+                              from co in join_co.DefaultIfEmpty()
+                              orderby wi.Id
+                              where !wi.IsDeleted && wi.RefId == model.Id && wi.TypeId == 1
+                              select new WeftItemDto
+                              {
+                                  Denier = wi.Denier,
+                                  Extra1 = wi.Extra1,
+                                  Extra2 = wi.Extra2,
+                                  Id = wi.Id,
+                                  PI = wi.PI,
+                                  ProductId = wi.ProductId,
+                                  ProductName = pd.ProductName,
+                                  Qty = wi.Qty,
+                                  RefId = wi.RefId,
+                                  Remark = wi.Remark,
+                                  RS = wi.RS,
+                                  TypeId = wi.TypeId,
+                                  AccId = wi.AccId,
+                                  Ends = wi.Ends,
+                                  Mtr = wi.Mtr,
+                                  ColorId = wi.ColorId,
+                                  AccName = ac.AccName,
+                                  ColorName = co.ColorName
+                              }
+             ).ToList();
+                _Warptrans = (from wi in db.WeftItems
+                              join pd in db.Products on wi.ProductId equals pd.Id into join_pd
+                              from pd in join_pd.DefaultIfEmpty()
+                              join ac in db.Accs on wi.AccId equals ac.Id into join_ac
+                              from ac in join_ac.DefaultIfEmpty()
+                              join co in db.ColorModels on wi.ColorId equals co.Id into join_co
+                              from co in join_co.DefaultIfEmpty()
+                              orderby wi.Id
+                              where !wi.IsDeleted && wi.RefId == model.Id && wi.TypeId == 2
+                              select new WeftItemDto
+                              {
+                                  Denier = wi.Denier,
+                                  Extra1 = wi.Extra1,
+                                  Extra2 = wi.Extra2,
+                                  Id = wi.Id,
+                                  PI = wi.PI,
+                                  ProductId = wi.ProductId,
+                                  ProductName = pd.ProductName,
+                                  Qty = wi.Qty,
+                                  RefId = wi.RefId,
+                                  Remark = wi.Remark,
+                                  RS = wi.RS,
+                                  TypeId = wi.TypeId,
+                                  AccId = wi.AccId,
+                                  Ends = wi.Ends,
+                                  Mtr = wi.Mtr,
+                                  ColorId = wi.ColorId,
+                                  AccName = ac.AccName,
+                                  ColorName = co.ColorName
+                              }
+             ).ToList();
+
+                _FormulaTrans = (from p in db.PFormulas
+                                 join pd in db.Products on p.RefProductId equals pd.Id into join_pd
+                                 from pd in join_pd.DefaultIfEmpty()
+                                 join co in db.ColorModels on p.ColorId equals co.Id into join_co
+                                 from co in join_co.DefaultIfEmpty()
+                                 where !p.IsDeleted && p.ProductId == model.Id
+                                 select new PFormulaDto
+                                 {
+                                     Id= p.Id,ColorId= p.ColorId,RefProductId= p.RefProductId,
+                                    ColorName= co.ColorName,
+                                    Cut= p.Cut,DescType=p.DescType,
+                                    ProductId=p.ProductId,ProductName=pd.ProductName,
+                                    Qty=p.Qty,Rate=p.Rate,Remark=p.Remark,Total=p.Total
+
+                                 }).ToList();
+
             }
+
+            
+
             gridControl1.DataSource = _trans;
 
             gridControl1.RefreshDataSource();
@@ -499,6 +673,11 @@ namespace Konto.Shared.Masters.Item
 
             PriceModel pm = new PriceModel();
 
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<WeftItemDto, WeftItemModel>().ForMember(x => x.Id, p => p.Ignore());
+            });
+
             using (var db = new KontoContext())
             {
                 using(var _tran = db.Database.BeginTransaction())
@@ -531,6 +710,7 @@ namespace Konto.Shared.Masters.Item
                         model.SerialReq = serialComboBoxEx.SelectedValue.ToString();
                         model.BatchReq = batchComboBoxEx.SelectedValue.ToString();
                         model.CheckNegative = checkEdit1.Checked;
+                        model.SaleRateTaxInc = taxIncCheckEdit.Checked;
                         model.MinLevel = minStockSpinEdit.Value;
                         model.MaxLevel = maxStockSpinEdit.Value;
                         model.Rol = rolSpinEdit.Value;
@@ -609,6 +789,110 @@ namespace Konto.Shared.Masters.Item
                                 }
                             }
                         }
+
+
+
+                        //Weft Item
+                        //TypeId=1-Weft,2-Warp 
+
+                        var map = new Mapper(config);
+                        WeftItemModel transModel = new WeftItemModel();
+                        foreach (var item in _Wefttrans)
+                        {
+                            var transid = item.Id;
+                            item.RefId = model.Id;
+
+                            item.Panno = 0;
+                            item.TypeId = 1;
+
+                            transModel = new WeftItemModel();
+                            if (item.Id > 0)
+                            {
+                                transModel = db.WeftItems.Find(item.Id);
+                            }
+                            map = new Mapper(config);
+                            map.Map(item, transModel);
+
+                            if (item.Id <= 0)
+                            {
+                                db.WeftItems.Add(transModel);
+                                db.SaveChanges();
+                            }
+                        }
+                        //Deleted weft items
+                        foreach (var item in _DelWefttrans)
+                        {
+                            transModel = db.WeftItems.Find(item.Id);
+                            if (transModel != null && transModel.Id > 0)
+                                transModel.IsDeleted = true;
+                        }
+                        //Warp items
+                        WeftItemModel warpModel = new WeftItemModel();
+                        foreach (var item in _Warptrans)
+                        {
+                            var transid = item.Id;
+                            item.RefId = model.Id;
+
+                            item.Totcard = 0;
+                            item.TotPick = 0;
+                            item.Panno = 0;
+                            item.TypeId = 2;
+
+                            warpModel = new WeftItemModel();
+                            if (item.Id > 0)
+                            {
+                                warpModel = db.WeftItems.Find(item.Id);
+                            }
+                            map = new Mapper(config);
+                            map.Map(item, warpModel);
+
+                            if (item.Id <= 0)
+                            {
+                                db.WeftItems.Add(warpModel);
+                                db.SaveChanges();
+                            }
+                        }
+                        //Deleted weft items
+                        foreach (var item in _DelWarptrans)
+                        {
+                            warpModel = db.WeftItems.Find(item.Id);
+                            if (warpModel != null && warpModel.Id > 0)
+                                warpModel.IsDeleted = true;
+                        }
+
+
+                        // formula data
+                        foreach (var item in _FormulaTrans)
+                        {
+                            var fm = new PFormulaModel();
+
+                            if(item.Id >0)
+                               fm = db.PFormulas.Find(item.Id);
+                            
+                                fm.RefProductId = item.RefProductId;
+                                fm.Qty = item.Qty;
+                                fm.Cut = item.Cut;
+                                fm.Rate = item.Rate;
+                                fm.Total = item.Total;
+                                fm.ColorId = item.ColorId;
+                                fm.Remark = item.Remark;
+                                fm.DescType = item.DescType;
+                                fm.UomId = item.UomId;
+
+                            if (item.Id == 0)
+                            {
+                                fm.ProductId = model.Id;
+                                db.PFormulas.Add(fm);
+                            }
+
+                        }
+                        foreach (var item in _DelFormula)
+                        {
+                            if (item.Id == 0) continue;
+                            var fm = db.PFormulas.Find(item.Id);
+                            fm.IsDeleted = true;
+                        }
+
                         int pimageid = 1;
                         // product images
                         foreach (PImageModel atc in _trans)
@@ -689,5 +973,14 @@ namespace Konto.Shared.Masters.Item
             }
         }
 
+        private void weavingSimpleButton_Click(object sender, EventArgs e)
+        {
+            var sfd = new WeavingDetailView();
+            sfd.WeftData = _Wefttrans;
+            sfd.WarpData = _Warptrans;
+            sfd.DelWarpData = _DelWarptrans;
+            sfd.DelWeft = _DelWefttrans;
+            if (sfd.ShowDialog() != DialogResult.OK) return;
+        }
     }
 }

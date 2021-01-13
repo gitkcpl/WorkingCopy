@@ -231,6 +231,8 @@ namespace Konto.Data.Models.Transaction
 
         public decimal AddLess { get; set; }
 
+        public int CostHeadId { get; set; }
+
         [NotMapped]
         public string DelAddress { get; set; }
 

@@ -23,43 +23,69 @@ namespace Konto.Weaves.BeamProduction
         {
             InitializeComponent();
             this.GridLayoutFileName = KontoFileLayout.BeamProd_List; 
+            this.listDateRange1.GetButtonClick += ListDateRange1_GetButtonClick;
         }
-        public override void RefreshGrid()
+         private void ListDateRange1_GetButtonClick(object sender, EventArgs e)
         {
-            base.RefreshGrid();
-            //var configuration = new MapperConfiguration(cfg =>
-            //    cfg.CreateMap<DivisionModel, DivListDto>());
-
-            using (var _db = new KontoContext())
+            this.GridLayoutFileName = listDateRange1.SelectedItem.LayoutFile;
+            var DtCriterias = new DataTable();
+            try
             {
-                var spcol = _db.SpCollections.FirstOrDefault(k => k.Id ==
-                       (int)SpCollectionEnum.BeamprodList);
-                if (spcol == null)
+                var db = new KontoContext();
+                using (var con = new SqlConnection(db.Database.Connection.ConnectionString))
                 {
-                    _modelList =  (_db.Database.SqlQuery<BeamProdDto>(
-                     "dbo.BeamprodList @CompanyId={0},@VTypeId={1},@FromDate={2},@ToDate={3}",
-                     KontoGlobals.CompanyId, (int)VoucherTypeEnum.BeamProd,
-                     KontoGlobals.FromDate, KontoGlobals.ToDate).ToList());
+
+                    using (var cmd = new SqlCommand(listDateRange1.SelectedItem.SpName, con))
+                    {
+                        cmd.CommandTimeout = 0;
+                        cmd.Parameters.Add("@fromDate", SqlDbType.Int).Value = listDateRange1.FromDate;
+                        cmd.Parameters.Add("@ToDate", SqlDbType.Int).Value = listDateRange1.ToDate;
+                        cmd.Parameters.Add("@CompanyId", SqlDbType.Int).Value = KontoGlobals.CompanyId;
+                        cmd.Parameters.Add("@BranchId", SqlDbType.Int).Value = KontoGlobals.BranchId;
+                        cmd.Parameters.Add("@YearId", SqlDbType.Int).Value = KontoGlobals.YearId;
+                        cmd.Parameters.Add("@VTypeId", SqlDbType.Int).Value = (int)VoucherTypeEnum.BeamProd;
+                        cmd.Parameters.Add("@IsLoading", SqlDbType.Int).Value = 0;
+                        if (listDateRange1.SelectedItem.Extra1 == "Deleted")
+                        {
+                            cmd.Parameters.Add("@Deleted", SqlDbType.Int).Value = 1;
+                        }
+                        if (listDateRange1.SelectedItem.GroupCol != null)
+                        {
+                            string grpCol = listDateRange1.SelectedItem.GroupCol;
+                            cmd.Parameters.Add("@GrpBy", SqlDbType.Text).Value = listDateRange1.SelectedItem.GroupCol;
+                        }
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        con.Open();
+                        DtCriterias.Load(cmd.ExecuteReader());
+                        con.Close();
+
+                        customGridView1.ShowLoadingPanel();
+                        customGridView1.Columns.Clear();
+                        customGridControl1.DataSource = DtCriterias;
+                        customGridView1.HideLoadingPanel();
+                    }
                 }
+                if (string.IsNullOrEmpty(this.GridLayoutFileName) || this.KontoView == null) return;
+
+                KontoUtils.RestoreLayoutGrid(this.GridLayoutFileName, this.KontoView);
+                this.ActiveControl = customGridControl1;
+
+                if (DtCriterias.Rows.Count == 0)
+                    listAction1.EditDeleteDisabled(false);
                 else
                 {
-                    _modelList = _db.Database.SqlQuery<BeamProdDto>(
-                     spcol.Name + " @CompanyId={0},@VTypeId={1},@FromDate={2},@ToDate={3}",
-                   KontoGlobals.CompanyId, (int)VoucherTypeEnum.BeamProd,
-                     KontoGlobals.FromDate, KontoGlobals.ToDate).ToList();
+                    if (customGridView1.Columns.ColumnByFieldName("Id") != null && customGridView1.Columns.ColumnByFieldName("VoucherId") != null)
+                        listAction1.EditDeleteDisabled(true);
+                    else
+                        listAction1.EditDeleteDisabled(false);
                 }
             }
-
-            customGridControl1.DataSource = _modelList;
-            if (string.IsNullOrEmpty(this.GridLayoutFileName) || this.KontoView == null) return;
-
-            KontoUtils.RestoreLayoutGrid(this.GridLayoutFileName, this.KontoView);
-
-            this.ActiveControl = customGridControl1;
-            if (_modelList.Count == 0)
-                listAction1.EditDeleteDisabled(false);
-            else
-                listAction1.EditDeleteDisabled(true);
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Beam Production List Error");
+                MessageBoxAdv.Show(this, "Error While Generating List !!", "Exception ", ex.ToString());
+            }
         }
 
         public override void DeleteRec()
@@ -84,7 +110,7 @@ namespace Konto.Weaves.BeamProduction
             catch (Exception ex)
             {
 
-                Log.Error(ex, "div delete");
+                Log.Error(ex, "Beam Production delete");
                 MessageBoxAdv.Show(this, "Error While Delete !!", "Exception ", ex.ToString());
             }
         }

@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
+            this.pgLookup1 = new Konto.Shared.Masters.PG.PgLookup();
             this.specialtextEdit = new DevExpress.XtraEditors.TextEdit();
             this.termsLookUpEdit = new DevExpress.XtraEditors.LookUpEdit();
             this.agentLookup = new Konto.Shared.Masters.Acc.AccLookup();
@@ -108,7 +109,6 @@
             this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem7 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem9 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.pgLookup1 = new Konto.Shared.Masters.PG.PgLookup();
             this.layoutControlItem11 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)(this.tabControlAdv1)).BeginInit();
             this.tabControlAdv1.SuspendLayout();
@@ -216,6 +216,18 @@
             this.layoutControl1.TabStop = false;
             this.layoutControl1.Text = "layoutControl1";
             // 
+            // pgLookup1
+            // 
+            this.pgLookup1.Location = new System.Drawing.Point(606, 61);
+            this.pgLookup1.LookupTitle = null;
+            this.pgLookup1.Name = "pgLookup1";
+            this.pgLookup1.PrimaryKey = null;
+            this.pgLookup1.RequiredField = false;
+            this.pgLookup1.SelectedText = null;
+            this.pgLookup1.SelectedValue = null;
+            this.pgLookup1.Size = new System.Drawing.Size(119, 20);
+            this.pgLookup1.TabIndex = 14;
+            // 
             // specialtextEdit
             // 
             this.specialtextEdit.EnterMoveNextControl = true;
@@ -260,6 +272,7 @@
             this.agentLookup.GroupId = 31;
             this.agentLookup.Location = new System.Drawing.Point(95, 61);
             this.agentLookup.LookupDto = null;
+            this.agentLookup.LookupTitle = null;
             this.agentLookup.Name = "agentLookup";
             this.agentLookup.Nature = null;
             this.agentLookup.NewGroupId = 31;
@@ -280,6 +293,7 @@
             this.transportLookup.GroupId = 32;
             this.transportLookup.Location = new System.Drawing.Point(95, 334);
             this.transportLookup.LookupDto = null;
+            this.transportLookup.LookupTitle = null;
             this.transportLookup.Name = "transportLookup";
             this.transportLookup.Nature = null;
             this.transportLookup.NewGroupId = 32;
@@ -806,6 +820,7 @@
             // empLookup1
             // 
             this.empLookup1.Location = new System.Drawing.Point(819, 61);
+            this.empLookup1.LookupTitle = null;
             this.empLookup1.Name = "empLookup1";
             this.empLookup1.PrimaryKey = null;
             this.empLookup1.RequiredField = true;
@@ -907,6 +922,7 @@
             this.accLookup1.GroupId = 0;
             this.accLookup1.Location = new System.Drawing.Point(95, 33);
             this.accLookup1.LookupDto = null;
+            this.accLookup1.LookupTitle = null;
             this.accLookup1.Name = "accLookup1";
             this.accLookup1.Nature = null;
             this.accLookup1.NewGroupId = 21;
@@ -939,6 +955,7 @@
             // 
             this.voucherLookup1.GroupDto = null;
             this.voucherLookup1.Location = new System.Drawing.Point(359, 5);
+            this.voucherLookup1.LookupTitle = null;
             this.voucherLookup1.Name = "voucherLookup1";
             this.voucherLookup1.PrimaryKey = null;
             this.voucherLookup1.RequiredField = true;
@@ -1142,17 +1159,6 @@
             this.layoutControlItem9.Size = new System.Drawing.Size(938, 28);
             this.layoutControlItem9.Text = "Special Notes:";
             this.layoutControlItem9.TextSize = new System.Drawing.Size(87, 17);
-            // 
-            // pgLookup1
-            // 
-            this.pgLookup1.Location = new System.Drawing.Point(606, 61);
-            this.pgLookup1.Name = "pgLookup1";
-            this.pgLookup1.PrimaryKey = null;
-            this.pgLookup1.RequiredField = false;
-            this.pgLookup1.SelectedText = null;
-            this.pgLookup1.SelectedValue = null;
-            this.pgLookup1.Size = new System.Drawing.Size(119, 20);
-            this.pgLookup1.TabIndex = 14;
             // 
             // layoutControlItem11
             // 

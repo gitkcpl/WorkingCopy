@@ -9,8 +9,9 @@ namespace Konto.App.Shared.Para
    public class StoreIssuePara
     {
         public static bool Taka_From_Stock = true;
-        public static bool Issue_By_Barcode = true;
-        public static bool Store_Issue_Against_Order = true;
+        public static bool Issue_By_Barcode = false;
+        public static bool Store_Issue_Against_Order = false;
+        public static bool Editable_Qty = false;
     }
 
 

@@ -87,10 +87,13 @@ namespace Konto.Shared.Trans.SalesChallan
         {
             // colSgst.OptionsColumn.AllowFocus = true;
             colSgst.OptionsColumn.AllowFocus = true;
+            colSgst.OptionsColumn.AllowEdit = true;
             //colCgst.OptionsColumn.AllowFocus = true;
             colCgst.OptionsColumn.AllowFocus = true;
+            colCgst.OptionsColumn.AllowEdit = true;
             // colIgst.OptionsColumn.AllowFocus = true;
             colIgst.OptionsColumn.AllowFocus = true;
+            colIgst.OptionsColumn.AllowEdit = true;
         }
 
         private void VoucherLookup1_SelectedValueChanged(object sender, EventArgs e)

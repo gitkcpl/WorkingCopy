@@ -49,6 +49,8 @@ namespace Konto.Shared.Masters.Item
                               from grp in grp_join.DefaultIfEmpty()
                               join sub in _context.PSubGroups on pd.SubGroupId equals sub.Id into sub_join
                               from sub in sub_join.DefaultIfEmpty()
+                              join sz in _context.SizeModels on pd.SizeId equals sz.Id into sz_join
+                              from szz in sz_join.DefaultIfEmpty() 
                               join pt in _context.ProductTypes on pd.PTypeId equals pt.Id
                               join tx in _context.TaxMasters on pd.TaxId equals tx.Id
                               join um in _context.Uoms on pd.UomId equals um.Id
@@ -66,6 +68,7 @@ namespace Konto.Shared.Masters.Item
                                   DealerPrice = pr.DealerPrice,
                                   GroupName = grp.GroupName,
                                   ProductName = pd.ProductName,
+                                  Size = szz.SizeName,
                                   HsnCode = pd.HsnCode,
                                   Id = pd.Id,
                                   IsActive = pd.IsActive,
@@ -88,7 +91,7 @@ namespace Konto.Shared.Masters.Item
                                   CreateDate = pd.CreateDate,
                                   ModifyDate = pd.ModifyDate,
                                   ModifyUser = pd.ModifyUser,
-                                  SerialReq = pd.SerialReq
+                                  SerialReq = pd.SerialReq, SaleRateTaxInc= pd.SaleRateTaxInc
                               }
                 ).ToList();
 

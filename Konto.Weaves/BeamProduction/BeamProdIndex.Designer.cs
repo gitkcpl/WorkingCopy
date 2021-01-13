@@ -166,8 +166,8 @@
             // 
             // tabControlAdv1
             // 
-            this.tabControlAdv1.BeforeTouchSize = new System.Drawing.Size(1038, 448);
-            this.tabControlAdv1.Size = new System.Drawing.Size(1038, 448);
+            this.tabControlAdv1.BeforeTouchSize = new System.Drawing.Size(1038, 488);
+            this.tabControlAdv1.Size = new System.Drawing.Size(1038, 488);
             this.tabControlAdv1.ThemeStyle.PrimitiveButtonStyle.DisabledNextPageImage = null;
             this.tabControlAdv1.Controls.SetChildIndex(this.tabPageAdv4, 0);
             this.tabControlAdv1.Controls.SetChildIndex(this.tabPageAdv3, 0);
@@ -177,7 +177,7 @@
             // tabPageAdv1
             // 
             this.tabPageAdv1.Controls.Add(this.layoutControl1);
-            this.tabPageAdv1.Size = new System.Drawing.Size(1013, 445);
+            this.tabPageAdv1.Size = new System.Drawing.Size(1013, 485);
             this.tabPageAdv1.Controls.SetChildIndex(this.panelControl1, 0);
             this.tabPageAdv1.Controls.SetChildIndex(this.layoutControl1, 0);
             // 
@@ -187,15 +187,15 @@
             // 
             // tabPageAdv2
             // 
-            this.tabPageAdv2.Size = new System.Drawing.Size(1013, 445);
+            this.tabPageAdv2.Size = new System.Drawing.Size(1013, 485);
             // 
             // tabPageAdv3
             // 
-            this.tabPageAdv3.Size = new System.Drawing.Size(1013, 445);
+            this.tabPageAdv3.Size = new System.Drawing.Size(1013, 485);
             // 
             // tabPageAdv4
             // 
-            this.tabPageAdv4.Size = new System.Drawing.Size(1013, 445);
+            this.tabPageAdv4.Size = new System.Drawing.Size(1013, 485);
             // 
             // layoutControl1
             // 
@@ -232,71 +232,75 @@
             this.layoutControl1.Location = new System.Drawing.Point(0, 35);
             this.layoutControl1.Name = "layoutControl1";
             this.layoutControl1.Root = this.Root;
-            this.layoutControl1.Size = new System.Drawing.Size(1013, 372);
+            this.layoutControl1.Size = new System.Drawing.Size(1013, 412);
             this.layoutControl1.TabIndex = 8;
             this.layoutControl1.Text = "layoutControl1";
             // 
             // IsClosecheckEdit
             // 
             this.IsClosecheckEdit.EnterMoveNextControl = true;
-            this.IsClosecheckEdit.Location = new System.Drawing.Point(18, 274);
+            this.IsClosecheckEdit.Location = new System.Drawing.Point(18, 270);
             this.IsClosecheckEdit.Name = "IsClosecheckEdit";
             this.IsClosecheckEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.IsClosecheckEdit.Properties.Appearance.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.IsClosecheckEdit.Properties.Appearance.Options.UseFont = true;
             this.IsClosecheckEdit.Properties.Appearance.Options.UseForeColor = true;
             this.IsClosecheckEdit.Properties.Caption = "Is Closed?";
-            this.IsClosecheckEdit.Size = new System.Drawing.Size(111, 21);
+            this.IsClosecheckEdit.Size = new System.Drawing.Size(113, 21);
             this.IsClosecheckEdit.StyleController = this.layoutControl1;
             this.IsClosecheckEdit.TabIndex = 22;
             // 
             // DrawerLookup
             // 
-            this.DrawerLookup.Location = new System.Drawing.Point(108, 246);
+            this.DrawerLookup.Location = new System.Drawing.Point(108, 242);
+            this.DrawerLookup.LookupTitle = null;
             this.DrawerLookup.Name = "DrawerLookup";
             this.DrawerLookup.PrimaryKey = null;
             this.DrawerLookup.RequiredField = true;
             this.DrawerLookup.SelectedText = null;
             this.DrawerLookup.SelectedValue = null;
-            this.DrawerLookup.Size = new System.Drawing.Size(210, 24);
+            this.DrawerLookup.Size = new System.Drawing.Size(215, 24);
             this.DrawerLookup.TabIndex = 19;
             // 
             // WarperLookup1
             // 
-            this.WarperLookup1.Location = new System.Drawing.Point(108, 218);
+            this.WarperLookup1.Location = new System.Drawing.Point(108, 214);
+            this.WarperLookup1.LookupTitle = null;
             this.WarperLookup1.Name = "WarperLookup1";
             this.WarperLookup1.PrimaryKey = null;
             this.WarperLookup1.RequiredField = true;
             this.WarperLookup1.SelectedText = null;
             this.WarperLookup1.SelectedValue = null;
-            this.WarperLookup1.Size = new System.Drawing.Size(210, 24);
+            this.WarperLookup1.Size = new System.Drawing.Size(215, 24);
             this.WarperLookup1.TabIndex = 16;
             // 
             // GreyproductLookup
             // 
             this.GreyproductLookup.GroupDto = null;
-            this.GreyproductLookup.Location = new System.Drawing.Point(568, 40);
+            this.GreyproductLookup.Location = new System.Drawing.Point(751, 40);
+            this.GreyproductLookup.LookupTitle = "Select Grey";
             this.GreyproductLookup.Name = "GreyproductLookup";
             this.GreyproductLookup.PrimaryKey = null;
             this.GreyproductLookup.PTypeId = Konto.App.Shared.ProductTypeEnum.GREY;
-            this.GreyproductLookup.RequiredField = true;
+            this.GreyproductLookup.RequiredField = false;
             this.GreyproductLookup.SelectedText = null;
             this.GreyproductLookup.SelectedValue = null;
-            this.GreyproductLookup.Size = new System.Drawing.Size(416, 20);
+            this.GreyproductLookup.Size = new System.Drawing.Size(250, 26);
             this.GreyproductLookup.TabIndex = 5;
             this.GreyproductLookup.VoucherType = Konto.App.Shared.VoucherTypeEnum.None;
             // 
             // YarnproductLookup
             // 
             this.YarnproductLookup.GroupDto = null;
-            this.YarnproductLookup.Location = new System.Drawing.Point(335, 40);
+            this.YarnproductLookup.Location = new System.Drawing.Point(426, 40);
+            this.YarnproductLookup.LookupTitle = "Select Yarn";
             this.YarnproductLookup.Name = "YarnproductLookup";
             this.YarnproductLookup.PrimaryKey = null;
             this.YarnproductLookup.PTypeId = Konto.App.Shared.ProductTypeEnum.YARN;
             this.YarnproductLookup.RequiredField = true;
             this.YarnproductLookup.SelectedText = null;
             this.YarnproductLookup.SelectedValue = null;
-            this.YarnproductLookup.Size = new System.Drawing.Size(139, 20);
+            this.YarnproductLookup.Size = new System.Drawing.Size(231, 26);
             this.YarnproductLookup.TabIndex = 4;
             this.YarnproductLookup.VoucherType = Konto.App.Shared.VoucherTypeEnum.None;
             // 
@@ -304,13 +308,14 @@
             // 
             this.BeamLookup.GroupDto = null;
             this.BeamLookup.Location = new System.Drawing.Point(102, 40);
+            this.BeamLookup.LookupTitle = "Select Beam";
             this.BeamLookup.Name = "BeamLookup";
             this.BeamLookup.PrimaryKey = null;
             this.BeamLookup.PTypeId = Konto.App.Shared.ProductTypeEnum.BEAM;
             this.BeamLookup.RequiredField = true;
             this.BeamLookup.SelectedText = null;
             this.BeamLookup.SelectedValue = null;
-            this.BeamLookup.Size = new System.Drawing.Size(139, 20);
+            this.BeamLookup.Size = new System.Drawing.Size(230, 26);
             this.BeamLookup.TabIndex = 3;
             this.BeamLookup.VoucherType = Konto.App.Shared.VoucherTypeEnum.None;
             // 
@@ -334,20 +339,21 @@
             this.divLookUpEdit.Properties.ShowHeader = false;
             this.divLookUpEdit.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
             this.divLookUpEdit.Properties.ValueMember = "Id";
-            this.divLookUpEdit.Size = new System.Drawing.Size(139, 24);
+            this.divLookUpEdit.Size = new System.Drawing.Size(230, 24);
             this.divLookUpEdit.StyleController = this.layoutControl1;
             this.divLookUpEdit.TabIndex = 0;
             // 
             // voucherLookup11
             // 
             this.voucherLookup11.GroupDto = null;
-            this.voucherLookup11.Location = new System.Drawing.Point(335, 12);
+            this.voucherLookup11.Location = new System.Drawing.Point(426, 12);
+            this.voucherLookup11.LookupTitle = null;
             this.voucherLookup11.Name = "voucherLookup11";
             this.voucherLookup11.PrimaryKey = null;
             this.voucherLookup11.RequiredField = true;
             this.voucherLookup11.SelectedText = null;
             this.voucherLookup11.SelectedValue = null;
-            this.voucherLookup11.Size = new System.Drawing.Size(139, 24);
+            this.voucherLookup11.Size = new System.Drawing.Size(231, 24);
             this.voucherLookup11.TabIndex = 1;
             this.voucherLookup11.VTypeId = Konto.App.Shared.VoucherTypeEnum.BeamProd;
             // 
@@ -355,7 +361,7 @@
             // 
             this.voucherDateEdit.EditValue = null;
             this.voucherDateEdit.EnterMoveNextControl = true;
-            this.voucherDateEdit.Location = new System.Drawing.Point(568, 12);
+            this.voucherDateEdit.Location = new System.Drawing.Point(751, 12);
             this.voucherDateEdit.Name = "voucherDateEdit";
             this.voucherDateEdit.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
             this.voucherDateEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -366,7 +372,7 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.voucherDateEdit.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.DateTimeAdvancingCaret;
             this.voucherDateEdit.Properties.Mask.UseMaskAsDisplayFormat = true;
-            this.voucherDateEdit.Size = new System.Drawing.Size(416, 24);
+            this.voucherDateEdit.Size = new System.Drawing.Size(250, 24);
             this.voucherDateEdit.StyleController = this.layoutControl1;
             this.voucherDateEdit.TabIndex = 2;
             // 
@@ -378,7 +384,7 @@
             0,
             0});
             this.MtrspinEdit.EnterMoveNextControl = true;
-            this.MtrspinEdit.Location = new System.Drawing.Point(355, 101);
+            this.MtrspinEdit.Location = new System.Drawing.Point(359, 97);
             this.MtrspinEdit.Name = "MtrspinEdit";
             this.MtrspinEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MtrspinEdit.Properties.Appearance.Options.UseFont = true;
@@ -388,7 +394,7 @@
             this.MtrspinEdit.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.MtrspinEdit.Properties.EditFormat.FormatString = "F";
             this.MtrspinEdit.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            this.MtrspinEdit.Size = new System.Drawing.Size(154, 24);
+            this.MtrspinEdit.Size = new System.Drawing.Size(159, 24);
             this.MtrspinEdit.StyleController = this.layoutControl1;
             this.MtrspinEdit.TabIndex = 7;
             // 
@@ -400,7 +406,7 @@
             0,
             0});
             this.DenierspinEdit.EnterMoveNextControl = true;
-            this.DenierspinEdit.Location = new System.Drawing.Point(603, 101);
+            this.DenierspinEdit.Location = new System.Drawing.Point(612, 97);
             this.DenierspinEdit.Name = "DenierspinEdit";
             this.DenierspinEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.DenierspinEdit.Properties.Appearance.Options.UseFont = true;
@@ -410,7 +416,7 @@
             this.DenierspinEdit.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.DenierspinEdit.Properties.EditFormat.FormatString = "F";
             this.DenierspinEdit.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            this.DenierspinEdit.Size = new System.Drawing.Size(161, 24);
+            this.DenierspinEdit.Size = new System.Drawing.Size(165, 24);
             this.DenierspinEdit.StyleController = this.layoutControl1;
             this.DenierspinEdit.TabIndex = 8;
             // 
@@ -422,7 +428,7 @@
             0,
             0});
             this.WastagespinEdit.EnterMoveNextControl = true;
-            this.WastagespinEdit.Location = new System.Drawing.Point(858, 101);
+            this.WastagespinEdit.Location = new System.Drawing.Point(871, 97);
             this.WastagespinEdit.Name = "WastagespinEdit";
             this.WastagespinEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.WastagespinEdit.Properties.Appearance.Options.UseFont = true;
@@ -432,7 +438,7 @@
             this.WastagespinEdit.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.WastagespinEdit.Properties.EditFormat.FormatString = "F";
             this.WastagespinEdit.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            this.WastagespinEdit.Size = new System.Drawing.Size(120, 24);
+            this.WastagespinEdit.Size = new System.Drawing.Size(124, 24);
             this.WastagespinEdit.StyleController = this.layoutControl1;
             this.WastagespinEdit.TabIndex = 9;
             // 
@@ -444,7 +450,7 @@
             0,
             0});
             this.NoOfTakaSpinEdit.EnterMoveNextControl = true;
-            this.NoOfTakaSpinEdit.Location = new System.Drawing.Point(108, 129);
+            this.NoOfTakaSpinEdit.Location = new System.Drawing.Point(108, 125);
             this.NoOfTakaSpinEdit.Name = "NoOfTakaSpinEdit";
             this.NoOfTakaSpinEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.NoOfTakaSpinEdit.Properties.Appearance.Options.UseFont = true;
@@ -454,7 +460,7 @@
             this.NoOfTakaSpinEdit.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.NoOfTakaSpinEdit.Properties.EditFormat.FormatString = "F";
             this.NoOfTakaSpinEdit.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            this.NoOfTakaSpinEdit.Size = new System.Drawing.Size(156, 24);
+            this.NoOfTakaSpinEdit.Size = new System.Drawing.Size(157, 24);
             this.NoOfTakaSpinEdit.StyleController = this.layoutControl1;
             this.NoOfTakaSpinEdit.TabIndex = 10;
             // 
@@ -466,7 +472,7 @@
             0,
             0});
             this.EndsSpinEdit.EnterMoveNextControl = true;
-            this.EndsSpinEdit.Location = new System.Drawing.Point(603, 129);
+            this.EndsSpinEdit.Location = new System.Drawing.Point(612, 125);
             this.EndsSpinEdit.Name = "EndsSpinEdit";
             this.EndsSpinEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.EndsSpinEdit.Properties.Appearance.Options.UseFont = true;
@@ -476,7 +482,7 @@
             this.EndsSpinEdit.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.EndsSpinEdit.Properties.EditFormat.FormatString = "F";
             this.EndsSpinEdit.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            this.EndsSpinEdit.Size = new System.Drawing.Size(161, 24);
+            this.EndsSpinEdit.Size = new System.Drawing.Size(165, 24);
             this.EndsSpinEdit.StyleController = this.layoutControl1;
             this.EndsSpinEdit.TabIndex = 12;
             // 
@@ -488,7 +494,7 @@
             0,
             0});
             this.LengthSpinEdit.EnterMoveNextControl = true;
-            this.LengthSpinEdit.Location = new System.Drawing.Point(358, 129);
+            this.LengthSpinEdit.Location = new System.Drawing.Point(359, 125);
             this.LengthSpinEdit.Name = "LengthSpinEdit";
             this.LengthSpinEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LengthSpinEdit.Properties.Appearance.Options.UseFont = true;
@@ -498,7 +504,7 @@
             this.LengthSpinEdit.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.LengthSpinEdit.Properties.EditFormat.FormatString = "F";
             this.LengthSpinEdit.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            this.LengthSpinEdit.Size = new System.Drawing.Size(151, 24);
+            this.LengthSpinEdit.Size = new System.Drawing.Size(159, 24);
             this.LengthSpinEdit.StyleController = this.layoutControl1;
             this.LengthSpinEdit.TabIndex = 11;
             // 
@@ -510,7 +516,7 @@
             0,
             0});
             this.WidthSpinEdit.EnterMoveNextControl = true;
-            this.WidthSpinEdit.Location = new System.Drawing.Point(858, 129);
+            this.WidthSpinEdit.Location = new System.Drawing.Point(871, 125);
             this.WidthSpinEdit.Name = "WidthSpinEdit";
             this.WidthSpinEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.WidthSpinEdit.Properties.Appearance.Options.UseFont = true;
@@ -520,7 +526,7 @@
             this.WidthSpinEdit.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.WidthSpinEdit.Properties.EditFormat.FormatString = "F";
             this.WidthSpinEdit.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            this.WidthSpinEdit.Size = new System.Drawing.Size(120, 24);
+            this.WidthSpinEdit.Size = new System.Drawing.Size(124, 24);
             this.WidthSpinEdit.StyleController = this.layoutControl1;
             this.WidthSpinEdit.TabIndex = 13;
             // 
@@ -532,7 +538,7 @@
             0,
             0});
             this.PickSpinEdit.EnterMoveNextControl = true;
-            this.PickSpinEdit.Location = new System.Drawing.Point(108, 157);
+            this.PickSpinEdit.Location = new System.Drawing.Point(108, 153);
             this.PickSpinEdit.Name = "PickSpinEdit";
             this.PickSpinEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.PickSpinEdit.Properties.Appearance.Options.UseFont = true;
@@ -542,7 +548,7 @@
             this.PickSpinEdit.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.PickSpinEdit.Properties.EditFormat.FormatString = "F";
             this.PickSpinEdit.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            this.PickSpinEdit.Size = new System.Drawing.Size(156, 24);
+            this.PickSpinEdit.Size = new System.Drawing.Size(157, 24);
             this.PickSpinEdit.StyleController = this.layoutControl1;
             this.PickSpinEdit.TabIndex = 14;
             // 
@@ -554,7 +560,7 @@
             0,
             0});
             this.NetWeightSpinEdit.EnterMoveNextControl = true;
-            this.NetWeightSpinEdit.Location = new System.Drawing.Point(358, 157);
+            this.NetWeightSpinEdit.Location = new System.Drawing.Point(359, 153);
             this.NetWeightSpinEdit.Name = "NetWeightSpinEdit";
             this.NetWeightSpinEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.NetWeightSpinEdit.Properties.Appearance.Options.UseFont = true;
@@ -564,7 +570,7 @@
             this.NetWeightSpinEdit.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.NetWeightSpinEdit.Properties.EditFormat.FormatString = "F";
             this.NetWeightSpinEdit.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            this.NetWeightSpinEdit.Size = new System.Drawing.Size(151, 24);
+            this.NetWeightSpinEdit.Size = new System.Drawing.Size(159, 24);
             this.NetWeightSpinEdit.StyleController = this.layoutControl1;
             this.NetWeightSpinEdit.TabIndex = 15;
             // 
@@ -576,13 +582,13 @@
             0,
             0});
             this.wRatespinEdit.EnterMoveNextControl = true;
-            this.wRatespinEdit.Location = new System.Drawing.Point(732, 218);
+            this.wRatespinEdit.Location = new System.Drawing.Point(743, 214);
             this.wRatespinEdit.Name = "wRatespinEdit";
             this.wRatespinEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.wRatespinEdit.Properties.Appearance.Options.UseFont = true;
             this.wRatespinEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.wRatespinEdit.Size = new System.Drawing.Size(246, 24);
+            this.wRatespinEdit.Size = new System.Drawing.Size(252, 24);
             this.wRatespinEdit.StyleController = this.layoutControl1;
             this.wRatespinEdit.TabIndex = 18;
             // 
@@ -594,13 +600,13 @@
             0,
             0});
             this.DrawerRatespinEdit.EnterMoveNextControl = true;
-            this.DrawerRatespinEdit.Location = new System.Drawing.Point(732, 246);
+            this.DrawerRatespinEdit.Location = new System.Drawing.Point(743, 242);
             this.DrawerRatespinEdit.Name = "DrawerRatespinEdit";
             this.DrawerRatespinEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.DrawerRatespinEdit.Properties.Appearance.Options.UseFont = true;
             this.DrawerRatespinEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.DrawerRatespinEdit.Size = new System.Drawing.Size(246, 24);
+            this.DrawerRatespinEdit.Size = new System.Drawing.Size(252, 24);
             this.DrawerRatespinEdit.StyleController = this.layoutControl1;
             this.DrawerRatespinEdit.TabIndex = 21;
             // 
@@ -608,7 +614,7 @@
             // 
             this.WDateDateEdit1.EditValue = null;
             this.WDateDateEdit1.EnterMoveNextControl = true;
-            this.WDateDateEdit1.Location = new System.Drawing.Point(412, 218);
+            this.WDateDateEdit1.Location = new System.Drawing.Point(417, 214);
             this.WDateDateEdit1.Name = "WDateDateEdit1";
             this.WDateDateEdit1.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
             this.WDateDateEdit1.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -619,7 +625,7 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.WDateDateEdit1.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.DateTimeAdvancingCaret;
             this.WDateDateEdit1.Properties.Mask.UseMaskAsDisplayFormat = true;
-            this.WDateDateEdit1.Size = new System.Drawing.Size(226, 24);
+            this.WDateDateEdit1.Size = new System.Drawing.Size(232, 24);
             this.WDateDateEdit1.StyleController = this.layoutControl1;
             this.WDateDateEdit1.TabIndex = 17;
             // 
@@ -627,7 +633,7 @@
             // 
             this.DrawerDateDateEdit.EditValue = null;
             this.DrawerDateDateEdit.EnterMoveNextControl = true;
-            this.DrawerDateDateEdit.Location = new System.Drawing.Point(412, 246);
+            this.DrawerDateDateEdit.Location = new System.Drawing.Point(417, 242);
             this.DrawerDateDateEdit.Name = "DrawerDateDateEdit";
             this.DrawerDateDateEdit.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
             this.DrawerDateDateEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -638,7 +644,7 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.DrawerDateDateEdit.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.DateTimeAdvancingCaret;
             this.DrawerDateDateEdit.Properties.Mask.UseMaskAsDisplayFormat = true;
-            this.DrawerDateDateEdit.Size = new System.Drawing.Size(226, 24);
+            this.DrawerDateDateEdit.Size = new System.Drawing.Size(232, 24);
             this.DrawerDateDateEdit.StyleController = this.layoutControl1;
             this.DrawerDateDateEdit.TabIndex = 20;
             // 
@@ -646,7 +652,7 @@
             // 
             this.CloseDateDateEdit.EditValue = null;
             this.CloseDateDateEdit.EnterMoveNextControl = true;
-            this.CloseDateDateEdit.Location = new System.Drawing.Point(223, 274);
+            this.CloseDateDateEdit.Location = new System.Drawing.Point(225, 270);
             this.CloseDateDateEdit.Name = "CloseDateDateEdit";
             this.CloseDateDateEdit.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
             this.CloseDateDateEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -657,20 +663,20 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.CloseDateDateEdit.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.DateTimeAdvancingCaret;
             this.CloseDateDateEdit.Properties.Mask.UseMaskAsDisplayFormat = true;
-            this.CloseDateDateEdit.Size = new System.Drawing.Size(141, 24);
+            this.CloseDateDateEdit.Size = new System.Drawing.Size(145, 24);
             this.CloseDateDateEdit.StyleController = this.layoutControl1;
             this.CloseDateDateEdit.TabIndex = 23;
             // 
             // RemarkTextBoxExt
             // 
-            this.RemarkTextBoxExt.BeforeTouchSize = new System.Drawing.Size(520, 24);
+            this.RemarkTextBoxExt.BeforeTouchSize = new System.Drawing.Size(531, 24);
             this.RemarkTextBoxExt.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(211)))), ((int)(((byte)(212)))));
             this.RemarkTextBoxExt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.RemarkTextBoxExt.EnterMoveNextControl = true;
-            this.RemarkTextBoxExt.Location = new System.Drawing.Point(458, 274);
+            this.RemarkTextBoxExt.Location = new System.Drawing.Point(464, 270);
             this.RemarkTextBoxExt.MaxLength = 499;
             this.RemarkTextBoxExt.Name = "RemarkTextBoxExt";
-            this.RemarkTextBoxExt.Size = new System.Drawing.Size(520, 24);
+            this.RemarkTextBoxExt.Size = new System.Drawing.Size(531, 24);
             this.RemarkTextBoxExt.Style = Syncfusion.Windows.Forms.Tools.TextBoxExt.theme.Metro;
             this.RemarkTextBoxExt.TabIndex = 24;
             this.RemarkTextBoxExt.ThemeName = "Metro";
@@ -683,8 +689,9 @@
             0,
             0,
             0});
+            this.ProdQtySpintEdit.Enabled = false;
             this.ProdQtySpintEdit.EnterMoveNextControl = true;
-            this.ProdQtySpintEdit.Location = new System.Drawing.Point(108, 335);
+            this.ProdQtySpintEdit.Location = new System.Drawing.Point(108, 331);
             this.ProdQtySpintEdit.Name = "ProdQtySpintEdit";
             this.ProdQtySpintEdit.Properties.AllowFocused = false;
             this.ProdQtySpintEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -692,7 +699,7 @@
             this.ProdQtySpintEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.ProdQtySpintEdit.Properties.ReadOnly = true;
-            this.ProdQtySpintEdit.Size = new System.Drawing.Size(157, 24);
+            this.ProdQtySpintEdit.Size = new System.Drawing.Size(161, 24);
             this.ProdQtySpintEdit.StyleController = this.layoutControl1;
             this.ProdQtySpintEdit.TabIndex = 11;
             // 
@@ -703,8 +710,9 @@
             0,
             0,
             0});
+            this.ProdTakaspinEdit.Enabled = false;
             this.ProdTakaspinEdit.EnterMoveNextControl = true;
-            this.ProdTakaspinEdit.Location = new System.Drawing.Point(359, 335);
+            this.ProdTakaspinEdit.Location = new System.Drawing.Point(363, 331);
             this.ProdTakaspinEdit.Name = "ProdTakaspinEdit";
             this.ProdTakaspinEdit.Properties.AllowFocused = false;
             this.ProdTakaspinEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -712,7 +720,7 @@
             this.ProdTakaspinEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.ProdTakaspinEdit.Properties.ReadOnly = true;
-            this.ProdTakaspinEdit.Size = new System.Drawing.Size(140, 24);
+            this.ProdTakaspinEdit.Size = new System.Drawing.Size(144, 24);
             this.ProdTakaspinEdit.StyleController = this.layoutControl1;
             this.ProdTakaspinEdit.TabIndex = 12;
             // 
@@ -723,8 +731,9 @@
             0,
             0,
             0});
+            this.BalQtyspinEdit.Enabled = false;
             this.BalQtyspinEdit.EnterMoveNextControl = true;
-            this.BalQtyspinEdit.Location = new System.Drawing.Point(593, 335);
+            this.BalQtyspinEdit.Location = new System.Drawing.Point(845, 331);
             this.BalQtyspinEdit.Name = "BalQtyspinEdit";
             this.BalQtyspinEdit.Properties.AllowFocused = false;
             this.BalQtyspinEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -732,7 +741,7 @@
             this.BalQtyspinEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.BalQtyspinEdit.Properties.ReadOnly = true;
-            this.BalQtyspinEdit.Size = new System.Drawing.Size(145, 24);
+            this.BalQtyspinEdit.Size = new System.Drawing.Size(150, 24);
             this.BalQtyspinEdit.StyleController = this.layoutControl1;
             this.BalQtyspinEdit.TabIndex = 13;
             // 
@@ -743,8 +752,9 @@
             0,
             0,
             0});
+            this.BalPerspinEdit.Enabled = false;
             this.BalPerspinEdit.EnterMoveNextControl = true;
-            this.BalPerspinEdit.Location = new System.Drawing.Point(832, 335);
+            this.BalPerspinEdit.Location = new System.Drawing.Point(601, 331);
             this.BalPerspinEdit.Name = "BalPerspinEdit";
             this.BalPerspinEdit.Properties.AllowFocused = false;
             this.BalPerspinEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -752,21 +762,21 @@
             this.BalPerspinEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.BalPerspinEdit.Properties.ReadOnly = true;
-            this.BalPerspinEdit.Size = new System.Drawing.Size(146, 24);
+            this.BalPerspinEdit.Size = new System.Drawing.Size(150, 24);
             this.BalPerspinEdit.StyleController = this.layoutControl1;
             this.BalPerspinEdit.TabIndex = 14;
             // 
             // BeamNotextEdit
             // 
             this.BeamNotextEdit.EnterMoveNextControl = true;
-            this.BeamNotextEdit.Location = new System.Drawing.Point(108, 101);
+            this.BeamNotextEdit.Location = new System.Drawing.Point(108, 97);
             this.BeamNotextEdit.Name = "BeamNotextEdit";
             this.BeamNotextEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BeamNotextEdit.Properties.Appearance.Options.UseFont = true;
             this.BeamNotextEdit.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.BeamNotextEdit.Properties.AppearanceFocused.Options.UseBorderColor = true;
             this.BeamNotextEdit.Properties.MaxLength = 25;
-            this.BeamNotextEdit.Size = new System.Drawing.Size(153, 24);
+            this.BeamNotextEdit.Size = new System.Drawing.Size(157, 24);
             this.BeamNotextEdit.StyleController = this.layoutControl1;
             this.BeamNotextEdit.TabIndex = 6;
             // 
@@ -786,7 +796,7 @@
             this.layoutControlGroup4,
             this.emptySpaceItem1});
             this.Root.Name = "Root";
-            this.Root.Size = new System.Drawing.Size(996, 377);
+            this.Root.Size = new System.Drawing.Size(1013, 412);
             this.Root.TextVisible = false;
             // 
             // layoutControlItem11
@@ -799,7 +809,7 @@
             this.layoutControlItem11.CustomizationFormText = "<color=255, 0, 0>*</color>Division:";
             this.layoutControlItem11.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem11.Name = "layoutControlItem11";
-            this.layoutControlItem11.Size = new System.Drawing.Size(233, 28);
+            this.layoutControlItem11.Size = new System.Drawing.Size(324, 28);
             this.layoutControlItem11.Text = "<color=255, 0, 0>*</color>Division:";
             this.layoutControlItem11.TextSize = new System.Drawing.Size(87, 17);
             // 
@@ -811,9 +821,9 @@
             this.layoutControlItem1.Control = this.voucherLookup11;
             this.layoutControlItem1.ControlAlignment = System.Drawing.ContentAlignment.TopLeft;
             this.layoutControlItem1.CustomizationFormText = "<color=255, 0, 0>*</color>Voucher:";
-            this.layoutControlItem1.Location = new System.Drawing.Point(233, 0);
+            this.layoutControlItem1.Location = new System.Drawing.Point(324, 0);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(233, 28);
+            this.layoutControlItem1.Size = new System.Drawing.Size(325, 28);
             this.layoutControlItem1.Text = "<color=255, 0, 0>*</color>Voucher:";
             this.layoutControlItem1.TextSize = new System.Drawing.Size(87, 17);
             // 
@@ -825,9 +835,9 @@
             this.layoutControlItem6.Control = this.voucherDateEdit;
             this.layoutControlItem6.ControlAlignment = System.Drawing.ContentAlignment.TopLeft;
             this.layoutControlItem6.CustomizationFormText = "<color=255, 0, 0>*</color>Date:";
-            this.layoutControlItem6.Location = new System.Drawing.Point(466, 0);
+            this.layoutControlItem6.Location = new System.Drawing.Point(649, 0);
             this.layoutControlItem6.Name = "layoutControlItem6";
-            this.layoutControlItem6.Size = new System.Drawing.Size(510, 28);
+            this.layoutControlItem6.Size = new System.Drawing.Size(344, 28);
             this.layoutControlItem6.Text = "<color=255, 0, 0>*</color>Date:";
             this.layoutControlItem6.TextSize = new System.Drawing.Size(87, 17);
             // 
@@ -839,7 +849,7 @@
             this.layoutControlItem2.Control = this.BeamLookup;
             this.layoutControlItem2.Location = new System.Drawing.Point(0, 28);
             this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(233, 24);
+            this.layoutControlItem2.Size = new System.Drawing.Size(324, 30);
             this.layoutControlItem2.Text = "<color=255, 0, 0>*</color>Beam Name :";
             this.layoutControlItem2.TextSize = new System.Drawing.Size(87, 17);
             // 
@@ -849,9 +859,9 @@
             this.layoutControlItem3.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
             this.layoutControlItem3.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem3.Control = this.YarnproductLookup;
-            this.layoutControlItem3.Location = new System.Drawing.Point(233, 28);
+            this.layoutControlItem3.Location = new System.Drawing.Point(324, 28);
             this.layoutControlItem3.Name = "layoutControlItem3";
-            this.layoutControlItem3.Size = new System.Drawing.Size(233, 24);
+            this.layoutControlItem3.Size = new System.Drawing.Size(325, 30);
             this.layoutControlItem3.Text = "<color=255, 0, 0>*</color>Yarn :";
             this.layoutControlItem3.TextSize = new System.Drawing.Size(87, 17);
             // 
@@ -860,9 +870,9 @@
             this.layoutControlItem4.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
             this.layoutControlItem4.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem4.Control = this.GreyproductLookup;
-            this.layoutControlItem4.Location = new System.Drawing.Point(466, 28);
+            this.layoutControlItem4.Location = new System.Drawing.Point(649, 28);
             this.layoutControlItem4.Name = "layoutControlItem4";
-            this.layoutControlItem4.Size = new System.Drawing.Size(510, 24);
+            this.layoutControlItem4.Size = new System.Drawing.Size(344, 30);
             this.layoutControlItem4.Text = "Grey :";
             this.layoutControlItem4.TextSize = new System.Drawing.Size(87, 17);
             // 
@@ -881,10 +891,10 @@
             this.layoutControlItem16,
             this.emptySpaceItem2,
             this.layoutControlItem10});
-            this.layoutControlGroup3.Location = new System.Drawing.Point(0, 62);
+            this.layoutControlGroup3.Location = new System.Drawing.Point(0, 58);
             this.layoutControlGroup3.Name = "layoutControlGroup3";
             this.layoutControlGroup3.Padding = new DevExpress.XtraLayout.Utils.Padding(3, 3, 3, 3);
-            this.layoutControlGroup3.Size = new System.Drawing.Size(976, 117);
+            this.layoutControlGroup3.Size = new System.Drawing.Size(993, 117);
             this.layoutControlGroup3.Text = "Beam Details";
             // 
             // layoutControlItem7
@@ -894,9 +904,9 @@
             this.layoutControlItem7.Control = this.MtrspinEdit;
             this.layoutControlItem7.ControlAlignment = System.Drawing.ContentAlignment.TopLeft;
             this.layoutControlItem7.CustomizationFormText = "Pur. Rate:";
-            this.layoutControlItem7.Location = new System.Drawing.Point(247, 0);
+            this.layoutControlItem7.Location = new System.Drawing.Point(251, 0);
             this.layoutControlItem7.Name = "layoutControlItem7";
-            this.layoutControlItem7.Size = new System.Drawing.Size(248, 28);
+            this.layoutControlItem7.Size = new System.Drawing.Size(253, 28);
             this.layoutControlItem7.Text = "Mtr/Taka:";
             this.layoutControlItem7.TextSize = new System.Drawing.Size(87, 17);
             // 
@@ -907,9 +917,9 @@
             this.layoutControlItem12.Control = this.DenierspinEdit;
             this.layoutControlItem12.ControlAlignment = System.Drawing.ContentAlignment.TopLeft;
             this.layoutControlItem12.CustomizationFormText = "Pur. Disc %:";
-            this.layoutControlItem12.Location = new System.Drawing.Point(495, 0);
+            this.layoutControlItem12.Location = new System.Drawing.Point(504, 0);
             this.layoutControlItem12.Name = "layoutControlItem12";
-            this.layoutControlItem12.Size = new System.Drawing.Size(255, 28);
+            this.layoutControlItem12.Size = new System.Drawing.Size(259, 28);
             this.layoutControlItem12.Text = "Denier:";
             this.layoutControlItem12.TextSize = new System.Drawing.Size(87, 17);
             // 
@@ -922,7 +932,7 @@
             this.layoutControlItem14.CustomizationFormText = "MRP:";
             this.layoutControlItem14.Location = new System.Drawing.Point(0, 28);
             this.layoutControlItem14.Name = "layoutControlItem14";
-            this.layoutControlItem14.Size = new System.Drawing.Size(250, 28);
+            this.layoutControlItem14.Size = new System.Drawing.Size(251, 28);
             this.layoutControlItem14.Text = "No. Of Taka:";
             this.layoutControlItem14.TextSize = new System.Drawing.Size(87, 17);
             // 
@@ -933,9 +943,9 @@
             this.layoutControlItem15.Control = this.EndsSpinEdit;
             this.layoutControlItem15.ControlAlignment = System.Drawing.ContentAlignment.TopLeft;
             this.layoutControlItem15.CustomizationFormText = "Sale Disc %:";
-            this.layoutControlItem15.Location = new System.Drawing.Point(495, 28);
+            this.layoutControlItem15.Location = new System.Drawing.Point(504, 28);
             this.layoutControlItem15.Name = "layoutControlItem15";
-            this.layoutControlItem15.Size = new System.Drawing.Size(255, 28);
+            this.layoutControlItem15.Size = new System.Drawing.Size(259, 28);
             this.layoutControlItem15.Text = "Ends:";
             this.layoutControlItem15.TextSize = new System.Drawing.Size(87, 17);
             // 
@@ -946,9 +956,9 @@
             this.layoutControlItem13.Control = this.WastagespinEdit;
             this.layoutControlItem13.ControlAlignment = System.Drawing.ContentAlignment.TopLeft;
             this.layoutControlItem13.CustomizationFormText = "Sale Rate:";
-            this.layoutControlItem13.Location = new System.Drawing.Point(750, 0);
+            this.layoutControlItem13.Location = new System.Drawing.Point(763, 0);
             this.layoutControlItem13.Name = "layoutControlItem13";
-            this.layoutControlItem13.Size = new System.Drawing.Size(214, 28);
+            this.layoutControlItem13.Size = new System.Drawing.Size(218, 28);
             this.layoutControlItem13.Text = "Wastage %:";
             this.layoutControlItem13.TextSize = new System.Drawing.Size(87, 17);
             // 
@@ -959,9 +969,9 @@
             this.layoutControlItem5.Control = this.LengthSpinEdit;
             this.layoutControlItem5.ControlAlignment = System.Drawing.ContentAlignment.TopLeft;
             this.layoutControlItem5.CustomizationFormText = "Sale Disc %:";
-            this.layoutControlItem5.Location = new System.Drawing.Point(250, 28);
+            this.layoutControlItem5.Location = new System.Drawing.Point(251, 28);
             this.layoutControlItem5.Name = "layoutControlItem5";
-            this.layoutControlItem5.Size = new System.Drawing.Size(245, 28);
+            this.layoutControlItem5.Size = new System.Drawing.Size(253, 28);
             this.layoutControlItem5.Text = "Length:";
             this.layoutControlItem5.TextSize = new System.Drawing.Size(87, 17);
             // 
@@ -972,9 +982,9 @@
             this.layoutControlItem8.Control = this.WidthSpinEdit;
             this.layoutControlItem8.ControlAlignment = System.Drawing.ContentAlignment.TopLeft;
             this.layoutControlItem8.CustomizationFormText = "Sale Disc %:";
-            this.layoutControlItem8.Location = new System.Drawing.Point(750, 28);
+            this.layoutControlItem8.Location = new System.Drawing.Point(763, 28);
             this.layoutControlItem8.Name = "layoutControlItem8";
-            this.layoutControlItem8.Size = new System.Drawing.Size(214, 28);
+            this.layoutControlItem8.Size = new System.Drawing.Size(218, 28);
             this.layoutControlItem8.Text = "Width:";
             this.layoutControlItem8.TextSize = new System.Drawing.Size(87, 17);
             // 
@@ -987,7 +997,7 @@
             this.layoutControlItem9.CustomizationFormText = "Sale Disc %:";
             this.layoutControlItem9.Location = new System.Drawing.Point(0, 56);
             this.layoutControlItem9.Name = "layoutControlItem9";
-            this.layoutControlItem9.Size = new System.Drawing.Size(250, 28);
+            this.layoutControlItem9.Size = new System.Drawing.Size(251, 28);
             this.layoutControlItem9.Text = "Pick:";
             this.layoutControlItem9.TextSize = new System.Drawing.Size(87, 17);
             // 
@@ -998,18 +1008,18 @@
             this.layoutControlItem16.Control = this.NetWeightSpinEdit;
             this.layoutControlItem16.ControlAlignment = System.Drawing.ContentAlignment.TopLeft;
             this.layoutControlItem16.CustomizationFormText = "Sale Disc %:";
-            this.layoutControlItem16.Location = new System.Drawing.Point(250, 56);
+            this.layoutControlItem16.Location = new System.Drawing.Point(251, 56);
             this.layoutControlItem16.Name = "layoutControlItem16";
-            this.layoutControlItem16.Size = new System.Drawing.Size(245, 28);
+            this.layoutControlItem16.Size = new System.Drawing.Size(253, 28);
             this.layoutControlItem16.Text = "Net Weight:";
             this.layoutControlItem16.TextSize = new System.Drawing.Size(87, 17);
             // 
             // emptySpaceItem2
             // 
             this.emptySpaceItem2.AllowHotTrack = false;
-            this.emptySpaceItem2.Location = new System.Drawing.Point(495, 56);
+            this.emptySpaceItem2.Location = new System.Drawing.Point(504, 56);
             this.emptySpaceItem2.Name = "emptySpaceItem2";
-            this.emptySpaceItem2.Size = new System.Drawing.Size(469, 28);
+            this.emptySpaceItem2.Size = new System.Drawing.Size(477, 28);
             this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
             // 
             // layoutControlItem10
@@ -1022,7 +1032,7 @@
             this.layoutControlItem10.CustomizationFormText = "<color=255, 0, 0>*</color>Challan No:";
             this.layoutControlItem10.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem10.Name = "layoutControlItem10";
-            this.layoutControlItem10.Size = new System.Drawing.Size(247, 28);
+            this.layoutControlItem10.Size = new System.Drawing.Size(251, 28);
             this.layoutControlItem10.Text = "<color=255, 0, 0>*</color>Beam No:";
             this.layoutControlItem10.TextSize = new System.Drawing.Size(87, 17);
             // 
@@ -1039,10 +1049,10 @@
             this.layoutControlItem22,
             this.layoutControlItem24,
             this.layoutControlItem25});
-            this.layoutControlGroup2.Location = new System.Drawing.Point(0, 179);
+            this.layoutControlGroup2.Location = new System.Drawing.Point(0, 175);
             this.layoutControlGroup2.Name = "layoutControlGroup2";
             this.layoutControlGroup2.Padding = new DevExpress.XtraLayout.Utils.Padding(3, 3, 3, 3);
-            this.layoutControlGroup2.Size = new System.Drawing.Size(976, 117);
+            this.layoutControlGroup2.Size = new System.Drawing.Size(993, 117);
             this.layoutControlGroup2.Text = "Other Details";
             // 
             // layoutControlItem18
@@ -1052,9 +1062,9 @@
             this.layoutControlItem18.Control = this.wRatespinEdit;
             this.layoutControlItem18.ControlAlignment = System.Drawing.ContentAlignment.TopLeft;
             this.layoutControlItem18.CustomizationFormText = "Pur. Rate:";
-            this.layoutControlItem18.Location = new System.Drawing.Point(624, 0);
+            this.layoutControlItem18.Location = new System.Drawing.Point(635, 0);
             this.layoutControlItem18.Name = "layoutControlItem18";
-            this.layoutControlItem18.Size = new System.Drawing.Size(340, 28);
+            this.layoutControlItem18.Size = new System.Drawing.Size(346, 28);
             this.layoutControlItem18.Text = "Rate:";
             this.layoutControlItem18.TextSize = new System.Drawing.Size(87, 17);
             // 
@@ -1065,9 +1075,9 @@
             this.layoutControlItem20.Control = this.DrawerRatespinEdit;
             this.layoutControlItem20.ControlAlignment = System.Drawing.ContentAlignment.TopLeft;
             this.layoutControlItem20.CustomizationFormText = "Sale Rate:";
-            this.layoutControlItem20.Location = new System.Drawing.Point(624, 28);
+            this.layoutControlItem20.Location = new System.Drawing.Point(635, 28);
             this.layoutControlItem20.Name = "layoutControlItem20";
-            this.layoutControlItem20.Size = new System.Drawing.Size(340, 28);
+            this.layoutControlItem20.Size = new System.Drawing.Size(346, 28);
             this.layoutControlItem20.Text = "Rate:";
             this.layoutControlItem20.TextSize = new System.Drawing.Size(87, 17);
             // 
@@ -1078,7 +1088,7 @@
             this.layoutControlItem23.Control = this.WarperLookup1;
             this.layoutControlItem23.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem23.Name = "layoutControlItem23";
-            this.layoutControlItem23.Size = new System.Drawing.Size(304, 28);
+            this.layoutControlItem23.Size = new System.Drawing.Size(309, 28);
             this.layoutControlItem23.Text = "Warper:";
             this.layoutControlItem23.TextSize = new System.Drawing.Size(87, 17);
             // 
@@ -1090,9 +1100,9 @@
             this.layoutControlItem17.Control = this.WDateDateEdit1;
             this.layoutControlItem17.ControlAlignment = System.Drawing.ContentAlignment.TopLeft;
             this.layoutControlItem17.CustomizationFormText = "<color=255, 0, 0>*</color>Date:";
-            this.layoutControlItem17.Location = new System.Drawing.Point(304, 0);
+            this.layoutControlItem17.Location = new System.Drawing.Point(309, 0);
             this.layoutControlItem17.Name = "layoutControlItem17";
-            this.layoutControlItem17.Size = new System.Drawing.Size(320, 28);
+            this.layoutControlItem17.Size = new System.Drawing.Size(326, 28);
             this.layoutControlItem17.Text = "Date:";
             this.layoutControlItem17.TextSize = new System.Drawing.Size(87, 17);
             // 
@@ -1103,7 +1113,7 @@
             this.layoutControlItem19.Control = this.DrawerLookup;
             this.layoutControlItem19.Location = new System.Drawing.Point(0, 28);
             this.layoutControlItem19.Name = "layoutControlItem19";
-            this.layoutControlItem19.Size = new System.Drawing.Size(304, 28);
+            this.layoutControlItem19.Size = new System.Drawing.Size(309, 28);
             this.layoutControlItem19.Text = "Drawer:";
             this.layoutControlItem19.TextSize = new System.Drawing.Size(87, 17);
             // 
@@ -1115,9 +1125,9 @@
             this.layoutControlItem21.Control = this.DrawerDateDateEdit;
             this.layoutControlItem21.ControlAlignment = System.Drawing.ContentAlignment.TopLeft;
             this.layoutControlItem21.CustomizationFormText = "<color=255, 0, 0>*</color>Date:";
-            this.layoutControlItem21.Location = new System.Drawing.Point(304, 28);
+            this.layoutControlItem21.Location = new System.Drawing.Point(309, 28);
             this.layoutControlItem21.Name = "layoutControlItem21";
-            this.layoutControlItem21.Size = new System.Drawing.Size(320, 28);
+            this.layoutControlItem21.Size = new System.Drawing.Size(326, 28);
             this.layoutControlItem21.Text = "Date:";
             this.layoutControlItem21.TextSize = new System.Drawing.Size(87, 17);
             // 
@@ -1126,7 +1136,7 @@
             this.layoutControlItem22.Control = this.IsClosecheckEdit;
             this.layoutControlItem22.Location = new System.Drawing.Point(0, 56);
             this.layoutControlItem22.Name = "layoutControlItem22";
-            this.layoutControlItem22.Size = new System.Drawing.Size(115, 28);
+            this.layoutControlItem22.Size = new System.Drawing.Size(117, 28);
             this.layoutControlItem22.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem22.TextVisible = false;
             // 
@@ -1138,9 +1148,9 @@
             this.layoutControlItem24.Control = this.CloseDateDateEdit;
             this.layoutControlItem24.ControlAlignment = System.Drawing.ContentAlignment.TopLeft;
             this.layoutControlItem24.CustomizationFormText = "<color=255, 0, 0>*</color>Date:";
-            this.layoutControlItem24.Location = new System.Drawing.Point(115, 56);
+            this.layoutControlItem24.Location = new System.Drawing.Point(117, 56);
             this.layoutControlItem24.Name = "layoutControlItem24";
-            this.layoutControlItem24.Size = new System.Drawing.Size(235, 28);
+            this.layoutControlItem24.Size = new System.Drawing.Size(239, 28);
             this.layoutControlItem24.Text = "Close Date:";
             this.layoutControlItem24.TextSize = new System.Drawing.Size(87, 17);
             // 
@@ -1152,11 +1162,11 @@
             this.layoutControlItem25.Control = this.RemarkTextBoxExt;
             this.layoutControlItem25.ControlAlignment = System.Drawing.ContentAlignment.TopLeft;
             this.layoutControlItem25.CustomizationFormText = "Remark:";
-            this.layoutControlItem25.Location = new System.Drawing.Point(350, 56);
+            this.layoutControlItem25.Location = new System.Drawing.Point(356, 56);
             this.layoutControlItem25.MaxSize = new System.Drawing.Size(0, 28);
             this.layoutControlItem25.MinSize = new System.Drawing.Size(129, 28);
             this.layoutControlItem25.Name = "layoutControlItem25";
-            this.layoutControlItem25.Size = new System.Drawing.Size(614, 28);
+            this.layoutControlItem25.Size = new System.Drawing.Size(625, 28);
             this.layoutControlItem25.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.layoutControlItem25.Text = "Remark:";
             this.layoutControlItem25.TextSize = new System.Drawing.Size(87, 17);
@@ -1169,10 +1179,10 @@
             this.layoutControlItem27,
             this.layoutControlItem28,
             this.layoutControlItem29});
-            this.layoutControlGroup4.Location = new System.Drawing.Point(0, 296);
+            this.layoutControlGroup4.Location = new System.Drawing.Point(0, 292);
             this.layoutControlGroup4.Name = "layoutControlGroup4";
             this.layoutControlGroup4.Padding = new DevExpress.XtraLayout.Utils.Padding(3, 3, 3, 3);
-            this.layoutControlGroup4.Size = new System.Drawing.Size(976, 61);
+            this.layoutControlGroup4.Size = new System.Drawing.Size(993, 61);
             this.layoutControlGroup4.Text = "Beam Status";
             // 
             // layoutControlItem26
@@ -1184,7 +1194,7 @@
             this.layoutControlItem26.CustomizationFormText = "Cost Price:";
             this.layoutControlItem26.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem26.Name = "layoutControlItem26";
-            this.layoutControlItem26.Size = new System.Drawing.Size(251, 28);
+            this.layoutControlItem26.Size = new System.Drawing.Size(255, 28);
             this.layoutControlItem26.Text = "Prod Qty:";
             this.layoutControlItem26.TextSize = new System.Drawing.Size(87, 17);
             // 
@@ -1195,9 +1205,9 @@
             this.layoutControlItem27.Control = this.ProdTakaspinEdit;
             this.layoutControlItem27.ControlAlignment = System.Drawing.ContentAlignment.TopLeft;
             this.layoutControlItem27.CustomizationFormText = "Pur. Rate:";
-            this.layoutControlItem27.Location = new System.Drawing.Point(251, 0);
+            this.layoutControlItem27.Location = new System.Drawing.Point(255, 0);
             this.layoutControlItem27.Name = "layoutControlItem27";
-            this.layoutControlItem27.Size = new System.Drawing.Size(234, 28);
+            this.layoutControlItem27.Size = new System.Drawing.Size(238, 28);
             this.layoutControlItem27.Text = "Prod Taka:";
             this.layoutControlItem27.TextSize = new System.Drawing.Size(87, 17);
             // 
@@ -1208,9 +1218,9 @@
             this.layoutControlItem28.Control = this.BalQtyspinEdit;
             this.layoutControlItem28.ControlAlignment = System.Drawing.ContentAlignment.TopLeft;
             this.layoutControlItem28.CustomizationFormText = "Pur. Disc %:";
-            this.layoutControlItem28.Location = new System.Drawing.Point(485, 0);
+            this.layoutControlItem28.Location = new System.Drawing.Point(737, 0);
             this.layoutControlItem28.Name = "layoutControlItem28";
-            this.layoutControlItem28.Size = new System.Drawing.Size(239, 28);
+            this.layoutControlItem28.Size = new System.Drawing.Size(244, 28);
             this.layoutControlItem28.Text = "Bal Qty:";
             this.layoutControlItem28.TextSize = new System.Drawing.Size(87, 17);
             // 
@@ -1221,25 +1231,25 @@
             this.layoutControlItem29.Control = this.BalPerspinEdit;
             this.layoutControlItem29.ControlAlignment = System.Drawing.ContentAlignment.TopLeft;
             this.layoutControlItem29.CustomizationFormText = "Sale Rate:";
-            this.layoutControlItem29.Location = new System.Drawing.Point(724, 0);
+            this.layoutControlItem29.Location = new System.Drawing.Point(493, 0);
             this.layoutControlItem29.Name = "layoutControlItem29";
-            this.layoutControlItem29.Size = new System.Drawing.Size(240, 28);
+            this.layoutControlItem29.Size = new System.Drawing.Size(244, 28);
             this.layoutControlItem29.Text = "Bal % :";
             this.layoutControlItem29.TextSize = new System.Drawing.Size(87, 17);
             // 
             // emptySpaceItem1
             // 
             this.emptySpaceItem1.AllowHotTrack = false;
-            this.emptySpaceItem1.Location = new System.Drawing.Point(0, 52);
+            this.emptySpaceItem1.Location = new System.Drawing.Point(0, 353);
             this.emptySpaceItem1.Name = "emptySpaceItem1";
-            this.emptySpaceItem1.Size = new System.Drawing.Size(976, 10);
+            this.emptySpaceItem1.Size = new System.Drawing.Size(993, 39);
             this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
             // 
             // BeamProdIndex
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1038, 474);
+            this.ClientSize = new System.Drawing.Size(1038, 514);
             this.KontoLayout = this.layoutControl1;
             this.Name = "BeamProdIndex";
             this.SettingCategroy = "BeamProd";
@@ -1338,7 +1348,7 @@
         private Shared.Masters.Emp.EmpLookup WarperLookup1;
         private Shared.Masters.Emp.EmpLookup DrawerLookup;
         private Core.Shared.Libs.KontoTextBoxExt RemarkTextBoxExt;
-        private DevExpress.XtraEditors.CheckEdit checkEdit1;
+       
         private DevExpress.XtraEditors.CheckEdit IsClosecheckEdit;
         private DevExpress.XtraEditors.SpinEdit MtrspinEdit;
         private DevExpress.XtraEditors.SpinEdit DenierspinEdit;

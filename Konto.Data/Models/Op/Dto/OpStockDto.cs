@@ -31,5 +31,6 @@ namespace Konto.Data.Models.Op.Dto
         public string GroupName { get; set; }
 
         public string TypeName { get; set; }
+        public string SizeName { get; set; }
     }
 }

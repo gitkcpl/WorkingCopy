@@ -72,11 +72,11 @@
             this.tableLayoutPanel1.Controls.Add(this.okSimpleButton, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.pendSimpleButton, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 284);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 286);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(326, 37);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(643, 37);
             this.tableLayoutPanel1.TabIndex = 9;
             // 
             // cancelSimpleButton
@@ -85,7 +85,7 @@
             this.cancelSimpleButton.Appearance.Options.UseFont = true;
             this.cancelSimpleButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cancelSimpleButton.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("cancelSimpleButton.ImageOptions.SvgImage")));
-            this.cancelSimpleButton.Location = new System.Drawing.Point(232, 3);
+            this.cancelSimpleButton.Location = new System.Drawing.Point(549, 3);
             this.cancelSimpleButton.Name = "cancelSimpleButton";
             this.cancelSimpleButton.Size = new System.Drawing.Size(91, 31);
             this.cancelSimpleButton.TabIndex = 1;
@@ -97,7 +97,7 @@
             this.okSimpleButton.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.okSimpleButton.Appearance.Options.UseFont = true;
             this.okSimpleButton.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("okSimpleButton.ImageOptions.SvgImage")));
-            this.okSimpleButton.Location = new System.Drawing.Point(140, 3);
+            this.okSimpleButton.Location = new System.Drawing.Point(457, 3);
             this.okSimpleButton.Name = "okSimpleButton";
             this.okSimpleButton.Size = new System.Drawing.Size(86, 31);
             this.okSimpleButton.TabIndex = 0;
@@ -113,8 +113,7 @@
             this.pendSimpleButton.Name = "pendSimpleButton";
             this.pendSimpleButton.Size = new System.Drawing.Size(96, 31);
             this.pendSimpleButton.TabIndex = 2;
-            this.pendSimpleButton.Text = "Pending Taka";
-            
+            this.pendSimpleButton.Text = "Pending Stock";
             // 
             // gridControl1
             // 
@@ -129,7 +128,7 @@
             this.colorRepositoryItemButtonEdit,
             this.gradeRepositoryItemButtonEdit,
             this.repositoryItemTextEdit1});
-            this.gridControl1.Size = new System.Drawing.Size(326, 284);
+            this.gridControl1.Size = new System.Drawing.Size(643, 286);
             this.gridControl1.TabIndex = 10;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -281,12 +280,12 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cancelSimpleButton;
-            this.ClientSize = new System.Drawing.Size(326, 321);
+            this.ClientSize = new System.Drawing.Size(643, 323);
             this.Controls.Add(this.gridControl1);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "SITakaDetails";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Taka Details";
+            this.Text = "Item Details";
             this.Load += new System.EventHandler(this.MrTakaDetails_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();

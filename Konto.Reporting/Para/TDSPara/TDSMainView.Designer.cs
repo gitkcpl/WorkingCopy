@@ -30,12 +30,14 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TDSMainView));
+            this.bindingSource2 = new System.Windows.Forms.BindingSource(this.components);
+            this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.fDateEdit = new DevExpress.XtraEditors.DateEdit();
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
+            this.tdsRegisterSimpleButton = new DevExpress.XtraEditors.SimpleButton();
             this.printSimpleButton = new DevExpress.XtraEditors.SimpleButton();
             this.cancelSimpleButton = new DevExpress.XtraEditors.SimpleButton();
             this.customGridControl1 = new Konto.Core.Shared.Libs.CustomGridControl();
-            this.bindingSource2 = new System.Windows.Forms.BindingSource(this.components);
-            this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.customGridView1 = new Konto.Core.Shared.Libs.CustomGridView();
             this.colBillNo = new Konto.Core.Shared.Libs.CustomGridColumn();
             this.colAccountID1 = new Konto.Core.Shared.Libs.CustomGridColumn();
@@ -53,6 +55,7 @@
             this.colGroupName = new Konto.Core.Shared.Libs.CustomGridColumn();
             this.colVoucherName = new Konto.Core.Shared.Libs.CustomGridColumn();
             this.colDescr = new Konto.Core.Shared.Libs.CustomGridColumn();
+            this.customGridView2 = new Konto.Core.Shared.Libs.CustomGridView();
             this.gridControl1 = new Konto.Core.Shared.Libs.CustomGridControl();
             this.gridView1 = new Konto.Core.Shared.Libs.CustomGridView();
             this.colParty = new Konto.Core.Shared.Libs.CustomGridColumn();
@@ -68,7 +71,6 @@
             this.okSimpleButton = new DevExpress.XtraEditors.SimpleButton();
             this.accLookup1 = new Konto.Shared.Masters.Acc.AccLookup();
             this.tDateEdit = new DevExpress.XtraEditors.DateEdit();
-            this.fDateEdit = new DevExpress.XtraEditors.DateEdit();
             this.Root = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
@@ -79,18 +81,20 @@
             this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.layoutControlItem7 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem8 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem9 = new DevExpress.XtraLayout.LayoutControlItem();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fDateEdit.Properties.CalendarTimeProperties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fDateEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.customGridControl1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSource2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.customGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.customGridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tDateEdit.Properties.CalendarTimeProperties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tDateEdit.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.fDateEdit.Properties.CalendarTimeProperties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.fDateEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Root)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
@@ -101,10 +105,39 @@
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).BeginInit();
             this.SuspendLayout();
+            // 
+            // bindingSource2
+            // 
+            this.bindingSource2.DataMember = "TdsList";
+            this.bindingSource2.DataSource = this.bindingSource1;
+            // 
+            // bindingSource1
+            // 
+            this.bindingSource1.DataSource = typeof(Konto.Data.Models.Reports.TDsSummaryDto);
+            // 
+            // fDateEdit
+            // 
+            this.fDateEdit.EditValue = null;
+            this.fDateEdit.EnterMoveNextControl = true;
+            this.fDateEdit.Location = new System.Drawing.Point(56, 5);
+            this.fDateEdit.Name = "fDateEdit";
+            this.fDateEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.fDateEdit.Properties.Appearance.Options.UseFont = true;
+            this.fDateEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.fDateEdit.Properties.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.fDateEdit.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.DateTimeAdvancingCaret;
+            this.fDateEdit.Properties.Mask.UseMaskAsDisplayFormat = true;
+            this.fDateEdit.Size = new System.Drawing.Size(137, 24);
+            this.fDateEdit.StyleController = this.layoutControl1;
+            this.fDateEdit.TabIndex = 5;
             // 
             // layoutControl1
             // 
+            this.layoutControl1.Controls.Add(this.tdsRegisterSimpleButton);
             this.layoutControl1.Controls.Add(this.printSimpleButton);
             this.layoutControl1.Controls.Add(this.cancelSimpleButton);
             this.layoutControl1.Controls.Add(this.customGridControl1);
@@ -120,6 +153,21 @@
             this.layoutControl1.Size = new System.Drawing.Size(800, 455);
             this.layoutControl1.TabIndex = 0;
             this.layoutControl1.Text = "layoutControl1";
+            // 
+            // tdsRegisterSimpleButton
+            // 
+            this.tdsRegisterSimpleButton.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tdsRegisterSimpleButton.Appearance.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.tdsRegisterSimpleButton.Appearance.Options.UseFont = true;
+            this.tdsRegisterSimpleButton.Appearance.Options.UseForeColor = true;
+            this.tdsRegisterSimpleButton.ImageOptions.ImageUri.Uri = "richedit/viewmergeddata";
+            this.tdsRegisterSimpleButton.ImageOptions.SvgImageSize = new System.Drawing.Size(24, 24);
+            this.tdsRegisterSimpleButton.Location = new System.Drawing.Point(118, 422);
+            this.tdsRegisterSimpleButton.Name = "tdsRegisterSimpleButton";
+            this.tdsRegisterSimpleButton.Size = new System.Drawing.Size(110, 28);
+            this.tdsRegisterSimpleButton.StyleController = this.layoutControl1;
+            this.tdsRegisterSimpleButton.TabIndex = 21;
+            this.tdsRegisterSimpleButton.Text = "Tds Register";
             // 
             // printSimpleButton
             // 
@@ -155,22 +203,14 @@
             // customGridControl1
             // 
             this.customGridControl1.DataSource = this.bindingSource2;
-            this.customGridControl1.Location = new System.Drawing.Point(5, 252);
+            this.customGridControl1.Location = new System.Drawing.Point(5, 235);
             this.customGridControl1.MainView = this.customGridView1;
             this.customGridControl1.Name = "customGridControl1";
-            this.customGridControl1.Size = new System.Drawing.Size(790, 166);
+            this.customGridControl1.Size = new System.Drawing.Size(790, 183);
             this.customGridControl1.TabIndex = 13;
             this.customGridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
-            this.customGridView1});
-            // 
-            // bindingSource2
-            // 
-            this.bindingSource2.DataMember = "TdsList";
-            this.bindingSource2.DataSource = this.bindingSource1;
-            // 
-            // bindingSource1
-            // 
-            this.bindingSource1.DataSource = typeof(Konto.Data.Models.Reports.TDsSummaryDto);
+            this.customGridView1,
+            this.customGridView2});
             // 
             // customGridView1
             // 
@@ -345,13 +385,20 @@
             this.colDescr.VisibleIndex = 8;
             this.colDescr.Width = 203;
             // 
+            // customGridView2
+            // 
+            this.customGridView2.GridControl = this.customGridControl1;
+            this.customGridView2.Name = "customGridView2";
+            this.customGridView2.OptionsCustomization.QuickCustomizationIcons.Image = null;
+            this.customGridView2.OptionsCustomization.QuickCustomizationIcons.TransperentColor = System.Drawing.Color.Empty;
+            // 
             // gridControl1
             // 
             this.gridControl1.DataSource = this.bindingSource1;
             this.gridControl1.Location = new System.Drawing.Point(5, 37);
             this.gridControl1.MainView = this.gridView1;
             this.gridControl1.Name = "gridControl1";
-            this.gridControl1.Size = new System.Drawing.Size(790, 211);
+            this.gridControl1.Size = new System.Drawing.Size(790, 194);
             this.gridControl1.TabIndex = 12;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -505,6 +552,7 @@
             this.accLookup1.GroupId = 0;
             this.accLookup1.Location = new System.Drawing.Point(427, 5);
             this.accLookup1.LookupDto = null;
+            this.accLookup1.LookupTitle = null;
             this.accLookup1.Name = "accLookup1";
             this.accLookup1.Nature = null;
             this.accLookup1.NewGroupId = 27;
@@ -536,24 +584,6 @@
             this.tDateEdit.StyleController = this.layoutControl1;
             this.tDateEdit.TabIndex = 6;
             // 
-            // fDateEdit
-            // 
-            this.fDateEdit.EditValue = null;
-            this.fDateEdit.EnterMoveNextControl = true;
-            this.fDateEdit.Location = new System.Drawing.Point(56, 5);
-            this.fDateEdit.Name = "fDateEdit";
-            this.fDateEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.fDateEdit.Properties.Appearance.Options.UseFont = true;
-            this.fDateEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.fDateEdit.Properties.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.fDateEdit.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.DateTimeAdvancingCaret;
-            this.fDateEdit.Properties.Mask.UseMaskAsDisplayFormat = true;
-            this.fDateEdit.Size = new System.Drawing.Size(137, 24);
-            this.fDateEdit.StyleController = this.layoutControl1;
-            this.fDateEdit.TabIndex = 5;
-            // 
             // Root
             // 
             this.Root.EnableIndentsWithoutBorders = DevExpress.Utils.DefaultBoolean.True;
@@ -567,7 +597,8 @@
             this.layoutControlItem6,
             this.emptySpaceItem1,
             this.layoutControlItem7,
-            this.layoutControlItem8});
+            this.layoutControlItem8,
+            this.layoutControlItem9});
             this.Root.Name = "Root";
             this.Root.Padding = new DevExpress.XtraLayout.Utils.Padding(3, 3, 3, 3);
             this.Root.Size = new System.Drawing.Size(800, 455);
@@ -620,25 +651,25 @@
             this.layoutControlItem5.Control = this.gridControl1;
             this.layoutControlItem5.Location = new System.Drawing.Point(0, 32);
             this.layoutControlItem5.Name = "layoutControlItem5";
-            this.layoutControlItem5.Size = new System.Drawing.Size(794, 215);
+            this.layoutControlItem5.Size = new System.Drawing.Size(794, 198);
             this.layoutControlItem5.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem5.TextVisible = false;
             // 
             // layoutControlItem6
             // 
             this.layoutControlItem6.Control = this.customGridControl1;
-            this.layoutControlItem6.Location = new System.Drawing.Point(0, 247);
+            this.layoutControlItem6.Location = new System.Drawing.Point(0, 230);
             this.layoutControlItem6.Name = "layoutControlItem6";
-            this.layoutControlItem6.Size = new System.Drawing.Size(794, 170);
+            this.layoutControlItem6.Size = new System.Drawing.Size(794, 187);
             this.layoutControlItem6.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem6.TextVisible = false;
             // 
             // emptySpaceItem1
             // 
             this.emptySpaceItem1.AllowHotTrack = false;
-            this.emptySpaceItem1.Location = new System.Drawing.Point(113, 417);
+            this.emptySpaceItem1.Location = new System.Drawing.Point(227, 417);
             this.emptySpaceItem1.Name = "emptySpaceItem1";
-            this.emptySpaceItem1.Size = new System.Drawing.Size(580, 32);
+            this.emptySpaceItem1.Size = new System.Drawing.Size(466, 32);
             this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
             // 
             // layoutControlItem7
@@ -659,6 +690,15 @@
             this.layoutControlItem8.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem8.TextVisible = false;
             // 
+            // layoutControlItem9
+            // 
+            this.layoutControlItem9.Control = this.tdsRegisterSimpleButton;
+            this.layoutControlItem9.Location = new System.Drawing.Point(113, 417);
+            this.layoutControlItem9.Name = "layoutControlItem9";
+            this.layoutControlItem9.Size = new System.Drawing.Size(114, 32);
+            this.layoutControlItem9.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem9.TextVisible = false;
+            // 
             // TDSMainView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -670,18 +710,19 @@
             this.Name = "TDSMainView";
             this.Text = "TDSMainView";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fDateEdit.Properties.CalendarTimeProperties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fDateEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.customGridControl1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSource2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.customGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.customGridView2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tDateEdit.Properties.CalendarTimeProperties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tDateEdit.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.fDateEdit.Properties.CalendarTimeProperties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.fDateEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Root)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
@@ -692,43 +733,20 @@
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private DevExpress.XtraLayout.LayoutControl layoutControl1;
-        private DevExpress.XtraLayout.LayoutControlGroup Root;
+        private System.Windows.Forms.BindingSource bindingSource1;
+        private System.Windows.Forms.BindingSource bindingSource2;
         private DevExpress.XtraEditors.DateEdit fDateEdit;
-        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
-        private DevExpress.XtraEditors.DateEdit tDateEdit;
-        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem2;
-        private Shared.Masters.Acc.AccLookup accLookup1;
-        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem3;
-        private DevExpress.XtraEditors.SimpleButton okSimpleButton;
-        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem4;
+        private DevExpress.XtraLayout.LayoutControl layoutControl1;
+        private DevExpress.XtraEditors.SimpleButton printSimpleButton;
+        private DevExpress.XtraEditors.SimpleButton cancelSimpleButton;
         public Core.Shared.Libs.CustomGridControl customGridControl1;
         public Core.Shared.Libs.CustomGridView customGridView1;
-        public Core.Shared.Libs.CustomGridControl gridControl1;
-        public Core.Shared.Libs.CustomGridView gridView1;
-        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem5;
-        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem6;
-        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem1;
-        private DevExpress.XtraEditors.SimpleButton cancelSimpleButton;
-        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem7;
-        private DevExpress.XtraEditors.SimpleButton printSimpleButton;
-        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem8;
-        private System.Windows.Forms.BindingSource bindingSource1;
-        private Core.Shared.Libs.CustomGridColumn colParty;
-        private Core.Shared.Libs.CustomGridColumn colAccountID;
-        private Core.Shared.Libs.CustomGridColumn colBillAmount;
-        private Core.Shared.Libs.CustomGridColumn colTDSAmount;
-        private Core.Shared.Libs.CustomGridColumn colPayRec;
-        private Core.Shared.Libs.CustomGridColumn colTDSAccount;
-        private Core.Shared.Libs.CustomGridColumn colTDSAC;
-        private Core.Shared.Libs.CustomGridColumn colTdsList;
-        private System.Windows.Forms.BindingSource bindingSource2;
         private Core.Shared.Libs.CustomGridColumn colBillNo;
         private Core.Shared.Libs.CustomGridColumn colAccountID1;
         private Core.Shared.Libs.CustomGridColumn colBillID;
@@ -737,6 +755,7 @@
         private Core.Shared.Libs.CustomGridColumn colTotalAmount;
         private Core.Shared.Libs.CustomGridColumn colPanNo;
         private Core.Shared.Libs.CustomGridColumn colTdsPer;
+        private Core.Shared.Libs.CustomGridColumn colAcsValue1;
         private Core.Shared.Libs.CustomGridColumn colTdsAmt;
         private Core.Shared.Libs.CustomGridColumn colPayable;
         private Core.Shared.Libs.CustomGridColumn colTDSAccount1;
@@ -744,8 +763,33 @@
         private Core.Shared.Libs.CustomGridColumn colGroupName;
         private Core.Shared.Libs.CustomGridColumn colVoucherName;
         private Core.Shared.Libs.CustomGridColumn colDescr;
+        public Core.Shared.Libs.CustomGridControl gridControl1;
+        public Core.Shared.Libs.CustomGridView gridView1;
+        private Core.Shared.Libs.CustomGridColumn colParty;
         private Core.Shared.Libs.CustomGridColumn colPanNo1;
+        private Core.Shared.Libs.CustomGridColumn colAccountID;
+        private Core.Shared.Libs.CustomGridColumn colBillAmount;
+        private Core.Shared.Libs.CustomGridColumn colTDSAmount;
+        private Core.Shared.Libs.CustomGridColumn colPayRec;
+        private Core.Shared.Libs.CustomGridColumn colTDSAccount;
         private Core.Shared.Libs.CustomGridColumn colAcsValue;
-        private Core.Shared.Libs.CustomGridColumn colAcsValue1;
+        private Core.Shared.Libs.CustomGridColumn colTDSAC;
+        private Core.Shared.Libs.CustomGridColumn colTdsList;
+        private DevExpress.XtraEditors.SimpleButton okSimpleButton;
+        private Shared.Masters.Acc.AccLookup accLookup1;
+        private DevExpress.XtraEditors.DateEdit tDateEdit;
+        private DevExpress.XtraLayout.LayoutControlGroup Root;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem2;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem3;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem4;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem5;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem6;
+        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem1;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem7;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem8;
+        private Core.Shared.Libs.CustomGridView customGridView2;
+        private DevExpress.XtraEditors.SimpleButton tdsRegisterSimpleButton;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem9;
     }
 }

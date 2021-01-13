@@ -1000,6 +1000,7 @@ namespace Konto.Trading.TakaWiseJobReceipt
                 var row = view.GetRow(view.FocusedRowHandle) as MrvTransDto;
                 view.DeleteRow(view.FocusedRowHandle);
                 DelTrans.Add(row);
+                FinalTotal();
             }
             else if (e.KeyCode == Keys.Delete)
             {

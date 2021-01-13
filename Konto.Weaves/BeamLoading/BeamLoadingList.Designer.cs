@@ -30,6 +30,8 @@
         {
             this.customGridControl1 = new Konto.Core.Shared.Libs.CustomGridControl();
             this.customGridView1 = new Konto.Core.Shared.Libs.CustomGridView();
+            this.BeamCLosesimpleButton = new DevExpress.XtraEditors.SimpleButton();
+            this.listDateRange1 = new Konto.Core.Shared.Libs.ListDateRange();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).BeginInit();
             this.panelControl2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).BeginInit();
@@ -39,11 +41,16 @@
             // 
             // panelControl2
             // 
-            this.panelControl2.Size = new System.Drawing.Size(1050, 35);
+            this.panelControl2.Controls.Add(this.listDateRange1);
+            this.panelControl2.Controls.Add(this.BeamCLosesimpleButton);
+            this.panelControl2.Size = new System.Drawing.Size(1150, 35);
+            this.panelControl2.Controls.SetChildIndex(this.listAction1, 0);
+            this.panelControl2.Controls.SetChildIndex(this.BeamCLosesimpleButton, 0);
+            this.panelControl2.Controls.SetChildIndex(this.listDateRange1, 0);
             // 
             // panelControl3
             // 
-            this.panelControl3.Location = new System.Drawing.Point(1001, 35);
+            this.panelControl3.Location = new System.Drawing.Point(1101, 35);
             this.panelControl3.Size = new System.Drawing.Size(49, 415);
             // 
             // customGridControl1
@@ -54,7 +61,7 @@
             this.customGridControl1.LookAndFeel.UseDefaultLookAndFeel = false;
             this.customGridControl1.MainView = this.customGridView1;
             this.customGridControl1.Name = "customGridControl1";
-            this.customGridControl1.Size = new System.Drawing.Size(1001, 415);
+            this.customGridControl1.Size = new System.Drawing.Size(1101, 415);
             this.customGridControl1.TabIndex = 13;
             this.customGridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.customGridView1});
@@ -86,15 +93,38 @@
             this.customGridView1.OptionsView.ShowFooter = true;
             this.customGridView1.OptionsView.ShowGroupPanel = false;
             // 
-            // BeamProdList
+            // BeamCLosesimpleButton
+            // 
+            this.BeamCLosesimpleButton.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BeamCLosesimpleButton.Appearance.Options.UseFont = true;
+            this.BeamCLosesimpleButton.Location = new System.Drawing.Point(476, 2);
+            this.BeamCLosesimpleButton.Name = "BeamCLosesimpleButton";
+            this.BeamCLosesimpleButton.Size = new System.Drawing.Size(104, 30);
+            this.BeamCLosesimpleButton.TabIndex = 5;
+            this.BeamCLosesimpleButton.Text = "Beam Close";
+            // 
+            // listDateRange1
+            // 
+            this.listDateRange1.FromDate = 0;
+            this.listDateRange1.IsAnalysis = false;
+            this.listDateRange1.KontoGrid = null;
+            this.listDateRange1.Location = new System.Drawing.Point(586, 4);
+            this.listDateRange1.Name = "listDateRange1";
+            this.listDateRange1.SelectedItem = null;
+            this.listDateRange1.Size = new System.Drawing.Size(514, 25);
+            this.listDateRange1.TabIndex = 6;
+            this.listDateRange1.ToDate = 0;
+            this.listDateRange1.VoucherType = Konto.App.Shared.VoucherTypeEnum.BeamProd;
+            // 
+            // BeamLoadingList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.customGridControl1);
             this.KontoGrid = this.customGridControl1;
             this.KontoView = this.customGridView1;
-            this.Name = "BeamProdList";
-            this.Size = new System.Drawing.Size(1050, 450);
+            this.Name = "BeamLoadingList";
+            this.Size = new System.Drawing.Size(1150, 450);
             this.Controls.SetChildIndex(this.panelControl2, 0);
             this.Controls.SetChildIndex(this.panelControl3, 0);
             this.Controls.SetChildIndex(this.customGridControl1, 0);
@@ -111,5 +141,7 @@
 
         private Core.Shared.Libs.CustomGridControl customGridControl1;
         private Core.Shared.Libs.CustomGridView customGridView1;
+        public DevExpress.XtraEditors.SimpleButton BeamCLosesimpleButton;
+        private Core.Shared.Libs.ListDateRange listDateRange1;
     }
 }

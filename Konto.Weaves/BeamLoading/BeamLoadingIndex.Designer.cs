@@ -263,9 +263,9 @@
             this.BeamPositionlookUpEdit.Properties.Appearance.Options.UseFont = true;
             this.BeamPositionlookUpEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.BeamPositionlookUpEdit.Properties.DisplayMember = "_Key";
+            this.BeamPositionlookUpEdit.Properties.DisplayMember = "DisplayText";
             this.BeamPositionlookUpEdit.Properties.NullText = "";
-            this.BeamPositionlookUpEdit.Properties.ValueMember = "_Value";
+            this.BeamPositionlookUpEdit.Properties.ValueMember = "Id";
             this.BeamPositionlookUpEdit.Size = new System.Drawing.Size(149, 24);
             this.BeamPositionlookUpEdit.StyleController = this.layoutControl1;
             this.BeamPositionlookUpEdit.TabIndex = 6;
@@ -293,7 +293,7 @@
             this.SelectionOksimpleButton.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("SelectionOksimpleButton.ImageOptions.SvgImage")));
             this.SelectionOksimpleButton.Location = new System.Drawing.Point(284, 12);
             this.SelectionOksimpleButton.Name = "SelectionOksimpleButton";
-            this.SelectionOksimpleButton.Size = new System.Drawing.Size(117, 36);
+            this.SelectionOksimpleButton.Size = new System.Drawing.Size(159, 36);
             this.SelectionOksimpleButton.StyleController = this.layoutControl1;
             this.SelectionOksimpleButton.TabIndex = 4;
             this.SelectionOksimpleButton.Text = "Select Beam";
@@ -321,6 +321,7 @@
             // 
             this.voucherLookup11.GroupDto = null;
             this.voucherLookup11.Location = new System.Drawing.Point(115, 107);
+            this.voucherLookup11.LookupTitle = null;
             this.voucherLookup11.Name = "voucherLookup11";
             this.voucherLookup11.PrimaryKey = null;
             this.voucherLookup11.RequiredField = true;
@@ -334,6 +335,7 @@
             // 
             this.BeamLookup.GroupDto = null;
             this.BeamLookup.Location = new System.Drawing.Point(115, 135);
+            this.BeamLookup.LookupTitle = "Select Beam";
             this.BeamLookup.Name = "BeamLookup";
             this.BeamLookup.PrimaryKey = null;
             this.BeamLookup.PTypeId = Konto.App.Shared.ProductTypeEnum.BEAM;
@@ -348,6 +350,7 @@
             // 
             this.YarnproductLookup.GroupDto = null;
             this.YarnproductLookup.Location = new System.Drawing.Point(418, 135);
+            this.YarnproductLookup.LookupTitle = null;
             this.YarnproductLookup.Name = "YarnproductLookup";
             this.YarnproductLookup.PrimaryKey = null;
             this.YarnproductLookup.PTypeId = Konto.App.Shared.ProductTypeEnum.YARN;
@@ -362,6 +365,7 @@
             // 
             this.GreyproductLookup.GroupDto = null;
             this.GreyproductLookup.Location = new System.Drawing.Point(696, 135);
+            this.GreyproductLookup.LookupTitle = "Select Grey";
             this.GreyproductLookup.Name = "GreyproductLookup";
             this.GreyproductLookup.PrimaryKey = null;
             this.GreyproductLookup.PTypeId = Konto.App.Shared.ProductTypeEnum.GREY;
@@ -730,16 +734,16 @@
             this.layoutControlItem1.Control = this.SelectionOksimpleButton;
             this.layoutControlItem1.Location = new System.Drawing.Point(272, 0);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(121, 40);
+            this.layoutControlItem1.Size = new System.Drawing.Size(163, 40);
             this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem1.TextVisible = false;
             // 
             // emptySpaceItem2
             // 
             this.emptySpaceItem2.AllowHotTrack = false;
-            this.emptySpaceItem2.Location = new System.Drawing.Point(393, 0);
+            this.emptySpaceItem2.Location = new System.Drawing.Point(435, 0);
             this.emptySpaceItem2.Name = "emptySpaceItem2";
-            this.emptySpaceItem2.Size = new System.Drawing.Size(671, 40);
+            this.emptySpaceItem2.Size = new System.Drawing.Size(629, 40);
             this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
             // 
             // layoutControlItem2
@@ -1047,6 +1051,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1112, 501);
             this.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.KontoLayout = this.layoutControl1;
+            this.KontoMainView = this.gridView1;
             this.Name = "BeamLoadingIndex";
             this.Text = "Beam Loading";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;

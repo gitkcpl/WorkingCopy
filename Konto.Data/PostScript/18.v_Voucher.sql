@@ -961,5 +961,43 @@ INSERT INTO dbo.VchSetup
 	)
 VALUES(52,1,'Stock Journal',0,0,1,1,'{#}/{YY}',0,0,1,0,0,0,0,0,1,0,SYSDATETIME(),'Admin','NA',NEWID())
 END
-
 SET IDENTITY_INSERT dbo.Voucher OFF
+
+-- Gate Inward
+
+IF NOT EXISTS(SELECT 1 FROM dbo.Voucher WHERE vtypeid=53)
+BEGIN
+	INSERT INTO dbo.Voucher
+	(
+		VoucherName,SortName,VTypeId,RefVoucherId,
+		IsActive,IsDeleted,CreateDate,CreateUser,IpAddress,RowId
+	) Values('Gate Inward','GE',53,0,1,0,SYSDATETIME(),'Admin','NA',NEWID())
+
+	declare @id int,
+	@compid int
+
+	select @id = @@IDENTITY
+
+	DECLARE db_cursor CURSOR FOR 
+	select Id from company
+
+	OPEN db_cursor  
+	FETCH NEXT FROM db_cursor INTO @compid
+	WHILE @@FETCH_STATUS = 0  
+	BEGIN  
+		INSERT INTO dbo.VchSetup
+			(
+				VoucherId,CompId,InvoiceHeading,VchWidth,PreFillZero,StartFrom,
+				Increment,Serial_Mask,Max_Value,Last_Serial,FyReset,
+				PrintAfterSave,EmailAfterSave,SmsAfterSave,BookFix,AccId,
+				IsActive,IsDeleted,CreateDate,CreateUser,IpAddress,RowId
+			)
+		VALUES(@id,@compid,'Gate Inward',0,0,1,1,'{#}/{YY}',0,0,1,0,0,0,0,0,1,0,SYSDATETIME(),'Admin','NA',NEWID())
+
+		FETCH NEXT FROM db_cursor INTO @compid 
+	END
+	CLOSE db_cursor  
+	DEALLOCATE db_cursor 
+
+END
+

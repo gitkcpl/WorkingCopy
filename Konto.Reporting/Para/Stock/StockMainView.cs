@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -234,6 +235,22 @@ namespace Konto.Reporting.Para.Stock
             grd.Columns["StoreIssQty"].Visible = true;
             grd.Columns["PRetPcs"].Visible = true;
             grd.Columns["PRetQty"].Visible = true;
+        }
+
+        private void excelSimpleButton_Click(object sender, EventArgs e)
+        {
+            var _file = string.Format(@"{0}.xlsx", DateTime.Now.Ticks);
+            bandedGridView1.ExportToXlsx("ExportFile\\" + _file);
+
+            if (MessageBox.Show("File Exported Successfully, Do You want to open File ?", "Export",
+                    MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                string windir = Environment.GetEnvironmentVariable("WINDIR");
+                Process prc = new Process();
+                prc.StartInfo.FileName = windir + @"\explorer.exe";
+                prc.StartInfo.Arguments = "ExportFile\\" + _file; ;
+                prc.Start();
+            }
         }
     }
 }

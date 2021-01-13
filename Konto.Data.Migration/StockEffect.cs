@@ -1,4 +1,5 @@
-﻿using Konto.Data.Models.Transaction;
+﻿using Konto.Data.Models.Masters;
+using Konto.Data.Models.Transaction;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,22 @@ namespace Konto.Data
 {
     public class StockEffect
     {
+
+        public static decimal GetStock(int productId)
+        {
+            using(var db = new KontoContext())
+            {
+                var st = db.StockTranses
+                        .Where(x => x.ItemId == productId)
+                        .Select(x=>x.Qty)
+                        .DefaultIfEmpty(0)
+                        .Sum();
+
+                return st;
+            }
+
+        }
+
         public static bool StockTransChlnProdEntry(ChallanModel Model, ChallanTransModel item,
              bool IsIssue, string tableName, string userName, KontoContext _db, ProdModel prodModel, bool Isdelete)
         {
@@ -455,7 +472,7 @@ namespace Konto.Data
 
         public static bool StockTransProdEntry(ProdModel Model, bool IsIssue,
             decimal RcptQty, decimal IssueQty, decimal qty, int pcs,
-           string tableName, KontoContext _db)
+           string tableName, KontoContext _db, int ProductId=0)
         {
 
             StockTransModel stock = new StockTransModel();
@@ -488,8 +505,12 @@ namespace Konto.Data
             stock.DivId = Model.DivId;
 
             stock.VoucherDate = Model.VoucherDate != 0 ? (int)Model.VoucherDate : 0;
+            
+            if (ProductId == 0)
+                stock.ItemId = (int)Model.ProductId;
+            else
+                stock.ItemId = ProductId;
 
-            stock.ItemId = (int)Model.ProductId;
             stock.TableName = tableName;
             stock.KeyFldValue = Model.Id;
             stock.Narration = Model.Remark;
@@ -650,6 +671,84 @@ namespace Konto.Data
             return true;
         }
 
+
+
+        public static async Task<bool> StockTransProdEntry(ProdModel Model, int productId,
+            decimal RcptQty, decimal IssueQty, decimal qty, int pcs,
+                     bool IsIssue, string tableName, string userName, KontoContext _db)
+            
+        {
+
+
+         
+            StockTransModel stock = new StockTransModel();
+           
+
+            stock.CompanyId = Convert.ToInt16(Model.CompId);
+            stock.YearId = Model.YearId != null ? (int)Model.YearId : 0;
+
+            stock.BranchId = Model.BranchId != null ? Convert.ToInt32(Model.BranchId) : 0;
+           
+
+            if (Model.ColorId != null && Model.ColorId != 0)
+                stock.ColorId = (int)Model.ColorId;
+
+            if (Model.BatchId != null && Model.BatchId != 0)
+                stock.BatchId = (int)Model.BatchId;
+
+            if (Model.GradeId != null && Model.GradeId != 0)
+                stock.GradeId = (int)Model.GradeId;
+
+            if (Model.Cops != 0)
+                stock.Cut = (int)Model.Cops;
+
+            stock.RefId = Model.RowId;
+            stock.MasterRefId = Model.RowId;
+            stock.VoucherDate = Model.VoucherDate != 0 ? (int)Model.VoucherDate : 0;
+           
+            stock.VoucherId = Model.VoucherId != null ? Convert.ToInt32(Model.VoucherId) : 0;
+            stock.BillNo = Model.VoucherNo;
+            stock.VoucherNo = Model.VoucherNo;
+            stock.DivId = Model.DivId;
+
+           
+            stock.ItemId = productId;
+
+          
+
+            stock.TableName = tableName;
+            stock.KeyFldValue = Model.Id;
+            stock.Narration = Model.Remark;
+
+            if (IsIssue)
+            {
+                stock.IssueNos = pcs;
+                stock.IssueQty = IssueQty;
+                stock.Qty = (-1 * (qty));
+                stock.Pcs = -1 * pcs;
+            }
+            else
+            {
+                stock.RcptNos = pcs;
+                stock.RcptQty = RcptQty;
+                stock.Qty = qty;
+                stock.Pcs = pcs;
+            }
+
+
+
+            stock.TransDateTime = DateTime.Now;
+            stock.CreateDate = DateTime.Now;
+            stock.CreateUser = userName;
+
+           
+            _db.StockTranses.Add(stock);
+          
+
+           
+            return true;
+
+        }
 
     }
 }

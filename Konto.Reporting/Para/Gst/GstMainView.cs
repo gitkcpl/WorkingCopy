@@ -465,8 +465,8 @@ namespace Konto.Reporting.Para.Gst
                     {
                         w.Cells["A" + row].PutValue(t.GstIn);
                         w.Cells["B" + row].PutValue(t.Account);
-                        w.Cells["C" + row].PutValue(t.InvoiceNo);
-                        w.Cells["D" + row].PutValue(t.InvoiceDate);
+                        w.Cells["C" + row].PutValue(t.VoucherNo);
+                        w.Cells["D" + row].PutValue(t.VoucherDate);
                         w.Cells["E" + row].PutValue(t.NoteType);
                         w.Cells["F" + row].PutValue(t.StateName);
                         w.Cells["G" + row].PutValue("N");

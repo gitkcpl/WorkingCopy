@@ -668,4 +668,17 @@ IF NOT EXISTS(SELECT 1 FROM dbo.ReportType WHERE FileName='reg\doc\TakaJobSalesC
 INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, CreateUser, IsActive, IsDeleted,RowId,SpName)
 Values('Job Challan F1','JSC', 46,'reg\doc\TakaJobSalesChallan.rdlx',GETDATE(),'Admin',1,0,NEWID(),'dbo.ChallanPrint')SET IDENTITY_INSERT dbo.ReportType OFF 
 
+
+update dbo.Reporttyp set VoucherTypeId=2  WHERE FileName='reg\doc\ReqRep.rdlx'
+
+IF NOT EXISTS(SELECT 1 FROM dbo.ReportType WHERE FileName='reg\doc\ReqRep.rdlx' and VoucherTypeId=2)
+INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, CreateUser, IsActive, IsDeleted,RowId,SpName)
+Values('Request Document','REQDOC', 2,'reg\doc\ReqRep.rdlx',GETDATE(),'Admin',1,0,NEWID(),'dbo.OrderPrint')
+
+
+
+IF NOT EXISTS(SELECT 1 FROM dbo.ReportType WHERE FileName='reg\doc\JvPrint.rdlx' and VoucherTypeId=14)
+INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, CreateUser, IsActive, IsDeleted,RowId,SpName)
+Values('Journal Voucher','JVP', 14,'reg\doc\JvPrint.rdlx',GETDATE(),'Admin',1,0,NEWID(),'dbo.JvPrint')
+
 Go

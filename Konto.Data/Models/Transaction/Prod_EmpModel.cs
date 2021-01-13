@@ -34,19 +34,19 @@ namespace Konto.Data.Models.Transaction
         public int EmpId { get; set; }
 
         [Display(Name = "Night Mtrs")]
-        public decimal? NightMtrs { get; set; }
+        public decimal NightMtrs { get; set; }
 
         [Display(Name = "Day Mtrs")]
-        public decimal? DayMtrs { get; set; }
+        public decimal DayMtrs { get; set; }
 
         [Display(Name = "Total Mtrs")]
-        public decimal? TotalMtrs { get; set; }
+        public decimal TotalMtrs { get; set; }
 
         [Display(Name = "Rate")]
-        public decimal? Rate { get; set; }
+        public decimal Rate { get; set; }
 
         [Display(Name = "Amount")]
-        public decimal? Amount { get; set; }
+        public decimal Amount { get; set; }
 
         [MaxLength(100)]
         [Display(Name = "Extra1")]

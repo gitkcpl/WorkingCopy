@@ -19,13 +19,14 @@ namespace Konto.Data.Models.Transaction.Dtos
 
         public int? LoadingTransId { get; set; }
         public DateTime? ProdDate { get; set; }
-        public decimal? NightMtrs { get; set; }
-        public decimal? DayMtrs { get; set; }
-        public decimal? TotalMtrs { get; set; }
-        public decimal? Rate { get; set; }
-        public decimal? Amount { get; set; }
+        public decimal NightMtrs { get; set; }
+        public decimal DayMtrs { get; set; }
+        public decimal TotalMtrs { get; set; }
+        public decimal Rate { get; set; }
+        public decimal Amount { get; set; }
         public string Extra1 { get; set; }
         public string Extra2 { get; set; }
+        [Required]
         public string EmpName { get; set; }
 
     }

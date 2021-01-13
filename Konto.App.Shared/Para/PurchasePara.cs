@@ -32,5 +32,6 @@ namespace Konto.App.Shared.Para
         public static bool Ask_For_Voucher_Selection = false;
         public static int Rate_Decimal = 2;
         public static int Qty_Decimal = 2;
+        public static bool Tcs_Round_Off = true;
     }
 }

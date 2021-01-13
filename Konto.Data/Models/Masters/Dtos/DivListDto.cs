@@ -14,5 +14,10 @@ namespace Konto.Data.Models.Masters.Dtos
 
         [Display(Name = "Remark")]
         public virtual string Remark { get; set; }
+
+        public virtual bool IsQc { get; set; }
+        public virtual bool IsQcOut { get; set; }
+        public virtual bool IsOutward { get; set; }
+        public virtual bool IsFinishWareHouse { get; set; }
     }
 }

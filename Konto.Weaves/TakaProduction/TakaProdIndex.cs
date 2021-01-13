@@ -13,29 +13,26 @@ using Konto.Data;
 using Konto.Data.Models.Masters.Dtos;
 using Konto.Data.Models.Transaction;
 using Konto.Data.Models.Transaction.Dtos;
+using Konto.Shared.Masters.Design;
 using Konto.Shared.Masters.Emp;
 using Konto.Shared.Masters.Item;
 using Serilog;
 using Syncfusion.Windows.Forms;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Konto.Weaves.TakaProduction
 {
     public partial class TakaProdIndex : KontoMetroForm
     {
-
         private List<Prod_EmpDto> DelProdEmp = new List<Prod_EmpDto>();
         private List<ProdWeftItemDTO> DelWeft = new List<ProdWeftItemDTO>();
         private List<ProdModel> FilterView = new List<ProdModel>();
-        private List<BeamProdDto> BeamProdTrans = new List<BeamProdDto>();
+        private List<BeamStatusByMachineDto> BeamProdTrans = new List<BeamStatusByMachineDto>();
 
         TextEdit headerEdit = new TextEdit();
         GridColumn activeCol = null;
@@ -50,7 +47,7 @@ namespace Konto.Weaves.TakaProduction
             this.Load += TakaProdIndex_Load;
 
             this.MainLayoutFile = KontoFileLayout.TakaProd_Index;
-            this.GridLayoutFile = KontoFileLayout.TakaProd_Trans; 
+            this.GridLayoutFile = KontoFileLayout.TakaProd_Trans;
 
             ProdgridControl.ProcessGridKey += ProdGridControl_ProcessGridKey;
             ProdgridView.InitNewRow += ProdgridView_InitNewRow;
@@ -76,11 +73,119 @@ namespace Konto.Weaves.TakaProduction
             WeftgridView.DoubleClick += WeftgridView_DoubleClick;
             WeftgridView.CustomDrawRowIndicator += WeftgridView_CustomDrawRowIndicator;
 
+            divLookUpEdit.EditValueChanged += DivLookUpEdit_EditValueChanged;
             MachineNolookUpEdit.EditValueChanged += MachineNolookUpEdit_EditValueChanged;
+            productLookup1.SelectedValueChanged += ProductLookup1_SelectedValueChanged;
+            productRepositoryItemButtonEdit.ButtonClick += ProductRepositoryItemButtonEdit_ButtonClick;
+            //  designLookup.buttonEdit1.KeyDown += ButtonEdit1_KeyDown;
+            designLookup.LostFocus += DesignLookup_LostFocus;
+            voucherLookup1.SelectedValueChanged += VoucherLookup_SelectedValueChanged;
+        }
+
+        private void VoucherLookup_SelectedValueChanged(object sender, EventArgs e)
+        {
+            if (this.PrimaryKey == 0 && Convert.ToInt32(voucherLookup1.SelectedValue) > 0)
+            {
+                TakaNotextEdit.Text = "New-" + DbUtils.NextSerialNo(Convert.ToInt32(voucherLookup1.SelectedValue), 1);
+            }
+        }
+
+        private void ProductRepositoryItemButtonEdit_ButtonClick(object sender, ButtonPressedEventArgs e)
+        {
+            var dr = PreWeftOpenLookup();
+            OpenItemLookup( Convert.ToInt32( dr.ProductId),dr);
+        }
+
+        private void ProductLookup1_SelectedValueChanged(object sender, EventArgs e)
+        {
+            if (Convert.ToInt32(productLookup1.SelectedValue) == 0) return;
+
+            var itemid = Convert.ToInt32(productLookup1.SelectedValue);
+
+            var db = new KontoContext();
+
+             List<ProdWeftItemDTO> ProdWeftList = new List<ProdWeftItemDTO>(
+                 (from p in db.WeftItems
+                  join pd in db.Products on p.ProductId equals pd.Id
+                  where p.RefId == itemid
+                              && !p.IsDeleted
+                  select new ProdWeftItemDTO()
+                  {
+                      ProductId = p.ProductId,
+                      ProductName = pd.ProductName,
+                      Denier = p.Denier,
+                      PI = p.PI,
+                      RS = p.RS,
+                      Qty = p.Qty,
+                      WeftId = p.Id
+                  }
+                 ).ToList());
+
+                stdWtspinEdit.Value = (decimal)ProdWeftList.Sum(k => k.Qty);
+                WeftbindingSource.DataSource = ProdWeftList;
+            
+        }
+
+        private void DesignLookup_LostFocus(object sender, EventArgs e)
+        {
+            TakaNotextEdit.Focus();
+        }
+
+        //private void ButtonEdit1_KeyDown(object sender, KeyEventArgs e)
+        //{
+        //    if (designLookup.SelectedValue == null && e.KeyCode != Keys.Enter) return;
+        //    if (designLookup.SelectedValue != null && e.KeyCode != Keys.F1) return;
+
+        //    var frm = new DesignLkpWindow();
+        //    frm.Tag = MenuId.Design_Master;
+        //    if (designLookup.SelectedValue != null)
+        //        frm.SelectedValue = (int)designLookup.SelectedValue;
+
+        //    frm.ShowDialog();
+        //    if (frm.DialogResult == DialogResult.OK)
+        //    {
+        //        designLookup.SelectedValue = frm.SelectedValue;
+        //    }
+        //}
+
+        //private void DesignLookup_KeyDown(object sender, KeyEventArgs e)
+        //{
+        //    if (designLookup.SelectedValue == null && e.KeyCode != Keys.Enter) return;
+        //    if (designLookup.SelectedValue != null && e.KeyCode != Keys.F1) return;
+
+        //    var frm = new DesignLkpWindow();
+        //    frm.Tag = MenuId.Design_Master;
+        //    if(designLookup.SelectedValue!=null)
+        //    frm.SelectedValue = (int)designLookup.SelectedValue; 
+
+        //    frm.ShowDialog();
+        //    if (frm.DialogResult == DialogResult.OK)
+        //    {
+        //        designLookup.SelectedValue = frm.SelectedValue;
+        //    }
+        //}
+
+        private void DivLookUpEdit_EditValueChanged(object sender, EventArgs e)
+        {
+            if (divLookUpEdit.EditValue == null) return;
+
+            using (var db = new KontoContext())
+            {
+                int divid = Convert.ToInt32(divLookUpEdit.EditValue);
+                var _macList = (from p in db.MachineMasters
+                                where p.IsActive && !p.IsDeleted &&
+                                p.DivId == divid
+                                select new BaseLookupDto()
+                                {
+                                    DisplayText = p.MachineName,
+                                    Id = p.Id
+                                }).ToList();
+
+                MachineNolookUpEdit.Properties.DataSource = _macList;
+            }
         }
 
         #region UDF
-
         private void FillLookup()
         {
             using (var db = new KontoContext())
@@ -114,7 +219,6 @@ namespace Konto.Weaves.TakaProduction
             var dr = (Prod_EmpDto)ProdgridView.GetRow(ProdgridView.FocusedRowHandle);
             return dr;
         }
-
         private ProdWeftItemDTO PreWeftOpenLookup()
         {
             WeftgridView.GetRow(WeftgridView.FocusedRowHandle);
@@ -137,9 +241,17 @@ namespace Konto.Weaves.TakaProduction
             {
                 er.EmpId = frm.SelectedValue;
                 er.EmpName = frm.SelectedTex;
-                var model = frm.SelectedItem as EmpLookupDto;
-
-                ProdgridView.FocusedColumn = ProdgridView.GetNearestCanFocusedColumn(ProdgridView.FocusedColumn);
+                var pid = Convert.ToInt32(productLookup1.SelectedValue);
+                using(var db = new KontoContext()) {
+                    var rt = db.EmpRates.FirstOrDefault(x => x.EmpId == er.EmpId && x.ProductId == pid);
+                    if (rt != null)
+                    {
+                        er.Rate = rt.Rate;
+                        er.Amount = er.TotalMtrs * er.Rate;
+                    }
+                }
+                ProdgridView.FocusedColumn = ProdgridView.GetVisibleColumn(colEmpName.VisibleIndex + 1);
+               // ProdgridView.FocusedColumn = ProdgridView.GetNearestCanFocusedColumn(ProdgridView.FocusedColumn);
             }
         }
         private void OpenItemLookup(int _selvalue, ProdWeftItemDTO er)
@@ -156,9 +268,8 @@ namespace Konto.Weaves.TakaProduction
                 er.ProductId = frm.SelectedValue;
                 er.ProductName = frm.SelectedTex;
                 var model = frm.SelectedItem as ProductLookupDto;
-
-                WeftgridView.FocusedColumn = WeftgridView.GetNearestCanFocusedColumn(WeftgridView.FocusedColumn);
-            }
+                WeftgridView.FocusedColumn = WeftgridView.GetVisibleColumn(colEmpName.VisibleIndex + 1);
+             }
         }
         public TakaBeamModel GetByMasterIdAsync(int prodid, int beamid, KontoContext db)
         {
@@ -263,7 +374,8 @@ namespace Konto.Weaves.TakaProduction
         }
         private void ProdGridControl_Enter(object sender, EventArgs e)
         {
-            ProdgridView.FocusedColumn = ProdgridView.VisibleColumns[0];
+            //ProdgridView.FocusedColumn = ProdgridView.VisibleColumns[0];
+            ProdgridView.FocusedColumn = ProdgridView.Columns["ProdDate"];
         }
         private void ProdgridView_CellValueChanged(object sender, DevExpress.XtraGrid.Views.Base.CellValueChangedEventArgs e)
         {
@@ -272,19 +384,15 @@ namespace Konto.Weaves.TakaProduction
             if (e.Column.FieldName == "NightMtrs")
             {
                 er.TotalMtrs = er.NightMtrs + er.DayMtrs;
-                if (er.TotalMtrs > 0)
-                {
-                    er.Amount = er.Rate * er.TotalMtrs;
-                }
+                
             }
             if (e.Column.FieldName == "DayMtrs")
             {
                 er.TotalMtrs = er.NightMtrs + er.DayMtrs;
-                if (er.TotalMtrs > 0)
-                {
-                    er.Amount = er.Rate * er.TotalMtrs;
-                }
+                
             }
+            er.Amount = er.Rate * er.TotalMtrs;
+
         }
         private void ProdgridView_KeyDown(object sender, KeyEventArgs e)
         {
@@ -314,6 +422,7 @@ namespace Konto.Weaves.TakaProduction
         {
             var rw = ProdgridView.GetRow(e.RowHandle) as Prod_EmpDto;
             rw.Id = -1 * ProdgridView.RowCount;
+            rw.ProdDate = DateTime.Now.Date;
         }
         private void ProdGridControl_ProcessGridKey(object sender, KeyEventArgs e)
         {
@@ -454,12 +563,13 @@ namespace Konto.Weaves.TakaProduction
         {
             try
             {
-                var dr = PreWeftOpenLookup();
-                if (dr == null) return;
+                
                 if (WeftgridView.FocusedColumn.FieldName == "ProductName")
                 {
                     if (e.KeyCode == Keys.Enter)
                     {
+                        var dr = PreWeftOpenLookup();
+                        if (dr == null) return;
                         if (dr.ProductId == 0 || dr.ProductId == null)
                         {
                             OpenItemLookup(0, dr);
@@ -468,6 +578,8 @@ namespace Konto.Weaves.TakaProduction
                     }
                     else if (e.KeyCode == Keys.F1)
                     {
+                        var dr = PreWeftOpenLookup();
+                        if (dr == null) return;
                         OpenItemLookup((int)dr.ProductId, dr);
                         e.Handled = true;
                     }
@@ -517,10 +629,9 @@ namespace Konto.Weaves.TakaProduction
 
                 _frm.TopLevel = false;
                 _frm.Parent = tabPageAdv4;
-              //  _frm.ReportFilterType = "TP";
+                //  _frm.ReportFilterType = "TP";
                 _frm.Location = new Point(tabPageAdv4.Location.X + tabPageAdv4.Width / 2 - _frm.Width / 2, tabPageAdv4.Location.Y + tabPageAdv4.Height / 2 - _frm.Height / 2);
                 _frm.Show();// = true;
-
             }
         }
         private void OkSimpleButton_Click(object sender, EventArgs e)
@@ -538,72 +649,67 @@ namespace Konto.Weaves.TakaProduction
 
         private void MachineNolookUpEdit_EditValueChanged(object sender, EventArgs e)
         {
-            if (MachineNolookUpEdit.EditValue == null) return;
-            int? Mid = Convert.ToInt32(MachineNolookUpEdit.EditValue);
-            KontoContext db = new KontoContext();
-            var prod = new List<BeamProdDto>();
-
-            var spcol = db.SpCollections.FirstOrDefault(k => k.Id ==
-                        (int)SpCollectionEnum.MachineWiseTakaProdList);
-            if (spcol == null)
+            try
             {
-                prod = db.Database.SqlQuery<BeamProdDto>(
-                     "dbo.MachineWiseTakaProdList @CompanyId={0},@VoucherID={1},@Status={2},@MachineId={3}",
+                if (MachineNolookUpEdit.EditValue == null) return;
+                int? Mid = Convert.ToInt32(MachineNolookUpEdit.EditValue);
+                KontoContext db = new KontoContext();
+                var prod = new List<BeamStatusByMachineDto>();
+
+                //var spcol = db.SpCollections.FirstOrDefault(k => k.Id ==
+                //            (int)SpCollectionEnum.MachineWiseTakaProdList);
+                //if (spcol == null)
+                //{
+                prod = db.Database.SqlQuery<BeamStatusByMachineDto>(
+                     "dbo.beam_status_by_machine @CompanyId={0},@vtypeid={1},@Status={2},@MachineId={3}",
                      KontoGlobals.CompanyId, (int)VoucherTypeEnum.BeamProd, "LOADED", Mid).ToList();
-            }
-            else
-            {
-                prod = db.Database.SqlQuery<BeamProdDto>(
-                 spcol.Name + " @CompanyId={0},@VoucherID={1},@Status={2},@MachineId={3}",
-               KontoGlobals.CompanyId, (int)VoucherTypeEnum.BeamProd, "LOADED", Mid).ToList();
-            }
-            BeamProdTrans = new List<BeamProdDto>(prod.ToList());
+                //}
+                //else
+                //{
+                //    prod = db.Database.SqlQuery<BeamProdDto>(
+                //     spcol.Name + " @CompanyId={0},@VoucherID={1},@Status={2},@MachineId={3}",
+                //   KontoGlobals.CompanyId, (int)VoucherTypeEnum.BeamProd, "LOADED", Mid).ToList();
+                //}
 
-            var beamProd = BeamProdTrans.FirstOrDefault();
-            if (beamProd != null && beamProd.Id != 0)
-            {
-                ProductLookup.SelectedValue = beamProd.BoxProductId;
-                //List of weft Item
-                if (beamProd.BoxProductId != null)
+                BeamProdTrans = prod;
+
+                var beamProd = BeamProdTrans.FirstOrDefault();
+                if (beamProd != null && beamProd.Id != 0)
                 {
-                    List<ProdWeftItemDTO> ProdWeftList = new List<ProdWeftItemDTO>(
-                     (from p in db.WeftItems
-                      where p.RefId == beamProd.BoxProductId
-                                  && !p.IsDeleted
-                      select new ProdWeftItemDTO()
-                      {
-                          ProductId = p.ProductId,
-                          Denier = p.Denier,
-                          PI = p.PI,
-                          RS = p.RS,
-                          Qty = p.Qty,
-                          WeftId = p.Id
-                      }
-                     ).ToList());
+                    if (beamProd.GreyProductId != null) {
+                        productLookup1.SelectedValue = beamProd.GreyProductId;
+                        productLookup1.SetGroup((int)beamProd.GreyProductId);
+                            }
+                    
 
-                    stdWtspinEdit.Value = (decimal)ProdWeftList.Sum(k => k.Qty);
-                    WeftbindingSource.DataSource = ProdWeftList;
+                    List<BeamProdDto> TakaTrans = new List<BeamProdDto>(
+                      (from p in db.Prods
+                       join pd in db.Products on p.ProductId equals pd.Id
+                       join tb in db.TakaBeams on p.Id equals tb.ProdId into tb_join
+                       from tb in tb_join.DefaultIfEmpty()
+                       where tb.BeamId == beamProd.Id
+                       && !p.IsDeleted && !tb.IsDeleted
+                       select new BeamProdDto()
+                       {
+                           VoucherDate = p.VoucherDate,
+                           GrossWt = p.GrossWt,
+                           ProductId = p.ProductId,
+                           VoucherNo = p.VoucherNo,
+                           NetWt = p.NetWt, ProductName= pd.ProductName
+                       }
+                        ).ToList());
+
+                    PreviousTakabindingSource.DataSource = TakaTrans;
                 }
-
-                List<BeamProdDto> TakaTrans = new List<BeamProdDto>(
-                  (from p in db.Prods
-                   join tb in db.TakaBeams on p.Id equals tb.ProdId into tb_join
-                   from tb in tb_join.DefaultIfEmpty()
-                   where tb.BeamId == beamProd.Id
-                   && !p.IsDeleted && !tb.IsDeleted
-                   select new BeamProdDto()
-                   {
-                       VoucherDate = p.VoucherDate,
-                       GrossWt = p.GrossWt,
-                       ProductId = p.ProductId,
-                       VoucherNo = p.VoucherNo,
-                       NetWt = p.NetWt
-                   }
-                    ).ToList());
-
-                PreviousTakabindingSource.DataSource = TakaTrans;
+                BeambindingSource.DataSource = BeamProdTrans;
             }
-            BeambindingSource.DataSource = BeamProdTrans;
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.ToString());
+                Log.Error(ex, "Taka Prod Machine_lookup");
+            }
+           
         }
 
         #endregion
@@ -620,14 +726,17 @@ namespace Konto.Weaves.TakaProduction
             this.Text = "Taka Production [Add New]";
 
             divLookUpEdit.EditValue = 1;
-            this.ActiveControl = voucherLookup.buttonEdit1;
-            voucherLookup.SetDefault();
+            this.ActiveControl = voucherLookup1.buttonEdit1;
+            voucherLookup1.SetDefault();
             voucherDateEdit.EditValue = DateTime.Now;
 
-            TakaNotextEdit.Text = "New";
+           // TakaNotextEdit.Text = "New";
 
-            MendorEmpLookup.SelectedValue = 1;
-            MendorEmpLookup.SetGroup();
+            productLookup1.SetEmpty();
+            productLookup1.SetGroup(0);
+            designLookup.SetEmpty();
+
+           
 
             createdLabelControl.Text = "Create By: " + KontoGlobals.UserName;
             modifyLabelControl.Text = string.Empty;
@@ -639,22 +748,26 @@ namespace Konto.Weaves.TakaProduction
 
             DelWeft = new List<ProdWeftItemDTO>();
             DelProdEmp = new List<Prod_EmpDto>();
+
+            divLookUpEdit.Focus();
+
+            MachineNolookUpEdit_EditValueChanged(MachineNolookUpEdit, null);
         }
         public override void ResetPage()
         {
             base.ResetPage();
             divLookUpEdit.EditValue = 1;
 
-            voucherLookup.SetDefault();
+            voucherLookup1.SetDefault();
             voucherDateEdit.EditValue = DateTime.Now;
-            ProductLookup.SetEmpty();
+            productLookup1.SetEmpty();
 
             //MendorEmpLookup.SelectedValue = 1;
             //MendorEmpLookup.SetGroup();
 
             TakaNotextEdit.Text = "New";
             MeterSpinEdit.Value = 0;
-            TotalPcsSpinEdit.Value = 0;
+            TotalPcsSpinEdit.Value = 1;
             MendorSpinEdit.Value = 0;
             WeightSpinEdit.Value = 0;
             stdWtspinEdit.Value = 0;
@@ -664,12 +777,12 @@ namespace Konto.Weaves.TakaProduction
 
             StartDateEdit.DateTime = DateTime.Now;
             FoldDateEdit.DateTime = DateTime.Now;
+            designLookup.SetEmpty();
             colorLookup.SetEmpty();
             gradeLookup1.SetEmpty();
             MendorEmpLookup.SetEmpty();
             CheckerempLookup2.SetEmpty();
             FolderempLookup.SetEmpty();
-
 
             RemarkTextBoxExt.Text = string.Empty;
 
@@ -679,19 +792,19 @@ namespace Konto.Weaves.TakaProduction
             PreviousTakabindingSource.DataSource = new List<BeamProdDto>();
             DelWeft = new List<ProdWeftItemDTO>();
             DelProdEmp = new List<Prod_EmpDto>();
+
+            divLookUpEdit.Focus();
         }
         public override void EditPage(int _key)
         {
             base.EditPage(_key);
             this.PrimaryKey = _key;
 
-
             using (var db = new KontoContext())
             {
                 var pdata = db.Prods.Find(_key);
                 LoadData(pdata);
             }
-
         }
 
         public override void FirstRec()
@@ -724,18 +837,18 @@ namespace Konto.Weaves.TakaProduction
             List<Filter> filter = new List<Filter>();
 
 
-            if (Convert.ToInt32(voucherLookup.SelectedValue) > 0)
+            if (Convert.ToInt32(voucherLookup1.SelectedValue) > 0)
             {
-                filter.Add(new Filter { PropertyName = "VoucherId", Operation = Op.Equals, Value = Convert.ToInt32(voucherLookup.SelectedValue) });
+                filter.Add(new Filter { PropertyName = "VoucherId", Operation = Op.Equals, Value = Convert.ToInt32(voucherLookup1.SelectedValue) });
             }
 
             if (Convert.ToInt32(divLookUpEdit.EditValue) > 0)
             {
                 filter.Add(new Filter { PropertyName = "DivId", Operation = Op.Equals, Value = Convert.ToInt32(divLookUpEdit.EditValue) });
             }
-            if (Convert.ToInt32(ProductLookup.SelectedValue) > 0)
+            if (Convert.ToInt32(productLookup1.SelectedValue) > 0)
             {
-                filter.Add(new Filter { PropertyName = "ProductId", Operation = Op.Equals, Value = Convert.ToInt32(ProductLookup.SelectedValue) });
+                filter.Add(new Filter { PropertyName = "ProductId", Operation = Op.Equals, Value = Convert.ToInt32(productLookup1.SelectedValue) });
             }
 
             filter.Add(new Filter { PropertyName = "CompId", Operation = Op.Equals, Value = KontoGlobals.CompanyId });
@@ -774,7 +887,7 @@ namespace Konto.Weaves.TakaProduction
 
             var _Emplist = ProdbindingSource.DataSource as List<Prod_EmpDto>;
             var _Weftlist = WeftbindingSource.DataSource as List<ProdWeftItemDTO>;
-            var _Beamlist = BeambindingSource.DataSource as List<BeamProdDto>;
+            var _Beamlist = BeambindingSource.DataSource as List<BeamStatusByMachineDto>;
 
             using (var db = new KontoContext())
             {
@@ -794,11 +907,11 @@ namespace Konto.Weaves.TakaProduction
                         if (divLookUpEdit.EditValue != null)
                             _find.DivId = Convert.ToInt32(divLookUpEdit.EditValue);
 
-                        _find.VoucherId = Convert.ToInt32(voucherLookup.SelectedValue);
+                        _find.VoucherId = Convert.ToInt32(voucherLookup1.SelectedValue);
 
                         _find.VoucherDate = Convert.ToInt32(voucherDateEdit.DateTime.ToString("yyyyMMdd"));
                         _find.MacId = Convert.ToInt32(MachineNolookUpEdit.EditValue);
-                        _find.ProductId = Convert.ToInt32(ProductLookup.SelectedValue);
+                        _find.ProductId = Convert.ToInt32(productLookup1.SelectedValue);
 
                         if (designLookup.SelectedValue != null)
                             _find.PlyProductId = Convert.ToInt32(designLookup.SelectedValue);
@@ -834,6 +947,9 @@ namespace Konto.Weaves.TakaProduction
                         _find.CompId = KontoGlobals.CompanyId;
                         _find.YearId = KontoGlobals.YearId;
                         _find.BranchId = KontoGlobals.BranchId;
+                        _find.CProductId = _find.ProductId;
+                        
+                      
 
                         // _find.VoucherNo = BeamNotextEdit.Text;
                         if (string.IsNullOrEmpty(_find.VoucherNo))
@@ -845,6 +961,7 @@ namespace Konto.Weaves.TakaProduction
                         var map = new Mapper(config);
                         if (this.PrimaryKey == 0)
                         {
+                            _find.ProdStatus = "STOCK";
                             //var _srno = DbUtils.NextSerialNo(_find.VoucherId, db, 0);
                             //_find.VoucherNo = _srno;  //DbUtils.NextSerialNo(_find.VoucherId, db);
                             //model.VoucherNo = _find.VoucherNo;
@@ -882,6 +999,9 @@ namespace Konto.Weaves.TakaProduction
                             //Trans.Add(tranModel);
 
                         }
+
+
+
                         //Weft Item
                         foreach (var item in _Weftlist)
                         {
@@ -904,33 +1024,35 @@ namespace Konto.Weaves.TakaProduction
                         }
                         //Add item in Taka Beam
                         TakaBeamModel tb;
-                        decimal? totalnet = _Beamlist.Sum(k => k.Ply);
+                        decimal? totalnet = _Beamlist.Sum(k => k.Mtrs);
                         foreach (var item in _Beamlist)
                         {
                             var transid = item.Id;
-                            tb = GetByMasterIdAsync(_find.Id, item.Id, db);
+                            tb = db.TakaBeams.FirstOrDefault(x => x.BeamId == item.Id && x.ProdId == _find.Id);
+                                
+                             //   GetByMasterIdAsync(_find.Id, item.Id, db);
                             if (tb == null)
                             {
                                 tb = new TakaBeamModel();
-                                tb.Per = (item.Ply * 100) / totalnet;
-                                tb.Qty = (_find.Ply * tb.Per) / 100;
+                                tb.Per = (item.Mtrs * 100) / totalnet;
+                                tb.Qty = (_find.GrossWt * tb.Per) / 100;
 
                                 tb.Mtr = (_find.NetWt * tb.Per) / 100;
                                 tb.ProdId = _find.Id;
                                 tb.BeamId = item.Id;
                                 tb.CreateDate = DateTime.Now;
                                 tb.CreateUser = KontoGlobals.UserName;
-
+                                tb.IsActive =true;
                                 db.TakaBeams.Add(tb);
                                 db.SaveChanges();
                             }
                             else
                             {
-                                tb.Per = (item.NetWt * 100) / totalnet;
+                                tb.Per = (item.Mtrs * 100) / totalnet;
                                 tb.Qty = (_find.GrossWt * tb.Per) / 100;
                                 tb.Mtr = (_find.NetWt * tb.Per) / 100;
-                                tb.ModifyDate = DateTime.Now;
-                                tb.ModifyUser = KontoGlobals.UserName;
+                              //  tb.ModifyDate = DateTime.Now;
+                               // tb.ModifyUser = KontoGlobals.UserName;
                             }
                             //Trans.Add(tranModel); 
                         }
@@ -938,16 +1060,18 @@ namespace Konto.Weaves.TakaProduction
                         //delete item from Prod Emp
                         foreach (var item in DelProdEmp)
                         {
-                            if (item.Id == 0) continue;
+                            if (item.Id <= 0) continue;
                             var _model = db.Prod_Emps.Find(item.Id);
-                            _model.IsDeleted = true;
+                            if (_model != null)
+                                _model.IsDeleted = true;
                         }
                         // delete from weft Item
                         foreach (var p in DelWeft)
                         {
-                            if (p.Id == 0) continue;
+                            if (p.Id <= 0) continue;
                             var prd = db.prod_Wefts.Find(p.Id);
-                            prd.IsDeleted = true;
+                            if (prd != null)
+                                prd.IsDeleted = true;
                         }
                         //sotock effect
                         var stk = db.StockTranses.Where(k => k.MasterRefId == _find.RowId).ToList();
@@ -964,65 +1088,65 @@ namespace Konto.Weaves.TakaProduction
                         StockEffect.StockTransProdEntry(_find, IsIssue,
                                    RcptQty, IssueQty, qty, pcs, TableName, db);
 
-                        if (ProdPara.AutoYarnConsumption)
-                        {
-                            IsIssue = true;
-                            ProdModel model;
-                            var yarnlist = db.WeftItems.Where(k => k.IsActive && !k.IsDeleted && k.RefId == _find.ProductId).ToList();
-                            if (yarnlist.Count > 0)
-                            {
-                                foreach (var item in yarnlist)
-                                {
-                                    RcptQty = 0;
-                                    if (item.TypeId == 1)
-                                    {
-                                        if (_find.NetWt != 0 && item.Qty != null)
-                                        {
-                                            IssueQty = ((decimal)_find.NetWt * (decimal)item.Qty) / (decimal)100;
-                                            qty = ((decimal)_find.NetWt * (decimal)item.Qty) / (decimal)100;
-                                        }
-                                    }
+                        //if (ProdPara.AutoYarnConsumption)
+                        //{
+                        //    IsIssue = true;
+                        //    ProdModel model;
+                        //    var yarnlist = db.WeftItems.Where(k => k.IsActive && !k.IsDeleted && k.RefId == _find.ProductId).ToList();
+                        //    if (yarnlist.Count > 0)
+                        //    {
+                        //        foreach (var item in yarnlist)
+                        //        {
+                        //            RcptQty = 0;
+                        //            if (item.TypeId == 1)
+                        //            {
+                        //                if (_find.NetWt != 0 && item.Qty != null)
+                        //                {
+                        //                    IssueQty = ((decimal)_find.NetWt * (decimal)item.Qty) / (decimal)100;
+                        //                    qty = ((decimal)_find.NetWt * (decimal)item.Qty) / (decimal)100;
+                        //                }
+                        //            }
 
-                                    pcs = 1;
+                        //            pcs = 1;
 
-                                    model = new ProdModel();
-                                    map.Map(_find, model);
-                                    model.ProductId = (int)item.ProductId;
-                                    StockEffect.StockTransProdEntry(model, IsIssue, RcptQty, IssueQty, qty, pcs, TableName, db);
-                                    db.SaveChanges();
-                                }
-                            }
-                            else
-                            {
-                                yarnlist = db.WeftItems.Where(k => k.IsActive && !k.IsDeleted && k.ItemId == _find.ProductId && k.MColorId == _find.ColorId).ToList();
-                                foreach (var item in yarnlist)
-                                {
-                                    RcptQty = 0;
-                                    if (item.IType == "T")
-                                    {
-                                        if (_find.NetWt != 0 && item.Qty != null && item.Totcard == 0 && item.Card == 0)
-                                        {
-                                            IssueQty = ((decimal)_find.NetWt * (decimal)item.Qty) / (decimal)100;
-                                            qty = ((decimal)_find.NetWt * (decimal)item.Qty) / (decimal)100;
-                                        }
-                                        else
-                                        {
-                                            decimal lmtr = (item.Card / item.TotPick) / (decimal)39.37;
-                                            IssueQty = ((decimal)_find.NetWt * (decimal)item.Qty) / lmtr;
-                                            qty = ((decimal)_find.NetWt * (decimal)item.Qty);
-                                        }
-                                    }
+                        //            model = new ProdModel();
+                        //            map.Map(_find, model);
+                        //            model.ProductId = (int)item.ProductId;
+                        //            StockEffect.StockTransProdEntry(model, IsIssue, RcptQty, IssueQty, qty, pcs, TableName, db);
+                        //            db.SaveChanges();
+                        //        }
+                        //    }
+                        //    else
+                        //    {
+                        //        yarnlist = db.WeftItems.Where(k => k.IsActive && !k.IsDeleted && k.ItemId == _find.ProductId && k.MColorId == _find.ColorId).ToList();
+                        //        foreach (var item in yarnlist)
+                        //        {
+                        //            RcptQty = 0;
+                        //            if (item.IType == "T")
+                        //            {
+                        //                if (_find.NetWt != 0 && item.Qty != null && item.Totcard == 0 && item.Card == 0)
+                        //                {
+                        //                    IssueQty = ((decimal)_find.NetWt * (decimal)item.Qty) / (decimal)100;
+                        //                    qty = ((decimal)_find.NetWt * (decimal)item.Qty) / (decimal)100;
+                        //                }
+                        //                else
+                        //                {
+                        //                    decimal lmtr = (item.Card / item.TotPick) / (decimal)39.37;
+                        //                    IssueQty = ((decimal)_find.NetWt * (decimal)item.Qty) / lmtr;
+                        //                    qty = ((decimal)_find.NetWt * (decimal)item.Qty);
+                        //                }
+                        //            }
 
-                                    pcs = 1;
+                        //            pcs = 1;
 
-                                    model = new ProdModel();
-                                    map.Map(_find, model);
-                                    model.ProductId = (int)item.ProductId;
-                                    StockEffect.StockTransProdEntry(model, IsIssue, RcptQty, IssueQty, qty, pcs, TableName, db);
-                                    db.SaveChanges();
-                                }
-                            }
-                        }
+                        //            model = new ProdModel();
+                        //            map.Map(_find, model);
+                        //            model.ProductId = (int)item.ProductId;
+                        //            StockEffect.StockTransProdEntry(model, IsIssue, RcptQty, IssueQty, qty, pcs, TableName, db);
+                        //            db.SaveChanges();
+                        //        }
+                        //    }
+                        //}
 
                         db.SaveChanges();
                         _tran.Commit();
@@ -1045,7 +1169,7 @@ namespace Konto.Weaves.TakaProduction
                 MessageBoxAdv.Show(this, KontoGlobals.SaveMessage + " Taka No.: " + _find.VoucherNo, "Saved !", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 if (!this.OpenForLookup && newmode)
                 {
-                    if (this.voucherLookup.GroupDto.PrintAfterSave && MessageBox.Show("Print Bill ?", "Print", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    if (this.voucherLookup1.GroupDto.PrintAfterSave && MessageBox.Show("Print Bill ?", "Print", MessageBoxButtons.YesNo) == DialogResult.Yes)
                     {
                         this.PrimaryKey = _find.Id;
                         Print();
@@ -1069,7 +1193,7 @@ namespace Konto.Weaves.TakaProduction
         {
             var dt = Convert.ToInt32(voucherDateEdit.DateTime.ToString("yyyyMMdd"));
             var ProdsEmp = ProdbindingSource.DataSource as List<Prod_EmpDto>;
-            var Weft = WeftbindingSource.DataSource as List<ProdWeftItemDTO>;
+            // var Weft = WeftbindingSource.DataSource as List<ProdWeftItemDTO>;
 
             if (Convert.ToInt32(divLookUpEdit.EditValue) <= 0)
             {
@@ -1077,10 +1201,10 @@ namespace Konto.Weaves.TakaProduction
                 divLookUpEdit.Focus();
                 return false;
             }
-            else if (Convert.ToInt32(voucherLookup.SelectedValue) <= 0)
+            else if (Convert.ToInt32(voucherLookup1.SelectedValue) <= 0)
             {
                 MessageBoxAdv.Show(this, "Invalid Voucher", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                voucherLookup.Focus();
+                voucherLookup1.Focus();
                 return false;
             }
             else if (dt > KontoGlobals.ToDate || dt < KontoGlobals.FromDate)
@@ -1089,10 +1213,10 @@ namespace Konto.Weaves.TakaProduction
                 voucherDateEdit.Focus();
                 return false;
             }
-            else if (Convert.ToInt32(ProductLookup.SelectedValue) <= 0)
+            else if (Convert.ToInt32(productLookup1.SelectedValue) <= 0)
             {
                 MessageBoxAdv.Show(this, "Invalid Beam Product", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                ProductLookup.Focus();
+                productLookup1.Focus();
                 return false;
             }
             else if (string.IsNullOrWhiteSpace(TakaNotextEdit.Text) || TakaNotextEdit.Text.Length <= 0)
@@ -1113,12 +1237,30 @@ namespace Konto.Weaves.TakaProduction
                 TakaNotextEdit.Focus();
                 return false;
             }
+            
+            //else if (ProdsEmp.Count <= 0)
+            //{
+            //    MessageBoxAdv.Show(this, "Production Detail is required. !", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //    ProdgridView.Focus();
+            //    return false;
+            //}
+            else if (ProdsEmp.Count > 0)
+            {
+                var prodMtr = ProdsEmp.Sum(k => k.TotalMtrs);
+                var nMtr = MeterSpinEdit.Value;
+                if (prodMtr != nMtr)
+                {
+                    MessageBoxAdv.Show(this, "Employee meter should be matched with taka meter!", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MeterSpinEdit.Focus();
+                    return false;
+                }
+            }
             else if (!string.IsNullOrEmpty(TakaNotextEdit.Text))
             {
                 var db = new KontoContext();
-                int vid = (int)voucherLookup.SelectedValue;
+                int vid = (int)voucherLookup1.SelectedValue;
                 var takaExists = db.Prods.FirstOrDefault(x => x.VoucherNo == TakaNotextEdit.Text
-                          && x.CompId == KontoGlobals.CompanyId && x.YearId == KontoGlobals.YearId && x.BranchId == KontoGlobals.BranchId
+                          && x.CompId == KontoGlobals.CompanyId && x.YearId == KontoGlobals.YearId && x.Id != this.PrimaryKey
                           && x.VoucherId == vid && x.IsDeleted == false && x.IsActive);
 
                 if (takaExists != null)
@@ -1128,19 +1270,6 @@ namespace Konto.Weaves.TakaProduction
                     return false;
                 }
             }
-            else if (ProdsEmp.Count > 0)
-            {
-                var prodMtr = ProdsEmp.Sum(k => k.TotalMtrs);
-                var nMtr = MeterSpinEdit.Value;
-                if (prodMtr != nMtr)
-                {
-                    MessageBoxAdv.Show(this, "Employee meter should be matched with taka meter!", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    WeightSpinEdit.Focus();
-                    return false;
-                }
-            }
-            
-
             return true;
         }
 
@@ -1148,11 +1277,14 @@ namespace Konto.Weaves.TakaProduction
         {
             KontoContext db = new KontoContext();
 
+            this.PrimaryKey = pdata.Id;
+
+            TakaNotextEdit.Text = pdata.VoucherNo;
             divLookUpEdit.EditValue = pdata.DivId;
-            voucherLookup.SelectedValue = pdata.VoucherId;
+            voucherLookup1.SelectedValue = pdata.VoucherId;
             voucherDateEdit.EditValue = KontoUtils.IToD(pdata.VoucherDate);
-            ProductLookup.SelectedValue = pdata.ProductId;
-            ProductLookup.SetGroup((int)pdata.ProductId);
+            productLookup1.SelectedValue = pdata.ProductId;
+            productLookup1.SetGroup((int)pdata.ProductId);
 
             designLookup.SelectedValue = pdata.PlyProductId;
             if (pdata.PlyProductId > 0)
@@ -1162,21 +1294,28 @@ namespace Konto.Weaves.TakaProduction
             FoldDateEdit.DateTime = (DateTime)pdata.LoadingDate;
 
             if (pdata.ColorId != null)
+            {
                 colorLookup.SelectedValue = pdata.ColorId;
-
+                colorLookup.SetGroup();
+            }
             if (pdata.GradeId != null)
+            {
                 gradeLookup1.SelectedValue = pdata.GradeId;
-
+                gradeLookup1.SetValue();
+            }
             MeterSpinEdit.Value = pdata.NetWt;
             WeightSpinEdit.Value = pdata.GrossWt;
             TotalPcsSpinEdit.Value = pdata.Tops;
 
             FolderempLookup.SelectedValue = pdata.PackEmpId;
+            FolderempLookup.SetGroup();
             pdata.CopsRate = FolderRateSpinEdit.Value;
             MendorEmpLookup.SelectedValue = pdata.JobId;
+            MendorEmpLookup.SetGroup();
             pdata.BoxRate = MendorSpinEdit.Value;
 
             CheckerempLookup2.SelectedValue = pdata.CheckEmpId;
+            CheckerempLookup2.SetGroup();
             CheckerRateSpinEdit.Value = pdata.FinQty;
             RemarkTextBoxExt.Text = pdata.Remark;
 
@@ -1254,39 +1393,20 @@ namespace Konto.Weaves.TakaProduction
                                 TotalMtrs = c.TotalMtrs
                             }).ToList();
 
-            BeamProdTrans = (
-              (from pd in db.TakaBeams
-               join beam in db.Prods on pd.BeamId equals beam.Id into join_t
-               from beam in join_t.DefaultIfEmpty()
-               join emp in db.Emps on beam.JobId equals emp.Id into join_et
-               from emp in join_et.DefaultIfEmpty()
-               where pd.ProdId == pdata.Id && pd.IsDeleted == false
-               select new BeamProdDto
-               {
-                   VoucherNo = beam.VoucherNo,
-                   Id = beam.Id,
-                   LoadingDate = beam.LoadingDate,
-                   TwistType = beam.TwistType,
-                   Cops = beam.Cops,
-                   Ply = beam.Ply,
-                   GrossWt = beam.GrossWt,
-                   NetWt = beam.NetWt,
-                   CurrQty = beam.CurrQty,
-                   FinQty = beam.FinQty,
-                   CopsRate = beam.CopsRate,
-                   BoxRate = (pd.Qty),
-                   BoxProductId = beam.BoxProductId,
-                   MendorName = emp.EmpName
-               }
-              ).ToList());
+            BeamProdTrans = db.Database.SqlQuery<BeamStatusByMachineDto>(
+                     "dbo.beam_status_by_machine @CompanyId={0},@vtypeid={1},@Status={2},@MachineId={3}",
+                     KontoGlobals.CompanyId, (int)VoucherTypeEnum.BeamProd, "LOADED", pdata.MacId).ToList();
+
             WeftbindingSource.DataSource = weftlist;
             ProdbindingSource.DataSource = emplist;
             BeambindingSource.DataSource = BeamProdTrans;
 
             DelWeft = new List<ProdWeftItemDTO>();
             DelProdEmp = new List<Prod_EmpDto>();
-        }
 
+            divLookUpEdit.Focus();
+
+        }
         #endregion
     }
 }

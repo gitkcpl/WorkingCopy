@@ -899,6 +899,25 @@ VALUES(21,52,NEWID(),SYSDATETIME(),'Admin')
 
 END
 
+-- Gate Inward
+
+IF NOT EXISTS(SELECT 1 FROM dbo.VoucherType WHERE Id=53)
+BEGIN
+INSERT INTO dbo.VoucherType
+(
+    Id,TypeName,Terms,SendSms,SmsTemplates,SmsToParty,SmsToAgent,SmsToUser,OtherMobile,
+    SendMail,EmailSub,EmailBody,EmailToParty,EmailToAgent,EmailToUser,OtherEmail,
+    Extra1,Extra2,IsActive,IsDeleted,CreateDate,CreateUser,IpAddress,RowId
+)
+VALUES(53,'Gate Inward','',0,'',0,0,0,'',
+0,'','',1,1,1,'',
+'','',1,0,SYSDATETIME(),'Admin','NA',NEWID())
+
+INSERT INTO dbo.Voucher_Party(GroupId,VoucherTypeId,RowId,CreateDate,CreateUser)
+VALUES(21,53,NEWID(),SYSDATETIME(),'Admin')
+
+END
+
 
 
 SET IDENTITY_INSERT dbo.VoucherType OFF

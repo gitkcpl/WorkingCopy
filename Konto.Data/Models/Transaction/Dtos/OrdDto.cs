@@ -16,10 +16,11 @@ namespace Konto.Data.Models.Transaction.Dtos
         public int VoucherDate { get; set; }
         public string VoucherNo { get; set; }
         public string RefNo { get; set; }
-        public int AccId { get; set; }
+        public int? AccId { get; set; }
         public int OrderStatusId { get; set; }
         public int EmpId { get; set; }
-       
+        public int DivisionId { get; set; }
+
         public int AgentId { get; set; }
 
         public int TransportId { get; set; }
@@ -51,6 +52,10 @@ namespace Konto.Data.Models.Transaction.Dtos
 
     public class OrdTransDto
     {
+        public OrdTransDto()
+        {
+            RequireDate = DateTime.Now;
+        }
         public int Id { get; set; }
         public int OrdId { get; set; }
 
@@ -194,7 +199,7 @@ namespace Konto.Data.Models.Transaction.Dtos
         [Display(Name = "Cancel Reason")]
         public string CancelReason { get; set; }
 
-
+        public DateTime RequireDate { get; set; }
 
     }
 }

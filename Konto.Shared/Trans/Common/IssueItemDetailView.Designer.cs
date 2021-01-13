@@ -30,13 +30,13 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IssueItemDetailView));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.pendSimpleButton = new DevExpress.XtraEditors.SimpleButton();
             this.cancelSimpleButton = new DevExpress.XtraEditors.SimpleButton();
             this.okSimpleButton = new DevExpress.XtraEditors.SimpleButton();
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colorRepositoryItemButtonEdit = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
             this.gradeRepositoryItemButtonEdit = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
-            this.pendSimpleButton = new DevExpress.XtraEditors.SimpleButton();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
@@ -60,6 +60,16 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(546, 37);
             this.tableLayoutPanel1.TabIndex = 6;
+            // 
+            // pendSimpleButton
+            // 
+            this.pendSimpleButton.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pendSimpleButton.Appearance.Options.UseFont = true;
+            this.pendSimpleButton.Location = new System.Drawing.Point(3, 3);
+            this.pendSimpleButton.Name = "pendSimpleButton";
+            this.pendSimpleButton.Size = new System.Drawing.Size(135, 31);
+            this.pendSimpleButton.TabIndex = 7;
+            this.pendSimpleButton.Text = "Pending Stock";
             // 
             // cancelSimpleButton
             // 
@@ -128,7 +138,6 @@
             this.gridView1.OptionsLayout.StoreAppearance = true;
             this.gridView1.OptionsNavigation.UseTabKey = false;
             this.gridView1.OptionsView.ColumnAutoWidth = false;
-            this.gridView1.OptionsView.NewItemRowPosition = DevExpress.XtraGrid.Views.Grid.NewItemRowPosition.Bottom;
             this.gridView1.OptionsView.ShowFooter = true;
             this.gridView1.OptionsView.ShowGroupPanel = false;
             // 
@@ -145,17 +154,6 @@
             this.gradeRepositoryItemButtonEdit.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
             this.gradeRepositoryItemButtonEdit.Name = "gradeRepositoryItemButtonEdit";
-            // 
-            // pendSimpleButton
-            // 
-            this.pendSimpleButton.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pendSimpleButton.Appearance.Options.UseFont = true;
-            this.pendSimpleButton.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("simpleButton1.ImageOptions.SvgImage")));
-            this.pendSimpleButton.Location = new System.Drawing.Point(3, 3);
-            this.pendSimpleButton.Name = "pendSimpleButton";
-            this.pendSimpleButton.Size = new System.Drawing.Size(135, 31);
-            this.pendSimpleButton.TabIndex = 7;
-            this.pendSimpleButton.Text = "Pending Stock";
             // 
             // IssueItemDetailView
             // 

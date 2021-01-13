@@ -114,7 +114,7 @@ namespace Konto.Shared.Reports
                
                
 
-                    if (this.TableName == "ORD" || this.TableName == "PORD")
+                    if (this.TableName == "ORD" || this.TableName == "PORD" || this.TableName == "REQDOC")
                     {
                         var BillId = new List<IdListDto>();
                         if (filterTypeLookUpEdit.EditValue.ToString() == "Party Wise")
@@ -150,7 +150,7 @@ namespace Konto.Shared.Reports
                         }
                     }
                     else if (this.TableName == "PURRET" || this.TableName == "BILL" ||
-                        this.TableName == "SALERET" || this.TableName == "DRCR")
+                        this.TableName == "SALERET" || this.TableName == "DRCR" || this.TableName=="JVP")
                     {
                         var BillId = new List<IdListDto>();
                         if (filterTypeLookUpEdit.EditValue.ToString() == "Party Wise")
@@ -519,7 +519,8 @@ namespace Konto.Shared.Reports
 
                 var vid = (int)this.VoucherType;
                 var _idid = Convert.ToInt32(voucherLookup1.SelectedValue);
-                if (this.VoucherType == VoucherTypeEnum.SalesOrder || this.VoucherType == VoucherTypeEnum.PurchaseOrder)
+                if (this.VoucherType == VoucherTypeEnum.SalesOrder || this.VoucherType == VoucherTypeEnum.PurchaseOrder ||
+                    this.VoucherType == VoucherTypeEnum.Indent)
                 {
 
                     var _vlist = (from o in db.Ords
@@ -541,7 +542,8 @@ namespace Konto.Shared.Reports
                     this.gridControl1.DataSource = _vlist;
                 }
                 else if (this.VoucherType == VoucherTypeEnum.PurchaseReturn || this.VoucherType == VoucherTypeEnum.SaleInvoice ||
-                     this.VoucherType == VoucherTypeEnum.SaleReturn || this.VoucherType == VoucherTypeEnum.DebitCreditNote)
+                     this.VoucherType == VoucherTypeEnum.SaleReturn || this.VoucherType == VoucherTypeEnum.DebitCreditNote ||
+                     this.VoucherType == VoucherTypeEnum.JournalVoucher)
                 {
                     var _vlist = (from o in db.Bills
                                   join voucher in db.Vouchers on o.VoucherId equals voucher.Id into join_voucher

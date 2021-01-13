@@ -48,7 +48,7 @@ namespace Konto.Weaves.BeamLoading
             tabControlAdv1.SelectedIndexChanged += TabControlAdv1_SelectedIndexChanged;
 
             this.MainLayoutFile = KontoFileLayout.BeamLoading_Index;
-           // this.GridLayoutFile = KontoFileLayout.BeamLoading_Trans;
+            this.GridLayoutFile = KontoFileLayout.BeamLoading_Trans;
 
             gridControl1.ProcessGridKey += GridControl1_ProcessGridKey;
             gridView1.InitNewRow += GridView1_InitNewRow;
@@ -62,8 +62,13 @@ namespace Konto.Weaves.BeamLoading
             gridView1.DoubleClick += GridView1_DoubleClick;
             gridView1.CustomDrawRowIndicator += GridView1_CustomDrawRowIndicator;
 
-            EmprepositoryItemButtonEdit.ButtonClick += EmpRepositoryItemButtonEdit_ButtonClick;           
+            EmprepositoryItemButtonEdit.ButtonClick += EmpRepositoryItemButtonEdit_ButtonClick;
+
+            divLookUpEdit.EditValueChanged += DivLookUpEdit_EditValueChanged;
+            BeamPositionlookUpEdit.EditValueChanged += BeamPositionlookUpEdit_EditValueChanged;
         }
+
+
         #region Event
         private void BeamLoadingIndex_Load(object sender, EventArgs e)
         {
@@ -82,7 +87,25 @@ namespace Konto.Weaves.BeamLoading
             BeamLookup.Enabled = false;
             YarnproductLookup.Enabled = false;
         }
+        private void DivLookUpEdit_EditValueChanged(object sender, EventArgs e)
+        {
+            if (divLookUpEdit.EditValue == null) return;
 
+            using (var db = new KontoContext())
+            {
+                int divid = Convert.ToInt32(divLookUpEdit.EditValue);
+                var _macList = (from p in db.MachineMasters
+                                where p.IsActive && !p.IsDeleted &&
+                                p.DivId == divid
+                                select new BaseLookupDto()
+                                {
+                                    DisplayText = p.MachineName,
+                                    Id = p.Id
+                                }).ToList();
+
+                MachineNolookUpEdit.Properties.DataSource = _macList;
+            }
+        }
         private void TabControlAdv1_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (tabControlAdv1.SelectedIndex == 0)
@@ -97,6 +120,30 @@ namespace Konto.Weaves.BeamLoading
                 tabPageAdv2.Controls.Add(_ListView);
                 this.Text = "Beam Loading [View]";
             }
+        }
+        private void BeamPositionlookUpEdit_EditValueChanged(object sender, EventArgs e)
+        {
+            if (BeamPositionlookUpEdit.EditValue == null) return;
+            if (MachineNolookUpEdit.EditValue == null) return;
+
+            int Position =Convert.ToInt32(BeamPositionlookUpEdit.EditValue);
+
+            //if (Position.ToUpper() != "OTHER")
+            //{
+                int MacId = Convert.ToInt32(MachineNolookUpEdit.EditValue);
+                KontoContext _db = new KontoContext();
+                var FreeMac = _db.Prods.Where(k => k.MacId == MacId
+                            && k.IsActive && !k.IsDeleted && !k.IsClose &&
+                           (k.SubGradeId == Position)
+                            && k.CompId == (int)KontoGlobals.CompanyId
+                            && k.ProdStatus == "LOADED" && k.Id != this.PrimaryKey).ToList();
+
+                if (FreeMac.Count > 0)
+                {
+                    MessageBox.Show(BeamPositionlookUpEdit.Text + " Position Not Free..Please change Position.");
+                    BeamPositionlookUpEdit.EditValue = null;
+                }
+            //}
         }
 
         private void OkSimpleButton_Click(object sender, EventArgs e)
@@ -122,7 +169,7 @@ namespace Konto.Weaves.BeamLoading
                     return;
                 }
 
-                var stf = new TakaViewWindow();
+                var stf = new PendingBeamLoadingView();
                 KontoContext _db = new KontoContext();
 
                 var _list = new List<BeamProdDto>();
@@ -133,7 +180,7 @@ namespace Konto.Weaves.BeamLoading
                 {
                     _list = _db.Database.SqlQuery<BeamProdDto>(
                         "dbo.PendingBeamLoading @CompanyId={0},@BLVoucherTypeID={1},@INVoucherTypeID={2},@divId={3}",
-                 KontoGlobals.CompanyId, (int)VoucherTypeEnum.BeamProd, (int)VoucherTypeEnum.Inward,divLookUpEdit.EditValue).ToList();
+                 KontoGlobals.CompanyId, (int)VoucherTypeEnum.BeamProd, (int)VoucherTypeEnum.Inward, divLookUpEdit.EditValue).ToList();
                 }
                 else
                 {
@@ -155,10 +202,16 @@ namespace Konto.Weaves.BeamLoading
                     voucherDateEdit.EditValue = KontoUtils.IToD(Model.VoucherDate);
                     BeamLookup.SelectedValue = Model.ProductId;
                     BeamLookup.SetGroup((int)Model.ProductId);
-                    YarnproductLookup.SelectedValue = Model.CopsProductId;
-                    YarnproductLookup.SetGroup((int)Model.CopsProductId);
-                    GreyproductLookup.SelectedValue = Model.BoxProductId;
-                    GreyproductLookup.SetGroup((int)Model.BoxProductId);
+                    if (Model.CopsProductId != null)
+                    {
+                        YarnproductLookup.SelectedValue = Model.CopsProductId;
+                        YarnproductLookup.SetGroup((int)Model.CopsProductId);
+                    }
+                    if (Model.BoxProductId != null)
+                    {
+                        GreyproductLookup.SelectedValue = Model.BoxProductId;
+                        GreyproductLookup.SetGroup((int)Model.BoxProductId);
+                    }
 
                     BeamNotextEdit.Text = Model.VoucherNo;
                     MtrspinEdit.Value = Model.CopsWt;
@@ -192,13 +245,6 @@ namespace Konto.Weaves.BeamLoading
         {
             using (var db = new KontoContext())
             {
-                List<ComboBoxPairs> cbp = new List<ComboBoxPairs>
-            {
-                new ComboBoxPairs("Lower", "L"),
-                new ComboBoxPairs("Middle", "M"),
-                new ComboBoxPairs("Upper", "U"),
-                new ComboBoxPairs("Other", "O")
-            };
 
                 var _divLists = (from p in db.Divisions
                                  where p.IsActive && !p.IsDeleted
@@ -207,17 +253,33 @@ namespace Konto.Weaves.BeamLoading
                                      DisplayText = p.DivisionName,
                                      Id = p.Id
                                  }).ToList();
-                var _macList = (from p in db.MachineMasters
-                                where p.IsActive && !p.IsDeleted
-                                select new BaseLookupDto()
-                                {
-                                    DisplayText = p.MachineName,
-                                    Id = p.Id
-                                }).ToList();
-
+                var _PositionLists = (from p in db.Positions
+                                      where p.IsActive && !p.IsDeleted
+                                      select new BaseLookupDto()
+                                      {
+                                          DisplayText = p.PositionName,
+                                          Id = p.Id
+                                      }).ToList();
                 divLookUpEdit.Properties.DataSource = _divLists;
-                MachineNolookUpEdit.Properties.DataSource = _macList;
-                BeamPositionlookUpEdit.Properties.DataSource = cbp;
+                BeamPositionlookUpEdit.Properties.DataSource = _PositionLists;
+
+                //var _macList = (from p in db.machineMasters
+                //                where p.IsActive && !p.IsDeleted
+                //                select new BaseLookupDto()
+                //                {
+                //                    DisplayText = p.MachineName,
+                //                    Id = p.Id
+                //                }).ToList();
+
+                //MachineNolookUpEdit.Properties.DataSource = _macList;
+                //    List<ComboBoxPairs> cbp = new List<ComboBoxPairs>
+                //{
+                //    new ComboBoxPairs("Lower", "L"),
+                //    new ComboBoxPairs("Middle", "M"),
+                //    new ComboBoxPairs("Upper", "U"),
+                //    new ComboBoxPairs("Other", "O")
+                //};
+
             }
         }
         private Prod_EmpDto PreOpenLookup()
@@ -543,14 +605,13 @@ namespace Konto.Weaves.BeamLoading
                 {
                     try
                     {
-                        //if (this.PrimaryKey != 0)
-                        //{
-                        //    _find = db.Prods.Find(this.PrimaryKey);
-                        //}
-
                         _find = db.Prods.Find(ProdId);
                         if (_find == null) return;
-
+                        //if (_find.IsClose)
+                        //{
+                        //    MessageBoxAdv.Show(this, "Error While Save !!", "Exception ", "Beam is already close...");
+                        //    return;
+                        //}
                         if (divLookUpEdit.EditValue != null)
                             _find.DivId = Convert.ToInt32(divLookUpEdit.EditValue);
 
@@ -564,13 +625,13 @@ namespace Konto.Weaves.BeamLoading
                         _find.ProdStatus = "LOADED";
                         _find.MacId = (int)MachineNolookUpEdit.EditValue;
 
-                        _find.TwistType = BeamPositionlookUpEdit.EditValue.ToString();
+                        if(!string.IsNullOrEmpty(BeamPositionlookUpEdit.EditValue.ToString()))
+                        _find.SubGradeId =Convert.ToInt32( BeamPositionlookUpEdit.EditValue);
                         _find.LoadingDate = LoadingDateEdit.DateTime;
 
                         _find.ModifyDate = DateTime.Now;
                         _find.ModifyUser = KontoGlobals.UserName;
-
-
+                         
                         _find.VoucherNo = BeamNotextEdit.Text;
                         _find.CopsWt = MtrspinEdit.Value;
 
@@ -587,7 +648,7 @@ namespace Konto.Weaves.BeamLoading
                         if (AddEdit)
                         {
                             loadtrans.ProdId = _find.Id;
-                            loadtrans.BeamPotion = _find.TwistType;
+                            loadtrans.BeamPotion = BeamPositionlookUpEdit.Text;
                             loadtrans.DivId = _find.DivId;
                             loadtrans.IsDeleted = false;
                             loadtrans.LoadingDate = _find.LoadingDate;
@@ -708,7 +769,7 @@ namespace Konto.Weaves.BeamLoading
                 MachineNolookUpEdit.Focus();
                 return false;
             }
-            if (string.IsNullOrEmpty(BeamPositionlookUpEdit.EditValue.ToString()))
+            if (string.IsNullOrEmpty(BeamPositionlookUpEdit.Text))
             {
                 MessageBoxAdv.Show(this, "Invalid Beam Position", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 BeamPositionlookUpEdit.Focus();
@@ -726,12 +787,12 @@ namespace Konto.Weaves.BeamLoading
                 LoadingDateEdit.Focus();
                 return false;
             }
-            else if (Convert.ToInt32(GreyproductLookup.SelectedValue) <= 0)
-            {
-                MessageBoxAdv.Show(this, "Invalid Grey Product", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                GreyproductLookup.Focus();
-                return false;
-            }
+            //else if (Convert.ToInt32(GreyproductLookup.SelectedValue) <= 0)
+            //{
+            //    MessageBoxAdv.Show(this, "Invalid Grey Product", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //    GreyproductLookup.Focus();
+            //    return false;
+            //}
             else if (string.IsNullOrWhiteSpace(BeamNotextEdit.Text) || BeamNotextEdit.Text.Length <= 0)
             {
                 MessageBoxAdv.Show(this, "Invalid Beam No", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -744,24 +805,24 @@ namespace Konto.Weaves.BeamLoading
                 NetWeightSpinEdit.Focus();
                 return false;
             }
-            else if (LoadDate > dt)
+            else if (LoadDate < dt)
             {
-                MessageBoxAdv.Show(this, "Load Date Cant Not be grater than Voucherdate", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBoxAdv.Show(this, "Load Date Can Not be grater than Voucherdate", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 LoadingDateEdit.Focus();
                 return false;
             }
-            else if (gridView1.RowCount == 1)
-            {
-                MessageBoxAdv.Show(this, "At Least One Employee Should be Entered", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                gridView1.Focus();
-                return false;
-            }
-            else if (trans.Any(x => x.EmpId == 0))
-            {
-                MessageBoxAdv.Show(this, "Empty Employee Can bot be accepted", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                gridView1.Focus();
-                return false;
-            }
+            //else if (gridView1.RowCount == 1)
+            //{
+            //    MessageBoxAdv.Show(this, "At Least One Employee Should be Entered", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //    gridView1.Focus();
+            //    return false;
+            //}
+            //else if (trans.Any(x => x.EmpId == 0))
+            //{
+            //    MessageBoxAdv.Show(this, "Empty Employee Can bot be accepted", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //    gridView1.Focus();
+            //    return false;
+            //}
 
             return true;
         }
@@ -771,7 +832,7 @@ namespace Konto.Weaves.BeamLoading
             ProdId = pdata.Id;
             divLookUpEdit.EditValue = pdata.DivId;
             MachineNolookUpEdit.EditValue = pdata.MacId;
-            BeamPositionlookUpEdit.EditValue = pdata.TwistType;
+            BeamPositionlookUpEdit.EditValue = pdata.SubGradeId;
             LoadingDateEdit.EditValue = pdata.LoadingDate;
 
             voucherLookup11.SelectedValue = pdata.VoucherId;
@@ -852,6 +913,8 @@ namespace Konto.Weaves.BeamLoading
 
                 this.bindingSource1.DataSource = list;
             }
+
+            divLookUpEdit.Focus();
         }
 
         #endregion

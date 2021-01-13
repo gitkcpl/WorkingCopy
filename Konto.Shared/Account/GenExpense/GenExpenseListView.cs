@@ -11,6 +11,8 @@ using Serilog;
 using System.Data.SqlClient;
 using Konto.Shared.Reports;
 using DevExpress.XtraGrid.Views.Grid;
+using Konto.Data.Models.Transaction.Dtos;
+using Konto.Shared.Trans.Common;
 
 namespace Konto.Shared.Account.GenExpense
 {
@@ -26,7 +28,104 @@ namespace Konto.Shared.Account.GenExpense
             //  this.GridLayoutFileName = KontoFileLayout.Op_Bill_List;
 
             this.ReportPrint = true;
+            this.customGridView1.FocusedRowChanged += CustomGridView1_FocusedRowChanged;
+            this.attachSimpleButton.Click += AttachSimpleButton_Click;
             listAction1.EditDeleteDisabled(false);
+        }
+
+        private void AttachSimpleButton_Click(object sender, EventArgs e)
+        {
+            if (customGridView1.FocusedRowHandle < 0) return;
+            var row = customGridView1.GetDataRow(customGridView1.FocusedRowHandle);
+
+
+            if (KontoView.Columns.ColumnByFieldName("Id") != null)
+            {
+                var _id = Convert.ToInt32(row["Id"]);
+                var _vid = Convert.ToInt32(row["VoucherId"]);
+                using (var db = new KontoContext())
+                {
+                    var _atc = db.Attachments.Where(x => x.RefVoucherId == _id && x.VoucherId == _vid && !x.IsDeleted).ToList();
+                    if (_atc.Count() == 0)
+                    {
+                        MessageBox.Show("No Attachemnt Found..");
+                        return;
+                    }
+                    var frm = new AttachmentView();
+                    frm.Trans = _atc;
+                    frm.ShowDialog();
+                }
+
+            }
+        }
+
+        private void CustomGridView1_FocusedRowChanged(object sender, DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventArgs e)
+        {
+            try
+            {
+                if (customGridView1.FocusedRowHandle < 0) return;
+                var row = customGridView1.GetDataRow(customGridView1.FocusedRowHandle);
+
+                var _id = Convert.ToInt32(row["Id"]);
+                using (var db = new KontoContext())
+                {
+                    var lst = (from p in db.BtoBs
+                               join o2 in db.BillTrans
+                               on new { A = p.RefId, B = (int)p.RefTransId } equals new { A = o2.BillId, B = o2.Id } into LEFTJOIN
+                               from result in LEFTJOIN.DefaultIfEmpty()
+                               join o1 in db.Bills on result.BillId equals o1.Id
+                               join v1 in db.Vouchers on o1.VoucherId equals v1.Id
+                               join br in db.BillRefs on p.RefCode equals br.RowId
+                               where !br.IsDeleted && !o1.IsDeleted && !p.IsDeleted
+                                && br.BillId == _id && p.TransType == "Payment"
+                               select new PaymentHistoryDto()
+                               {
+                                   VoucherNo = o1.VoucherNo,
+                                   ChlnDate = o1.VoucherDate,
+                                   Amount = (decimal)p.Amount,
+                                   Remark = result.Remark,
+                                   ChqNo = result.ChequeNo,
+                                   Type = v1.VoucherName
+
+                               }
+                               ).ToList();
+                    customGridView2.Columns.Clear();
+                    customGridControl2.DataSource = lst;
+                    customGridView2.PopulateColumns();
+                    customGridView2.Columns["ChlnDate"].VisibleIndex = -1;
+                    customGridView2.BestFitColumns();
+
+                    //var lstRet =
+                    var lstRet = (from p in db.BtoBs
+                                  join o1 in db.Bills on p.RefId equals o1.Id
+                                  join v1 in db.Vouchers on o1.VoucherId equals v1.Id
+                                  join br in db.BillRefs on p.RefCode equals br.RowId
+                                  where !br.IsDeleted && !o1.IsDeleted && !p.IsDeleted
+                                   && br.BillId == _id && p.TransType == "Return"
+                                  select new PaymentHistoryDto()
+                                  {
+                                      VoucherNo = o1.VoucherNo,
+                                      ChlnDate = o1.VoucherDate,
+                                      Amount = (decimal)p.Amount,
+                                      Remark = o1.Remarks,
+                                      Type = v1.VoucherName
+
+                                  }
+                               ).ToList();
+
+                    customGridView3.Columns.Clear();
+                    customGridControl3.DataSource = lstRet;
+                    customGridView3.PopulateColumns();
+                    customGridView3.Columns["ChlnDate"].VisibleIndex = -1;
+                    customGridView3.Columns["ChqNo"].VisibleIndex = -1;
+                    customGridView3.BestFitColumns();
+                }
+            }
+            catch (Exception ex)
+            {
+
+                Log.Error(ex, "purchase list");
+            }
         }
 
         private void ListDateRange1_GetButtonClick(object sender, EventArgs e)
