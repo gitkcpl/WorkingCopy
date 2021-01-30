@@ -9,5 +9,7 @@ namespace Konto.App.Shared.Para
     public class GrayPara
     {
         public static string Calculate_Fold_On = "METER";
+        public static bool Tcs_Required = false;
+        public static bool Tcs_Round_Off = true;
     }
 }

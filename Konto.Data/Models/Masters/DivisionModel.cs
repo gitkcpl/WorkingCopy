@@ -29,6 +29,7 @@ namespace Konto.Data.Models.Masters
         public virtual bool IsQcOut { get; set; }
         public virtual bool IsOutward { get; set; }
         public virtual bool IsFinishWareHouse { get; set; }
+        public virtual int Priority { get; set; }
 
     }
 }

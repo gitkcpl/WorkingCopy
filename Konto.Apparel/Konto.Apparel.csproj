@@ -78,6 +78,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BC\BarcodeIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BC\BarcodeIndex.Designer.cs">
+      <DependentUpon>BarcodeIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BC\BarcodeListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BC\BarcodeListView.Designer.cs">
+      <DependentUpon>BarcodeListView.cs</DependentUpon>
+    </Compile>
     <Compile Include="BOM\BOMIndex.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -103,9 +115,62 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Inw\InwardIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Inw\InwardIndex.Designer.cs">
+      <DependentUpon>InwardIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Inw\InwardList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Inw\InwardList.Designer.cs">
+      <DependentUpon>InwardList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Owt\OutwardIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Owt\OutwardIndex.Designer.cs">
+      <DependentUpon>OutwardIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Owt\OutwardList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Owt\OutwardList.Designer.cs">
+      <DependentUpon>OutwardList.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Qc\ImageWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Qc\ImageWindow.Designer.cs">
+      <DependentUpon>ImageWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Qc\QualityControlIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Qc\QualityControlIndex.Designer.cs">
+      <DependentUpon>QualityControlIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Qc\QualityControlList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Qc\QualityControlList.Designer.cs">
+      <DependentUpon>QualityControlList.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="BC\BarcodeIndex.resx">
+      <DependentUpon>BarcodeIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BC\BarcodeListView.resx">
+      <DependentUpon>BarcodeListView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="BOM\BOMIndex.resx">
       <DependentUpon>BOMIndex.cs</DependentUpon>
     </EmbeddedResource>
@@ -118,7 +183,32 @@
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Inw\InwardIndex.resx">
+      <DependentUpon>InwardIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Inw\InwardList.resx">
+      <DependentUpon>InwardList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Owt\OutwardIndex.resx">
+      <DependentUpon>OutwardIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Owt\OutwardList.resx">
+      <DependentUpon>OutwardList.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Qc\ImageWindow.resx">
+      <DependentUpon>ImageWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Qc\QualityControlIndex.resx">
+      <DependentUpon>QualityControlIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Qc\QualityControlList.resx">
+      <DependentUpon>QualityControlList.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Konto.App.Shared\Konto.App.Shared.csproj">
@@ -145,7 +235,11 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\Konto.Data.Models.Apparel.Dtos.BarcodeTransDto.datasource" />
     <None Include="Properties\DataSources\Konto.Data.Models.Apparel.Dtos.BomOrderDto.datasource" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="SI\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

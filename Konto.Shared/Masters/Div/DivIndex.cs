@@ -151,6 +151,7 @@ namespace Konto.Shared.Masters.Div
             qcOutCheckEdit.Checked = model.IsQcOut;
             outCheckEdit.Checked = model.IsOutward;
             finCheckEdit.Checked = model.IsFinishWareHouse;
+            spinEdit1.Value = model.Priority;
 
             divNameTextBox.Focus();
             this.Text = "Division Master [View/Modify]";
@@ -230,6 +231,7 @@ namespace Konto.Shared.Masters.Div
                 model.IsQcOut = qcOutCheckEdit.Checked;
                 model.IsOutward = outCheckEdit.Checked;
                 model.IsFinishWareHouse = finCheckEdit.Checked;
+                model.Priority = Convert.ToInt32(spinEdit1.Value);
 
                 if (this.PrimaryKey == 0)
                 {

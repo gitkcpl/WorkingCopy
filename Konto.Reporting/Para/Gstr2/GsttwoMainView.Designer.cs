@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GsttwoMainView));
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
+            this.gstr2SimpleButton = new DevExpress.XtraEditors.SimpleButton();
             this.gridControl1 = new Konto.Core.Shared.Libs.CustomGridControl();
             this.gsttwoDtoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.gridView1 = new Konto.Core.Shared.Libs.CustomGridView();
@@ -83,7 +84,6 @@
             this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
-            this.gstr2SimpleButton = new DevExpress.XtraEditors.SimpleButton();
             this.layoutControlItem7 = new DevExpress.XtraLayout.LayoutControlItem();
             this.splashScreenManager1 = new DevExpress.XtraSplashScreen.SplashScreenManager(this, typeof(global::Konto.Reporting.Para.Gst.WaitForm1), true, true);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
@@ -124,6 +124,22 @@
             this.layoutControl1.Size = new System.Drawing.Size(800, 450);
             this.layoutControl1.TabIndex = 0;
             this.layoutControl1.Text = "layoutControl1";
+            // 
+            // gstr2SimpleButton
+            // 
+            this.gstr2SimpleButton.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gstr2SimpleButton.Appearance.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.gstr2SimpleButton.Appearance.Options.UseFont = true;
+            this.gstr2SimpleButton.Appearance.Options.UseForeColor = true;
+            this.gstr2SimpleButton.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("gstr2SimpleButton.ImageOptions.SvgImage")));
+            this.gstr2SimpleButton.ImageOptions.SvgImageSize = new System.Drawing.Size(24, 24);
+            this.gstr2SimpleButton.Location = new System.Drawing.Point(641, 5);
+            this.gstr2SimpleButton.Name = "gstr2SimpleButton";
+            this.gstr2SimpleButton.Size = new System.Drawing.Size(77, 28);
+            this.gstr2SimpleButton.StyleController = this.layoutControl1;
+            this.gstr2SimpleButton.TabIndex = 13;
+            this.gstr2SimpleButton.Text = "GSTR-2";
+           
             // 
             // gridControl1
             // 
@@ -643,21 +659,6 @@
             this.emptySpaceItem2.Name = "emptySpaceItem2";
             this.emptySpaceItem2.Size = new System.Drawing.Size(794, 42);
             this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
-            // 
-            // gstr2SimpleButton
-            // 
-            this.gstr2SimpleButton.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gstr2SimpleButton.Appearance.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.gstr2SimpleButton.Appearance.Options.UseFont = true;
-            this.gstr2SimpleButton.Appearance.Options.UseForeColor = true;
-            this.gstr2SimpleButton.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("gst1SimpleButton.ImageOptions.SvgImage")));
-            this.gstr2SimpleButton.ImageOptions.SvgImageSize = new System.Drawing.Size(24, 24);
-            this.gstr2SimpleButton.Location = new System.Drawing.Point(641, 5);
-            this.gstr2SimpleButton.Name = "gstr2SimpleButton";
-            this.gstr2SimpleButton.Size = new System.Drawing.Size(77, 28);
-            this.gstr2SimpleButton.StyleController = this.layoutControl1;
-            this.gstr2SimpleButton.TabIndex = 13;
-            this.gstr2SimpleButton.Text = "GSTR-2";
             // 
             // layoutControlItem7
             // 

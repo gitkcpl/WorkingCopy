@@ -76,8 +76,11 @@
     <Compile Include="Models\Admin\SPCollectionModel.cs" />
     <Compile Include="Models\Admin\SysParaModel.cs" />
     <Compile Include="Models\Admin\UserMaster.cs" />
+    <Compile Include="Models\Apparel\BarcodeStock.cs" />
+    <Compile Include="Models\Apparel\BarcodeTrans.cs" />
     <Compile Include="Models\Apparel\BomModel.cs" />
     <Compile Include="Models\Apparel\BOMTransModel.cs" />
+    <Compile Include="Models\Apparel\Dtos\BarcodeTransDto.cs" />
     <Compile Include="Models\Apparel\Dtos\BomOrderDto.cs" />
     <Compile Include="Models\Apparel\Dtos\BomTransDto.cs" />
     <Compile Include="Models\Masters\AccAddressModel.cs" />

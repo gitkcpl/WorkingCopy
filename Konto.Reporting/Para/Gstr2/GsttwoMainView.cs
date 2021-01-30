@@ -345,22 +345,34 @@ namespace Konto.Reporting.Para.Gstr2
                 w.Cells["G" + row].PutValue(t.NoteType);
                 w.Cells["H" + row].PutValue(t.Reason);
 
-                if(t.IGSTAmt > 0)
+                if(t.IGSTAmt != 0)
                     w.Cells["I" + row].PutValue("Inter State");
                 else
                     w.Cells["I" + row].PutValue("Intra State");
 
 
-                w.Cells["J" + row].PutValue(-1*t.BillAmount);
-                w.Cells["K" + row].PutValue(t.GSTRate);
-                w.Cells["L" + row].PutValue(-1*t.TaxableValue);
-
-                w.Cells["M" + row].PutValue(-1*t.IGSTAmt);
-                w.Cells["N" + row].PutValue(-1*t.CGSTAmt);
-                w.Cells["O" + row].PutValue(-1*t.SGSTAmt);
-                w.Cells["P" + row].PutValue(-1*t.Cess);
                 
-                if (t.Itc!=null &&  t.Itc.Contains("Ineligible"))
+                w.Cells["K" + row].PutValue(t.GSTRate);
+                if (t.BillAmount < 0)
+                {
+                    w.Cells["L" + row].PutValue(-1 * t.TaxableValue);
+                    w.Cells["J" + row].PutValue(-1 * t.BillAmount);
+                    w.Cells["M" + row].PutValue(-1 * t.IGSTAmt);
+                    w.Cells["N" + row].PutValue(-1 * t.CGSTAmt);
+                    w.Cells["O" + row].PutValue(-1 * t.SGSTAmt);
+                    w.Cells["P" + row].PutValue(-1 * t.Cess);
+                }
+                else
+                {
+                    w.Cells["L" + row].PutValue(t.TaxableValue);
+                    w.Cells["J" + row].PutValue(t.BillAmount);
+                    w.Cells["M" + row].PutValue(t.IGSTAmt);
+                    w.Cells["N" + row].PutValue( t.CGSTAmt);
+                    w.Cells["O" + row].PutValue( t.SGSTAmt);
+                    w.Cells["P" + row].PutValue(t.Cess);
+                }
+
+                if (t.Itc != null && t.Itc.Contains("Ineligible"))
                     w.Cells["Q" + row].PutValue("Ineligible");
                 else
                 {
@@ -369,10 +381,20 @@ namespace Konto.Reporting.Para.Gstr2
 
                 if (t.Itc !=null && !t.Itc.Contains("Ineligible"))
                 {
-                    w.Cells["R" + row].PutValue(-1*t.IGSTAmt);
-                    w.Cells["S" + row].PutValue(-1*t.CGSTAmt);
-                    w.Cells["T" + row].PutValue(-1*t.SGSTAmt);
-                    w.Cells["U" + row].PutValue(-1*t.Cess);
+                    if (t.BillAmount < 0)
+                    {
+                        w.Cells["R" + row].PutValue(-1 * t.IGSTAmt);
+                        w.Cells["S" + row].PutValue(-1 * t.CGSTAmt);
+                        w.Cells["T" + row].PutValue(-1 * t.SGSTAmt);
+                        w.Cells["U" + row].PutValue(-1 * t.Cess);
+                    }
+                    else
+                    {
+                        w.Cells["R" + row].PutValue(t.IGSTAmt);
+                        w.Cells["S" + row].PutValue(t.CGSTAmt);
+                        w.Cells["T" + row].PutValue(t.SGSTAmt);
+                        w.Cells["U" + row].PutValue(t.Cess);
+                    }
                 }
                 else
                 {
@@ -398,7 +420,7 @@ namespace Konto.Reporting.Para.Gstr2
 
             w = wd.Workbook.Worksheets[6]; //cdnur
             row = 5;
-            foreach (var t in cdnrs)
+            foreach (var t in cdnurs)
             {
                 w.Cells["A" + row].PutValue(t.VNo);
                 w.Cells["B" + row].PutValue(t.VoucherDate);
@@ -420,14 +442,29 @@ namespace Konto.Reporting.Para.Gstr2
                     w.Cells["I" + row].PutValue("B2BUR");
 
 
-                w.Cells["J" + row].PutValue(-1*t.BillAmount);
+                
                 w.Cells["K" + row].PutValue(t.GSTRate);
-                w.Cells["L" + row].PutValue(-1*t.TaxableValue);
 
-                w.Cells["M" + row].PutValue(-1*t.IGSTAmt);
-                w.Cells["N" + row].PutValue(-1*t.CGSTAmt);
-                w.Cells["O" + row].PutValue(-1*t.SGSTAmt);
-                w.Cells["P" + row].PutValue(-1*t.Cess);
+                if (t.BillAmount < 0)
+                {
+                    w.Cells["L" + row].PutValue(-1 * t.TaxableValue);
+                    w.Cells["J" + row].PutValue(-1 * t.BillAmount);
+
+                    w.Cells["M" + row].PutValue(-1 * t.IGSTAmt);
+                    w.Cells["N" + row].PutValue(-1 * t.CGSTAmt);
+                    w.Cells["O" + row].PutValue(-1 * t.SGSTAmt);
+                    w.Cells["P" + row].PutValue(-1 * t.Cess);
+                }
+                else
+                {
+                    w.Cells["L" + row].PutValue( t.TaxableValue);
+                    w.Cells["J" + row].PutValue( t.BillAmount);
+
+                    w.Cells["M" + row].PutValue( t.IGSTAmt);
+                    w.Cells["N" + row].PutValue( t.CGSTAmt);
+                    w.Cells["O" + row].PutValue( t.SGSTAmt);
+                    w.Cells["P" + row].PutValue(t.Cess);
+                }
 
                 if (t.Itc != null && t.Itc.Contains("Ineligible"))
                     w.Cells["Q" + row].PutValue("Ineligible");
@@ -438,10 +475,20 @@ namespace Konto.Reporting.Para.Gstr2
 
                 if (t.Itc != null && !t.Itc.Contains("Ineligible"))
                 {
-                    w.Cells["R" + row].PutValue(-1*t.IGSTAmt);
-                    w.Cells["S" + row].PutValue(-1*t.CGSTAmt);
-                    w.Cells["T" + row].PutValue(-1*t.SGSTAmt);
-                    w.Cells["U" + row].PutValue(-1*t.Cess);
+                    if (t.BillAmount < 0)
+                    {
+                        w.Cells["R" + row].PutValue(-1 * t.IGSTAmt);
+                        w.Cells["S" + row].PutValue(-1 * t.CGSTAmt);
+                        w.Cells["T" + row].PutValue(-1 * t.SGSTAmt);
+                        w.Cells["U" + row].PutValue(-1 * t.Cess);
+                    }
+                    else
+                    {
+                        w.Cells["R" + row].PutValue( t.IGSTAmt);
+                        w.Cells["S" + row].PutValue( t.CGSTAmt);
+                        w.Cells["T" + row].PutValue( t.SGSTAmt);
+                        w.Cells["U" + row].PutValue( t.Cess);
+                    }
                 }
                 else
                 {
@@ -610,5 +657,7 @@ namespace Konto.Reporting.Para.Gstr2
             //file is not locked
             return false;
         }
+
+        
     }
 }

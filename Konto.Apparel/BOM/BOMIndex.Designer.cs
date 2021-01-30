@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BOMIndex));
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
             this.targetQtyButtonEdit = new DevExpress.XtraEditors.ButtonEdit();
             this.remarkTextEdit = new System.Windows.Forms.TextBox();
@@ -63,6 +64,7 @@
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
             this.PformuladtobindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.colStock1 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.coldesctype = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colProductName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colcolorcode = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -73,6 +75,8 @@
             this.colrequiredmeters = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colRate = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colamount = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colShortQty = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colRemark11 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.ordertypeLookUpEdit1 = new DevExpress.XtraEditors.LookUpEdit();
             this.voucherNoTextEdit = new DevExpress.XtraEditors.TextEdit();
             this.divLookUpEdit = new DevExpress.XtraEditors.LookUpEdit();
@@ -89,9 +93,7 @@
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             this.barcodeTransModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.SITbindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.colStock1 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colShortQty = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colRemark11 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.barcodeSimpleButton = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.tabControlAdv1)).BeginInit();
             this.tabControlAdv1.SuspendLayout();
             this.tabPageAdv1.SuspendLayout();
@@ -151,7 +153,10 @@
             // 
             // panelControl1
             // 
+            this.panelControl1.Controls.Add(this.barcodeSimpleButton);
             this.panelControl1.Size = new System.Drawing.Size(867, 35);
+            this.panelControl1.Controls.SetChildIndex(this.navAction1, 0);
+            this.panelControl1.Controls.SetChildIndex(this.barcodeSimpleButton, 0);
             // 
             // tabPageAdv2
             // 
@@ -561,6 +566,14 @@
             this.gridView1.OptionsView.ShowFooter = true;
             this.gridView1.OptionsView.ShowGroupPanel = false;
             // 
+            // colStock1
+            // 
+            this.colStock1.Caption = "Stock";
+            this.colStock1.FieldName = "Stock";
+            this.colStock1.Name = "colStock1";
+            this.colStock1.Visible = true;
+            this.colStock1.VisibleIndex = 4;
+            // 
             // coldesctype
             // 
             this.coldesctype.Caption = "Desc Type";
@@ -659,6 +672,22 @@
             this.colamount.Visible = true;
             this.colamount.VisibleIndex = 8;
             this.colamount.Width = 80;
+            // 
+            // colShortQty
+            // 
+            this.colShortQty.Caption = "ShortQty";
+            this.colShortQty.FieldName = "ShortQty";
+            this.colShortQty.Name = "colShortQty";
+            this.colShortQty.Visible = true;
+            this.colShortQty.VisibleIndex = 5;
+            // 
+            // colRemark11
+            // 
+            this.colRemark11.Caption = "Remark1";
+            this.colRemark11.FieldName = "Remark";
+            this.colRemark11.Name = "colRemark11";
+            this.colRemark11.Visible = true;
+            this.colRemark11.VisibleIndex = 9;
             // 
             // ordertypeLookUpEdit1
             // 
@@ -864,29 +893,16 @@
             // 
             this.SITbindingSource.DataSource = typeof(Konto.Data.Models.Transaction.Dtos.GrnTransDto);
             // 
-            // colStock1
+            // barcodeSimpleButton
             // 
-            this.colStock1.Caption = "Stock";
-            this.colStock1.FieldName = "Stock";
-            this.colStock1.Name = "colStock1";
-            this.colStock1.Visible = true;
-            this.colStock1.VisibleIndex = 4;
-            // 
-            // colShortQty
-            // 
-            this.colShortQty.Caption = "ShortQty";
-            this.colShortQty.FieldName = "ShortQty";
-            this.colShortQty.Name = "colShortQty";
-            this.colShortQty.Visible = true;
-            this.colShortQty.VisibleIndex = 5;
-            // 
-            // colRemark11
-            // 
-            this.colRemark11.Caption = "Remark1";
-            this.colRemark11.FieldName = "Remark";
-            this.colRemark11.Name = "colRemark11";
-            this.colRemark11.Visible = true;
-            this.colRemark11.VisibleIndex = 9;
+            this.barcodeSimpleButton.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.barcodeSimpleButton.Appearance.Options.UseFont = true;
+            this.barcodeSimpleButton.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("simpleButton1.ImageOptions.SvgImage")));
+            this.barcodeSimpleButton.Location = new System.Drawing.Point(520, 6);
+            this.barcodeSimpleButton.Name = "barcodeSimpleButton";
+            this.barcodeSimpleButton.Size = new System.Drawing.Size(155, 23);
+            this.barcodeSimpleButton.TabIndex = 1;
+            this.barcodeSimpleButton.Text = "Generate Barcode";
             // 
             // BOMIndex
             // 
@@ -1007,5 +1023,6 @@
         private DevExpress.XtraGrid.Columns.GridColumn colStock1;
         private DevExpress.XtraGrid.Columns.GridColumn colShortQty;
         private DevExpress.XtraGrid.Columns.GridColumn colRemark11;
+        private DevExpress.XtraEditors.SimpleButton barcodeSimpleButton;
     }
 }

@@ -1609,7 +1609,9 @@ namespace Konto.Trading.OutJobChallan
             model.TotalQty = _translist.Sum(x => x.Qty);
             model.TotalPcs = _translist.Sum(x => x.Pcs);
             model.IsActive = true;
+
             if (string.IsNullOrEmpty(model.ChallanNo)) model.ChallanNo = "NA";
+
             if (model.Id == 0)
             {
                 model.VoucherNo = DbUtils.NextSerialNo(model.VoucherId, db);

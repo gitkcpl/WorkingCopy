@@ -5860,6 +5860,17 @@ INSERT INTO dbo.Menu_Package
 )values (926,11,1073)
 
 
+IF NOT EXISTS (select 1 from dbo.Menu_Package em where em.MenuId=1104 and PackageId=1)
+INSERT INTO dbo.Menu_Package
+(
+   PackageId,MenuId
+)values (1,1004)
 
+
+IF NOT EXISTS (select 1 from dbo.Menu_Package em where em.MenuId=1105 and PackageId=1)
+INSERT INTO dbo.Menu_Package
+(
+   PackageId,MenuId
+)values (1,1105)
 
 SET IDENTITY_INSERT dbo.Menu_Package OFF

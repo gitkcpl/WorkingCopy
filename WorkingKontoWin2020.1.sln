@@ -39,6 +39,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Apparel", "Apparel", "{5843
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Konto.Apparel", "Konto.Apparel\Konto.Apparel.csproj", "{DC2299A7-A87A-4AFD-91AC-AB1B3E741346}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Pos", "Pos", "{B2980CB5-13FC-4ACB-BAAF-84DACEFD6B2F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

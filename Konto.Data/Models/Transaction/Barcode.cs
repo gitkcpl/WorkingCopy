@@ -1,11 +1,6 @@
 ﻿using Konto.Data.Models.Masters;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Konto.Data.Models.Transaction
 {
@@ -16,7 +11,7 @@ namespace Konto.Data.Models.Transaction
 
 
         [MaxLength(31)]
-        [Index]
+        [Index(IsUnique =true)]
         public virtual string BarcodeNo
         {
             get; set;
@@ -31,7 +26,9 @@ namespace Konto.Data.Models.Transaction
         public virtual string RackNo { get; set; }
         public virtual int? EmpId { get; set; }
 
-        public virtual int ComboPcs { get; set; }
+        public virtual int Qty { get; set; }
+
+        public virtual int? AccId { get; set; }
        
         [Index]
         public virtual int RefBarcodeId { get; set; }
@@ -40,11 +37,19 @@ namespace Konto.Data.Models.Transaction
         public virtual int OrderTransId { get; set; }
         public virtual int PcsNo { get; set; }
 
+        public virtual int RefId { get; set; } // for storing bom id
+
+        public virtual bool IsLayer { get; set; }
+
         [ForeignKey("ProductId")]
         public virtual ProductModel Product { get; set; }
 
         [ForeignKey("EmpId")]
         public virtual EmpModel Emp { get; set; }
+
+
+        [ForeignKey("AccId")]
+        public virtual AccModel Acc { get; set; }
 
     }
 }

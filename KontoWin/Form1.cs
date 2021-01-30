@@ -231,8 +231,8 @@ namespace KontoWin
                     erp = (from em in db.ErpModules
                            join pkg in db.Menu_Packages on em.Id equals pkg.MenuId into pkg_join
                            from pkg in pkg_join.DefaultIfEmpty()
-                           where (em.IsActive && !em.IsDeleted && em.Visible == true
-                                   && pkg.PackageId == KontoGlobals.PackageId && em.ModuleDesc!="-")
+                           where (em.IsActive && !em.IsDeleted && em.Visible == true && (em.PackageId == 0 || em.PackageId == KontoGlobals.Edition)
+                                    && pkg.PackageId == KontoGlobals.PackageId && em.ModuleDesc != "-")
                            select em).ToList();
                 }
                 else
@@ -247,6 +247,7 @@ namespace KontoWin
                                    join rp in db.RolePermissions on pm.Id equals rp.PermissionId into rp_join
                                    from rp in rp_join.DefaultIfEmpty()
                                    where (rp.RoleId == KontoGlobals.UserRoleId && em.IsActive && !em.IsDeleted
+                                    && (em.PackageId == 0 || em.PackageId == KontoGlobals.Edition)
                                    && pkg.PackageId == KontoGlobals.PackageId && em.ModuleDesc != "-")
                                    orderby em.ParentId, em.OrderIndex
                                    group new { em } by new

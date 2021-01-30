@@ -342,6 +342,10 @@ namespace Konto.Data
         public DbSet<LoadingTranModel> loadingTranModels { get; set; }
         public DbSet<Prod_EmpModel> Prod_Emps { get; set; }
         public DbSet<EmpRate> EmpRates { get; set; }
+
+        public DbSet<BarcodeModel> Barcodes { get; set; }
+        public DbSet<BarcodeTrans> BarcodeTrans { get; set; }
+        public DbSet<BarcodeStock> BarcodeStocks { get; set; }
         #endregion
 
         #endregion

@@ -2849,3 +2849,42 @@ insert into ErpModule ([Id],[ParentId],[ModuleDesc],[OrderIndex],[LinkButton],[S
 		   null,null,'Gst',1,'/Konto.Wpf;component/MenuIcon/tax.png',0,
 		   0,0,0,null,null,1,GETDATE())
 end
+
+IF NOT exists (select 1 from ErpModule em where em.Id=1103)
+begin
+insert into ErpModule ([Id],[ParentId],[ModuleDesc],[OrderIndex],[LinkButton],[ShortCutKey],[PackageId]
+           ,[DefaultReport],[DefaultLayout],[TableName],[AssemblyName],[MainAssembly]
+           ,[ListAssembly],[MDI],[Title],[Visible],[IconPath],[CheckRight]
+           ,[VisibleOnDashBoard],[VisibleOnSideBar],[IsSeprator],[Extra1],[Extra2],[Offline],
+		   [CreateDate],[ModifyDate])
+		   values(1103,1100,'Quality Control',3,null,null,1,
+		   null,null,'QualityControl','Konto.Apparel.Qc.QualityControlIndex','Konto.Apparel',
+		   null,null,'QualityControl',1,'/Konto.Wpf;component/MenuIcon/setup.png',0,
+		   0,0,0,null,null,1,GETDATE(),GETDATE())
+end
+
+IF NOT exists (select 1 from ErpModule em where em.Id=1104)
+begin
+insert into ErpModule ([Id],[ParentId],[ModuleDesc],[OrderIndex],[LinkButton],[ShortCutKey],[PackageId]
+           ,[DefaultReport],[DefaultLayout],[TableName],[AssemblyName],[MainAssembly]
+           ,[ListAssembly],[MDI],[Title],[Visible],[IconPath],[CheckRight]
+           ,[VisibleOnDashBoard],[VisibleOnSideBar],[IsSeprator],[Extra1],[Extra2],[Offline],
+		   [CreateDate],[ModifyDate])
+		   values(1104,1100,'Barcode',3,null,null,1,
+		   null,null,'Barcode','Konto.Apparel.BC.BarcodeIndex','Konto.Apparel',
+		   null,null,'Barcode',1,'/Konto.Wpf;component/MenuIcon/setup.png',0,
+		   0,0,0,null,null,1,GETDATE(),GETDATE())
+end
+
+IF NOT exists (select 1 from ErpModule em where em.Id=1105)
+begin
+insert into ErpModule ([Id],[ParentId],[ModuleDesc],[OrderIndex],[LinkButton],[ShortCutKey],[PackageId]
+           ,[DefaultReport],[DefaultLayout],[TableName],[AssemblyName],[MainAssembly]
+           ,[ListAssembly],[MDI],[Title],[Visible],[IconPath],[CheckRight]
+           ,[VisibleOnDashBoard],[VisibleOnSideBar],[IsSeprator],[Extra1],[Extra2],[Offline],
+		   [CreateDate],[ModifyDate])
+		   values(1105,1100,'Outward',4,null,null,1,
+		   null,null,'Outward','Konto.Apparel.Out.OutwardIndex','Konto.Apparel',
+		   null,null,'Outward',1,'/Konto.Wpf;component/MenuIcon/setup.png',0,
+		   0,0,0,null,null,1,GETDATE(),GETDATE())
+end

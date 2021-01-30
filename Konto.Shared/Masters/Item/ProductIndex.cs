@@ -870,6 +870,7 @@ namespace Konto.Shared.Masters.Item
                                fm = db.PFormulas.Find(item.Id);
                             
                                 fm.RefProductId = item.RefProductId;
+                            fm.ProductName = item.ProductName;
                                 fm.Qty = item.Qty;
                                 fm.Cut = item.Cut;
                                 fm.Rate = item.Rate;

@@ -38,6 +38,8 @@
             this.qcOutCheckEdit = new DevExpress.XtraEditors.CheckEdit();
             this.outCheckEdit = new DevExpress.XtraEditors.CheckEdit();
             this.finCheckEdit = new DevExpress.XtraEditors.CheckEdit();
+            this.spinEdit1 = new DevExpress.XtraEditors.SpinEdit();
+            this.autoLabel3 = new Syncfusion.Windows.Forms.Tools.AutoLabel();
             ((System.ComponentModel.ISupportInitialize)(this.tabControlAdv1)).BeginInit();
             this.tabControlAdv1.SuspendLayout();
             this.tabPageAdv1.SuspendLayout();
@@ -50,12 +52,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.qcOutCheckEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.outCheckEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.finCheckEdit.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.spinEdit1.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControlAdv1
             // 
-            this.tabControlAdv1.BeforeTouchSize = new System.Drawing.Size(559, 279);
-            this.tabControlAdv1.Size = new System.Drawing.Size(559, 279);
+            this.tabControlAdv1.BeforeTouchSize = new System.Drawing.Size(559, 297);
+            this.tabControlAdv1.Size = new System.Drawing.Size(559, 297);
             this.tabControlAdv1.ThemeStyle.PrimitiveButtonStyle.DisabledNextPageImage = null;
             this.tabControlAdv1.Controls.SetChildIndex(this.tabPageAdv4, 0);
             this.tabControlAdv1.Controls.SetChildIndex(this.tabPageAdv3, 0);
@@ -64,6 +67,8 @@
             // 
             // tabPageAdv1
             // 
+            this.tabPageAdv1.Controls.Add(this.autoLabel3);
+            this.tabPageAdv1.Controls.Add(this.spinEdit1);
             this.tabPageAdv1.Controls.Add(this.finCheckEdit);
             this.tabPageAdv1.Controls.Add(this.outCheckEdit);
             this.tabPageAdv1.Controls.Add(this.qcOutCheckEdit);
@@ -73,7 +78,7 @@
             this.tabPageAdv1.Controls.Add(this.toggleSwitch1);
             this.tabPageAdv1.Controls.Add(this.autoLabel1);
             this.tabPageAdv1.Controls.Add(this.divNameTextBox);
-            this.tabPageAdv1.Size = new System.Drawing.Size(534, 276);
+            this.tabPageAdv1.Size = new System.Drawing.Size(534, 294);
             this.tabPageAdv1.Controls.SetChildIndex(this.panelControl1, 0);
             this.tabPageAdv1.Controls.SetChildIndex(this.divNameTextBox, 0);
             this.tabPageAdv1.Controls.SetChildIndex(this.autoLabel1, 0);
@@ -84,6 +89,8 @@
             this.tabPageAdv1.Controls.SetChildIndex(this.qcOutCheckEdit, 0);
             this.tabPageAdv1.Controls.SetChildIndex(this.outCheckEdit, 0);
             this.tabPageAdv1.Controls.SetChildIndex(this.finCheckEdit, 0);
+            this.tabPageAdv1.Controls.SetChildIndex(this.spinEdit1, 0);
+            this.tabPageAdv1.Controls.SetChildIndex(this.autoLabel3, 0);
             // 
             // panelControl1
             // 
@@ -91,15 +98,15 @@
             // 
             // tabPageAdv2
             // 
-            this.tabPageAdv2.Size = new System.Drawing.Size(534, 276);
+            this.tabPageAdv2.Size = new System.Drawing.Size(534, 294);
             // 
             // tabPageAdv3
             // 
-            this.tabPageAdv3.Size = new System.Drawing.Size(534, 276);
+            this.tabPageAdv3.Size = new System.Drawing.Size(534, 294);
             // 
             // tabPageAdv4
             // 
-            this.tabPageAdv4.Size = new System.Drawing.Size(534, 276);
+            this.tabPageAdv4.Size = new System.Drawing.Size(534, 294);
             // 
             // autoLabel1
             // 
@@ -144,7 +151,7 @@
             // 
             this.toggleSwitch1.EditValue = true;
             this.toggleSwitch1.EnterMoveNextControl = true;
-            this.toggleSwitch1.Location = new System.Drawing.Point(148, 208);
+            this.toggleSwitch1.Location = new System.Drawing.Point(148, 226);
             this.toggleSwitch1.Name = "toggleSwitch1";
             this.toggleSwitch1.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.toggleSwitch1.Properties.Appearance.Options.UseFont = true;
@@ -163,7 +170,7 @@
             this.autoLabel2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
             this.autoLabel2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.autoLabel2.LabeledControl = this.remarkTextBoxExt;
-            this.autoLabel2.Location = new System.Drawing.Point(89, 112);
+            this.autoLabel2.Location = new System.Drawing.Point(89, 146);
             this.autoLabel2.Name = "autoLabel2";
             this.autoLabel2.Size = new System.Drawing.Size(71, 24);
             this.autoLabel2.Style = Syncfusion.Windows.Forms.Tools.AutoLabelStyle.Office2016Colorful;
@@ -180,7 +187,7 @@
             this.remarkTextBoxExt.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.remarkTextBoxExt.EnterMoveNextControl = true;
             this.remarkTextBoxExt.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.remarkTextBoxExt.Location = new System.Drawing.Point(164, 111);
+            this.remarkTextBoxExt.Location = new System.Drawing.Point(164, 145);
             this.remarkTextBoxExt.MaxLength = 200;
             this.remarkTextBoxExt.Name = "remarkTextBoxExt";
             this.remarkTextBoxExt.Size = new System.Drawing.Size(266, 27);
@@ -193,7 +200,7 @@
             // 
             // qcCheckEdit
             // 
-            this.qcCheckEdit.Location = new System.Drawing.Point(101, 153);
+            this.qcCheckEdit.Location = new System.Drawing.Point(101, 176);
             this.qcCheckEdit.Name = "qcCheckEdit";
             this.qcCheckEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.qcCheckEdit.Properties.Appearance.Options.UseFont = true;
@@ -203,7 +210,7 @@
             // 
             // qcOutCheckEdit
             // 
-            this.qcOutCheckEdit.Location = new System.Drawing.Point(278, 153);
+            this.qcOutCheckEdit.Location = new System.Drawing.Point(278, 176);
             this.qcOutCheckEdit.Name = "qcOutCheckEdit";
             this.qcOutCheckEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.qcOutCheckEdit.Properties.Appearance.Options.UseFont = true;
@@ -213,7 +220,7 @@
             // 
             // outCheckEdit
             // 
-            this.outCheckEdit.Location = new System.Drawing.Point(101, 180);
+            this.outCheckEdit.Location = new System.Drawing.Point(101, 203);
             this.outCheckEdit.Name = "outCheckEdit";
             this.outCheckEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.outCheckEdit.Properties.Appearance.Options.UseFont = true;
@@ -223,7 +230,7 @@
             // 
             // finCheckEdit
             // 
-            this.finCheckEdit.Location = new System.Drawing.Point(278, 180);
+            this.finCheckEdit.Location = new System.Drawing.Point(278, 203);
             this.finCheckEdit.Name = "finCheckEdit";
             this.finCheckEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.finCheckEdit.Properties.Appearance.Options.UseFont = true;
@@ -231,11 +238,46 @@
             this.finCheckEdit.Size = new System.Drawing.Size(171, 21);
             this.finCheckEdit.TabIndex = 25;
             // 
+            // spinEdit1
+            // 
+            this.spinEdit1.EditValue = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.spinEdit1.Location = new System.Drawing.Point(164, 108);
+            this.spinEdit1.Name = "spinEdit1";
+            this.spinEdit1.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.spinEdit1.Properties.Appearance.Options.UseFont = true;
+            this.spinEdit1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.spinEdit1.Size = new System.Drawing.Size(92, 26);
+            this.spinEdit1.TabIndex = 26;
+            // 
+            // autoLabel3
+            // 
+            this.autoLabel3.AutoSize = false;
+            this.autoLabel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.autoLabel3.DX = -84;
+            this.autoLabel3.DY = 1;
+            this.autoLabel3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.autoLabel3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+            this.autoLabel3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.autoLabel3.LabeledControl = this.spinEdit1;
+            this.autoLabel3.Location = new System.Drawing.Point(80, 109);
+            this.autoLabel3.Name = "autoLabel3";
+            this.autoLabel3.Size = new System.Drawing.Size(80, 24);
+            this.autoLabel3.Style = Syncfusion.Windows.Forms.Tools.AutoLabelStyle.Office2016Colorful;
+            this.autoLabel3.TabIndex = 27;
+            this.autoLabel3.Text = "Seq. No.";
+            this.autoLabel3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.autoLabel3.ThemeName = "Office2016Colorful";
+            // 
             // DivIndex
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(559, 305);
+            this.ClientSize = new System.Drawing.Size(559, 323);
             this.Name = "DivIndex";
             this.Text = "DivIndex";
             this.Load += new System.EventHandler(this.DivIndex_Load);
@@ -252,6 +294,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.qcOutCheckEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.outCheckEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.finCheckEdit.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.spinEdit1.Properties)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -267,5 +310,7 @@
         private DevExpress.XtraEditors.CheckEdit qcCheckEdit;
         private DevExpress.XtraEditors.CheckEdit outCheckEdit;
         private DevExpress.XtraEditors.CheckEdit finCheckEdit;
+        private Syncfusion.Windows.Forms.Tools.AutoLabel autoLabel3;
+        private DevExpress.XtraEditors.SpinEdit spinEdit1;
     }
 }

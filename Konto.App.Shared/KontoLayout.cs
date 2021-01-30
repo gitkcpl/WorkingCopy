@@ -276,5 +276,7 @@ namespace Konto.App.Shared
         // apparel
         public const string BOM_Layout = "apparel\\BOM_Layout.xml";
         public const string BOM_List_Layout = "apparel\\BOM_List_Layout.xml";
+        public const string Inw_List_Layout = "apparel\\inw_list_layout.xml";
+        public const string QC_List_Layout = "apparel\\qc_list_layout.xml";
     }
 }

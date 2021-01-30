@@ -35,7 +35,9 @@ namespace Konto.App.Shared
 
         public static class KontoGlobals
         {
-            public static string DbGroup = "";
+        public static int Edition = 0;
+
+        public static string DbGroup = "";
             public static string DbName = "";
             public static int UserId = 1;
             public static int EmpId = 1;

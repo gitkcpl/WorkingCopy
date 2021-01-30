@@ -4,6 +4,7 @@ using System;
 using System.Windows.Forms;
 using Konto.App.Shared;
 using AutoUpdaterDotNET;
+using System.Configuration;
 
 namespace KontoWin
 {
@@ -35,6 +36,18 @@ namespace KontoWin
                 MessageBoxAdv.MessageBoxStyle = MessageBoxAdv.Style.Office2016;
                 MessageBoxAdv.DropShadow = true;
                 KontoGlobals.sqlConnectionString = new System.Data.SqlClient.SqlConnectionStringBuilder(KontoGlobals.Conn);
+
+                if (ConfigurationManager.AppSettings["Edition"] == null)
+                {
+                    Configuration config = ConfigurationManager.OpenExeConfiguration(Application.ExecutablePath);
+                    config.AppSettings.Settings.Add("Edition", "0");
+                    config.Save(ConfigurationSaveMode.Modified);
+
+                }
+
+                KontoGlobals.Edition = Convert.ToInt32(ConfigurationManager.AppSettings["Edition"].ToString());
+
+
                 Application.Run(new Form1());
             }
             catch (Exception ex)

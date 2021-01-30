@@ -138,6 +138,11 @@ namespace Konto.Data.Models.Transaction
         [Display(Name = "TdsAmt")]
         public decimal TdsAmt { get; set; }
 
+        [Display(Name = "Tcs%")]
+        public decimal TcsPer { get; set; }
+
+        [Display(Name = "Tcs Amount")]
+        public decimal TcsAmt { get; set; }
 
         [NotMapped]
         public decimal PayableAmt { get; set; }

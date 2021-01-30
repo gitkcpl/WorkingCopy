@@ -21,6 +21,7 @@ using Konto.Data.Models.Apparel.Dtos;
 using Konto.Data.Models.Transaction;
 using Konto.Shared.Masters.Emp;
 using System.IO;
+using Syncfusion.Windows.Forms.Tools;
 
 namespace Konto.Apparel.BOM
 {
@@ -58,6 +59,100 @@ namespace Konto.Apparel.BOM
             QualityLookup.EditValueChanged += QualityLookup_EditValueChanged;
             targetQtyButtonEdit.ButtonClick += TargetQtyButtonEdit_ButtonClick;
             targetQtyButtonEdit.EditValueChanged += TargetQtyButtonEdit_EditValueChanged;
+            barcodeSimpleButton.Click += BarcodeSimpleButton_Click;
+        }
+
+        private void BarcodeSimpleButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if(this.PrimaryKey==0)
+                {
+                    MessageBox.Show("Can Not Create Barcode BOM Not saved Yet !");
+                    return;
+                }
+                if(bomOrderDtos.Where(x=>x.Balance >0).Any(x => x.EmpId == 0))
+                {
+                    MessageBox.Show("Cutting Employee Not Selected.. Plz Select..");
+                    return;
+                }
+
+                using (var db = new KontoContext())
+                {
+                    
+                    if (!db.Barcodes.Any(x => x.RefId == this.PrimaryKey))
+                    {
+                        var repid = db.Barcodes.DefaultIfEmpty().Max(x => x == null ? 0 : x.ReportId) + 1;
+
+
+                        if (bomOrderDtos.Count > 0)
+                        {
+                            var bcs = bomOrderDtos.Where(x => x.Balance > 0).ToList();
+
+                            foreach (var item in bcs)
+                            {
+                                var bm = new BarcodeModel()
+                                {
+                                    CompId = KontoGlobals.CompanyId,
+                                    EmpId = item.EmpId,
+                                    IsActive = true,
+                                    IsDeleted = false,
+                                    OrderTransId = item.OrderTransId,
+                                    PcsNo = 1,
+                                    AccId = item.AccId,
+                                    Qty = Convert.ToInt32(item.Balance),
+                                    ProductId = item.ProductId,
+                                    RefId = this.PrimaryKey,
+                                    ReportId = repid,
+                                    IsLayer = true
+                                };
+                                bm.BarcodeNo = GetNextBarcodeNo(db); //String.Format("{0:d9}", (DateTime.Now.Ticks / 10) % 1000000000);  //KontoUtils.GetUniqueKey(8);
+
+                                db.Barcodes.Add(bm);
+                            }
+
+                        }
+                        else
+                        {
+                            var bm = new BarcodeModel()
+                            {
+                                CompId = KontoGlobals.CompanyId,
+                                IsActive = true,
+                                IsDeleted = false,
+                                PcsNo = 1,
+                                Qty = Convert.ToInt32(Convert.ToDecimal(targetQtyButtonEdit.EditValue)),
+                                ProductId = Convert.ToInt32(QualityLookup.Properties.SelectedValue),
+                                RefId = this.PrimaryKey,
+                                ReportId = repid,IsLayer=true
+                            };
+                            bm.BarcodeNo = GetNextBarcodeNo(db);  //String.Format("{0:d9}", (DateTime.Now.Ticks / 10) % 1000000000);  //KontoUtils.GetUniqueKey(8);
+                            db.Barcodes.Add(bm);
+                        }
+
+                        db.SaveChanges();
+                        if(MessageBox.Show("Barcode Generated.. Print ??","Print !", MessageBoxButtons.YesNo)== DialogResult.Yes)
+                        {
+                            PrintBarcode(repid);
+                        }
+                    }
+                    else
+                    {
+                        var bc = db.Barcodes.FirstOrDefault(x => x.RefId == this.PrimaryKey);
+                        if (bc == null) return;
+
+                        if (MessageBox.Show("Barcode Already Generated.. do You Want to Print..?","print !", MessageBoxButtons.YesNo)== DialogResult.Yes)
+                        {
+                            PrintBarcode(bc.ReportId);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.ToString());
+                Log.Error(ex, "BOM Barcode Print");
+            }
         }
 
         private void TargetQtyButtonEdit_EditValueChanged(object sender, EventArgs e)
@@ -174,7 +269,10 @@ namespace Konto.Apparel.BOM
                     foreach (var item in PFormula)
                     {
                         item.Stock = StockEffect.GetStock(item.ProductId);
-                        item.ShortQty =  item.Stock- item.RequireQty;
+                        if (item.Stock - item.RequireQty > 0)
+                            item.ShortQty = 0;
+                        else
+                          item.ShortQty= item.RequireQty - item.Stock;
                     }
 
                     gridControl1.DataSource = PFormula;
@@ -345,70 +443,69 @@ namespace Konto.Apparel.BOM
                             }
                         }
                         db.SaveChanges();
+                        var repid = db.Barcodes.DefaultIfEmpty().Max(x => x== null ? 0 : x.ReportId) + 1;
+
+                        bool IsBarcodeGenerated=false;
+                        if (this.PrimaryKey==0 && MessageBox.Show("Generate Barcode. for Cutting.?","Barcode",MessageBoxButtons.YesNo)== DialogResult.Yes)
+                        {
+                            var bcs = bomOrderDtos.Where(x => x.Balance > 0).ToList();
+
+                           
+                            foreach (var item in bcs)
+                            {
+                                var bc = new BarcodeModel()
+                                {
+                                    CompId = KontoGlobals.CompanyId,
+                                    EmpId = item.EmpId,
+                                    IsActive = true,
+                                    IsDeleted = false,
+                                    OrderTransId = item.OrderTransId,
+                                    PcsNo = 1,
+                                    AccId = item.AccId,
+                                    Qty = Convert.ToInt32(item.Balance),
+                                    ProductId = item.ProductId,
+                                    RefId = bm.Id,
+                                    ReportId = repid,
+                                    IsLayer=true
+                                };
+                                bc.BarcodeNo = GetNextBarcodeNo(db); //String.Format("{0:d9}", (DateTime.Now.Ticks / 10) % 1000000000); // KontoUtils.GetUniqueKey(8);
+
+                                db.Barcodes.Add(bc);
+                            }
+                            if (bcs.Count == 0)
+                            {
+                                var bc = new BarcodeModel()
+                                {
+                                    CompId = KontoGlobals.CompanyId,
+                                    IsActive = true,
+                                    IsDeleted = false,
+                                    PcsNo = 1,
+                                    EmpId = 0,
+                                    Qty = Convert.ToInt32(targetQtyButtonEdit.EditValue),
+                                    ProductId = Convert.ToInt32(QualityLookup.Properties.SelectedValue),
+                                    RefId = bm.Id,
+                                    ReportId = repid,
+                                    IsLayer = true
+                                };
+                                bc.BarcodeNo = GetNextBarcodeNo(db); //String.Format("{0:d9}", (DateTime.Now.Ticks / 10) % 1000000000);  //KontoUtils.GetUniqueKey(8);
+                                db.Barcodes.Add(bc);
+                            }
+                            db.SaveChanges();
+                            IsBarcodeGenerated = true;
+                        }
                         _tran.Commit();
+
                         MessageBoxAdv.Show("Record Save Successfully..");
+
+                        if(this.PrimaryKey ==0 && IsBarcodeGenerated && MessageBox.Show("Print Barcode ... ?","Print !", MessageBoxButtons.YesNo)== DialogResult.Yes) 
+                        {
+                            PrintBarcode(repid);
+                        }
+
                         this.ResetPage();
                         this.NewRec();
 
-                        //if (item.Balance != 0)
-                        //{
-                        //    var barcode = new BarcodeModel();
-
-
-                        //    //  var reportlastid = db.barcodes.OrderByDescending(k => k.ReportId).FirstOrDefault();
-                        //    //   var lastbarcodeno = db.barcodes.OrderByDescending(k => k.Id).FirstOrDefault();
-                        //    int barcodeno = 1000;
-                        //    barcode.ProductId = item.ProductId;
-                        //    barcode.AccId = item.AccId;
-                        //    barcode.EmpId = item.EmpId;
-                        //    barcode.ComboPieces = item.Balance;
-                        //    int OrdId = db.OrdTranses.FirstOrDefault(p => p.Id == item.OrdtransID).OrdId;
-                        //    barcode.OrderId = OrdId;
-                        //    barcode.YearId = KontoGlobals.YearId;
-                        //    barcode.CompId = KontoGlobals.CompanyId;
-                        //    if (lastbarcodeno != null)
-                        //    {
-                        //        barcodeno = Convert.ToInt16(lastbarcodeno.BarcodeNo) + 1;
-                        //    }
-                        //    else
-                        //    {
-                        //        barcodeno = 1000;
-                        //    }
-                        //    barcode.ReportId = ID;
-                        //    barcode.BarcodeNo = barcodeno.ToString();
-                        //    barcode.Stock = "NA";
-                        //    barcode.IsActive = true;
-                        //    barcode.IsDeleted = false;
-                        //    barcode.CreateUser = KontoGlobals.UserName;
-                        //    barcode.CreateDate = DateTime.Now;
-                        //    barcodelist.Add(barcode);
-                        //    //   db.barcodes.Add(barcode);
-                        //    db.SaveChanges();
-                        //}
-
-
-
-                        //PageReport rpt = new PageReport();
-
-                        //rpt.Load(new FileInfo("reg\\doc\\barcode.rdlx"));
-
-                        //rpt.Report.DataSources[0].ConnectionProperties.ConnectString = KontoGlobals.sqlConnectionString.ConnectionString;
-
-                        //GrapeCity.ActiveReports.Document.PageDocument doc = new GrapeCity.ActiveReports.Document.PageDocument(rpt);
-
-                        //doc.Parameters["reportid"].CurrentValue = ID;
-                        //var frm = new KontoRepViewer(doc);
-                        //frm.Text = "Print";
-                        //var _tab = this.Parent.Parent as TabControlAdv;
-                        //if (_tab == null) return;
-                        //var pg1 = new TabPageAdv();
-                        //pg1.Text = "Barcode Print";
-                        //_tab.TabPages.Add(pg1);
-                        //_tab.SelectedTab = pg1;
-                        //frm.TopLevel = false;
-                        //frm.Parent = pg1;
-                        //frm.Location = new System.Drawing.Point(pg1.Location.X + pg1.Width / 2 - frm.Width / 2, pg1.Location.Y + pg1.Height / 2 - frm.Height / 2);
-                        //frm.Show();// = true;
+                       
 
                     }
                     catch (Exception ex)
@@ -426,6 +523,53 @@ namespace Konto.Apparel.BOM
                 }
             }
         }
+        private void PrintBarcode(int repid)
+        {
+            try
+            {
+                PageReport rpt = new PageReport();
+
+                rpt.Load(new FileInfo("reg\\doc\\barcode.rdlx"));
+
+                rpt.Report.DataSources[0].ConnectionProperties.ConnectString = KontoGlobals.sqlConnectionString.ConnectionString;
+
+                GrapeCity.ActiveReports.Document.PageDocument doc = new GrapeCity.ActiveReports.Document.PageDocument(rpt);
+
+                doc.Parameters["reportid"].CurrentValue = repid;
+                var frm = new KontoRepViewer(doc);
+                frm.Text = "Print";
+                var _tab = this.Parent.Parent as TabControlAdv;
+                if (_tab == null) return;
+                var pg1 = new TabPageAdv();
+                pg1.Text = "Barcode Print";
+                _tab.TabPages.Add(pg1);
+                _tab.SelectedTab = pg1;
+                frm.TopLevel = false;
+                frm.Parent = pg1;
+                frm.Location = new System.Drawing.Point(pg1.Location.X + pg1.Width / 2 - frm.Width / 2, pg1.Location.Y + pg1.Height / 2 - frm.Height / 2);
+                frm.Show();// = true;
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.ToString());
+                Log.Error(ex, "print barcode");
+            }
+           
+        }
+
+        public override void Print()
+        {
+            base.Print();
+            if (this.PrimaryKey == 0) return;
+            using(var db = new KontoContext())
+            {
+                var repid = db.Barcodes.FirstOrDefault(x => x.RefId == this.PrimaryKey);
+                if(repid == null) return;
+                PrintBarcode(repid.ReportId);
+            }
+        }
+
 
         private void EmployeeButtonEdit2_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
         {
@@ -490,7 +634,7 @@ namespace Konto.Apparel.BOM
 
                 PFormula = (from b in _db.Boms
                             join bt in _db.BOMTranses on b.Id equals bt.BOMId
-                            join q in _db.Products on b.ProductId equals q.Id
+                            join q in _db.Products on bt.ProductId equals q.Id
                             join cate in _db.CategroyModels on bt.UomId equals cate.Id into j1
                             from s1 in j1.DefaultIfEmpty()
                             join col in _db.ColorModels on bt.ColorId equals col.Id into j2
@@ -789,6 +933,17 @@ namespace Konto.Apparel.BOM
         }
 
         #endregion
+
+        private string GetNextBarcodeNo(KontoContext db)
+        {
+            var lstBarcode = db.Barcodes.OrderByDescending(x => x.Id).FirstOrDefault();
+            if(lstBarcode==null || lstBarcode.BarcodeNo== null)
+            {
+                return "10000";
+            }
+            var invoiceNumberPostfix = Convert.ToInt32(lstBarcode.BarcodeNo) + 1;
+            return invoiceNumberPostfix.ToString();
+        }
     }
 }
 

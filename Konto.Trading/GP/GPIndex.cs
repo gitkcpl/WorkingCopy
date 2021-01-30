@@ -92,11 +92,22 @@ namespace Konto.Trading.GP
             voucherLookup1.SelectedValueChanged += VoucherLookup1_SelectedValueChanged;
            
             this.Load += GPIndex_Load;
+
+            tcsPerTextEdit.EditValueChanged += TcsPerTextEdit_EditValueChanged;
+            tcsAmtTextEdit.EditValueChanged += TcsAmtTextEdit_EditValueChanged;
         }
 
-       
+        private void TcsAmtTextEdit_EditValueChanged(object sender, EventArgs e)
+        {
+            FinalTotal();
+        }
 
-       
+        private void TcsPerTextEdit_EditValueChanged(object sender, EventArgs e)
+        {
+            FinalTotal();
+        }
+
+
 
         private void GPIndex_Load(object sender, EventArgs e)
         {
@@ -237,6 +248,17 @@ namespace Konto.Trading.GP
             gridView1.UpdateTotalSummary();
             var ntotal = Convert.ToDecimal(colNetTotal.SummaryItem.SummaryValue);
 
+            if (tcsPerTextEdit.Value > 0) // tcs applicable
+            {
+                if (GrayPara.Tcs_Round_Off)
+                    tcsAmtTextEdit.Value = decimal.Round((ntotal * tcsPerTextEdit.Value / 100) + (decimal)0.01);
+                else
+                    tcsAmtTextEdit.Value = decimal.Round(ntotal * tcsPerTextEdit.Value / 100, 2);
+            }
+
+            ntotal = ntotal + tcsAmtTextEdit.Value;
+
+
             var x1 = ntotal - Math.Truncate(ntotal);
 
             bool isEven = false;
@@ -277,6 +299,16 @@ namespace Konto.Trading.GP
                         case 107:
                             {
                                 GrayPara.Calculate_Fold_On = value;
+                                break;
+                            }
+                        case 234:
+                            {
+                                GrayPara.Tcs_Required = (value == "Y") ? true : false;
+                                break;
+                            }
+                        case 235:
+                            {
+                                GrayPara.Tcs_Round_Off = (value == "Y") ? true : false;
                                 break;
                             }
                     }
@@ -598,8 +630,9 @@ namespace Konto.Trading.GP
             voucherDateEdit.EditValue = KontoUtils.IToD(model.VoucherDate);
             voucherNoTextEdit.Text = model.VoucherNo;
 
-            accLookup1.SelectedValue = model.AccId;
             accLookup1.SetAcc(model.AccId);
+            accLookup1.SelectedValue = model.AccId;
+           
             challanNotextEdit.Text = model.ChallanNo;
             billNoTextEdit.Text = model.BillNo;
             billDateEdit.EditValue = model.RcdDate;
@@ -628,6 +661,9 @@ namespace Konto.Trading.GP
             ewayTextEdit.Text = model.Extra1;
             billAmtSpinEdit.Value = model.TotalAmount;
             roundoffSpinEdit.Value = Convert.ToDecimal(model.RoundOff);
+
+            tcsPerTextEdit.Value = model.TcsPer;
+            tcsAmtTextEdit.Value = model.TcsAmt;
 
             createdLabelControl.Text = "Created By: " + model.CreateUser + " [ " + model.CreateDate + " ]";
             modifyLabelControl.Text = "Modified By: " + model.ModifyUser + " [ " + model.ModifyDate ?? string.Empty + " ]";
@@ -1206,6 +1242,32 @@ namespace Konto.Trading.GP
                 }
             }
 
+            if (this.PrimaryKey == 0 && Convert.ToInt32(this.accLookup1.SelectedValue) > 0)
+            {
+               
+                if (this.accLookup1.LookupDto.TcsReq.ToUpper() == "YES")
+                    tcsPerTextEdit.Value = accLookup1.LookupDto.TcsPer;
+
+            }
+
+
+
+            if (this.accLookup1.LookupDto.TcsReq.ToUpper() == "YES")
+            {
+                if (tcsPerlayoutControlItem.IsHidden)
+                    tcsPerlayoutControlItem.RestoreFromCustomization();
+
+                if (tcsAmountlayoutControlItem.IsHidden)
+                    tcsAmountlayoutControlItem.RestoreFromCustomization();
+
+                tcsPerlayoutControlItem.ContentVisible = true;
+                tcsAmountlayoutControlItem.ContentVisible = true;
+            }
+            else
+            {
+                tcsPerlayoutControlItem.ContentVisible = false;
+                tcsAmountlayoutControlItem.ContentVisible = false;
+            }
 
         }
 
@@ -1368,6 +1430,8 @@ namespace Konto.Trading.GP
             ewayTextEdit.Text = string.Empty;
             roundoffSpinEdit.Value = 0;
             billAmtSpinEdit.Value = 0;
+            tcsPerTextEdit.Value = 0;
+            tcsAmtTextEdit.Value = 0;
             DelTrans = new List<GrnTransDto>();
             DelProd = new List<GrnProdDto>();
             prodDtos = new List<GrnProdDto>();
@@ -1734,7 +1798,8 @@ namespace Konto.Trading.GP
             model.TotalPcs = _translist.Sum(x => x.Pcs);
             model.IsActive = true;
             model.Extra1 = ewayTextEdit.Text.Trim();
-
+            model.TcsPer = tcsPerTextEdit.Value;
+            model.TcsAmt = tcsAmtTextEdit.Value;
 
             if (model.Id == 0)
             {
@@ -1792,6 +1857,9 @@ namespace Konto.Trading.GP
             billModel.DivisionId = model.DivId;
             billModel.RefId = model.Id;
             billModel.RefVoucherId = model.VoucherId;
+            billModel.TcsPer = tcsPerTextEdit.Value;
+            billModel.TcsAmt = tcsAmtTextEdit.Value;
+            billModel.IsActive = true;
 
             if (this.PrimaryKey == 0)
             {
@@ -1850,6 +1918,9 @@ namespace Konto.Trading.GP
 
                 btModel.Total = decimal.Round(btModel.Qty * btModel.Rate, 2, MidpointRounding.AwayFromZero);
                 btModel.DiscAmt = btModel.Total * btModel.Disc / 100;
+                if (btModel.DiscAmt == 0)
+                    btModel.DiscAmt = ctrModel.Disc;
+
                 decimal gross = btModel.Total - btModel.DiscAmt + btModel.Freight + btModel.OtherAdd - btModel.OtherLess;
 
                 btModel.Sgst = decimal.Round(gross * btModel.SgstPer / 100, 2, MidpointRounding.AwayFromZero);
