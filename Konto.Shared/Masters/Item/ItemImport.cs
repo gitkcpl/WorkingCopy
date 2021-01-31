@@ -56,9 +56,13 @@ namespace Konto.Shared.Masters.Item
                         var _imp = new ProductModel();
                         
                         string _name = item[1].ToString().ToUpper();
-                        var exist = db.Products.Any(x => x.ProductName == _name);
-                        if (exist)
-                            continue;
+                        var exist = db.Products.FirstOrDefault(x => x.ProductName == _name);
+                        
+                        if (exist!=null) // check for exist product
+                        {
+                            _imp = exist;
+                        }
+
                         if (item[1].ToString().Length < 2)
                             continue;
 
@@ -106,8 +110,8 @@ namespace Konto.Shared.Masters.Item
                         else
                             _imp.TaxId = 6; // nil rated
 
-                        ProdctId = ProdctId + 1;
-                        _imp.Id = ProdctId;
+                        //ProdctId = ProdctId + 1;
+                       // _imp.Id = ProdctId;
                         _imp.ItemType = "I";
                         string _group = item[6].ToString();
                         
@@ -183,7 +187,28 @@ namespace Konto.Shared.Masters.Item
                         _imp.ItemType = "I";
                         _imp.ActualCost = Convert.ToDecimal(item[12]);
                         _imp.IsActive = true;
-                        impList.Add(_imp);
+
+                        if(_imp.Id == 0)
+                            impList.Add(_imp);
+                        else
+                        {
+                            var price = db.Prices.FirstOrDefault(x => x.ProductId == _imp.Id);
+
+
+                            if (price != null)
+                            {
+                                price.Mrp = Convert.ToDecimal(item[9]);
+                                price.DealerPrice = Convert.ToDecimal(item[10]);
+                                price.SaleRate = Convert.ToDecimal(item[11]);
+                                price.Rate1 = Convert.ToDecimal(item[13]);
+                                price.Rate1 = Convert.ToDecimal(item[14]);
+
+                                price.IssueQty = 0;
+                                price.Qty = 0;
+                                price.BranchId = KontoGlobals.BranchId;
+                             //   price.CreateUser = KontoGlobals.UserName;
+                            }
+                        }
 
                         
 
@@ -218,26 +243,47 @@ namespace Konto.Shared.Masters.Item
                                     PriceList.Add(price);
 
                                     //ProductBal
-                                    var bal = new StockBalModel();
-                                    bal.ProductId = item.Id;
-                                    bal.ItemCode = item.RowId;
-                                    bal.BalQty = 0;
-                                    bal.CompanyId = KontoGlobals.CompanyId;
-                                    bal.YearId = KontoGlobals.YearId;
-                                    bal.BranchId = KontoGlobals.BranchId;
-                                   // bal.RowId = Guid.NewGuid();
-                                    //CreateUser = KontoGlobals.UserName,
-                                    bal.OpNos = 0;
-                                    bal.OpQty = 0;
 
-                                    StockList.Add(bal);
+                                    var complist = db.Companies.Where(p => p.IsActive && !p.IsDeleted).ToList();
+                                    var yearlist = db.FinYears.Where(x => x.IsActive == true && x.IsDeleted == false).ToList();
+                                    var storelist = db.Stores.Where(x => x.IsActive && !x.IsDeleted).ToList();
+                                    var branchlist = db.Branches.Where(x => x.IsActive && !x.IsDeleted).ToList();
+                                    foreach (var comp in complist)
+                                    {
+                                        foreach (var yr in yearlist)
+                                        {
+                                            foreach (var branch in branchlist)
+                                            {
+                                                // foreach (var store in storelist)
+                                                // {
+                                                StockBalModel _model = new StockBalModel();
+
+                                                _model.ProductId = item.Id;
+                                                _model.ItemCode = item.RowId;
+                                                _model.BalQty = 0;
+                                                _model.CompanyId = comp.Id;
+                                                _model.YearId = yr.Id;
+                                                _model.BranchId = branch.Id;
+                                                _model.GodownId = KontoGlobals.GodownId;
+                                                _model.RowId = Guid.NewGuid();
+                                                _model.CreateUser = KontoGlobals.UserName;
+                                                _model.CreateDate = DateTime.Now;
+                                                _model.OpNos = 0;
+                                                _model.OpQty = 0;
+
+                                                StockList.Add(_model);
+                                                //}
+                                            }
+                                        }
+                                    }
+                                   
                                 }
                                 db.Prices.AddRange(PriceList);
 
                                 db.StockBals.AddRange(StockList);
                                 db.SaveChanges();
                                 trans.Commit();
-                                MessageBox.Show("Imported Successfully");
+                                
                             }
                             catch (Exception ex)
                             {
@@ -248,11 +294,12 @@ namespace Konto.Shared.Masters.Item
                         }
                     }
                     else
-                    {
-                        MessageBox.Show("No Record Found to be import or already Exists");
-                    }
-                        
-                    
+                   // {
+                        //MessageBox.Show("No Record Found to be import or already Exists");
+                   // }
+
+                    db.SaveChanges();
+                    MessageBox.Show("Imported Successfully");//
                 }
             }
             catch (Exception ex)

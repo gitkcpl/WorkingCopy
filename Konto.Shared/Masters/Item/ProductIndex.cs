@@ -756,6 +756,7 @@ namespace Konto.Shared.Masters.Item
                             pm.ProductId = model.Id;
 
                             db.Prices.Add(pm);
+                        }
 
                             var complist = db.Companies.Where(p => p.IsActive && !p.IsDeleted).ToList();
                             var yearlist = db.FinYears.Where(x => x.IsActive == true && x.IsDeleted == false).ToList();
@@ -770,25 +771,37 @@ namespace Konto.Shared.Masters.Item
                                        // foreach (var store in storelist)
                                        // {
                                             StockBalModel _model = new StockBalModel();
+                                    _model = db.StockBals.FirstOrDefault(x => x.CompanyId == comp.Id && x.YearId == yr.Id && x.BranchId == branch.Id
+                                                && x.ProductId == model.Id);
 
-                                            _model.ProductId = model.Id;
-                                            _model.ItemCode = model.RowId;
-                                            _model.BalQty = 0;
-                                            _model.CompanyId = comp.Id;
-                                            _model.YearId = yr.Id;
-                                            _model.BranchId = branch.Id;
-                                            _model.GodownId = KontoGlobals.GodownId;
-                                            _model.RowId = Guid.NewGuid();
-                                            _model.CreateUser = KontoGlobals.UserName;
-                                            _model.CreateDate = DateTime.Now;
-                                            _model.OpNos = 0;
-                                            _model.OpQty = 0;
-                                            db.StockBals.Add(_model);
+                                    if (_model == null)
+                                    {
+                                        _model = new StockBalModel();
+
+                                        _model.ProductId = model.Id;
+                                        _model.ItemCode = model.RowId;
+
+                                        _model.CompanyId = comp.Id;
+                                        _model.YearId = yr.Id;
+                                        _model.BranchId = branch.Id;
+                                        _model.GodownId = KontoGlobals.GodownId;
+
+
+                                        _model.BalQty = 0;
+                                        _model.RowId = Guid.NewGuid();
+                                        _model.CreateUser = KontoGlobals.UserName;
+                                        _model.CreateDate = DateTime.Now;
+                                        _model.OpNos = 0;
+                                        _model.OpQty = 0;
+
+                                        db.StockBals.Add(_model);
+                                    }
+                                        
                                         //}
                                     }
                                 }
                             }
-                        }
+                        
 
 
 
