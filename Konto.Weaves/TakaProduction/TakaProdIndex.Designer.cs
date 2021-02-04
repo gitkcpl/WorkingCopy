@@ -37,15 +37,17 @@
             this.ProdgridView = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colId = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colProdDate = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.repositoryItemDateEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemDateEdit();
             this.colEmpName = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.EmprepositoryItemButtonEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
             this.colExtra1 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colEmpId = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.empRepositoryItemLookUpEdit = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
             this.colNightMtrs = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colDayMtrs = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colTotalMtrs = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colRate = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colAmount = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.EmprepositoryItemButtonEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
             this.xtraTabPage2 = new DevExpress.XtraTab.XtraTabPage();
             this.WeftgridControl = new DevExpress.XtraGrid.GridControl();
             this.WeftbindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -163,6 +165,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.ProdgridControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ProdbindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ProdgridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit1.CalendarTimeProperties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.empRepositoryItemLookUpEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.EmprepositoryItemButtonEdit1)).BeginInit();
             this.xtraTabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.WeftgridControl)).BeginInit();
@@ -338,7 +343,9 @@
             this.ProdgridControl.MainView = this.ProdgridView;
             this.ProdgridControl.Name = "ProdgridControl";
             this.ProdgridControl.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
-            this.EmprepositoryItemButtonEdit1});
+            this.EmprepositoryItemButtonEdit1,
+            this.empRepositoryItemLookUpEdit,
+            this.repositoryItemDateEdit1});
             this.ProdgridControl.Size = new System.Drawing.Size(293, 177);
             this.ProdgridControl.TabIndex = 0;
             this.ProdgridControl.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
@@ -394,26 +401,29 @@
             // 
             // colProdDate
             // 
+            this.colProdDate.ColumnEdit = this.repositoryItemDateEdit1;
             this.colProdDate.FieldName = "ProdDate";
             this.colProdDate.Name = "colProdDate";
             this.colProdDate.Visible = true;
             this.colProdDate.VisibleIndex = 0;
+            this.colProdDate.Width = 77;
+            // 
+            // repositoryItemDateEdit1
+            // 
+            this.repositoryItemDateEdit1.AutoHeight = false;
+            this.repositoryItemDateEdit1.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.repositoryItemDateEdit1.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.repositoryItemDateEdit1.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.DateTimeAdvancingCaret;
+            this.repositoryItemDateEdit1.Mask.UseMaskAsDisplayFormat = true;
+            this.repositoryItemDateEdit1.Name = "repositoryItemDateEdit1";
             // 
             // colEmpName
             // 
-            this.colEmpName.ColumnEdit = this.EmprepositoryItemButtonEdit1;
             this.colEmpName.FieldName = "EmpName";
             this.colEmpName.Name = "colEmpName";
-            this.colEmpName.Visible = true;
-            this.colEmpName.VisibleIndex = 1;
             this.colEmpName.Width = 118;
-            // 
-            // EmprepositoryItemButtonEdit1
-            // 
-            this.EmprepositoryItemButtonEdit1.AutoHeight = false;
-            this.EmprepositoryItemButtonEdit1.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.EmprepositoryItemButtonEdit1.Name = "EmprepositoryItemButtonEdit1";
             // 
             // colExtra1
             // 
@@ -426,8 +436,28 @@
             // 
             // colEmpId
             // 
+            this.colEmpId.Caption = "Employee";
+            this.colEmpId.ColumnEdit = this.empRepositoryItemLookUpEdit;
             this.colEmpId.FieldName = "EmpId";
             this.colEmpId.Name = "colEmpId";
+            this.colEmpId.Visible = true;
+            this.colEmpId.VisibleIndex = 1;
+            this.colEmpId.Width = 132;
+            // 
+            // empRepositoryItemLookUpEdit
+            // 
+            this.empRepositoryItemLookUpEdit.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
+            this.empRepositoryItemLookUpEdit.AutoHeight = false;
+            this.empRepositoryItemLookUpEdit.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.empRepositoryItemLookUpEdit.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("DisplayText", "")});
+            this.empRepositoryItemLookUpEdit.DisplayMember = "DisplayText";
+            this.empRepositoryItemLookUpEdit.ImmediatePopup = true;
+            this.empRepositoryItemLookUpEdit.Name = "empRepositoryItemLookUpEdit";
+            this.empRepositoryItemLookUpEdit.NullText = "";
+            this.empRepositoryItemLookUpEdit.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
+            this.empRepositoryItemLookUpEdit.ValueMember = "Id";
             // 
             // colNightMtrs
             // 
@@ -475,6 +505,13 @@
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Amount", "{0:0.##}")});
             this.colAmount.Visible = true;
             this.colAmount.VisibleIndex = 6;
+            // 
+            // EmprepositoryItemButtonEdit1
+            // 
+            this.EmprepositoryItemButtonEdit1.AutoHeight = false;
+            this.EmprepositoryItemButtonEdit1.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton()});
+            this.EmprepositoryItemButtonEdit1.Name = "EmprepositoryItemButtonEdit1";
             // 
             // xtraTabPage2
             // 
@@ -1770,6 +1807,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1028, 511);
             this.KontoLayout = this.layoutControl1;
+            this.KontoMainView = this.ProdgridView;
             this.Name = "TakaProdIndex";
             this.Text = "TakaProduction";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
@@ -1787,6 +1825,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.ProdgridControl)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ProdbindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ProdgridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit1.CalendarTimeProperties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemDateEdit1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.empRepositoryItemLookUpEdit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.EmprepositoryItemButtonEdit1)).EndInit();
             this.xtraTabPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.WeftgridControl)).EndInit();
@@ -1986,5 +2027,7 @@
         private DevExpress.XtraGrid.Columns.GridColumn colProdMtrs;
         private DevExpress.XtraGrid.Columns.GridColumn colBalMtrs;
         private DevExpress.XtraGrid.Columns.GridColumn colGreyProductId;
+        private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit empRepositoryItemLookUpEdit;
+        private DevExpress.XtraEditors.Repository.RepositoryItemDateEdit repositoryItemDateEdit1;
     }
 }

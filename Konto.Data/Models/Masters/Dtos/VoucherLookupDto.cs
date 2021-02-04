@@ -25,5 +25,6 @@ namespace Konto.Data.Models.Masters.Dtos
         public bool Email { get; set; }
         public bool FixBook { get; set; }
         public int? AccId { get; set; }
+        public bool ManualSeries { get; set; }
     }
 }

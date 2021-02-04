@@ -89,6 +89,7 @@
     <Reference Include="DevExpress.DataAccess.v20.1.UI, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Images.v20.1, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Office.v20.1.Core, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.PivotGrid.v20.1.Core, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Printing.v20.1.Core, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.RichEdit.v20.1.Core, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Sparkline.v20.1.Core, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
@@ -102,6 +103,7 @@
     <Reference Include="DevExpress.XtraGrid.v20.1, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraLayout.v20.1, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraNavBar.v20.1, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraPivotGrid.v20.1, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraPrinting.v20.1, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraRichEdit.v20.1, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraSpreadsheet.v20.1, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
@@ -234,6 +236,10 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="TaxProGST.API, Version=19.5.0.4, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\RefTools\TaxProGST.API.dll</HintPath>
+    </Reference>
     <Reference Include="UIAutomationProvider" />
     <Reference Include="UIAutomationTypes" />
     <Reference Include="WindowsBase" />
@@ -457,16 +463,32 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Wvs\SalaryGenView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Wvs\SalaryGenView.Designer.cs">
+      <DependentUpon>SalaryGenView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Wvs\UpdateJobRateView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Wvs\UpdateJobRateView.Designer.cs">
+      <DependentUpon>UpdateJobRateView.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
     <None Include="Properties\DataSources\Konto.Data.Models.Admin.Dtos.GstDto.datasource" />
+    <None Include="Properties\DataSources\Konto.Data.Models.Gstn.Gstr2ADump.datasource" />
+    <None Include="Properties\DataSources\Konto.Data.Models.Gstn.RecoGstr2aUnMatch.datasource" />
+    <None Include="Properties\DataSources\Konto.Data.Models.Gstn.RecoGstr2BtoBDto.datasource" />
     <None Include="Properties\DataSources\Konto.Data.Models.Reports.Gstr1HsnDto.datasource" />
     <None Include="Properties\DataSources\Konto.Data.Models.Reports.gstr1_docDto.datasource" />
     <None Include="Properties\DataSources\Konto.Data.Models.Reports.Gstrb2csDto.datasource" />
     <None Include="Properties\DataSources\Konto.Data.Models.Reports.GsttwoDto.datasource" />
     <None Include="Properties\DataSources\Konto.Data.Models.Reports.OutSummaryDTO.datasource" />
+    <None Include="Properties\DataSources\Konto.Data.Models.Reports.PatiaRegDto.datasource" />
     <None Include="Properties\DataSources\Konto.Data.Models.Reports.ReconsileDTO.datasource" />
     <None Include="Properties\DataSources\Konto.Data.Models.Reports.StockDetDto.datasource" />
     <None Include="Properties\DataSources\Konto.Data.Models.Reports.TDsSummaryDto.datasource" />
@@ -518,6 +540,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Para\GpRepPara.resx">
       <DependentUpon>GpRepPara.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Para\Gstr2\Gst2Reconcile.resx">
+      <DependentUpon>Gst2Reconcile.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Para\Gstr2\GsttwoMainView.resx">
       <DependentUpon>GsttwoMainView.cs</DependentUpon>
@@ -605,10 +630,14 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Wvs\SalaryGenView.resx">
+      <DependentUpon>SalaryGenView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Wvs\UpdateJobRateView.resx">
+      <DependentUpon>UpdateJobRateView.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Wvs\Patia\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

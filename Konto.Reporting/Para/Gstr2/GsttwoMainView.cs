@@ -28,6 +28,7 @@ namespace Konto.Reporting.Para.Gstr2
             this.FormClosed += GsttwoMainView_FormClosed;
             this.cancelSimpleButton.Click += CancelSimpleButton_Click;
             this.gstr2SimpleButton.Click += Gstr2SimpleButton_Click;
+            this.reconcileSimpleButton.Click += ReconcileSimpleButton_Click;
             List<ComboBoxPairs> cbp = new List<ComboBoxPairs>
             {
                 new ComboBoxPairs("Purchase Invoice", "PINVOICE"),
@@ -43,6 +44,22 @@ namespace Konto.Reporting.Para.Gstr2
             fDateEdit.EditValue = KontoGlobals.DFromDate;
             tDateEdit.EditValue = KontoGlobals.DToDate;
             viewLookUpEdit.EditValue = "PINVOICE";
+        }
+
+        private void ReconcileSimpleButton_Click(object sender, EventArgs e)
+        {
+            var frm = new Gst2Reconcile();
+            var _tab = this.Parent.Parent as TabControlAdv;
+            if (_tab == null) return;
+            var pg1 = new TabPageAdv();
+            pg1.Text = "Gstr 2A Reconcile";
+            _tab.TabPages.Add(pg1);
+            _tab.SelectedTab = pg1;
+            frm.WindowState = FormWindowState.Maximized;
+            frm.TopLevel = false;
+            frm.Parent = pg1;
+            frm.Location = new Point(pg1.Location.X + pg1.Width / 2 - frm.Width / 2, pg1.Location.Y + pg1.Height / 2 - frm.Height / 2);
+            frm.Show();// = true;
         }
 
         private void Gstr2SimpleButton_Click(object sender, EventArgs e)

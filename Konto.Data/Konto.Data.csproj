@@ -83,6 +83,9 @@
     <Compile Include="Models\Apparel\Dtos\BarcodeTransDto.cs" />
     <Compile Include="Models\Apparel\Dtos\BomOrderDto.cs" />
     <Compile Include="Models\Apparel\Dtos\BomTransDto.cs" />
+    <Compile Include="Models\Gstn\Gstr2ADump.cs" />
+    <Compile Include="Models\Gstn\Gstr2ATransDump.cs" />
+    <Compile Include="Models\Gstn\RecoGstr2BtoBDto.cs" />
     <Compile Include="Models\Masters\AccAddressModel.cs" />
     <Compile Include="Models\Masters\AccBalModel.cs" />
     <Compile Include="Models\Masters\AccBankModel.cs" />
@@ -225,6 +228,7 @@
     <Compile Include="Models\Reports\OutsAgeingFifoDto.cs" />
     <Compile Include="Models\Reports\OutsDto.cs" />
     <Compile Include="Models\Reports\OutSummaryDTO.cs" />
+    <Compile Include="Models\Reports\PatiaRegDto.cs" />
     <Compile Include="Models\Reports\ReconcileDTO.cs" />
     <Compile Include="Models\Reports\StockDetDto.cs" />
     <Compile Include="Models\Reports\StockDto.cs" />

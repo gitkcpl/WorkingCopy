@@ -41,5 +41,8 @@ namespace Konto.Data.Models.Apparel.Dtos
                 
             } }
         public int Id { get; set; }
+        public int ReportId { get; set; }
+
+        public string   AccName { get; set; }
     }
 }

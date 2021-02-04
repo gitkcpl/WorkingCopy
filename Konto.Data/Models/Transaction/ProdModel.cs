@@ -158,5 +158,7 @@ namespace Konto.Data.Models.Transaction
 
         [ForeignKey("ColorId")]
         public virtual ColorModel color { get; set; }
+
+
     }
 }

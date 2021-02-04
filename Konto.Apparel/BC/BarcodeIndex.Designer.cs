@@ -49,8 +49,8 @@
             // 
             // tabControlAdv1
             // 
-            this.tabControlAdv1.BeforeTouchSize = new System.Drawing.Size(588, 238);
-            this.tabControlAdv1.Size = new System.Drawing.Size(588, 238);
+            this.tabControlAdv1.BeforeTouchSize = new System.Drawing.Size(1024, 282);
+            this.tabControlAdv1.Size = new System.Drawing.Size(1024, 282);
             this.tabControlAdv1.ThemeStyle.PrimitiveButtonStyle.DisabledNextPageImage = null;
             this.tabControlAdv1.Controls.SetChildIndex(this.tabPageAdv4, 0);
             this.tabControlAdv1.Controls.SetChildIndex(this.tabPageAdv3, 0);
@@ -68,7 +68,7 @@
             this.tabPageAdv1.Controls.Add(this.stockLabelControl);
             this.tabPageAdv1.Controls.Add(this.autoLabel1);
             this.tabPageAdv1.Controls.Add(this.barcodeTextEdit);
-            this.tabPageAdv1.Size = new System.Drawing.Size(563, 235);
+            this.tabPageAdv1.Size = new System.Drawing.Size(999, 279);
             this.tabPageAdv1.Controls.SetChildIndex(this.barcodeTextEdit, 0);
             this.tabPageAdv1.Controls.SetChildIndex(this.panelControl1, 0);
             this.tabPageAdv1.Controls.SetChildIndex(this.autoLabel1, 0);
@@ -82,19 +82,19 @@
             // 
             // panelControl1
             // 
-            this.panelControl1.Size = new System.Drawing.Size(563, 35);
+            this.panelControl1.Size = new System.Drawing.Size(999, 35);
             // 
             // tabPageAdv2
             // 
-            this.tabPageAdv2.Size = new System.Drawing.Size(563, 235);
+            this.tabPageAdv2.Size = new System.Drawing.Size(999, 279);
             // 
             // tabPageAdv3
             // 
-            this.tabPageAdv3.Size = new System.Drawing.Size(563, 235);
+            this.tabPageAdv3.Size = new System.Drawing.Size(999, 279);
             // 
             // tabPageAdv4
             // 
-            this.tabPageAdv4.Size = new System.Drawing.Size(563, 235);
+            this.tabPageAdv4.Size = new System.Drawing.Size(999, 279);
             // 
             // autoLabel1
             // 
@@ -193,21 +193,21 @@
             // 
             // autoLabel3
             // 
-            this.autoLabel3.DX = -86;
+            this.autoLabel3.DX = -62;
             this.autoLabel3.DY = 3;
             this.autoLabel3.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.autoLabel3.LabeledControl = this.remarkTextEdit;
-            this.autoLabel3.Location = new System.Drawing.Point(45, 143);
+            this.autoLabel3.Location = new System.Drawing.Point(69, 143);
             this.autoLabel3.Name = "autoLabel3";
-            this.autoLabel3.Size = new System.Drawing.Size(82, 17);
+            this.autoLabel3.Size = new System.Drawing.Size(58, 17);
             this.autoLabel3.TabIndex = 17;
-            this.autoLabel3.Text = "Barcode No:";
+            this.autoLabel3.Text = "Remark:";
             // 
             // BarcodeIndex
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(588, 264);
+            this.ClientSize = new System.Drawing.Size(1024, 308);
             this.Name = "BarcodeIndex";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Barcode Generation From Layer/Cutting";

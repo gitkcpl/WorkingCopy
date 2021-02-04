@@ -1,6 +1,7 @@
 ﻿using Konto.App.Shared;
 using Konto.Data.Models.Admin;
 using Konto.Data.Models.Apparel;
+using Konto.Data.Models.Gstn;
 using Konto.Data.Models.Masters;
 using Konto.Data.Models.Transaction;
 using System;
@@ -346,6 +347,10 @@ namespace Konto.Data
         public DbSet<BarcodeModel> Barcodes { get; set; }
         public DbSet<BarcodeTrans> BarcodeTrans { get; set; }
         public DbSet<BarcodeStock> BarcodeStocks { get; set; }
+
+        public DbSet<Gstr2ADump> Gstr2ADumps { get; set; }
+        public DbSet<Gstr2ATransDump> Gstr2ATransDumps { get; set; }
+
         #endregion
 
         #endregion

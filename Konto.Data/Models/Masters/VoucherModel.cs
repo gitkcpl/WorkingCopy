@@ -100,6 +100,8 @@ namespace Konto.Data.Models.Masters
         [Display(Name = "Extra2")]
         public virtual string Extra2 { get; set; }
 
+        public virtual bool ManualSeries { get; set; }
+
         [ForeignKey("VoucherId")]
         public virtual VoucherModel Voucher { get; set; }
 

@@ -61,7 +61,7 @@ namespace Konto.Shared.Masters.Voucher
                                   Sms = st.SmsAfterSave,
                                   StartFrom = st.StartFrom,
                                   Width = st.VchWidth,
-                                  Id = vc.Id
+                                  Id = vc.Id,ManualSeries = st.ManualSeries
                               }
                     ).ToList();
 

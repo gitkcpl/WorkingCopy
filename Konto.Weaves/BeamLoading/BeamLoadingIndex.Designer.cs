@@ -293,7 +293,7 @@
             this.SelectionOksimpleButton.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("SelectionOksimpleButton.ImageOptions.SvgImage")));
             this.SelectionOksimpleButton.Location = new System.Drawing.Point(284, 12);
             this.SelectionOksimpleButton.Name = "SelectionOksimpleButton";
-            this.SelectionOksimpleButton.Size = new System.Drawing.Size(159, 36);
+            this.SelectionOksimpleButton.Size = new System.Drawing.Size(151, 36);
             this.SelectionOksimpleButton.StyleController = this.layoutControl1;
             this.SelectionOksimpleButton.TabIndex = 4;
             this.SelectionOksimpleButton.Text = "Select Beam";
@@ -734,16 +734,16 @@
             this.layoutControlItem1.Control = this.SelectionOksimpleButton;
             this.layoutControlItem1.Location = new System.Drawing.Point(272, 0);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(163, 40);
+            this.layoutControlItem1.Size = new System.Drawing.Size(155, 40);
             this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem1.TextVisible = false;
             // 
             // emptySpaceItem2
             // 
             this.emptySpaceItem2.AllowHotTrack = false;
-            this.emptySpaceItem2.Location = new System.Drawing.Point(435, 0);
+            this.emptySpaceItem2.Location = new System.Drawing.Point(427, 0);
             this.emptySpaceItem2.Name = "emptySpaceItem2";
-            this.emptySpaceItem2.Size = new System.Drawing.Size(629, 40);
+            this.emptySpaceItem2.Size = new System.Drawing.Size(637, 40);
             this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
             // 
             // layoutControlItem2

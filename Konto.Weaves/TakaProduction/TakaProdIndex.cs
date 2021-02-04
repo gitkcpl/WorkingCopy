@@ -80,12 +80,65 @@ namespace Konto.Weaves.TakaProduction
             //  designLookup.buttonEdit1.KeyDown += ButtonEdit1_KeyDown;
             designLookup.LostFocus += DesignLookup_LostFocus;
             voucherLookup1.SelectedValueChanged += VoucherLookup_SelectedValueChanged;
+
+
+            FoldDateEdit.KeyDown += FoldDateEdit_KeyDown;
+            FoldDateEdit.EditValueChanged += FoldDateEdit_EditValueChanged;
+        }
+
+        private void FoldDateEdit_EditValueChanged(object sender, EventArgs e)
+        {
+            voucherDateEdit.EditValue = FoldDateEdit.EditValue;
+        }
+
+        private void FoldDateEdit_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode != Keys.Enter || this.PrimaryKey!=0) return;
+            
+            var lst = BeambindingSource.DataSource as List<BeamStatusByMachineDto>;
+            
+            if (lst.Count == 0) return;
+            
+            var sdate = Convert.ToInt32(StartDateEdit.DateTime.ToString("yyyyMMdd"));
+            var fdate = Convert.ToInt32(FoldDateEdit.DateTime.ToString("yyyyMMdd"));
+            if (sdate > fdate) return;
+
+            using(var db = new KontoContext())
+            {
+                var item = lst.FirstOrDefault();
+                var bemps = db.Prod_Emps.Where(x => x.ProdId == item.Id).ToList();
+                
+                var _Emplist = new List<Prod_EmpDto>();
+                var _day = fdate - sdate;
+                var _pid = Convert.ToInt32(productLookup1.SelectedValue);
+                for (int i = 0; i <=_day; i++)
+                {
+                    foreach (var emp in bemps)
+                    {
+                        var _emp = new Prod_EmpDto();
+                        _emp.ProdDate = StartDateEdit.DateTime.AddDays(i);
+                        _emp.EmpId = emp.EmpId;
+
+                        var _rt = db.EmpRates.FirstOrDefault(x => x.EmpId == emp.EmpId && x.ProductId == _pid);
+                        
+                        if (_rt != null)
+                            _emp.Rate = _rt.Rate;
+
+                        _Emplist.Add(_emp);
+                    }
+                }
+
+                ProdbindingSource.DataSource = _Emplist;
+                ProdgridControl.RefreshDataSource();
+            }
         }
 
         private void VoucherLookup_SelectedValueChanged(object sender, EventArgs e)
         {
             if (this.PrimaryKey == 0 && Convert.ToInt32(voucherLookup1.SelectedValue) > 0)
             {
+                //if(voucherLookup1.GroupDto.ManualSeries)
+                   
                 TakaNotextEdit.Text = "New-" + DbUtils.NextSerialNo(Convert.ToInt32(voucherLookup1.SelectedValue), 1);
             }
         }
@@ -192,21 +245,34 @@ namespace Konto.Weaves.TakaProduction
             {
                 var _divLists = (from p in db.Divisions
                                  where p.IsActive && !p.IsDeleted
+                                 orderby p.DivisionName
                                  select new BaseLookupDto()
                                  {
                                      DisplayText = p.DivisionName,
                                      Id = p.Id
                                  }).ToList();
+
                 var _macList = (from p in db.MachineMasters
                                 where p.IsActive && !p.IsDeleted
+                                orderby p.MachineName
                                 select new BaseLookupDto()
                                 {
                                     DisplayText = p.MachineName,
                                     Id = p.Id
                                 }).ToList();
 
+                var _emps =(from p in db.Emps
+                           where p.IsActive && !p.IsDeleted
+                           orderby p.EmpName
+                           select new BaseLookupDto()
+                           {
+                               DisplayText = p.EmpName,
+                               Id = p.Id
+                           }).ToList();
+
                 MachineNolookUpEdit.Properties.DataSource = _macList;
                 divLookUpEdit.Properties.DataSource = _divLists;
+                empRepositoryItemLookUpEdit.DataSource = _emps;
             }
         }
         private Prod_EmpDto PreOpenLookup()
@@ -948,16 +1014,26 @@ namespace Konto.Weaves.TakaProduction
                         _find.YearId = KontoGlobals.YearId;
                         _find.BranchId = KontoGlobals.BranchId;
                         _find.CProductId = _find.ProductId;
+
                         
-                      
+                        
+                        if (_Beamlist.Count > 0)
+                            _find.BatchId = _Beamlist[0].Id; // beam id store for takaproduction
+
+
 
                         // _find.VoucherNo = BeamNotextEdit.Text;
-                        if (string.IsNullOrEmpty(_find.VoucherNo))
+                        if (this.PrimaryKey==0 && !voucherLookup1.GroupDto.ManualSeries)
                         {
                             var _srno = DbUtils.NextSerialNo((int)_find.VoucherId, db, 0);
                             _find.VoucherNo = _srno;
                             _find.SrNo = 1;
                         }
+                        else
+                        {
+                            _find.VoucherNo = TakaNotextEdit.Text.Trim();
+                        }
+
                         var map = new Mapper(config);
                         if (this.PrimaryKey == 0)
                         {
@@ -1227,7 +1303,7 @@ namespace Konto.Weaves.TakaProduction
             }
             else if (MeterSpinEdit.Value <= 0)
             {
-                MessageBoxAdv.Show(this, "Invalid Net Weight", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBoxAdv.Show(this, "Invalid Meters Weight", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 MeterSpinEdit.Focus();
                 return false;
             }

@@ -141,6 +141,15 @@ namespace Konto.Shared.Trans.SInvoice
                     bookLookup.SetAcc(Convert.ToInt32(voucherLookup1.GroupDto.AccId));
                 }
             }
+
+            if(voucherLookup1.GroupDto!=null && voucherLookup1.GroupDto.ManualSeries)
+            {
+                voucherNoTextEdit.Enabled = true;
+            }
+            else
+            {
+                voucherNoTextEdit.Enabled = false;
+            }
         }
 
         private void StateLookUpEdit_EditValueChanged(object sender, EventArgs e)
@@ -1762,7 +1771,6 @@ namespace Konto.Shared.Trans.SInvoice
                         foreach (var item in _translist)
                         {
 
-                            
                             var transid = item.Id;
                             item.BillId = _find.Id;
                             var tranModel = new BillTransModel();
@@ -1934,7 +1942,10 @@ namespace Konto.Shared.Trans.SInvoice
 
             if (model.Id == 0)
             {
-                model.VoucherNo = DbUtils.NextSerialNo(model.VoucherId, db,0);
+                
+                if(!voucherLookup1.GroupDto.ManualSeries)
+                    model.VoucherNo = DbUtils.NextSerialNo(model.VoucherId, db,0);
+
                 if (DbUtils.CheckExistVoucherNo(model.VoucherId, model.VoucherNo, db, model.Id))
                 {
                     MessageBox.Show("Duplicate Voucher No Not Allowed");

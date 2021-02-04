@@ -49,7 +49,7 @@ namespace Konto.Shared.Masters.Emp
             if (!string.IsNullOrEmpty(this.LookupTitle))
                 frm.Text = this.LookupTitle;
 
-            frm.ShowDialog(this.Parent.Parent.Parent);
+            frm.ShowDialog();
             if (frm.DialogResult == DialogResult.OK)
             {
                 this.SelectedText = frm.SelectedTex;

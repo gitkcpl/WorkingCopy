@@ -252,6 +252,7 @@ namespace Konto.Shared.Masters.Voucher
                     printCheckEdit.Checked = Convert.ToBoolean(md.PrintAfterSave);
                     smsCheckEdit.Checked = Convert.ToBoolean(md.SmsAfterSave);
                     emailCheckEdit.Checked = Convert.ToBoolean(md.EmailAfterSave);
+                    manualCheckEdit.Checked = md.ManualSeries;
                 }
             }
 
@@ -377,6 +378,7 @@ namespace Konto.Shared.Masters.Voucher
                         md.PrintAfterSave = printCheckEdit.Checked;
                         md.SmsAfterSave = smsCheckEdit.Checked;
                         md.EmailAfterSave = emailCheckEdit.Checked;
+                        md.ManualSeries = manualCheckEdit.Checked;
                         md.CompId = KontoGlobals.CompanyId;
                         
                         if (md.Id == 0)

@@ -22,41 +22,35 @@ namespace Konto.Apparel.BC
         public BarcodeListView()
         {
             InitializeComponent();
-            //this.GridLayoutFileName = KontoFileLayout.Barcode_List_Layout;
+            this.GridLayoutFileName = KontoFileLayout.Barcode_List_Layout;
             this.Load += ProductListView_Load;
+            this.listDateRange1.GetButtonClick += ListDateRange1_GetButtonClick;
+            this.ReportPrint = true;
         }
 
-        private void ProductListView_Load(object sender, EventArgs e)
+        private void ListDateRange1_GetButtonClick(object sender, EventArgs e)
         {
-            //this.RefreshGrid();
-        }
+            using (var _context = new KontoContext())
+            {
+                _context.Database.CommandTimeout = 0;
 
-        public override void RefreshGrid()
-        {
-            base.RefreshGrid();
-           
+                _bmodelList = (from pd in _context.Barcodes
+                               join p in _context.Products on pd.ProductId equals p.Id
+                               join act in _context.Accs on pd.AccId equals act.Id
+                               where pd.RefBarcodeId != 0
 
-            //using (var _context = new KontoContext())
-            //{
-            //    _context.Database.CommandTimeout = 0;
+                               select new BarcodeTransDto
+                               {
+                                   ReportId = pd.ReportId,
+                                   BarcodeNo = pd.BarcodeNo,
+                                   ProductName = p.ProductName,
+                                   AccName = act.AccName,
+                                   Qty = pd.Qty
+                               }
+                ).ToList();
+            }
 
-            //    _bmodelList = (from pd in _context.barcodes
-            //                   join p in _context.Products on pd.ProductId equals p.Id
-            //                   join act in _context.Accs on pd.AccId equals act.Id
-            //                   where pd.RefBarCodeId != null
-
-            //                   select new BarcodeTransDto
-            //                   {                         
-            //                       ReportId = pd.ReportId,
-            //                       BarcodeNo = pd.BarcodeNo,
-            //                       ProductName = p.ProductName,
-            //                       AccName = act.AccName,
-            //                       Qty = pd.ComboPieces
-            //                   }
-            //    ).ToList();
-            //}
-
-            //customGridControl1.DataSource = _bmodelList;
+            customGridControl1.DataSource = _bmodelList;
             if (string.IsNullOrEmpty(this.GridLayoutFileName) || this.KontoView == null) return;
 
             KontoUtils.RestoreLayoutGrid(this.GridLayoutFileName, this.KontoView);
@@ -65,7 +59,20 @@ namespace Konto.Apparel.BC
             if (_bmodelList.Count == 0)
                 listAction1.EditDeleteDisabled(false);
             else
-                listAction1.EditDeleteDisabled(true);
+               listAction1.EditDeleteDisabled(true);
+        }
+
+        private void ProductListView_Load(object sender, EventArgs e)
+        {
+            
+        }
+
+        public override void RefreshGrid()
+        {
+            base.RefreshGrid();
+           
+
+            
         }
 
         public override void DeleteRec()
@@ -99,7 +106,7 @@ namespace Konto.Apparel.BC
         {
             base.Print();
 
-            var drs = customGridView1.GetSelectedRows();
+          
             if (this.customGridView1.FocusedRowHandle < 0) return;
             if (KontoView.Columns.ColumnByFieldName("ReportId") != null)
             {
@@ -126,7 +133,7 @@ namespace Konto.Apparel.BC
                 doc.Parameters["BarcodeNo"].CurrentValue = "0";
                 var frm = new KontoRepViewer(doc);
                 frm.Text = "Barcode";
-                var _tab = this.Parent.Parent as TabControlAdv;
+                var _tab = this.ParentForm.Parent.Parent as TabControlAdv;
                 if (_tab == null) return;
                 var pg1 = new TabPageAdv();
                 pg1.Text = "Barcode Print";

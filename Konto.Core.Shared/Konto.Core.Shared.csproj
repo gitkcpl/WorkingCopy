@@ -157,7 +157,14 @@
       <HintPath>..\RefTools\Microsoft.AnalysisServices.AdomdClient.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\RefTools\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
+    <Reference Include="RestSharp">
+      <HintPath>..\RefTools\RestSharp.dll</HintPath>
+    </Reference>
     <Reference Include="Serilog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
       <HintPath>..\packages\Serilog.2.9.0\lib\net46\Serilog.dll</HintPath>
     </Reference>
@@ -195,6 +202,9 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="TaxProGST.API">
+      <HintPath>..\RefTools\TaxProGST.API.dll</HintPath>
+    </Reference>
     <Reference Include="UIAutomationClient" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
@@ -263,6 +273,20 @@
     <Compile Include="Frms\WaitForm1.Designer.cs">
       <DependentUpon>WaitForm1.cs</DependentUpon>
     </Compile>
+    <Compile Include="GstApi\frmAPISetting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GstApi\frmAPISetting.Designer.cs">
+      <DependentUpon>frmAPISetting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GstApi\frmAuthToken.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GstApi\frmAuthToken.Designer.cs">
+      <DependentUpon>frmAuthToken.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GstApi\GSTSession.cs" />
+    <Compile Include="GstApi\Shared.cs" />
     <Compile Include="KontoForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -373,6 +397,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Frms\WaitForm1.resx">
       <DependentUpon>WaitForm1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GstApi\frmAPISetting.resx">
+      <DependentUpon>frmAPISetting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GstApi\frmAuthToken.resx">
+      <DependentUpon>frmAuthToken.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="KontoForm.resx">
       <DependentUpon>KontoForm.cs</DependentUpon>

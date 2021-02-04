@@ -393,11 +393,15 @@ namespace Konto.Weaves.BeamProduction
                         _find.CProductId = _find.ProductId;
                         _find.IsOk = true;
                         // _find.VoucherNo = BeamNotextEdit.Text;
-                        if (string.IsNullOrEmpty(_find.VoucherNo))
+                        if (this.PrimaryKey==0 && !voucherLookup11.GroupDto.ManualSeries)
                         {
                             var _srno = DbUtils.NextSerialNo((int)_find.VoucherId, db, 0);
                             _find.VoucherNo = _srno;
                             _find.SrNo = 1;
+                        }
+                        else
+                        {
+                            _find.VoucherNo = BeamNotextEdit.Text.Trim();
                         }
                         if (_find.Id <= 0)
                         {
