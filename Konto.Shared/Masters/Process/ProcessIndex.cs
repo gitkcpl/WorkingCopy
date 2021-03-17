@@ -26,6 +26,9 @@ namespace Konto.Shared.Masters.Process
 
             taxTypelookUpEdit.Properties.DisplayMember = "DisplayText";
             taxTypelookUpEdit.Properties.ValueMember = "Id";
+
+            this.FirstActiveControl = processNameTextBox;
+
             using (var db = new KontoContext())
             {
                 var model = (from p in db.TaxMasters

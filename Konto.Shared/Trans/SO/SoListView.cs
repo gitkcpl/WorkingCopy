@@ -41,6 +41,8 @@ namespace Konto.Shared.Trans.SO
                 {
                     using (var cmd = new SqlCommand(listDateRange1.SelectedItem.SpName, con))
                     {
+                        cmd.CommandTimeout = 0;
+
                         cmd.Parameters.Add("@fromDate", SqlDbType.Int).Value = listDateRange1.FromDate;
                         cmd.Parameters.Add("@ToDate", SqlDbType.Int).Value = listDateRange1.ToDate;
                         cmd.Parameters.Add("@CompanyId", SqlDbType.Int).Value = KontoGlobals.CompanyId;

@@ -25,18 +25,32 @@ namespace Konto.Shared.Masters.LogIn
             {
                 userNameTextEdit.Text = "Keysoft";
             }
-           // this.Load += LogInWindowView_Load;
+            // this.Load += LogInWindowView_Load;
+           // this.ActiveControl = userNameTextEdit;
             this.Shown += LogInWindowView_Shown;
+           
         }
+
+      
 
         private void LogInWindowView_Shown(object sender, EventArgs e)
         {
-            userNameTextEdit.Focus();
+
+            // userNameTextEdit.Select();
+            // userNameTextEdit.Focus();
+            // Application.DoEvents();
+            this.Focus();
+
+            this.BeginInvoke((MethodInvoker)delegate { userNameTextEdit.Focus(); });
         }
 
         private void LogInWindowView_Load(object sender, EventArgs e)
         {
-           
+            userNameTextEdit.Select();
+            this.ActiveControl = userNameTextEdit;
+
+            
+         //   userNameTextEdit.Focus();
         }
 
         public bool IsStartup { get; set; }

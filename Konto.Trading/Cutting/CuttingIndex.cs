@@ -10,6 +10,7 @@ using Konto.Data;
 using Konto.Data.Models.Masters.Dtos;
 using Konto.Data.Models.Transaction;
 using Konto.Data.Models.Transaction.Dtos;
+using Konto.Data.Models.Transaction.TradingDto;
 using Konto.Shared.Masters.Color;
 using Konto.Shared.Masters.Design;
 using Konto.Shared.Masters.Item;
@@ -61,6 +62,8 @@ namespace Konto.Trading.Cutting
             this.MainLayoutFile = KontoFileLayout.Cutting_Index;
             this.GridLayoutFile = KontoFileLayout.Cutting_Trans;
 
+            this.FirstActiveControl = voucherLookup1;
+
         }
 
         private void OkSimpleButton_Click(object sender, EventArgs e)
@@ -78,35 +81,44 @@ namespace Konto.Trading.Cutting
         }
         private void AccLookup1_SelectedValueChanged(object sender, EventArgs e)
         {
-            if (accLookup1.LookupDto == null) return;
-            using (var db = new KontoContext())
+            try
             {
-                var list = new List<CuttingListDto>();
-                db.Database.CommandTimeout = 0;
-                var spcol = db.SpCollections.FirstOrDefault(k => k.Id ==
-                            (int)SpCollectionEnum.PendingForCutting);
-                if (spcol == null)
+                if (accLookup1.LookupDto == null) return;
+                using (var db = new KontoContext())
                 {
-                    list = db.Database.SqlQuery<CuttingListDto>(
-                    "dbo.PendingForCutting @CompanyId={0},@VoucherTypeId={1},@AccountId={2}",
-                KontoGlobals.CompanyId, (int)VoucherTypeEnum.MillReceipt, Convert.ToInt32(accLookup1.SelectedValue)).ToList();
-                }
-                else
-                {
-                    list = db.Database.SqlQuery<CuttingListDto>(
-                     spcol.Name + " @CompanyId={0},@VoucherTypeID={1},@AccountId={2} ",
+                    var list = new List<PendingForCuttingDto>();
+                    db.Database.CommandTimeout = 0;
+                    var spcol = db.SpCollections.FirstOrDefault(k => k.Id ==
+                                (int)SpCollectionEnum.PendingForCutting);
+                    if (spcol == null)
+                    {
+                        list = db.Database.SqlQuery<PendingForCuttingDto>(
+                        "dbo.PendingForCutting @CompanyId={0},@VoucherTypeId={1},@AccountId={2}",
                     KontoGlobals.CompanyId, (int)VoucherTypeEnum.MillReceipt, Convert.ToInt32(accLookup1.SelectedValue)).ToList();
-                }
+                    }
+                    else
+                    {
+                        list = db.Database.SqlQuery<PendingForCuttingDto>(
+                         spcol.Name + " @CompanyId={0},@VoucherTypeID={1},@AccountId={2} ",
+                        KontoGlobals.CompanyId, (int)VoucherTypeEnum.MillReceipt, Convert.ToInt32(accLookup1.SelectedValue)).ToList();
+                    }
 
-                if (list.Count > 0)
-                {
-                    ShowPendingCutting(list);
-                }
-                else
-                {
-                    MessageBox.Show("No Pending Lot!");
+                    if (list.Count > 0)
+                    {
+                        ShowPendingCutting(list);
+                    }
+                    else
+                    {
+                        MessageBox.Show("No Pending Lot!");
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.ToString());
+            }
+           
 
         }
         private void TabControlAdv1_SelectedIndexChanged(object sender, EventArgs e)
@@ -163,11 +175,14 @@ namespace Konto.Trading.Cutting
                 var _list = (from ct in _context.ChallanTranses
                              join pd in _context.Products on ct.ProductId equals pd.Id into join_pd
                              from pd in join_pd.DefaultIfEmpty()
-                             join ch in _context.Challans on ct.RefId equals ch.Id into join_ch
-                             from ch in join_ch.DefaultIfEmpty()
+                             join cht in _context.ChallanTranses on ct.RefId equals cht.Id
+                             join rc in _context.Challans on cht.ChallanId equals rc.Id
+                             join vc in _context.Vouchers on ct.RefVoucherId equals vc.Id
+                             join tk in _context.ProdOuts on ct.BatchId equals tk.Id
+                             join otk in _context.Prods on tk.ProdId equals otk.Id
                              orderby ct.Id
                              where ct.IsActive == true && ct.IsDeleted == false &&
-                             ct.ChallanId == model.Id
+                             ct.ChallanId == model.Id && vc.VTypeId==7
                              select new CuttingTransDto()
                              {
                                  Id = ct.Id,
@@ -186,7 +201,10 @@ namespace Konto.Trading.Cutting
                                  RefVoucherId = ct.RefVoucherId,
                                  Remark = ct.Remark,
                                  RefNo = ct.RefNo,
-                                 ChallanNo = ch.VoucherNo
+                                 ChallanNo = rc.VoucherNo,
+                                 TakaVNo = otk.VoucherNo,BatchId= ct.BatchId,ColorId= (int) ct.ColorId,
+                                 DesignId = (int) ct.DesignId
+                                 
                              }).ToList();
 
                 var _Cutlist = _list.Where(k => k.RefVoucherId == model.VoucherId).ToList();
@@ -207,15 +225,17 @@ namespace Konto.Trading.Cutting
                 voucherLookup1.Focus();
                 return false;
             }
+
             else if (Convert.ToInt32(accLookup1.SelectedValue) == 0)
             {
                 MessageBoxAdv.Show(this, "Invalid Party", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 accLookup1.Focus();
                 return false;
             }
+
             else if ((string.IsNullOrEmpty(OrderNoTextEdit.Text)))
             {
-                MessageBoxAdv.Show(this, "Invalid Order No", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBoxAdv.Show(this, "Invalid Cutting Card/Ref No", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 OrderNoTextEdit.Focus();
                 return false;
             }
@@ -262,10 +282,11 @@ namespace Konto.Trading.Cutting
             {
                 frm.TransList = takalist;
             }
-            frm.FinalMtr = dr.IssueQty;
+            frm.FinalMtr = dr.Qty;
             frm.ShowDialog();
 
             //remove existing entry
+            if (frm.DialogResult != DialogResult.OK) return; 
             foreach (var po in takalist)
             {
                 this.TakaCutList.Remove(po);
@@ -280,78 +301,115 @@ namespace Konto.Trading.Cutting
                 this.TakaCutList.Remove(pro);
                 this.DelTakaCutList.Add(pro);
             }
-            dr.Qty = frm.TransList.Sum(k => k.Qty);
+         //   dr.Qty = frm.TransList.Sum(k => k.Qty);
             dr.Pcs = frm.TransList.Sum(k => k.Pcs);
             GridCalculation(dr);
         }
-        private void ShowPendingCutting(List<CuttingListDto> list)
+        private void ShowPendingCutting(List<PendingForCuttingDto> list)
         {
             List<CuttingTransDto> Trans = new List<CuttingTransDto>();
 
             var frm = new PendingCuttingWindow();
             frm.TransList = list;
 
-            frm.ShowDialog();
-            using (var db = new KontoContext())
+            if (frm.ShowDialog() != DialogResult.OK) return;
+
+            var rows = frm.gridView1.GetSelectedRows();
+
+            foreach (var item in rows)
             {
-                var list1 = new List<CuttingListDto>();
-                db.Database.CommandTimeout = 0;
-                var spcol = db.SpCollections.FirstOrDefault(k => k.Id ==
-                            (int)SpCollectionEnum.PendingForCuttingDet);
-                if (spcol == null)
-                {
-                    list1 = db.Database.SqlQuery<CuttingListDto>(
-                    "dbo.PendingForCuttingDet @CompanyId={0},@ToDate={1},@FromDate={2},@ChallanId={3}",
-                KontoGlobals.CompanyId, (int)KontoGlobals.FromDate, KontoGlobals.ToDate, frm.SelectedRow.TransId).ToList();
-                }
-                else
-                {
-                    list1 = db.Database.SqlQuery<CuttingListDto>(
-                     spcol.Name + " @CompanyId={0},@FromDate={1},@ToDate={2},@ChallanId={3}",
-                   KontoGlobals.CompanyId, (int)KontoGlobals.FromDate, KontoGlobals.ToDate, frm.SelectedRow.TransId).ToList();
-                }
+                var _taka = frm.gridView1.GetRow(item) as PendingForCuttingDto;
 
-                if (list1.Count > 0)
-                {
-                    int id = 0;
-                    foreach (var ch in list1)
-                    {
-                        CuttingTransDto ct = new CuttingTransDto();
-                        id = id - 1;
-                        ct.Id = id;
-                        ct.Pcs = 1;
-                        ct.IssueQty = ch.FinMeter != null ? (decimal)ch.FinMeter : 0;
-                        ct.ChallanNo = ch.ChallanNo;
-                        ct.RefNo = ch.RefNo;
-                        ct.LotNo = ch.LotNo;
-                        ct.ProductName = ch.Product;
-                        ct.ProductId = (int)ch.ProductId;
+                CuttingTransDto ct = new CuttingTransDto();
+                
+                ct.ChallanId = 0;
+                ct.ChallanNo = _taka.ChallanNo;
+                ct.ColorId = Convert.ToInt32( _taka.ColorId);
+                ct.ColorName = _taka.ColorName;
+                ct.DesignId = Convert.ToInt32( _taka.DesignId);
+                ct.DesignNo = _taka.DesignNo;
+                ct.IssueQty = Convert.ToInt32(_taka.FinMeter);
 
-                        ct.DesignNo = ch.DesignNo;
-                        ct.DesignId = (int)ch.DesignId;
+                
+                ct.MiscId = _taka.Id; // challan id 
+                ct.RefId = _taka.TransId; // challantrans id from millreceipt
+                ct.BatchId = _taka.TakaId; // prod out id
+                ct.RefVoucherId = _taka.VoucherId; // voucher of challan id
+                
 
-                        ct.ColorName = ch.ColorName;
-                        ct.ColorId = (int)ch.ColorId;
+                ct.Qty = ct.IssueQty;
+                ct.ProductId = Convert.ToInt32(_taka.ProductId);
+                ct.ProductName = _taka.Product;
+                ct.TakaVNo = _taka.TakaNo;
+                ct.LotNo = _taka.LotNo;
+                ct.ShQty = ct.IssueQty - ct.Qty > 0 ? ct.IssueQty - ct.Qty : 0;
+                ct.ShPer = (ct.IssueQty - ct.Qty) > 0 ? decimal.Round((decimal)((ct.IssueQty - ct.Qty) / ct.IssueQty * 100), 2) : 0;
+                Trans.Add(ct);
 
-                        ct.Qty = ch.FinMeter != null ? (decimal)ch.FinMeter : 0;
-                        ct.ShQty = ct.IssueQty - ct.Qty > 0 ? ct.IssueQty - ct.Qty : 0;
-                        ct.ShPer = (ct.IssueQty - ct.Qty) > 0 ? decimal.Round((decimal)((ct.IssueQty - ct.Qty) / ct.IssueQty * 100), 2) : 0;
-
-                        ct.RefId = ch.Id;
-                        ct.RefVoucherId = ch.RefVoucherId;
-                        ct.MiscId = ch.TransId;
-                        ct.BatchId = ch.ProdOutId;
-                        ct.TakaVNo = ch.TakaVNo;
-
-                        Trans.Add(ct);
-                    }
-                    bindingSource1.DataSource = Trans;
-                }
-                else
-                {
-                    MessageBox.Show("No Pending Cutting!");
-                }
             }
+
+            bindingSource1.DataSource = Trans;
+
+            //using (var db = new KontoContext())
+            //{
+            //    var list1 = new List<CuttingListDto>();
+            //    db.Database.CommandTimeout = 0;
+            //    var spcol = db.SpCollections.FirstOrDefault(k => k.Id ==
+            //                (int)SpCollectionEnum.PendingForCuttingDet);
+            //    if (spcol == null)
+            //    {
+            //        list1 = db.Database.SqlQuery<CuttingListDto>(
+            //        "dbo.PendingForCuttingDet @CompanyId={0},@ToDate={1},@FromDate={2},@ChallanId={3}",
+            //    KontoGlobals.CompanyId, (int)KontoGlobals.FromDate, KontoGlobals.ToDate, frm.SelectedRow.TransId).ToList();
+            //    }
+            //    else
+            //    {
+            //        list1 = db.Database.SqlQuery<CuttingListDto>(
+            //         spcol.Name + " @CompanyId={0},@FromDate={1},@ToDate={2},@ChallanId={3}",
+            //       KontoGlobals.CompanyId, (int)KontoGlobals.FromDate, KontoGlobals.ToDate, frm.SelectedRow.TransId).ToList();
+            //    }
+
+            //    if (list1.Count > 0)
+            //    {
+            //        int id = 0;
+            //        foreach (var ch in list1)
+            //        {
+            //            CuttingTransDto ct = new CuttingTransDto();
+            //            id = id - 1;
+            //            ct.Id = id;
+            //            ct.Pcs = 1;
+            //            ct.IssueQty = ch.FinMeter != null ? (decimal)ch.FinMeter : 0;
+            //            ct.ChallanNo = ch.ChallanNo;
+            //            ct.RefNo = ch.RefNo;
+            //            ct.LotNo = ch.LotNo;
+            //            ct.ProductName = ch.Product;
+            //            ct.ProductId = (int)ch.ProductId;
+
+            //            ct.DesignNo = ch.DesignNo;
+            //            ct.DesignId = (int)ch.DesignId;
+
+            //            ct.ColorName = ch.ColorName;
+            //            ct.ColorId = (int)ch.ColorId;
+
+            //            ct.Qty = ch.FinMeter != null ? (decimal)ch.FinMeter : 0;
+            //            ct.ShQty = ct.IssueQty - ct.Qty > 0 ? ct.IssueQty - ct.Qty : 0;
+            //            ct.ShPer = (ct.IssueQty - ct.Qty) > 0 ? decimal.Round((decimal)((ct.IssueQty - ct.Qty) / ct.IssueQty * 100), 2) : 0;
+
+            //            ct.RefId = ch.Id;
+            //            ct.RefVoucherId = ch.RefVoucherId;
+            //            ct.MiscId = ch.TransId;
+            //            ct.BatchId = ch.ProdOutId;
+            //            ct.TakaVNo = ch.TakaVNo;
+
+            //            Trans.Add(ct);
+            //        }
+            //        bindingSource1.DataSource = Trans;
+            //    }
+            //    else
+            //    {
+            //        MessageBox.Show("No Pending Cutting!");
+            //    }
+            //}
 
         }
 
@@ -500,6 +558,7 @@ namespace Konto.Trading.Cutting
                 GridView view = sender as GridView;
                 var row = view.GetRow(view.FocusedRowHandle) as CuttingTransDto;
                 OpenCuttingDetail(row);
+                return;
             }
             if (e.KeyCode != Keys.Delete) return;
 
@@ -538,72 +597,69 @@ namespace Konto.Trading.Cutting
 
         private void GridControl1_ProcessGridKey(object sender, KeyEventArgs e)
         {
-            try
-            {
-                if (Convert.ToInt32(accLookup1.SelectedValue) == 0) return;
-                var dr = PreOpenLookup();
-                if (dr == null) return;
-                if (gridView1.FocusedColumn.FieldName == "ChallanNo")
-                {
-                    OpenCuttingDetail(dr);
-                }
-                else if (gridView1.FocusedColumn.FieldName == "ProductName")
-                {
+            //try
+            //{
+            //    if (Convert.ToInt32(accLookup1.SelectedValue) == 0) return;
+            //    var dr = PreOpenLookup();
+            //    if (dr == null) return;
+                
+            //    if (gridView1.FocusedColumn.FieldName == "ProductName")
+            //    {
 
-                    if (e.KeyCode == Keys.Return)
-                    {
-                        if (dr.ProductId == 0)
-                        {
-                            OpenItemLookup(dr.ProductId, dr);
-                            // e.Handled = true;
-                        }
-                    }
-                    else if (e.KeyCode == Keys.F1)
-                    {
-                        OpenItemLookup(dr.ProductId, dr);
-                        e.Handled = true;
-                    }
-                }
-                else if (gridView1.FocusedColumn.FieldName == "ColorName")
-                {
-                    if (e.KeyCode == Keys.Return)
-                    {
-                        if (dr.ColorId == 0)
-                        {
-                            OpenColorLookup(dr.ColorId, dr);
-                            // e.Handled = true;
-                        }
-                    }
-                    else if (e.KeyCode == Keys.F1)
-                    {
-                        OpenColorLookup(dr.ProductId, dr);
-                        e.Handled = true;
-                    }
-                }
+            //        if (e.KeyCode == Keys.Return)
+            //        {
+            //            if (dr.ProductId == 0)
+            //            {
+            //                OpenItemLookup(dr.ProductId, dr);
+            //                // e.Handled = true;
+            //            }
+            //        }
+            //        else if (e.KeyCode == Keys.F1)
+            //        {
+            //            OpenItemLookup(dr.ProductId, dr);
+            //            e.Handled = true;
+            //        }
+            //    }
+            //    else if (gridView1.FocusedColumn.FieldName == "ColorName")
+            //    {
+            //        if (e.KeyCode == Keys.Return)
+            //        {
+            //            if (dr.ColorId == 0)
+            //            {
+            //                OpenColorLookup(dr.ColorId, dr);
+            //                // e.Handled = true;
+            //            }
+            //        }
+            //        else if (e.KeyCode == Keys.F1)
+            //        {
+            //            OpenColorLookup(dr.ProductId, dr);
+            //            e.Handled = true;
+            //        }
+            //    }
 
-                else if (gridView1.FocusedColumn.FieldName == "DesignNo")
-                {
-                    if (e.KeyCode == Keys.Return)
-                    {
-                        if (dr.DesignId == 0)
-                        {
-                            OpenDesignLookup(dr.DesignId, dr);
-                            // e.Handled = true;
-                        }
-                    }
-                    else if (e.KeyCode == Keys.F1)
-                    {
-                        OpenDesignLookup(dr.DesignId, dr);
-                        e.Handled = true;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex, "Cutting GridControl KeyDown");
-                MessageBoxAdv.Show(this, "Error Lookup Setup !!", "Exception ", ex.ToString());
+            //    else if (gridView1.FocusedColumn.FieldName == "DesignNo")
+            //    {
+            //        if (e.KeyCode == Keys.Return)
+            //        {
+            //            if (dr.DesignId == 0)
+            //            {
+            //                OpenDesignLookup(dr.DesignId, dr);
+            //                // e.Handled = true;
+            //            }
+            //        }
+            //        else if (e.KeyCode == Keys.F1)
+            //        {
+            //            OpenDesignLookup(dr.DesignId, dr);
+            //            e.Handled = true;
+            //        }
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    Log.Error(ex, "Cutting GridControl KeyDown");
+            //    MessageBoxAdv.Show(this, "Error Lookup Setup !!", "Exception ", ex.ToString());
 
-            }
+            //}
 
         }
 
@@ -652,8 +708,8 @@ namespace Konto.Trading.Cutting
 
             voucherNoTextEdit.Text = "New";
             voucherDateEdit.EditValue = DateTime.Now;
-            empLookup1.SelectedValue = 1;
-            empLookup1.SetGroup();
+            //empLookup1.SelectedValue = 1;
+            //empLookup1.SetGroup();
             createdLabelControl.Text = "Create By: " + KontoGlobals.UserName;
             modifyLabelControl.Text = string.Empty;
             this.ActiveControl = voucherLookup1.buttonEdit1;
@@ -775,7 +831,7 @@ namespace Konto.Trading.Cutting
                 cfg.CreateMap<CuttingTransDto, ChallanTransModel>().ForMember(x => x.Id, p => p.Ignore());
             });
 
-            var _translist = bindingSource1.DataSource as List<CuttingTransDto>;
+            var _translist = (bindingSource1.DataSource as List<CuttingTransDto>).Where(x=>x.Pcs > 0).ToList();
             List<ChallanTransModel> Trans = new List<ChallanTransModel>();
             List<ChallanTransModel> TakaTrans = new List<ChallanTransModel>();
             List<ProdModel> ProdList = new List<ProdModel>();
@@ -880,6 +936,8 @@ namespace Konto.Trading.Cutting
                             string TableName = "Cutting";
                             var stockReq = db.Products.FirstOrDefault(k => k.Id == item.ProductId).StockReq;
                             if (stockReq == "No") continue;
+
+                            
                             //   var prList = ProdList.Where(x => x.TransId == item.Id).ToList();
                             StockEffect.StockTransChlnEntry(_find, item, true, TableName, KontoGlobals.UserName, db);
                         }
@@ -943,7 +1001,10 @@ namespace Konto.Trading.Cutting
 
             model.ChallanNo = OrderNoTextEdit.Text.Trim();
 
-            model.EmpId = Convert.ToInt32(empLookup1.SelectedValue);
+            if (Convert.ToInt32(empLookup1.SelectedValue) == 0)
+                model.EmpId = 1;
+            else
+                model.EmpId = Convert.ToInt32(empLookup1.SelectedValue);
 
             model.Remark = remarkTextEdit.Text.Trim();
 

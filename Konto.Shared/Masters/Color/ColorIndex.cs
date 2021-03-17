@@ -24,6 +24,8 @@ namespace Konto.Shared.Masters.Color
             this.Load += ColorIndex_Load;
             okSimpleButton.Click += OkSimpleButton_Click;
             tabControlAdv1.SelectedIndexChanged += TabControlAdv1_SelectedIndexChanged;
+
+            this.FirstActiveControl = colorNameTextBox;
         }
 
         private void TabControlAdv1_SelectedIndexChanged(object sender, EventArgs e)

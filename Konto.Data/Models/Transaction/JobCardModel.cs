@@ -81,7 +81,9 @@ namespace Konto.Data.Models.Transaction
         [Display(Name = "Batch Id")]
         public int? BatchId { get; set; }
         [Display(Name = "Qty")]
-        public decimal? Qty { get; set; }
+        public decimal Qty { get; set; }
+        public decimal TolPer { get; set; }
+
         [MaxLength(50)]
         [Display(Name = "Challan No")]
         public string ChallanNo { get; set; }
@@ -92,5 +94,7 @@ namespace Konto.Data.Models.Transaction
         [MaxLength]
         [Display(Name = "Remark")]
         public string Remark { get; set; }
+
+        
     }
 }

@@ -13,6 +13,7 @@ using Konto.Data;
 using Konto.Data.Models.Transaction;
 using Konto.Data.Models.Transaction.Dtos;
 using Konto.Shared.Masters.Acc;
+using Konto.Shared.Masters.RefBank;
 using Serilog;
 using Syncfusion.Windows.Forms;
 using Syncfusion.Windows.Forms.Tools;
@@ -36,7 +37,9 @@ namespace Konto.Shared.Account.Receipt
         private List<PendBillListDto> AllBill = new List<PendBillListDto>();
         TextEdit headerEdit = new TextEdit();
         GridColumn activeCol = null;
-       
+        private int LastBookId;
+        private int LastVoucherId;
+        private DateTime LastVoucherDate = DateTime.Now;
         public ReceiptIndex()
         {
             InitializeComponent();
@@ -70,7 +73,36 @@ namespace Konto.Shared.Account.Receipt
             gridView1.InvalidValueException += GridView1_InvalidValueException;
             billAdjustSimpleButton.Click += BillAdjustSimpleButton_Click;
             voucherLookup1.SelectedValueChanged += VoucherLookup1_SelectedValueChanged;
+            refBankRepositoryItemButtonEdit.ButtonClick += RefBankRepositoryItemButtonEdit_ButtonClick;
+            this.FirstActiveControl = voucherLookup1;
         }
+
+        private void RefBankRepositoryItemButtonEdit_ButtonClick(object sender, ButtonPressedEventArgs e)
+        {
+            var dr = PreOpenLookup();
+            if (dr != null)
+                OpenRefBank(Convert.ToInt32(dr.RefBankId), dr);
+        }
+        private void OpenRefBank(int _selvalue, BankTransDto er)
+        {
+            var frm = new RefBankLkpWindow();
+            //frm.Tag = MenuId.ref;
+            frm.SelectedValue = _selvalue;
+
+            frm.ShowDialog();
+            if (frm.DialogResult == DialogResult.OK)
+            {
+                er.RefBankId = frm.SelectedValue;
+                er.RefBank = frm.SelectedTex;
+                gridView1.UpdateCurrentRow();
+                gridView1.FocusedColumn = colParticular;
+                gridView1.MoveNext();
+
+
+            }
+
+        }
+      
 
         private void VoucherLookup1_SelectedValueChanged(object sender, EventArgs e)
         {
@@ -513,8 +545,26 @@ namespace Konto.Shared.Account.Receipt
                     }
                 }
 
+                else if ((gridView1.FocusedColumn.FieldName == "RefBank"))
+                {
+                    if (e.KeyCode == Keys.Return)
+                    {
+                        if (Convert.ToInt32(dr.RefBankId) == 0)
+                        {
+                            OpenRefBank(Convert.ToInt32(dr.RefBankId), dr);
+                            e.Handled = true;
+                        }
+                    }
 
+                    else if (e.KeyCode == Keys.F1)
+                    {
+                        OpenRefBank(Convert.ToInt32(dr.RefBankId), dr);
+                        e.Handled = true;
+                    }
                 }
+
+
+            }
             catch (Exception ex)
             {
                 Log.Error(ex, "Receipt GridControl KeyDown");
@@ -646,13 +696,33 @@ namespace Konto.Shared.Account.Receipt
             BillList = new List<PendBillListDto>();
             AllBill = new List<PendBillListDto>();
 
-            
+            if (this.LastBookId > 0)
+            {
+                bookLookup.SelectedValue = LastBookId;
+                bookLookup.SetAcc(this.LastBookId);
+            }
+
+            if (this.LastVoucherId > 0)
+            {
+                voucherLookup1.SelectedValue = LastVoucherId;
+                voucherLookup1.SetGroup(this.LastVoucherId);
+            }
+            voucherDateEdit.DateTime = this.LastVoucherDate;
+
+            voucherLookup1.buttonEdit1.Focus();
+
         }
         public override void ResetPage()
         {
             base.ResetPage();
+
+            LastBookId = Convert.ToInt32(bookLookup.SelectedValue);
+            LastVoucherId = Convert.ToInt32(voucherLookup1.SelectedValue);
             
-           
+            if (voucherDateEdit.EditValue != null)
+                LastVoucherDate = voucherDateEdit.DateTime;
+
+
             bookLookup.SetEmpty();
             challanNotextEdit.Text = string.Empty;
            
@@ -883,7 +953,7 @@ namespace Konto.Shared.Account.Receipt
                     base.SaveDataAsync(newmode);
                     this.ResetPage();
                     this.NewRec();
-                    voucherLookup1.buttonEdit1.Focus();
+                   
                 }
                 else
                 {

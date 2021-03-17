@@ -45,7 +45,9 @@ namespace Konto.Reporting.Para.Go
                 new ComboBoxPairs("Party + Item", "Party + Item"),
             };
             groupOnLookUpEdit.Properties.DataSource = cbg;
-            
+
+            this.FirstActiveControl = fDateEdit;
+
         }
 
       
@@ -166,15 +168,16 @@ namespace Konto.Reporting.Para.Go
                 var _tab = this.ParentForm.Parent.Parent as TabControlAdv;
                 if (_tab == null) return;
                 var frm = new KontoRepViewer(doc);
-                frm.Text = "Oustanding Print Preview";
+                frm.Text = "Grey Order Preview";
 
                 var pg1 = new TabPageAdv();
-                pg1.Text = "Oustanding Print";
+                pg1.Text = "Grey Order Print";
                 _tab.TabPages.Add(pg1);
-                _tab.SelectedTab = pg1;
+              
                 frm.TopLevel = false;
                 frm.Parent = pg1;
-                frm.Location = new Point(pg1.Location.X + pg1.Width / 2 - frm.Width / 2, pg1.Location.Y + pg1.Height / 2 - frm.Height / 2);
+                _tab.SelectedTab = pg1;
+                //frm.Location = new Point(pg1.Location.X + pg1.Width / 2 - frm.Width / 2, pg1.Location.Y + pg1.Height / 2 - frm.Height / 2);
                 frm.Show();// = true;
 
             }

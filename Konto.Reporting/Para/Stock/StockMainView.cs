@@ -36,6 +36,8 @@ namespace Konto.Reporting.Para.Stock
             this.gridControl1.ProcessGridKey += GridControl1_ProcessGridKey;
             this.FormClosed += StockMainView_FormClosed;
             this.cancelSimpleButton.Click += CancelSimpleButton_Click;
+
+            this.FirstActiveControl = dateEdit1;
         }
 
         private void CancelSimpleButton_Click(object sender, EventArgs e)

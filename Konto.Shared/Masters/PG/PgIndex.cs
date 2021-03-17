@@ -20,6 +20,8 @@ namespace Konto.Shared.Masters.PG
         {
             InitializeComponent();
 
+            this.FirstActiveControl = nameTextBox;
+
             tabControlAdv1.TabPages[2].TabVisible = false;
             tabControlAdv1.TabPages[3].TabVisible = false;
 

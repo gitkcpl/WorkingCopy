@@ -9,6 +9,7 @@ namespace Konto.Shared.Masters.Color
 {
     public partial class ColorLookup : LookupBase
     {
+        public event EventHandler ShownPopup;
         public ColorLookup()
         {
             InitializeComponent();
@@ -60,7 +61,9 @@ namespace Konto.Shared.Masters.Color
                 this.buttonEdit1.Text = this.SelectedText;
 
             }
+            
             this.Parent.SelectNextControl(this, true, true, true, false);
+            this.ShownPopup?.Invoke(this, new EventArgs());
         }
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {

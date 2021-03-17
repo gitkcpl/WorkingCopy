@@ -47,7 +47,8 @@ namespace Konto.Reporting.Para.OrdPara
 
             typeLookUpEdit.Properties.DataSource = cbp;
 
-            
+            this.FirstActiveControl = fDateEdit;
+
 
             typeLookUpEdit.EditValueChanged += TypeLookUpEdit_EditValueChanged;
         }
@@ -292,10 +293,16 @@ namespace Konto.Reporting.Para.OrdPara
                         doc.Parameters["report_footer"].CurrentValue = footerTextEdit.Text;
                 }
 
-                if (!string.IsNullOrEmpty(groupOnLookUpEdit.Text))
+                if (!string.IsNullOrEmpty(groupOn1Lookupedit.Text))
                 {
                     if (doc.Parameters["GroupOn"] != null)
-                        doc.Parameters["GroupOn"].CurrentValue = groupOnLookUpEdit.EditValue;
+                        doc.Parameters["GroupOn"].CurrentValue = groupOn1Lookupedit.EditValue;
+                }
+
+                if (!string.IsNullOrEmpty(groupOn2LookUpEdit.Text))
+                {
+                    if (doc.Parameters["gp2"] != null)
+                        doc.Parameters["gp2"].CurrentValue = groupOn2LookUpEdit.EditValue;
                 }
 
                 if (doc.Parameters["OrdStatus"] != null)
@@ -331,10 +338,11 @@ namespace Konto.Reporting.Para.OrdPara
                     var pg1 = new TabPageAdv();
                     pg1.Text = "Order Register";
                     _tab.TabPages.Add(pg1);
-                    _tab.SelectedTab = pg1;
+                   
                     frm.TopLevel = false;
                     frm.Parent = pg1;
-                    frm.Location = new Point(pg1.Location.X + pg1.Width / 2 - frm.Width / 2, pg1.Location.Y + pg1.Height / 2 - frm.Height / 2);
+                    _tab.SelectedTab = pg1;
+                    //frm.Location = new Point(pg1.Location.X + pg1.Width / 2 - frm.Width / 2, pg1.Location.Y + pg1.Height / 2 - frm.Height / 2);
                     frm.Show();// = true;
                 }
             }
@@ -401,25 +409,30 @@ namespace Konto.Reporting.Para.OrdPara
             List<ComboBoxPairs> cbg = new List<ComboBoxPairs>
             {
                 new ComboBoxPairs("None", "None"),
+                new ComboBoxPairs("Division", "Division"),
                 new ComboBoxPairs("Party", "Party"),
                 new ComboBoxPairs("Item", "Item"),
                 new ComboBoxPairs("Color", "Color"),
-                new ComboBoxPairs("Division", "Division"),
-                new ComboBoxPairs("Party + Item", "Party + Item"),
-                new ComboBoxPairs("Party + Color", "Party + Color"),
-                new ComboBoxPairs("Item + Color", "Item + Color")
+                new ComboBoxPairs("Grade", "Grade"),
+                //new ComboBoxPairs("Party + Item", "Party + Item"),
+                //new ComboBoxPairs("Party + Color", "Party + Color"),
+                //new ComboBoxPairs("Item + Color", "Item + Color")
             };
-            groupOnLookUpEdit.Properties.DataSource = cbg;
-            groupOnLookUpEdit.EditValue = "None";
 
-          
+            groupOn2LookUpEdit.Properties.DataSource = cbg;
+            groupOn2LookUpEdit.EditValue = "None";
+
+            groupOn1Lookupedit.Properties.DataSource = cbg;
+            groupOn1Lookupedit.EditValue = "None";
+
 
             List<ComboBoxPairs> sts = new List<ComboBoxPairs>
             {
                 new ComboBoxPairs("All", "All"),
                 new ComboBoxPairs("PENDING", "PENDING"),
                 new ComboBoxPairs("APPROVED", "APPROVED"),
-                new ComboBoxPairs("CANCELED", "CANCELED")
+                new ComboBoxPairs("CANCELED", "CANCELED"),
+                new ComboBoxPairs("CLOSED", "CLOSED")
             };
             challanTypeLookUpEdit.Properties.DataSource = sts;
             if (string.IsNullOrEmpty(this.ReportFilterType))

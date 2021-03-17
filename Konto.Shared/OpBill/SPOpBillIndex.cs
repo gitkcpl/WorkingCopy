@@ -37,6 +37,8 @@ namespace Konto.Shared.OpBill
             tdsSpinEdit.ValueChanged += BillAmtSpinEdit_ValueChanged;
             this.MainLayoutFile = KontoFileLayout.Op_Bill_Main;
 
+            this.FirstActiveControl = voucherLookup1;
+
             FillAgainst();
         }
 

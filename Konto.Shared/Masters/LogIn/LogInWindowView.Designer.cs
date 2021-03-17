@@ -319,6 +319,7 @@
             this.ClientSize = new System.Drawing.Size(848, 384);
             this.ControlBox = false;
             this.Controls.Add(this.layoutControl1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MetroColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(22)))), ((int)(((byte)(91)))));
             this.Name = "LogInWindowView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

@@ -3,6 +3,7 @@ using DevExpress.XtraGrid.Views.Grid;
 using DevExpress.XtraLayout;
 using DevExpress.XtraSplashScreen;
 using DevExpress.XtraVerticalGrid;
+using Konto.Data.Models.Masters;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -16,6 +17,8 @@ namespace Konto.Core.Shared.Libs
 {
     public static class KontoUtils
     {
+        public static CompModel Company { get; set; }
+
         public static string ZeroIfEmpty(this string s)
         {
             return string.IsNullOrEmpty(s) ? "0" : s;

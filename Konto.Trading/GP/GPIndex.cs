@@ -95,6 +95,8 @@ namespace Konto.Trading.GP
 
             tcsPerTextEdit.EditValueChanged += TcsPerTextEdit_EditValueChanged;
             tcsAmtTextEdit.EditValueChanged += TcsAmtTextEdit_EditValueChanged;
+
+            this.FirstActiveControl = voucherLookup1;
         }
 
         private void TcsAmtTextEdit_EditValueChanged(object sender, EventArgs e)

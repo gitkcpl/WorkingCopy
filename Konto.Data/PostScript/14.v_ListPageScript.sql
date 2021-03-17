@@ -112,8 +112,10 @@ BEGIN
 INSERT INTO dbo.ListPage
 (
    Id, Descr,SpName,LayoutFile,VTypeId,GroupCol,SumCol
-)values (46, 'Product Wise List','dbo.ChallaSummaryList','GRN\ProductSummaryView.xml',5,'pd.ProductName',null)
+)values (46, 'Product Wise List','dbo.ChallanSummaryList','GRN\ProductSummaryView.xml',5,'pd.ProductName',null)
 END
+
+update dbo.ListPage set SpName='dbo.ChallanSummaryList' where id=46
 
  if NOT exists (select 1 from ListPage em where em.Id=159)
 BEGIN

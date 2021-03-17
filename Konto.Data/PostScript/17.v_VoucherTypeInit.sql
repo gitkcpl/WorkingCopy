@@ -920,4 +920,20 @@ END
 
 
 
+-- Bom Issue
+
+IF NOT EXISTS(SELECT 1 FROM dbo.VoucherType WHERE Id=54)
+BEGIN
+INSERT INTO dbo.VoucherType
+(
+    Id,TypeName,Terms,SendSms,SmsTemplates,SmsToParty,SmsToAgent,SmsToUser,OtherMobile,
+    SendMail,EmailSub,EmailBody,EmailToParty,EmailToAgent,EmailToUser,OtherEmail,
+    Extra1,Extra2,IsActive,IsDeleted,CreateDate,CreateUser,IpAddress,RowId
+)
+VALUES(54,'Bom Issue','',0,'',0,0,0,'',
+0,'','',1,1,1,'',
+'','',1,0,SYSDATETIME(),'Admin','NA',NEWID())
+
+END
+
 SET IDENTITY_INSERT dbo.VoucherType OFF

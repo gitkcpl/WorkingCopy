@@ -20,10 +20,17 @@ namespace Konto.Data.Models.Masters.Dtos
         public string GroupName { get; set; }
         public string SubName { get; set; }
         public string CatName { get; set; }
+        public string ColorName { get; set; }
         public string Vendor { get; set; }
         public string UnitName { get; set; }
         public decimal SaleRate { get; set; }
         public decimal DealerPrice { get; set; }
+        public decimal Mrp { get; set; }
+        public int PcsPerPack { get; set; }
+        public decimal Rate1 { get; set; }
+        public decimal Rate2 { get; set; }
+
+        public decimal CostPrice { get; set; }
         public decimal Sgst { get; set; }
         public decimal Cgst { get; set; }
         public decimal Igst { get; set; }

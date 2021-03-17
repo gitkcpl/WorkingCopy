@@ -1,16 +1,17 @@
 ﻿using Konto.App.Shared;
 using Konto.Core.Shared;
+using Konto.Core.Shared.Frms;
 using Konto.Data;
 using Konto.Data.Models.Gstn;
+using Konto.Shared.Account.GenExpense;
+using Konto.Shared.Trans.PInvoice;
 using Serilog;
+using Syncfusion.Windows.Forms.Tools;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TaxProGST.API;
@@ -27,6 +28,59 @@ namespace Konto.Reporting.Para.Gstr2
         {
             InitializeComponent();
             this.Load += Gst2Reconcile_Load;
+            this.FormClosed += Gst2Reconcile_FormClosed;
+            umGridControl.ProcessGridKey += UmGridControl_ProcessGridKey;
+
+            this.FirstActiveControl = textEdit1;
+        }
+
+        private void UmGridControl_ProcessGridKey(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode != Keys.Enter) return;
+
+            try
+            {
+                var dr = umGridView.GetRow(umGridView.FocusedRowHandle) as RecoGstr2aUnMatch;
+                if (dr == null) return;
+                var db = new KontoContext();
+                var bll = db.Bills.FirstOrDefault(x => x.Id == dr.Id);
+                if (bll == null) return;
+                var vw = new KontoMetroForm();
+                if (dr.VTypeId == (int)VoucherTypeEnum.PurchaseInvoice)
+                {
+                    vw = new PInvoiceIndex();
+                }
+                else if (dr.VTypeId == (int)VoucherTypeEnum.GenExpense)
+                {
+                    vw = new GenExpIndex();
+                }
+
+                vw.OpenForLookup = true;
+                vw.EditKey = bll.Id;
+                vw.ShowDialog();
+
+                GetUnmatchData(db);
+                umGridControl.Focus();
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.ToString());
+
+            }
+           
+
+        }
+
+        private void Gst2Reconcile_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            var tabpage = this.Parent as TabPageAdv;
+            if (tabpage != null)
+            {
+                var tabcontrol = tabpage.Parent as TabControlAdv;
+                if (tabcontrol != null)
+                    tabcontrol.TabPages.Remove(tabpage);
+            }
         }
 
         private void Gst2Reconcile_Load(object sender, EventArgs e)
@@ -38,7 +92,8 @@ namespace Konto.Reporting.Para.Gstr2
                 gstr2SimpleButton.Click += gstr2SimpleButton_ClickAsync;
                 okSimpleButton.Click += OkSimpleButton_Click;
                 this.cancelSimpleButton.Click += CancelSimpleButton_Click;
-                
+
+                this.ActiveControl = textEdit1;
             }
             catch (Exception ex)
             {
@@ -77,7 +132,7 @@ namespace Konto.Reporting.Para.Gstr2
                                     where p.BillNo == item.InvoiceNo && ac.GstIn == item.GstIn
                                     && (p.TotalAmount == item.InvoiceValue || p.TotalAmount - item.InvoiceValue <= (decimal)0.5)
                                     && p.VoucherDate >= KontoGlobals.FromDate && p.VoucherDate <= KontoGlobals.ToDate
-                                    && p.CompId == KontoGlobals.CompanyId
+                                    && p.CompId == KontoGlobals.CompanyId && !p.IsDeleted && p.IsActive
                                     select p).FirstOrDefault();
 
                         item.Billid = 0;
@@ -203,7 +258,7 @@ namespace Konto.Reporting.Para.Gstr2
                                             where p.BillNo == bm.InvoiceNo && ac.GstIn == bm.GstIn
                                             && (p.TotalAmount == bm.InvoiceValue || p.TotalAmount - bm.InvoiceValue <= (decimal)0.5)
                                             && p.VoucherDate>= KontoGlobals.FromDate && p.VoucherDate<=KontoGlobals.ToDate
-                                            && p.CompId == KontoGlobals.CompanyId
+                                            && p.CompId == KontoGlobals.CompanyId && !p.IsDeleted && p.IsActive
                                             select p).FirstOrDefault();
 
                                 if (bill != null)
@@ -285,6 +340,24 @@ namespace Konto.Reporting.Para.Gstr2
             var _extra = _dupms.Where(x => x.Billid == 0).ToList();
             eGridControl.DataSource = _extra;
 
+        }
+
+        private void GetUnmatchData(KontoContext _db)
+        {
+            var yr = Convert.ToInt32(textEdit1.Text.Substring(2));
+            var mon = Convert.ToInt32(textEdit1.Text.Substring(0, 2));
+            var lstday = DateTime.DaysInMonth(yr, mon);
+
+            var fdate = yr.ToString() + textEdit1.Text.Substring(0, 2) + "01";
+            var tdate = yr.ToString() + textEdit1.Text.Substring(0, 2) + lstday.ToString();
+
+            var lstun = _db.Database.SqlQuery<RecoGstr2aUnMatch>(
+                "dbo.gstr2a_reco @fromdate={0},@todate={1},@compid={2}," +
+                "@match={3}", fdate, tdate,
+                Convert.ToInt32(KontoGlobals.CompanyId),
+                'N').ToList();
+
+            umGridControl.DataSource = lstun;
         }
 
         private void authSimpleButton_Click(object sender, EventArgs e)

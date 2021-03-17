@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Konto.Core.Shared.Libs;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -18,10 +19,18 @@ namespace TaxProGSTApiWinFormsDemo
         public frmAuthToken()
         {
             InitializeComponent();
+            this.Load += FrmAuthToken_Load;
             GstSession.ApiSetting = Shared.LoadAPISetting();
             GstSession.ApiLoginDetails = Shared.LoadAPILoginDetails();
             ShowUpdatedAPILoginDetails();
         }
+
+        private void FrmAuthToken_Load(object sender, EventArgs e)
+        {
+            txtGSTUserID.Text = KontoUtils.Company.GstInUserId;
+            txtGSTIN.Text = KontoUtils.Company.GstIn;
+        }
+
         public void ShowUpdatedAPILoginDetails()
         {
             try

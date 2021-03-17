@@ -309,6 +309,7 @@
     <Compile Include="Libs\DecimaKontoTextBox.Designer.cs">
       <DependentUpon>DecimaKontoTextBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="Libs\DynamicQueryable.cs" />
     <Compile Include="Libs\ExpressionBuilder.cs" />
     <Compile Include="Libs\InputBox.cs" />
     <Compile Include="Libs\KontoComboBoxEx.cs">

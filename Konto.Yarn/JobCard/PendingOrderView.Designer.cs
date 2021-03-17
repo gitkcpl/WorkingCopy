@@ -36,9 +36,9 @@
             this.pendingOrderDtoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.gridControl1 = new Konto.Core.Shared.Libs.CustomGridControl();
             this.gridView1 = new Konto.Core.Shared.Libs.CustomGridView();
+            this.colId = new Konto.Core.Shared.Libs.CustomGridColumn();
             this.colVoucherNo = new Konto.Core.Shared.Libs.CustomGridColumn();
             this.colVoucherDate = new Konto.Core.Shared.Libs.CustomGridColumn();
-            this.colId = new Konto.Core.Shared.Libs.CustomGridColumn();
             this.colDelvAccId = new Konto.Core.Shared.Libs.CustomGridColumn();
             this.colAddress1 = new Konto.Core.Shared.Libs.CustomGridColumn();
             this.colProductId = new Konto.Core.Shared.Libs.CustomGridColumn();
@@ -156,6 +156,11 @@
             this.gridView1.OptionsView.ShowFooter = true;
             this.gridView1.OptionsView.ShowGroupPanel = false;
             // 
+            // colId
+            // 
+            this.colId.FieldName = "Id";
+            this.colId.Name = "colId";
+            // 
             // colVoucherNo
             // 
             this.colVoucherNo.Caption = "Order No";
@@ -172,11 +177,6 @@
             this.colVoucherDate.Visible = true;
             this.colVoucherDate.VisibleIndex = 1;
             this.colVoucherDate.Width = 106;
-            // 
-            // colId
-            // 
-            this.colId.FieldName = "Id";
-            this.colId.Name = "colId";
             // 
             // colDelvAccId
             // 

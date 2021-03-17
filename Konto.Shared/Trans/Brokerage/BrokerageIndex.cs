@@ -59,8 +59,9 @@ namespace Konto.Shared.Trans.Brokerage
             this.invTypeLookUpEdit.EditValueChanged += InvTypeLookUpEdit_EditValueChanged;
             
             FillLookup();
-          
-           
+
+
+            this.FirstActiveControl = invTypeLookUpEdit;
 
             headerEdit.Hide();
             headerEdit.Parent = this.gridControl1;

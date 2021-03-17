@@ -28,6 +28,8 @@ namespace Konto.Shared.Masters.Store
             okSimpleButton.Click += OkSimpleButton_Click;
             tabControlAdv1.SelectedIndexChanged += TabControlAdv1_SelectedIndexChanged;
             this.Load += StoreIndex_Load;
+
+            this.FirstActiveControl = storeNameTextBox;
         }
 
         private void StoreIndex_Load(object sender, EventArgs e)

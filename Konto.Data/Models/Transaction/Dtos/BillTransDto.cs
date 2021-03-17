@@ -82,6 +82,7 @@ namespace Konto.Data.Models.Transaction.Dtos
         public string Remark { get; set; }
  
         public string ChallanNo { get; set; }
+        
         public DateTime? ChallanDate {
             get
             {
@@ -115,5 +116,10 @@ namespace Konto.Data.Models.Transaction.Dtos
         public int? OrdDate { get; set; }
         public int? ChDate { get; set; }
         public decimal SaleRate { get; set; }
+
+        public string HsnCode { get; set; }
+
+        public string   Barcode { get; set; }
+        public decimal RatePerQty { get; set; }
     }
 }

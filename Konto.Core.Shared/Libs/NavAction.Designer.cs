@@ -47,6 +47,7 @@
             // 
             // newSimpleButton
             // 
+            this.newSimpleButton.AllowFocus = false;
             this.newSimpleButton.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.newSimpleButton.Appearance.Options.UseFont = true;
             this.newSimpleButton.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("newSimpleButton.ImageOptions.SvgImage")));
@@ -57,6 +58,7 @@
             this.newSimpleButton.Size = new System.Drawing.Size(62, 29);
             this.newSimpleButton.StyleController = this.styleController1;
             this.newSimpleButton.TabIndex = 0;
+            this.newSimpleButton.TabStop = false;
             this.newSimpleButton.Text = "New";
             this.newSimpleButton.ToolTip = "Create New Record (Ins)";
             this.newSimpleButton.Click += new System.EventHandler(this.newSimpleButton_Click);
@@ -68,6 +70,7 @@
             // 
             // filterSimpleButton
             // 
+            this.filterSimpleButton.AllowFocus = false;
             this.filterSimpleButton.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.filterSimpleButton.Appearance.Options.UseFont = true;
             this.filterSimpleButton.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("filterSimpleButton.ImageOptions.SvgImage")));
@@ -78,12 +81,14 @@
             this.filterSimpleButton.Size = new System.Drawing.Size(62, 29);
             this.filterSimpleButton.StyleController = this.styleController1;
             this.filterSimpleButton.TabIndex = 1;
+            this.filterSimpleButton.TabStop = false;
             this.filterSimpleButton.Text = "Filter";
             this.filterSimpleButton.ToolTip = "Filter F5";
             this.filterSimpleButton.Click += new System.EventHandler(this.filterSimpleButton_Click);
             // 
             // printSimpleButton
             // 
+            this.printSimpleButton.AllowFocus = false;
             this.printSimpleButton.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.printSimpleButton.Appearance.Options.UseFont = true;
             this.printSimpleButton.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("printSimpleButton.ImageOptions.SvgImage")));
@@ -94,12 +99,14 @@
             this.printSimpleButton.Size = new System.Drawing.Size(62, 29);
             this.printSimpleButton.StyleController = this.styleController1;
             this.printSimpleButton.TabIndex = 2;
+            this.printSimpleButton.TabStop = false;
             this.printSimpleButton.Text = "Print";
             this.printSimpleButton.ToolTip = "Ctrl+P";
             this.printSimpleButton.Click += new System.EventHandler(this.simpleButton1_Click);
             // 
             // firstSimpleButton
             // 
+            this.firstSimpleButton.AllowFocus = false;
             this.firstSimpleButton.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.firstSimpleButton.Appearance.Options.UseFont = true;
             this.firstSimpleButton.Enabled = false;
@@ -111,11 +118,13 @@
             this.firstSimpleButton.Size = new System.Drawing.Size(30, 29);
             this.firstSimpleButton.StyleController = this.styleController1;
             this.firstSimpleButton.TabIndex = 3;
+            this.firstSimpleButton.TabStop = false;
             this.firstSimpleButton.ToolTip = "First Record ( Ctrl+Home)";
             this.firstSimpleButton.Click += new System.EventHandler(this.firstSimpleButton_Click);
             // 
             // prevSimpleButton
             // 
+            this.prevSimpleButton.AllowFocus = false;
             this.prevSimpleButton.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.prevSimpleButton.Appearance.Options.UseFont = true;
             this.prevSimpleButton.Enabled = false;
@@ -127,11 +136,13 @@
             this.prevSimpleButton.Size = new System.Drawing.Size(30, 29);
             this.prevSimpleButton.StyleController = this.styleController1;
             this.prevSimpleButton.TabIndex = 4;
+            this.prevSimpleButton.TabStop = false;
             this.prevSimpleButton.ToolTip = "Next Record ( Ctrl+Subsctract)";
             this.prevSimpleButton.Click += new System.EventHandler(this.prevSimpleButton_Click);
             // 
             // lastSimpleButton
             // 
+            this.lastSimpleButton.AllowFocus = false;
             this.lastSimpleButton.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lastSimpleButton.Appearance.Options.UseFont = true;
             this.lastSimpleButton.Enabled = false;
@@ -143,11 +154,13 @@
             this.lastSimpleButton.Size = new System.Drawing.Size(30, 29);
             this.lastSimpleButton.StyleController = this.styleController1;
             this.lastSimpleButton.TabIndex = 7;
+            this.lastSimpleButton.TabStop = false;
             this.lastSimpleButton.ToolTip = "Last Record ( Ctrl + End)";
             this.lastSimpleButton.Click += new System.EventHandler(this.lastSimpleButton_Click);
             // 
             // nextSimpleButton
             // 
+            this.nextSimpleButton.AllowFocus = false;
             this.nextSimpleButton.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nextSimpleButton.Appearance.Options.UseFont = true;
             this.nextSimpleButton.Enabled = false;
@@ -159,11 +172,13 @@
             this.nextSimpleButton.Size = new System.Drawing.Size(30, 29);
             this.nextSimpleButton.StyleController = this.styleController1;
             this.nextSimpleButton.TabIndex = 6;
+            this.nextSimpleButton.TabStop = false;
             this.nextSimpleButton.ToolTip = "Next Record (Ctrl + Add)";
             this.nextSimpleButton.Click += new System.EventHandler(this.nextSimpleButton_Click);
             // 
             // listSimpleButton
             // 
+            this.listSimpleButton.AllowFocus = false;
             this.listSimpleButton.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listSimpleButton.Appearance.Options.UseFont = true;
             this.listSimpleButton.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("listSimpleButton.ImageOptions.SvgImage")));
@@ -174,6 +189,7 @@
             this.listSimpleButton.Size = new System.Drawing.Size(31, 29);
             this.listSimpleButton.StyleController = this.styleController1;
             this.listSimpleButton.TabIndex = 8;
+            this.listSimpleButton.TabStop = false;
             this.listSimpleButton.ToolTip = "List View ( F12)";
             this.listSimpleButton.Click += new System.EventHandler(this.listSimpleButton_Click);
             // 
@@ -200,6 +216,7 @@
             // 
             // settingsSimpleButton
             // 
+            this.settingsSimpleButton.AllowFocus = false;
             this.settingsSimpleButton.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.settingsSimpleButton.Appearance.Options.UseFont = true;
             this.settingsSimpleButton.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("settingsSimpleButton.ImageOptions.SvgImage")));
@@ -210,6 +227,7 @@
             this.settingsSimpleButton.Size = new System.Drawing.Size(31, 29);
             this.settingsSimpleButton.StyleController = this.styleController1;
             this.settingsSimpleButton.TabIndex = 9;
+            this.settingsSimpleButton.TabStop = false;
             this.settingsSimpleButton.ToolTip = "Settings";
             this.settingsSimpleButton.Click += new System.EventHandler(this.settingsSimpleButton_Click);
             // 

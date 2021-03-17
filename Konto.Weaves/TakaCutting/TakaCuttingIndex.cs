@@ -62,6 +62,8 @@ namespace Konto.Weaves.TakaCutting
             colorRepositoryItemButtonEdit.ButtonClick += ColorRepositoryItemButtonEdit_ButtonClick;
 
             SelectSimpleButton.Click += SelectSimpleButton_Click;
+
+            this.FirstActiveControl = voucherLookup;
         }
 
 

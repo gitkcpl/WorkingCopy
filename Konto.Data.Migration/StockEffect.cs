@@ -209,10 +209,20 @@ namespace Konto.Data
 
             if (IsIssue)
             {
-                stock.IssueNos = item.Pcs;
+                
                 stock.IssueQty = item.Qty;
                 stock.Qty = (-1 * item.Qty);
-                stock.Pcs = -1 * item.Pcs;
+
+                if (tableName == "Cutting")
+                {
+                    stock.Pcs = -1;
+                    stock.IssueNos = 1;
+                }
+                else
+                {
+                    stock.IssueNos = 1;
+                    stock.Pcs = -1 * item.Pcs;
+                }
             }
             else
             {

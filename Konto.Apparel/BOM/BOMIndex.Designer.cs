@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BOMIndex));
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
             this.targetQtyButtonEdit = new DevExpress.XtraEditors.ButtonEdit();
@@ -36,7 +35,7 @@
             this.voucherLookup1 = new Konto.Shared.Masters.Voucher.VoucherLookup();
             this.voucherDateEdit = new DevExpress.XtraEditors.DateEdit();
             this.gridControl2 = new DevExpress.XtraGrid.GridControl();
-            this.portalOrderDtoBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.portalOrderDtoBindingSource = new System.Windows.Forms.BindingSource();
             this.gridView2 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colOrder = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colRefNo = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -62,7 +61,7 @@
             this.repositoryItemButtonEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
             this.QualityLookup = new Konto.Shared.Masters.Item.ItemLookup();
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
-            this.PformuladtobindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.PformuladtobindingSource = new System.Windows.Forms.BindingSource();
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colStock1 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.coldesctype = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -91,8 +90,8 @@
             this.layoutControlItem11 = new DevExpress.XtraLayout.LayoutControlItem();
             this.Remark = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.barcodeTransModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.SITbindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.barcodeTransModelBindingSource = new System.Windows.Forms.BindingSource();
+            this.SITbindingSource = new System.Windows.Forms.BindingSource();
             this.barcodeSimpleButton = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.tabControlAdv1)).BeginInit();
             this.tabControlAdv1.SuspendLayout();
@@ -897,7 +896,7 @@
             // 
             this.barcodeSimpleButton.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.barcodeSimpleButton.Appearance.Options.UseFont = true;
-            this.barcodeSimpleButton.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("simpleButton1.ImageOptions.SvgImage")));
+            this.barcodeSimpleButton.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("barcodeSimpleButton.ImageOptions.SvgImage")));
             this.barcodeSimpleButton.Location = new System.Drawing.Point(520, 6);
             this.barcodeSimpleButton.Name = "barcodeSimpleButton";
             this.barcodeSimpleButton.Size = new System.Drawing.Size(155, 23);

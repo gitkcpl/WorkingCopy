@@ -28,6 +28,8 @@ namespace Konto.Reporting.Para.TDSPara
             this.cancelSimpleButton.Click += CancelSimpleButton_Click;
             this.FormClosed += TDSMainView_FormClosed;
             this.tdsRegisterSimpleButton.Click += TdsRegisterSimpleButton_Click;
+
+            this.FirstActiveControl = fDateEdit;
         }
 
         private void TdsRegisterSimpleButton_Click(object sender, EventArgs e)

@@ -29,6 +29,8 @@ namespace Konto.Shared.Masters.ProductType
             okSimpleButton.Click += OkSimpleButton_Click;
             tabControlAdv1.SelectedIndexChanged += TabControlAdv1_SelectedIndexChanged;
             this.Load += PTypeIndex_Load;
+
+            this.FirstActiveControl = typeNameTextBox;
         }
 
         private void PTypeIndex_Load(object sender, EventArgs e)

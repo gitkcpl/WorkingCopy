@@ -388,6 +388,7 @@
             this.ProdgridView.OptionsLayout.Columns.StoreAppearance = true;
             this.ProdgridView.OptionsLayout.StoreAllOptions = true;
             this.ProdgridView.OptionsLayout.StoreAppearance = true;
+            this.ProdgridView.OptionsNavigation.EnterMoveNextColumn = true;
             this.ProdgridView.OptionsNavigation.UseTabKey = false;
             this.ProdgridView.OptionsView.ColumnAutoWidth = false;
             this.ProdgridView.OptionsView.NewItemRowPosition = DevExpress.XtraGrid.Views.Grid.NewItemRowPosition.Bottom;
@@ -577,6 +578,7 @@
             this.WeftgridView.OptionsLayout.Columns.StoreAppearance = true;
             this.WeftgridView.OptionsLayout.StoreAllOptions = true;
             this.WeftgridView.OptionsLayout.StoreAppearance = true;
+            this.WeftgridView.OptionsNavigation.EnterMoveNextColumn = true;
             this.WeftgridView.OptionsNavigation.UseTabKey = false;
             this.WeftgridView.OptionsView.ColumnAutoWidth = false;
             this.WeftgridView.OptionsView.NewItemRowPosition = DevExpress.XtraGrid.Views.Grid.NewItemRowPosition.Bottom;
@@ -727,7 +729,9 @@
             this.MachineNolookUpEdit.Properties.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
             new DevExpress.XtraEditors.Controls.LookUpColumnInfo("DisplayText", "Machine")});
             this.MachineNolookUpEdit.Properties.DisplayMember = "DisplayText";
+            this.MachineNolookUpEdit.Properties.ImmediatePopup = true;
             this.MachineNolookUpEdit.Properties.NullText = "";
+            this.MachineNolookUpEdit.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
             this.MachineNolookUpEdit.Properties.ValueMember = "Id";
             this.MachineNolookUpEdit.Size = new System.Drawing.Size(227, 24);
             this.MachineNolookUpEdit.StyleController = this.layoutControl1;

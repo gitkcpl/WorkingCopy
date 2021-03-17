@@ -88,6 +88,8 @@ namespace Konto.Shared.Trans.StoreIssue
             RefNobuttonEdit.ButtonClick += RefNobuttonEdit_ButtonClick;
             RefNobuttonEdit.KeyDown += RefNobuttonEdit_KeyDown;
             voucherLookup1.SelectedValueChanged += VoucherLookup1_SelectedValueChanged;
+
+            this.FirstActiveControl = voucherLookup1;
         }
 
         private void VoucherLookup1_SelectedValueChanged(object sender, EventArgs e)
@@ -582,12 +584,20 @@ namespace Konto.Shared.Trans.StoreIssue
                                     RateOn = p.RateOn
                                 }).ToList();
 
-
+                var _macList = (from p in db.MachineMasters
+                                where p.IsActive && !p.IsDeleted
+                                orderby p.MachineName
+                                select new BaseLookupDto()
+                                {
+                                    DisplayText = p.MachineName,
+                                    Id = p.Id
+                                }).ToList();
 
                 uomRepositoryItemLookUpEdit.DataSource = _uomlist;
 
                 divLookUpEdit.Properties.DataSource = _divLists;
                 storeLookUpEdit.Properties.DataSource = _storeLists;
+                MachineNolookUpEdit.Properties.DataSource = _macList;
             }
         }
         private GrnTransDto PreOpenLookup()
@@ -930,10 +940,9 @@ namespace Konto.Shared.Trans.StoreIssue
             voucherNoTextEdit.Text = string.Empty;
             RefNobuttonEdit.Text = string.Empty;
 
-            transportLookup.SetEmpty();
+           
             empLookup1.SetEmpty();
-            DocNotextEdit.Text = string.Empty;
-            DocDateEdit.EditValue = DateTime.Now;
+          
             remarkTextEdit.Text = string.Empty;
             DelTrans = new List<GrnTransDto>();
             DelProd = new List<GrnProdDto>();
@@ -1126,9 +1135,7 @@ namespace Konto.Shared.Trans.StoreIssue
                         model.StoreId = Convert.ToInt32(storeLookUpEdit.EditValue);
 
                         model.Remark = remarkTextEdit.Text.Trim();
-                        model.TransId = Convert.ToInt32(transportLookup.SelectedValue);
-                        model.DocNo = DocNotextEdit.Text.Trim();
-                        model.DocDate = Convert.ToDateTime(DocDateEdit.EditValue);
+                    
                         model.TypeId = (int)TypeEnum.StoreIssue;
                         model.CompId = KontoGlobals.CompanyId;
                         model.YearId = KontoGlobals.YearId;
@@ -1138,6 +1145,17 @@ namespace Konto.Shared.Trans.StoreIssue
                         model.TotalQty = _translist.Sum(x => x.Qty);
                         model.TotalPcs = _translist.Sum(x => x.Pcs);
                         model.TotalAmount = _translist.Sum(x => x.Total);
+
+
+                        if (!string.IsNullOrEmpty(MachineNolookUpEdit.Text))
+                        {
+                            model.TransId = Convert.ToInt32(MachineNolookUpEdit.EditValue); // machine No in transport id of challan
+                        }
+                        else
+                        {
+                            model.TransId = null;
+                        }
+
                         if (model.Id == 0)
                         {
                             model.VoucherNo = DbUtils.NextSerialNo(model.VoucherId, db);
@@ -1338,6 +1356,8 @@ namespace Konto.Shared.Trans.StoreIssue
 
             voucherNoTextEdit.Text = model.VoucherNo;
 
+            MachineNolookUpEdit.EditValue = model.TransId;
+
             if (Convert.ToInt32(model.EmpId) != 0)
             {
                 empLookup1.SelectedValue = model.EmpId;
@@ -1345,13 +1365,7 @@ namespace Konto.Shared.Trans.StoreIssue
             }
             storeLookUpEdit.EditValue = model.StoreId;
 
-            if (Convert.ToInt32(model.TransId) != 0)
-            {
-                transportLookup.SelectedValue = model.TransId;
-                transportLookup.SetAcc((int)model.TransId);
-            }
-            DocNotextEdit.Text = model.DocNo;
-            DocDateEdit.EditValue = model.DocDate;
+          
             remarkTextEdit.Text = model.Remark;
 
             createdLabelControl.Text = "Created By: " + model.CreateUser + " [ " + model.CreateDate + " ]";
@@ -1482,5 +1496,10 @@ namespace Konto.Shared.Trans.StoreIssue
             this.Text = "Store Issue [View/Modify]";
         }
         #endregion
+
+        private void gridControl1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

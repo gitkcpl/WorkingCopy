@@ -51,6 +51,8 @@ namespace Konto.Reporting.Para.Outs
 
             tabControlAdv1.SelectedIndexChanged += TabControlAdv1_SelectedIndexChanged;
 
+            this.FirstActiveControl = fDateEdit;
+
         }
 
         private void TabControlAdv1_SelectedIndexChanged(object sender, EventArgs e)
@@ -189,9 +191,9 @@ namespace Konto.Reporting.Para.Outs
 
                     var Tran = _db.Database.SqlQuery<OutsAgeingFifoDto>(
                         "dbo.Outs_Ageing_Fifo @CompanyId={0},@nature={1},@fromdate={2},@todate={3},@payfromdate={4},@paytodate={5}," +
-                        "@range1={6},@range2={7},@range3={8},@range4={9}",
+                        "@range1={6},@range2={7},@range3={8},@range4={9},@range5={10}",
                         Convert.ToInt32(KontoGlobals.CompanyId), group, fdate, tdate, pfdate, ptdate,
-                        frm.Range1, frm.Range2, frm.Range3, frm.Range4).ToList();
+                        frm.Range1, frm.Range2, frm.Range3, frm.Range4,frm.Range5).ToList();
                     if (Tran.Count == 0)
                     {
                         MessageBox.Show("Record Not Found");

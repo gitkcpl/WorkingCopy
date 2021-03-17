@@ -84,6 +84,8 @@ namespace Konto.Weaves.TakaProduction
 
             FoldDateEdit.KeyDown += FoldDateEdit_KeyDown;
             FoldDateEdit.EditValueChanged += FoldDateEdit_EditValueChanged;
+
+            this.FirstActiveControl = voucherLookup1;
         }
 
         private void FoldDateEdit_EditValueChanged(object sender, EventArgs e)

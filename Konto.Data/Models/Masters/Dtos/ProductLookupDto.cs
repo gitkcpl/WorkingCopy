@@ -18,6 +18,7 @@ namespace Konto.Data.Models.Masters.Dtos
         public string TaxName { get; set; }
         public string ProductType { get; set; }
         public string GroupName { get; set; }
+
         public string SubName { get; set; }
         public string CatName { get; set; }
         public string Vendor { get; set; }
@@ -41,6 +42,10 @@ namespace Konto.Data.Models.Masters.Dtos
         public decimal Cut { get; set; }
         public int TaxId { get; set; }
         public bool SaleRateTaxInc { get; set; }
-        public string   SizeName { get; set; }
+        public decimal PurDisc { get; set; }
+        public decimal SaleDisc { get; set; }
+       public  string SizeName { get; set; }
+
+        public decimal RatePerQty { get; set; }
     }
 }

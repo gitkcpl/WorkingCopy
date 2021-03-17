@@ -34,6 +34,7 @@
             this.tabControlAdv1 = new Syncfusion.Windows.Forms.Tools.TabControlAdv();
             this.tabPageAdv1 = new Syncfusion.Windows.Forms.Tools.TabPageAdv();
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
+            this.excelSimpleButton = new DevExpress.XtraEditors.SimpleButton();
             this.okSimpleButton = new DevExpress.XtraEditors.SimpleButton();
             this.cancelSimpleButton = new DevExpress.XtraEditors.SimpleButton();
             this.checkEdit1 = new DevExpress.XtraEditors.CheckEdit();
@@ -106,9 +107,8 @@
             this.layoutControlItem9 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem10 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.tabPageAdv2 = new Syncfusion.Windows.Forms.Tools.TabPageAdv();
-            this.excelSimpleButton = new DevExpress.XtraEditors.SimpleButton();
             this.layoutControlItem11 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.tabPageAdv2 = new Syncfusion.Windows.Forms.Tools.TabPageAdv();
             ((System.ComponentModel.ISupportInitialize)(this.stockDtoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabControlAdv1)).BeginInit();
             this.tabControlAdv1.SuspendLayout();
@@ -192,6 +192,19 @@
             this.layoutControl1.Size = new System.Drawing.Size(953, 422);
             this.layoutControl1.TabIndex = 1;
             this.layoutControl1.Text = "layoutControl1";
+            // 
+            // excelSimpleButton
+            // 
+            this.excelSimpleButton.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.excelSimpleButton.Appearance.Options.UseFont = true;
+            this.excelSimpleButton.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("excelSimpleButton.ImageOptions.SvgImage")));
+            this.excelSimpleButton.Location = new System.Drawing.Point(862, 30);
+            this.excelSimpleButton.Name = "excelSimpleButton";
+            this.excelSimpleButton.Size = new System.Drawing.Size(85, 36);
+            this.excelSimpleButton.StyleController = this.layoutControl1;
+            this.excelSimpleButton.TabIndex = 10;
+            this.excelSimpleButton.Text = "Excel";
+            this.excelSimpleButton.Click += new System.EventHandler(this.excelSimpleButton_Click);
             // 
             // okSimpleButton
             // 
@@ -698,6 +711,7 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.dateEdit2.Properties.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.dateEdit2.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.DateTimeAdvancingCaret;
             this.dateEdit2.Size = new System.Drawing.Size(127, 24);
             this.dateEdit2.StyleController = this.layoutControl1;
             this.dateEdit2.TabIndex = 3;
@@ -714,6 +728,7 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.dateEdit1.Properties.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.dateEdit1.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.DateTimeAdvancingCaret;
             this.dateEdit1.Size = new System.Drawing.Size(79, 24);
             this.dateEdit1.StyleController = this.layoutControl1;
             this.dateEdit1.TabIndex = 2;
@@ -893,6 +908,15 @@
             this.layoutControlItem6.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem6.TextVisible = false;
             // 
+            // layoutControlItem11
+            // 
+            this.layoutControlItem11.Control = this.excelSimpleButton;
+            this.layoutControlItem11.Location = new System.Drawing.Point(856, 24);
+            this.layoutControlItem11.Name = "layoutControlItem11";
+            this.layoutControlItem11.Size = new System.Drawing.Size(89, 40);
+            this.layoutControlItem11.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem11.TextVisible = false;
+            // 
             // tabPageAdv2
             // 
             this.tabPageAdv2.Image = null;
@@ -904,28 +928,6 @@
             this.tabPageAdv2.TabIndex = 2;
             this.tabPageAdv2.Text = "Report/Print View";
             this.tabPageAdv2.ThemesEnabled = false;
-            // 
-            // excelSimpleButton
-            // 
-            this.excelSimpleButton.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.excelSimpleButton.Appearance.Options.UseFont = true;
-            this.excelSimpleButton.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("simpleButton1.ImageOptions.SvgImage")));
-            this.excelSimpleButton.Location = new System.Drawing.Point(862, 30);
-            this.excelSimpleButton.Name = "excelSimpleButton";
-            this.excelSimpleButton.Size = new System.Drawing.Size(85, 36);
-            this.excelSimpleButton.StyleController = this.layoutControl1;
-            this.excelSimpleButton.TabIndex = 10;
-            this.excelSimpleButton.Text = "Excel";
-            this.excelSimpleButton.Click += new System.EventHandler(this.excelSimpleButton_Click);
-            // 
-            // layoutControlItem11
-            // 
-            this.layoutControlItem11.Control = this.excelSimpleButton;
-            this.layoutControlItem11.Location = new System.Drawing.Point(856, 24);
-            this.layoutControlItem11.Name = "layoutControlItem11";
-            this.layoutControlItem11.Size = new System.Drawing.Size(89, 40);
-            this.layoutControlItem11.TextSize = new System.Drawing.Size(0, 0);
-            this.layoutControlItem11.TextVisible = false;
             // 
             // StockMainView
             // 

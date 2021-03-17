@@ -25,6 +25,8 @@ namespace Konto.Shared.Masters.Category
             this.Load += CategoryIndex_Load;
             okSimpleButton.Click += OkSimpleButton_Click;
             tabControlAdv1.SelectedIndexChanged += TabControlAdv1_SelectedIndexChanged;
+
+            this.FirstActiveControl = catNameTextBox;
         }
 
         private void TabControlAdv1_SelectedIndexChanged(object sender, EventArgs e)

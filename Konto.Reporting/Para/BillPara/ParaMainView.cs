@@ -55,7 +55,7 @@ namespace Konto.Reporting.Para.BillPara
             };
             typeLookUpEdit.Properties.DataSource = cbp;
 
-            
+            this.FirstActiveControl = fDateEdit;
 
             typeLookUpEdit.EditValueChanged += TypeLookUpEdit_EditValueChanged;
         }
@@ -77,6 +77,10 @@ namespace Konto.Reporting.Para.BillPara
             }
             groupOnLookUpEdit.Properties.DataSource = cbg;
             groupOnLookUpEdit.EditValue = "None";
+
+            groupOn2LookUpEdit.Properties.DataSource = cbg;
+            groupOn2LookUpEdit.EditValue = "None";
+
         }
 
         private void TabbedControlGroup2_SelectedPageChanged(object sender, DevExpress.XtraLayout.LayoutTabPageChangedEventArgs e)
@@ -292,6 +296,7 @@ namespace Konto.Reporting.Para.BillPara
                     _ReportId = reportid + 1;
 
                     ReportParaModel ModelReport;
+                   
 
                     if (ledgerGridView.SelectedRowsCount > 0)
                     {
@@ -400,6 +405,15 @@ namespace Konto.Reporting.Para.BillPara
                     }
                 }
 
+                if (!string.IsNullOrEmpty(groupOn2LookUpEdit.Text))
+                {
+
+                    if (doc.Parameters["gp2"] != null)
+                    {
+                        doc.Parameters["gp2"].CurrentValue = groupOn2LookUpEdit.EditValue;
+                    }
+                }
+
                 if (rep.VoucherTypeId == (int)VoucherTypeEnum.GrayPurchaseInvoice && dr.Contains("Details.rdlx") )
                 {
                     var vis = new Visibility();
@@ -420,10 +434,11 @@ namespace Konto.Reporting.Para.BillPara
                 var pg1 = new TabPageAdv();
                 pg1.Text = "Register Print";
                 _tab.TabPages.Add(pg1);
-                _tab.SelectedTab = pg1;
+              
                 frm.TopLevel = false;
                 frm.Parent = pg1;
-                frm.Location = new Point(pg1.Location.X + pg1.Width / 2 - frm.Width / 2, pg1.Location.Y + pg1.Height / 2 - frm.Height / 2);
+                _tab.SelectedTab = pg1;
+                //frm.Location = new Point(pg1.Location.X + pg1.Width / 2 - frm.Width / 2, pg1.Location.Y + pg1.Height / 2 - frm.Height / 2);
                 frm.Show();// = true;
 
             }

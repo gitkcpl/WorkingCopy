@@ -21,6 +21,8 @@ namespace Konto.Trading.LotAssign
             this.gridView1.RowUpdated += GridView1_RowUpdated;
             this.okSimpleButton.Click += OkSimpleButton_Click;
             this.FormClosed += LotAssignView_FormClosed;
+
+            this.FirstActiveControl = gridControl1;
         }
 
         private void LotAssignView_FormClosed(object sender, System.Windows.Forms.FormClosedEventArgs e)

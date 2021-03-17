@@ -36,7 +36,9 @@ namespace Konto.Shared.Masters.Acc
             tcsComboBoxEx.SelectedIndexChanged += TcsComboBoxEx_SelectedIndexChanged;
 
             this.MainLayoutFile = KontoFileLayout.AccountMaster_Layout;
-            
+
+            this.FirstActiveControl = ledgerGroupLookup1;
+
             FillAllList();
         }
         private void FillAllList()
@@ -139,6 +141,7 @@ namespace Konto.Shared.Masters.Acc
             {
                 var _list = tabPageAdv2.Controls[0] as AccListView;
                 _list.ActiveControl = _list.KontoGrid;
+                this.Text = "Account Master [View]";
                 return;
             }
             if (tabControlAdv1.SelectedIndex == 1)
@@ -146,7 +149,7 @@ namespace Konto.Shared.Masters.Acc
                 var _ListView = new AccListView();
                 _ListView.Dock = DockStyle.Fill;
                 tabPageAdv2.Controls.Add(_ListView);
-
+               this.Text= "Account Master [View]";
             }
         }
 
@@ -240,8 +243,8 @@ namespace Konto.Shared.Masters.Acc
 
             using (var db = new KontoContext())
             {
-                var find = db.Emps.FirstOrDefault(
-                   x => x.EmpName == nameTextBox.Text.Trim() && x.Id != this.PrimaryKey && !x.IsDeleted);
+                var find = db.Accs.FirstOrDefault(
+                   x => x.AccName == nameTextBox.Text.Trim() && x.Id != this.PrimaryKey && !x.IsDeleted);
 
                 if (find != null)
                 {
@@ -289,6 +292,8 @@ namespace Konto.Shared.Masters.Acc
             {
                 this.ledgerGroupLookup1.SetGroup(this.GroupId);
                 this.ledgerGroupLookup1.SelectedValue = this.GroupId;
+                
+                
             }
 
         }
@@ -692,8 +697,8 @@ namespace Konto.Shared.Masters.Acc
                 taxTypeComboBox.DataSource = cbp1;
                 ioLayoutControlItem.ContentVisible = true;
             }
-            else if (ledgerGroupLookup1.GroupDto.Nature == "LIABILITIES" ||
-               ledgerGroupLookup1.GroupDto.Nature == "ASSETS")
+            else if (ledgerGroupLookup1.GroupDto!=null && (ledgerGroupLookup1.GroupDto.Nature == "LIABILITIES" ||
+               ledgerGroupLookup1.GroupDto.Nature == "ASSETS"))
             {
                 cbp1 = new List<ComboBoxPairs>
                 {

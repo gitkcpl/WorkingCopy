@@ -76,6 +76,8 @@ namespace Konto.Trading.OutJobChallan
 
             this.Shown += MrvIndex_Shown;
             voucherLookup1.SelectedValueChanged += VoucherLookup1_SelectedValueChanged;
+
+            this.FirstActiveControl = voucherLookup1;
         }
 
         

@@ -33,6 +33,8 @@ namespace Konto.Reporting.Para.Stock
             repGridView1.FocusedRowChanged += RepGridView1_FocusedRowChanged;
             this.FormClosed += StockParaMainView_FormClosed;
             this.customSimpleButton.Click += CustomSimpleButton_Click;
+
+            this.FirstActiveControl = fDateEdit;
         }
         private void CustomSimpleButton_Click(object sender, EventArgs e)
         {
@@ -202,10 +204,11 @@ namespace Konto.Reporting.Para.Stock
                 var pg1 = new TabPageAdv();
                 pg1.Text = "Stock Print";
                 _tab.TabPages.Add(pg1);
-                _tab.SelectedTab = pg1;
+               
                 frm.TopLevel = false;
                 frm.Parent = pg1;
-                frm.Location = new Point(pg1.Location.X + pg1.Width / 2 - frm.Width / 2, pg1.Location.Y + pg1.Height / 2 - frm.Height / 2);
+                _tab.SelectedTab = pg1;
+                //frm.Location = new Point(pg1.Location.X + pg1.Width / 2 - frm.Width / 2, pg1.Location.Y + pg1.Height / 2 - frm.Height / 2);
                 frm.Show();// = true;
             }
             catch (Exception ex)

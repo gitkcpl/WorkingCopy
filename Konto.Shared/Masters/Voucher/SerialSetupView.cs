@@ -2,6 +2,7 @@
 using Konto.App.Shared;
 using Konto.Core.Shared;
 using Konto.Data;
+using Konto.Data.Models.Admin;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -32,6 +33,18 @@ namespace Konto.Shared.Masters.Voucher
                 if (seri != null)
                 {
                     seri.Last_Serial = spinEdit1.Value.ToString("F0");
+                    db.SaveChanges();
+                    MessageBox.Show("Serial Updated..");
+                }
+                else
+                {
+                    var sr = new LastSerialModel();
+                    sr.BranchId = KontoGlobals.BranchId;
+                    sr.CompId = KontoGlobals.CompanyId;
+                    sr.YearId = KontoGlobals.YearId;
+                    sr.VoucherId = _Id;
+                    sr.Last_Serial= spinEdit1.Value.ToString("F0");
+                    db.LastSerials.Add(sr);
                     db.SaveChanges();
                     MessageBox.Show("Serial Updated..");
                 }

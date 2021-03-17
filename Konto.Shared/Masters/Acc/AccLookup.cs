@@ -17,7 +17,7 @@ namespace Konto.Shared.Masters.Acc
         public string Nature { get; set; }
         public string TaxType { get; set; }
         public int GroupId { get; set; }
-        public int NewGroupId { get; set; }
+        public LedgerGroupEnum NewGroupId { get; set; }
 
         public event EventHandler ShownPopup;
         public AccLookupDto LookupDto { get; set; }
@@ -76,8 +76,8 @@ namespace Konto.Shared.Masters.Acc
                 Nature = this.Nature,
                 TaxType = this.TaxType,
                 GroupId = this.GroupId,
-                NewGroupId = this.NewGroupId,
-                RefId = this.NewGroupId,
+                NewGroupId = (int) this.NewGroupId,
+                RefId = (int) this.NewGroupId,
                 Tag = MenuId.Account
             };
             frm.ShowDialog(this.ParentForm);

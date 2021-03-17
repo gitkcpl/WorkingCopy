@@ -31,6 +31,8 @@ namespace Konto.Shared.Trans.Template
             tabControlAdv1.SelectedIndexChanged += TabControlAdv1_SelectedIndexChanged;
             this.Load += TemplateIndex_Load;
             FillLookup();
+
+            this.FirstActiveControl = tempName;
         }
 
         private void TemplateIndex_Load(object sender, EventArgs e)

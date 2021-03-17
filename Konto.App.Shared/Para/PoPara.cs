@@ -19,6 +19,14 @@ namespace Konto.App.Shared.Para
         public static int Min_Odr_Qty = 5;
         public static bool Currency_Required = false;
         public static bool Cess_Required = false;
+
+        public static bool Agent_Reguired = false;
+        public static bool Transport_Required = false;
+        public static bool Division_Required = false;
+        public static bool PartyGroup_Required = false;
+        public static bool Order_AssignBy_Required = false;
+        public static bool Pay_Terms_Requied = false;
+
     }
 
     public class IndentPara

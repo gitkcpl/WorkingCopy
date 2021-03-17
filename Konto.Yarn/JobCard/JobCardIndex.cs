@@ -336,19 +336,21 @@ namespace Konto.Yarn.JobCard
             //Opem Popup
             KontoContext _db = new KontoContext();
             List<PendingOrderDto> list;
-            var spcol = _db.SpCollections.FirstOrDefault(k => k.Id == (int)SpCollectionEnum.PendingOrderonYarnJobCard);
-            if (spcol == null)
-            {
+            //var spcol = _db.SpCollections.FirstOrDefault(k => k.Id == (int)SpCollectionEnum.PendingOrderonYarnJobCard);
+            //if (spcol == null)
+            //{
                 list = (_db.Database.SqlQuery<PendingOrderDto>(
                "dbo.PendingOrderonYarnJobCard @CompanyId={0},@VoucherTypeID={1}",
                KontoGlobals.CompanyId, (int)VoucherTypeEnum.SalesOrder).ToList());
-            }
-            else
-            {
-                list = (_db.Database.SqlQuery<PendingOrderDto>(
-                 spcol.Name + " @CompanyId={0},@VoucherTypeID={1}",
-                 KontoGlobals.CompanyId, (int)VoucherTypeEnum.SalesOrder).ToList());
-            }
+            //}
+            //else
+            //{
+            //    list = (_db.Database.SqlQuery<PendingOrderDto>(
+            //     spcol.Name + " @CompanyId={0},@VoucherTypeID={1}",
+            //     KontoGlobals.CompanyId, (int)VoucherTypeEnum.SalesOrder).ToList());
+            //}
+
+
             if (list.Count == 0) return;
 
             var stf = new PendingOrderView();
@@ -863,7 +865,7 @@ namespace Konto.Yarn.JobCard
                             _find.MachineId = Convert.ToInt32(MachineNolookUpEdit.EditValue);
 
                         if (ChemicallookUpEdit.EditValue != null)
-                            _find.RCPUIId = Convert.ToInt32(ChemicallookUpEdit.EditValue);
+                            _find.RPUIId = Convert.ToInt32(ChemicallookUpEdit.EditValue);
 
                         if (OrderNobuttonEdit.EditValue != null)
                             _find.OrderId = Convert.ToInt32(OrderNobuttonEdit.EditValue);
@@ -1120,8 +1122,8 @@ namespace Konto.Yarn.JobCard
             DyeingTyperadioGroup.EditValue = pdata.DyeingType;
             MachineNolookUpEdit.EditValue = pdata.MachineId;
 
-            if (pdata.RCPUIId != null)
-                ChemicallookUpEdit.EditValue = pdata.RCPUIId;
+            if (pdata.RPUIId != null)
+                ChemicallookUpEdit.EditValue = pdata.RPUIId;
 
             OrderNobuttonEdit.EditValue = pdata.OrderId;
             if (pdata.OrderId > 0)
@@ -1156,7 +1158,7 @@ namespace Konto.Yarn.JobCard
             LotNoLookUpEdit.EditValue = pdata.LotNo;
             BatchNoLookUpEdit.EditValue = pdata.BatchId;
             gradeLookup1.SelectedValue = pdata.GradeId;
-            gradeLookup1.SetGroup();
+            gradeLookup1.SetValue();
 
             if (pdata.NoOfCones > 0)
                 NoOfConesspinEdit.Value = (int)pdata.NoOfCones;

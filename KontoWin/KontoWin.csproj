@@ -302,6 +302,10 @@
       <Project>{462E3508-500D-4F85-8E0D-88B132B62D5C}</Project>
       <Name>Konto.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Konto.Pos\Konto.Pos.csproj">
+      <Project>{8d835986-c349-4241-9c50-786f3eba7da3}</Project>
+      <Name>Konto.Pos</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Konto.Reporting\Konto.Reporting.csproj">
       <Project>{b6030d3d-f21b-4e5e-ba2a-8d04b6b3a2d4}</Project>
       <Name>Konto.Reporting</Name>

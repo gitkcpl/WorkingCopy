@@ -44,6 +44,8 @@ namespace Konto.Reporting.Para.Gstr2
             fDateEdit.EditValue = KontoGlobals.DFromDate;
             tDateEdit.EditValue = KontoGlobals.DToDate;
             viewLookUpEdit.EditValue = "PINVOICE";
+
+            this.FirstActiveControl = fDateEdit;
         }
 
         private void ReconcileSimpleButton_Click(object sender, EventArgs e)

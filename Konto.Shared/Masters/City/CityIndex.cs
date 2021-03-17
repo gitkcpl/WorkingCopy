@@ -26,6 +26,8 @@ namespace Konto.Shared.Masters.City
             stateIdComboBox.DisplayMember = "StateName";
             stateIdComboBox.ValueMember = "Id";
             FillState();
+
+            this.FirstActiveControl = cityNameTextBox;
         }
         private void FillState()
         {

@@ -31,7 +31,8 @@ namespace Konto.Shared.Masters.Uom
             rateOnComboBox.DisplayMember = "_Key";
             rateOnComboBox.ValueMember = "_Value";
             rateOnComboBox.DataSource = cbp;
-            
+
+            this.FirstActiveControl = unitNameTextBox;
         }
 
         private void TabControlAdv1_SelectedIndexChanged(object sender, EventArgs e)

@@ -25,6 +25,8 @@ namespace Konto.Shared.Masters.Brand
             this.Load += BrandIndex_Load;
             okSimpleButton.Click += OkSimpleButton_Click;
             tabControlAdv1.SelectedIndexChanged += TabControlAdv1_SelectedIndexChanged;
+
+            this.FirstActiveControl = brandNameTextBox;
         }
 
         private void TabControlAdv1_SelectedIndexChanged(object sender, EventArgs e)

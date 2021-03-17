@@ -1,21 +1,15 @@
 ﻿using AutoMapper;
-using C1.Win.C1Input.Enums;
 using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Controls;
 using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Grid;
 using DevExpress.XtraGrid.Views.Grid.ViewInfo;
-using GrapeCity.Viewer.Common.Model;
 using Konto.App.Shared;
-using Konto.App.Shared.Para;
-using Konto.Core.Shared;
 using Konto.Core.Shared.Frms;
 using Konto.Core.Shared.Libs;
 using Konto.Data;
-using Konto.Data.Models.Masters.Dtos;
 using Konto.Data.Models.Transaction;
 using Konto.Data.Models.Transaction.Dtos;
-using Konto.Shared.Masters.Emp;
 using Konto.Shared.Masters.Item;
 using Serilog;
 using Syncfusion.Windows.Forms;
@@ -118,7 +112,7 @@ namespace Konto.Yarn.ColorFormula
             frm.Tag = MenuId.Product_Master;
 
             frm.PTypeId = ptype;
-            frm.VoucherType = VoucherTypeEnum.ColorFormula;
+            frm.VoucherType = VoucherTypeEnum.ColorRecipe;
 
             frm.ShowDialog();
             if (frm.DialogResult == DialogResult.OK)

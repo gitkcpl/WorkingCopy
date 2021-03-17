@@ -23,6 +23,8 @@ namespace Konto.Shared.Masters.Area
             this.okSimpleButton.Click += okSimpleButton_Click;
             tabControlAdv1.TabPages[2].TabVisible = false;
             tabControlAdv1.TabPages[3].TabVisible = false;
+
+            this.FirstActiveControl = areaNameTextBox;
         }
         private bool ValidateData()
         {

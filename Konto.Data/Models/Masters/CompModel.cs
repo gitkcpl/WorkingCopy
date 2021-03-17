@@ -159,6 +159,15 @@ namespace Konto.Data.Models.Masters
         [Display(Name = "Transactional API")]
         public virtual string TransactionalAPI { get; set; }
 
+        [MaxLength(50)]
+        public virtual string   GstInUserId { get; set; }
+
+        [MaxLength(50)]
+        public virtual string EwayBillUserId { get; set; }
+
+        [MaxLength(50)]
+        public virtual string EwayBillPassword { get; set; }
+
         public virtual ICollection<BranchModel> Branches { get; set; }
 
     }

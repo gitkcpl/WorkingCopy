@@ -182,6 +182,7 @@ namespace Konto.Apparel.BOM
                     bomt.OrderDate = ord.VoucherDate;
                     bomt.OrderNo = ord.VoucherNo;
                     bomt.RefNo = ord.RefNo;
+                    bomt.AccId = ord.DelvAccId;
                     bomt.ProductId = Convert.ToInt32(ord.ProductId);
                     bomt.ProductName = ord.Product;
                     bomt.AccName = ord.Party;

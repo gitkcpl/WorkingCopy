@@ -81,6 +81,8 @@ namespace Konto.Weaves.ColorMatching
             WastageInPerspinEdit.ValueChanged += WastageInPerspinEdit_ValueChanged;
             NetWeightSpinEdit.ValueChanged += NetWeightSpinEdit_ValueChanged;
             JobChargeSpinEdit.ValueChanged += JobChargeSpinEdit_ValueChanged;
+
+            this.FirstActiveControl = voucherDateEdit;
         }
 
         #region UDF
@@ -1064,7 +1066,7 @@ namespace Konto.Weaves.ColorMatching
 
             using (var db = new KontoContext())
             {
-                var pdata = db.WeftItems.Find(_key);
+                var pdata = db.WeftItems.FirstOrDefault(x=>x.TypeId == _key);
 
                 LoadData(pdata);
                 createdLabelControl.Text = "Create By: " + pdata.CreateUser;
@@ -1415,8 +1417,8 @@ namespace Konto.Weaves.ColorMatching
 
             if (pdata.ProductId > 0)
             {
-                ProductLookup.SelectedValue = pdata.ProductId;
-                ProductLookup.SetGroup((int)pdata.ProductId);
+                ProductLookup.SelectedValue = pdata.ItemId;
+                ProductLookup.SetGroup((int)pdata.ItemId);
             }
 
             colorLookup1.SelectedValue = pdata.MColorId;

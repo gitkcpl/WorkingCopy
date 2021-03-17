@@ -20,6 +20,9 @@ namespace Konto.Shared.Masters.MachineMaster
         public MachineIndex()
         {
             InitializeComponent();
+
+            this.FirstActiveControl = NameTextBox;
+
             okSimpleButton.Click += okSimpleButton_Click;
             tabControlAdv1.TabPages[2].TabVisible = false;
             tabControlAdv1.TabPages[3].TabVisible = false;

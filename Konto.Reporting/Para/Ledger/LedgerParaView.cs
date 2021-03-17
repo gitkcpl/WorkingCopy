@@ -280,10 +280,11 @@ namespace Konto.Reporting.Para.Ledger
                     var pg1 = new TabPageAdv();
                     pg1.Text = "Ledger Print";
                     _tab.TabPages.Add(pg1);
-                    _tab.SelectedTab = pg1;
+                  
                     frm.TopLevel = false;
                     frm.Parent = pg1;
-                    frm.Location = new Point(pg1.Location.X + pg1.Width / 2 - frm.Width / 2, pg1.Location.Y + pg1.Height / 2 - frm.Height / 2);
+                    _tab.SelectedTab = pg1;
+                    //frm.Location = new Point(pg1.Location.X + pg1.Width / 2 - frm.Width / 2, pg1.Location.Y + pg1.Height / 2 - frm.Height / 2);
                     frm.Show();// = true;
                 }
             }

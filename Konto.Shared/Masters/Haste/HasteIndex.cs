@@ -22,6 +22,8 @@ namespace Konto.Shared.Masters.Haste
             this.Load += EmpIndex_Load;
             okSimpleButton.Click += OkSimpleButton_Click;
             tabControlAdv1.SelectedIndexChanged += TabControlAdv1_SelectedIndexChanged;
+
+            this.FirstActiveControl = nameTextBox;
         }
 
         private void TabControlAdv1_SelectedIndexChanged(object sender, EventArgs e)

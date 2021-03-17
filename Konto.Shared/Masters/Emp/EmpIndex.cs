@@ -32,6 +32,8 @@ namespace Konto.Shared.Masters.Emp
             tabControlAdv1.SelectedIndexChanged += TabControlAdv1_SelectedIndexChanged;
             productRepositoryItemButtonEdit.ButtonClick += ProductRepositoryItemButtonEdit_ButtonClick;
             gridControl1.ProcessGridKey += GridControl1_ProcessGridKey;
+
+            this.FirstActiveControl = nameTextBox;
         }
         private void GridControl1_ProcessGridKey(object sender, KeyEventArgs e)
         {

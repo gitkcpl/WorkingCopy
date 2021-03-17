@@ -122,6 +122,8 @@
     <Reference Include="Serilog.Sinks.File, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
       <HintPath>..\packages\Serilog.Sinks.File.4.1.0\lib\net45\Serilog.Sinks.File.dll</HintPath>
     </Reference>
+    <Reference Include="Stimulsoft.Base, Version=2020.4.1.0, Culture=neutral, PublicKeyToken=ebe6666cba19647a" />
+    <Reference Include="Stimulsoft.Report, Version=2020.4.1.0, Culture=neutral, PublicKeyToken=ebe6666cba19647a, processorArchitecture=MSIL" />
     <Reference Include="Syncfusion.BulletGraph.Windows, Version=18.1460.0.42, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL" />
     <Reference Include="Syncfusion.Core.WinForms, Version=18.1460.0.42, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL" />
     <Reference Include="Syncfusion.DataSource.WinForms, Version=18.1460.0.42, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL" />
@@ -146,6 +148,9 @@
     <Reference Include="System.Deployment" />
     <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Linq.Dynamic.Core, Version=1.2.8.0, Culture=neutral, PublicKeyToken=0f07ec44de6ac832, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Linq.Dynamic.Core.1.2.8\lib\net46\System.Linq.Dynamic.Core.dll</HintPath>
+    </Reference>
     <Reference Include="System.Memory, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Memory.4.5.0\lib\netstandard2.0\System.Memory.dll</HintPath>
     </Reference>
@@ -668,6 +673,12 @@
     <Compile Include="Masters\Emp\EmpLookup.Designer.cs">
       <DependentUpon>EmpLookup.cs</DependentUpon>
     </Compile>
+    <Compile Include="Masters\FinYear\ChangeYearView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\FinYear\ChangeYearView.Designer.cs">
+      <DependentUpon>ChangeYearView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Masters\FinYear\SelectYearView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -721,6 +732,12 @@
     </Compile>
     <Compile Include="Masters\Haste\HasteListView.Designer.cs">
       <DependentUpon>HasteListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Item\BarcodeView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\Item\BarcodeView.Designer.cs">
+      <DependentUpon>BarcodeView.cs</DependentUpon>
     </Compile>
     <Compile Include="Masters\Item\ItemFormulaView.cs">
       <SubType>Form</SubType>
@@ -862,6 +879,18 @@
     </Compile>
     <Compile Include="Masters\PG\PgImport.Designer.cs">
       <DependentUpon>PgImport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\PG\CustomerIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\PG\CustomerIndex.Designer.cs">
+      <DependentUpon>CustomerIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\PG\CustomerListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Masters\PG\CustomerListView.Designer.cs">
+      <DependentUpon>CustomerListView.cs</DependentUpon>
     </Compile>
     <Compile Include="Masters\PG\PgLkpWindow.cs">
       <SubType>Form</SubType>
@@ -1182,6 +1211,12 @@
     <Compile Include="Reports\DocPrintParaView.Designer.cs">
       <DependentUpon>DocPrintParaView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Security\AddMenuView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Security\AddMenuView.Designer.cs">
+      <DependentUpon>AddMenuView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Security\AddPermission.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1259,6 +1294,12 @@
     </Compile>
     <Compile Include="Trans\Common\BillUploadView.Designer.cs">
       <DependentUpon>BillUploadView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Trans\Common\HistoryView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Trans\Common\HistoryView.Designer.cs">
+      <DependentUpon>HistoryView.cs</DependentUpon>
     </Compile>
     <Compile Include="Trans\Common\IssueItemDetailView.cs">
       <SubType>Form</SubType>
@@ -1392,6 +1433,7 @@
     <Compile Include="Trans\PInvoice\PInvoiceListView.Designer.cs">
       <DependentUpon>PInvoiceListView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Trans\Po\MenuRowTest.cs" />
     <Compile Include="Trans\Po\PoApproveIndex.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1523,6 +1565,12 @@
     </Compile>
     <Compile Include="Trans\StoreIssueReturn\SIReturnList.Designer.cs">
       <DependentUpon>SIReturnList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Trans\StoreIssue\PendingBomForIssue.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Trans\StoreIssue\PendingBomForIssue.Designer.cs">
+      <DependentUpon>PendingBomForIssue.cs</DependentUpon>
     </Compile>
     <Compile Include="Trans\StoreIssue\PendingSITakaView.cs">
       <SubType>Form</SubType>
@@ -1838,6 +1886,9 @@
     <EmbeddedResource Include="Masters\Emp\EmpLookup.resx">
       <DependentUpon>EmpLookup.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Masters\FinYear\ChangeYearView.resx">
+      <DependentUpon>ChangeYearView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Masters\FinYear\SelectYearView.resx">
       <DependentUpon>SelectYearView.cs</DependentUpon>
     </EmbeddedResource>
@@ -1864,6 +1915,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Masters\Haste\HasteListView.resx">
       <DependentUpon>HasteListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Item\BarcodeView.resx">
+      <DependentUpon>BarcodeView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Masters\Item\ItemFormulaView.resx">
       <DependentUpon>ItemFormulaView.cs</DependentUpon>
@@ -1933,6 +1987,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Masters\PG\PgImport.resx">
       <DependentUpon>PgImport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\PG\CustomerIndex.resx">
+      <DependentUpon>CustomerIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\PG\CustomerListView.resx">
+      <DependentUpon>CustomerListView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Masters\PG\PgLkpWindow.resx">
       <DependentUpon>PgLkpWindow.cs</DependentUpon>
@@ -2095,6 +2155,9 @@
     <EmbeddedResource Include="Reports\DocPrintParaView.resx">
       <DependentUpon>DocPrintParaView.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Security\AddMenuView.resx">
+      <DependentUpon>AddMenuView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Security\AddPermission.resx">
       <DependentUpon>AddPermission.cs</DependentUpon>
     </EmbeddedResource>
@@ -2133,6 +2196,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Trans\Common\BillUploadView.resx">
       <DependentUpon>BillUploadView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Trans\Common\HistoryView.resx">
+      <DependentUpon>HistoryView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Trans\Common\IssueItemDetailView.resx">
       <DependentUpon>IssueItemDetailView.cs</DependentUpon>
@@ -2266,6 +2332,9 @@
     <EmbeddedResource Include="Trans\StoreIssueReturn\SIReturnList.resx">
       <DependentUpon>SIReturnList.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Trans\StoreIssue\PendingBomForIssue.resx">
+      <DependentUpon>PendingBomForIssue.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Trans\StoreIssue\PendingSITakaView.resx">
       <DependentUpon>PendingSITakaView.cs</DependentUpon>
     </EmbeddedResource>
@@ -2298,13 +2367,16 @@
   <ItemGroup>
     <Folder Include="Account\RGenExpense\" />
     <Folder Include="Mapping\" />
+    <Folder Include="Trans\St\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\DataSources\Konto.Data.Models.Admin.Dtos.DBGroupDTO.datasource" />
     <None Include="Properties\DataSources\Konto.Data.Models.Admin.ErpModule.datasource" />
+    <None Include="Properties\DataSources\Konto.Data.Models.Apparel.Dtos.PendingBomDto.datasource" />
     <None Include="Properties\DataSources\Konto.Data.Models.Masters.BranchModel.datasource" />
     <None Include="Properties\DataSources\Konto.Data.Models.Masters.CompModel.datasource" />
     <None Include="Properties\DataSources\Konto.Data.Models.Masters.Dtos.EmpRateDto.datasource" />
+    <None Include="Properties\DataSources\Konto.Data.Models.Masters.Dtos.PosBarcodeListDto.datasource" />
     <None Include="Properties\DataSources\Konto.Data.Models.Masters.FinYearModel.datasource" />
     <None Include="Properties\DataSources\Konto.Data.Models.Masters.PFormulaModel.datasource" />
     <None Include="Properties\DataSources\Konto.Data.Models.Masters.ReportTypeModel.datasource" />
@@ -2313,7 +2385,9 @@
     <None Include="Properties\DataSources\Konto.Data.Models.Transaction.Dtos.BillTransDto.datasource" />
     <None Include="Properties\DataSources\Konto.Data.Models.Transaction.Dtos.BrokTransDto.datasource" />
     <None Include="Properties\DataSources\Konto.Data.Models.Transaction.Dtos.ExpTranDto.datasource" />
+    <None Include="Properties\DataSources\Konto.Data.Models.Transaction.Dtos.GrnAgainstOrderDto.datasource" />
     <None Include="Properties\DataSources\Konto.Data.Models.Transaction.Dtos.GrnTransDto.datasource" />
+    <None Include="Properties\DataSources\Konto.Data.Models.Transaction.Dtos.HistoryDto.datasource" />
     <None Include="Properties\DataSources\Konto.Data.Models.Transaction.Dtos.OrdAprvalDto.datasource" />
     <None Include="Properties\DataSources\Konto.Data.Models.Transaction.Dtos.OrdTransDto.datasource" />
     <None Include="Properties\DataSources\Konto.Data.Models.Transaction.Dtos.PendBillListDto.datasource" />

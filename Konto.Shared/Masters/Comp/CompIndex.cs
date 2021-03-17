@@ -31,6 +31,8 @@ namespace Konto.Shared.Masters.Comp
             facStateIdComboBoxEx.ValueMember = "Id";
             this.MainLayoutFile = KontoFileLayout.CompanyMaster_List_Layout;
             FillState();
+
+            this.FirstActiveControl = companyTextBoxExt;
         }
         private void FillState()
         {
@@ -122,6 +124,9 @@ namespace Konto.Shared.Masters.Comp
             othersTextBoxExt.Text= string.Empty;
             smtpTextBoxExt.Clear();
             portTextBoxExt.Clear();
+            gstinUserIdText.Clear();
+            ewayBillPasswordText.Clear();
+            ewayBillUserIdText.Clear();
             pictureEdit1.EditValue = DBNull.Value;
             buttonEdit1.Text = string.Empty;
         }
@@ -259,6 +264,11 @@ namespace Konto.Shared.Masters.Comp
             holyWordTextBoxExt.Text = model.HolyWorld;
             othersTextBoxExt.Text = model.Remark;
             nobLookUpEdit.EditValue = model.NobId;
+
+            gstinUserIdText.Text = model.GstInUserId;
+            ewayBillUserIdText.Text = model.EwayBillUserId;
+            ewayBillPasswordText.Text = model.EwayBillPassword;
+
             if (!string.IsNullOrEmpty(model.LogoPath))
             {
                 pictureEdit1.Image = Image.FromFile(model.LogoPath);
@@ -371,7 +381,11 @@ namespace Konto.Shared.Masters.Comp
             model.Para = paraTextBoxExt.Text.Trim();
             model.Remark = othersTextBoxExt.Text.Trim();
             model.NobId = Convert.ToInt32(nobLookUpEdit.EditValue);
-            
+
+            model.GstInUserId = gstinUserIdText.Text;
+            model.EwayBillUserId = ewayBillUserIdText.Text;
+            model.EwayBillPassword = ewayBillPasswordText.Text;
+
 
             if (pictureEdit1.EditValue != null)
                 model.LogoPath = buttonEdit1.Text;

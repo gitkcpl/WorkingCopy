@@ -121,11 +121,12 @@ namespace Konto.Core.Shared.Frms
                     PropertyInfo groupid = _frm.GetType().GetProperty("GroupId");
                     groupid.SetValue(_frm, this.RefId);
                 }
+                
                 _frm.Tag = this.Tag;
                 _frm.OpenForLookup = true;
                 _frm.ShowDialog(this);
             }
-            else if(_frm1!=null)
+            else if (_frm1 != null)
             {
                 if (this.RefId > 0 && _frm1.GetType().GetProperty("AccId") != null)
                 {
@@ -137,6 +138,7 @@ namespace Konto.Core.Shared.Frms
                 _frm1.ShowDialog(this);
 
             }
+
             this.LoadData();
             this.KontoView.Focus();
         }

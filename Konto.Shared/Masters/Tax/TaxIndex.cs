@@ -45,6 +45,8 @@ namespace Konto.Shared.Masters.Tax
             cessTypekontoComboBoxEx.DisplayMember = "_Key";
             cessTypekontoComboBoxEx.ValueMember = "_Value";
             cessTypekontoComboBoxEx.DataSource = cesstype;
+
+            this.FirstActiveControl = taxNameTextBox;
         }
 
         private void TabControlAdv1_SelectedIndexChanged(object sender, EventArgs e)

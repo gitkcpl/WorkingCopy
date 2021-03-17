@@ -40,6 +40,8 @@ namespace Konto.Weaves.BeamProduction
             this.MainLayoutFile = KontoFileLayout.BeamProd_Index;
             this.GridLayoutFile = KontoFileLayout.BeamProd_Trans;
             voucherLookup11.SelectedValueChanged += VoucherLookup11_SelectedValueChanged;
+
+            this.FirstActiveControl = voucherLookup11;
         }
 
         private void VoucherLookup11_SelectedValueChanged(object sender, EventArgs e)
@@ -69,7 +71,7 @@ namespace Konto.Weaves.BeamProduction
         }
         private void DenierspinEdit_ValueChanged(object sender, EventArgs e)
         {
-            NetWeightSpinEdit.Value = ((DenierspinEdit.Value * EndsSpinEdit.Value * LengthSpinEdit.Value) / 9000000);
+            NetWeightSpinEdit.Value = decimal.Round(((DenierspinEdit.Value * EndsSpinEdit.Value * LengthSpinEdit.Value) / 9000000) , MidpointRounding.AwayFromZero);
         }
         private void NoOfTakaSpinEdit_ValueChanged(object sender, EventArgs e)
         {
@@ -79,7 +81,7 @@ namespace Konto.Weaves.BeamProduction
         private void EndsSpinEdit_ValueChanged(object sender, EventArgs e)
         {
             // if (txtDenier.Value != null && lengthTxt.Value != null && endsTxt.Value != null)
-            NetWeightSpinEdit.Value = ((DenierspinEdit.Value * EndsSpinEdit.Value * LengthSpinEdit.Value) / 9000000);
+            NetWeightSpinEdit.Value = decimal.Round( ((DenierspinEdit.Value * EndsSpinEdit.Value * LengthSpinEdit.Value) / 9000000),MidpointRounding.AwayFromZero);
 
         }
         private void LengthSpinEdit_ValueChanged(object sender, EventArgs e)
@@ -90,7 +92,7 @@ namespace Konto.Weaves.BeamProduction
                     NoOfTakaSpinEdit.Value = LengthSpinEdit.Value / MtrspinEdit.Value;
 
                 // if (txtDenier.Value != null && lengthTxt.Value != null && endsTxt.Value != null)
-                NetWeightSpinEdit.Value = (((DenierspinEdit.Value * EndsSpinEdit.Value * LengthSpinEdit.Value) / 9000000));
+                NetWeightSpinEdit.Value = decimal.Round( (((DenierspinEdit.Value * EndsSpinEdit.Value * LengthSpinEdit.Value) / 9000000)), MidpointRounding.AwayFromZero);
             }
             catch (Exception ex)
             {

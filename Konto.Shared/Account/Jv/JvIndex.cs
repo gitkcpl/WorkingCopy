@@ -69,6 +69,8 @@ namespace Konto.Shared.Account.Jv
             gridView1.InvalidValueException += GridView1_InvalidValueException;
             billAdjustSimpleButton.Click += BillAdjustSimpleButton_Click;
             voucherLookup1.SelectedValueChanged += VoucherLookup1_SelectedValueChanged;
+            
+            this.FirstActiveControl = voucherLookup1;
         }
 
         private void VoucherLookup1_SelectedValueChanged(object sender, EventArgs e)

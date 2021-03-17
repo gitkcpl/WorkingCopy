@@ -88,6 +88,8 @@ namespace Konto.Shared.Account.GenExpense
             tcsPerTextEdit.EditValueChanged += TcsPerTextEdit_EditValueChanged;
             tcsAmtTextEdit.EditValueChanged += TcsAmtTextEdit_EditValueChanged;
 
+            this.FirstActiveControl = invTypeLookUpEdit;
+
             //this.accLookup1.ShownPopup += AccLookup1_ShownPopup;
         }
         private void TcsAmtTextEdit_EditValueChanged(object sender, EventArgs e)

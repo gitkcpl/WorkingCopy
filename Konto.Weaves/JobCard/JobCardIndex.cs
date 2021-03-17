@@ -80,6 +80,8 @@ namespace Konto.Weaves.JobCard
             ColorrepositoryItemButtonEdit2.ButtonClick += ColorrepositoryItemButtonEdit2_ButtonClick;
             ShaderepositoryItemButtonEdit.ButtonClick += ShaderepositoryItemButtonEdit_ButtonClick;
             SelectSimpleButton.Click += SelectSimpleButton_Click;
+
+            this.FirstActiveControl = voucherLookup;
         }
 
         #region UDF
@@ -864,11 +866,11 @@ namespace Konto.Weaves.JobCard
                 var ItemTrans = db.jobCardTrans.Where(k => k.JobCardId == this.PrimaryKey).ToList();
                 var shadelst = ItemTrans.GroupBy(k => k.ItemId).ToList();
                 int i = 0;
-                foreach (var item in shadelst)
-                {
-                    i = i + 1;
-                    doc.Parameters["ShadeId" + i].CurrentValue = item.Key;
-                }
+                //foreach (var item in shadelst)
+                //{
+                //    i = i + 1;
+                //    doc.Parameters["ShadeId" + i].CurrentValue = item.Key;
+                //}
 
                 //rpt.ResourceLocator = new MySubreportLocator();
 

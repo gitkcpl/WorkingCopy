@@ -3,7 +3,6 @@ using GrapeCity.ActiveReports;
 using Konto.App.Shared;
 using Konto.Core.Shared.Frms;
 using Konto.Data;
-using Konto.Data.Models.Apparel;
 using Konto.Data.Models.Apparel.Dtos;
 using Konto.Data.Models.Masters;
 using Konto.Data.Models.Transaction;

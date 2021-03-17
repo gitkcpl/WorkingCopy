@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MenuIndex));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.addMenuSimpleButton = new DevExpress.XtraEditors.SimpleButton();
             this.simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
             this.cancelSimpleButton = new DevExpress.XtraEditors.SimpleButton();
             this.okSimpleButton = new DevExpress.XtraEditors.SimpleButton();
@@ -89,6 +90,7 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel1.Controls.Add(this.addMenuSimpleButton, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.simpleButton1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.cancelSimpleButton, 3, 0);
             this.tableLayoutPanel1.Controls.Add(this.okSimpleButton, 2, 0);
@@ -100,6 +102,17 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(800, 37);
             this.tableLayoutPanel1.TabIndex = 8;
             // 
+            // addMenuSimpleButton
+            // 
+            this.addMenuSimpleButton.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.addMenuSimpleButton.Appearance.Options.UseFont = true;
+            this.addMenuSimpleButton.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("addMenuSimpleButton.ImageOptions.SvgImage")));
+            this.addMenuSimpleButton.Location = new System.Drawing.Point(160, 3);
+            this.addMenuSimpleButton.Name = "addMenuSimpleButton";
+            this.addMenuSimpleButton.Size = new System.Drawing.Size(112, 31);
+            this.addMenuSimpleButton.TabIndex = 8;
+            this.addMenuSimpleButton.Text = "Add Menu";
+            // 
             // simpleButton1
             // 
             this.simpleButton1.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -110,6 +123,7 @@
             this.simpleButton1.Size = new System.Drawing.Size(151, 31);
             this.simpleButton1.TabIndex = 7;
             this.simpleButton1.Text = "Transfer Balance";
+            this.simpleButton1.Visible = false;
             this.simpleButton1.Click += new System.EventHandler(this.simpleButton1_Click);
             // 
             // cancelSimpleButton
@@ -133,7 +147,7 @@
             this.okSimpleButton.Name = "okSimpleButton";
             this.okSimpleButton.Size = new System.Drawing.Size(86, 31);
             this.okSimpleButton.TabIndex = 5;
-            this.okSimpleButton.Text = "Ok [F3]";
+            this.okSimpleButton.Text = "Ok";
             // 
             // gridControl1
             // 
@@ -263,8 +277,6 @@
             // 
             this.colPackageId.FieldName = "PackageId";
             this.colPackageId.Name = "colPackageId";
-            this.colPackageId.Visible = true;
-            this.colPackageId.VisibleIndex = 5;
             // 
             // colDefaultReport
             // 
@@ -287,7 +299,7 @@
             this.colAssemblyName.FieldName = "AssemblyName";
             this.colAssemblyName.Name = "colAssemblyName";
             this.colAssemblyName.Visible = true;
-            this.colAssemblyName.VisibleIndex = 6;
+            this.colAssemblyName.VisibleIndex = 5;
             this.colAssemblyName.Width = 124;
             // 
             // colMainAssembly
@@ -295,7 +307,7 @@
             this.colMainAssembly.FieldName = "MainAssembly";
             this.colMainAssembly.Name = "colMainAssembly";
             this.colMainAssembly.Visible = true;
-            this.colMainAssembly.VisibleIndex = 7;
+            this.colMainAssembly.VisibleIndex = 6;
             this.colMainAssembly.Width = 123;
             // 
             // colListAssembly
@@ -303,7 +315,7 @@
             this.colListAssembly.FieldName = "ListAssembly";
             this.colListAssembly.Name = "colListAssembly";
             this.colListAssembly.Visible = true;
-            this.colListAssembly.VisibleIndex = 8;
+            this.colListAssembly.VisibleIndex = 7;
             this.colListAssembly.Width = 124;
             // 
             // colMDI
@@ -311,21 +323,21 @@
             this.colMDI.FieldName = "MDI";
             this.colMDI.Name = "colMDI";
             this.colMDI.Visible = true;
-            this.colMDI.VisibleIndex = 9;
+            this.colMDI.VisibleIndex = 8;
             // 
             // colTitle
             // 
             this.colTitle.FieldName = "Title";
             this.colTitle.Name = "colTitle";
             this.colTitle.Visible = true;
-            this.colTitle.VisibleIndex = 10;
+            this.colTitle.VisibleIndex = 9;
             // 
             // colVisible
             // 
             this.colVisible.FieldName = "Visible";
             this.colVisible.Name = "colVisible";
             this.colVisible.Visible = true;
-            this.colVisible.VisibleIndex = 11;
+            this.colVisible.VisibleIndex = 10;
             // 
             // colIconPath
             // 
@@ -337,23 +349,25 @@
             this.colCheckRight.FieldName = "CheckRight";
             this.colCheckRight.Name = "colCheckRight";
             this.colCheckRight.Visible = true;
-            this.colCheckRight.VisibleIndex = 12;
+            this.colCheckRight.VisibleIndex = 11;
             this.colCheckRight.Width = 101;
             // 
             // colVisibleOnDashBoard
             // 
             this.colVisibleOnDashBoard.FieldName = "VisibleOnDashBoard";
             this.colVisibleOnDashBoard.Name = "colVisibleOnDashBoard";
+            this.colVisibleOnDashBoard.OptionsColumn.AllowEdit = false;
             this.colVisibleOnDashBoard.Visible = true;
-            this.colVisibleOnDashBoard.VisibleIndex = 13;
+            this.colVisibleOnDashBoard.VisibleIndex = 12;
             this.colVisibleOnDashBoard.Width = 158;
             // 
             // colVisibleOnSideBar
             // 
             this.colVisibleOnSideBar.FieldName = "VisibleOnSideBar";
             this.colVisibleOnSideBar.Name = "colVisibleOnSideBar";
+            this.colVisibleOnSideBar.OptionsColumn.AllowEdit = false;
             this.colVisibleOnSideBar.Visible = true;
-            this.colVisibleOnSideBar.VisibleIndex = 14;
+            this.colVisibleOnSideBar.VisibleIndex = 13;
             this.colVisibleOnSideBar.Width = 132;
             // 
             // colIsSeprator
@@ -361,15 +375,16 @@
             this.colIsSeprator.FieldName = "IsSeprator";
             this.colIsSeprator.Name = "colIsSeprator";
             this.colIsSeprator.Visible = true;
-            this.colIsSeprator.VisibleIndex = 15;
+            this.colIsSeprator.VisibleIndex = 14;
             this.colIsSeprator.Width = 80;
             // 
             // colOffline
             // 
             this.colOffline.FieldName = "Offline";
             this.colOffline.Name = "colOffline";
+            this.colOffline.OptionsColumn.AllowEdit = false;
             this.colOffline.Visible = true;
-            this.colOffline.VisibleIndex = 16;
+            this.colOffline.VisibleIndex = 15;
             // 
             // colExtra1
             // 
@@ -386,13 +401,14 @@
             this.colImageIndex.FieldName = "ImageIndex";
             this.colImageIndex.Name = "colImageIndex";
             this.colImageIndex.Visible = true;
-            this.colImageIndex.VisibleIndex = 17;
+            this.colImageIndex.VisibleIndex = 16;
             this.colImageIndex.Width = 112;
             // 
             // colId
             // 
             this.colId.FieldName = "Id";
             this.colId.Name = "colId";
+            this.colId.OptionsColumn.AllowEdit = false;
             this.colId.Visible = true;
             this.colId.VisibleIndex = 0;
             // 
@@ -400,13 +416,14 @@
             // 
             this.colRowId.FieldName = "RowId";
             this.colRowId.Name = "colRowId";
+            this.colRowId.OptionsColumn.AllowEdit = false;
             // 
             // colIsActive
             // 
             this.colIsActive.FieldName = "IsActive";
             this.colIsActive.Name = "colIsActive";
             this.colIsActive.Visible = true;
-            this.colIsActive.VisibleIndex = 18;
+            this.colIsActive.VisibleIndex = 17;
             // 
             // colIsDeleted
             // 
@@ -527,5 +544,6 @@
         private DevExpress.XtraGrid.Columns.GridColumn colModifyUser;
         private DevExpress.XtraGrid.Columns.GridColumn colIpAddress;
         public DevExpress.XtraEditors.SimpleButton simpleButton1;
+        public DevExpress.XtraEditors.SimpleButton addMenuSimpleButton;
     }
 }

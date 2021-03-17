@@ -555,7 +555,7 @@
             this.accLookup1.LookupTitle = null;
             this.accLookup1.Name = "accLookup1";
             this.accLookup1.Nature = null;
-            this.accLookup1.NewGroupId = 27;
+            this.accLookup1.NewGroupId = App.Shared.LedgerGroupEnum.NONE;
             this.accLookup1.PrimaryKey = null;
             this.accLookup1.RequiredField = false;
             this.accLookup1.SelectedText = null;

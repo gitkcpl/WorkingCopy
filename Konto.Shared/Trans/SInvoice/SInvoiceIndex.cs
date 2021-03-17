@@ -20,6 +20,7 @@ using Konto.Shared.Masters.Color;
 using Konto.Shared.Masters.Design;
 using Konto.Shared.Masters.Grade;
 using Konto.Shared.Masters.Item;
+using Konto.Shared.Trans.Common;
 using Konto.Shared.Trans.PInvoice;
 using Serilog;
 using Syncfusion.Windows.Forms;
@@ -51,6 +52,8 @@ namespace Konto.Shared.Trans.SInvoice
         private List<PendBillListDto> BillList = new List<PendBillListDto>();
         private List<PendBillListDto> AllBill = new List<PendBillListDto>();
         private bool IsLoadData = false;
+
+       
         public SInvoiceIndex()
         {
             InitializeComponent();
@@ -96,7 +99,9 @@ namespace Konto.Shared.Trans.SInvoice
             tcsPerTextEdit.EditValueChanged += TcsPerTextEdit_EditValueChanged;
             tcsAmtTextEdit.EditValueChanged += TcsAmtTextEdit_EditValueChanged;
             this.Shown += SInvoiceIndex_Shown;
-           
+
+            this.FirstActiveControl = voucherLookup1;
+
         }
 
         private void TcsAmtTextEdit_EditValueChanged(object sender, EventArgs e)
@@ -213,6 +218,13 @@ namespace Konto.Shared.Trans.SInvoice
             try
             {
                 if (Convert.ToInt32(accLookup1.SelectedValue) == 0 || this.PrimaryKey != 0) return;
+                
+                if (BillPara.Order_Required)
+                {
+                    GetOrderPending(accLookup1.LookupDto);
+                    return;
+                }
+
                 var grnfrm = new PendingGrnForPurchase();
                 grnfrm.VoucherType = VoucherTypeEnum.SalesChallan;
                 grnfrm.ChallanType = ChallanTypeEnum.SALES_CHALLAN;
@@ -351,6 +363,107 @@ namespace Konto.Shared.Trans.SInvoice
             
         }
 
+
+        private void GetOrderPending(AccLookupDto dto )
+        {
+            var ordfrm = new PendingOrderView();
+            ordfrm.VoucherType = VoucherTypeEnum.SalesOrder;
+            ordfrm.AccId = Convert.ToInt32(accLookup1.SelectedValue);
+            if (ordfrm.ShowDialog() != DialogResult.OK) return;
+
+            Int32[] selectedRowHandles = ordfrm.SelectedRows;
+            if (selectedRowHandles == null || selectedRowHandles.Count() == 0) return;
+            List<BillTransDto> transDtos = new List<BillTransDto>();
+            int id = 0;
+            string ordr = string.Empty;
+            foreach (var item in selectedRowHandles)
+            {
+                var ch = ordfrm.gridView1.GetRow(item) as PendingOrderDto;
+                BillTransDto ct = new BillTransDto();
+                id = id - 1;
+
+                ct.ProductId = Convert.ToInt32(ch.ProductId);
+                ct.ProductName = ch.Product;
+                ct.Pcs = ch.TotalPcs != null ? (int)ch.TotalPcs : 0;
+                ct.Qty = ch.PendingQty != null ? (decimal)ch.PendingQty : 0;
+                ct.Rate = ch.rate != null ? (decimal)ch.rate : 0;
+                ct.Disc = ch.Disc != null ? (decimal)ch.Disc : 0;
+                ct.DiscAmt = ch.DiscAmt != null ? (decimal)ch.DiscAmt : 0;
+                ct.UomId = ch.UomId;
+               // ct.LotNo = ch.LotNo;
+                ct.DesignId = Convert.ToInt32(ch.DesignId);
+                ct.ColorId = Convert.ToInt32(ch.ColorId);
+                ct.GradeId = Convert.ToInt32(ch.GradeId);
+                ct.DesignName = ch.DesignNo;
+                ct.ColorName = ch.ColorName;
+                ct.GradeName = ch.GradeName;
+               
+                if (ch.VoucherNo != null && !ordr.Contains(ch.VoucherNo))
+                {
+                    if (string.IsNullOrEmpty(ordr))
+                        ordr = ch.VoucherNo;
+                    else
+                        ordr = ordr + "," + ch.VoucherNo;
+                }
+                
+                
+                ct.RefId = ch.Id;
+                ct.RefTransId = ch.TransId;
+                ct.RefVoucherId = ch.VoucherId;
+                ct.OrderNo = ch.VoucherNo;
+                ct.OrderDate = ch.VouchDate;
+                //ct.OrdId = ch.OrdId;
+                
+                ct.Total = Convert.ToDecimal(ch.Total);
+                ct.DiscAmt = ct.DiscAmt;
+
+                if (accLookup1.LookupDto.IsGst && !isImortOrSez)
+                {
+                    ct.SgstPer = ch.Sgst != null ? (decimal)ch.Sgst : 0;
+                    ct.CgstPer = ch.Cgst;
+                    ct.IgstPer = 0;
+                    ct.Igst = 0;
+                }
+                else
+                {
+                    ct.Sgst = 0;
+                    ct.SgstPer = 0;
+                    ct.Cgst = 0;
+                    ct.CgstPer = 0;
+                    ct.IgstPer = ch.Igst;
+                }
+                
+                var gross = ct.Total - ct.DiscAmt + ct.Freight + ct.OtherAdd - ct.OtherLess;
+
+                if (BillPara.Tax_RoundOff)
+                {
+                    ct.Sgst = decimal.Round(gross * ct.SgstPer / 100, 0);
+                    ct.Cgst = decimal.Round(gross * ct.CgstPer / 100, 0); //, MidpointRounding.AwayFromZero);
+                    ct.Igst = decimal.Round(gross * ct.IgstPer / 100, 0); //, MidpointRounding.AwayFromZero);
+                }
+                else
+                {
+                    ct.Sgst = decimal.Round(gross * ct.SgstPer / 100, 2);
+                    ct.Cgst = decimal.Round(gross * ct.CgstPer / 100, 2); //, MidpointRounding.AwayFromZero);
+                    ct.Igst = decimal.Round(gross * ct.IgstPer / 100, 2); //, MidpointRounding.AwayFromZero);
+                }
+                ct.Cess = decimal.Round(ct.Qty * ct.CessPer, 2);
+
+                if (isImortOrSez)
+                {
+                    ct.NetTotal = gross;
+                }
+                else if (!isImortOrSez)
+                {
+                    ct.NetTotal = gross + ct.Sgst + ct.Cgst + ct.Igst + ct.Cess; // ct er.CessAmt; 
+                }
+                transDtos.Add(ct);
+            }
+            refNoTextEdit.Text = ordr;
+            grnTransDtoBindingSource1.DataSource = transDtos;
+            FinalTotal();
+        }
+
         private void GridView1_InvalidRowException(object sender, DevExpress.XtraGrid.Views.Base.InvalidRowExceptionEventArgs e)
         {
             e.ExceptionMode = ExceptionMode.NoAction;
@@ -471,15 +584,22 @@ namespace Konto.Shared.Trans.SInvoice
                 er.ProductName = frm.SelectedTex;
                 var model = frm.SelectedItem as ProductLookupDto;
                 er.UomId = model.UomId;
+                er.HsnCode = model.HsnCode;
+                er.RatePerQty = model.RatePerQty;
+                
 
                 if (model.SaleRateTaxInc)
                 {
+                    
+
                     er.SaleRate = model.SaleRate;
                     var rt = decimal.Round((model.SaleRate * 100) / (100 + (model.Sgst + model.Cgst)), 2, MidpointRounding.AwayFromZero);
                     er.Rate = rt;
                 }
                 else
                 {
+                    
+
                     er.SaleRate = decimal.Round((model.SaleRate + (model.SaleRate * model.Igst / 100)), 2, MidpointRounding.AwayFromZero);
                     er.Rate = model.SaleRate;
                 }
@@ -563,6 +683,7 @@ namespace Konto.Shared.Trans.SInvoice
             colDesignName.Visible = BillPara.Design_Required;
             colGradeName.Visible = BillPara.Grade_Required;
             colCut.Visible = BillPara.Cut_Required;
+            colHsnCode.Visible = BillPara.HsnCode_Required;
 
             //Rate Decimal Settings
             var repo1 = new RepositoryItemTextEdit();
@@ -607,17 +728,28 @@ namespace Konto.Shared.Trans.SInvoice
             if (er.Cut > 0 && er.Pcs > 0)
                 er.Qty = decimal.Round(er.Pcs * er.Cut, 2, MidpointRounding.AwayFromZero);
 
-            er.Total = decimal.Round( er.Qty * er.Rate, 2);
+
+            if(er.RatePerQty >0 )
+
+                er.Total = decimal.Round( er.Qty * er.Rate/er.RatePerQty, 2);
+            else
+                er.Total = decimal.Round(er.Qty * er.Rate, 2);
 
             var uom = uomRepositoryItemLookUpEdit.GetDataSourceRowByKeyValue(er.UomId) as UomLookupDto;
 
             if (uom != null && uom.RateOn == "N" && er.Qty > 0)
             {
-                er.Total = decimal.Round(er.Pcs * er.Rate, 2, MidpointRounding.AwayFromZero);
+                if (er.RatePerQty > 0)
+                    er.Total = decimal.Round(er.Pcs * er.Rate / er.RatePerQty, 2, MidpointRounding.AwayFromZero);
+                else
+                    er.Total = decimal.Round(er.Pcs * er.Rate, 2, MidpointRounding.AwayFromZero);
             }
             else
             {
-                er.Total = decimal.Round(er.Qty * er.Rate, 2, MidpointRounding.AwayFromZero);
+                if (er.RatePerQty > 0)
+                    er.Total = decimal.Round(er.Qty * er.Rate/er.RatePerQty, 2, MidpointRounding.AwayFromZero);
+                else
+                    er.Total = decimal.Round(er.Qty * er.Rate, 2, MidpointRounding.AwayFromZero);
             }
 
             if (er.Disc > 0)
@@ -791,6 +923,17 @@ namespace Konto.Shared.Trans.SInvoice
                         case 225:
                             {
                                 BillPara.Tcs_Round_Off = (value == "Y") ? true : false;
+                                break;
+                            }
+                        case 236:
+                            {
+                                BillPara.Order_Required = (value == "Y") ? true : false;
+                                break;
+                            }
+
+                        case 239:
+                            {
+                                BillPara.HsnCode_Required = (value == "Y") ? true : false;
                                 break;
                             }
                     }
@@ -1132,7 +1275,7 @@ namespace Konto.Shared.Trans.SInvoice
                                 RefId = bt.RefId,
                                 RefTransId = bt.RefTransId,
                                 RefVoucherId = bt.RefVoucherId,
-                                SaleRate=bt.SaleRate
+                                SaleRate=bt.SaleRate,HsnCode = p.HsnCode,RatePerQty= p.Price2
                             }
                             ).ToList();
 
@@ -1558,10 +1701,11 @@ namespace Konto.Shared.Trans.SInvoice
                 var pg1 = new TabPageAdv();
                 pg1.Text = "Bill Print";
                 _tab.TabPages.Add(pg1);
-                _tab.SelectedTab = pg1;
+               
                 frm.TopLevel = false;
                 frm.Parent = pg1;
-                frm.Location = new Point(pg1.Location.X + pg1.Width / 2 - frm.Width / 2, pg1.Location.Y + pg1.Height / 2 - frm.Height / 2);
+                _tab.SelectedTab = pg1;
+                //frm.Location = new Point(pg1.Location.X + pg1.Width / 2 - frm.Width / 2, pg1.Location.Y + pg1.Height / 2 - frm.Height / 2);
                 frm.Show();// = true;
 
             }
@@ -1820,7 +1964,7 @@ namespace Konto.Shared.Trans.SInvoice
                             db.StockTranses.RemoveRange(stk);
 
                         //stock effect
-                        if (!Trans.Any(x => x.RefId > 0))
+                        if (!Trans.Any(x => x.RefId > 0) || BillPara.Order_Required)
                         {
                             foreach (var item in Trans)
                             {

@@ -60,6 +60,8 @@ namespace Konto.Shared.Trans.Request
             FillLookup();
             SetParameter();
             voucherLookup1.SelectedValueChanged += VoucherLookup1_SelectedValueChanged;
+
+            this.FirstActiveControl = voucherLookup1;
         }
 
         

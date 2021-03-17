@@ -214,6 +214,36 @@
       <DependentUpon>PendingLotView.cs</DependentUpon>
     </Compile>
     <Compile Include="Class1.cs" />
+    <Compile Include="ColorFormula\ColorFormulaIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ColorFormula\ColorFormulaIndex.Designer.cs">
+      <DependentUpon>ColorFormulaIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ColorFormula\ColorFormulaListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ColorFormula\ColorFormulaListView.Designer.cs">
+      <DependentUpon>ColorFormulaListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="JobCard\JobCardIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="JobCard\JobCardIndex.Designer.cs">
+      <DependentUpon>JobCardIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="JobCard\JobCardListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="JobCard\JobCardListView.Designer.cs">
+      <DependentUpon>JobCardListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="JobCard\PendingOrderView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="JobCard\PendingOrderView.Designer.cs">
+      <DependentUpon>PendingOrderView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -254,6 +284,21 @@
   <ItemGroup>
     <EmbeddedResource Include="BatchMaster\PendingLotView.resx">
       <DependentUpon>PendingLotView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ColorFormula\ColorFormulaIndex.resx">
+      <DependentUpon>ColorFormulaIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ColorFormula\ColorFormulaListView.resx">
+      <DependentUpon>ColorFormulaListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="JobCard\JobCardIndex.resx">
+      <DependentUpon>JobCardIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="JobCard\JobCardListView.resx">
+      <DependentUpon>JobCardListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="JobCard\PendingOrderView.resx">
+      <DependentUpon>PendingOrderView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -299,6 +344,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="Properties\DataSources\Konto.Data.Models.Transaction.Dtos.BatchTransDto.datasource" />
     <None Include="Properties\DataSources\Konto.Data.Models.Transaction.Dtos.BeamProdDto.datasource" />
     <None Include="Properties\DataSources\Konto.Data.Models.Transaction.Dtos.GrnProdDto.datasource" />

@@ -39,6 +39,8 @@
             this.colId = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colChallanId = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colProductId = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colGradeId = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gradeRepositoryItemLookUpEdit = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
             this.colDesignId = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colColorId = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colProductName = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -52,19 +54,18 @@
             this.repositoryItemTextEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
             this.colRemark = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colMiscId = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.uomRepositoryItemLookUpEdit = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
+            this.gridColumn1 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.lotNoRepositoryItemButtonEdit = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
             this.challanNoRrepositoryItemButtonEdit = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
-            this.gridColumn1 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gradeRepositoryItemLookUpEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productRepositoryItemButtonEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.colorRepositoryItemButtonEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.designRepositoryItemButtonEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.uomRepositoryItemLookUpEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lotNoRepositoryItemButtonEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.challanNoRrepositoryItemButtonEdit)).BeginInit();
             this.SuspendLayout();
@@ -78,11 +79,11 @@
             this.tableLayoutPanel1.Controls.Add(this.cancelSimpleButton, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.okSimpleButton, 1, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 413);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 325);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(800, 37);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(858, 37);
             this.tableLayoutPanel1.TabIndex = 12;
             // 
             // cancelSimpleButton
@@ -91,7 +92,7 @@
             this.cancelSimpleButton.Appearance.Options.UseFont = true;
             this.cancelSimpleButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cancelSimpleButton.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("cancelSimpleButton.ImageOptions.SvgImage")));
-            this.cancelSimpleButton.Location = new System.Drawing.Point(706, 3);
+            this.cancelSimpleButton.Location = new System.Drawing.Point(764, 3);
             this.cancelSimpleButton.Name = "cancelSimpleButton";
             this.cancelSimpleButton.Size = new System.Drawing.Size(91, 31);
             this.cancelSimpleButton.TabIndex = 1;
@@ -102,7 +103,7 @@
             this.okSimpleButton.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.okSimpleButton.Appearance.Options.UseFont = true;
             this.okSimpleButton.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("okSimpleButton.ImageOptions.SvgImage")));
-            this.okSimpleButton.Location = new System.Drawing.Point(614, 3);
+            this.okSimpleButton.Location = new System.Drawing.Point(672, 3);
             this.okSimpleButton.Name = "okSimpleButton";
             this.okSimpleButton.Size = new System.Drawing.Size(86, 31);
             this.okSimpleButton.TabIndex = 0;
@@ -122,15 +123,15 @@
             this.gridControl1.MainView = this.gridView1;
             this.gridControl1.Name = "gridControl1";
             this.gridControl1.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
-            this.uomRepositoryItemLookUpEdit,
+            this.gradeRepositoryItemLookUpEdit,
             this.productRepositoryItemButtonEdit,
             this.colorRepositoryItemButtonEdit,
             this.designRepositoryItemButtonEdit,
             this.lotNoRepositoryItemButtonEdit,
             this.repositoryItemTextEdit1,
             this.challanNoRrepositoryItemButtonEdit});
-            this.gridControl1.Size = new System.Drawing.Size(800, 413);
-            this.gridControl1.TabIndex = 15;
+            this.gridControl1.Size = new System.Drawing.Size(858, 325);
+            this.gridControl1.TabIndex = 0;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
             // 
@@ -150,6 +151,7 @@
             this.colId,
             this.colChallanId,
             this.colProductId,
+            this.colGradeId,
             this.colDesignId,
             this.colColorId,
             this.colProductName,
@@ -193,6 +195,32 @@
             this.colProductId.FieldName = "ProductId";
             this.colProductId.Name = "colProductId";
             // 
+            // colGradeId
+            // 
+            this.colGradeId.Caption = "Grade";
+            this.colGradeId.ColumnEdit = this.gradeRepositoryItemLookUpEdit;
+            this.colGradeId.FieldName = "GradeId";
+            this.colGradeId.Name = "colGradeId";
+            this.colGradeId.Visible = true;
+            this.colGradeId.VisibleIndex = 1;
+            this.colGradeId.Width = 73;
+            // 
+            // gradeRepositoryItemLookUpEdit
+            // 
+            this.gradeRepositoryItemLookUpEdit.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
+            this.gradeRepositoryItemLookUpEdit.AutoHeight = false;
+            this.gradeRepositoryItemLookUpEdit.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.gradeRepositoryItemLookUpEdit.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("DisplayText", "Name1")});
+            this.gradeRepositoryItemLookUpEdit.DisplayMember = "DisplayText";
+            this.gradeRepositoryItemLookUpEdit.ImmediatePopup = true;
+            this.gradeRepositoryItemLookUpEdit.Name = "gradeRepositoryItemLookUpEdit";
+            this.gradeRepositoryItemLookUpEdit.NullText = "";
+            this.gradeRepositoryItemLookUpEdit.ShowHeader = false;
+            this.gradeRepositoryItemLookUpEdit.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
+            this.gradeRepositoryItemLookUpEdit.ValueMember = "Id";
+            // 
             // colDesignId
             // 
             this.colDesignId.FieldName = "DesignId";
@@ -230,7 +258,7 @@
             this.colColorName.Name = "colColorName";
             this.colColorName.OptionsColumn.ReadOnly = true;
             this.colColorName.Visible = true;
-            this.colColorName.VisibleIndex = 1;
+            this.colColorName.VisibleIndex = 2;
             this.colColorName.Width = 101;
             // 
             // colorRepositoryItemButtonEdit
@@ -247,7 +275,7 @@
             this.colDesignNo.Name = "colDesignNo";
             this.colDesignNo.OptionsColumn.ReadOnly = true;
             this.colDesignNo.Visible = true;
-            this.colDesignNo.VisibleIndex = 2;
+            this.colDesignNo.VisibleIndex = 3;
             this.colDesignNo.Width = 85;
             // 
             // designRepositoryItemButtonEdit
@@ -265,7 +293,7 @@
             this.colPcs.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Pcs", "{0:F}")});
             this.colPcs.Visible = true;
-            this.colPcs.VisibleIndex = 3;
+            this.colPcs.VisibleIndex = 5;
             this.colPcs.Width = 63;
             // 
             // colQty
@@ -276,10 +304,12 @@
             this.colQty.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.colQty.FieldName = "Qty";
             this.colQty.Name = "colQty";
+            this.colQty.OptionsColumn.AllowEdit = false;
+            this.colQty.OptionsColumn.AllowFocus = false;
             this.colQty.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Qty", "{0:F}")});
             this.colQty.Visible = true;
-            this.colQty.VisibleIndex = 5;
+            this.colQty.VisibleIndex = 6;
             // 
             // repositoryItemTextEdit1
             // 
@@ -294,7 +324,7 @@
             this.colRemark.FieldName = "Remark";
             this.colRemark.Name = "colRemark";
             this.colRemark.Visible = true;
-            this.colRemark.VisibleIndex = 6;
+            this.colRemark.VisibleIndex = 7;
             this.colRemark.Width = 233;
             // 
             // colMiscId
@@ -302,20 +332,13 @@
             this.colMiscId.FieldName = "MiscId";
             this.colMiscId.Name = "colMiscId";
             // 
-            // uomRepositoryItemLookUpEdit
+            // gridColumn1
             // 
-            this.uomRepositoryItemLookUpEdit.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
-            this.uomRepositoryItemLookUpEdit.AutoHeight = false;
-            this.uomRepositoryItemLookUpEdit.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.uomRepositoryItemLookUpEdit.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
-            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("DisplayText", "Name1")});
-            this.uomRepositoryItemLookUpEdit.DisplayMember = "DisplayText";
-            this.uomRepositoryItemLookUpEdit.Name = "uomRepositoryItemLookUpEdit";
-            this.uomRepositoryItemLookUpEdit.NullText = "";
-            this.uomRepositoryItemLookUpEdit.ShowHeader = false;
-            this.uomRepositoryItemLookUpEdit.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
-            this.uomRepositoryItemLookUpEdit.ValueMember = "Id";
+            this.gridColumn1.Caption = "Cut";
+            this.gridColumn1.FieldName = "Cops";
+            this.gridColumn1.Name = "gridColumn1";
+            this.gridColumn1.Visible = true;
+            this.gridColumn1.VisibleIndex = 4;
             // 
             // lotNoRepositoryItemButtonEdit
             // 
@@ -331,32 +354,26 @@
             new DevExpress.XtraEditors.Controls.EditorButton()});
             this.challanNoRrepositoryItemButtonEdit.Name = "challanNoRrepositoryItemButtonEdit";
             // 
-            // gridColumn1
-            // 
-            this.gridColumn1.Caption = "Cut";
-            this.gridColumn1.FieldName = "Cops";
-            this.gridColumn1.Name = "gridColumn1";
-            this.gridColumn1.Visible = true;
-            this.gridColumn1.VisibleIndex = 4;
-            // 
             // CuttingDetailWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.CancelButton = this.cancelSimpleButton;
+            this.ClientSize = new System.Drawing.Size(858, 362);
             this.Controls.Add(this.gridControl1);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "CuttingDetailWindow";
-            this.Text = "CuttingDetailWindow";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Cutting Details";
             this.tableLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gradeRepositoryItemLookUpEdit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.productRepositoryItemButtonEdit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.colorRepositoryItemButtonEdit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.designRepositoryItemButtonEdit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.uomRepositoryItemLookUpEdit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lotNoRepositoryItemButtonEdit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.challanNoRrepositoryItemButtonEdit)).EndInit();
             this.ResumeLayout(false);
@@ -387,9 +404,10 @@
         private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit repositoryItemTextEdit1;
         private DevExpress.XtraGrid.Columns.GridColumn colRemark;
         private DevExpress.XtraGrid.Columns.GridColumn colMiscId;
-        private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit uomRepositoryItemLookUpEdit;
+        private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit gradeRepositoryItemLookUpEdit;
         private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit lotNoRepositoryItemButtonEdit;
         private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit challanNoRrepositoryItemButtonEdit;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn1;
+        private DevExpress.XtraGrid.Columns.GridColumn colGradeId;
     }
 }

@@ -48,11 +48,31 @@ namespace Konto.Shared.Masters.Item
             purDiscspinEdit.EditValueChanged += PurDiscspinEdit_EditValueChanged;
             formulaSimpleButton.Click += FormulaSimpleButton_Click;
             this.MainLayoutFile = KontoFileLayout.Product_Master_Layout;
+
+            this.FirstActiveControl = nameTextBoxExt;
+
             SetParameter();
             FillLookup();
 
             if (KontoGlobals.PackageId != 3 || KontoGlobals.PackageId != 7)
                 weavingSimpleButton.Visible = false;
+
+            this.Shown += ProductIndex_Shown;
+        }
+
+        private void ProductIndex_Shown(object sender, EventArgs e)
+        {
+           if(KontoGlobals.PackageId!=6)
+            {
+                bulkQtyLayoutControlItem.ContentVisible = false;
+                semiBulkLayoutControlItem.ContentVisible = false;
+                bulkRateLayoutControlItem.ContentVisible = false;
+                styleNoLayoutControlItem.ContentVisible = false;
+            }
+            if (KontoGlobals.PackageId == 1 || KontoGlobals.PackageId == 3 || KontoGlobals.PackageId == 7)
+                cutLayoutControlItem.ContentVisible = true;
+            else
+                cutLayoutControlItem.ContentVisible = false;
         }
 
         private void FormulaSimpleButton_Click(object sender, EventArgs e)
@@ -233,6 +253,7 @@ namespace Konto.Shared.Masters.Item
             {
                 var _list = tabPageAdv2.Controls[0] as ProductListView;
                 _list.ActiveControl = _list.KontoGrid;
+                this.Text = "Product Master [View]";
                 return;
             }
             if (tabControlAdv1.SelectedIndex == 1)
@@ -240,6 +261,7 @@ namespace Konto.Shared.Masters.Item
                 var _ListView = new ProductListView();
                 _ListView.Dock = DockStyle.Fill;
                 tabPageAdv2.Controls.Add(_ListView);
+                this.Text = "Product Master [View]";
 
             }
         }
@@ -331,16 +353,20 @@ namespace Konto.Shared.Masters.Item
                 batchComboBoxEx.Focus();
                 return false;
             }
-            using (var db = new KontoContext())
-            {
-                var find = db.Products.FirstOrDefault(
-                   x => x.ProductName == nameTextBoxExt.Text.Trim() && x.Id != this.PrimaryKey && !x.IsDeleted && x.ItemType == "I");
 
-                if (find != null)
+            if (KontoGlobals.PackageId != (int) PackageType.POS) // check duplicate not applicable for Pos Package
+            {
+                using (var db = new KontoContext())
                 {
-                    MessageBoxAdv.Show(this, "Product Name Already Exists", "Duplicate Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    barcodeTextBoxExt.Focus();
-                    return false;
+                    var find = db.Products.FirstOrDefault(
+                       x => x.ProductName == nameTextBoxExt.Text.Trim() && x.Id != this.PrimaryKey && !x.IsDeleted && x.ItemType == "I");
+
+                    if (find != null)
+                    {
+                        MessageBoxAdv.Show(this, "Product Name Already Exists", "Duplicate Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        barcodeTextBoxExt.Focus();
+                        return false;
+                    }
                 }
             }
 
@@ -357,8 +383,9 @@ namespace Konto.Shared.Masters.Item
             stockReqComboBoxEx.SelectedIndex = 0;
             batchComboBoxEx.SelectedIndex = 1;
             serialComboBoxEx.SelectedIndex = 1;
-            pTypeLookup1.SelectedValue = 1;
-            pTypeLookup1.SetArea();
+            ratePerQtySpinEdit.Value = 1;
+            //pTypeLookup1.SelectedValue = 1;
+            //pTypeLookup1.SetArea();
             
             checkEdit1.Checked = true;
             this.Text = "Product Master [Add New]";
@@ -433,6 +460,7 @@ namespace Konto.Shared.Masters.Item
             rolSpinEdit.Value = 0;
             minStockSpinEdit.Value = 0;
             maxStockSpinEdit.Value = 0;
+            ratePerQtySpinEdit.Value = 0;
             taxIncCheckEdit.Checked = false;
             groupLookup1.SetEmpty();
             subGroupLookup1.SetEmpty();
@@ -443,6 +471,11 @@ namespace Konto.Shared.Masters.Item
 
             toggleSwitch1.EditValue = true;
             toggleSwitch1.Enabled = false;
+
+            styleNoTextEdit.Text = string.Empty;
+            semBulkRateSpinEdit.Value = 0;
+            bulkQtySpinEdit.Value = 0;
+            bulkQtySpinEdit.Value = 0;
             
         }
 
@@ -501,6 +534,7 @@ namespace Konto.Shared.Masters.Item
             sizeLookup1.SelectedValue = model.SizeId;
             sizeLookup1.SetGroup();
             toggleSwitch1.EditValue = model.IsActive;
+            ratePerQtySpinEdit.Value = model.Price2; // rate per qty
             this.Text = "Product Master [View/Modify]";
 
             PriceModel pm = null;
@@ -600,6 +634,12 @@ namespace Konto.Shared.Masters.Item
             purRatespinEdit.Value = pm.DealerPrice;
             saleRatespinEdit.Value = pm.SaleRate;
             mrpSpinEdit.Value = pm.Mrp;
+
+            styleNoTextEdit.Text = pm.BatchNo;
+            bulkRateSpinEdit.Value = pm.Rate1;
+            bulkQtySpinEdit.Value = pm.Qty;
+            semBulkRateSpinEdit.Value = pm.Rate2;
+
 
             createdLabelControl.Text = "Created By: " + model.CreateUser + " [ " + model.CreateDate + " ]";
             modifyLabelControl.Text = "Modified By: " + model.ModifyUser + " [ " + model.ModifyDate ?? string.Empty + " ]";
@@ -719,6 +759,8 @@ namespace Konto.Shared.Masters.Item
                         model.StyleId = 1;
                         model.ItemType = "I";
                         model.Cut = cutSpinEdit.Value;
+                        model.Price2 = ratePerQtySpinEdit.Value;
+                       
 
                         if (Convert.ToInt32(groupLookup1.SelectedValue) == 0)
                             model.GroupId = 1;
@@ -747,6 +789,12 @@ namespace Konto.Shared.Masters.Item
                             model.ColorId = 1;
                         else
                             model.ColorId = Convert.ToInt32(colorLookup1.SelectedValue);
+
+
+                        pm.BatchNo = styleNoTextEdit.Text.Trim(); //styleno
+                        pm.Qty = bulkQtySpinEdit.Value; // bulk qty
+                        pm.Rate1 = bulkRateSpinEdit.Value; //bulk rate
+                        pm.Rate2 = semBulkRateSpinEdit.Value; //semi bulk rate
 
 
                         if (this.PrimaryKey == 0)
@@ -883,7 +931,7 @@ namespace Konto.Shared.Masters.Item
                                fm = db.PFormulas.Find(item.Id);
                             
                                 fm.RefProductId = item.RefProductId;
-                            fm.ProductName = item.ProductName;
+                           // fm.ProductName = item.ProductName;
                                 fm.Qty = item.Qty;
                                 fm.Cut = item.Cut;
                                 fm.Rate = item.Rate;

@@ -50,5 +50,6 @@
 
         public const int Receipt_Vouecher = 322;
         public const int Payment_Vouecher = 328;
+        public const int Color_Formula = 1068;
     }
 }

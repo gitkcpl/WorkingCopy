@@ -50,7 +50,9 @@ namespace Konto.Shared.Masters.Item
                               join sub in _context.PSubGroups on pd.SubGroupId equals sub.Id into sub_join
                               from sub in sub_join.DefaultIfEmpty()
                               join sz in _context.SizeModels on pd.SizeId equals sz.Id into sz_join
-                              from szz in sz_join.DefaultIfEmpty() 
+                              from szz in sz_join.DefaultIfEmpty()
+                              join cl in _context.ColorModels on pd.ColorId equals cl.Id into cl_join
+                              from cl1 in cl_join.DefaultIfEmpty()
                               join pt in _context.ProductTypes on pd.PTypeId equals pt.Id
                               join tx in _context.TaxMasters on pd.TaxId equals tx.Id
                               join um in _context.Uoms on pd.UomId equals um.Id
@@ -91,7 +93,9 @@ namespace Konto.Shared.Masters.Item
                                   CreateDate = pd.CreateDate,
                                   ModifyDate = pd.ModifyDate,
                                   ModifyUser = pd.ModifyUser,
-                                  SerialReq = pd.SerialReq, SaleRateTaxInc= pd.SaleRateTaxInc
+                                  SerialReq = pd.SerialReq, SaleRateTaxInc= pd.SaleRateTaxInc,
+                                  CostPrice= pd.ActualCost,Mrp= pr.Mrp,Rate1= pr.Rate1,Rate2=pr.Rate2,
+                                  ColorName= cl1.ColorName,PcsPerPack = pd.AccId != null ? (int)pd.AccId : 0
                               }
                 ).ToList();
 

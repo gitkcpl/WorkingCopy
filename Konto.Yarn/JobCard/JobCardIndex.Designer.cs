@@ -305,6 +305,7 @@
             // gradeLookup1
             // 
             this.gradeLookup1.Location = new System.Drawing.Point(144, 251);
+            this.gradeLookup1.LookupTitle = null;
             this.gradeLookup1.Name = "gradeLookup1";
             this.gradeLookup1.PrimaryKey = null;
             this.gradeLookup1.RequiredField = true;
@@ -316,6 +317,7 @@
             // colorLookup1
             // 
             this.colorLookup1.Location = new System.Drawing.Point(453, 162);
+            this.colorLookup1.LookupTitle = null;
             this.colorLookup1.Name = "colorLookup1";
             this.colorLookup1.PrimaryKey = null;
             this.colorLookup1.RequiredField = true;
@@ -328,7 +330,7 @@
             // 
             this.FinishproductLookup.GroupDto = null;
             this.FinishproductLookup.Location = new System.Drawing.Point(144, 162);
-            this.FinishproductLookup.LookupTital = "Select Finish Item";
+            this.FinishproductLookup.LookupTitle = "Select Finish Item";
             this.FinishproductLookup.Name = "FinishproductLookup";
             this.FinishproductLookup.PrimaryKey = null;
             this.FinishproductLookup.PTypeId = Konto.App.Shared.ProductTypeEnum.NA;
@@ -346,9 +348,10 @@
             this.accLookup1.GroupId = 0;
             this.accLookup1.Location = new System.Drawing.Point(453, 138);
             this.accLookup1.LookupDto = null;
+            this.accLookup1.LookupTitle = null;
             this.accLookup1.Name = "accLookup1";
             this.accLookup1.Nature = null;
-            this.accLookup1.NewGroupId = 0;
+            this.accLookup1.NewGroupId = Konto.App.Shared.LedgerGroupEnum.NONE;
             this.accLookup1.PrimaryKey = null;
             this.accLookup1.RequiredField = true;
             this.accLookup1.SelectedText = null;
@@ -655,6 +658,7 @@
             // 
             this.voucherLookup.GroupDto = null;
             this.voucherLookup.Location = new System.Drawing.Point(429, 39);
+            this.voucherLookup.LookupTitle = null;
             this.voucherLookup.Name = "voucherLookup";
             this.voucherLookup.PrimaryKey = null;
             this.voucherLookup.RequiredField = true;
@@ -690,7 +694,7 @@
             // 
             // RemarkTextBoxExt
             // 
-            this.RemarkTextBoxExt.BeforeTouchSize = new System.Drawing.Size(493, 24);
+            this.RemarkTextBoxExt.BeforeTouchSize = new System.Drawing.Size(266, 44);
             this.RemarkTextBoxExt.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(211)))), ((int)(((byte)(212)))));
             this.RemarkTextBoxExt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.RemarkTextBoxExt.EnterMoveNextControl = true;
@@ -743,7 +747,7 @@
             // 
             this.GreyLookup.GroupDto = null;
             this.GreyLookup.Location = new System.Drawing.Point(144, 223);
-            this.GreyLookup.LookupTital = "Select Grey Item";
+            this.GreyLookup.LookupTitle = "Select Grey Item";
             this.GreyLookup.Name = "GreyLookup";
             this.GreyLookup.PrimaryKey = null;
             this.GreyLookup.PTypeId = Konto.App.Shared.ProductTypeEnum.NA;

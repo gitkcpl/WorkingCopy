@@ -24,6 +24,8 @@ namespace Konto.Shared.Masters.State
             tabControlAdv1.TabPages[2].TabVisible = false;
             tabControlAdv1.TabPages[3].TabVisible = false;
             this.okSimpleButton.Click += okSimpleButton_Click;
+
+            this.FirstActiveControl = stateNameTextBox;
         }
 
        

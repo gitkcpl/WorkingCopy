@@ -95,5 +95,188 @@ namespace Konto.Data
             return  _context.ChallanTranses.Any(x =>
                 x.MiscId == id && x.RefVoucherId == vId && x.IsDeleted == false && x.IsActive == true);
         }
+
+        public static ProductDetailsDto GetProductDetails(int id)
+        {
+
+            using(var _context = new KontoContext())
+            {
+                _context.Database.CommandTimeout = 0;
+                var _model = (from pd in _context.Products
+                              join bal in _context.StockBals on pd.Id equals bal.ProductId
+                              join pr in _context.Prices on pd.Id equals pr.ProductId
+
+                              join cat in _context.CategroyModels on pd.CategoryId equals cat.Id into cat_join
+                              from cat in cat_join.DefaultIfEmpty()
+
+                              join grp in _context.PGroups on pd.GroupId equals grp.Id into grp_join
+                              from grp in grp_join.DefaultIfEmpty()
+
+                              join sub in _context.PSubGroups on pd.SubGroupId equals sub.Id into sub_join
+                              from sub in sub_join.DefaultIfEmpty()
+
+                              join pt in _context.ProductTypes on pd.PTypeId equals pt.Id
+                              join tx in _context.TaxMasters on pd.TaxId equals tx.Id
+                              join um in _context.Uoms on pd.UomId equals um.Id
+
+                              join sz in _context.SizeModels on pd.SizeId equals sz.Id into sz_join
+                              from sz1 in sz_join.DefaultIfEmpty()
+
+                              join ac in _context.Accs on pd.VendorId equals ac.Id into ac_join
+                              from ac in ac_join.DefaultIfEmpty()
+
+                              join br in _context.Brands on pd.BrandId equals br.Id into br_join
+                              from br in br_join.DefaultIfEmpty()
+
+                              join cl in _context.ColorModels on pd.ColorId equals cl.Id into cl_join
+                              from cl in cl_join.DefaultIfEmpty()
+
+                              where bal.CompanyId == KontoGlobals.CompanyId && bal.BranchId == KontoGlobals.BranchId && bal.YearId == KontoGlobals.YearId &&
+                              !pd.IsDeleted && pd.Id == id
+                              select new ProductDetailsDto()
+                              {
+                                  CheckNegative = pd.CheckNegative,
+                                  BarCode = pd.BarCode,
+                                  CatName = cat.CatName,
+                                  DealerPrice = pr.DealerPrice,
+                                  GroupName = grp.GroupName,
+                                  ProductName = pd.ProductName,
+                                  HsnCode = pd.HsnCode,
+                                  Id = pd.Id,
+                                  OpPcs = bal.OpNos,
+                                  OpQty = bal.OpQty,
+                                  ProductCode = pd.ProductCode,
+                                  ProductType = pt.TypeName,
+                                  SaleRate = pr.SaleRate,
+                                  StockPcs = bal.BalNos + bal.OpNos,
+                                  StockQty = bal.BalQty + bal.OpQty,
+                                  SubName = sub.SubName,
+                                  TaxName = tx.TaxName,
+                                  UnitName = um.UnitName,
+                                  UomId = pd.UomId,
+                                  PurUomId = pd.PurUomId,
+                                  PTypeId = pd.PTypeId,
+                                  Vendor = ac.AccName,
+                                  Sgst = tx.Sgst,
+                                  Cgst = tx.Cgst,
+                                  Igst = tx.Igst,
+                                  Cess = tx.CessRate,
+                                  SerialReq = pd.SerialReq,
+                                  Cut = pd.Cut,
+                                  TaxId = pd.TaxId,
+                                  SaleRateTaxInc = pd.SaleRateTaxInc,
+                                  SizeName = sz1.SizeName,
+                                  BrandId = pd.BrandId,
+                                  BrandName = br.BrandName,
+                                  GroupId = pd.GroupId,
+                                  CategroyId = pd.CategoryId,
+                                  ColorId = pd.ColorId,
+                                  ColorName = cl.ColorName,
+                                  Mrp = pr.Mrp,
+                                  Qty = pr.Qty,
+                                  Rate1 = pr.Rate1,
+                                  Rate2 = pr.Rate2,
+                                  SizeId = pd.SizeId,
+                                  SubGrupId = pd.SubGroupId,StyleNo= pr.BatchNo
+                              }).FirstOrDefault();
+
+                return _model;
+            }
+        }
+
+
+
+        // get data by barcode
+        public static ProductDetailsDto GetProductDetails(string  barcode)
+        {
+
+            using (var _context = new KontoContext())
+            {
+                _context.Database.CommandTimeout = 0;
+                var _model = (from pd in _context.Products
+                              join bal in _context.StockBals on pd.Id equals bal.ProductId
+                              join pr in _context.Prices on pd.Id equals pr.ProductId
+
+                              join cat in _context.CategroyModels on pd.CategoryId equals cat.Id into cat_join
+                              from cat in cat_join.DefaultIfEmpty()
+
+                              join grp in _context.PGroups on pd.GroupId equals grp.Id into grp_join
+                              from grp in grp_join.DefaultIfEmpty()
+
+                              join sub in _context.PSubGroups on pd.SubGroupId equals sub.Id into sub_join
+                              from sub in sub_join.DefaultIfEmpty()
+
+                              join pt in _context.ProductTypes on pd.PTypeId equals pt.Id
+                              join tx in _context.TaxMasters on pd.TaxId equals tx.Id
+                              join um in _context.Uoms on pd.UomId equals um.Id
+
+                              join sz in _context.SizeModels on pd.SizeId equals sz.Id into sz_join
+                              from sz1 in sz_join.DefaultIfEmpty()
+
+                              join ac in _context.Accs on pd.VendorId equals ac.Id into ac_join
+                              from ac in ac_join.DefaultIfEmpty()
+
+                              join br in _context.Brands on pd.BrandId equals br.Id into br_join
+                              from br in br_join.DefaultIfEmpty()
+
+                              join cl in _context.ColorModels on pd.ColorId equals cl.Id into cl_join
+                              from cl in cl_join.DefaultIfEmpty()
+
+                              where bal.CompanyId == KontoGlobals.CompanyId && bal.BranchId == KontoGlobals.BranchId && bal.YearId == KontoGlobals.YearId &&
+                              !pd.IsDeleted && pd.BarCode == barcode
+                              select new ProductDetailsDto()
+                              {
+                                  CheckNegative = pd.CheckNegative,
+                                  BarCode = pd.BarCode,
+                                  CatName = cat.CatName,
+                                  DealerPrice = pr.DealerPrice,
+                                  GroupName = grp.GroupName,
+                                  ProductName = pd.ProductName,
+                                  HsnCode = pd.HsnCode,
+                                  Id = pd.Id,
+                                  OpPcs = bal.OpNos,
+                                  OpQty = bal.OpQty,
+                                  ProductCode = pd.ProductCode,
+                                  ProductType = pt.TypeName,
+                                  SaleRate = pr.SaleRate,
+                                  StockPcs = bal.BalNos + bal.OpNos,
+                                  StockQty = bal.BalQty + bal.OpQty,
+                                  SubName = sub.SubName,
+                                  TaxName = tx.TaxName,
+                                  UnitName = um.UnitName,
+                                  UomId = pd.UomId,
+                                  PurUomId = pd.PurUomId,
+                                  PTypeId = pd.PTypeId,
+                                  Vendor = ac.AccName,
+                                  Sgst = tx.Sgst,
+                                  Cgst = tx.Cgst,
+                                  Igst = tx.Igst,
+                                  Cess = tx.CessRate,
+                                  SerialReq = pd.SerialReq,
+                                  Cut = pd.Cut,
+                                  TaxId = pd.TaxId,
+                                  SaleRateTaxInc = pd.SaleRateTaxInc,
+                                  SizeName = sz1.SizeName,
+                                  BrandId = pd.BrandId,
+                                  BrandName = br.BrandName,
+                                  GroupId = pd.GroupId,
+                                  CategroyId = pd.CategoryId,
+                                  ColorId = pd.ColorId,
+                                  ColorName = cl.ColorName,
+                                  Mrp = pr.Mrp,
+                                  Qty = pr.Qty,
+                                  Rate1 = pr.Rate1,
+                                  Rate2 = pr.Rate2,
+                                  SizeId = pd.SizeId,
+                                  SubGrupId = pd.SubGroupId,
+                                  StyleNo = pr.BatchNo,Description = pd.ProductDesc,
+                                  ProfitPer = pd.Price1
+                              }).FirstOrDefault();
+
+                return _model;
+            }
+        }
     }
+
+
 }

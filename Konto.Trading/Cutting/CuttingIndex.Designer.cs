@@ -167,13 +167,14 @@
             // 
             this.voucherLookup1.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.voucherLookup1.GroupDto = null;
-            this.voucherLookup1.Location = new System.Drawing.Point(74, 12);
+            this.voucherLookup1.Location = new System.Drawing.Point(90, 12);
+            this.voucherLookup1.LookupTitle = null;
             this.voucherLookup1.Name = "voucherLookup1";
             this.voucherLookup1.PrimaryKey = null;
             this.voucherLookup1.RequiredField = true;
             this.voucherLookup1.SelectedText = null;
             this.voucherLookup1.SelectedValue = null;
-            this.voucherLookup1.Size = new System.Drawing.Size(222, 24);
+            this.voucherLookup1.Size = new System.Drawing.Size(206, 24);
             this.voucherLookup1.TabIndex = 4;
             this.voucherLookup1.VTypeId = Konto.App.Shared.VoucherTypeEnum.Cutting;
             // 
@@ -181,7 +182,7 @@
             // 
             this.voucherDateEdit.EditValue = null;
             this.voucherDateEdit.EnterMoveNextControl = true;
-            this.voucherDateEdit.Location = new System.Drawing.Point(362, 12);
+            this.voucherDateEdit.Location = new System.Drawing.Point(378, 12);
             this.voucherDateEdit.Name = "voucherDateEdit";
             this.voucherDateEdit.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
             this.voucherDateEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -192,7 +193,7 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.voucherDateEdit.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.DateTimeAdvancingCaret;
             this.voucherDateEdit.Properties.Mask.UseMaskAsDisplayFormat = true;
-            this.voucherDateEdit.Size = new System.Drawing.Size(267, 24);
+            this.voucherDateEdit.Size = new System.Drawing.Size(251, 24);
             this.voucherDateEdit.StyleController = this.layoutControl1;
             this.voucherDateEdit.TabIndex = 6;
             // 
@@ -200,14 +201,14 @@
             // 
             this.voucherNoTextEdit.Enabled = false;
             this.voucherNoTextEdit.EnterMoveNextControl = true;
-            this.voucherNoTextEdit.Location = new System.Drawing.Point(695, 12);
+            this.voucherNoTextEdit.Location = new System.Drawing.Point(711, 12);
             this.voucherNoTextEdit.Name = "voucherNoTextEdit";
             this.voucherNoTextEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.voucherNoTextEdit.Properties.Appearance.Options.UseFont = true;
             this.voucherNoTextEdit.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.voucherNoTextEdit.Properties.AppearanceFocused.Options.UseBorderColor = true;
             this.voucherNoTextEdit.Properties.MaxLength = 50;
-            this.voucherNoTextEdit.Size = new System.Drawing.Size(268, 24);
+            this.voucherNoTextEdit.Size = new System.Drawing.Size(252, 24);
             this.voucherNoTextEdit.StyleController = this.layoutControl1;
             this.voucherNoTextEdit.TabIndex = 7;
             // 
@@ -217,8 +218,9 @@
             this.accLookup1.FillParty = true;
             this.accLookup1.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.accLookup1.GroupId = 0;
-            this.accLookup1.Location = new System.Drawing.Point(74, 40);
+            this.accLookup1.Location = new System.Drawing.Point(90, 40);
             this.accLookup1.LookupDto = null;
+            this.accLookup1.LookupTitle = null;
             this.accLookup1.Name = "accLookup1";
             this.accLookup1.Nature = null;
             this.accLookup1.NewGroupId = 0;
@@ -226,7 +228,7 @@
             this.accLookup1.RequiredField = true;
             this.accLookup1.SelectedText = null;
             this.accLookup1.SelectedValue = null;
-            this.accLookup1.Size = new System.Drawing.Size(222, 24);
+            this.accLookup1.Size = new System.Drawing.Size(206, 24);
             this.accLookup1.TabIndex = 11;
             this.accLookup1.TaxType = null;
             this.accLookup1.TransportLookup = null;
@@ -235,27 +237,28 @@
             // OrderNoTextEdit
             // 
             this.OrderNoTextEdit.EnterMoveNextControl = true;
-            this.OrderNoTextEdit.Location = new System.Drawing.Point(362, 40);
+            this.OrderNoTextEdit.Location = new System.Drawing.Point(378, 40);
             this.OrderNoTextEdit.Name = "OrderNoTextEdit";
             this.OrderNoTextEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.OrderNoTextEdit.Properties.Appearance.Options.UseFont = true;
             this.OrderNoTextEdit.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.OrderNoTextEdit.Properties.AppearanceFocused.Options.UseBorderColor = true;
             this.OrderNoTextEdit.Properties.MaxLength = 25;
-            this.OrderNoTextEdit.Size = new System.Drawing.Size(267, 24);
+            this.OrderNoTextEdit.Size = new System.Drawing.Size(251, 24);
             this.OrderNoTextEdit.StyleController = this.layoutControl1;
             this.OrderNoTextEdit.TabIndex = 9;
             // 
             // empLookup1
             // 
             this.empLookup1.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.empLookup1.Location = new System.Drawing.Point(695, 40);
+            this.empLookup1.Location = new System.Drawing.Point(711, 40);
+            this.empLookup1.LookupTitle = null;
             this.empLookup1.Name = "empLookup1";
             this.empLookup1.PrimaryKey = null;
             this.empLookup1.RequiredField = true;
             this.empLookup1.SelectedText = null;
             this.empLookup1.SelectedValue = null;
-            this.empLookup1.Size = new System.Drawing.Size(268, 24);
+            this.empLookup1.Size = new System.Drawing.Size(252, 24);
             this.empLookup1.TabIndex = 8;
             // 
             // gridControl1
@@ -323,7 +326,9 @@
             this.gridView1.GridControl = this.gridControl1;
             this.gridView1.IndicatorWidth = 30;
             this.gridView1.Name = "gridView1";
+            this.gridView1.OptionsBehavior.Editable = false;
             this.gridView1.OptionsBehavior.FocusLeaveOnTab = true;
+            this.gridView1.OptionsBehavior.ReadOnly = true;
             this.gridView1.OptionsCustomization.AllowFilter = false;
             this.gridView1.OptionsCustomization.AllowGroup = false;
             this.gridView1.OptionsCustomization.AllowSort = false;
@@ -374,7 +379,7 @@
             this.colColorName.FieldName = "ColorName";
             this.colColorName.Name = "colColorName";
             this.colColorName.Visible = true;
-            this.colColorName.VisibleIndex = 5;
+            this.colColorName.VisibleIndex = 4;
             this.colColorName.Width = 111;
             // 
             // colTakaVNo
@@ -395,22 +400,20 @@
             this.colDesignNo.FieldName = "DesignNo";
             this.colDesignNo.Name = "colDesignNo";
             this.colDesignNo.Visible = true;
-            this.colDesignNo.VisibleIndex = 6;
+            this.colDesignNo.VisibleIndex = 5;
             // 
             // colRefNo
             // 
             this.colRefNo.Caption = "Ref No";
             this.colRefNo.FieldName = "RefNo";
             this.colRefNo.Name = "colRefNo";
-            this.colRefNo.Visible = true;
-            this.colRefNo.VisibleIndex = 2;
             // 
             // colLotNo
             // 
             this.colLotNo.FieldName = "LotNo";
             this.colLotNo.Name = "colLotNo";
             this.colLotNo.Visible = true;
-            this.colLotNo.VisibleIndex = 4;
+            this.colLotNo.VisibleIndex = 3;
             // 
             // colProductName
             // 
@@ -419,7 +422,7 @@
             this.colProductName.FieldName = "ProductName";
             this.colProductName.Name = "colProductName";
             this.colProductName.Visible = true;
-            this.colProductName.VisibleIndex = 3;
+            this.colProductName.VisibleIndex = 2;
             this.colProductName.Width = 202;
             // 
             // productRepositoryItemButtonEdit
@@ -459,7 +462,7 @@
             this.colPcs.FieldName = "Pcs";
             this.colPcs.Name = "colPcs";
             this.colPcs.Visible = true;
-            this.colPcs.VisibleIndex = 7;
+            this.colPcs.VisibleIndex = 6;
             // 
             // colIssueQty
             // 
@@ -467,7 +470,7 @@
             this.colIssueQty.FieldName = "IssueQty";
             this.colIssueQty.Name = "colIssueQty";
             this.colIssueQty.Visible = true;
-            this.colIssueQty.VisibleIndex = 8;
+            this.colIssueQty.VisibleIndex = 7;
             this.colIssueQty.Width = 100;
             // 
             // colQty
@@ -476,7 +479,7 @@
             this.colQty.FieldName = "Qty";
             this.colQty.Name = "colQty";
             this.colQty.Visible = true;
-            this.colQty.VisibleIndex = 9;
+            this.colQty.VisibleIndex = 8;
             this.colQty.Width = 90;
             // 
             // colShQty
@@ -485,7 +488,7 @@
             this.colShQty.FieldName = "ShQty";
             this.colShQty.Name = "colShQty";
             this.colShQty.Visible = true;
-            this.colShQty.VisibleIndex = 10;
+            this.colShQty.VisibleIndex = 9;
             this.colShQty.Width = 111;
             // 
             // colUnitId
@@ -499,7 +502,7 @@
             this.colShPer.FieldName = "ShPer";
             this.colShPer.Name = "colShPer";
             this.colShPer.Visible = true;
-            this.colShPer.VisibleIndex = 11;
+            this.colShPer.VisibleIndex = 10;
             this.colShPer.Width = 124;
             // 
             // colRemark
@@ -507,7 +510,7 @@
             this.colRemark.FieldName = "Remark";
             this.colRemark.Name = "colRemark";
             this.colRemark.Visible = true;
-            this.colRemark.VisibleIndex = 12;
+            this.colRemark.VisibleIndex = 11;
             // 
             // uomRepositoryItemLookUpEdit
             // 
@@ -556,13 +559,13 @@
             // remarkTextEdit
             // 
             this.remarkTextEdit.EnterMoveNextControl = true;
-            this.remarkTextEdit.Location = new System.Drawing.Point(74, 312);
+            this.remarkTextEdit.Location = new System.Drawing.Point(90, 312);
             this.remarkTextEdit.Name = "remarkTextEdit";
             this.remarkTextEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.remarkTextEdit.Properties.Appearance.Options.UseFont = true;
             this.remarkTextEdit.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.remarkTextEdit.Properties.AppearanceFocused.Options.UseBorderColor = true;
-            this.remarkTextEdit.Size = new System.Drawing.Size(889, 24);
+            this.remarkTextEdit.Size = new System.Drawing.Size(873, 24);
             this.remarkTextEdit.StyleController = this.layoutControl1;
             this.remarkTextEdit.TabIndex = 13;
             // 
@@ -586,6 +589,8 @@
             // layoutControlItem1
             // 
             this.layoutControlItem1.AllowHtmlStringInCaption = true;
+            this.layoutControlItem1.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.layoutControlItem1.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem1.Control = this.voucherLookup1;
             this.layoutControlItem1.ControlAlignment = System.Drawing.ContentAlignment.TopLeft;
             this.layoutControlItem1.CustomizationFormText = "<color=255, 0, 0>*</color>Voucher:";
@@ -593,11 +598,13 @@
             this.layoutControlItem1.Name = "layoutControlItem1";
             this.layoutControlItem1.Size = new System.Drawing.Size(288, 28);
             this.layoutControlItem1.Text = "<color=255, 0, 0>*</color>Voucher:";
-            this.layoutControlItem1.TextSize = new System.Drawing.Size(59, 13);
+            this.layoutControlItem1.TextSize = new System.Drawing.Size(75, 17);
             // 
             // layoutControlItem6
             // 
             this.layoutControlItem6.AllowHtmlStringInCaption = true;
+            this.layoutControlItem6.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.layoutControlItem6.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem6.Control = this.voucherDateEdit;
             this.layoutControlItem6.ControlAlignment = System.Drawing.ContentAlignment.TopLeft;
             this.layoutControlItem6.CustomizationFormText = "<color=255, 0, 0>*</color>Date:";
@@ -605,10 +612,12 @@
             this.layoutControlItem6.Name = "layoutControlItem6";
             this.layoutControlItem6.Size = new System.Drawing.Size(333, 28);
             this.layoutControlItem6.Text = "<color=255, 0, 0>*</color>Date:";
-            this.layoutControlItem6.TextSize = new System.Drawing.Size(59, 13);
+            this.layoutControlItem6.TextSize = new System.Drawing.Size(75, 17);
             // 
             // layoutControlItem3
             // 
+            this.layoutControlItem3.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.layoutControlItem3.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem3.Control = this.voucherNoTextEdit;
             this.layoutControlItem3.ControlAlignment = System.Drawing.ContentAlignment.TopLeft;
             this.layoutControlItem3.CustomizationFormText = "Voucher No:";
@@ -616,11 +625,13 @@
             this.layoutControlItem3.Name = "layoutControlItem3";
             this.layoutControlItem3.Size = new System.Drawing.Size(334, 28);
             this.layoutControlItem3.Text = "Voucher No:";
-            this.layoutControlItem3.TextSize = new System.Drawing.Size(59, 13);
+            this.layoutControlItem3.TextSize = new System.Drawing.Size(75, 17);
             // 
             // layoutControlItem4
             // 
             this.layoutControlItem4.AllowHtmlStringInCaption = true;
+            this.layoutControlItem4.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.layoutControlItem4.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem4.Control = this.accLookup1;
             this.layoutControlItem4.ControlAlignment = System.Drawing.ContentAlignment.TopLeft;
             this.layoutControlItem4.CustomizationFormText = "<color=255, 0, 0>*</color>Party:";
@@ -628,22 +639,26 @@
             this.layoutControlItem4.Name = "layoutControlItem4";
             this.layoutControlItem4.Size = new System.Drawing.Size(288, 28);
             this.layoutControlItem4.Text = "<color=255, 0, 0>*</color>Mill:";
-            this.layoutControlItem4.TextSize = new System.Drawing.Size(59, 13);
+            this.layoutControlItem4.TextSize = new System.Drawing.Size(75, 17);
             // 
             // layoutControlItem9
             // 
             this.layoutControlItem9.AllowHtmlStringInCaption = true;
+            this.layoutControlItem9.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.layoutControlItem9.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem9.Control = this.OrderNoTextEdit;
             this.layoutControlItem9.ControlAlignment = System.Drawing.ContentAlignment.TopLeft;
             this.layoutControlItem9.CustomizationFormText = "Bill No:";
             this.layoutControlItem9.Location = new System.Drawing.Point(288, 28);
             this.layoutControlItem9.Name = "layoutControlItem9";
             this.layoutControlItem9.Size = new System.Drawing.Size(333, 28);
-            this.layoutControlItem9.Text = "<color=255, 0, 0>*</color>Order No:";
-            this.layoutControlItem9.TextSize = new System.Drawing.Size(59, 13);
+            this.layoutControlItem9.Text = "<color=255, 0, 0>*</color>Ref No:";
+            this.layoutControlItem9.TextSize = new System.Drawing.Size(75, 17);
             // 
             // layoutControlItem19
             // 
+            this.layoutControlItem19.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.layoutControlItem19.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem19.Control = this.empLookup1;
             this.layoutControlItem19.ControlAlignment = System.Drawing.ContentAlignment.TopLeft;
             this.layoutControlItem19.CustomizationFormText = "Inward By:";
@@ -651,7 +666,7 @@
             this.layoutControlItem19.Name = "layoutControlItem19";
             this.layoutControlItem19.Size = new System.Drawing.Size(334, 28);
             this.layoutControlItem19.Text = "Emp:";
-            this.layoutControlItem19.TextSize = new System.Drawing.Size(59, 13);
+            this.layoutControlItem19.TextSize = new System.Drawing.Size(75, 17);
             // 
             // layoutControlItem20
             // 
@@ -673,7 +688,7 @@
             this.layoutControlItem17.Name = "layoutControlItem17";
             this.layoutControlItem17.Size = new System.Drawing.Size(955, 28);
             this.layoutControlItem17.Text = "Remark:";
-            this.layoutControlItem17.TextSize = new System.Drawing.Size(59, 13);
+            this.layoutControlItem17.TextSize = new System.Drawing.Size(75, 13);
             // 
             // CuttingIndex
             // 
@@ -684,6 +699,7 @@
             this.KontoMainView = this.gridView1;
             this.Name = "CuttingIndex";
             this.Text = "Cutting";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             ((System.ComponentModel.ISupportInitialize)(this.tabControlAdv1)).EndInit();
             this.tabControlAdv1.ResumeLayout(false);
             this.tabPageAdv1.ResumeLayout(false);

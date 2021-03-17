@@ -86,6 +86,7 @@ namespace Konto.Trading.OpJobIssue
             this.gridView1.ValidateRow += GridView1_ValidateRow;
             this.gridView1.InvalidRowException += GridView1_InvalidRowException;
             voucherLookup1.SelectedValueChanged += VoucherLookup1_SelectedValueChanged;
+            this.FirstActiveControl = voucherLookup1;
         }
 
         private void VoucherLookup1_SelectedValueChanged(object sender, EventArgs e)

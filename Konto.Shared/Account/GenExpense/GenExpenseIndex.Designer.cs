@@ -344,7 +344,7 @@
             this.tdsAccLookup.LookupTitle = null;
             this.tdsAccLookup.Name = "tdsAccLookup";
             this.tdsAccLookup.Nature = "";
-            this.tdsAccLookup.NewGroupId = 39;
+            this.tdsAccLookup.NewGroupId = App.Shared.LedgerGroupEnum.TDS;
             this.tdsAccLookup.PrimaryKey = null;
             this.tdsAccLookup.RequiredField = false;
             this.tdsAccLookup.SelectedText = null;
@@ -408,7 +408,7 @@
             this.bookLookup.LookupTitle = null;
             this.bookLookup.Name = "bookLookup";
             this.bookLookup.Nature = "";
-            this.bookLookup.NewGroupId = 33;
+            this.bookLookup.NewGroupId = App.Shared.LedgerGroupEnum.DIRECT_EXPENSES;
             this.bookLookup.PrimaryKey = null;
             this.bookLookup.RequiredField = true;
             this.bookLookup.SelectedText = null;
@@ -547,7 +547,7 @@
             this.transportLookup.LookupTitle = null;
             this.transportLookup.Name = "transportLookup";
             this.transportLookup.Nature = null;
-            this.transportLookup.NewGroupId = 32;
+            this.transportLookup.NewGroupId = App.Shared.LedgerGroupEnum.CREDITORS_FOR_TRANSPORTATION;
             this.transportLookup.PrimaryKey = null;
             this.transportLookup.RequiredField = false;
             this.transportLookup.SelectedText = null;
@@ -1093,7 +1093,7 @@
             this.accLookup1.LookupTitle = null;
             this.accLookup1.Name = "accLookup1";
             this.accLookup1.Nature = null;
-            this.accLookup1.NewGroupId = 25;
+            this.accLookup1.NewGroupId = App.Shared.LedgerGroupEnum.SUNDRY_CREDITORS;
             this.accLookup1.PrimaryKey = null;
             this.accLookup1.RequiredField = true;
             this.accLookup1.SelectedText = null;

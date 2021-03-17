@@ -44,6 +44,9 @@ namespace Konto.Trading.GreyOrder
             this.GridLayoutFile = KontoFileLayout.GreyOrder_Trans;
             FillLookup();
             voucherLookup1.SelectedValueChanged += VoucherLookup1_SelectedValueChanged;
+
+
+            this.FirstActiveControl = voucherLookup1;
         }
 
         private void VoucherLookup1_SelectedValueChanged(object sender, EventArgs e)

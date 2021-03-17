@@ -276,7 +276,7 @@
             this.agentLookup.LookupDto = null;
             this.agentLookup.Name = "agentLookup";
             this.agentLookup.Nature = null;
-            this.agentLookup.NewGroupId = 31;
+            this.agentLookup.NewGroupId = App.Shared.LedgerGroupEnum.CREDITORS_FOR_BROKERAGE;
             this.agentLookup.PrimaryKey = null;
             this.agentLookup.RequiredField = false;
             this.agentLookup.SelectedText = null;

@@ -92,7 +92,8 @@ namespace Konto.Shared.Masters.Item
                                    Cess = tx.CessRate,
                                    SerialReq = pd.SerialReq,
                                    Cut = pd.Cut,
-                                   TaxId = pd.TaxId,SaleRateTaxInc = pd.SaleRateTaxInc,SizeName = sz1.SizeName
+                                   TaxId = pd.TaxId,SaleRateTaxInc = pd.SaleRateTaxInc,SizeName = sz1.SizeName,
+                                   PurDisc = pd.PurDisc,SaleDisc=pd.SaleDisc,RatePerQty= pd.Price2
                                }
                 ).ToList();
 

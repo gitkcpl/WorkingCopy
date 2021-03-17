@@ -33,6 +33,8 @@ namespace Konto.Reporting.Para.Reoncile
             this.gridView1.RowUpdated += GridView1_RowUpdated;
             fDateEdit.EditValue = KontoGlobals.DFromDate;
             tDateEdit.EditValue = KontoGlobals.DToDate;
+
+            this.FirstActiveControl = fDateEdit;
         }
 
         private void GridView1_InvalidValueException(object sender, DevExpress.XtraEditors.Controls.InvalidValueExceptionEventArgs e)
@@ -127,10 +129,11 @@ namespace Konto.Reporting.Para.Reoncile
                 var pg1 = new TabPageAdv();
                 pg1.Text = "BRS";
                 _tab.TabPages.Add(pg1);
-                _tab.SelectedTab = pg1;
+                
                 frm.TopLevel = false;
                 frm.Parent = pg1;
-                frm.Location = new Point(pg1.Location.X + pg1.Width / 2 - frm.Width / 2, pg1.Location.Y + pg1.Height / 2 - frm.Height / 2);
+                _tab.SelectedTab = pg1;
+                //frm.Location = new Point(pg1.Location.X + pg1.Width / 2 - frm.Width / 2, pg1.Location.Y + pg1.Height / 2 - frm.Height / 2);
                 frm.Show();// = true;
 
             }
@@ -264,11 +267,12 @@ namespace Konto.Reporting.Para.Reoncile
 
                 var pg1 = new TabPageAdv();
                 pg1.Text = "BRS Stmt";
-                _tab.TabPages.Add(pg1);
+               
                 _tab.SelectedTab = pg1;
                 frm.TopLevel = false;
                 frm.Parent = pg1;
-                frm.Location = new Point(pg1.Location.X + pg1.Width / 2 - frm.Width / 2, pg1.Location.Y + pg1.Height / 2 - frm.Height / 2);
+                _tab.TabPages.Add(pg1);
+                //frm.Location = new Point(pg1.Location.X + pg1.Width / 2 - frm.Width / 2, pg1.Location.Y + pg1.Height / 2 - frm.Height / 2);
                 frm.Show();// = true;
 
             }

@@ -206,6 +206,12 @@
     <Compile Include="ColorMatching\ColorMListView.Designer.cs">
       <DependentUpon>ColorMListView.cs</DependentUpon>
     </Compile>
+    <Compile Include="TakaConv\TakaConvIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TakaConv\TakaConvIndex.Designer.cs">
+      <DependentUpon>TakaConvIndex.cs</DependentUpon>
+    </Compile>
     <Compile Include="TakaOp\TakaOpIndex.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -228,18 +234,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="TakaConv\TakaConvIndex.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="TakaConv\TakaConvIndex.Designer.cs">
-      <DependentUpon>TakaConvIndex.cs</DependentUpon>
-    </Compile>
-    <Compile Include="TakaConv\TakaConvList.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="TakaConv\TakaConvList.Designer.cs">
-      <DependentUpon>TakaConvList.cs</DependentUpon>
     </Compile>
     <Compile Include="JobCard\JobCardIndex.cs">
       <SubType>Form</SubType>
@@ -329,6 +323,9 @@
     <EmbeddedResource Include="ColorMatching\ColorMListView.resx">
       <DependentUpon>ColorMListView.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="TakaConv\TakaConvIndex.resx">
+      <DependentUpon>TakaConvIndex.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="TakaOp\TakaOpIndex.resx">
       <DependentUpon>TakaOpIndex.cs</DependentUpon>
     </EmbeddedResource>
@@ -341,12 +338,6 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="TakaConv\TakaConvIndex.resx">
-      <DependentUpon>TakaConvIndex.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="TakaConv\TakaConvList.resx">
-      <DependentUpon>TakaConvList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="JobCard\JobCardIndex.resx">
       <DependentUpon>JobCardIndex.cs</DependentUpon>
@@ -375,6 +366,7 @@
     <EmbeddedResource Include="Properties\licenses.licx" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="Properties\DataSources\Konto.Data.Models.Masters.Dtos.WeftItemDto.datasource" />
     <None Include="Properties\DataSources\Konto.Data.Models.Transaction.Dtos.BeamProdDto.datasource" />
     <None Include="Properties\DataSources\Konto.Data.Models.Transaction.Dtos.BeamStatusByMachineDto.datasource" />

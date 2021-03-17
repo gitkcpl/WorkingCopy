@@ -93,6 +93,8 @@ namespace Konto.Shared.Trans.GRN
             this.gridView1.ValidateRow += GridView1_ValidateRow;
             this.gridView1.InvalidRowException += GridView1_InvalidRowException;
             voucherLookup1.SelectedValueChanged += VoucherLookup1_SelectedValueChanged;
+
+            this.FirstActiveControl = grnTypeLookUpEdit;
         }
 
         private void VoucherLookup1_SelectedValueChanged(object sender, EventArgs e)
@@ -1601,6 +1603,7 @@ namespace Konto.Shared.Trans.GRN
                                    
                                     if (GRNPara.Generate_Barcode)
                                     {
+                                        _time= DateTime.Now.ToString("ddMMyyHHmmss");
                                         prodModel.Extra1 = _time + p.SrNo.ToString().PadLeft(2,'0');
                                     }
                                     db.Prods.Add(prodModel);

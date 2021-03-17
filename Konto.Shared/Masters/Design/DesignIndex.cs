@@ -34,7 +34,8 @@ namespace Konto.Shared.Masters.Design
             repositoryItemButtonEdit1.ButtonClick += RepositoryItemButtonEdit1_ButtonClick;
             gridView1.InitNewRow += GridView1_InitNewRow;
             gridView1.KeyDown += GridView1_KeyDown;
-          
+
+            this.FirstActiveControl = noTextBoxExt;
 
             this.MainLayoutFile = KontoFileLayout.Design_Master;
 

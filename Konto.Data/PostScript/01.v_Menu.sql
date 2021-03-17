@@ -11,7 +11,9 @@ insert into ErpModule ([Id],[ParentId],[ModuleDesc],[OrderIndex],[LinkButton],[S
 		   null,null,null,1,'/Konto.Wpf;component/MenuIcon/master.png',0,
 		   0,0,0,null,null,1,GETDATE(),8,1,0,NEWID()) 
 end
-		   update dbo.ErpModule set IconPath='/Konto.Wpf;component/MenuIcon/master.png' where id=100
+
+
+
 go
 if NOT exists (select 1 from ErpModule em where em.Id=1)
 begin
@@ -2791,10 +2793,12 @@ insert into ErpModule ([Id],[ParentId],[ModuleDesc],[OrderIndex],[LinkButton],[S
            ,[ListAssembly],[MDI],[Title],[Visible],[IconPath],[CheckRight]
            ,[VisibleOnDashBoard],[VisibleOnSideBar],[IsSeprator],[Extra1],[Extra2],[Offline],CreateDate)
 		   values(1070,378,'Job Card',17,null,null,0,
-		   null,null,'challan','Konto.Yarn.YarnProduction.JobCardIndex','Konto.Yarn',
+		   null,null,'challan','Konto.Yarn.JobCard.JobCardIndex','Konto.Yarn',
 		   null,null,'Job Card',1,'/Konto.Wpf;component/MenuIcon/gray.png',0,
 		   0,0,0,null,null,1,GETDATE())
 END
+
+
 
 --IF NOT exists (select 1 from ErpModule em where em.Id=1066)
 --begin

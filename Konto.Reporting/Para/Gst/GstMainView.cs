@@ -72,6 +72,8 @@ namespace Konto.Reporting.Para.Gst
 
             docGridControl.ProcessGridKey += DocGridControl_ProcessGridKey;
             spreadsheetControl1.PreviewKeyDown += SpreadsheetControl1_PreviewKeyDown;
+
+            this.FirstActiveControl = fromDateEdit;
         }
 
         private void SpreadsheetControl1_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
@@ -382,7 +384,7 @@ namespace Konto.Reporting.Para.Gst
 
                 int row = 5;
 
-                var b2b = lst.Where(x => x.IsRevice == 0 && x.VTypeId == 12 && (x.Type == "REG" || x.Type == "CMP")).ToList();
+                var b2b = lst.Where(x => x.IsRevice == 0 && x.VTypeId == 12 && x.BillType =="Regular" && (x.Type == "REG" || x.Type == "CMP")).ToList();
 
                 foreach (var t in b2b)
                 {
@@ -408,7 +410,7 @@ namespace Konto.Reporting.Para.Gst
                 //List = new ObservableCollection<GstDto>(_db.Database.SqlQuery<GstDto>(
                 //        "dbo.GstReportBtoc @CompanyId={0},@TransTypeId={1},@FromDate={2},@ToDate={3}", Convert.ToInt32(KontoGlobals.CompanyId), VoucherTypeEnum.SaleInvoice,fdate, tdate).ToList());
                 var b2cllist = lst.Where(x => x.IsRevice == 0 && x.BillAmount >= 250000 && x.IGSTAmt > 0
-                       && (x.Type != "REG" && x.Type != "CMP") && x.VTypeId == 12).ToList();
+                       && (x.Type != "REG" && x.Type != "CMP") && x.BillType=="Regular" && x.VTypeId == 12).ToList();
                 w = wd.Workbook.Worksheets[3];
                 row = 5;
                 foreach (var t in b2cllist)
@@ -1084,7 +1086,7 @@ namespace Konto.Reporting.Para.Gst
         {
 
 
-            var b2b1 = Gstrs.Where(x => x.IsRevice == 0  && x.VTypeId == 12 && (x.Type=="REG" || x.Type=="CMP")).ToList();
+            var b2b1 = Gstrs.Where(x => x.IsRevice == 0  && x.VTypeId == 12 && x.BillType == "Regular" && (x.Type=="REG" || x.Type=="CMP")).ToList();
 
             b2bGridControl.DataSource = b2b1;
             b2bGridControl.RefreshDataSource();
@@ -1104,7 +1106,7 @@ namespace Konto.Reporting.Para.Gst
         {
             
             var b2b1 = Gstrs.Where(x => x.IsRevice == 0  && x.BillAmount >= 250000 && x.IGSTAmt > 0
-                       && (x.Type != "REG" && x.Type !="CMP") && x.VTypeId == 12).ToList();
+                       && (x.Type != "REG" && x.Type !="CMP") &&  x.BillType == "Regular" && x.VTypeId == 12).ToList();
 
             b2clGridControl.DataSource = b2b1;
             b2clGridControl.RefreshDataSource();

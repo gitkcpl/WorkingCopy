@@ -15,6 +15,7 @@ using Konto.Data.Models.Transaction;
 using Konto.Data.Models.Transaction.Dtos;
 using Konto.Shared.Account.Receipt;
 using Konto.Shared.Masters.Acc;
+using Konto.Shared.Masters.RefBank;
 using Serilog;
 using Syncfusion.Windows.Forms;
 using Syncfusion.Windows.Forms.Tools;
@@ -38,7 +39,9 @@ namespace Konto.Shared.Account.Payment
         private List<PendBillListDto> AllBill = new List<PendBillListDto>();
         TextEdit headerEdit = new TextEdit();
         GridColumn activeCol = null;
-       
+        private int LastBookId;
+        private int LastVoucherId;
+        private DateTime LastVoucherDate = DateTime.Now;
         public PaymentIndex()
         {
             InitializeComponent();
@@ -57,6 +60,7 @@ namespace Konto.Shared.Account.Payment
             gridView1.MouseUp += GridView1_MouseUp;
             gridView1.InvalidRowException += GridView1_InvalidRowException;
             accRepositoryItemButtonEdit.ButtonClick += AccRepositoryItemButtonEdit_ButtonClick;
+            refBankRepositoryItemButtonEdit.ButtonClick += RefBankRepositoryItemButtonEdit_ButtonClick;
             gridView1.DoubleClick += GridView1_DoubleClick;
             this.MainLayoutFile = KontoFileLayout.Payment_Index;
             this.GridLayoutFile = KontoFileLayout.Payment_Trans;
@@ -73,6 +77,40 @@ namespace Konto.Shared.Account.Payment
             gridView1.InvalidValueException += GridView1_InvalidValueException;
             billAdjustSimpleButton.Click += BillAdjustSimpleButton_Click;
             voucherLookup1.SelectedValueChanged += VoucherLookup1_SelectedValueChanged;
+
+            this.FirstActiveControl = voucherLookup1;
+            this.Shown += PaymentIndex_Shown;
+        }
+
+        private void PaymentIndex_Shown(object sender, EventArgs e)
+        {
+            colRefBank.VisibleIndex = -1;
+        }
+
+        private void RefBankRepositoryItemButtonEdit_ButtonClick(object sender, ButtonPressedEventArgs e)
+        {
+            var dr = PreOpenLookup();
+            if (dr != null)
+                OpenRefBank( Convert.ToInt32(dr.RefBankId), dr);
+        }
+        private void OpenRefBank(int _selvalue, BankTransDto er)
+        {
+            var frm = new RefBankLkpWindow();
+            //frm.Tag = MenuId.ref;
+            frm.SelectedValue = _selvalue;
+          
+            frm.ShowDialog();
+            if (frm.DialogResult == DialogResult.OK)
+            {
+                er.RefBankId = frm.SelectedValue;
+                er.RefBank = frm.SelectedTex;
+                gridView1.UpdateCurrentRow();
+                gridView1.FocusedColumn = colParticular;
+                gridView1.MoveNext();
+
+                
+            }
+
         }
 
         private void VoucherLookup1_SelectedValueChanged(object sender, EventArgs e)
@@ -531,6 +569,23 @@ namespace Konto.Shared.Account.Payment
                         e.Handled = false;
                     }
                 }
+                else if((gridView1.FocusedColumn.FieldName == "RefBank"))
+                {
+                    if (e.KeyCode == Keys.Return)
+                    {
+                        if (Convert.ToInt32(dr.RefBankId) == 0)
+                        {
+                            OpenRefBank(Convert.ToInt32(dr.RefBankId), dr);
+                             e.Handled = true;
+                        }
+                    }
+
+                    else if (e.KeyCode == Keys.F1)
+                    {
+                        OpenRefBank(Convert.ToInt32(dr.RefBankId), dr);
+                        e.Handled = true;
+                    }
+                }
                     
 
                 
@@ -800,7 +855,9 @@ namespace Konto.Shared.Account.Payment
             createdLabelControl.Text = "Create By: " + KontoGlobals.UserName;
             modifyLabelControl.Text = string.Empty;
             this.ActiveControl = voucherLookup1.buttonEdit1;
+            
             voucherLookup1.SetDefault();
+
             if (Convert.ToInt32(voucherLookup1.GroupDto.AccId) > 0)
             {
                 bookLookup.SelectedValue = voucherLookup1.GroupDto.AccId;
@@ -813,13 +870,35 @@ namespace Konto.Shared.Account.Payment
             BillList = new List<PendBillListDto>();
             AllBill = new List<PendBillListDto>();
 
-            
+            if (this.LastBookId > 0)
+            {
+                bookLookup.SelectedValue = LastBookId;
+                bookLookup.SetAcc(this.LastBookId);
+            }
+
+            if (this.LastVoucherId > 0)
+            {
+                voucherLookup1.SelectedValue = LastVoucherId;
+                voucherLookup1.SetGroup(this.LastVoucherId);
+            }
+            voucherDateEdit.DateTime = this.LastVoucherDate;
+
+            voucherLookup1.buttonEdit1.Focus();
+
         }
         public override void ResetPage()
         {
             base.ResetPage();
-            
-           
+
+
+
+            LastBookId = Convert.ToInt32(bookLookup.SelectedValue);
+            LastVoucherId = Convert.ToInt32(voucherLookup1.SelectedValue);
+            if(voucherDateEdit.EditValue!=null)
+            LastVoucherDate = voucherDateEdit.DateTime;
+
+
+
             bookLookup.SetEmpty();
             challanNotextEdit.Text = string.Empty;
            
@@ -1048,10 +1127,13 @@ namespace Konto.Shared.Account.Payment
                 MessageBoxAdv.Show(this, KontoGlobals.SaveMessage +" Voucher No.: " + _find.VoucherNo, "Saved !", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 if (!this.OpenForLookup && newmode)
                 {
+
                     base.SaveDataAsync(newmode);
+
                     this.ResetPage();
                     this.NewRec();
-                    voucherLookup1.buttonEdit1.Focus();
+                   
+                    
                 }
                 else
                 {

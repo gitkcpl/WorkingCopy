@@ -76,6 +76,8 @@ namespace Konto.Shared.Trans.StoreIssueReturn
             headerEdit.Parent = this.gridControl1;
             headerEdit.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             headerEdit.Leave += new EventHandler(headerEdit_Leave);
+
+            this.FirstActiveControl = voucherLookup1;
         }
         #region Grid 
         private void GridView1_MouseUp(object sender, MouseEventArgs e)

@@ -515,7 +515,7 @@
             this.transportLookup.LookupDto = null;
             this.transportLookup.Name = "transportLookup";
             this.transportLookup.Nature = null;
-            this.transportLookup.NewGroupId = 32;
+            this.transportLookup.NewGroupId = App.Shared.LedgerGroupEnum.CREDITORS_FOR_TRANSPORTATION;
             this.transportLookup.PrimaryKey = null;
             this.transportLookup.RequiredField = false;
             this.transportLookup.SelectedText = null;

@@ -477,6 +477,7 @@
     <None Include="Properties\DataSources\Konto.Data.Models.Transaction.Dtos.MiTransDto.datasource" />
     <None Include="Properties\DataSources\Konto.Data.Models.Transaction.Dtos.MrvTransDto.datasource" />
     <None Include="Properties\DataSources\Konto.Data.Models.Transaction.Dtos.ProdOutDto.datasource" />
+    <None Include="Properties\DataSources\Konto.Data.Models.Transaction.TradingDto.PendingForCutting.datasource" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

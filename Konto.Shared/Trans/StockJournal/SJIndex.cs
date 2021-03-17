@@ -48,6 +48,8 @@ namespace Konto.Shared.Trans.StockJournal
             this.MainLayoutFile = KontoFileLayout.StockJournal_Index;
             this.GridLayoutFile = KontoFileLayout.StockJournal_Trans;
             FillLookup();
+
+            this.FirstActiveControl = voucherLookup;
         }
 
         private void FillLookup()

@@ -34,6 +34,8 @@ namespace Konto.Shared.Trans.Gate
             this.Shown += PoIndex_Shown;
          
             voucherLookup1.SelectedValueChanged += VoucherLookup1_SelectedValueChanged;
+
+            this.FirstActiveControl = voucherLookup1;
         }
 
      

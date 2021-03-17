@@ -89,7 +89,7 @@
             // 
             this.listDateRange1.FromDate = 0;
             this.listDateRange1.IsAnalysis = false;
-            this.listDateRange1.KontoGrid = null;
+            this.listDateRange1.KontoGrid = this.customGridControl1;
             this.listDateRange1.Location = new System.Drawing.Point(477, 4);
             this.listDateRange1.Name = "listDateRange1";
             this.listDateRange1.SelectedItem = null;

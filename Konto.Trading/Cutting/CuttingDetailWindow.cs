@@ -36,6 +36,7 @@ namespace Konto.Trading.Cutting
             InitializeComponent();
 
             DelTakaCutList = new List<CuttingTransDto>();
+            this.Load += CuttingDetailWindow_Load;
             this.Shown += CuttingDetailWindow_Shown;
             headerEdit.Hide();
             headerEdit.Parent = this.gridControl1;
@@ -53,6 +54,30 @@ namespace Konto.Trading.Cutting
 
             this.okSimpleButton.Click += OkSimpleButton_Click;
             this.gridControl1.ProcessGridKey += GridControl1_ProcessGridKey;
+            this.cancelSimpleButton.Click += CancelSimpleButton_Click;
+        }
+
+        private void CancelSimpleButton_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.Cancel;
+            this.Close();
+        }
+
+        private void CuttingDetailWindow_Load(object sender, EventArgs e)
+        {
+            using(var db = new KontoContext())
+            {
+                var _gradelist = (from p in db.Grades
+                                where !p.IsDeleted & p.IsActive
+                                orderby p.GradeName
+                                select new BaseLookupDto()
+                                {
+                                    DisplayText = p.GradeName,
+                                    Id = p.Id,
+                                }).ToList();
+
+                gradeRepositoryItemLookUpEdit.DataSource = _gradelist;
+            }
         }
 
         private void CuttingDetailWindow_Shown(object sender, EventArgs e)
@@ -90,7 +115,7 @@ namespace Konto.Trading.Cutting
             dr.MiscId= TransList.FirstOrDefault().MiscId;
             dr.BatchId = TransList.FirstOrDefault().BatchId; 
             dr.LotNo= TransList.FirstOrDefault().LotNo;
-            dr.Pcs = 1;
+            //dr.Pcs = 1;
             return dr;
         }
         private void OpenItemLookup(int _selvalue, CuttingTransDto er)
@@ -158,13 +183,20 @@ namespace Konto.Trading.Cutting
         {
             var rw = gridView1.GetRow(e.RowHandle) as CuttingTransDto;
             rw.Id = -1 * gridView1.RowCount;
+            rw.GradeId = 1;
         }
+
         private void GridView1_CellValueChanged(object sender, DevExpress.XtraGrid.Views.Base.CellValueChangedEventArgs e)
         {
             if (e.Column == null) return;
             if (!(gridView1.GetRow(e.RowHandle) is CuttingTransDto er)) return;
-          
+            if(e.Column.FieldName=="Pcs" || e.Column.FieldName == "Cut")
+            {
+                var er1 = gridView1.GetRow(e.RowHandle) as CuttingTransDto;
+                er1.Qty = er1.Pcs * er1.Cops;
+            }
         }
+
         private void GridView1_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode != Keys.Delete) return;
@@ -233,9 +265,9 @@ namespace Konto.Trading.Cutting
         private void OkSimpleButton_Click(object sender, EventArgs e)
         {
             TransList = bindingSource1.DataSource as List<CuttingTransDto>;
-            if (TransList.Sum(k => k.Qty) > FinalMtr)
+            if (TransList.Sum(k => k.Qty) > FinalMtr || TransList.Sum(k => k.Qty)< FinalMtr)
             {
-                MessageBoxAdv.Show(this, "Error While Save !!", "Exception ", "Total Qty can not greater than finish meter!!!");
+                MessageBoxAdv.Show(this, "Error While Save !!", "Exception ", "Total Qty can not greater or less than total meter!!!");
             }
             else
             {

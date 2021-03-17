@@ -3,6 +3,7 @@ using Konto.Core.Shared;
 using Konto.Data;
 using Konto.Data.Models.Reports;
 using Serilog;
+using Syncfusion.Windows.Forms.Tools;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -25,6 +26,18 @@ namespace Konto.Reporting.Wvs
             getSimpleButton.Click += GetSimpleButton_Click;
             cancelSimpleButton.Click += CancelSimpleButton_Click;
             rateSimpleButton.Click += RateSimpleButton_Click;
+            this.FormClosed += SalaryGenView_FormClosed;
+        }
+
+        private void SalaryGenView_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            var tabpage = this.Parent as TabPageAdv;
+            if (tabpage != null)
+            {
+                var tabcontrol = tabpage.Parent as TabControlAdv;
+                if (tabcontrol != null)
+                    tabcontrol.TabPages.Remove(tabpage);
+            }
         }
 
         private void RateSimpleButton_Click(object sender, EventArgs e)

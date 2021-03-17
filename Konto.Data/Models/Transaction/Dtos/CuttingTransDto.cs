@@ -40,13 +40,14 @@ namespace Konto.Data.Models.Transaction.Dtos
         public decimal IssueQty { get; set; }
 
         [Required]
-        [Range(1, 9999999, ErrorMessage = "Qty is Required")]
+        //[Range(1, 9999999, ErrorMessage = "Qty is Required")]
         public decimal Qty { get; set; }
         public decimal Cops { get; set; }
         public decimal Rate { get; set; }
         public decimal? ShQty { get; set; }
         public decimal? ShPer { get; set; }
-
+        public int GradeId { get; set; }
+       
         public string Remark { get; set; }
     }
 }

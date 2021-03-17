@@ -32,6 +32,8 @@ namespace Konto.Reporting.Para.TDSPara
             this.Load += TdsPrintView_Load;
             this.fDateEdit.EditValue = KontoGlobals.DFromDate;
             this.tDateEdit.EditValue = KontoGlobals.DToDate;
+
+            this.FirstActiveControl = fDateEdit;
         }
 
         private void TdsPrintView_Load(object sender, EventArgs e)

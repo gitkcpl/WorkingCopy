@@ -89,6 +89,7 @@ namespace Konto.Shared.Trans.SReturn
             this.accLookup1.ShownPopup += AccLookup1_ShownPopup;
             stateLookUpEdit.EditValueChanged += StateLookUpEdit_EditValueChanged;
             voucherLookup1.SelectedValueChanged += VoucherLookup1_SelectedValueChanged;
+            this.FirstActiveControl = voucherLookup1;
         }
 
         private void SReturnIndex_Load(object sender, EventArgs e)
@@ -387,7 +388,8 @@ namespace Konto.Shared.Trans.SReturn
                 er.ProductName = frm.SelectedTex;
                 var model = frm.SelectedItem as ProductLookupDto;
                 er.UomId = model.UomId;
-                
+                er.HsnCode = model.HsnCode;
+
                 if (model.SaleRateTaxInc)
                 {
                     er.SaleRate = model.SaleRate;
@@ -479,6 +481,7 @@ namespace Konto.Shared.Trans.SReturn
             colDesignName.Visible = SaleRetPara.Design_Required;
             colGradeName.Visible = SaleRetPara.Grade_Required;
             colCut.Visible = SaleRetPara.Cut_Required;
+            colHsnCode.Visible = SaleRetPara.HsnCode_Required;
 
             //Rate Decimal Settings
             var repo1 = new RepositoryItemTextEdit();
@@ -677,6 +680,11 @@ namespace Konto.Shared.Trans.SReturn
 
                                 if (!string.IsNullOrEmpty(value) && Convert.ToInt32(value) >= 2 && Convert.ToInt32(value) <= 3)
                                     SaleRetPara.Qty_Decimal = Convert.ToInt32(value);
+                                break;
+                            }
+                        case 241:
+                            {
+                                SaleRetPara.HsnCode_Required = (value == "Y") ? true : false;
                                 break;
                             }
                     }
@@ -1003,7 +1011,7 @@ namespace Konto.Shared.Trans.SReturn
                                 RefId = bt.RefId,
                                 RefTransId = bt.RefTransId,
                                 RefVoucherId = bt.RefVoucherId,
-                                SaleRate= bt.SaleRate
+                                SaleRate= bt.SaleRate,HsnCode= p.HsnCode
                             }
                             ).ToList();
 

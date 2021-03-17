@@ -66,6 +66,8 @@ namespace Konto.Weaves.BeamLoading
 
             divLookUpEdit.EditValueChanged += DivLookUpEdit_EditValueChanged;
             BeamPositionlookUpEdit.EditValueChanged += BeamPositionlookUpEdit_EditValueChanged;
+
+            this.FirstActiveControl = LoadingDateEdit;
         }
 
 

@@ -13,6 +13,8 @@ namespace Konto.Data.Models.Transaction
         {
             IsActive = true;
         }
+
+       
         public int? ChallanId { get; set; }
 
         public int? ProductId { get; set; }
@@ -21,6 +23,7 @@ namespace Konto.Data.Models.Transaction
 
         public int? ColorId { get; set; }
 
+        [Index]
         public int? BatchId { get; set; }
 
         [MaxLength(50)]

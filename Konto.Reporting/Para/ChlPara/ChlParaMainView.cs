@@ -52,7 +52,7 @@ namespace Konto.Reporting.Para.ChlPara
 
             typeLookUpEdit.Properties.DataSource = cbp;
 
-            
+            this.FirstActiveControl = fDateEdit;
 
             typeLookUpEdit.EditValueChanged += TypeLookUpEdit_EditValueChanged;
         }
@@ -307,10 +307,11 @@ namespace Konto.Reporting.Para.ChlPara
                     var pg1 = new TabPageAdv();
                     pg1.Text = "Challan Register";
                     _tab.TabPages.Add(pg1);
-                    _tab.SelectedTab = pg1;
+                  
                     frm.TopLevel = false;
                     frm.Parent = pg1;
-                    frm.Location = new Point(pg1.Location.X + pg1.Width / 2 - frm.Width / 2, pg1.Location.Y + pg1.Height / 2 - frm.Height / 2);
+                    _tab.SelectedTab = pg1;
+                    //frm.Location = new Point(pg1.Location.X + pg1.Width / 2 - frm.Width / 2, pg1.Location.Y + pg1.Height / 2 - frm.Height / 2);
                     frm.Show();// = true;
                 }
 
@@ -420,6 +421,9 @@ namespace Konto.Reporting.Para.ChlPara
 
                 StiReport _rep = new StiReport();
                 _rep.Load(_filename);
+
+                ((StiSqlDatabase)_rep.Dictionary.Databases["cnn"]).ConnectionString = KontoGlobals.sqlConnectionString.ConnectionString;
+
                 _rep.Compile();
 
                 int _ReportId= SetCheckedParameters(null,_rep);
@@ -479,7 +483,7 @@ namespace Konto.Reporting.Para.ChlPara
                    _rep["ChallanType"] = challanTypeLookUpEdit.EditValue;
                 }
 
-                ((StiSqlDatabase) _rep.Dictionary.Databases["cnn"]).ConnectionString= KontoGlobals.sqlConnectionString.ConnectionString;
+             
                 StiOptions.Viewer.ViewerTitle = "Issue Vs Receipt";
                 _rep.ShowWithRibbonGUI();
             }

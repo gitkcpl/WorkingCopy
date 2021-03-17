@@ -28,6 +28,8 @@ namespace Konto.Reporting.Para.Gst
             this.cancelSimpleButton.Click += CancelSimpleButton_Click;
             exportSimpleButton.Click += ExportSimpleButton_Click;
             this.FormClosed += PaymentAssist_FormClosed;
+
+            this.FirstActiveControl = fromDateEdit;
         }
 
         private void PaymentAssist_FormClosed(object sender, FormClosedEventArgs e)

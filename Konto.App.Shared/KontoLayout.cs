@@ -81,6 +81,8 @@ namespace Konto.App.Shared
         public const string PackingType_List_Layout = "masters\\pack_type_list.xml";
         public const string CostHead_List_Layout = "masters\\cost_head_list.xml";
 
+        public const string Customer_Master_List_Layout= "masters\\customer_master_list.xml";
+
         #endregion
 
         #region opening
@@ -271,6 +273,14 @@ namespace Konto.App.Shared
         public const string Yarn_Packing_Index = "yarn\\packing_index.xml";
         public const string Yarn_Packing_List = "yarn\\packing_list.xml";
         public const string Yarn_Packing_Trans = "yarn\\packing_trans.xml";
+
+        public const string ColorFormula_Index= "yarn\\color_formula.xml";
+        public const string ColorFormula_Trans = "yarn\\color_formula_trans.xml";
+
+        public  const string YarnJobCard_Index = "yarn\\jobcard_index.xml";
+        public const string YarnJobCard_Trans = "yarn\\jobcard_trans.xml";
+        public const string ColorFormula_List= "yarn\\color_formula_list.xml";
+        public const string YarnJobCard_List= "yarn\\jobcard_list.xml";
         #endregion
 
         // apparel
@@ -279,5 +289,15 @@ namespace Konto.App.Shared
         public const string Inw_List_Layout = "apparel\\inw_list_layout.xml";
         public const string QC_List_Layout = "apparel\\qc_list_layout.xml";
         public const string Barcode_List_Layout = "apparel\\barcode_list_layout.xml";
+
+
+        // POS
+
+        #region POS
+
+        public const string Pos_Purchase_Index = "pos\\purchas_index.xml";
+        public const string Pos_Purchase_Trans = "pos\\purchas_trans.xml";
+
+        #endregion
     }
 }

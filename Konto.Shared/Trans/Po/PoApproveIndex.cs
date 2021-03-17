@@ -31,6 +31,7 @@ namespace Konto.Shared.Trans.Po
                 new ComboBoxPairs("PENDING","PENDING"),
                 new ComboBoxPairs("APPROVED", "APPROVED"),
                 new ComboBoxPairs("CANCELED","CANCELED"),
+                new ComboBoxPairs("CLOSED","CLOSED")
             };
             typeLookUpEdit.Properties.DataSource = cbp;
             statusLookUpEdit.Properties.DataSource = cbp;
@@ -38,8 +39,8 @@ namespace Konto.Shared.Trans.Po
             okSimpleButton.Click += OkSimpleButton_Click;
             cancelSimpleButton.Click += CancelSimpleButton_Click;
 
-           
-            
+
+            this.FirstActiveControl = fDateEdit;
 
         }
 

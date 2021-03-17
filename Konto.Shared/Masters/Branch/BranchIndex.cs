@@ -23,6 +23,9 @@ namespace Konto.Shared.Masters.Branch
         public BranchIndex()
         {
             InitializeComponent();
+
+            this.FirstActiveControl = branchNameTextBox;
+
             tabControlAdv1.TabPages[2].TabVisible = false;
             tabControlAdv1.TabPages[3].TabVisible = false;
             okSimpleButton.Click += OkSimpleButton_Click;

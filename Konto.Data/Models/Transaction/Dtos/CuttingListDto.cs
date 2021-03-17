@@ -24,7 +24,7 @@ namespace Konto.Data.Models.Transaction.Dtos
             }
         }
 
-        public int? TakaNo { get; set; }
+        public string TakaNo { get; set; }
         public int Pcs { get; set; }
         public string Product { get; set; }
         public int? ProductId { get; set; }

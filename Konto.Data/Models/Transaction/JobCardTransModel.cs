@@ -56,6 +56,8 @@ namespace Konto.Data.Models.Transaction
         public string Remark { get; set; }
 
         public int RefTransId { get; set; }
-       
+
+        public int TransType { get; set; }
+
     }
 }

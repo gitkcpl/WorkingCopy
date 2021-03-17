@@ -83,6 +83,7 @@
     <Compile Include="Models\Apparel\Dtos\BarcodeTransDto.cs" />
     <Compile Include="Models\Apparel\Dtos\BomOrderDto.cs" />
     <Compile Include="Models\Apparel\Dtos\BomTransDto.cs" />
+    <Compile Include="Models\Apparel\Dtos\PendingBomDto.cs" />
     <Compile Include="Models\Gstn\Gstr2ADump.cs" />
     <Compile Include="Models\Gstn\Gstr2ATransDump.cs" />
     <Compile Include="Models\Gstn\RecoGstr2BtoBDto.cs" />
@@ -124,6 +125,7 @@
     <Compile Include="Models\Masters\Dtos\CityListDto.cs" />
     <Compile Include="Models\Masters\Dtos\ColorListDto.cs" />
     <Compile Include="Models\Masters\Dtos\ColorLookupDto.cs" />
+    <Compile Include="Models\Masters\Dtos\ColorMathingListDto.cs" />
     <Compile Include="Models\Masters\Dtos\CompListDto.cs" />
     <Compile Include="Models\Masters\Dtos\CountryListViewDto.cs" />
     <Compile Include="Models\Masters\Dtos\CostHeadListDto.cs" />
@@ -145,9 +147,11 @@
     <Compile Include="Models\Masters\Dtos\PFormulaDto.cs" />
     <Compile Include="Models\Masters\Dtos\PgLookupDto.cs" />
     <Compile Include="Models\Masters\Dtos\PGroupListDto.cs" />
+    <Compile Include="Models\Masters\Dtos\PosBarcodeListDto.cs" />
     <Compile Include="Models\Masters\Dtos\PositionListDto.cs" />
     <Compile Include="Models\Masters\Dtos\ProcessListDto.cs" />
     <Compile Include="Models\Masters\Dtos\ProcessLookupDto.cs" />
+    <Compile Include="Models\Masters\Dtos\ProductDetailsDto.cs" />
     <Compile Include="Models\Masters\Dtos\ProductListDto.cs" />
     <Compile Include="Models\Masters\Dtos\ProductLookupDto.cs" />
     <Compile Include="Models\Masters\Dtos\PTypeListDto.cs" />
@@ -215,6 +219,8 @@
     <Compile Include="Models\Masters\WeftItemModel.cs" />
     <Compile Include="Models\Op\Dto\OpBalDto.cs" />
     <Compile Include="Models\Op\Dto\OpStockDto.cs" />
+    <Compile Include="Models\Pos\CustomerModel.cs" />
+    <Compile Include="Models\Pos\Dtos\CustomerListDto.cs" />
     <Compile Include="Models\Reports\BalDto.cs" />
     <Compile Include="Models\Reports\Gst3bDto.cs" />
     <Compile Include="Models\Reports\Gstr1HsnDto.cs" />
@@ -259,9 +265,11 @@
     <Compile Include="Models\Transaction\Dtos\ExpTransDto.cs" />
     <Compile Include="Models\Transaction\Dtos\DetailStockDto.cs" />
     <Compile Include="Models\Transaction\Dtos\GreyPendingOrderDto.cs" />
+    <Compile Include="Models\Transaction\Dtos\GrnAgainstOrderDto.cs" />
     <Compile Include="Models\Transaction\Dtos\GrnDto.cs" />
     <Compile Include="Models\Transaction\Dtos\GrnProdDto.cs" />
     <Compile Include="Models\Transaction\Dtos\GrnTransDto.cs" />
+    <Compile Include="Models\Transaction\Dtos\HistoryDto.cs" />
     <Compile Include="Models\Transaction\Dtos\HsnSmryDetail.cs" />
     <Compile Include="Models\Transaction\Dtos\JobCardDto.cs" />
     <Compile Include="Models\Transaction\Dtos\JobCardTransDto.cs" />
@@ -275,6 +283,7 @@
     <Compile Include="Models\Transaction\Dtos\OpBillListDto.cs" />
     <Compile Include="Models\Transaction\Dtos\OrdAprvalDto.cs" />
     <Compile Include="Models\Transaction\Dtos\OrdDto.cs" />
+    <Compile Include="Models\Transaction\Dtos\OrderListDto.cs" />
     <Compile Include="Models\Transaction\Dtos\PaymentHistoryDto.cs" />
     <Compile Include="Models\Transaction\Dtos\PendBillListDto.cs" />
     <Compile Include="Models\Transaction\Dtos\PendingChallanOnInvoiceDto.cs" />
@@ -289,6 +298,8 @@
     <Compile Include="Models\Transaction\Dtos\ProdOutDto.cs" />
     <Compile Include="Models\Transaction\Dtos\ProdWeftItemDTO.cs" />
     <Compile Include="Models\Transaction\Dtos\Prod_EmpDto.cs" />
+    <Compile Include="Models\Transaction\Dtos\RcpuiDto.cs" />
+    <Compile Include="Models\Transaction\Dtos\RcpuiTransDto.cs" />
     <Compile Include="Models\Transaction\Dtos\SerialDto.cs" />
     <Compile Include="Models\Transaction\Dtos\SJDto.cs" />
     <Compile Include="Models\Transaction\Dtos\SJModelDto.cs" />
@@ -306,11 +317,15 @@
     <Compile Include="Models\Transaction\ProdOutModel.cs" />
     <Compile Include="Models\Transaction\Prod_EmpModel.cs" />
     <Compile Include="Models\Transaction\Prod_WeftModel.cs" />
+    <Compile Include="Models\Transaction\RCPUIModel.cs" />
+    <Compile Include="Models\Transaction\RCPUITransModel.cs" />
     <Compile Include="Models\Transaction\StockTransModel.cs" />
     <Compile Include="Models\Transaction\TakaBeamModel.cs" />
     <Compile Include="Models\Transaction\TradingDto\GreyPurchaseAgainstGoDto.cs" />
     <Compile Include="Models\Transaction\TradingDto\JobIssueBarcodeDto.cs" />
+    <Compile Include="Models\Transaction\TradingDto\PendingForCuttingDto.cs" />
     <Compile Include="Models\Transaction\TransType.cs" />
+    <Compile Include="Models\Pos\Dtos\PosPurTransDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -518,7 +533,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Proc\GetBoxTakaByBarcode.sql" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="PostScript\21.v_PosMenu.sql" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

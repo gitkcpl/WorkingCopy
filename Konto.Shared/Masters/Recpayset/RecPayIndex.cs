@@ -26,6 +26,8 @@ namespace Konto.Shared.Masters.Recpayset
             okSimpleButton.Click += OkSimpleButton_Click;
             tabControlAdv1.SelectedIndexChanged += TabControlAdv1_SelectedIndexChanged;
 
+            this.FirstActiveControl = typeLookUpEdit;
+
             List<ComboBoxPairs> rpc = new List<ComboBoxPairs>
             {
                 new ComboBoxPairs("Receipt","R"),

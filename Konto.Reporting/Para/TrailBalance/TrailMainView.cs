@@ -61,6 +61,8 @@ namespace Konto.Reporting.Para.TrialBalance
             //Zoom the grid with the specific percentage
             zoom.zoomGrid("120");
             this.Load += TrailMainView_Load;
+
+            this.FirstActiveControl = fDateEdit;
         }
 
         
@@ -121,6 +123,9 @@ namespace Konto.Reporting.Para.TrialBalance
             doc.Parameters["yearid"].CurrentValue = KontoGlobals.YearId;
             doc.Parameters["fromdate"].CurrentValue = Convert.ToInt32(fDateEdit.DateTime.ToString("yyyyMMdd"));
             doc.Parameters["todate"].CurrentValue = Convert.ToInt32(tDateEdit.DateTime.ToString("yyyyMMdd"));
+
+            doc.Parameters["report_title"].CurrentValue = "Trail Balance For The Period " + fDateEdit.DateTime.ToString("dd/MM/yyyy") + " To " + tDateEdit.DateTime.ToString("dd/MM/yyyy");
+
             if (fromatLookUpEdit.EditValue.ToString() == "VF")
             {
                 doc.Parameters["format"].CurrentValue = frmp.radioGroup1.EditValue;
@@ -148,7 +153,7 @@ namespace Konto.Reporting.Para.TrialBalance
                     _tab.TabPages.Add(pg1);
                     _tab.SelectedTab = pg1;
                  
-                    frm.Location = new Point(pg1.Location.X + pg1.Width / 2 - frm.Width / 2, pg1.Location.Y + pg1.Height / 2 - frm.Height / 2);
+                 //   frm.Location = new Point(pg1.Location.X + pg1.Width / 2 - frm.Width / 2, pg1.Location.Y + pg1.Height / 2 - frm.Height / 2);
                     frm.Show();// = true;
                     
                 }

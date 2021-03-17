@@ -75,6 +75,8 @@ namespace Konto.Trading.MillReturn
             headerEdit.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             headerEdit.Leave += new EventHandler(headerEdit_Leave);
             voucherLookup1.SelectedValueChanged += VoucherLookup1_SelectedValueChanged;
+
+            this.FirstActiveControl = voucherLookup1;
         }
 
         private void VoucherLookup1_SelectedValueChanged(object sender, EventArgs e)

@@ -56,6 +56,8 @@ namespace Konto.Reporting.Para.BlSheet
             this.bsSimpleButton.Click += BsSimpleButton_Click;
             ZoomGrid zoom = new ZoomGrid(this.cellgrid);
 
+            this.FirstActiveControl = fDateEdit;
+
             //Zoom the grid with the specific percentage
             zoom.zoomGrid("120");
         }
@@ -1237,26 +1239,26 @@ namespace Konto.Reporting.Para.BlSheet
                 if (fromatLookUpEdit.EditValue.ToString() == "VF")
                 {
                     string dr = "Outs\\bl_details_ar_tf.rdlx";
-                    string title = "Balance Sheet Report";
+                    string title = "Balance Sheet";
                     Prints(dr, title);
                 }
                 else
                 {
                     string dr = "Outs\\bl_details_ar_tf.rdlx";
-                    string title = "Balance Sheet Report";
+                    string title = "Balance Sheet";
                     Prints(dr, title);
                 }
             }
             else if (Print == "P")
             {
                 string dr = "Outs\\pl_details_ar_tf.rdlx";
-                string title = "Profit & Loss Report";
+                string title = "Profit & Loss";
                 Prints(dr, title);
             }
             else
             {
                 string dr = "Outs\\trading_details_ar_tf.rdlx";
-                string title = "Trading Report";
+                string title = "Trading A/c";
                 Prints( dr, title);
             }
 
@@ -1289,6 +1291,9 @@ namespace Konto.Reporting.Para.BlSheet
             doc.Parameters["fromdate"].CurrentValue = Convert.ToInt32(fDateEdit.DateTime.ToString("yyyyMMdd"));
             doc.Parameters["todate"].CurrentValue = Convert.ToInt32(tDateEdit.DateTime.ToString("yyyyMMdd"));
 
+            doc.Parameters["report_title"].CurrentValue = title + " For The Period " + fDateEdit.DateTime.ToString("dd/MM/yyyy") + " To " + tDateEdit.DateTime.ToString("dd/MM/yyyy");
+
+
             try
             {
                 var _tab = this.Parent.Parent as TabControlAdv;
@@ -1299,10 +1304,11 @@ namespace Konto.Reporting.Para.BlSheet
                 var pg1 = new TabPageAdv();
                 pg1.Text = title;
                 _tab.TabPages.Add(pg1);
-                _tab.SelectedTab = pg1;
+               
                 frm.TopLevel = false;
                 frm.Parent = pg1;
-                frm.Location = new Point(pg1.Location.X + pg1.Width / 2 - frm.Width / 2, pg1.Location.Y + pg1.Height / 2 - frm.Height / 2);
+                _tab.SelectedTab = pg1;
+                //frm.Location = new Point(pg1.Location.X + pg1.Width / 2 - frm.Width / 2, pg1.Location.Y + pg1.Height / 2 - frm.Height / 2);
                 frm.Show();// = true;
 
             }

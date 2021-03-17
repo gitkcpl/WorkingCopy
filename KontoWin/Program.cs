@@ -46,7 +46,7 @@ namespace KontoWin
                 }
 
                 KontoGlobals.Edition = Convert.ToInt32(ConfigurationManager.AppSettings["Edition"].ToString());
-
+                
 
                 Application.Run(new Form1());
             }

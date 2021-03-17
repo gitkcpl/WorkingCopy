@@ -40,13 +40,13 @@
             this.colId = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colProductId = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colProductName = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colorRepositoryItemButtonEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
+            this.productRepositoryItemButtonEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
             this.colColorPer = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colColorCategory = new DevExpress.XtraGrid.Columns.GridColumn();
             this.ColorCategoryItemLookUpEdit = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
             this.colRCPUIId = new DevExpress.XtraGrid.Columns.GridColumn();
             this.repositoryItemLookUpEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
-            this.productRepositoryItemButtonEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
+            this.colorRepositoryItemButtonEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
             this.designRepositoryItemButtonEdit = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
             this.gradeRepositoryItemButtonEdit = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
             this.repositoryItemHyperLinkEdit11 = new DevExpress.XtraEditors.Repository.RepositoryItemHyperLinkEdit();
@@ -84,10 +84,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.BTransgridControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.transbindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.BTranspgridView)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.colorRepositoryItemButtonEdit1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.productRepositoryItemButtonEdit1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ColorCategoryItemLookUpEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemLookUpEdit1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.productRepositoryItemButtonEdit1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.colorRepositoryItemButtonEdit1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.designRepositoryItemButtonEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gradeRepositoryItemButtonEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemHyperLinkEdit11)).BeginInit();
@@ -169,6 +169,7 @@
             // colorLookup1
             // 
             this.colorLookup1.Location = new System.Drawing.Point(585, 68);
+            this.colorLookup1.LookupTitle = null;
             this.colorLookup1.Name = "colorLookup1";
             this.colorLookup1.PrimaryKey = null;
             this.colorLookup1.RequiredField = false;
@@ -181,7 +182,7 @@
             // 
             this.productLookup1.GroupDto = null;
             this.productLookup1.Location = new System.Drawing.Point(94, 68);
-            this.productLookup1.LookupTital = null;
+            this.productLookup1.LookupTitle = null;
             this.productLookup1.Name = "productLookup1";
             this.productLookup1.PrimaryKey = null;
             this.productLookup1.PTypeId = Konto.App.Shared.ProductTypeEnum.NA;
@@ -306,14 +307,14 @@
             this.colProductName.Name = "colProductName";
             this.colProductName.Visible = true;
             this.colProductName.VisibleIndex = 0;
-            this.colProductName.Width = 140;
+            this.colProductName.Width = 308;
             // 
-            // colorRepositoryItemButtonEdit1
+            // productRepositoryItemButtonEdit1
             // 
-            this.colorRepositoryItemButtonEdit1.AutoHeight = false;
-            this.colorRepositoryItemButtonEdit1.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            this.productRepositoryItemButtonEdit1.AutoHeight = false;
+            this.productRepositoryItemButtonEdit1.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.colorRepositoryItemButtonEdit1.Name = "colorRepositoryItemButtonEdit1";
+            this.productRepositoryItemButtonEdit1.Name = "productRepositoryItemButtonEdit1";
             // 
             // colColorPer
             // 
@@ -364,12 +365,12 @@
             this.repositoryItemLookUpEdit1.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
             this.repositoryItemLookUpEdit1.ValueMember = "Id";
             // 
-            // productRepositoryItemButtonEdit1
+            // colorRepositoryItemButtonEdit1
             // 
-            this.productRepositoryItemButtonEdit1.AutoHeight = false;
-            this.productRepositoryItemButtonEdit1.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            this.colorRepositoryItemButtonEdit1.AutoHeight = false;
+            this.colorRepositoryItemButtonEdit1.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.productRepositoryItemButtonEdit1.Name = "productRepositoryItemButtonEdit1";
+            this.colorRepositoryItemButtonEdit1.Name = "colorRepositoryItemButtonEdit1";
             // 
             // designRepositoryItemButtonEdit
             // 
@@ -437,6 +438,7 @@
             // 
             this.voucherLookup.GroupDto = null;
             this.voucherLookup.Location = new System.Drawing.Point(94, 12);
+            this.voucherLookup.LookupTitle = null;
             this.voucherLookup.Name = "voucherLookup";
             this.voucherLookup.PrimaryKey = null;
             this.voucherLookup.RequiredField = true;
@@ -444,7 +446,7 @@
             this.voucherLookup.SelectedValue = null;
             this.voucherLookup.Size = new System.Drawing.Size(255, 24);
             this.voucherLookup.TabIndex = 1;
-            this.voucherLookup.VTypeId = Konto.App.Shared.VoucherTypeEnum.ColorFormula;
+            this.voucherLookup.VTypeId = Konto.App.Shared.VoucherTypeEnum.ColorRecipe;
             // 
             // RemarkTextBoxExt
             // 
@@ -676,10 +678,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.BTransgridControl)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.transbindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.BTranspgridView)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.colorRepositoryItemButtonEdit1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.productRepositoryItemButtonEdit1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ColorCategoryItemLookUpEdit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemLookUpEdit1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.productRepositoryItemButtonEdit1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.colorRepositoryItemButtonEdit1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.designRepositoryItemButtonEdit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gradeRepositoryItemButtonEdit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemHyperLinkEdit11)).EndInit();

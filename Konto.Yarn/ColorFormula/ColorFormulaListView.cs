@@ -36,7 +36,7 @@ namespace Konto.Yarn.ColorFormula
                                    orderby b.Id
                                    where b.CompId == KontoGlobals.CompanyId && b.YearId == KontoGlobals.YearId && !b.IsDeleted
                                    //&& (b.VoucherDate >= KontoGlobals.FromDate && b.VoucherDate <= KontoGlobals.ToDate)
-                                   && voucher.VTypeId == (int)VoucherTypeEnum.ColorFormula
+                                   && voucher.VTypeId == (int)VoucherTypeEnum.ColorRecipe
                                    select new RcpuiDto()
                                    {
                                        BranchId = b.BranchId,

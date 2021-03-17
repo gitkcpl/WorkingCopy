@@ -57,8 +57,8 @@ IF NOT EXISTS(SELECT 1 FROM dbo.ReportType WHERE FileName='Reg\\Summary.rdlx' AN
 INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, CreateUser, IsActive, 
 IsDeleted,RowId,SpName,remarks)
 Values('Summary','SALE', 12,'Reg\\Summary.rdlx',GETDATE(),'Admin',1,0,NEWID(),'dbo.sales_reg',
-'None-Book-Party-Agent-Item-Party+Item-Item+Party-Agent+Party-Book+Party')
-update dbo.ReportType set remarks='None-Book-Party-Agent-Item-Party+Item-Item+Party-Agent+Party-Book+Party' where FileName='Reg\\Summary.rdlx' AND ReportTypes='SALE'
+'None-Book-Party-Agent-Item')
+update dbo.ReportType set remarks='None-Book-Party-Agent-Item' where FileName='Reg\\Summary.rdlx' AND ReportTypes='SALE'
 
 
 

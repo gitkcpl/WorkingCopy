@@ -33,6 +33,8 @@ namespace Konto.Reporting.Para.Gst
             c1FlexPivotPage1.FlexPivotChart.Hide();
             this.Load += GstSummaryView_Load;
 
+            this.FirstActiveControl = fromDateEdit;
+
         }
 
         private void GstSummaryView_Load(object sender, EventArgs e)

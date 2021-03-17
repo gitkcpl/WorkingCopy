@@ -80,6 +80,8 @@ namespace Konto.Trading.MillIssue
             accLookup1.SelectedValueChanged += AccLookup1_SelectedValueChanged;
             this.delvLookup.SelectedValueChanged += DelvLookup_SelectedValueChanged;
             voucherLookup1.SelectedValueChanged += VoucherLookup1_SelectedValueChanged;
+
+            this.FirstActiveControl = voucherLookup1;
         }
 
         private void VoucherLookup1_SelectedValueChanged(object sender, EventArgs e)

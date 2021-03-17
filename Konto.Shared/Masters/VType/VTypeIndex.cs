@@ -28,6 +28,8 @@ namespace Konto.Shared.Masters.VType
         private BindingList<VoucherItemModel> ItemList { get; set; }
         private List<VoucherItemModel> DelItemList { get; set; }
 
+       
+
         public VTypeIndex()
         {
             InitializeComponent();
@@ -42,6 +44,9 @@ namespace Konto.Shared.Masters.VType
             partyGridView.KeyDown += PartyGridView_KeyDown;
             itemGridView.KeyDown += ItemGridView_KeyDown;
             this.MainLayoutFile = KontoFileLayout.Voucher_Type;
+
+            this.FirstActiveControl = nameTextEdit;
+
             SetGridData();
         }
 
@@ -222,6 +227,7 @@ namespace Konto.Shared.Masters.VType
 
             createdLabelControl.Text = "Create By: " + KontoGlobals.UserName;
             modifyLabelControl.Text = string.Empty;
+            
         }
         public override void ResetPage()
         {

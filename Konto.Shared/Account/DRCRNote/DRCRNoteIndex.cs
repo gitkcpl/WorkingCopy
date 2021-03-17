@@ -77,6 +77,8 @@ namespace Konto.Shared.Account.DRCRNote
             voucherLookup1.SelectedValueChanged += VoucherLookup1_SelectedValueChanged;
             this.Load += DRCRNoteIndex_Load;
             againstLookUpEdit.EditValueChanged += AgainstLookUpEdit_EditValueChanged;
+
+            this.FirstActiveControl = docTypeLookUpEdit;
         }
 
         private void AgainstLookUpEdit_EditValueChanged(object sender, EventArgs e)

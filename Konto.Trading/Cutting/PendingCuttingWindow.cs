@@ -7,6 +7,7 @@ using Konto.Core.Shared;
 using Konto.Core.Shared.Libs;
 using Konto.Data;
 using Konto.Data.Models.Transaction.Dtos;
+using Konto.Data.Models.Transaction.TradingDto;
 using Serilog;
 using System;
 using System.Collections.Generic;
@@ -22,8 +23,8 @@ namespace Konto.Trading.Cutting
 {
     public partial class PendingCuttingWindow : KontoForm
     { 
-        public List<CuttingListDto> TransList { get; set; }
-        public CuttingListDto SelectedRow { get; set; }
+        public List<PendingForCuttingDto> TransList { get; set; }
+        public PendingForCuttingDto SelectedRow { get; set; }
 
         TextEdit headerEdit = new TextEdit();
         GridColumn activeCol = null;
@@ -42,6 +43,13 @@ namespace Konto.Trading.Cutting
             this.gridView1.CustomDrawRowIndicator += GridView1_CustomDrawRowIndicator;
             this.okSimpleButton.Click += OkSimpleButton_Click;
             this.gridControl1.ProcessGridKey += GridControl1_ProcessGridKey;
+            this.cancelSimpleButton.Click += CancelSimpleButton_Click;
+        }
+
+        private void CancelSimpleButton_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.Cancel;
+            this.Close();
         }
 
         private void PendingCuttingWindow_Shown(object sender, EventArgs e)
@@ -84,8 +92,9 @@ namespace Konto.Trading.Cutting
 
         private void OkSimpleButton_Click(object sender, EventArgs e)
         {
+            
 
-            this.SelectedRow = gridView1.GetFocusedRow() as CuttingListDto;
+           
             this.DialogResult = DialogResult.OK;
             this.Close();
         }

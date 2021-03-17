@@ -80,6 +80,8 @@ namespace Konto.Trading.TakaWiseJobReceipt
             tdsAmtTextEdit.EditValueChanged += TdsAmtTextEdit_EditValueChanged;
             this.Shown += MrvIndex_Shown;
             voucherLookup1.SelectedValueChanged += VoucherLookup1_SelectedValueChanged;
+
+            this.FirstActiveControl = voucherLookup1;
         }
 
         private void VoucherLookup1_SelectedValueChanged(object sender, EventArgs e)

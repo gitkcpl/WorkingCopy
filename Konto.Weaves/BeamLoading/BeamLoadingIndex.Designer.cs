@@ -249,6 +249,7 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.divLookUpEdit.Properties.DisplayMember = "DisplayText";
             this.divLookUpEdit.Properties.NullText = "";
+            this.divLookUpEdit.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
             this.divLookUpEdit.Properties.ValueMember = "Id";
             this.divLookUpEdit.Size = new System.Drawing.Size(171, 24);
             this.divLookUpEdit.StyleController = this.layoutControl1;
@@ -265,6 +266,7 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.BeamPositionlookUpEdit.Properties.DisplayMember = "DisplayText";
             this.BeamPositionlookUpEdit.Properties.NullText = "";
+            this.BeamPositionlookUpEdit.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
             this.BeamPositionlookUpEdit.Properties.ValueMember = "Id";
             this.BeamPositionlookUpEdit.Size = new System.Drawing.Size(149, 24);
             this.BeamPositionlookUpEdit.StyleController = this.layoutControl1;
@@ -281,6 +283,7 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.MachineNolookUpEdit.Properties.DisplayMember = "DisplayText";
             this.MachineNolookUpEdit.Properties.NullText = "";
+            this.MachineNolookUpEdit.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
             this.MachineNolookUpEdit.Properties.ValueMember = "Id";
             this.MachineNolookUpEdit.Size = new System.Drawing.Size(171, 24);
             this.MachineNolookUpEdit.StyleController = this.layoutControl1;

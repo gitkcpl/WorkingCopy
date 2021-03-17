@@ -13,6 +13,8 @@ namespace Konto.Core.Shared.Frms
 {
     public partial class KontoMetroForm : KontoForm
     {
+       
+
         public bool ViewOnlyMode { get; set; }
         public int PrimaryKey { get; set; }
         public bool OpenForLookup { get; set; }

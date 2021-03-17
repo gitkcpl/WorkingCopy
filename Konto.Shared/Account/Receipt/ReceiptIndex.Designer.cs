@@ -178,15 +178,16 @@
             this.bookLookup.GroupId = 0;
             this.bookLookup.Location = new System.Drawing.Point(105, 33);
             this.bookLookup.LookupDto = null;
+            this.bookLookup.LookupTitle = null;
             this.bookLookup.Name = "bookLookup";
             this.bookLookup.Nature = "";
-            this.bookLookup.NewGroupId = 0;
+            this.bookLookup.NewGroupId = Konto.App.Shared.LedgerGroupEnum.NONE;
             this.bookLookup.PrimaryKey = null;
             this.bookLookup.RequiredField = true;
             this.bookLookup.SelectedText = null;
             this.bookLookup.SelectedValue = null;
             this.bookLookup.Size = new System.Drawing.Size(586, 20);
-            this.bookLookup.TabIndex = 4;
+            this.bookLookup.TabIndex = 3;
             this.bookLookup.TaxType = null;
             this.bookLookup.TransportLookup = null;
             this.bookLookup.VoucherType = Konto.App.Shared.VoucherTypeEnum.ReceiptVoucher;
@@ -233,7 +234,7 @@
             this.challanNoRrepositoryItemButtonEdit,
             this.payTypeRepositoryItemLookUpEdit});
             this.gridControl1.Size = new System.Drawing.Size(934, 329);
-            this.gridControl1.TabIndex = 5;
+            this.gridControl1.TabIndex = 4;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
             // 
@@ -443,6 +444,7 @@
             // empLookup1
             // 
             this.empLookup1.Location = new System.Drawing.Point(306, 89);
+            this.empLookup1.LookupTitle = null;
             this.empLookup1.Name = "empLookup1";
             this.empLookup1.PrimaryKey = null;
             this.empLookup1.RequiredField = true;
@@ -481,7 +483,7 @@
             this.voucherDateEdit.Properties.Mask.UseMaskAsDisplayFormat = true;
             this.voucherDateEdit.Size = new System.Drawing.Size(201, 24);
             this.voucherDateEdit.StyleController = this.layoutControl1;
-            this.voucherDateEdit.TabIndex = 2;
+            this.voucherDateEdit.TabIndex = 1;
             // 
             // challanNotextEdit
             // 
@@ -510,12 +512,13 @@
             this.voucherNoTextEdit.Properties.MaxLength = 50;
             this.voucherNoTextEdit.Size = new System.Drawing.Size(144, 24);
             this.voucherNoTextEdit.StyleController = this.layoutControl1;
-            this.voucherNoTextEdit.TabIndex = 3;
+            this.voucherNoTextEdit.TabIndex = 2;
             // 
             // voucherLookup1
             // 
             this.voucherLookup1.GroupDto = null;
             this.voucherLookup1.Location = new System.Drawing.Point(105, 5);
+            this.voucherLookup1.LookupTitle = null;
             this.voucherLookup1.Name = "voucherLookup1";
             this.voucherLookup1.PrimaryKey = null;
             this.voucherLookup1.RequiredField = true;
@@ -668,6 +671,7 @@
             this.billAdjustSimpleButton.Name = "billAdjustSimpleButton";
             this.billAdjustSimpleButton.Size = new System.Drawing.Size(75, 28);
             this.billAdjustSimpleButton.TabIndex = 1;
+            this.billAdjustSimpleButton.TabStop = false;
             this.billAdjustSimpleButton.Text = "Bill Adjust";
             // 
             // ReceiptIndex

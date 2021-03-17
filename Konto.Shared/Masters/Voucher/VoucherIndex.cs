@@ -19,6 +19,7 @@ namespace Konto.Shared.Masters.Voucher
     {
         private List<VoucherModel> FilterView = new List<VoucherModel>();
         private LastSerialModel _Serial = new LastSerialModel();
+        public int GroupId { get; set; }
         public VoucherIndex()
         {
             tabControlAdv1.TabPages[2].TabVisible = false;
@@ -32,12 +33,16 @@ namespace Konto.Shared.Masters.Voucher
             tabControlAdv1.SelectedIndexChanged += TabControlAdv1_SelectedIndexChanged;
             this.Shown += VoucherIndex_Shown;
             FillVoucher();
+
+            this.FirstActiveControl = nameTextEdit;
         }
 
         private void VoucherIndex_Shown(object sender, EventArgs e)
         {
             if (this.EditKey > 0)
                 this.EditPage(EditKey);
+
+            
         }
 
         private void FillVoucher()
@@ -180,6 +185,12 @@ namespace Konto.Shared.Masters.Voucher
             maskTextEdit.Text = "{#}/{yy}";
             createdLabelControl.Text = "Create By: " + KontoGlobals.UserName;
             modifyLabelControl.Text = string.Empty;
+
+            if (this.GroupId != 0)
+            {
+                this.typeLookUpEdit.EditValue = this.GroupId;
+            }
+
         }
         public override void ResetPage()
         {

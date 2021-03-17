@@ -15,7 +15,7 @@ namespace Konto.Weaves.ColorMatching
 {
     public partial class ColorMListView : ListBaseView
     {
-        private List<WeftItemDto> _modelList = new List<WeftItemDto>();
+        private List<ColorMathingListDto> _modelList = new List<ColorMathingListDto>();
         public ColorMListView()
         {
             InitializeComponent();
@@ -32,12 +32,12 @@ namespace Konto.Weaves.ColorMatching
                 var spcol = _db.SpCollections.FirstOrDefault(k => k.Id == (int)SpCollectionEnum.ColorMatchList);
                 if (spcol == null)
                 {
-                    _modelList = new List<WeftItemDto>(_db.Database.SqlQuery<WeftItemDto>("dbo.ColorMatchList @CompanyId={0}",
+                    _modelList = new List<ColorMathingListDto>(_db.Database.SqlQuery<ColorMathingListDto>("dbo.ColorMatchList @CompanyId={0}",
                     KontoGlobals.CompanyId).ToList());
                 }
                 else
                 {
-                    _modelList = new List<WeftItemDto>(_db.Database.SqlQuery<WeftItemDto>(spcol.Name + " @CompanyId={0}",
+                    _modelList = new List<ColorMathingListDto>(_db.Database.SqlQuery<ColorMathingListDto>(spcol.Name + " @CompanyId={0}",
                             KontoGlobals.CompanyId).ToList());
                 }
             }

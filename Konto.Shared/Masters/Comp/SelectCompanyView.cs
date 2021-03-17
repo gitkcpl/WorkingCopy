@@ -1,5 +1,6 @@
 ﻿using Konto.App.Shared;
 using Konto.Core.Shared;
+using Konto.Core.Shared.Libs;
 using Konto.Data;
 using Konto.Data.Models.Masters;
 using System;
@@ -31,6 +32,7 @@ namespace Konto.Shared.Masters.Comp
                     KontoGlobals.CompanyId = dr.Id;
                     KontoGlobals.PackageId = (int) dr.NobId;
                     this.Company = dr;
+                    KontoUtils.Company = dr;
                     this.DialogResult = DialogResult.OK;
                 }
             }
@@ -53,6 +55,7 @@ namespace Konto.Shared.Masters.Comp
                 KontoGlobals.CompanyId = lst[0].Id;
                 this.DialogResult = DialogResult.OK;
                 this.Company = lst[0];
+                KontoUtils.Company = this.Company;
                 KontoGlobals.PackageId = (int)Company.NobId;
                 this.Close();
             }
@@ -66,6 +69,7 @@ namespace Konto.Shared.Masters.Comp
             {
                 KontoGlobals.CompanyId = dr.Id;
                 this.Company = dr;
+                KontoUtils.Company = this.Company;
                 KontoGlobals.PackageId = (int)dr.NobId;
                 this.DialogResult = DialogResult.OK;
             }

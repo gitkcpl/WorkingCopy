@@ -81,6 +81,8 @@ namespace Konto.Shared.Trans.SalesChallan
             headerEdit.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             headerEdit.Leave += new EventHandler(headerEdit_Leave);
             voucherLookup1.SelectedValueChanged += VoucherLookup1_SelectedValueChanged;
+
+            this.FirstActiveControl = voucherLookup1;
         }
 
         private void ScIndex_Shown(object sender, EventArgs e)

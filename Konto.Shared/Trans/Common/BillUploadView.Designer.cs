@@ -194,7 +194,7 @@
             this.accLookup.LookupDto = null;
             this.accLookup.Name = "accLookup";
             this.accLookup.Nature = null;
-            this.accLookup.NewGroupId = 25;
+            this.accLookup.NewGroupId = App.Shared.LedgerGroupEnum.SUNDRY_DEBTORS;
             this.accLookup.PrimaryKey = null;
             this.accLookup.RequiredField = true;
             this.accLookup.SelectedText = null;
@@ -234,7 +234,7 @@
             this.agentLookup.LookupDto = null;
             this.agentLookup.Name = "agentLookup";
             this.agentLookup.Nature = null;
-            this.agentLookup.NewGroupId = 31;
+            this.agentLookup.NewGroupId = App.Shared.LedgerGroupEnum.CREDITORS_FOR_BROKERAGE;
             this.agentLookup.PrimaryKey = null;
             this.agentLookup.RequiredField = false;
             this.agentLookup.SelectedText = null;

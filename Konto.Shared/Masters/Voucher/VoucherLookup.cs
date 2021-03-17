@@ -99,6 +99,7 @@ namespace Konto.Shared.Masters.Voucher
                 SelectedTex = this.SelectedText,
                 SelectedValue = Convert.ToInt32(this.SelectedValue),
                 VTypeId = (int)this.VTypeId,
+                RefId = (int)this.VTypeId,
                 Tag = MenuId.Voucher
             };
             frm.ShowDialog(this.Parent.Parent.Parent);

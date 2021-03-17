@@ -13,6 +13,7 @@ namespace Konto.Core.Shared
 {
     public partial class KontoForm : MetroForm
     {
+        public Control FirstActiveControl { get; set; }
         public bool Create_Permission { get; set; }
         public bool Modify_Permission { get; set; }
         public bool Delete_Permission { get; set; }

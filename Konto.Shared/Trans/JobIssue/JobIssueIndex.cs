@@ -87,6 +87,8 @@ namespace Konto.Shared.Trans.JobIssue
             RefNobuttonEdit.ButtonClick += RefNobuttonEdit_ButtonClick;
             RefNobuttonEdit.KeyDown += RefNobuttonEdit_KeyDown;
             this.Load += JobIssueIndex_Load;
+
+            this.FirstActiveControl = grnTypeLookUpEdit;
         }
 
 

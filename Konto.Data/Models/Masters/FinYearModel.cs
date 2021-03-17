@@ -55,5 +55,7 @@ namespace Konto.Data.Models.Masters
         {
             get; set;
         } // varchar(50)
+
+        public int PrevYearId { get; set; }
     }
 }

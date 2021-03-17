@@ -25,6 +25,8 @@ namespace Konto.Shared.Masters.SubGroup
             this.Load += SubGroupIndex_Load;
             okSimpleButton.Click += OkSimpleButton_Click;
             tabControlAdv1.SelectedIndexChanged += TabControlAdv1_SelectedIndexChanged;
+
+            this.FirstActiveControl = groupNameTextBox;
         }
 
         private void TabControlAdv1_SelectedIndexChanged(object sender, EventArgs e)

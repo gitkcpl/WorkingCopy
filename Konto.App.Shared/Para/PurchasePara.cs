@@ -33,5 +33,7 @@ namespace Konto.App.Shared.Para
         public static int Rate_Decimal = 2;
         public static int Qty_Decimal = 2;
         public static bool Tcs_Round_Off = true;
+        public static bool Order_Required = false;
+        public static bool HsnCode_Required = false;
     }
 }

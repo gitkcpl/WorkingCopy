@@ -37,6 +37,10 @@
     <Reference Include="AutoMapper">
       <HintPath>..\packages\AutoMapper.9.0.0\lib\net461\AutoMapper.dll</HintPath>
     </Reference>
+    <Reference Include="AutoMapper.EF6, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\RefTools\AutoMapper.EF6.dll</HintPath>
+    </Reference>
     <Reference Include="DevExpress.Data.Desktop.v20.1, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Data.v20.1, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Printing.v20.1.Core, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
@@ -163,6 +167,24 @@
     <Compile Include="Qc\QualityControlList.Designer.cs">
       <DependentUpon>QualityControlList.cs</DependentUpon>
     </Compile>
+    <Compile Include="SI\IssueIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SI\IssueIndex.Designer.cs">
+      <DependentUpon>IssueIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SI\IssueList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SI\IssueList.Designer.cs">
+      <DependentUpon>IssueList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SI\IssueBarCode.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SI\IssueBarCode.Designer.cs">
+      <DependentUpon>IssueBarCode.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="BC\BarcodeIndex.resx">
@@ -209,6 +231,15 @@
     <EmbeddedResource Include="Qc\QualityControlList.resx">
       <DependentUpon>QualityControlList.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="SI\IssueIndex.resx">
+      <DependentUpon>IssueIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SI\IssueList.resx">
+      <DependentUpon>IssueList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SI\IssueBarCode.resx">
+      <DependentUpon>IssueBarCode.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Konto.App.Shared\Konto.App.Shared.csproj">
@@ -238,9 +269,7 @@
     <None Include="Properties\DataSources\Konto.Data.Models.Apparel.Dtos.BarcodeTransDto.datasource" />
     <None Include="Properties\DataSources\Konto.Data.Models.Apparel.Dtos.BomOrderDto.datasource" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="SI\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

@@ -62,6 +62,8 @@ namespace Konto.Weaves.TakaOp
             productRepositoryItemButtonEdit.ButtonClick += ProductRepositoryItemButtonEdit_ButtonClick;
             colorRepositoryItemButtonEdit.ButtonClick += ColorRepositoryItemButtonEdit_ButtonClick;
             designRepositoryItemButtonEdit.ButtonClick += DesignRepositoryItemButtonEdit_ButtonClick;
+
+            this.FirstActiveControl = OrderDetailgridControl;
         }
         #region UDF
         private void FillLookup()
@@ -791,7 +793,7 @@ namespace Konto.Weaves.TakaOp
                              YearId = pd.YearId,
                              IsActive = pd.IsActive,
                              IsDeleted = pd.IsDeleted,
-                             AvgWt = (pd.NetWt / pd.TareWt) * 100
+                             AvgWt = pd.TareWt >0 ? (pd.NetWt / pd.TareWt) * 100 : 0
                          }
                ).ToList();
             foreach (var item in trans)

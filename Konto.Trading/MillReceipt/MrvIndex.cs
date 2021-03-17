@@ -75,7 +75,7 @@ namespace Konto.Trading.MillReceipt
 
             FillLookup();
             SetParameter();
-            SetGridColumn();
+            
 
             headerEdit.Hide();
             headerEdit.Parent = this.gridControl1;
@@ -86,6 +86,8 @@ namespace Konto.Trading.MillReceipt
             tdsAmtTextEdit.EditValueChanged += TdsAmtTextEdit_EditValueChanged;
             this.Shown += MrvIndex_Shown;
             voucherLookup1.SelectedValueChanged += VoucherLookup1_SelectedValueChanged;
+
+            this.FirstActiveControl = voucherLookup1;
         }
 
         private void VoucherLookup1_SelectedValueChanged(object sender, EventArgs e)
@@ -107,6 +109,7 @@ namespace Konto.Trading.MillReceipt
             colCgstAmt.OptionsColumn.AllowEdit = true;
             colIgstAmt.OptionsColumn.AllowFocus = true;
             colIgstAmt.OptionsColumn.AllowEdit = true;
+            SetGridColumn();
 
         }
 

@@ -47,6 +47,7 @@
     <Compile Include="KontoLayout.cs" />
     <Compile Include="KontoMsg.cs" />
     <Compile Include="MenuId.cs" />
+    <Compile Include="MiscExtensions.cs" />
     <Compile Include="Para\BillPara.cs" />
     <Compile Include="Para\GenExpPara.cs" />
     <Compile Include="Para\GrayPara.cs" />

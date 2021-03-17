@@ -34,6 +34,9 @@ namespace Konto.Shared.Masters.Catalog
             okSimpleButton.Click += OkSimpleButton_Click;
             tabControlAdv1.SelectedIndexChanged += TabControlAdv1_SelectedIndexChanged;
             gridControl1.DataSource = _trans;
+
+
+            this.FirstActiveControl = catalogNameTextBox;
         }
 
         private void TabControlAdv1_SelectedIndexChanged(object sender, EventArgs e)

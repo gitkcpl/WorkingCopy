@@ -89,6 +89,8 @@ namespace Konto.Trading.JobReceipt
             consumeSimpleButton.Click += ConsumeSimpleButton_Click;
             voucherLookup1.SelectedValueChanged += VoucherLookup1_SelectedValueChanged;
             this.Load += JrIndex_Load;
+
+            this.FirstActiveControl = voucherLookup1;
         }
 
         private void LotNoRepositoryItemButtonEdit_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)

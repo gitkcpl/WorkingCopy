@@ -61,6 +61,8 @@ namespace Konto.Shared.Trans.SO
             SetParameter();
             SetGridColumn();
             voucherLookup1.SelectedValueChanged += VoucherLookup1_SelectedValueChanged;
+
+            this.FirstActiveControl = voucherLookup1;
         }
 
         private void GridView1_ShowingEditor(object sender, System.ComponentModel.CancelEventArgs e)
@@ -333,9 +335,19 @@ namespace Konto.Shared.Trans.SO
                                     DisplayText = p.ItemName,
                                     Id = p.Id
                                 }).ToList();
+
+                var _divLists = (from p in db.Divisions
+                                 where p.IsActive && !p.IsDeleted
+                                 select new BaseLookupDto()
+                                 {
+                                     DisplayText = p.DivisionName,
+                                     Id = p.Id
+                                 }).ToList();
+
                 warpItemRepositoryItemLookUpEdit.DataSource = _warplist;
                 uomRepositoryItemLookUpEdit.DataSource = _uomlist;
                 termsLookUpEdit.Properties.DataSource = _termslist;
+                divLookUpEdit.Properties.DataSource = _divLists;
             }
         }
 
@@ -344,6 +356,13 @@ namespace Konto.Shared.Trans.SO
             var dt = Convert.ToInt32(voucherDateEdit.DateTime.ToString("yyyyMMdd"));
             var reqdt= Convert.ToInt32(requireDateEdit.DateTime.ToString("yyyyMMdd"));
             var trans = ordTransDtoBindingSource1.DataSource as List<OrdTransDto>;
+            if (string.IsNullOrEmpty(divLookUpEdit.Text))
+            {
+                MessageBoxAdv.Show(this, "Invalid Division", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                divLookUpEdit.Focus();
+                return false;
+            }
+
             if (Convert.ToInt32(voucherLookup1.SelectedValue) == 0)
             {
                 MessageBoxAdv.Show(this, "Invalid Voucher", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -412,6 +431,7 @@ namespace Konto.Shared.Trans.SO
             this.ResetPage();
             this.PrimaryKey = model.Id;
             voucherLookup1.SelectedValue = model.VoucherId;
+            divLookUpEdit.EditValue = model.DivisionId;
             voucherLookup1.SetGroup(model.VoucherId);
             voucherNoTextEdit.Text = model.VoucherNo;
             stageLookUpEdit.EditValue = model.OrderStatusId;
@@ -822,6 +842,7 @@ namespace Konto.Shared.Trans.SO
             this.FilterView = new List<OrdDto>();
             this.Text = "Sales Order [Add New]";
             stageLookUpEdit.EditValue = 0;
+            divLookUpEdit.EditValue = 1;
             voucherNoTextEdit.Text = "New";
             voucherDateEdit.EditValue = DateTime.Now;
             requireDateEdit.EditValue = DateTime.Now;
@@ -950,6 +971,7 @@ namespace Konto.Shared.Trans.SO
             if (!ValidateData()) return;
             OrdDto model = new OrdDto();
             model.VoucherId = Convert.ToInt32(voucherLookup1.SelectedValue);
+            model.DivisionId = Convert.ToInt32(divLookUpEdit.EditValue);
             model.OrderStatusId = Convert.ToInt32(stageLookUpEdit.EditValue);
             model.VoucherNo = voucherNoTextEdit.Text.Trim();
             model.VoucherDate = Convert.ToInt32(voucherDateEdit.DateTime.ToString("yyyyMMdd"));

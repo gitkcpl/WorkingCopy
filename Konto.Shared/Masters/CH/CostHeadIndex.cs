@@ -23,6 +23,8 @@ namespace Konto.Shared.Masters.CH
             tabControlAdv1.TabPages[3].TabVisible = false;
             okSimpleButton.Click += OkSimpleButton_Click;
             tabControlAdv1.SelectedIndexChanged += TabControlAdv1_SelectedIndexChanged;
+
+            this.FirstActiveControl = divNameTextBox;
         }
         private void TabControlAdv1_SelectedIndexChanged(object sender, EventArgs e)
         {

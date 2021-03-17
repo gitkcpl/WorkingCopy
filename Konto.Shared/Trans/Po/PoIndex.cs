@@ -63,6 +63,37 @@ namespace Konto.Shared.Trans.Po
             FillLookup();
             SetParameter();
             voucherLookup1.SelectedValueChanged += VoucherLookup1_SelectedValueChanged;
+
+            this.historySimpleButton.Click += HistorySimpleButton_Click;
+            this.FirstActiveControl = voucherLookup1;
+        }
+
+        private void HistorySimpleButton_Click(object sender, EventArgs e)
+        {
+            if (gridView1.FocusedRowHandle < 0) return;
+            var rw = gridView1.GetRow(gridView1.FocusedRowHandle) as OrdTransDto;
+
+            if (rw == null || rw.ProductId ==0) return;
+
+            using(var db = new KontoContext())
+            {
+                var lst = (from p in db.Ords
+                           join ot in db.OrdTranses on p.Id equals ot.OrdId
+                           join ac in db.Accs on p.AccId equals ac.Id
+                           where ot.ProductId == rw.ProductId && p.Id != rw.OrdId && p.TypeId == (int)VoucherTypeEnum.PurchaseOrder
+                           orderby p.VoucherDate descending
+                           select new HistoryDto
+                           {
+                               VoucherNo = p.VoucherNo,Party= ac.AccName,
+                               Qty= ot.Qty,Rate= ot.Rate,VoucherDate= p.VoucherDate
+                           }).TakeLast(5).ToList();
+
+                var frm = new HistoryView();
+                frm.historyDtos = lst;
+                frm.ShowDialog();
+
+                gridControl1.Focus();
+            }
         }
 
         private void AccLookup1_ShownPopup(object sender, EventArgs e)
@@ -178,15 +209,15 @@ namespace Konto.Shared.Trans.Po
             {
                 e.Cancel = true;
             }
-            if (itm.ProductId != 0)
-                e.Cancel = true;
+            //if (itm.ProductId != 0)
+            //    e.Cancel = true;
         }
         private void PoIndex_Shown(object sender, EventArgs e)
         {
             SetGridColumn();
 
-            if (this.EditKey > 0)
-                this.EditPage(this.EditKey);
+           // if (this.EditKey > 0)
+           //     this.EditPage(this.EditKey);
 
             //colProductName.OptionsColumn.ReadOnly = false;
         }
@@ -204,6 +235,17 @@ namespace Konto.Shared.Trans.Po
            // colLotPcs.Visible = PoPara.Grey_Details_Textiles_Required;
             colCut.Visible = PoPara.Grey_Details_Textiles_Required;
             colAvgWt.Visible = PoPara.Grey_Details_Textiles_Required;
+
+            if (KontoGlobals.PackageId == 2)
+            {
+                agentLayoutControlItem.ContentVisible = PoPara.Agent_Reguired;
+                divisionLayoutControlItem.ContentVisible = PoPara.Division_Required;
+                empLayoutControlItem.ContentVisible = PoPara.Order_AssignBy_Required;
+                partyGroupLayoutControlItem.ContentVisible = PoPara.PartyGroup_Required;
+                transportLayoutControlItem.ContentVisible = PoPara.Transport_Required;
+                payTermsLayoutControlItem.ContentVisible = PoPara.Pay_Terms_Requied;
+            }
+
         }
         private OrdTransDto PreOpenLookup()
         {
@@ -292,6 +334,41 @@ namespace Konto.Shared.Trans.Po
                         case 57:
                             {
                                 PoPara.Currency_Required = (value == "Y") ? true : false;
+                                break;
+                            }
+
+                        case 242:
+                            {
+                                PoPara.Agent_Reguired = (value == "Y") ? true : false;
+                                break;
+                            }
+
+                        case 243:
+                            {
+                                PoPara.Transport_Required = (value == "Y") ? true : false;
+                                break;
+                            }
+
+                        case 244:
+                            {
+                                PoPara.Division_Required = (value == "Y") ? true : false;
+                                break;
+                            }
+                        case 245:
+                            {
+                                PoPara.Order_AssignBy_Required = (value == "Y") ? true : false;
+                                break;
+                            }
+
+                        case 246:
+                            {
+                                PoPara.Pay_Terms_Requied = (value == "Y") ? true : false;
+                                break;
+                            }
+
+                        case 247:
+                            {
+                                PoPara.PartyGroup_Required = (value == "Y") ? true : false;
                                 break;
                             }
                     }
@@ -421,9 +498,20 @@ namespace Konto.Shared.Trans.Po
                                     DisplayText = p.ItemName,
                                     Id = p.Id
                                 }).ToList();
+
+
+                var _divLists = (from p in db.Divisions
+                                 where p.IsActive && !p.IsDeleted
+                                 select new BaseLookupDto()
+                                 {
+                                     DisplayText = p.DivisionName,
+                                     Id = p.Id
+                                 }).ToList();
+
                 warpItemRepositoryItemLookUpEdit.DataSource = _warplist;
                 uomRepositoryItemLookUpEdit.DataSource = _uomlist;
                 termsLookUpEdit.Properties.DataSource = _termslist;
+                divLookUpEdit.Properties.DataSource = _divLists;
             }
         }
 
@@ -432,6 +520,13 @@ namespace Konto.Shared.Trans.Po
             var dt = Convert.ToInt32(voucherDateEdit.DateTime.ToString("yyyyMMdd"));
             var reqdt = Convert.ToInt32(requireDateEdit.DateTime.ToString("yyyyMMdd"));
             var trans = ordTransDtoBindingSource1.DataSource as List<OrdTransDto>;
+
+            if (string.IsNullOrEmpty(divLookUpEdit.Text))
+            {
+                MessageBoxAdv.Show(this, "Invalid Division", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                divLookUpEdit.Focus();
+                return false;
+            }
 
             if (Convert.ToInt32(voucherLookup1.SelectedValue) == 0)
             {
@@ -515,6 +610,8 @@ namespace Konto.Shared.Trans.Po
             refNotextEdit.Text = model.RefNo;
             requireDateEdit.EditValue = model.RequireDate;
             
+            divLookUpEdit.EditValue = model.DivisionId;
+
             pgLookup1.SelectedValue = Convert.ToInt32( model.PGroupId);
             pgLookup1.SetGroup();
 
@@ -809,6 +906,7 @@ namespace Konto.Shared.Trans.Po
                 this.Text = "Purchase Order [View]";
 
             }
+
             if (tabControlAdv1.SelectedIndex == 3)
             {
                 if (tabPageAdv4.Controls.Count > 0) return;
@@ -904,6 +1002,7 @@ namespace Konto.Shared.Trans.Po
             requireDateEdit.EditValue = DateTime.Now;
             termsLookUpEdit.EditValue = 0;
             empLookup1.SelectedValue = 1;
+            divLookUpEdit.EditValue = 1;
             empLookup1.SetGroup();
             createdLabelControl.Text = "Create By: " + KontoGlobals.UserName;
             modifyLabelControl.Text = string.Empty;
@@ -1049,6 +1148,7 @@ namespace Konto.Shared.Trans.Po
             model.YearId = KontoGlobals.YearId;
             model.BranchId = KontoGlobals.BranchId;
             model.PGroupId = Convert.ToInt32(pgLookup1.SelectedValue);
+            model.DivisionId = Convert.ToInt32(divLookUpEdit.EditValue);
 
             var _find = new OrdModel();
             var config = new MapperConfiguration(cfg =>

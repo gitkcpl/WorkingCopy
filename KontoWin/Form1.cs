@@ -4,8 +4,10 @@ using DevExpress.XtraBars;
 using DevExpress.XtraSplashScreen;
 using Konto.App.Shared;
 using Konto.Core.Shared;
+using Konto.Core.Shared.Frms;
 using Konto.Data;
 using Konto.Data.Models.Admin;
+using Konto.Data.Models.Reports;
 using Konto.Shared.Masters.Branch;
 using Konto.Shared.Masters.Comp;
 using Konto.Shared.Masters.FinYear;
@@ -39,7 +41,37 @@ namespace KontoWin
             userBarStaticItem.ItemClick += UserBarStaticItem_ItemClick;
             treeList1.DoubleClick += TreeList1_DoubleClick;
             treeList1.KeyDown += TreeList1_KeyDown;
+            this.tabControlAdv1.ControlRemoved += TabControlAdv1_ControlRemoved;
+            this.tabControlAdv1.SelectedIndexChanged += TabControlAdv1_SelectedIndexChanged;
+           
         }
+
+        private void TabControlAdv1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (tabControlAdv1.SelectedTab.Controls.Count == 0) return;
+
+            var frm = tabControlAdv1.SelectedTab.Controls[0] as KontoMetroForm;
+
+            if (frm != null && frm.FirstActiveControl != null)
+            {
+                frm.FirstActiveControl.Focus();
+            }
+        }
+
+        private void TabControlAdv1_ControlRemoved(object sender, ControlEventArgs e)
+        {
+            if (tabControlAdv1.SelectedTab.Controls.Count == 0) return;
+            var frm = tabControlAdv1.SelectedTab.Controls[0] as KontoMetroForm;
+
+            if (frm != null && frm.FirstActiveControl != null)
+            {
+                frm.FirstActiveControl.Focus();
+            }
+        }
+
+       
+
+       
 
         private void TreeList1_KeyDown(object sender, KeyEventArgs e)
         {
@@ -112,6 +144,7 @@ namespace KontoWin
                 this.tabControlAdv1.TabPages.RemoveRange(1, tabControlAdv1.TabPages.Count - 1);
 
             var frm = new SelectYearView();
+            
             if(frm.ShowDialog() == DialogResult.OK)
             {
                 yearBarStaticItem.Caption = frm.FinYear.YearCode;
@@ -173,20 +206,21 @@ namespace KontoWin
 
             var frm = new LogInWindowView();
             frm.IsStartup = true;
-            if(frm.ShowDialog(this) == DialogResult.OK)
+            var res = frm.ShowDialog();
+            if (res == DialogResult.OK)
             {
                 var frmc = new SelectCompanyView();
-                if(frmc.ShowDialog() == DialogResult.OK)
+                if (frmc.ShowDialog() == DialogResult.OK)
                 {
                     compBarStaticItem.Caption = frmc.Company.CompName;
                     KontoGlobals.CompanyName = frmc.Company.CompName;
                     KontoGlobals.GstIn = frmc.Company.GstIn;
                     var frmBr = new SelectBranchWindow();
-                    if(frmBr.ShowDialog() == DialogResult.OK)
+                    if (frmBr.ShowDialog() == DialogResult.OK)
                     {
                         branchBarStaticItem.Caption = frmBr.Branch.BranchName;
                         var frmy = new SelectYearView();
-                        if(frmy.ShowDialog() == DialogResult.OK)
+                        if (frmy.ShowDialog() == DialogResult.OK)
                         {
                             yearBarStaticItem.Caption = frmy.FinYear.YearCode;
                         }
@@ -228,11 +262,18 @@ namespace KontoWin
                 if (role.IsSysAdmin)
                 {
 
+                    //erp = (from em in db.ErpModules
+                    //       join pkg in db.Menu_Packages on em.Id equals pkg.MenuId into pkg_join
+                    //       from pkg in pkg_join.DefaultIfEmpty()
+                    //       where (em.IsActive && !em.IsDeleted && em.Visible == true && (em.PackageId == 0 || em.PackageId == KontoGlobals.Edition)
+                    //                && pkg.PackageId == KontoGlobals.PackageId && em.ModuleDesc != "-")
+                    //       select em).ToList();
+                    var searchstring = "," + KontoGlobals.PackageId.ToString() + ","; 
                     erp = (from em in db.ErpModules
-                           join pkg in db.Menu_Packages on em.Id equals pkg.MenuId into pkg_join
-                           from pkg in pkg_join.DefaultIfEmpty()
                            where (em.IsActive && !em.IsDeleted && em.Visible == true && (em.PackageId == 0 || em.PackageId == KontoGlobals.Edition)
-                                    && pkg.PackageId == KontoGlobals.PackageId && em.ModuleDesc != "-")
+                                   &&  em.Extra2.Contains(searchstring) && em.ModuleDesc != "-"
+                                    
+                                    )
                            select em).ToList();
                 }
                 else
@@ -275,7 +316,8 @@ namespace KontoWin
                                        erpGrp.Key.ListAssembly,
                                        erpGrp.Key.AssemblyName,
                                        erpGrp.Key.Title,
-                                       erpGrp.Key.OrderIndex,erpGrp.Key.ImageIndex
+                                       erpGrp.Key.OrderIndex,
+                                       erpGrp.Key.ImageIndex
                                    }).ToList();
 
                     var lst = erpuser.GroupBy(k => k.ParentId).Select(g => new { id = g.Key }).ToList();
@@ -307,7 +349,7 @@ namespace KontoWin
                                 };
                                 if (!erp.Any(x => x.Id == nr.Id))
                                     erp.Add(nr);
-                                
+
                                 //TMainMenus.Add(nr);
 
                                 dr = db.ErpModules.FirstOrDefault(k => k.Id == parntid && k.IsActive && !k.IsDeleted);
@@ -335,7 +377,7 @@ namespace KontoWin
                                             };
                                             if (!erp.Any(x => x.Id == nr.Id))
                                                 erp.Add(nr);
-                                            
+
                                             // TMainMenus.Add(nr);
                                         }
                                     }
@@ -367,36 +409,36 @@ namespace KontoWin
                             ImageIndex = dr.ImageIndex
                         };
                         //if (nr.ParentId != 0)
-                            //nr.MenuCommand = new RelayCommand(ExecuteMenu, CanExecuteMenu);
-                        if(!erp.Any(x=>x.Id == nr.Id))
+                        //nr.MenuCommand = new RelayCommand(ExecuteMenu, CanExecuteMenu);
+                        if (!erp.Any(x => x.Id == nr.Id))
                             erp.Add(nr);
                         //if (!nr.IsSeprator)
-                          //  TMainMenus.Add(nr);
+                        //  TMainMenus.Add(nr);
                     }
                 }
 
-                
+
             }
 
 
             erp = erp.OrderBy(x => x.ParentId).ThenBy(x => x.OrderIndex).ToList();
             foreach (var item in erp)
             {
-                if(item.ParentId ==0 )
+                if (item.ParentId == 0)
                     CreateMenuItem(item, true);
                 else
                 {
-                    
+
                     var _top = erp.FirstOrDefault(x => x.ParentId == item.Id);
-                    if (_top!=null)
+                    if (_top != null)
                     {
                         CreateMenuItem(item, true);
                     }
                     else
-                    CreateMenuItem(item, false);
-                    
+                        CreateMenuItem(item, false);
+
                 }
-       
+
             }
             var lst12 = erp.Where(x => x.Id == 100).ToList();
 
@@ -490,6 +532,15 @@ namespace KontoWin
         {
             try
             {
+
+
+                if(e.Item.Id==1066) // balance carry forward
+                {
+
+                    BalanceCarryToNextYear();
+                    return;
+                }
+
                 var _assmbly = e.Item.Tag.ToString().Split(';');
 
                 var pg1 = new TabPageAdv();
@@ -502,8 +553,9 @@ namespace KontoWin
                 _frm.TopLevel = false;
 
                 tabControlAdv1.TabPages.Add(pg1);
-                tabControlAdv1.SelectedTab = pg1;
+               
                 _frm.Parent = pg1;
+                tabControlAdv1.SelectedTab = pg1;
                 _frm.Location = new Point(pg1.Location.X + pg1.Width / 2 - _frm.Width / 2, pg1.Location.Y + pg1.Height / 2 - _frm.Height / 2);
                 _frm.Show();// = true;
             }
@@ -516,6 +568,64 @@ namespace KontoWin
             //form1.StartPosition = FormStartPosition.CenterParent ;
         }
 
+        private void BalanceCarryToNextYear()
+        {
+            using (KontoContext db = new KontoContext())
+            {
+                db.Database.CommandTimeout = 0;
+
+                //var accbal = db.AccBals.Where(x => x.YearId == KontoGlobals.YearId && x.CompId == KontoGlobals.CompanyId);
+                var lastyear = db.FinYears.FirstOrDefault(x => x.PrevYearId == KontoGlobals.YearId);
+                if(lastyear == null)
+                {
+                    MessageBox.Show("Next Year Not Found");
+                    return;
+                }
+
+                var Lst = db.Database.SqlQuery<BalDto>(
+                            "dbo.Bal_sheet @CompanyId={0},@FromDate={1},@ToDate={2},@YearId={3},@Summary={4},@zero={5}",
+                                    Convert.ToInt32(KontoGlobals.CompanyId), KontoGlobals.FromDate, KontoGlobals.ToDate,
+                                    KontoGlobals.YearId, "N", 1).ToList().Where(X => X.TransType == 3);
+
+
+
+                if (Lst != null)
+                {
+                    try
+                    {
+                        var accbals = db.AccBals.Where(x => x.YearId == lastyear.Id && x.CompId == KontoGlobals.CompanyId).ToList();
+
+                        foreach (var item in accbals)
+                        {
+                            //var _accbalnext = db.AccBals.Where(x => x.AccId == item.AcId && x.YearId == lastyear.Id && x.CompId == KontoGlobals.CompanyId).FirstOrDefault();
+                            var _accbalnext = Lst.FirstOrDefault(x => x.AcId == item.AccId);
+
+                            if (_accbalnext != null)
+                            {
+                                if (_accbalnext.Bal > 0)
+                                    item.OpDebit = _accbalnext.Bal;
+                                else
+                                    item.OpCredit = -1 * _accbalnext.Bal;
+
+                                item.OpBal = _accbalnext.Bal;
+                            }
+                            else
+                            {
+                                item.OpBal = 0;
+                                item.OpDebit = 0;
+                                item.OpCredit = 0;
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.ToString());
+                    }
+                }
+                db.SaveChanges();
+                MessageBox.Show("Balance Transfer Successfully");
+            }
+        }
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
             var frm = sender as MetroForm;
@@ -524,7 +634,7 @@ namespace KontoWin
 
         private void checkForBarStaticItem_ItemClick(object sender, ItemClickEventArgs e)
         {
-            AutoUpdater.InstalledVersion = new Version("1.2.0.0");
+           
             AutoUpdater.ReportErrors = true;
             AutoUpdater.Start("https://keysoftoffice.github.io/autoupdate.xml");
         }

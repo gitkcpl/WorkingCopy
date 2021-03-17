@@ -167,7 +167,7 @@ namespace Konto.App.Shared
             DebitCreditNote = 24,
             SalePurchaseOpBill = 26,
             ColorRecipe = 27,
-            ColorFormula = 28,
+            ChemicalRecipe = 28,
             OpTaka = 29,
             JobProcessInvoice = 30,
           //  MillProcessInvoice = 31,
@@ -192,7 +192,10 @@ namespace Konto.App.Shared
             BrokerageVoucher = 50,
             TakaWiseJobReceipt = 51,
             StockJournal = 52,
-            GateInward = 53
+            GateInward = 53,
+            BomIssue=54,
+            Pos_Purchase=55,
+            Pos_Invoice=56
 
     }
         public enum TypeEnum
@@ -250,7 +253,9 @@ namespace Konto.App.Shared
             FINISH = 3,
             BEAM = 5,
             YARN = 6,
-            POY = 7
+            POY = 7,
+            COLOR=12,
+            CHEMICAL=13
         }
         public enum EntryViewType
         {
@@ -306,7 +311,8 @@ namespace Konto.App.Shared
             PendingMillIssue = 53,
             PendingBatchLot = 54,
             PendingOrderonIssue=55,
-            PendingReturnableForGrn=56
+            PendingReturnableForGrn=56,
+           
     }
 
     public enum Permission : int
@@ -319,6 +325,37 @@ namespace Konto.App.Shared
         Export = 5,
         Print = 6,
         Settings = 7
+    }
+
+    public enum LedgerGroupEnum
+    {
+        NONE=0,
+        CAPITAL_ACCOUNT=1,
+        LOAN_LIABILITY=2,
+        SALES_ACCOUNTS=9,
+        PURCHASE_ACCOUNTS=10,
+        DUTIES_AND_TAXES=19,
+        SUNDRY_CREDITORS=21,
+        SUNDRY_DEBTORS=25,
+        CASH_ACCOUNTS=26,
+        BANK_ACCOUNTS=27,
+        CREDITORS_FOR_BROKERAGE=31,
+        CREDITORS_FOR_TRANSPORTATION=32,
+        DIRECT_EXPENSES=12,
+        TDS=39,
+        TRADING_EXPENSE=29
+    }
+
+    public enum PackageType
+    {
+        TEXTILE_TRADING=1,
+        ACCOUNTS=2,
+        WEAVING=3,
+        YARN=4,
+        POS=6,
+        CUSTOMIZED=7,
+        PROCESS_HOUSE=10,
+        INVENTORY=9
     }
 
 }

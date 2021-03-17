@@ -3,6 +3,7 @@ using Konto.Data.Models.Admin;
 using Konto.Data.Models.Apparel;
 using Konto.Data.Models.Gstn;
 using Konto.Data.Models.Masters;
+using Konto.Data.Models.Pos;
 using Konto.Data.Models.Transaction;
 using System;
 using System.Data.Entity;
@@ -350,6 +351,11 @@ namespace Konto.Data
 
         public DbSet<Gstr2ADump> Gstr2ADumps { get; set; }
         public DbSet<Gstr2ATransDump> Gstr2ATransDumps { get; set; }
+
+        public DbSet<RCPUIModel> RCPUIs { get; set; }
+        public DbSet<RCPUITransModel> RcpuiTrans { get; set; }
+
+        public DbSet<CustomerModel> Customers { get; set; }
 
         #endregion
 
