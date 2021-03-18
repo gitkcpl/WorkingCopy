@@ -223,7 +223,7 @@
             this.accLookup1.LookupTitle = null;
             this.accLookup1.Name = "accLookup1";
             this.accLookup1.Nature = null;
-            this.accLookup1.NewGroupId = 0;
+            this.accLookup1.NewGroupId = Konto.App.Shared.LedgerGroupEnum.NONE;
             this.accLookup1.PrimaryKey = null;
             this.accLookup1.RequiredField = true;
             this.accLookup1.SelectedText = null;
@@ -232,7 +232,7 @@
             this.accLookup1.TabIndex = 11;
             this.accLookup1.TaxType = null;
             this.accLookup1.TransportLookup = null;
-            this.accLookup1.VoucherType = Konto.App.Shared.VoucherTypeEnum.JobReceiptVoucher;
+            this.accLookup1.VoucherType = Konto.App.Shared.VoucherTypeEnum.Cutting;
             // 
             // OrderNoTextEdit
             // 

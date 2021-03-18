@@ -18,18 +18,13 @@ using System.Windows.Forms;
 
 namespace Konto.Reporting.Para.Stock
 {
-    public partial class StockMainView : KontoForm
+    public partial class DesignStockView : KontoForm
     {
-        public StockMainView()
+        public DesignStockView()
         {
             InitializeComponent();
-            List<ComboBoxPairs> cbp = new List<ComboBoxPairs>
-            {
-                new ComboBoxPairs("Details", "D"),
-                new ComboBoxPairs("Summary", "S"),
-
-            };
-            typeLookUpEdit.Properties.DataSource = cbp;
+           
+           
             this.Load += StockMainView_Load;
             this.okSimpleButton.Click += OkSimpleButton_Click;
             this.tabControlAdv1.SelectedIndexChanged += TabControlAdv1_SelectedIndexChanged;
@@ -54,7 +49,7 @@ namespace Konto.Reporting.Para.Stock
             var frm = new StockDetailViewWindow();
             frm._FromDate = this.dateEdit1.DateTime;
             frm._ToDate = this.dateEdit2.DateTime;
-            frm._item = "Y";
+            frm._item = "N";
             frm.BranchId = Convert.ToInt32(branchLookUpEdit.EditValue);
             frm.ProductId = dr.ItemId;
             frm.ShowDialog();
@@ -75,9 +70,8 @@ namespace Konto.Reporting.Para.Stock
         {
             try
             {
-               string ptype = "Y";
-                if (Convert.ToInt32(pTypeLookup1.SelectedValue) == 0)
-                        ptype = "N";
+               string ptype = "N";
+                
                 var fdate = Convert.ToInt32(dateEdit1.DateTime.ToString("yyyyMMdd"));
                 var tdate = Convert.ToInt32(dateEdit2.DateTime.ToString("yyyyMMdd"));
                 using (var db = new KontoContext())
@@ -85,10 +79,10 @@ namespace Konto.Reporting.Para.Stock
 
                   var  Trans = db.Database.SqlQuery<StockDto>(
                         "dbo.StockReport @CompanyId={0},@PTypeId={1},@DivId={2},@BranchId={3}," +
-                        "@FromDate={4},@ToDate={5},@ptype={6}", 
-                        Convert.ToInt32(KontoGlobals.CompanyId), Convert.ToInt32(pTypeLookup1.SelectedValue),
+                        "@FromDate={4},@ToDate={5},@ptype={6},@item={7}", 
+                        Convert.ToInt32(KontoGlobals.CompanyId), 0,
                         Convert.ToInt32(divisionLookUpEdit.EditValue),Convert.ToInt32(branchLookUpEdit.EditValue),
-                        fdate, tdate, ptype).ToList();
+                        fdate, tdate, ptype,'N').ToList();
 
                     if(checkEdit1.CheckState != CheckState.Checked)
                     {
@@ -97,9 +91,6 @@ namespace Konto.Reporting.Para.Stock
                     stockDtoBindingSource.DataSource = Trans;
                 }
 
-                if (this.typeLookUpEdit.EditValue.ToString() == "D")
-                    DetailsFormat();
-                else
                     SummaryFormat();
 
             }
@@ -127,7 +118,7 @@ namespace Konto.Reporting.Para.Stock
                 branchLookUpEdit.Properties.DataSource = br;
                 divisionLookUpEdit.Properties.DataSource = dv;
             }
-            typeLookUpEdit.EditValue = "S";
+           
             dateEdit1.DateTime = KontoGlobals.DFromDate;
             dateEdit2.DateTime = KontoGlobals.DToDate;
             this.ActiveControl = dateEdit1;

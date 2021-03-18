@@ -36,6 +36,7 @@ namespace Konto.Reporting.Para.Stock
         public DateTime? _ToDate { get; set; }
         public int ProductId { get; set; }
         public int BranchId { get; set; }
+        public string _item { get; set; }
         public StockDetailViewWindow()
         {
             InitializeComponent();
@@ -203,9 +204,10 @@ namespace Konto.Reporting.Para.Stock
                 _db.Database.CommandTimeout = 0;
 
                 var Trans = _db.Database.SqlQuery<StockDetDto>(
-                    "dbo.StockDetails @CompanyId={0},@ItemId={1},@YearId={2},@FromDate={3},@ToDate={4},@BranchId={5}",
+                    "dbo.StockDetails @CompanyId={0},@ItemId={1},@YearId={2},@FromDate={3},@ToDate={4},@BranchId={5}," +
+                    "@item={6}",
                     KontoGlobals.CompanyId, Convert.ToInt32(productLookup1.SelectedValue),
-                    KontoGlobals.YearId, fdate, tdate, this.BranchId).ToList();
+                    KontoGlobals.YearId, fdate, tdate, this.BranchId,_item).ToList();
 
                 gridControl1.DataSource = Trans;
                 gridView1.Focus();

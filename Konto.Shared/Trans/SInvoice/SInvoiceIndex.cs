@@ -752,14 +752,29 @@ namespace Konto.Shared.Trans.SInvoice
                     er.Total = decimal.Round(er.Qty * er.Rate, 2, MidpointRounding.AwayFromZero);
             }
 
-            if (er.Disc > 0)
-                er.DiscAmt = decimal.Round(er.Total * er.Disc / 100, 2, MidpointRounding.AwayFromZero);
-            decimal gross = er.Total - er.DiscAmt;
+            decimal gross = 0;
 
+            if (BillPara.Use_OtherLess_As_RateDiff)
+                gross = er.Total - er.Qty * er.OtherLess;
+            else
+                gross = er.Total;
+
+
+            if (er.Disc > 0)
+                er.DiscAmt = decimal.Round(gross * er.Disc / 100, 2, MidpointRounding.AwayFromZero);
+            
+               gross= gross - er.DiscAmt;
+
+            
             if (er.FreightRate > 0 && fldName!= "Freight")
                 er.Freight = decimal.Round(er.Qty * er.FreightRate / 100, 2, MidpointRounding.AwayFromZero);
 
-            gross = gross + er.Freight + er.OtherAdd - er.OtherLess;
+
+            if (!BillPara.Use_OtherLess_As_RateDiff)
+                gross = gross + er.Freight + er.OtherAdd - er.OtherLess;
+            else
+                gross = gross + er.Freight + er.OtherAdd;
+
 
             if (BillPara.Tax_RoundOff)
             {
@@ -934,6 +949,12 @@ namespace Konto.Shared.Trans.SInvoice
                         case 239:
                             {
                                 BillPara.HsnCode_Required = (value == "Y") ? true : false;
+                                break;
+                            }
+
+                        case 248:
+                            {
+                                BillPara.Use_OtherLess_As_RateDiff = (value == "Y") ? true : false;
                                 break;
                             }
                     }

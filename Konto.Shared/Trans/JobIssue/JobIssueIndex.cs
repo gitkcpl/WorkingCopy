@@ -10,6 +10,7 @@ using Konto.App.Shared.Para;
 using Konto.Core.Shared.Frms;
 using Konto.Core.Shared.Libs;
 using Konto.Data;
+using Konto.Data.Models.Masters;
 using Konto.Data.Models.Masters.Dtos;
 using Konto.Data.Models.Transaction;
 using Konto.Data.Models.Transaction.Dtos;
@@ -22,6 +23,7 @@ using Serilog;
 using Syncfusion.Windows.Forms;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.IO;
@@ -630,76 +632,77 @@ namespace Konto.Shared.Trans.JobIssue
             }
         }
 
-        //private void ShowItemDetail(MiTransDto er)
-        //{
-        //    ProductModel prod = null;
-        //    using (var db = new KontoContext())
-        //    {
-        //        prod = db.Products.Include("PType").SingleOrDefault(x => x.Id == er.ProductId);
+        private void ShowItemDetail(MiTransDto er)
+        {
+            ProductModel prod = null;
+            using (var db = new KontoContext())
+            {
+                prod = db.Products.Include("PType").SingleOrDefault(x => x.Id == er.ProductId);
 
-        //    }
-        //    if (prod == null || prod.SerialReq == "No") return;
+            }
+            if (prod == null || prod.SerialReq == "No") return;
 
-        //    var frm = new IssueItemDetailView();
-        //    frm.TypeEnum = (ProductTypeEnum)prod.PTypeId;
+            var frm = new IssueItemDetailView();
+            frm.TypeEnum = (ProductTypeEnum)prod.PTypeId;
 
-        //    if (prod.PType.TypeName.ToUpper() == "YARN" || prod.PType.TypeName.ToUpper() == "POY")
-        //    {
-        //        frm.GridLayoutFileName = KontoFileLayout.Job_Issue_Yarn_Item_Details;
-        //        frm.Text = "Box Details";
-        //    }
-        //    else if (prod.PType.TypeName.ToUpper() == "GREY")
-        //    {
-        //        frm.GridLayoutFileName = KontoFileLayout.Job_Issue_Grey_Item_Details;
-        //        frm.Text = "Taka Details";
-        //    }
-        //    else if (prod.PType.TypeName.ToUpper() == "BEAM")
-        //    {
-        //        frm.GridLayoutFileName = KontoFileLayout.Job_Issue_Beam_Item_Details;
-        //        frm.Text = "Beam Details";
-        //    }
-        //    else
-        //    {
-        //        frm.Text = "Product Details";
-        //        frm.GridLayoutFileName = KontoFileLayout.Job_Issue_Finish_Item_Details;
-        //    }
-        //    frm.Text = "Taka/Box Details";
+            if (prod.PType.TypeName.ToUpper() == "YARN" || prod.PType.TypeName.ToUpper() == "POY")
+            {
+                frm.GridLayoutFileName = KontoFileLayout.Job_Issue_Yarn_Item_Details;
+                frm.Text = "Box Details";
+            }
+            else if (prod.PType.TypeName.ToUpper() == "GREY")
+            {
+                frm.GridLayoutFileName = KontoFileLayout.Job_Issue_Grey_Item_Details;
+                frm.Text = "Taka Details";
+            }
+            else if (prod.PType.TypeName.ToUpper() == "BEAM")
+            {
+                frm.GridLayoutFileName = KontoFileLayout.Job_Issue_Beam_Item_Details;
+                frm.Text = "Beam Details";
+            }
+            else
+            {
+                frm.Text = "Product Details";
+                frm.GridLayoutFileName = KontoFileLayout.Job_Issue_Finish_Item_Details;
+            }
+            frm.Text = "Taka/Box Details";
+            frm.TransId = Convert.ToInt32(er.Id);
+            frm.ItemId = er.ProductId;
+            frm.prodDtos = new BindingList<GrnProdDto>(this.prodDtos.Where(x => x.TransId == er.Id || x.RefTransId == er.Id).ToList());
+            if (frm.ShowDialog() != DialogResult.OK) return;
+            var tempprod = frm.gridControl1.DataSource as BindingList<GrnProdDto>;
 
-        //    frm.prodDtos = new BindingList<GrnProdDto>(this.prodDtos.Where(x=>x.TransId == er.Id || x.RefTransId == er.Id ).ToList());
-        //    if (frm.ShowDialog() != DialogResult.OK) return;
-        //    var tempprod = frm.gridControl1.DataSource as BindingList<GrnProdDto>;
+            //remove existing entry
+            foreach (var po in tempprod)
+            {
+                this.prodDtos.Remove(po);
+            }
 
-        //    //remove existing entry
-        //    foreach (var po in tempprod)
-        //    {
-        //        this.prodDtos.Remove(po);
-        //    }
+            foreach (var pro in tempprod)
+            {
+                pro.RefId = this.PrimaryKey;
+                pro.TransId = er.Id;
+                pro.VoucherId = Convert.ToInt32(voucherLookup1.SelectedValue);
+                this.prodDtos.Add(pro);
+            }
+            foreach (var pro in frm.DelProd)
+            {
+                this.prodDtos.Remove(pro);
+                this.DelProd.Add(pro);
+            }
+            er.Qty = tempprod.Sum(x => x.NetWt);
+            var sumPcs = tempprod.Sum(x => x.Tops);
+            if (sumPcs > 0)
+            {
+                er.Pcs = sumPcs;
+            }
+            else
+            {
+                er.Pcs = tempprod.Count();
+            }
 
-        //    foreach (var pro in tempprod)
-        //    {
-        //        pro.RefId = this.PrimaryKey;
-        //        pro.TransId = er.Id;
-        //        pro.VoucherId = Convert.ToInt32(voucherLookup1.SelectedValue);
-        //        this.prodDtos.Add(pro);
-        //    }
-        //    foreach (var pro in frm.DelProd)
-        //    {
-        //        this.prodDtos.Remove(pro);
-        //        this.DelProd.Add(pro);
-        //    }
-        //    er.Qty =tempprod.Sum(x => x.NetWt);
-        //    var sumPcs = tempprod.Sum(x => x.Tops);
-        //    if (sumPcs > 0)
-        //    {
-        //        er.Pcs = sumPcs;
-        //    }
-        //    else
-        //    {
-        //        er.Pcs = tempprod.Count();
-        //    }
-
-        //    GridCalculation(er);
-        //}
+            GridCalculation(er);
+        }
 
         #endregion
 
@@ -884,13 +887,13 @@ namespace Konto.Shared.Trans.JobIssue
                         e.Handled = true;
                     }
                 }
-                //else if(gridView1.FocusedColumn.FieldName == "LotNo")
-                //{
-                //    if (e.KeyCode == Keys.Return)
-                //    {
-                //        ShowItemDetail(dr);
-                //    }
-                //}
+                else if (gridView1.FocusedColumn.FieldName == "LotNo")
+                {
+                    if (e.KeyCode == Keys.Return)
+                    {
+                        ShowItemDetail(dr);
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -929,9 +932,9 @@ namespace Konto.Shared.Trans.JobIssue
         }
         private void LotNoRepositoryItemButtonEdit_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
         {
-            //var dr = PreOpenLookup();
-            //if (dr != null)
-            //    ShowItemDetail(dr);
+            var dr = PreOpenLookup();
+            if (dr != null)
+                ShowItemDetail(dr);
         }
 
 
@@ -1598,9 +1601,7 @@ namespace Konto.Shared.Trans.JobIssue
 
                         }
 
-                        //if (this.PrimaryKey == 0)
-                        //    DbUtils.UsedSerial(model.VoucherId, _SerialValue, db);
-
+                       
                         db.SaveChanges();
                         _tran.Commit();
                         IsSaved = true;

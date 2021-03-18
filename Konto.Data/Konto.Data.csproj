@@ -228,6 +228,7 @@
     <Compile Include="Models\Reports\Gstrb2csDto.cs" />
     <Compile Include="Models\Reports\GstSummaryCross.cs" />
     <Compile Include="Models\Reports\GsttwoDto.cs" />
+    <Compile Include="Models\Reports\LedgerItemDetailsDto.cs" />
     <Compile Include="Models\Reports\LedgerMonthlyDto.cs" />
     <Compile Include="Models\Reports\LedgertransDto.cs" />
     <Compile Include="Models\Reports\OutAgingSummaryDto.cs" />

@@ -1,6 +1,5 @@
 ﻿using DevExpress.Data;
 using DevExpress.XtraEditors;
-using DevExpress.XtraGrid;
 using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Grid;
 using DevExpress.XtraGrid.Views.Grid.ViewInfo;
@@ -13,12 +12,8 @@ using Konto.Data.Models.Transaction.Dtos;
 using Serilog;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Konto.Shared.Trans.Common
@@ -46,13 +41,20 @@ namespace Konto.Shared.Trans.Common
             this.Load += PendingGreyForMillView_Load;
             this.gridView1.CustomDrawRowIndicator += GridView1_CustomDrawRowIndicator;
             this.gridView1.CustomSummaryCalculate += GridView1_CustomSummaryCalculate;
+
+            
         }
         decimal NetWeight;
         int BoxCount;
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-            if (keyData == (Keys.F2 | Keys.Control))
+            if (keyData == (Keys.F1 | Keys.Shift))
+            {
+                KontoUtils.SaveLayoutGrid(this.GridLayoutFileName, this.gridView1);
+                return true;
+            }
+            else if (keyData == (Keys.F2 | Keys.Control))
             {
                 var frm = new GridPropertView();
                 frm.gridControl1.DataSource = this.gridControl1.DataSource;
@@ -83,7 +85,7 @@ namespace Konto.Shared.Trans.Common
             }
             if (e.SummaryProcess == CustomSummaryProcess.Finalize)
             {
-                this.Text = "Pending Pcs [Selected Taka : " + BoxCount.ToString() + " Qty: " + NetWeight.ToString("F") + " ]";
+                this.Text = "Pending Stock [Selected Pcs/Box : " + BoxCount.ToString() + " Qty: " + NetWeight.ToString("F") + " ]";
             }
         }
 
@@ -99,7 +101,16 @@ namespace Konto.Shared.Trans.Common
         {
             try
             {
-                
+
+
+                if (this.ProductType == ProductTypeEnum.BEAM)
+                    this.GridLayoutFileName = KontoFileLayout.Stock_Beam_Item_Details;
+                else if (this.ProductType== ProductTypeEnum.YARN)
+                    this.GridLayoutFileName = KontoFileLayout.Stock_Yarn_Item_Details;
+                else if (this.ProductType == ProductTypeEnum.GREY)
+                    this.GridLayoutFileName = KontoFileLayout.Stock_Grey_Item_Details;
+                else
+                    this.GridLayoutFileName = KontoFileLayout.Stock_Finish_Item_Details;
 
                 using (var db = new KontoContext())
                 {

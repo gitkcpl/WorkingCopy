@@ -33,6 +33,9 @@
             this.tabControlAdv1 = new Syncfusion.Windows.Forms.Tools.TabControlAdv();
             this.tabPageAdv1 = new Syncfusion.Windows.Forms.Tools.TabPageAdv();
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
+            this.itemCustomGridControl = new Konto.Core.Shared.Libs.CustomGridControl();
+            this.itemCustomGridView = new Konto.Core.Shared.Libs.CustomGridView();
+            this.outsSimpleButton = new DevExpress.XtraEditors.SimpleButton();
             this.printSimpleButton = new DevExpress.XtraEditors.SimpleButton();
             this.radioGroup1 = new DevExpress.XtraEditors.RadioGroup();
             this.detailsGridControl1 = new Konto.Core.Shared.Libs.CustomGridControl();
@@ -112,14 +115,16 @@
             this.detailsLayoutControlItem9 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem8 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem9 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.tabPageAdv2 = new Syncfusion.Windows.Forms.Tools.TabPageAdv();
-            this.outsSimpleButton = new DevExpress.XtraEditors.SimpleButton();
             this.layoutControlItem10 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.itemLayoutControlItem = new DevExpress.XtraLayout.LayoutControlItem();
+            this.tabPageAdv2 = new Syncfusion.Windows.Forms.Tools.TabPageAdv();
             ((System.ComponentModel.ISupportInitialize)(this.tabControlAdv1)).BeginInit();
             this.tabControlAdv1.SuspendLayout();
             this.tabPageAdv1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.itemCustomGridControl)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.itemCustomGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radioGroup1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.detailsGridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ledgertransDtoBindingSource)).BeginInit();
@@ -143,6 +148,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem10)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.itemLayoutControlItem)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControlAdv1
@@ -176,6 +182,7 @@
             // 
             // layoutControl1
             // 
+            this.layoutControl1.Controls.Add(this.itemCustomGridControl);
             this.layoutControl1.Controls.Add(this.outsSimpleButton);
             this.layoutControl1.Controls.Add(this.printSimpleButton);
             this.layoutControl1.Controls.Add(this.radioGroup1);
@@ -194,6 +201,61 @@
             this.layoutControl1.Size = new System.Drawing.Size(834, 428);
             this.layoutControl1.TabIndex = 1;
             this.layoutControl1.Text = "layoutControl1";
+            // 
+            // itemCustomGridControl
+            // 
+            this.itemCustomGridControl.Location = new System.Drawing.Point(5, 313);
+            this.itemCustomGridControl.MainView = this.itemCustomGridView;
+            this.itemCustomGridControl.Name = "itemCustomGridControl";
+            this.itemCustomGridControl.Size = new System.Drawing.Size(824, 110);
+            this.itemCustomGridControl.TabIndex = 12;
+            this.itemCustomGridControl.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.itemCustomGridView});
+            // 
+            // itemCustomGridView
+            // 
+            this.itemCustomGridView.Appearance.FooterPanel.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
+            this.itemCustomGridView.Appearance.FooterPanel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(22)))), ((int)(((byte)(91)))));
+            this.itemCustomGridView.Appearance.FooterPanel.Options.UseFont = true;
+            this.itemCustomGridView.Appearance.FooterPanel.Options.UseForeColor = true;
+            this.itemCustomGridView.Appearance.HeaderPanel.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
+            this.itemCustomGridView.Appearance.HeaderPanel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(22)))), ((int)(((byte)(91)))));
+            this.itemCustomGridView.Appearance.HeaderPanel.Options.UseFont = true;
+            this.itemCustomGridView.Appearance.HeaderPanel.Options.UseForeColor = true;
+            this.itemCustomGridView.Appearance.Row.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            this.itemCustomGridView.Appearance.Row.Options.UseFont = true;
+            this.itemCustomGridView.GridControl = this.itemCustomGridControl;
+            this.itemCustomGridView.Name = "itemCustomGridView";
+            this.itemCustomGridView.OptionsBehavior.AllowIncrementalSearch = true;
+            this.itemCustomGridView.OptionsBehavior.Editable = false;
+            this.itemCustomGridView.OptionsBehavior.FocusLeaveOnTab = true;
+            this.itemCustomGridView.OptionsCustomization.AllowGroup = false;
+            this.itemCustomGridView.OptionsCustomization.QuickCustomizationIcons.Image = null;
+            this.itemCustomGridView.OptionsCustomization.QuickCustomizationIcons.TransperentColor = System.Drawing.Color.Empty;
+            this.itemCustomGridView.OptionsLayout.Columns.StoreAllOptions = true;
+            this.itemCustomGridView.OptionsLayout.Columns.StoreAppearance = true;
+            this.itemCustomGridView.OptionsLayout.StoreAllOptions = true;
+            this.itemCustomGridView.OptionsLayout.StoreAppearance = true;
+            this.itemCustomGridView.OptionsNavigation.UseTabKey = false;
+            this.itemCustomGridView.OptionsView.ColumnAutoWidth = false;
+            this.itemCustomGridView.OptionsView.ShowFooter = true;
+            this.itemCustomGridView.OptionsView.ShowGroupPanel = false;
+            // 
+            // outsSimpleButton
+            // 
+            this.outsSimpleButton.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.outsSimpleButton.Appearance.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.outsSimpleButton.Appearance.Options.UseFont = true;
+            this.outsSimpleButton.Appearance.Options.UseForeColor = true;
+            this.outsSimpleButton.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("outsSimpleButton.ImageOptions.SvgImage")));
+            this.outsSimpleButton.ImageOptions.SvgImageSize = new System.Drawing.Size(24, 24);
+            this.outsSimpleButton.Location = new System.Drawing.Point(686, 37);
+            this.outsSimpleButton.MaximumSize = new System.Drawing.Size(0, 34);
+            this.outsSimpleButton.Name = "outsSimpleButton";
+            this.outsSimpleButton.Size = new System.Drawing.Size(143, 34);
+            this.outsSimpleButton.StyleController = this.layoutControl1;
+            this.outsSimpleButton.TabIndex = 11;
+            this.outsSimpleButton.Text = "Outstanding Print";
             // 
             // printSimpleButton
             // 
@@ -230,12 +292,12 @@
             // detailsGridControl1
             // 
             this.detailsGridControl1.DataSource = this.ledgertransDtoBindingSource;
-            this.detailsGridControl1.Location = new System.Drawing.Point(5, 222);
+            this.detailsGridControl1.Location = new System.Drawing.Point(5, 210);
             this.detailsGridControl1.LookAndFeel.SkinName = "Office 2016 Colorful";
             this.detailsGridControl1.LookAndFeel.UseDefaultLookAndFeel = false;
             this.detailsGridControl1.MainView = this.gridView1;
             this.detailsGridControl1.Name = "detailsGridControl1";
-            this.detailsGridControl1.Size = new System.Drawing.Size(824, 201);
+            this.detailsGridControl1.Size = new System.Drawing.Size(824, 99);
             this.detailsGridControl1.TabIndex = 7;
             this.detailsGridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -604,7 +666,7 @@
             this.gridControl1.LookAndFeel.UseDefaultLookAndFeel = false;
             this.gridControl1.MainView = this.monthlyGridView;
             this.gridControl1.Name = "gridControl1";
-            this.gridControl1.Size = new System.Drawing.Size(824, 143);
+            this.gridControl1.Size = new System.Drawing.Size(824, 131);
             this.gridControl1.TabIndex = 6;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.monthlyGridView});
@@ -822,9 +884,10 @@
             this.accLookup1.GroupId = 0;
             this.accLookup1.Location = new System.Drawing.Point(421, 5);
             this.accLookup1.LookupDto = null;
+            this.accLookup1.LookupTitle = null;
             this.accLookup1.Name = "accLookup1";
             this.accLookup1.Nature = null;
-            this.accLookup1.NewGroupId = 0;
+            this.accLookup1.NewGroupId = Konto.App.Shared.LedgerGroupEnum.NONE;
             this.accLookup1.PrimaryKey = null;
             this.accLookup1.RequiredField = true;
             this.accLookup1.SelectedText = null;
@@ -867,7 +930,8 @@
             this.detailsLayoutControlItem9,
             this.layoutControlItem8,
             this.layoutControlItem9,
-            this.layoutControlItem10});
+            this.layoutControlItem10,
+            this.itemLayoutControlItem});
             this.Root.Name = "Root";
             this.Root.Padding = new DevExpress.XtraLayout.Utils.Padding(3, 3, 3, 3);
             this.Root.Size = new System.Drawing.Size(834, 428);
@@ -943,16 +1007,16 @@
             this.monthlyLayoutControlItem8.Control = this.gridControl1;
             this.monthlyLayoutControlItem8.Location = new System.Drawing.Point(0, 70);
             this.monthlyLayoutControlItem8.Name = "monthlyLayoutControlItem8";
-            this.monthlyLayoutControlItem8.Size = new System.Drawing.Size(828, 147);
+            this.monthlyLayoutControlItem8.Size = new System.Drawing.Size(828, 135);
             this.monthlyLayoutControlItem8.TextSize = new System.Drawing.Size(0, 0);
             this.monthlyLayoutControlItem8.TextVisible = false;
             // 
             // detailsLayoutControlItem9
             // 
             this.detailsLayoutControlItem9.Control = this.detailsGridControl1;
-            this.detailsLayoutControlItem9.Location = new System.Drawing.Point(0, 217);
+            this.detailsLayoutControlItem9.Location = new System.Drawing.Point(0, 205);
             this.detailsLayoutControlItem9.Name = "detailsLayoutControlItem9";
-            this.detailsLayoutControlItem9.Size = new System.Drawing.Size(828, 205);
+            this.detailsLayoutControlItem9.Size = new System.Drawing.Size(828, 103);
             this.detailsLayoutControlItem9.TextSize = new System.Drawing.Size(0, 0);
             this.detailsLayoutControlItem9.TextVisible = false;
             this.detailsLayoutControlItem9.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
@@ -975,6 +1039,25 @@
             this.layoutControlItem9.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem9.TextVisible = false;
             // 
+            // layoutControlItem10
+            // 
+            this.layoutControlItem10.Control = this.outsSimpleButton;
+            this.layoutControlItem10.Location = new System.Drawing.Point(681, 32);
+            this.layoutControlItem10.Name = "layoutControlItem10";
+            this.layoutControlItem10.Size = new System.Drawing.Size(147, 38);
+            this.layoutControlItem10.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem10.TextVisible = false;
+            // 
+            // itemLayoutControlItem
+            // 
+            this.itemLayoutControlItem.Control = this.itemCustomGridControl;
+            this.itemLayoutControlItem.Location = new System.Drawing.Point(0, 308);
+            this.itemLayoutControlItem.Name = "itemLayoutControlItem";
+            this.itemLayoutControlItem.Size = new System.Drawing.Size(828, 114);
+            this.itemLayoutControlItem.TextSize = new System.Drawing.Size(0, 0);
+            this.itemLayoutControlItem.TextVisible = false;
+            this.itemLayoutControlItem.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
+            // 
             // tabPageAdv2
             // 
             this.tabPageAdv2.Image = null;
@@ -986,31 +1069,6 @@
             this.tabPageAdv2.TabIndex = 2;
             this.tabPageAdv2.Text = "Print View";
             this.tabPageAdv2.ThemesEnabled = false;
-            // 
-            // outsSimpleButton
-            // 
-            this.outsSimpleButton.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.outsSimpleButton.Appearance.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.outsSimpleButton.Appearance.Options.UseFont = true;
-            this.outsSimpleButton.Appearance.Options.UseForeColor = true;
-            this.outsSimpleButton.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("simpleButton1.ImageOptions.SvgImage")));
-            this.outsSimpleButton.ImageOptions.SvgImageSize = new System.Drawing.Size(24, 24);
-            this.outsSimpleButton.Location = new System.Drawing.Point(686, 37);
-            this.outsSimpleButton.MaximumSize = new System.Drawing.Size(0, 34);
-            this.outsSimpleButton.Name = "outsSimpleButton";
-            this.outsSimpleButton.Size = new System.Drawing.Size(143, 34);
-            this.outsSimpleButton.StyleController = this.layoutControl1;
-            this.outsSimpleButton.TabIndex = 11;
-            this.outsSimpleButton.Text = "Outstanding Print";
-            // 
-            // layoutControlItem10
-            // 
-            this.layoutControlItem10.Control = this.outsSimpleButton;
-            this.layoutControlItem10.Location = new System.Drawing.Point(681, 32);
-            this.layoutControlItem10.Name = "layoutControlItem10";
-            this.layoutControlItem10.Size = new System.Drawing.Size(147, 38);
-            this.layoutControlItem10.TextSize = new System.Drawing.Size(0, 0);
-            this.layoutControlItem10.TextVisible = false;
             // 
             // LedgerMainView
             // 
@@ -1030,6 +1088,8 @@
             this.tabPageAdv1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.itemCustomGridControl)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.itemCustomGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.radioGroup1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.detailsGridControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ledgertransDtoBindingSource)).EndInit();
@@ -1053,6 +1113,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem10)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.itemLayoutControlItem)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1144,5 +1205,8 @@
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem9;
         private DevExpress.XtraEditors.SimpleButton outsSimpleButton;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem10;
+        public Core.Shared.Libs.CustomGridControl itemCustomGridControl;
+        public Core.Shared.Libs.CustomGridView itemCustomGridView;
+        private DevExpress.XtraLayout.LayoutControlItem itemLayoutControlItem;
     }
 }

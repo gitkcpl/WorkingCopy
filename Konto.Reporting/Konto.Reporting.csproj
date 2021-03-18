@@ -415,6 +415,12 @@
     <Compile Include="Para\Stock\StockDetailViewWindow.Designer.cs">
       <DependentUpon>StockDetailViewWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="Para\Stock\DesignStockView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Para\Stock\DesignStockView.Designer.cs">
+      <DependentUpon>DesignStockView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Para\Stock\StockMainView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -603,6 +609,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Para\Stock\StockDetailViewWindow.resx">
       <DependentUpon>StockDetailViewWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Para\Stock\DesignStockView.resx">
+      <DependentUpon>DesignStockView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Para\Stock\StockMainView.resx">
       <DependentUpon>StockMainView.cs</DependentUpon>

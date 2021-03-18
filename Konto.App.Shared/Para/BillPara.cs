@@ -34,6 +34,7 @@ namespace Konto.App.Shared.Para
         public static bool Tcs_Round_Off = true;
         public static bool Order_Required= false;
         public static bool HsnCode_Required = false;
+        public static bool Use_OtherLess_As_RateDiff = false;
 
     }
 

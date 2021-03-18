@@ -32,9 +32,11 @@ namespace Konto.Shared.Masters.Item
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BarcodeView));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.comboBoxEdit1 = new DevExpress.XtraEditors.ComboBoxEdit();
             this.cancelSimpleButton = new DevExpress.XtraEditors.SimpleButton();
             this.okSimpleButton = new DevExpress.XtraEditors.SimpleButton();
-            this.comboBoxEdit1 = new DevExpress.XtraEditors.ComboBoxEdit();
+            this.emptyLabelSpinEdit = new DevExpress.XtraEditors.SpinEdit();
+            this.autoLabel1 = new Syncfusion.Windows.Forms.Tools.AutoLabel();
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
             this.toTextEdit = new DevExpress.XtraEditors.TextEdit();
             this.fromTextEdit = new DevExpress.XtraEditors.TextEdit();
@@ -63,10 +65,9 @@ namespace Konto.Shared.Masters.Item
             this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.emptyLabelSpinEdit = new DevExpress.XtraEditors.SpinEdit();
-            this.autoLabel1 = new Syncfusion.Windows.Forms.Tools.AutoLabel();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.comboBoxEdit1.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptyLabelSpinEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.toTextEdit.Properties)).BeginInit();
@@ -82,7 +83,6 @@ namespace Konto.Shared.Masters.Item
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptyLabelSpinEdit.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -105,6 +105,25 @@ namespace Konto.Shared.Masters.Item
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(800, 37);
             this.tableLayoutPanel1.TabIndex = 7;
+            // 
+            // comboBoxEdit1
+            // 
+            this.comboBoxEdit1.EditValue = "Format 1";
+            this.comboBoxEdit1.EnterMoveNextControl = true;
+            this.comboBoxEdit1.Location = new System.Drawing.Point(3, 3);
+            this.comboBoxEdit1.Name = "comboBoxEdit1";
+            this.comboBoxEdit1.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBoxEdit1.Properties.Appearance.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(22)))), ((int)(((byte)(91)))));
+            this.comboBoxEdit1.Properties.Appearance.Options.UseFont = true;
+            this.comboBoxEdit1.Properties.Appearance.Options.UseForeColor = true;
+            this.comboBoxEdit1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.comboBoxEdit1.Properties.Items.AddRange(new object[] {
+            "Format 1",
+            "Format 2",
+            "Format 3"});
+            this.comboBoxEdit1.Size = new System.Drawing.Size(185, 24);
+            this.comboBoxEdit1.TabIndex = 7;
             // 
             // cancelSimpleButton
             // 
@@ -130,24 +149,33 @@ namespace Konto.Shared.Masters.Item
             this.okSimpleButton.Text = "Ok";
             this.okSimpleButton.Click += new System.EventHandler(this.okSimpleButton_Click);
             // 
-            // comboBoxEdit1
+            // emptyLabelSpinEdit
             // 
-            this.comboBoxEdit1.EditValue = "Format 1";
-            this.comboBoxEdit1.EnterMoveNextControl = true;
-            this.comboBoxEdit1.Location = new System.Drawing.Point(3, 3);
-            this.comboBoxEdit1.Name = "comboBoxEdit1";
-            this.comboBoxEdit1.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBoxEdit1.Properties.Appearance.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(22)))), ((int)(((byte)(91)))));
-            this.comboBoxEdit1.Properties.Appearance.Options.UseFont = true;
-            this.comboBoxEdit1.Properties.Appearance.Options.UseForeColor = true;
-            this.comboBoxEdit1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            this.emptyLabelSpinEdit.EditValue = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.emptyLabelSpinEdit.Location = new System.Drawing.Point(320, 3);
+            this.emptyLabelSpinEdit.Name = "emptyLabelSpinEdit";
+            this.emptyLabelSpinEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.emptyLabelSpinEdit.Properties.Appearance.Options.UseFont = true;
+            this.emptyLabelSpinEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.comboBoxEdit1.Properties.Items.AddRange(new object[] {
-            "Format 1",
-            "Format 2",
-            "Format 3"});
-            this.comboBoxEdit1.Size = new System.Drawing.Size(185, 24);
-            this.comboBoxEdit1.TabIndex = 7;
+            this.emptyLabelSpinEdit.Size = new System.Drawing.Size(100, 24);
+            this.emptyLabelSpinEdit.TabIndex = 8;
+            // 
+            // autoLabel1
+            // 
+            this.autoLabel1.DX = -124;
+            this.autoLabel1.DY = 3;
+            this.autoLabel1.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.autoLabel1.LabeledControl = this.emptyLabelSpinEdit;
+            this.autoLabel1.Location = new System.Drawing.Point(196, 6);
+            this.autoLabel1.Name = "autoLabel1";
+            this.autoLabel1.Size = new System.Drawing.Size(120, 17);
+            this.autoLabel1.TabIndex = 9;
+            this.autoLabel1.Text = "No of Empty Label";
             // 
             // layoutControl1
             // 
@@ -443,34 +471,6 @@ namespace Konto.Shared.Masters.Item
             this.layoutControlItem4.Text = "To Code:";
             this.layoutControlItem4.TextSize = new System.Drawing.Size(70, 17);
             // 
-            // emptyLabelSpinEdit
-            // 
-            this.emptyLabelSpinEdit.EditValue = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.emptyLabelSpinEdit.Location = new System.Drawing.Point(320, 3);
-            this.emptyLabelSpinEdit.Name = "emptyLabelSpinEdit";
-            this.emptyLabelSpinEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.emptyLabelSpinEdit.Properties.Appearance.Options.UseFont = true;
-            this.emptyLabelSpinEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.emptyLabelSpinEdit.Size = new System.Drawing.Size(100, 24);
-            this.emptyLabelSpinEdit.TabIndex = 8;
-            // 
-            // autoLabel1
-            // 
-            this.autoLabel1.DX = -124;
-            this.autoLabel1.DY = 3;
-            this.autoLabel1.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.autoLabel1.LabeledControl = this.emptyLabelSpinEdit;
-            this.autoLabel1.Location = new System.Drawing.Point(196, 6);
-            this.autoLabel1.Name = "autoLabel1";
-            this.autoLabel1.Size = new System.Drawing.Size(120, 17);
-            this.autoLabel1.TabIndex = 9;
-            this.autoLabel1.Text = "No of Empty Label";
-            // 
             // BarcodeView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -484,6 +484,7 @@ namespace Konto.Shared.Masters.Item
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.comboBoxEdit1.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptyLabelSpinEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.toTextEdit.Properties)).EndInit();
@@ -499,7 +500,6 @@ namespace Konto.Shared.Masters.Item
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptyLabelSpinEdit.Properties)).EndInit();
             this.ResumeLayout(false);
 
         }

@@ -366,6 +366,8 @@ namespace Konto.Data
             stock.BranchId = Model.BranchId != null ? Convert.ToInt32(Model.BranchId) : 1;
             stock.GodownId = Model.StoreId != 0 ? (int)Model.StoreId : 1;
 
+            stock.DesignId = item.DesignId;
+
             if (item.ColorId != null && item.ColorId != 0)
                 stock.ColorId = (int)item.ColorId;
 

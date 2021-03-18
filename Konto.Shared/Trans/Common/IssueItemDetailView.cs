@@ -60,6 +60,8 @@ namespace Konto.Shared.Trans.Common
             frm.ItemId = this.ItemId;
             frm.StockType = "Stock";
             frm.ProductType = this.TypeEnum;
+            
+            
             frm.ShowDialog();
 
             var selpd = frm.list.Where(x => x.IsSelected).ToList();

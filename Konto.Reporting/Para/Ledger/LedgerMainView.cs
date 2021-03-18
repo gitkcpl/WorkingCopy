@@ -57,7 +57,7 @@ namespace Konto.Reporting.Para.Ledger
             this.Load += LedgerMainView_Load;
             this.printSimpleButton.Click += PrintSimpleButton_Click;
             outsSimpleButton.Click += OutsSimpleButton_Click;
-
+            gridView1.FocusedRowChanged += GridView1_FocusedRowChanged;
             this.FirstActiveControl = fDateEdit;
             //using(var db = new KontoContext())
             //{
@@ -68,6 +68,59 @@ namespace Konto.Reporting.Para.Ledger
             //    lookUpEdit1.Properties.DataSource = cmp;
 
             //}
+        }
+
+        private void GridView1_FocusedRowChanged(object sender, DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventArgs e)
+        {
+            try
+            {
+                var rw = gridView1.GetRow(e.FocusedRowHandle) as LedgertransDto;
+                if (rw == null) return;
+
+                if (rw.VTypeId == (int)VoucherTypeEnum.SaleInvoice || rw.VTypeId == (int)VoucherTypeEnum.PurchaseInvoice
+                    || rw.VTypeId == (int)VoucherTypeEnum.SaleReturn || rw.VTypeId == (int)VoucherTypeEnum.PurchaseReturn
+                    || rw.VTypeId == (int)VoucherTypeEnum.DebitCreditNote || rw.VTypeId == (int)VoucherTypeEnum.GenExpense
+                    || rw.VTypeId == (int)VoucherTypeEnum.MillReceiptVoucher || rw.VTypeId == (int)VoucherTypeEnum.JobReceiptVoucher)
+                {
+                    using(var _context = new KontoContext())
+                    {
+                        var bll = _context.Bills.FirstOrDefault(x => x.RowId == rw.RefRowID);
+                        if (bll == null) return;
+
+                        var _lst = (from bt in _context.BillTrans
+                                    join p in _context.Products on bt.ProductId equals p.Id into join_pd
+                                    from pd in join_pd.DefaultIfEmpty()
+                                    join um in _context.Uoms on bt.UomId equals um.Id
+                                    orderby bt.Id
+                                    where bt.BillId == bll.Id && !bt.IsDeleted
+                                    select new LedgerItemDetailsDto
+                                    {
+                                        Description = pd.ProductName != null ? pd.ProductName : bt.Remark,
+                                        Remark = bt.Remark,
+                                        DiscAmt = bt.DiscAmt,
+                                        GstAmt = bt.Cgst + bt.Sgst + bt.Igst,
+                                        GstRate = bt.CgstPer + bt.SgstPer + bt.IgstPer,
+                                        NetTotal = bt.NetTotal,
+                                        Pcs = bt.Pcs,
+                                        Qty = bt.Qty,
+                                        Rate = bt.Rate,
+                                        Taxable = bt.NetTotal - bt.Cgst - bt.Sgst - bt.Igst,
+                                        Unit = um.UnitName
+                                    }).ToList();
+
+                        itemCustomGridControl.DataSource = _lst;
+                        itemCustomGridControl.RefreshDataSource();
+                        itemCustomGridView.BestFitColumns();
+                        
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.ToString());
+            }
         }
 
         private void OutsSimpleButton_Click(object sender, EventArgs e)
@@ -350,6 +403,7 @@ namespace Konto.Reporting.Para.Ledger
         {
             monthlyLayoutControlItem8.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
             detailsLayoutControlItem9.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
+            itemLayoutControlItem.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
             var Trans = new List<LedgertransDto>();
            
         
@@ -494,6 +548,8 @@ namespace Konto.Reporting.Para.Ledger
         {
             detailsLayoutControlItem9.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
             monthlyLayoutControlItem8.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
+
+            itemLayoutControlItem.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
             var fdate = Convert.ToInt32(this.fDateEdit.DateTime.ToString("yyyyMMdd"));
             var tdate = Convert.ToInt32(this.tDateEdit.DateTime.ToString("yyyyMMdd"));
            

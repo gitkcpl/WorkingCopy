@@ -1403,11 +1403,11 @@
     <Compile Include="Trans\JobIssue\JobIssueListView.Designer.cs">
       <DependentUpon>JobIssueListView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Trans\JobIssue\PendingGreyForMillView.cs">
+    <Compile Include="Trans\JobIssue\PendingStockForJobView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Trans\JobIssue\PendingGreyForMillView.Designer.cs">
-      <DependentUpon>PendingGreyForMillView.cs</DependentUpon>
+    <Compile Include="Trans\JobIssue\PendingStockForJobView.Designer.cs">
+      <DependentUpon>PendingStockForJobView.cs</DependentUpon>
     </Compile>
     <Compile Include="Trans\PInvoice\PInvoiceImport.cs">
       <SubType>Form</SubType>
@@ -2251,8 +2251,8 @@
     <EmbeddedResource Include="Trans\JobIssue\JobIssueListView.resx">
       <DependentUpon>JobIssueListView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Trans\JobIssue\PendingGreyForMillView.resx">
-      <DependentUpon>PendingGreyForMillView.cs</DependentUpon>
+    <EmbeddedResource Include="Trans\JobIssue\PendingStockForJobView.resx">
+      <DependentUpon>PendingStockForJobView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Trans\PInvoice\PInvoiceImport.resx">
       <DependentUpon>PInvoiceImport.cs</DependentUpon>
@@ -2367,7 +2367,7 @@
   <ItemGroup>
     <Folder Include="Account\RGenExpense\" />
     <Folder Include="Mapping\" />
-    <Folder Include="Trans\St\" />
+    <Folder Include="Trans\ST\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\DataSources\Konto.Data.Models.Admin.Dtos.DBGroupDTO.datasource" />

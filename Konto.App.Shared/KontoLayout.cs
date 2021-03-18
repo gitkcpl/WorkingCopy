@@ -120,6 +120,10 @@ namespace Konto.App.Shared
         public const string Sc_Finish_Item_Details = "sc\\sc_finish_item_details.xml";
 
 
+        public const string Stock_Yarn_Item_Details = "sc\\stock_yarn_item_details.xml";
+        public const string Stock_Beam_Item_Details = "sc\\stock_beam_item_details.xml";
+        public const string Stock_Grey_Item_Details = "sc\\Stock_Grey_item_details.xml";
+        public const string Stock_Finish_Item_Details = "sc\\stock_finish_item_details.xml";
 
 
         public const string Op_Mill_Stock_Index = "op\\op_mill_stock_index.xml";

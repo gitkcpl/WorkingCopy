@@ -37,6 +37,7 @@
             this.productLookup1 = new Konto.Shared.Masters.Item.ProductLookup();
             this.autoLabel2 = new Syncfusion.Windows.Forms.Tools.AutoLabel();
             this.dateEdit2 = new DevExpress.XtraEditors.DateEdit();
+            this.autoLabel1 = new Syncfusion.Windows.Forms.Tools.AutoLabel();
             this.dateEdit1 = new DevExpress.XtraEditors.DateEdit();
             this.gridControl1 = new Konto.Core.Shared.Libs.CustomGridControl();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
@@ -57,7 +58,6 @@
             this.colStockPcs = new Konto.Core.Shared.Libs.CustomGridColumn();
             this.colQty = new Konto.Core.Shared.Libs.CustomGridColumn();
             this.colPcs = new Konto.Core.Shared.Libs.CustomGridColumn();
-            this.autoLabel1 = new Syncfusion.Windows.Forms.Tools.AutoLabel();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dateEdit2.Properties.CalendarTimeProperties)).BeginInit();
@@ -128,6 +128,7 @@
             // 
             this.productLookup1.GroupDto = null;
             this.productLookup1.Location = new System.Drawing.Point(393, 3);
+            this.productLookup1.LookupTitle = null;
             this.productLookup1.Name = "productLookup1";
             this.productLookup1.PrimaryKey = null;
             this.productLookup1.PTypeId = Konto.App.Shared.ProductTypeEnum.NA;
@@ -164,6 +165,18 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.dateEdit2.Size = new System.Drawing.Size(95, 24);
             this.dateEdit2.TabIndex = 4;
+            // 
+            // autoLabel1
+            // 
+            this.autoLabel1.DX = -87;
+            this.autoLabel1.DY = 3;
+            this.autoLabel1.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.autoLabel1.LabeledControl = this.dateEdit1;
+            this.autoLabel1.Location = new System.Drawing.Point(10, 6);
+            this.autoLabel1.Name = "autoLabel1";
+            this.autoLabel1.Size = new System.Drawing.Size(83, 17);
+            this.autoLabel1.TabIndex = 5;
+            this.autoLabel1.Text = "From Period";
             // 
             // dateEdit1
             // 
@@ -309,6 +322,8 @@
             // 
             this.colInwQty.FieldName = "InwQty";
             this.colInwQty.Name = "colInwQty";
+            this.colInwQty.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
+            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "InwQty", "{0:0.##}")});
             this.colInwQty.Visible = true;
             this.colInwQty.VisibleIndex = 6;
             // 
@@ -316,6 +331,8 @@
             // 
             this.colOutQty.FieldName = "OutQty";
             this.colOutQty.Name = "colOutQty";
+            this.colOutQty.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
+            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "OutQty", "{0:0.##}")});
             this.colOutQty.Visible = true;
             this.colOutQty.VisibleIndex = 7;
             // 
@@ -323,6 +340,8 @@
             // 
             this.colInwPcs.FieldName = "InwPcs";
             this.colInwPcs.Name = "colInwPcs";
+            this.colInwPcs.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
+            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "InwPcs", "{0:0.##}")});
             this.colInwPcs.Visible = true;
             this.colInwPcs.VisibleIndex = 5;
             this.colInwPcs.Width = 81;
@@ -331,6 +350,8 @@
             // 
             this.colOutPcs.FieldName = "OutPcs";
             this.colOutPcs.Name = "colOutPcs";
+            this.colOutPcs.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
+            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "OutPcs", "{0:0.##}")});
             this.colOutPcs.Visible = true;
             this.colOutPcs.VisibleIndex = 8;
             this.colOutPcs.Width = 84;
@@ -339,6 +360,8 @@
             // 
             this.colStockQty.FieldName = "StockQty";
             this.colStockQty.Name = "colStockQty";
+            this.colStockQty.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
+            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "StockQty", "{0:0.##}")});
             this.colStockQty.Visible = true;
             this.colStockQty.VisibleIndex = 9;
             this.colStockQty.Width = 89;
@@ -347,6 +370,8 @@
             // 
             this.colStockPcs.FieldName = "StockPcs";
             this.colStockPcs.Name = "colStockPcs";
+            this.colStockPcs.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
+            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "StockPcs", "{0:0.##}")});
             this.colStockPcs.Visible = true;
             this.colStockPcs.VisibleIndex = 10;
             // 
@@ -359,18 +384,6 @@
             // 
             this.colPcs.FieldName = "Pcs";
             this.colPcs.Name = "colPcs";
-            // 
-            // autoLabel1
-            // 
-            this.autoLabel1.DX = -87;
-            this.autoLabel1.DY = 3;
-            this.autoLabel1.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.autoLabel1.LabeledControl = this.dateEdit1;
-            this.autoLabel1.Location = new System.Drawing.Point(10, 6);
-            this.autoLabel1.Name = "autoLabel1";
-            this.autoLabel1.Size = new System.Drawing.Size(83, 17);
-            this.autoLabel1.TabIndex = 5;
-            this.autoLabel1.Text = "From Period";
             // 
             // StockDetailViewWindow
             // 

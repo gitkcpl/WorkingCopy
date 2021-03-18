@@ -259,6 +259,7 @@ namespace KontoWin
             using (var db = new KontoContext())
             {
                 var role = db.Roles.Find(KontoGlobals.UserRoleId);
+                var searchstring = "," + KontoGlobals.PackageId.ToString() + ",";
                 if (role.IsSysAdmin)
                 {
 
@@ -268,7 +269,7 @@ namespace KontoWin
                     //       where (em.IsActive && !em.IsDeleted && em.Visible == true && (em.PackageId == 0 || em.PackageId == KontoGlobals.Edition)
                     //                && pkg.PackageId == KontoGlobals.PackageId && em.ModuleDesc != "-")
                     //       select em).ToList();
-                    var searchstring = "," + KontoGlobals.PackageId.ToString() + ","; 
+                   
                     erp = (from em in db.ErpModules
                            where (em.IsActive && !em.IsDeleted && em.Visible == true && (em.PackageId == 0 || em.PackageId == KontoGlobals.Edition)
                                    &&  em.Extra2.Contains(searchstring) && em.ModuleDesc != "-"
@@ -279,18 +280,20 @@ namespace KontoWin
                 else
                 {
                     var erpuser = (from em in db.ErpModules
-                                   join pkg in db.Menu_Packages on em.Id equals pkg.MenuId into pkg_join
-                                   from pkg in pkg_join.DefaultIfEmpty()
+                                   //join pkg in db.Menu_Packages on em.Id equals pkg.MenuId into pkg_join
+                                   //from pkg in pkg_join.DefaultIfEmpty()
 
-                                   join p in db.Permissions on pkg.MenuId equals p.ModuleId into pm_join
+                                   join p in db.Permissions on em.Id equals p.ModuleId into pm_join
                                    from pm in pm_join.DefaultIfEmpty()
 
                                    join rp in db.RolePermissions on pm.Id equals rp.PermissionId into rp_join
                                    from rp in rp_join.DefaultIfEmpty()
                                    where (rp.RoleId == KontoGlobals.UserRoleId && em.IsActive && !em.IsDeleted
                                     && (em.PackageId == 0 || em.PackageId == KontoGlobals.Edition)
-                                   && pkg.PackageId == KontoGlobals.PackageId && em.ModuleDesc != "-")
-                                   orderby em.ParentId, em.OrderIndex
+                                    && em.Extra2.Contains(searchstring) && em.ModuleDesc != "-")
+
+                                  // && pkg.PackageId == KontoGlobals.PackageId && em.ModuleDesc != "-")
+                                    orderby em.ParentId, em.OrderIndex
                                    group new { em } by new
                                    {
                                        em.Id,
