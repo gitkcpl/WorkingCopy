@@ -25,7 +25,7 @@ namespace Konto.Reporting.Para.Outs
     public partial class OutsParaView : KontoForm
     {
         public bool MultiView { get; set; }
-        
+        public TabControlAdv PageAdv { get; set; }
         public OutsParaView()
         {
             InitializeComponent();
@@ -39,7 +39,7 @@ namespace Konto.Reporting.Para.Outs
             this.ledgerGridView.RowStyle += LedgerGridView_RowStyle;
             this.ledgerGridView.RowCellStyle += LedgerGridView_RowCellStyle;
             this.customSimpleButton.Click += CustomSimpleButton_Click;
-
+            this.FormClosed += OutsParaView_FormClosed;
             List<ComboBoxPairs> cbpp = new List<ComboBoxPairs>
             {
                 new ComboBoxPairs("Receivable", "Receivable"),
@@ -52,6 +52,15 @@ namespace Konto.Reporting.Para.Outs
 
             typeLookUpEdit.EditValueChanged += TypeLookUpEdit_EditValueChanged;
         }
+
+        private void OutsParaView_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (this.PageAdv != null)
+            {
+                PageAdv.SelectedIndex = 0;
+            }
+        }
+
         private void CustomSimpleButton_Click(object sender, EventArgs e)
         {
             if (repGridView1.RowCount == 0) return;

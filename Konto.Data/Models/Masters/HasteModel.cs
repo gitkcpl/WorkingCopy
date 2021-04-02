@@ -57,8 +57,13 @@ namespace Konto.Data.Models.Masters
         [Display(Name = "Comp Id")]
         public int? CompId { get; set; }
 
+        public int? AccId { get; set; }
+
         // dbo.Haste.CompId -> dbo.Company.Id (FK_Haste_Company)
         [ForeignKey("CompId")]
         public virtual CompModel Company { get; set; }
+
+        [ForeignKey("AccId")]
+        public virtual AccModel Acc { get; set; }
     }
 }

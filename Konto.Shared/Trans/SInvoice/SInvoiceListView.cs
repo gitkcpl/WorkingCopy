@@ -10,8 +10,6 @@ using Syncfusion.Windows.Forms;
 using Serilog;
 using System.Data.SqlClient;
 using Konto.Shared.Reports;
-using DevExpress.XtraSplashScreen;
-using Aspose.Cells;
 using Konto.Shared.Trans.Common;
 using DevExpress.Utils.Menu;
 using DevExpress.XtraGrid.Views.Grid;
@@ -19,7 +17,7 @@ using Konto.Data.Models.Transaction.Dtos;
 
 namespace Konto.Shared.Trans.SInvoice
 {
-    
+
     public partial class SInvoiceListView : ListBaseView
     {
         //private List<OpBillListDto> _modelList = new List<OpBillListDto>();
@@ -34,8 +32,66 @@ namespace Konto.Shared.Trans.SInvoice
             this.customGridView1.FocusedRowChanged += CustomGridView1_FocusedRowChanged;
             this.ReportPrint = true;
             listAction1.EditDeleteDisabled(false);
+            this.ewbButton.Click += EwbButton_Click;
+            this.einvSimpleButton.Click += EinvSimpleButton_Click;
 
             
+        }
+
+        private void EinvSimpleButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (customGridView1.FocusedRowHandle < 0) return;
+                var row = customGridView1.GetDataRow(customGridView1.FocusedRowHandle);
+
+                var _id = Convert.ToInt32(row["Id"]);
+                var _vid = Convert.ToInt32(row["VoucherId"]);
+
+                using (var db = new KontoContext())
+                {
+                    var bm = db.Bills.Find(_id);
+                    var bt = db.BillTrans.Where(x => x.BillId == _id).ToList();
+                    var frm = new EinvView() { RefId = _id, VoucherId = _vid, BModel = bm, TModel = bt };
+                    frm.ShowDialog();
+                }
+
+
+
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "sale einvoice bill");
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void EwbButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (customGridView1.FocusedRowHandle < 0) return;
+                var row = customGridView1.GetDataRow(customGridView1.FocusedRowHandle);
+                
+                var _id = Convert.ToInt32(row["Id"]);
+                var _vid = Convert.ToInt32(row["VoucherId"]);
+               
+                using (var db = new KontoContext())
+                {
+                    var bm = db.Bills.Find(_id);
+                    var bt = db.BillTrans.Where(x => x.BillId == _id).ToList();
+                    var frm = new EwayBillView() { RefId = _id, VoucherId = _vid,BModel=bm,TModel=bt };
+                    frm.ShowDialog();
+                }
+
+
+                
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "sale eway bill");
+                MessageBox.Show(ex.ToString());
+            }
         }
 
         private void CustomGridView1_FocusedRowChanged(object sender, DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventArgs e)
@@ -253,6 +309,18 @@ namespace Konto.Shared.Trans.SInvoice
                             foreach (var item in trans)
                             {
                                 item.IsActive = false;
+
+                                var stockReq = db.Products.FirstOrDefault(k => k.Id == item.ProductId);
+
+                                //update serial sotck
+                                if (stockReq.SerialReq == "Yes" && stockReq.PTypeId == (int)ProductTypeEnum.FINISH)
+                                {
+                                    var sr = db.SerialBatches.Find(item.DesignId);
+                                    if (sr != null)
+                                    {
+                                        sr.IsActive = true; // remove stock of serials
+                                    }
+                                }
                             }
 
                             var stk = db.StockTranses.Where(k => k.MasterRefId == model.RowId).ToList();
@@ -329,6 +397,18 @@ namespace Konto.Shared.Trans.SInvoice
                             foreach (var item in trans)
                             {
                                 item.IsDeleted = true;
+
+                                var stockReq = db.Products.FirstOrDefault(k => k.Id == item.ProductId);
+
+                                //update serial sotck
+                                if (stockReq.SerialReq == "Yes" && stockReq.PTypeId == (int)ProductTypeEnum.FINISH)
+                                {
+                                    var sr = db.SerialBatches.Find(item.DesignId);
+                                    if (sr != null)
+                                    {
+                                        sr.IsActive = true; // remove stock of serials
+                                    }
+                                }
                             }
 
                             var stk = db.StockTranses.Where(k => k.MasterRefId == model.RowId).ToList();

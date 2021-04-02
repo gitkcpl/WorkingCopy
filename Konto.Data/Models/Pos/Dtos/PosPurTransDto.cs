@@ -36,7 +36,7 @@ namespace Konto.Data.Models.Pos.Dtos
 
         public decimal ProfitPer { get; set; }
 
-        public decimal Mrp { get; set; }
+       
         public decimal BulkRate { get; set; }
         public decimal SemiBulkRate { get; set; }
         public decimal BulkQty { get; set; }

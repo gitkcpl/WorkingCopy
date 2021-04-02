@@ -62,6 +62,7 @@
     <Reference Include="Serilog">
       <HintPath>..\packages\Serilog.2.9.0\lib\net46\Serilog.dll</HintPath>
     </Reference>
+    <Reference Include="Syncfusion.SfListView.WinForms, Version=18.1460.0.42, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
     <Reference Include="Syncfusion.Shared.Base, Version=18.1460.0.42, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
     <Reference Include="Syncfusion.Tools.Windows, Version=18.1460.0.42, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
     <Reference Include="System" />
@@ -86,6 +87,18 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PR\PRIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PR\PRIndex.Designer.cs">
+      <DependentUpon>PRIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PR\PRListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PR\PRListView.Designer.cs">
+      <DependentUpon>PRListView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Purchase\PurchaseIndex.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -116,6 +129,24 @@
     <Compile Include="Sales\SalesListView.Designer.cs">
       <DependentUpon>SalesListView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Sales\SalesPayView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Sales\SalesPayView.Designer.cs">
+      <DependentUpon>SalesPayView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SR\SRIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SR\SRIndex.Designer.cs">
+      <DependentUpon>SRIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SR\SRListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SR\SRListView.Designer.cs">
+      <DependentUpon>SRListView.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -129,6 +160,12 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="PR\PRIndex.resx">
+      <DependentUpon>PRIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PR\PRListView.resx">
+      <DependentUpon>PRListView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Purchase\PurchaseIndex.resx">
       <DependentUpon>PurchaseIndex.cs</DependentUpon>
     </EmbeddedResource>
@@ -143,6 +180,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Sales\SalesListView.resx">
       <DependentUpon>SalesListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Sales\SalesPayView.resx">
+      <DependentUpon>SalesPayView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SR\SRIndex.resx">
+      <DependentUpon>SRIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SR\SRListView.resx">
+      <DependentUpon>SRListView.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\DataSources\Konto.Data.Models.Pos.Dtos.PosPurTransDto.datasource" />

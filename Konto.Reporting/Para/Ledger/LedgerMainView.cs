@@ -8,6 +8,10 @@ using Konto.Data;
 using Konto.Data.Models.Masters;
 using Konto.Data.Models.Masters.Dtos;
 using Konto.Data.Models.Reports;
+using Konto.Pos.PR;
+using Konto.Pos.Purchase;
+using Konto.Pos.Sales;
+using Konto.Pos.SR;
 using Konto.Shared.Account.DRCRNote;
 using Konto.Shared.Account.GenExpense;
 using Konto.Shared.Account.Jv;
@@ -278,25 +282,38 @@ namespace Konto.Reporting.Para.Ledger
         }
         private void ShowZoom(LedgertransDto err)
         {
+            var rowno = gridView1.FocusedRowHandle;
             var db = new KontoContext();
             var bll = db.Bills.FirstOrDefault(x => x.RowId == err.RefRowID);
             if (bll == null) return;
             var vw = new KontoMetroForm();
             if (err.VTypeId == (int)VoucherTypeEnum.SaleInvoice) 
             {
-                 vw = new SInvoiceIndex();
+                if (KontoGlobals.PackageId == (int)PackageType.POS)
+                    vw = new SalesIndex();
+                else
+                    vw = new SInvoiceIndex();
             }
             else if (err.VTypeId == (int)VoucherTypeEnum.PurchaseInvoice)
             {
-               vw = new PInvoiceIndex();
+                if (KontoGlobals.PackageId == (int)PackageType.POS)
+                    vw = new PurchaseIndex();
+                else
+                    vw = new PInvoiceIndex();
             }
             else if (err.VTypeId == (int)VoucherTypeEnum.SaleReturn)
             {
-                vw = new SReturnIndex();
+                if (KontoGlobals.PackageId == (int)PackageType.POS)
+                    vw = new SRIndex();
+                else
+                    vw = new SReturnIndex();
             }
             else if (err.VTypeId == (int)VoucherTypeEnum.PurchaseReturn)
             {
-                vw = new PReturnIndex();
+                if (KontoGlobals.PackageId == (int)PackageType.POS)
+                    vw = new PRIndex();
+                    else  
+                    vw = new PReturnIndex();
             }
             else if (err.VTypeId == (int)VoucherTypeEnum.GrayPurchaseInvoice)
             {
@@ -334,6 +351,10 @@ namespace Konto.Reporting.Para.Ledger
             vw.OpenForLookup = true;
             vw.EditKey = bll.Id;
             vw.ShowDialog();
+            okSimpleButton.PerformClick();
+            gridView1.FocusedRowHandle = rowno;
+            gridView1.Focus();
+
         }
 
         private void CancelSimpleButton_Click(object sender, EventArgs e)
@@ -385,6 +406,7 @@ namespace Konto.Reporting.Para.Ledger
                 var fdate = Convert.ToInt32(this.fDateEdit.DateTime.ToString("yyyyMMdd"));
                 var tdate = Convert.ToInt32(this.tDateEdit.DateTime.ToString("yyyyMMdd"));
                 var acid = Convert.ToInt32( monthlyGridView.GetGroupRowValue(monthlyGridView.FocusedRowHandle, colAccId));
+
                 GenerateDetails(acid,fdate,tdate);
             }
             else
@@ -405,7 +427,7 @@ namespace Konto.Reporting.Para.Ledger
             detailsLayoutControlItem9.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
             itemLayoutControlItem.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
             var Trans = new List<LedgertransDto>();
-           
+            radioGroup1.SelectedIndex = 1;
         
             using (var db = new KontoContext())
             {
@@ -546,6 +568,7 @@ namespace Konto.Reporting.Para.Ledger
 
         private void GenerateMonthly(int AccId,string _party="N",string _group ="N",int reportid =0)
         {
+            radioGroup1.SelectedIndex = 0;
             detailsLayoutControlItem9.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
             monthlyLayoutControlItem8.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
 

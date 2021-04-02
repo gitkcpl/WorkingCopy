@@ -175,6 +175,12 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="TaxProEInvoice.API">
+      <HintPath>..\RefTools\TaxProEInvoice.API.dll</HintPath>
+    </Reference>
+    <Reference Include="TaxProEWB.API">
+      <HintPath>..\RefTools\TaxProEWB.API.dll</HintPath>
+    </Reference>
     <Reference Include="TaxProGST.API">
       <HintPath>..\RefTools\TaxProGST.API.dll</HintPath>
     </Reference>
@@ -856,6 +862,12 @@
     <Compile Include="Masters\MachineMaster\MachineListView.Designer.cs">
       <DependentUpon>MachineListView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Masters\MachineMaster\MacImport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\MachineMaster\MacImport.Designer.cs">
+      <DependentUpon>MacImport.cs</DependentUpon>
+    </Compile>
     <Compile Include="Masters\Merge\MergeIndex.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -873,6 +885,18 @@
     </Compile>
     <Compile Include="Masters\PackingType\PackingTypeIndex.Designer.cs">
       <DependentUpon>PackingTypeIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\PayMode\PayModeIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\PayMode\PayModeIndex.Designer.cs">
+      <DependentUpon>PayModeIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\PayMode\PayModeListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Masters\PayMode\PayModeListView.Designer.cs">
+      <DependentUpon>PayModeListView.cs</DependentUpon>
     </Compile>
     <Compile Include="Masters\PG\PgImport.cs">
       <SubType>Form</SubType>
@@ -1295,6 +1319,18 @@
     <Compile Include="Trans\Common\BillUploadView.Designer.cs">
       <DependentUpon>BillUploadView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Trans\Common\EinvView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Trans\Common\EinvView.Designer.cs">
+      <DependentUpon>EinvView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Trans\Common\EwayBillView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Trans\Common\EwayBillView.Designer.cs">
+      <DependentUpon>EwayBillView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Trans\Common\HistoryView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1342,6 +1378,12 @@
     </Compile>
     <Compile Include="Trans\Common\PendingOrderView.Designer.cs">
       <DependentUpon>PendingOrderView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Trans\Common\SerialNoView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Trans\Common\SerialNoView.Designer.cs">
+      <DependentUpon>SerialNoView.cs</DependentUpon>
     </Compile>
     <Compile Include="Trans\Gate\GateInwardIndex.cs">
       <SubType>Form</SubType>
@@ -1601,6 +1643,18 @@
     </Compile>
     <Compile Include="Trans\StoreIssue\StoreIssueList.Designer.cs">
       <DependentUpon>StoreIssueList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Trans\ST\StIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Trans\ST\StIndex.Designer.cs">
+      <DependentUpon>StIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Trans\ST\StListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Trans\ST\StListView.Designer.cs">
+      <DependentUpon>StListView.cs</DependentUpon>
     </Compile>
     <Compile Include="Trans\Template\TemplateIndex.cs">
       <SubType>Form</SubType>
@@ -1976,6 +2030,9 @@
     <EmbeddedResource Include="Masters\MachineMaster\MachineListView.resx">
       <DependentUpon>MachineListView.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Masters\MachineMaster\MacImport.resx">
+      <DependentUpon>MacImport.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Masters\Merge\MergeIndex.resx">
       <DependentUpon>MergeIndex.cs</DependentUpon>
     </EmbeddedResource>
@@ -1984,6 +2041,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Masters\PackingType\PackingTypeIndex.resx">
       <DependentUpon>PackingTypeIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\PayMode\PayModeIndex.resx">
+      <DependentUpon>PayModeIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\PayMode\PayModeListView.resx">
+      <DependentUpon>PayModeListView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Masters\PG\PgImport.resx">
       <DependentUpon>PgImport.cs</DependentUpon>
@@ -2197,6 +2260,12 @@
     <EmbeddedResource Include="Trans\Common\BillUploadView.resx">
       <DependentUpon>BillUploadView.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Trans\Common\EinvView.resx">
+      <DependentUpon>EinvView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Trans\Common\EwayBillView.resx">
+      <DependentUpon>EwayBillView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Trans\Common\HistoryView.resx">
       <DependentUpon>HistoryView.cs</DependentUpon>
     </EmbeddedResource>
@@ -2220,6 +2289,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Trans\Common\PendingOrderView.resx">
       <DependentUpon>PendingOrderView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Trans\Common\SerialNoView.resx">
+      <DependentUpon>SerialNoView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Trans\Gate\GateInwardIndex.resx">
       <DependentUpon>GateInwardIndex.cs</DependentUpon>
@@ -2350,6 +2422,12 @@
     <EmbeddedResource Include="Trans\StoreIssue\StoreIssueList.resx">
       <DependentUpon>StoreIssueList.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Trans\ST\StIndex.resx">
+      <DependentUpon>StIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Trans\ST\StListView.resx">
+      <DependentUpon>StListView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Trans\Template\TemplateIndex.resx">
       <DependentUpon>TemplateIndex.cs</DependentUpon>
     </EmbeddedResource>
@@ -2367,7 +2445,6 @@
   <ItemGroup>
     <Folder Include="Account\RGenExpense\" />
     <Folder Include="Mapping\" />
-    <Folder Include="Trans\ST\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\DataSources\Konto.Data.Models.Admin.Dtos.DBGroupDTO.datasource" />
@@ -2377,6 +2454,7 @@
     <None Include="Properties\DataSources\Konto.Data.Models.Masters.CompModel.datasource" />
     <None Include="Properties\DataSources\Konto.Data.Models.Masters.Dtos.EmpRateDto.datasource" />
     <None Include="Properties\DataSources\Konto.Data.Models.Masters.Dtos.PosBarcodeListDto.datasource" />
+    <None Include="Properties\DataSources\Konto.Data.Models.Masters.Dtos.SerialBatchDto.datasource" />
     <None Include="Properties\DataSources\Konto.Data.Models.Masters.FinYearModel.datasource" />
     <None Include="Properties\DataSources\Konto.Data.Models.Masters.PFormulaModel.datasource" />
     <None Include="Properties\DataSources\Konto.Data.Models.Masters.ReportTypeModel.datasource" />

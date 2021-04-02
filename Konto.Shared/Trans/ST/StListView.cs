@@ -48,7 +48,7 @@ namespace Konto.Shared.Trans.ST
                         cmd.Parameters.Add("@CompanyId", SqlDbType.Int).Value = KontoGlobals.CompanyId;
                         cmd.Parameters.Add("@BranchId", SqlDbType.Int).Value = KontoGlobals.BranchId;
                         cmd.Parameters.Add("@YearId", SqlDbType.Int).Value = KontoGlobals.YearId;
-                        cmd.Parameters.Add("@VTypeId", SqlDbType.Int).Value = (int)VoucherTypeEnum.SalesChallan;
+                        cmd.Parameters.Add("@VTypeId", SqlDbType.Int).Value = (int)VoucherTypeEnum.Stock_Transfer;
                         if (listDateRange1.SelectedItem.Extra1 == "Deleted")
                         {
                             cmd.Parameters.Add("@Deleted", SqlDbType.Int).Value = 1;
@@ -94,7 +94,7 @@ namespace Konto.Shared.Trans.ST
             }
             catch (Exception ex)
             {
-                Log.Error(ex, "Sales Challan List Error");
+                Log.Error(ex, "Stock Transfer List Error");
                 MessageBoxAdv.Show(this, "Error While Generating List !!", "Exception ", ex.ToString());
             }
         }
@@ -179,7 +179,7 @@ namespace Konto.Shared.Trans.ST
                     catch (Exception ex)
                     {
                         _tran.Rollback();
-                        Log.Error(ex, "sales challan delete");
+                        Log.Error(ex, "stock Transfer delete");
                         MessageBoxAdv.Show(this, "Error While Delete !!", "Exception ", ex.ToString());
                     }
                 }
@@ -211,10 +211,10 @@ namespace Konto.Shared.Trans.ST
         }
         public override void ImportExcel()
         {
-            base.ImportExcel();
-            var _imp = new BillUploadView();
-            _imp.FillTemplate((int)VoucherTypeEnum.SalesChallan);
-            _imp.ShowDialog();
+            //base.ImportExcel();
+            //var _imp = new BillUploadView();
+            //_imp.FillTemplate((int)VoucherTypeEnum.SalesChallan);
+            //_imp.ShowDialog();
         }
     }
 }

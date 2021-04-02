@@ -66,11 +66,15 @@ namespace Konto.Shared.Masters.Acc
                         if (item[1] == null) // group not found
                             continue;
 
-                        string _grpName = item[1].ToString().ToUpper();
+                        string _grpName = item[1].ToString().Trim().ToUpper();
 
                         var _grp = db.AcGroupModels.Where(x => x.GroupName == _grpName).FirstOrDefault();
                         if (_grp == null) // group not found in database
-                            continue;
+                        {
+                            MessageBox.Show(_grpName + " Not Found");
+
+                            return;
+                        }
 
                         imp.AccName = _name;
                         imp.PrintName = _name;
@@ -83,7 +87,7 @@ namespace Konto.Shared.Masters.Acc
                         }
                         else
                         {
-                            imp.VatTds = item[10].ToString();
+                            imp.VatTds = "NA";
                         }
 
                         imp.GSTDate = DateTime.Now;
@@ -95,6 +99,7 @@ namespace Konto.Shared.Masters.Acc
                         var _ag = db.Accs.FirstOrDefault(x => x.AccName == _agentname);
                         if (_ag != null)
                             imp.AgentId = _ag.Id;
+                        
 
                         var _partygroup = item[8].ToString();
                         var _pg = db.PartyGroups.FirstOrDefault(x => x.GroupName == _partygroup);
@@ -119,7 +124,22 @@ namespace Konto.Shared.Masters.Acc
                             }
                             else
                             {
-                                acBal.CityId = 1;
+                                var sttname = item["State"].ToString().Trim();
+                                if (!string.IsNullOrEmpty(sttname))
+                                {
+                                    var stt =db.States.FirstOrDefault(x => x.StateName.ToUpper() == sttname.ToUpper());
+                                    if (stt != null)
+                                    {
+                                        _st = new CityModel();
+                                        _st.CityName = _ctname;
+                                        _st.StateId = stt.Id;
+                                        db.Cities.Add(_st);
+                                        db.SaveChanges();
+                                        acBal.CityId = _st.Id;
+                                    }
+                                }
+                                else
+                                    acBal.CityId = 1;
                             }
                         }
                         else

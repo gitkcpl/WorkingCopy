@@ -3,6 +3,7 @@ using Konto.Core.Shared;
 using Konto.Core.Shared.Frms;
 using Konto.Data;
 using Konto.Data.Models.Gstn;
+using Konto.Pos.Purchase;
 using Konto.Shared.Account.GenExpense;
 using Konto.Shared.Trans.PInvoice;
 using Serilog;
@@ -48,6 +49,9 @@ namespace Konto.Reporting.Para.Gstr2
                 var vw = new KontoMetroForm();
                 if (dr.VTypeId == (int)VoucherTypeEnum.PurchaseInvoice)
                 {
+                    if(KontoGlobals.PackageId == (int)PackageType.POS)
+                        vw = new PurchaseIndex();
+                    else
                     vw = new PInvoiceIndex();
                 }
                 else if (dr.VTypeId == (int)VoucherTypeEnum.GenExpense)

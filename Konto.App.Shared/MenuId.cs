@@ -51,5 +51,10 @@
         public const int Receipt_Vouecher = 322;
         public const int Payment_Vouecher = 328;
         public const int Color_Formula = 1068;
+
+        public const int Pos_Sales_Invoice = 1223;
+        public const int Pos_Purchase_Invoice = 1221;
+
+
     }
 }

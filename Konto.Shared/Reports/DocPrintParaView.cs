@@ -149,7 +149,7 @@ namespace Konto.Shared.Reports
                             doc.Parameters["id"].CurrentValue = this.EditKey;
                         }
                     }
-                    else if (this.TableName == "PURRET" || this.TableName == "BILL" ||
+                    else if (this.TableName == "PURRET" || this.TableName == "BILL" || this.TableName == "PURBILL" ||
                         this.TableName == "SALERET" || this.TableName == "DRCR" || this.TableName=="JVP")
                     {
                         var BillId = new List<IdListDto>();
@@ -543,7 +543,7 @@ namespace Konto.Shared.Reports
                 }
                 else if (this.VoucherType == VoucherTypeEnum.PurchaseReturn || this.VoucherType == VoucherTypeEnum.SaleInvoice ||
                      this.VoucherType == VoucherTypeEnum.SaleReturn || this.VoucherType == VoucherTypeEnum.DebitCreditNote ||
-                     this.VoucherType == VoucherTypeEnum.JournalVoucher)
+                     this.VoucherType == VoucherTypeEnum.JournalVoucher || this.VoucherType == VoucherTypeEnum.PurchaseInvoice)
                 {
                     var _vlist = (from o in db.Bills
                                   join voucher in db.Vouchers on o.VoucherId equals voucher.Id into join_voucher

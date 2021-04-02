@@ -58,6 +58,15 @@ namespace Konto.Shared.Masters.Item
                 weavingSimpleButton.Visible = false;
 
             this.Shown += ProductIndex_Shown;
+            this.nameTextBoxExt.TextChanged += NameTextBoxExt_TextChanged;
+        }
+
+        private void NameTextBoxExt_TextChanged(object sender, EventArgs e)
+        {
+            if(this.PrimaryKey==0)
+            {
+                this.descTextBoxExt.Text = nameTextBoxExt.Text;
+            }
         }
 
         private void ProductIndex_Shown(object sender, EventArgs e)
@@ -69,10 +78,11 @@ namespace Konto.Shared.Masters.Item
                 bulkRateLayoutControlItem.ContentVisible = false;
                 styleNoLayoutControlItem.ContentVisible = false;
             }
+
             if (KontoGlobals.PackageId == 1 || KontoGlobals.PackageId == 3 || KontoGlobals.PackageId == 7)
-                cutLayoutControlItem.ContentVisible = true;
+                cutLayoutControlItem.Text = "Cut:";
             else
-                cutLayoutControlItem.ContentVisible = false;
+                cutLayoutControlItem.Text = "Pack Qty:";
         }
 
         private void FormulaSimpleButton_Click(object sender, EventArgs e)
@@ -377,13 +387,21 @@ namespace Konto.Shared.Masters.Item
         {
             base.NewRec();
             this.FilterView = new List<ProductModel>();
-            taxTypelookUpEdit.EditValue = 1;
-            purUnitlookUpEdit.EditValue = 1;
-            unitLookUpEdit.EditValue = 1;
-            stockReqComboBoxEx.SelectedIndex = 0;
-            batchComboBoxEx.SelectedIndex = 1;
-            serialComboBoxEx.SelectedIndex = 1;
-            ratePerQtySpinEdit.Value = 1;
+            if (KontoGlobals.PackageId != (int)PackageType.POS)
+            {
+                taxTypelookUpEdit.EditValue = 1;
+                purUnitlookUpEdit.EditValue = 1;
+                unitLookUpEdit.EditValue = 1;
+                stockReqComboBoxEx.SelectedIndex = 0;
+                batchComboBoxEx.SelectedIndex = 1;
+                serialComboBoxEx.SelectedIndex = 1;
+                ratePerQtySpinEdit.Value = 1;
+            }
+            else
+            {
+                barcodeTextBoxExt.Clear();
+                codeTextBoxExt.Clear();
+            }
             //pTypeLookup1.SelectedValue = 1;
             //pTypeLookup1.SetArea();
             
@@ -410,7 +428,7 @@ namespace Konto.Shared.Masters.Item
             try
             {
                
-                NewRec();
+                
 
                 this.ActiveControl = barcodeTextBoxExt;
 
@@ -808,7 +826,7 @@ namespace Konto.Shared.Masters.Item
 
                             var complist = db.Companies.Where(p => p.IsActive && !p.IsDeleted).ToList();
                             var yearlist = db.FinYears.Where(x => x.IsActive == true && x.IsDeleted == false).ToList();
-                            var storelist = db.Stores.Where(x => x.IsActive && !x.IsDeleted).ToList();
+                           // var storelist = db.Stores.Where(x => x.IsActive && !x.IsDeleted).ToList();
                             var branchlist = db.Branches.Where(x => x.IsActive && !x.IsDeleted).ToList();
                             foreach (var comp in complist)
                             {

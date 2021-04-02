@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Konto.Data.Models.Masters
 {
@@ -167,6 +164,17 @@ namespace Konto.Data.Models.Masters
 
         [MaxLength(50)]
         public virtual string EwayBillPassword { get; set; }
+
+        [MaxLength(50)]
+        public string AppKey { get; set; }
+
+        [MaxLength(50)]
+        public string AuthToken { get; set; }
+
+        [MaxLength(50)]
+        public string SEK { get; set; }
+
+        public DateTime? TokenExp { get; set; }
 
         public virtual ICollection<BranchModel> Branches { get; set; }
 

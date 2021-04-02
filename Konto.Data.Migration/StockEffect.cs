@@ -1,4 +1,5 @@
-﻿using Konto.Data.Models.Masters;
+﻿using Konto.Data.Models.Apparel;
+using Konto.Data.Models.Masters;
 using Konto.Data.Models.Transaction;
 using System;
 using System.Collections.Generic;
@@ -143,8 +144,73 @@ namespace Konto.Data
 
         }
 
+        public static bool Stock_Bom_Prod_Entry(BomModel Model, KontoContext _db)
+        {
+            StockTransModel stock = new StockTransModel();
 
-        public static bool StockTransChlnEntry(ChallanModel Model, ChallanTransModel item,
+            stock.CompanyId = Convert.ToInt16(Model.CompId);
+            stock.YearId = (int)Model.YearId;
+
+            stock.BranchId = Model.BranchId;
+            stock.GodownId = 1;
+            stock.LotNo = Model.VoucherNo;
+            stock.RefId = Model.RowId;
+            stock.MasterRefId = Model.RowId;
+            stock.VoucherDate = Model.VoucherDate;
+            //stock.TransDate = Model.VDate;
+            stock.VoucherId = Model.VoucherId;
+            stock.BillNo = Model.VoucherNo;
+            stock.VoucherNo = Model.VoucherNo;
+
+            stock.DivId = Model.DivisionId;
+            stock.ItemId = Model.ProductId;
+            stock.IsActive = true;
+            stock.IsDeleted = false;
+
+            stock.Narration = Model.Remark;
+
+            stock.RcptQty = Model.TargetQty;
+            stock.Qty = Model.TargetQty;
+
+            _db.StockTranses.Add(stock);
+
+            return true;
+
+        }
+        public static bool Stock_Bom_Issue_Entry(BomModel Model, KontoContext _db, BOMTransModel item)
+        {
+            StockTransModel stock = new StockTransModel();
+
+            stock.CompanyId = Convert.ToInt16(Model.CompId);
+            stock.YearId = (int)Model.YearId;
+
+            stock.BranchId = Model.BranchId;
+            stock.GodownId = 1;
+            stock.LotNo = Model.VoucherNo;
+            stock.RefId = item.RowId;
+            stock.MasterRefId = Model.RowId;
+            stock.VoucherDate = Model.VoucherDate;
+            //stock.TransDate = Model.VDate;
+            stock.VoucherId = Model.VoucherId;
+            stock.BillNo = Model.VoucherNo;
+            stock.VoucherNo = Model.VoucherNo;
+
+            stock.DivId = Model.DivisionId;
+            stock.ItemId = item.ProductId;
+            stock.IsActive = true;
+            stock.IsDeleted = false;
+
+            stock.Narration = Model.Remark;
+
+            stock.IssueQty = item.RequireQty;
+            stock.Qty = -1 * item.RequireQty;
+
+            _db.StockTranses.Add(stock);
+
+            return true;
+        }
+
+            public static bool StockTransChlnEntry(ChallanModel Model, ChallanTransModel item,
                  bool IsIssue, string tableName, string userName, KontoContext _db,bool _stockForReturnProduct=false)
                
         {

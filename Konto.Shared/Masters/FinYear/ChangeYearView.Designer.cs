@@ -37,11 +37,13 @@ namespace Konto.Shared.Masters.FinYear
             this.autoLabel1 = new Syncfusion.Windows.Forms.Tools.AutoLabel();
             this.autoLabel2 = new Syncfusion.Windows.Forms.Tools.AutoLabel();
             this.toDateEdit = new DevExpress.XtraEditors.DateEdit();
+            this.checkEdit1 = new DevExpress.XtraEditors.CheckEdit();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fromDateEdit.Properties.CalendarTimeProperties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.fromDateEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.toDateEdit.Properties.CalendarTimeProperties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.toDateEdit.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.checkEdit1.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -145,12 +147,26 @@ namespace Konto.Shared.Masters.FinYear
             this.toDateEdit.Size = new System.Drawing.Size(134, 24);
             this.toDateEdit.TabIndex = 11;
             // 
+            // checkEdit1
+            // 
+            this.checkEdit1.EnterMoveNextControl = true;
+            this.checkEdit1.Location = new System.Drawing.Point(76, 110);
+            this.checkEdit1.Name = "checkEdit1";
+            this.checkEdit1.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkEdit1.Properties.Appearance.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.checkEdit1.Properties.Appearance.Options.UseFont = true;
+            this.checkEdit1.Properties.Appearance.Options.UseForeColor = true;
+            this.checkEdit1.Properties.Caption = "Create New Database";
+            this.checkEdit1.Size = new System.Drawing.Size(228, 21);
+            this.checkEdit1.TabIndex = 13;
+            // 
             // ChangeYearView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cancelSimpleButton;
             this.ClientSize = new System.Drawing.Size(331, 182);
+            this.Controls.Add(this.checkEdit1);
             this.Controls.Add(this.autoLabel2);
             this.Controls.Add(this.toDateEdit);
             this.Controls.Add(this.autoLabel1);
@@ -163,6 +179,7 @@ namespace Konto.Shared.Masters.FinYear
             ((System.ComponentModel.ISupportInitialize)(this.fromDateEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.toDateEdit.Properties.CalendarTimeProperties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.toDateEdit.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.checkEdit1.Properties)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -177,5 +194,6 @@ namespace Konto.Shared.Masters.FinYear
         private Syncfusion.Windows.Forms.Tools.AutoLabel autoLabel1;
         private Syncfusion.Windows.Forms.Tools.AutoLabel autoLabel2;
         private DevExpress.XtraEditors.DateEdit toDateEdit;
+        private DevExpress.XtraEditors.CheckEdit checkEdit1;
     }
 }

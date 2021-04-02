@@ -61,7 +61,30 @@ namespace Konto.Apparel.BOM
             targetQtyButtonEdit.EditValueChanged += TargetQtyButtonEdit_EditValueChanged;
             barcodeSimpleButton.Click += BarcodeSimpleButton_Click;
         }
+        private void SetParameter()
+        {
+            using (var db = new KontoContext())
+            {
+                var _paralists = db.CompParas.Include("SysPara")
+                              .Where(x => x.SysPara.Category == "Bom" && x.CompId == KontoGlobals.CompanyId)
+                             .ToList();
 
+                foreach (var item in _paralists)
+                {
+                    var value = item.ParaValue;
+                    switch (item.ParaId)
+                    {
+                        case 268://GRN
+                            {
+                                BomPara.Auto_Consumption_And_Production = (value == "Y") ? true : false;
+                                break;
+                            }
+                        
+                    }
+                }
+            }
+
+        }
         private void BarcodeSimpleButton_Click(object sender, EventArgs e)
         {
             try
@@ -390,7 +413,7 @@ namespace Konto.Apparel.BOM
                                 db.SaveChanges();
 
                             }
-
+                        var _bomtarns = new List<BOMTransModel>();
                         foreach (var item in PFormula)
                         {
                             var btm = new BOMTransModel();
@@ -415,6 +438,8 @@ namespace Konto.Apparel.BOM
 
                             if (btm.Id == 0)
                                 db.BOMTranses.Add(btm);
+
+                            _bomtarns.Add(btm);
                         }
 
                         foreach (var item in bomOrderDtos)
@@ -443,6 +468,29 @@ namespace Konto.Apparel.BOM
                                 db.BOMTranses.Add(btm);
                             }
                         }
+                        db.SaveChanges();
+
+                        var stk = db.StockTranses.Where(k => k.MasterRefId == bm.RowId).ToList();
+                        if (stk != null)
+                            db.StockTranses.RemoveRange(stk);
+
+                        // for stock effect from bom comsumuption & productoin
+                        if (BomPara.Auto_Consumption_And_Production)
+                        {
+                            var pdorg = db.Products.Find(bm.ProductId);
+                            
+                            if(pdorg.StockReq=="Yes")
+                                StockEffect.Stock_Bom_Prod_Entry(bm, db);
+
+                            foreach (var item in _bomtarns)
+                            {
+                                var pd = db.Products.Find(item.ProductId);
+                                if (pd.StockReq == "No") continue;
+
+                                StockEffect.Stock_Bom_Issue_Entry(bm, db,item);
+                            }
+                        }
+
                         db.SaveChanges();
                         var repid = db.Barcodes.DefaultIfEmpty().Max(x => x== null ? 0 : x.ReportId) + 1;
 
@@ -706,14 +754,8 @@ namespace Konto.Apparel.BOM
         {
             try
             {
-                //if (StoreIssuePara.Issue_By_Barcode)
-                //{
-                //    this.gridView1.OptionsBehavior.ReadOnly = true;
-                //}
-                //else
-                //{
-                //    this.gridView1.OptionsBehavior.ReadOnly = false;
-                //}
+                SetParameter();
+               
             }
             catch (Exception ex)
             {

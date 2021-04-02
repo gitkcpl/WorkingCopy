@@ -87,7 +87,6 @@ namespace Konto.Shared.Trans.SalesChallan
 
         private void ScIndex_Shown(object sender, EventArgs e)
         {
-            // colSgst.OptionsColumn.AllowFocus = true;
             colSgst.OptionsColumn.AllowFocus = true;
             colSgst.OptionsColumn.AllowEdit = true;
             //colCgst.OptionsColumn.AllowFocus = true;
@@ -247,12 +246,26 @@ namespace Konto.Shared.Trans.SalesChallan
                                 SCPara.Auto_Voucher_Id = Convert.ToInt32(value);
                                 break;
                             }
+                        case 56:
+                            {
+                                SCPara.Common_Stock = (value == "Y") ? true : false;
+                                break;
+                            }
                         case 53:
                             {
                                 SCPara.Auto_Bill_Generate_Required = (value == "Y") ? true : false;
                                 break;
                             }
-
+                        case 71:
+                            {
+                                SCPara.Disable_TakaQty_In_Issue = (value == "Y") ? true : false;
+                                break;
+                            }
+                        case 95:
+                            {
+                                SCPara.Taka_From_Stock = (value == "Y") ? true : false;
+                                break;
+                            }
                     }
                 }
             }
@@ -619,6 +632,12 @@ namespace Konto.Shared.Trans.SalesChallan
             frm.TypeEnum = (ProductTypeEnum)prod.PTypeId;
             frm.ItemId = prod.Id;
             frm.TransId = er.Id;
+            frm.CommonStock = SCPara.Common_Stock;
+            if (SCPara.Disable_TakaQty_In_Issue)
+                frm.IsEditableQty = false;
+            else
+                frm.IsEditableQty = true;
+
             if (prod.PType.TypeName.ToUpper() == "YARN" || prod.PType.TypeName.ToUpper() == "POY")
             {
                 frm.GridLayoutFileName = KontoFileLayout.Sc_Yarn_Item_Details;
@@ -760,6 +779,7 @@ namespace Konto.Shared.Trans.SalesChallan
                 var row = view.GetRow(view.FocusedRowHandle) as GrnTransDto;
                 view.DeleteRow(view.FocusedRowHandle);
                 DelTrans.Add(row);
+               
             }
             else if (e.KeyCode == Keys.Delete)
             {
@@ -1305,7 +1325,7 @@ namespace Konto.Shared.Trans.SalesChallan
                             {
                                 ProdOutModel Out = db.ProdOuts.Find(p.ProdOutId);
                                 ProdModel pm = new ProdModel();
-                                if (!MillIssPara.Taka_From_Stock)
+                                if (!SCPara.Taka_From_Stock)
                                 {
                                     if (Out == null)
                                     {
@@ -1348,8 +1368,11 @@ namespace Konto.Shared.Trans.SalesChallan
                                 }
                                 else
                                 {
-                                    pm = db.Prods.Find(p.Id);
-                                    pm.ProdStatus = "ISSUE";
+                                    if (p.Id > 0)
+                                    {
+                                        pm = db.Prods.Find(p.Id);
+                                        pm.ProdStatus = "ISSUE";
+                                    }
                                 }
 
 

@@ -3,6 +3,7 @@ using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Grid;
 using DevExpress.XtraGrid.Views.Grid.ViewInfo;
 using Konto.App.Shared;
+using Konto.App.Shared.Para;
 using Konto.Core.Shared;
 using Konto.Core.Shared.Frms;
 using Konto.Core.Shared.Libs;
@@ -24,13 +25,15 @@ namespace Konto.Shared.Trans.Common
         public bool IsEditableQty { get; set; }
         public int TransId { get; set; }
         public int ItemId { get; set; }
+
+        public  bool CommonStock { get; set; }
         public string GridLayoutFileName { get; set; }
         TextEdit headerEdit = new TextEdit();
         GridColumn activeCol = null;
-        private int colorId;
-        private int gradeId;
-        private int plyProductId;
-        private string productName;
+        //private int colorId;
+        //private int gradeId;
+        //private int plyProductId;
+        //private string productName;
 
         public decimal MetersPerKgs { get; set; } 
         public IssueItemDetailView()
@@ -45,13 +48,19 @@ namespace Konto.Shared.Trans.Common
             this.gridView1.CustomDrawRowIndicator += GridView1_CustomDrawRowIndicator;
             this.gridView1.DoubleClick += GridView1_DoubleClick;
             this.gridView1.MouseUp += GridView1_MouseUp;
-          
-          
+
+            this.gridView1.InitNewRow += GridView1_InitNewRow;
             this.gridView1.KeyDown += GridView1_KeyDown;
             this.gridControl1.ProcessGridKey += GridControl1_ProcessGridKey;
             this.gridControl1.Enter += GridControl1_Enter;
 
             this.pendSimpleButton.Click += PendSimpleButton_Click;
+        }
+
+        private void GridView1_InitNewRow(object sender, InitNewRowEventArgs e)
+        {
+            var row = gridView1.GetRow(e.RowHandle) as GrnProdDto;
+            row.SrNo = gridView1.RowCount + 1;
         }
 
         private void PendSimpleButton_Click(object sender, EventArgs e)
@@ -60,7 +69,7 @@ namespace Konto.Shared.Trans.Common
             frm.ItemId = this.ItemId;
             frm.StockType = "Stock";
             frm.ProductType = this.TypeEnum;
-            
+            frm.CommonStock = this.CommonStock;
             
             frm.ShowDialog();
 
@@ -82,6 +91,11 @@ namespace Konto.Shared.Trans.Common
                 ptrans.Weaver = _taka.Weaver;
                 ptrans.ChallanNo = _taka.InwardNo;
                 ptrans.VoucherDate = Convert.ToInt32(_taka.VoucherDate);
+                if (Convert.ToInt32(_taka.Tops) == 0)
+                    ptrans.Tops = 1;
+                else
+                    ptrans.Tops = Convert.ToInt32(_taka.Tops); // pcs for taka;
+
                 this.prodDtos.Add(ptrans);
             }
         }
@@ -169,13 +183,15 @@ namespace Konto.Shared.Trans.Common
         }
         private void ItemDetailView_Load(object sender, System.EventArgs e)
         {
-            
+
             this.gridControl1.DataSource = prodDtos;
             DelProd = new List<GrnProdDto>();
-            KontoUtils.RestoreLayoutGrid(this.GridLayoutFileName,gridView1);
+            KontoUtils.RestoreLayoutGrid(this.GridLayoutFileName, gridView1);
             this.ActiveControl = gridControl1;
 
+
             this.gridView1.OptionsBehavior.Editable = true;
+
             this.gridView1.OptionsBehavior.ReadOnly = false;
 
             foreach (GridColumn item in gridView1.Columns)
@@ -184,6 +200,13 @@ namespace Konto.Shared.Trans.Common
                     item.OptionsColumn.ReadOnly = false;
                 else
                     item.OptionsColumn.ReadOnly = true;
+            }
+
+            if (!SCPara.Taka_From_Stock)
+            {
+                gridView1.OptionsView.NewItemRowPosition = NewItemRowPosition.Bottom;
+                gridView1.Columns["VoucherNo"].OptionsColumn.ReadOnly = false;
+                gridView1.Columns["GrossWt"].OptionsColumn.ReadOnly = false;
             }
         }
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)

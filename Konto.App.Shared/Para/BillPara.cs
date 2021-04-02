@@ -13,10 +13,10 @@ namespace Konto.App.Shared.Para
         public static bool Color_Required = false;
         public static bool Design_Required = false;
         public static bool Grade_Required = false;
-        public static bool Cut_Required = true;
-        public static bool Freight_Required = true;
-        public static bool OtherAdd_Required = true;
-        public static bool OtherLess_Required = true;
+        public static bool Cut_Required = false;
+        public static bool Freight_Required = false;
+        public static bool OtherAdd_Required = false;
+        public static bool OtherLess_Required = false;
         public static bool Cess_Required = false;
         public static bool OceanFreight_Required = false;
         public static bool CustomDuty_Required = false;
@@ -32,10 +32,32 @@ namespace Konto.App.Shared.Para
         public static int Qty_Decimal = 2;
         public static bool Allow_Gst_Editable = false;
         public static bool Tcs_Round_Off = true;
-        public static bool Order_Required= false;
+        public static bool Order_Required = false;
         public static bool HsnCode_Required = false;
         public static bool Use_OtherLess_As_RateDiff = false;
-
+        public static bool Party_Wise_Challan = true;
+    }
+    public static class PosPara
+    {
+        public static bool Cut_Required = false;
+        public static bool Freight_Required = true;
+        public static bool OtherAdd_Required = false;
+        public static bool OtherLess_Required = false;
+        public static bool Cess_Required = false;
+        public static bool Tax_RoundOff = false;
+        public static string Default_Invoice_Print = "BillPrintTextilesF1.rdlx";
+        public static bool Ask_For_Voucher_Selection = false;
+        public static bool Order_Required = false;
+        public static bool HsnCode_Required = false;
+        public static int Rate_Decimal = 2;
+        public static int Qty_Decimal = 2;
+        public static bool Pcs_Required = false;
+        public static bool Merge_Qty_For_Same_Barcode = true;
+        public static bool Move_Next_Barcode = true;
+        public static bool Rate_Required = false;
+        public static bool Tax_Required = false;
+        public static bool Tax_Editable = false;
+        public static int Post_Sale_Discount_Account_Id = 0;
     }
 
     public class SaleRetPara
@@ -62,4 +84,28 @@ namespace Konto.App.Shared.Para
         public static bool HsnCode_Required = false;
 
     }
+
+
+    public static class PosRetPara
+    {
+        public static bool Cut_Required = false;
+        public static bool Freight_Required = false;
+        public static bool OtherAdd_Required = false;
+        public static bool OtherLess_Required = false;
+        public static bool Cess_Required = false;
+        public static bool Tax_RoundOff = false;
+        public static bool Ask_For_Voucher_Selection = false;
+        public static bool HsnCode_Required = false;
+        public static int Rate_Decimal = 2;
+        public static int Qty_Decimal = 2;
+        public static bool Pcs_Required = false;
+        public static bool Merge_Qty_For_Same_Barcode = true;
+        public static bool Move_Next_Barcode = true;
+        public static bool Rate_Required = false;
+        public static bool Tax_Required = false;
+        public static bool Tax_Editable = false;
+        
+    }
+
+
 }

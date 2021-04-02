@@ -233,39 +233,98 @@ namespace Konto.Shared.Masters.Branch
             bool IsSaved = false;
             if (!ValidateData()) return;
             BranchModel model = new BranchModel();
+            
             using (var db = new KontoContext())
             {
-                if (this.PrimaryKey != 0)
-                    model = db.Branches.Find(this.PrimaryKey);
-                model.BranchName = branchNameTextBox.Text.Trim();
-                model.BranchCode = codeTextBoxExt.Text.Trim();
-                model.Address1 = address1TextBoxExt.Text.Trim();
-                model.Address2 = address2TextBoxExt.Text.Trim();
-                model.CompId = KontoGlobals.CompanyId;
-
-                if (Convert.ToInt32(cityLookup1.SelectedValue) != 0)
-                    model.CityId = Convert.ToInt32(cityLookup1.SelectedValue);
-                else
-                    model.CityId = null;
-
-
-                if (Convert.ToInt32(areaLookup1.SelectedValue) != 0)
-                    model.AreaId = Convert.ToInt32(areaLookup1.SelectedValue);
-                else
-                    model.AreaId = null;
-
-                model.PinCode = pinCodeTextBox.Text.Trim();
-                model.GstIn = gstinTextBox.Text.Trim();
-                model.IsActive = Convert.ToBoolean(toggleSwitch1.EditValue);
-
-                if (this.PrimaryKey == 0)
+                using(var _tran = db.Database.BeginTransaction())
                 {
-                    // model.RowId = Guid.NewGuid();
-                    db.Branches.Add(model);
-                }
-                db.SaveChanges();
+                    try
+                    {
 
-                IsSaved = true;
+                        if (this.PrimaryKey != 0)
+                            model = db.Branches.Find(this.PrimaryKey);
+                        model.BranchName = branchNameTextBox.Text.Trim();
+                        model.BranchCode = codeTextBoxExt.Text.Trim();
+                        model.Address1 = address1TextBoxExt.Text.Trim();
+                        model.Address2 = address2TextBoxExt.Text.Trim();
+                        model.CompId = KontoGlobals.CompanyId;
+
+                        if (Convert.ToInt32(cityLookup1.SelectedValue) != 0)
+                            model.CityId = Convert.ToInt32(cityLookup1.SelectedValue);
+                        else
+                            model.CityId = null;
+
+
+                        if (Convert.ToInt32(areaLookup1.SelectedValue) != 0)
+                            model.AreaId = Convert.ToInt32(areaLookup1.SelectedValue);
+                        else
+                            model.AreaId = null;
+
+                        model.PinCode = pinCodeTextBox.Text.Trim();
+                        model.GstIn = gstinTextBox.Text.Trim();
+                        model.IsActive = Convert.ToBoolean(toggleSwitch1.EditValue);
+
+                        if (this.PrimaryKey == 0)
+                        {
+                            // model.RowId = Guid.NewGuid();
+                            db.Branches.Add(model);
+                        }
+                        db.SaveChanges();
+
+
+                        var complist = db.Companies.Where(p => p.IsActive && !p.IsDeleted).ToList();
+                        var yearlist = db.FinYears.Where(x => x.IsActive == true && x.IsDeleted == false).ToList();
+                        var pds = db.Products.Where(x => x.IsDeleted == false).ToList();
+                        foreach (var item in pds)
+                        {
+
+                            foreach (var comp in complist)
+                            {
+                                foreach (var yr in yearlist)
+                                {
+                                    StockBalModel _model = new StockBalModel();
+                                    _model = db.StockBals.FirstOrDefault(x => x.CompanyId == comp.Id && x.YearId == yr.Id && x.BranchId == model.Id
+                                                  && x.ProductId == item.Id);
+
+                                    if (_model == null)
+                                    {
+                                        _model = new StockBalModel();
+
+                                        _model.ProductId = item.Id;
+                                        _model.ItemCode = item.RowId;
+
+                                        _model.CompanyId = comp.Id;
+                                        _model.YearId = yr.Id;
+                                        _model.BranchId = model.Id;
+                                        _model.GodownId = KontoGlobals.GodownId;
+
+
+                                        _model.BalQty = 0;
+                                        _model.RowId = Guid.NewGuid();
+                                        _model.CreateUser = KontoGlobals.UserName;
+                                        _model.CreateDate = DateTime.Now;
+                                        _model.OpNos = 0;
+                                        _model.OpQty = 0;
+
+                                        db.StockBals.Add(_model);
+                                    }
+                                }
+
+                            }
+                        }
+
+                        db.SaveChanges();
+                        _tran.Commit();
+                        IsSaved = true;
+                    }
+                    catch (Exception ex)
+                    {
+                        _tran.Rollback();
+                        MessageBox.Show(ex.ToString());
+
+                    }
+                }
+               
 
             }
             if (IsSaved)

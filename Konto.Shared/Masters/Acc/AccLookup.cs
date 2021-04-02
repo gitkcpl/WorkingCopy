@@ -43,6 +43,36 @@ namespace Konto.Shared.Masters.Acc
           
         }
         
+        public void WalkInCustomer()
+        {
+            using (KontoContext ctx = new KontoContext())
+            {
+                var cust = (from ac in ctx.Accs
+                            join bal in ctx.AccBals on ac.Id equals bal.AccId
+                            where bal.CompId == KontoGlobals.CompanyId && bal.YearId == KontoGlobals.YearId
+                            && bal.MobileNo == "0000000000"
+                            select new
+                            {
+                                ac.AccName,
+                                ac.Id,
+                                ac.GstIn,
+                            }
+                           ).FirstOrDefault();
+                if (cust != null)
+                {
+                    this.LookupDto = ctx.Database.SqlQuery<AccLookupDto>("EXEC dbo.acclookup @companyid={0},@yearid={1}, @accountid={2}",
+                        KontoGlobals.CompanyId, KontoGlobals.YearId, cust.Id).FirstOrDefault();
+                    if (LookupDto != null)
+                    {
+                        this.SelectedText = LookupDto.AccName;
+                        buttonEdit1.Text = LookupDto.AccName;
+                        this.SelectedValue = cust.Id;
+
+                    }
+                }
+            }
+        }
+
         public void SetAcc(int id)
         {
 
@@ -55,7 +85,7 @@ namespace Konto.Shared.Masters.Acc
                 {
                     this.SelectedText = LookupDto.AccName;
                     buttonEdit1.Text = LookupDto.AccName;
-                    
+                    //this.SelectedValue = id;
                 }
             }
           

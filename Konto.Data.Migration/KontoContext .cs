@@ -219,6 +219,7 @@ namespace Konto.Data
 
         #region "DbSet"
 
+
         #region "Admin"
         public DbSet<ErpModule> ErpModules { get; set; }
             public DbSet<UserMasterModel> UserMasters { get; set; }
@@ -359,6 +360,12 @@ namespace Konto.Data
 
         #endregion
 
+        public DbSet<BillPay> BillPays { get; set; }
+        public DbSet<SerialBatch> SerialBatches { get; set; }
+
+        public DbSet<Ewb> Ewbs { get; set; }
+        public DbSet<ApiBal> ApiBals { get; set; }
+        public DbSet<EInv> EInvs { get; set; }
         #endregion
     }
 

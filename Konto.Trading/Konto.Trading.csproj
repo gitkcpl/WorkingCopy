@@ -168,6 +168,12 @@
     <Compile Include="GreyOrder\GreyOrderListView.Designer.cs">
       <DependentUpon>GreyOrderListView.cs</DependentUpon>
     </Compile>
+    <Compile Include="JobReceipt\JobcardPedingForJrView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="JobReceipt\JobcardPedingForJrView.Designer.cs">
+      <DependentUpon>JobcardPedingForJrView.cs</DependentUpon>
+    </Compile>
     <Compile Include="JobReceipt\JrIndex.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -364,6 +370,9 @@
     <EmbeddedResource Include="GreyOrder\GreyOrderListView.resx">
       <DependentUpon>GreyOrderListView.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="JobReceipt\JobcardPedingForJrView.resx">
+      <DependentUpon>JobcardPedingForJrView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="JobReceipt\JrIndex.resx">
       <DependentUpon>JrIndex.cs</DependentUpon>
     </EmbeddedResource>
@@ -478,6 +487,7 @@
     <None Include="Properties\DataSources\Konto.Data.Models.Transaction.Dtos.MrvTransDto.datasource" />
     <None Include="Properties\DataSources\Konto.Data.Models.Transaction.Dtos.ProdOutDto.datasource" />
     <None Include="Properties\DataSources\Konto.Data.Models.Transaction.TradingDto.PendingForCutting.datasource" />
+    <None Include="Properties\DataSources\Konto.Data.Models.Wvs.PendingJobDto.datasource" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

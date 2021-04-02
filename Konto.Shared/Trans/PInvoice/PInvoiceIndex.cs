@@ -12,6 +12,7 @@ using Konto.Core.Shared;
 using Konto.Core.Shared.Frms;
 using Konto.Core.Shared.Libs;
 using Konto.Data;
+using Konto.Data.Models.Masters;
 using Konto.Data.Models.Masters.Dtos;
 using Konto.Data.Models.Transaction;
 using Konto.Data.Models.Transaction.Dtos;
@@ -48,6 +49,10 @@ namespace Konto.Shared.Trans.PInvoice
         private List<PendBillListDto> DelBill = new List<PendBillListDto>();
         private List<PendBillListDto> BillList = new List<PendBillListDto>();
         private List<PendBillListDto> AllBill = new List<PendBillListDto>();
+
+        private List<SerialBatchDto> Serials = new List<SerialBatchDto>();
+        private List<SerialBatchDto> DelSerials = new List<SerialBatchDto>();
+
         private bool IsLoadData = false;
         public PInvoiceIndex()
         {
@@ -537,6 +542,11 @@ namespace Konto.Shared.Trans.PInvoice
                     er.IgstPer = model.Igst;
                 }
                 er.CessPer = model.Cess;
+
+                // Product serial implementaion
+
+                
+
                 gridView1.FocusedColumn = gridView1.GetNearestCanFocusedColumn(gridView1.FocusedColumn);
             }
             GridCalculation(er);
@@ -1195,7 +1205,19 @@ namespace Konto.Shared.Trans.PInvoice
                             }
                              ).ToList();
                              
+
+
                 this.grnTransDtoBindingSource1.DataSource = _lst;
+
+                this.Serials = (from p in _context.SerialBatches
+                                where p.RefId == model.Id && p.RefVoucherId == model.VoucherId
+                                && !p.IsDeleted
+                                select new SerialBatchDto
+                                {
+                                    Id= p.Id,RefVoucherId= p.RefVoucherId,RefId=p.RefId,RefTransId=p.RefTransId,SerialNo=p.SerialNo,
+                                    IsAcitve = p.IsActive,IsDeleted=p.IsDeleted
+
+                                }).ToList();
 
                 var paid = _context.BtoBs.Where(x => x.BillId == model.Id && x.BillVoucherId == model.VoucherId
                                            && !x.IsDeleted)
@@ -1399,6 +1421,9 @@ namespace Konto.Shared.Trans.PInvoice
         {
             try
             {
+                
+                if (e.KeyCode != Keys.Enter && e.KeyCode != Keys.F1) return;
+
                 if (Convert.ToInt32(accLookup1.SelectedValue) == 0) return;
                 var dr = PreOpenLookup();
                 if (dr == null) return;
@@ -1467,6 +1492,34 @@ namespace Konto.Shared.Trans.PInvoice
                     {
                         OpenDesignLookup(dr.DesignId, dr);
                         e.Handled = true;
+                    }
+                } 
+                else if(e.KeyCode== Keys.Enter && gridView1.FocusedColumn.FieldName == "Qty")
+                {
+                    ProductModel prod;
+                    using (var db = new KontoContext())
+                    {
+                        prod = db.Products.Find(dr.ProductId);
+
+                    }
+                    if (prod.SerialReq == "Yes" && prod.PTypeId == (int)ProductTypeEnum.FINISH)
+                    {
+                        var frms = new SerialNoView();
+                        var lst = this.Serials.Where(x => x.RefTransId == dr.Id).ToList();
+                        frms.Serials = lst;
+                        frms.AllSerials = this.Serials;
+                        frms.RefTransId = dr.Id;
+                        if (frms.ShowDialog() == DialogResult.OK)
+                        {
+                            foreach (var item in lst)
+                            {
+                                this.Serials.Remove(item);
+                            }
+                            this.Serials.AddRange(frms.Serials);
+                            dr.Qty = frms.Serials.Count();
+                            this.DelSerials.AddRange(frms.DelSerials);
+                            GridCalculation(dr, "Qty");
+                        }
                     }
                 }
                
@@ -1741,6 +1794,9 @@ namespace Konto.Shared.Trans.PInvoice
             AllBill = new List<PendBillListDto>();
             _TransFile = new List<AttachmentModel>();
             _DelFile = new List<AttachmentModel>();
+             Serials = new List<SerialBatchDto>();
+            DelSerials = new List<SerialBatchDto>();
+
             this.grnTransDtoBindingSource1.DataSource = new List<BillTransDto>();
             
         }
@@ -1780,6 +1836,9 @@ namespace Konto.Shared.Trans.PInvoice
             AllBill = new List<PendBillListDto>();
             _TransFile = new List<AttachmentModel>();
             _DelFile = new List<AttachmentModel>();
+
+            Serials = new List<SerialBatchDto>();
+            DelSerials = new List<SerialBatchDto>();
         }
         public override void EditPage(int _key)
         {
@@ -1919,7 +1978,46 @@ namespace Konto.Shared.Trans.PInvoice
                             item.Id = tranModel.Id;
                             Trans.Add(tranModel);
 
+                            
+                            // for product serials
+
+                            var _serisl = this.Serials.Where(x => x.RefTransId == transid).ToList();
+                            foreach (var sr in _serisl)
+                            {
+                                SerialBatch srs = new SerialBatch();
+
+                                if(sr.Id>0)
+                                    srs = db.SerialBatches.Find(sr.Id);
+                                srs.SerialNo = sr.SerialNo;
+                                srs.RefId = _find.Id;
+                                srs.RefTransId = tranModel.Id;
+                                srs.RefVoucherId = _find.VoucherId;
+                                srs.ProductId = Convert.ToInt32(tranModel.ProductId);
+                                
+                                srs.Qty = 1;
+
+                                if (sr.Id <= 0)
+                                {
+                                    srs.IsActive = true;
+                                    db.SerialBatches.Add(srs);
+                                }
+                            }
+
                         }
+
+
+                        // deleted product serials
+
+                        foreach (var item in DelSerials)
+                        {
+                            if (item.Id == 0) continue;
+
+                            var sr = db.SerialBatches.Find(item.Id);
+
+                            sr.IsDeleted = true;
+                        }
+                        
+                        
 
                         // attachment
                         foreach (var item in _TransFile)
@@ -1959,7 +2057,27 @@ namespace Konto.Shared.Trans.PInvoice
                             if (item.Id == 0) continue;
                             var _model = db.BillTrans.Find(item.Id);
                             _model.IsDeleted = true;
+
+                            // product serial delete
+                            var srs = this.Serials.Where(x => x.RefTransId == item.Id).ToList();
+                            foreach (var sr in srs)
+                            {
+                                if (sr.Id == 0) continue;
+                                var _sr = db.SerialBatches.Find(sr.Id);
+                                
+                                if(!_sr.IsActive)
+                                {
+                                    MessageBox.Show("Serial in Used. Can Not Delete");
+                                    _tran.Rollback();
+                                    return;
+                                }
+
+                                _sr.IsDeleted = true;
+                            }
+
                         }
+
+
                         // delete from Attachment
                         foreach (var item in _DelFile)
                         {

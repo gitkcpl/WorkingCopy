@@ -49,7 +49,11 @@ namespace Konto.Shared.Masters.Acc
             nopComboBoxEx.ValueMember = "Id";
             iokontoComboBoxEx.DisplayMember = "_Value";
             iokontoComboBoxEx.ValueMember = "_Key";
-            using(var db = new KontoContext())
+
+            rateTypeKontoComboBoxEx.DisplayMember = "_Value";
+            rateTypeKontoComboBoxEx.ValueMember = "_Key";
+
+            using (var db = new KontoContext())
             {
                 var _deductee = db.Deductees.OrderBy(x => x.Descr).ToList();
                 dedComboBoxEx.DataSource = _deductee;
@@ -101,6 +105,16 @@ namespace Konto.Shared.Masters.Acc
                
             };
             iokontoComboBoxEx.DataSource = cbpio;
+
+            List<ComboBoxPairs> _rate = new List<ComboBoxPairs>
+            {
+                 new ComboBoxPairs("NA", "NA"),
+                new ComboBoxPairs("BLK", "Bulk/WholeSale"),
+                new ComboBoxPairs("SMBLK", "SemiBulk/SemiWholeSale"),
+
+            };
+
+            rateTypeKontoComboBoxEx.DataSource = _rate;
         }
         private void TcsComboBoxEx_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -264,6 +278,7 @@ namespace Konto.Shared.Masters.Acc
             this.Text = "Account Master [Add New]";
             this.ActiveControl = ledgerGroupLookup1.buttonEdit1;
             gstdateEdit.EditValue = DateTime.Now;
+            rateTypeKontoComboBoxEx.SelectedIndex = 0;
             tdsComboBoxEx.SelectedIndex = 0;
             tcsComboBoxEx.SelectedIndex = 0;
             btobComboBoxEx.SelectedIndex = 1;
@@ -401,7 +416,7 @@ namespace Konto.Shared.Masters.Acc
             toggleSwitch1.EditValue = model.IsActive;
             toggleSwitch1.Enabled = true;
 
-
+            rateTypeKontoComboBoxEx.SelectedValue = model.Extra2;
 
             ledgerGroupLookup1.buttonEdit1.Focus();
             this.Text = "Account Master [View/Modify]";
@@ -498,6 +513,12 @@ namespace Konto.Shared.Masters.Acc
             model.AgentId = Convert.ToInt32(agentLookup1.SelectedValue);
             model.TransportId = Convert.ToInt32(transportLookup2.SelectedValue);
             model.DiscPer = (decimal) discPerKontoTextBox.DoubleValue;
+
+            if (rateTypeKontoComboBoxEx.SelectedValue != null)
+                model.Extra2 = rateTypeKontoComboBoxEx.SelectedValue.ToString();
+            else
+                model.Extra2 = "NA";
+
             var balmodel = new AccBalDto();
             balmodel.Address1 = address1TextBoxExt.Text.Trim();
             balmodel.Address2 = address2TextBoxExt.Text.Trim();

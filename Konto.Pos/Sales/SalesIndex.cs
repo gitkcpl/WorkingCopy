@@ -2,6 +2,7 @@
 using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Controls;
 using DevExpress.XtraEditors.Repository;
+using DevExpress.XtraGrid;
 using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Grid;
 using DevExpress.XtraGrid.Views.Grid.ViewInfo;
@@ -13,11 +14,13 @@ using Konto.Core.Shared.Frms;
 using Konto.Core.Shared.Libs;
 using Konto.Data;
 using Konto.Data.Models.Masters.Dtos;
+using Konto.Data.Models.Pos;
 using Konto.Data.Models.Transaction;
 using Konto.Data.Models.Transaction.Dtos;
 using Konto.Shared.Account;
 using Konto.Shared.Masters.Color;
 using Konto.Shared.Masters.Design;
+using Konto.Shared.Masters.Emp;
 using Konto.Shared.Masters.Grade;
 using Konto.Shared.Masters.Item;
 using Konto.Shared.Trans.Common;
@@ -70,13 +73,18 @@ namespace Konto.Pos.Sales
             gridView1.MouseUp += GridView1_MouseUp;
             gridView1.InvalidRowException += GridView1_InvalidRowException;
             gridView1.ShowingEditor += GridView1_ShowingEditor;
+
+            gridView1.ValidatingEditor += GridView1_ValidatingEditor;
+
+            
+
             productRepositoryItemButtonEdit.ButtonClick += ProductRepositoryItemButtonEdit_ButtonClick;
             colorRepositoryItemButtonEdit.ButtonClick += ColorRepositoryItemButtonEdit_ButtonClick;
             gradeRepositoryItemButtonEdit.ButtonClick += GradeRepositoryItemButtonEdit_ButtonClick;
             designRepositoryItemButtonEdit.ButtonClick += DesignRepositoryItemButtonEdit_ButtonClick;
             gridView1.DoubleClick += GridView1_DoubleClick;
-            this.MainLayoutFile = KontoFileLayout.Sales_Index;
-            this.GridLayoutFile = KontoFileLayout.Sales_Trans;
+            this.MainLayoutFile = KontoFileLayout.Pos_Sales_Index;
+            this.GridLayoutFile = KontoFileLayout.Pos_Sales_Trans;
            
             this.invTypeLookUpEdit.EditValueChanged += InvTypeLookUpEdit_EditValueChanged;
             this.accLookup1.ShownPopup += AccLookup1_ShownPopup;
@@ -96,10 +104,149 @@ namespace Konto.Pos.Sales
             voucherLookup1.SelectedValueChanged += VoucherLookup1_SelectedValueChanged;
             tcsPerTextEdit.EditValueChanged += TcsPerTextEdit_EditValueChanged;
             tcsAmtTextEdit.EditValueChanged += TcsAmtTextEdit_EditValueChanged;
+            extra2TextEdit.KeyDown += Extra2TextEdit_KeyDown;
+
+            empRrepositoryItemButtonEdit.ButtonClick += EmpRrepositoryItemButtonEdit_ButtonClick;
+
             this.Shown += SInvoiceIndex_Shown;
 
             this.FirstActiveControl = voucherLookup1;
 
+        }
+
+        private void EmpRrepositoryItemButtonEdit_ButtonClick(object sender, ButtonPressedEventArgs e)
+        {
+            var dr = PreOpenLookup();
+            if (dr != null)
+                OpenEmpLookup(dr.EmpId, dr);
+        }
+
+        private void GridView1_ValidatingEditor(object sender, BaseContainerValidateEditorEventArgs e)
+        {
+            var gv = sender as GridView;
+            var model = gv.GetRow(gv.FocusedRowHandle) as BillTransDto;
+            if (model == null) return;
+            //if (gv.FocusedColumn.FieldName == "Barcode" && e.Value != null && !string.IsNullOrEmpty(e.Value.ToString()))
+            //{
+            //    var pos = DbUtils.GetProductDetails(e.Value.ToString());
+
+            //    if (pos == null)
+            //    {
+            //        MessageBox.Show("Barcode Not Found..");
+            //        e.Value = gv.ActiveEditor.OldEditValue;
+            //        e.Valid = false;
+            //        return;
+            //    }
+
+
+            //    model.ProductId = pos.Id;
+            //    model.EmpId = Convert.ToInt32(empLookup1.SelectedValue);
+            //    model.Salesman = empLookup1.SelectedText;
+
+
+            //    model.Barcode = pos.BarCode;
+
+            //    model.HsnCode = pos.HsnCode;
+
+            //    model.ProductName = pos.ProductName;
+
+
+            //    model.ColorId = pos.ColorId;
+
+
+            //    model.ColorName = pos.ColorName;
+
+
+            //    model.UomId = pos.PurUomId;
+
+            //    model.Disc = pos.SaleDisc;
+
+            //    model.ProfitPer = pos.ProfitPer; // price profit %
+
+
+            //    if (accLookup1.LookupDto.RateType == "BLK")
+            //    {
+            //        model.SaleRate = pos.Rate1;
+            //    }
+            //    else if (accLookup1.LookupDto.RateType == "SMBLK")
+            //        model.SaleRate = pos.Rate2;
+            //    else
+            //        model.SaleRate = pos.SaleRate;
+
+            //    model.Rate = decimal.Round((model.SaleRate * 100) / (100 + (model.SgstPer + model.CgstPer + model.IgstPer)), 2, MidpointRounding.AwayFromZero);
+
+            //    model.Qty = 1;
+            //    model.Pcs = 1;
+
+            //    model.Mrp = pos.Mrp;
+
+
+            //    if (accLookup1.LookupDto.IsGst && !isImortOrSez)
+            //    {
+            //        model.SgstPer = pos.Sgst;
+            //        model.CgstPer = pos.Cgst;
+            //        model.IgstPer = 0;
+            //        model.Igst = 0;
+            //    }
+            //    else
+            //    {
+            //        model.SgstPer = 0;
+            //        model.Sgst = 0;
+            //        model.CgstPer = 0;
+            //        model.Cgst = 0;
+            //        model.IgstPer = pos.Igst;
+            //    }
+            //    model.CessPer = pos.Cess;
+            //    model.ItemStatus = "Y";
+            //    GridCalculation(model);
+            //}
+        }
+
+        //get customer name & account name from account by mobileno
+        private void Extra2TextEdit_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode != Keys.Enter && extra2TextEdit.Text.Length != 10) return;
+            
+            if (extra2TextEdit.Text == "0000000000")
+                return;
+
+            using(var db = new KontoContext())
+            {
+                var cust = (from ac in db.Accs
+                            join bal in db.AccBals on ac.Id equals bal.AccId
+                            where bal.CompId == KontoGlobals.CompanyId && bal.YearId == KontoGlobals.YearId
+                            && bal.MobileNo == extra2TextEdit.Text
+                            select new
+                            {
+                                ac.AccName,ac.Id,
+                                ac.GstIn,
+                            }
+                            ).FirstOrDefault();
+                if (cust != null)
+                {
+                    accLookup1.SetAcc(cust.Id);
+                    accLookup1.SelectedValue = cust.Id;
+                    e.Handled = true;
+                    empLookup1.Focus();
+                }
+                else
+                {
+                    var cst = db.Customers.FirstOrDefault(x => x.MobileNo == extra2TextEdit.Text);
+                    if (cst != null)
+                    {
+                        gstInTextEdit.Text = cst.GstNo;
+                        customerNameTextEdit.Text = cst.CustomerName;
+                        addressTextEdit.Text = cst.Address;
+                        e.Handled = true;
+                        empLookup1.Focus();
+                    }
+                    else
+                    {
+                        addressTextEdit.Text = string.Empty;
+                        gstInTextEdit.Text = string.Empty;
+                    }
+                }
+            }
         }
 
         private void TcsAmtTextEdit_EditValueChanged(object sender, EventArgs e)
@@ -120,13 +267,37 @@ namespace Konto.Pos.Sales
 
         private void SInvoiceIndex_Shown(object sender, EventArgs e)
         {
-           // colSgst.OptionsColumn.AllowFocus = true;
-            colSgstPer.OptionsColumn.AllowFocus = true;
-            //colCgst.OptionsColumn.AllowFocus = true;
-            colCgstPer.OptionsColumn.AllowFocus = true;
-           // colIgst.OptionsColumn.AllowFocus = true;
-            colIgstPer.OptionsColumn.AllowFocus = true;
+           
+            using(var db = new KontoContext())
+            {
+                var _paymodeExist = db.Hastes.Any(x => x.MType == "PM" && x.PanNo=="CASH");
+                if (!_paymodeExist)
+                {
+                    MessageBox.Show("Pay Mode/ Receipt Not Found. Please Create Paymode");
+                    this.Close();
+                    return;
+                }
+
+                if (PosPara.Post_Sale_Discount_Account_Id == 0)
+                {
+                    MessageBox.Show("Pos Sale Discount A/c Not Exist. Please add in Invoice Settings");
+                    this.Close();
+                   // return;
+                }
+                else
+                {
+                    var _acexist = db.Accs.Any(x => x.Id == PosPara.Post_Sale_Discount_Account_Id);
+                    if (!_acexist)
+                    {
+                        MessageBox.Show("Discount Account Doest Not Exist in Account Master");
+                       // this.Close();
+                        return;
+                    }
+                }
+            }
             SetGridColumn();
+
+
         }
 
         private void VoucherLookup1_SelectedValueChanged(object sender, EventArgs e)
@@ -183,32 +354,28 @@ namespace Konto.Pos.Sales
 
         private void BillAdjustSimpleButton_Click(object sender, EventArgs e)
         {
-            string type = "CREDIT";
-            if (this.billAmtSpinEdit.Value == 0) return;
-            var frm = new PendingBillViewWindow("SALE", Convert.ToInt32(accLookup1.SelectedValue),
-                (int)VoucherTypeEnum.SaleInvoice, type, this.PrimaryKey, this.PrimaryKey,
-                (int)voucherLookup1.SelectedValue);
+            var frm = new SalesPayView();
+            frm.ShowDialog();
+            //string type = "CREDIT";
+            //if (this.billAmtSpinEdit.Value == 0) return;
+            //var frm = new PendingBillViewWindow("SALE", Convert.ToInt32(accLookup1.SelectedValue),
+            //    (int)VoucherTypeEnum.SaleInvoice, type, this.PrimaryKey, this.PrimaryKey,
+            //    (int)voucherLookup1.SelectedValue);
 
-            frm.AllBill.AddRange(this.AllBill);
-            frm.TotalAmount = this.billAmtSpinEdit.Value;
+            //frm.AllBill.AddRange(this.AllBill);
+            //frm.TotalAmount = this.billAmtSpinEdit.Value;
 
-            if (frm.ShowDialog() == DialogResult.OK)
-            {
-                this.AllBill = frm.AllBill;
+            //if (frm.ShowDialog() == DialogResult.OK)
+            //{
+            //    this.AllBill = frm.AllBill;
 
-                this.DelBill.AddRange(frm.DelBillList);
+            //    this.DelBill.AddRange(frm.DelBillList);
 
-                var plist = frm.BillList.Where(k => k.Amount > 0).ToList();
+            //    var plist = frm.BillList.Where(k => k.Amount > 0).ToList();
 
-                this.BillList.AddRange(plist);
+            //    this.BillList.AddRange(plist);
 
-                //if (plist.Count > 0)
-                //{
-                //    billNoTextEdit.Text = plist[0].BillNo;
-                //    billDateEdit.EditValue = plist[0].ChallanDate;
-                //}
-
-            }
+            //}
         }
 
         private void AccLookup1_ShownPopup(object sender, EventArgs e)
@@ -470,13 +637,13 @@ namespace Konto.Pos.Sales
         private void GridView1_ValidateRow(object sender, DevExpress.XtraGrid.Views.Base.ValidateRowEventArgs e)
         {
             GridView view = sender as GridView;
-           
-          
+
+            var rw = view.GetRow(e.RowHandle) as BillTransDto;
             int product = Convert.ToInt32(view.GetRowCellValue(e.RowHandle, colProductId));
             int unit = Convert.ToInt32(view.GetRowCellValue(e.RowHandle, colUomId));
             decimal qty = Convert.ToDecimal(view.GetRowCellValue(e.RowHandle, colQty));
             decimal rate = Convert.ToDecimal(view.GetRowCellValue(e.RowHandle, colRate));
-
+            decimal stock = Convert.ToDecimal(view.GetRowCellValue(e.RowHandle, colStock));
             if (product == 0)
             {
                 e.Valid = false;
@@ -497,6 +664,11 @@ namespace Konto.Pos.Sales
             //    e.Valid = false;
             //    view.SetColumnError(colRate, "Invalid Rate");
             //}
+            else if (rw.ChkNegative && stock < qty)
+            {
+                e.Valid = false;
+                view.SetColumnError(colQty, "Qty Sold Greater Than Stock");
+            }
         }
 
 
@@ -516,16 +688,37 @@ namespace Konto.Pos.Sales
 
 
         #region UDF
+        private void GridFocus() // for focus setting in gridview
+        {
+            if (PosPara.Move_Next_Barcode)
+            {
+                gridView1.UpdateCurrentRow();
+                gridView1.FocusedRowHandle = GridControl.NewItemRowHandle;
+
+                BeginInvoke(new MethodInvoker(() =>
+                {
+                    gridView1.FocusedColumn = colBarcode;
+                }));
+
+            }
+            else
+            {
+                gridView1.FocusedColumn = gridView1.GetVisibleColumn(colStock.VisibleIndex);
+            }
+        }
         private void UpdateGst()
         {
             if (isGst && !isImortOrSez)
             {
-                colSgst.Visible = true;
-                colSgstPer.Visible = true;
-                colCgst.Visible = true;
-                colCgstPer.Visible = true;
-                colIgst.Visible = false;
-                colIgstPer.Visible = false;
+                if (PosPara.Tax_Required)
+                {
+                    colSgst.Visible = true;
+                    colSgstPer.Visible = true;
+                    colCgst.Visible = true;
+                    colCgstPer.Visible = true;
+                    colIgst.Visible = false;
+                    colIgstPer.Visible = false;
+                }
                 gridView1.BeginDataUpdate();
                 for (int i = 0; i < gridView1.RowCount - 1; i++)
                 {
@@ -544,12 +737,15 @@ namespace Konto.Pos.Sales
             }
             else
             {
-                colSgst.Visible = false;
-                colSgstPer.Visible = false;
-                colCgst.Visible = false;
-                colCgstPer.Visible = false;
-                colIgst.Visible = true;
-                colIgstPer.Visible = true;
+                if (PosPara.Tax_Required)
+                {
+                    colSgst.Visible = false;
+                    colSgstPer.Visible = false;
+                    colCgst.Visible = false;
+                    colCgstPer.Visible = false;
+                    colIgst.Visible = true;
+                    colIgstPer.Visible = true;
+                }
                 
                 gridView1.BeginDataUpdate();
                 for (int i = 0; i < gridView1.RowCount - 1; i++)
@@ -596,7 +792,12 @@ namespace Konto.Pos.Sales
                 }
 
                 er.Cut = model.Cut;
-                er.Disc = _DiscPer;
+                
+                if (_DiscPer != 0)
+                    er.Disc = _DiscPer;
+                else
+                    er.Disc = model.SaleDisc;
+
                 if (isGst)
                 {
                     er.SgstPer = model.Sgst;
@@ -613,6 +814,14 @@ namespace Konto.Pos.Sales
                     er.IgstPer = model.Igst;
                 }
                 er.CessPer = model.Cess;
+
+                er.Barcode = model.BarCode;
+                er.CostRate = model.DealerPrice;
+                er.ChkNegative = model.CheckNegative;
+                er.Stock = Convert.ToDecimal( model.StockQty);
+
+                
+
                 gridView1.FocusedColumn = gridView1.GetNearestCanFocusedColumn(gridView1.FocusedColumn);
             }
             GridCalculation(er);
@@ -628,6 +837,22 @@ namespace Konto.Pos.Sales
                 gridView1.BeginDataUpdate();
                 er.ColorId = frm.SelectedValue;
                 er.ColorName = frm.SelectedTex;
+                gridView1.EndDataUpdate();
+                gridView1.FocusedColumn = gridView1.GetVisibleColumn(colColorName.VisibleIndex + 1);
+            }
+
+        }
+        private void OpenEmpLookup(int _selvalue, BillTransDto er)
+        {
+            var frm = new  EmpLkpWindow();
+            frm.SelectedValue = _selvalue;
+            frm.Tag = MenuId.Emp;
+            frm.ShowDialog();
+            if (frm.DialogResult == DialogResult.OK)
+            {
+                gridView1.BeginDataUpdate();
+                er.EmpId = frm.SelectedValue;
+                er.Salesman = frm.SelectedTex;
                 gridView1.EndDataUpdate();
                 gridView1.FocusedColumn = gridView1.GetVisibleColumn(colColorName.VisibleIndex + 1);
             }
@@ -668,13 +893,35 @@ namespace Konto.Pos.Sales
         private void SetGridColumn()
         {
 
-            colFreight.Visible = BillPara.Freight_Required;
-            colFreightRate.Visible = BillPara.Freight_Required;
-            colColorName.Visible = BillPara.Color_Required;
-            colDesignName.Visible = BillPara.Design_Required;
-            colGradeName.Visible = BillPara.Grade_Required;
-            colCut.Visible = BillPara.Cut_Required;
-            colHsnCode.Visible = BillPara.HsnCode_Required;
+            colFreight.Visible = PosPara.Freight_Required;
+            colFreightRate.Visible = PosPara.Freight_Required;
+            colCut.Visible = PosPara.Cut_Required;
+            colHsnCode.Visible = PosPara.HsnCode_Required;
+            colPcs.Visible = PosPara.Pcs_Required;
+            colOtherAdd.Visible = PosPara.OtherAdd_Required;
+            colOtherLess.Visible = PosPara.OtherLess_Required;
+            colRate.Visible = PosPara.Rate_Required;
+
+
+            colCgst.Visible = PosPara.Tax_Required;
+            colCgstPer.Visible = PosPara.Tax_Required;
+            colSgstPer.Visible = PosPara.Tax_Required;
+            colSgst.Visible = PosPara.Tax_Required;
+            colIgstPer.Visible = PosPara.Tax_Required;
+            colIgst.Visible = PosPara.Tax_Required;
+            colCess.Visible = PosPara.Cess_Required;
+            colCessPer.Visible = PosPara.Cess_Required;
+
+            colCgst.OptionsColumn.AllowFocus = PosPara.Tax_Editable;
+            colCgstPer.OptionsColumn.AllowFocus = PosPara.Tax_Editable;
+            colSgstPer.OptionsColumn.AllowFocus = PosPara.Tax_Editable;
+            colSgst.OptionsColumn.AllowFocus = PosPara.Tax_Editable;
+            colIgstPer.OptionsColumn.AllowFocus = PosPara.Tax_Editable;
+            colIgst.OptionsColumn.AllowFocus = PosPara.Tax_Editable;
+            colCess.OptionsColumn.AllowFocus = PosPara.Tax_Editable;
+            colCessPer.OptionsColumn.AllowFocus = PosPara.Tax_Editable;
+
+
 
             //Rate Decimal Settings
             var repo1 = new RepositoryItemTextEdit();
@@ -831,7 +1078,7 @@ namespace Konto.Pos.Sales
             using (var db = new KontoContext())
             {
                 var _paralists = db.CompParas.Include("SysPara")
-                              .Where(x => x.SysPara.Category == "SaleInvoice" && x.CompId == KontoGlobals.CompanyId)
+                              .Where(x => x.SysPara.Category == "PosInvoice" && x.CompId == KontoGlobals.CompanyId)
                              .ToList();
 
                 foreach (var item in _paralists)
@@ -840,80 +1087,94 @@ namespace Konto.Pos.Sales
                     switch (item.ParaId)
                     {
 
-                        case 59:
+                        
+                        case 249:
                             {
-                                BillPara.Color_Required = (value == "Y") ? true : false;
+                                PosPara.Cut_Required = (value == "Y") ? true : false;
                                 break;
                             }
-                        case 60:
+                        case 250:
                             {
-                                BillPara.Grade_Required = (value == "Y") ? true : false;
+                                PosPara.Freight_Required = (value == "Y") ? true : false;
                                 break;
                             }
-                        case 61:
+                        case 251:
                             {
-                                BillPara.Design_Required = (value == "Y") ? true : false;
+                                PosPara.Default_Invoice_Print = value;
                                 break;
                             }
-                        case 62:
+                        
+                        case 256:
                             {
-                                BillPara.Cut_Required = (value == "Y") ? true : false;
+                                PosPara.Ask_For_Voucher_Selection = (value == "Y") ? true : false;
                                 break;
                             }
-                        case 63:
-                            {
-                                BillPara.Freight_Required = (value == "Y") ? true : false;
-                                break;
-                            }
-                        case 64:
-                            {
-                                BillPara.Tcs_Required = (value == "Y") ? true : false;
-                                break;
-                            }
-                        case 136:
-                            {
-                                BillPara.Default_Invoice_Print = value;
-                                break;
-                            }
-                        case 174:
-                            {
-                                BillPara.Allow_Duplicate_Order_Ecommerce = (value == "Y") ? true : false;
-                                break;
-                            }
-                        case 178:
-                            {
-                                BillPara.Ask_For_Voucher_Selection = (value == "Y") ? true : false;
-                                break;
-                            }
-                        case 216:
+                        case 260:
                             {
 
                                 if (!string.IsNullOrEmpty(value) && Convert.ToInt32(value) >= 2 && Convert.ToInt32(value) <= 4)
-                                    BillPara.Rate_Decimal = Convert.ToInt32(value);
+                                    PosPara.Rate_Decimal = Convert.ToInt32(value);
                                 break;
                             }
-                        case 217:
+                        case 261:
                             {
 
                                 if (!string.IsNullOrEmpty(value) && Convert.ToInt32(value) >= 2 && Convert.ToInt32(value) <= 3)
-                                    BillPara.Qty_Decimal = Convert.ToInt32(value);
+                                    PosPara.Qty_Decimal = Convert.ToInt32(value);
                                 break;
                             }
 
-                        case 225:
+                        case 255:
                             {
-                                BillPara.Tcs_Round_Off = (value == "Y") ? true : false;
+                                PosPara.Tax_RoundOff = (value == "Y") ? true : false;
                                 break;
                             }
-                        case 236:
+                        case 257:
                             {
-                                BillPara.Order_Required = (value == "Y") ? true : false;
+                                PosPara.Order_Required = (value == "Y") ? true : false;
                                 break;
                             }
 
-                        case 239:
+                        case 258:
                             {
-                                BillPara.HsnCode_Required = (value == "Y") ? true : false;
+                                PosPara.Move_Next_Barcode = (value == "Y") ? true : false;
+                                break;
+                            }
+                        case 259:
+                            {
+                                PosPara.HsnCode_Required = (value == "Y") ? true : false;
+                                break;
+                            }
+                        case 262:
+                            {
+                                PosPara.Pcs_Required = (value == "Y") ? true : false;
+                                break;
+                            }
+                        case 263:
+                            {
+                                PosPara.Merge_Qty_For_Same_Barcode = (value == "Y") ? true : false;
+                                break;
+                            }
+                        case 264:
+                            {
+                                PosPara.Rate_Required = (value == "Y") ? true : false;
+                                break;
+                            }
+                        case 265:
+                            {
+                                PosPara.Tax_Required = (value == "Y") ? true : false;
+                                break;
+                            }
+                        case 266:
+                            {
+                                PosPara.Tax_Editable = (value == "Y") ? true : false;
+                                break;
+                            }
+                        case 267:
+                            {
+                                if(!string.IsNullOrEmpty(value))
+                                    PosPara.Post_Sale_Discount_Account_Id = Convert.ToInt32(value);
+
                                 break;
                             }
                     }
@@ -995,13 +1256,14 @@ namespace Konto.Pos.Sales
             
             var trans = grnTransDtoBindingSource1.DataSource as List<BillTransDto>;
 
-            if ( string.IsNullOrEmpty(invTypeLookUpEdit.Text))
-            {
-                MessageBoxAdv.Show(this, "Invalid Invoice Type", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                invTypeLookUpEdit.Focus();
-                return false;
-            }
-            else if (Convert.ToInt32(voucherLookup1.SelectedValue) == 0)
+            //if (string.IsNullOrEmpty(invTypeLookUpEdit.Text))
+            //{
+            //    MessageBoxAdv.Show(this, "Invalid Invoice Type", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //    invTypeLookUpEdit.Focus();
+            //    return false;
+            //}
+             if(Convert.ToInt32(voucherLookup1.SelectedValue) == 0)
+
             {
                 MessageBoxAdv.Show(this, "Invalid Voucher", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 voucherLookup1.Focus();
@@ -1033,7 +1295,7 @@ namespace Konto.Pos.Sales
                 voucherDateEdit.Focus();
                 return false;
             }
-            if (string.IsNullOrEmpty(stateLookUpEdit.Text))
+            if ( stateLookUpEdit.Visible && string.IsNullOrEmpty(stateLookUpEdit.Text))
             {
                 MessageBoxAdv.Show(this, "Invalid Destination State", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 stateLookUpEdit.Focus();
@@ -1173,7 +1435,7 @@ namespace Konto.Pos.Sales
             vehicleNoTextEdit.Text = model.VehicleNo;
             ewayBillTextEdit.Text = model.EwayBillNo;
             dueDaysTextEdit.Text = model.Duedays.ToString();
-            extra1TextEdit.Text = model.Extra1; // others reference no
+           // customerNameTextEdit.Text = model.Extra1; // others reference no
            
 
             if(model.RcdDate!=null)
@@ -1192,6 +1454,17 @@ namespace Konto.Pos.Sales
 
                 _context.Database.CommandTimeout = 0;
 
+                if (!string.IsNullOrEmpty(model.Extra2))
+                {
+                    var cust = _context.Customers.SingleOrDefault(x => x.MobileNo == model.Extra2);
+                    if (cust != null)
+                    {
+                        customerNameTextEdit.Text = cust.CustomerName;
+                        gstInTextEdit.Text = cust.GstNo;
+                        addressTextEdit.Text = cust.Address;
+                    }
+                }
+
                 var _lst = (from bt in _context.BillTrans
                             join p in _context.Products on bt.ProductId equals p.Id
                             join um in _context.Uoms on bt.UomId equals um.Id
@@ -1209,6 +1482,9 @@ namespace Konto.Pos.Sales
                             from ort in joinOrt.DefaultIfEmpty()
                             join or in _context.Ords on ort.OrdId equals or.Id into joinOr
                             from or in joinOr.DefaultIfEmpty()
+                            join e in _context.Emps on bt.RefBankId equals e.Id into join_e
+                            from em in join_e.DefaultIfEmpty()
+                            join pr in _context.Prices on p.Id equals pr.ProductId
                             orderby bt.Id
                             where bt.BillId == model.Id && !bt.IsDeleted && bt.IsActive
                             select new BillTransDto
@@ -1255,7 +1531,11 @@ namespace Konto.Pos.Sales
                                 RefId = bt.RefId,
                                 RefTransId = bt.RefTransId,
                                 RefVoucherId = bt.RefVoucherId,
-                                SaleRate=bt.SaleRate,HsnCode = p.HsnCode
+                                SaleRate = bt.SaleRate, HsnCode = p.HsnCode,
+                                Barcode = p.BarCode, ChkNegative = p.CheckNegative,
+                                EmpId = bt.RefBankId != null ? (int)bt.RefBankId : 0,
+                                ItemStatus = bt.RpType, CostRate = pr.DealerPrice,
+                                Mrp = pr.Mrp, RatePerQty = p.Price2,Salesman = em.EmpName
                             }
                             ).ToList();
 
@@ -1380,27 +1660,144 @@ namespace Konto.Pos.Sales
         private void GridView1_CellValueChanged(object sender, DevExpress.XtraGrid.Views.Base.CellValueChangedEventArgs e)
         {
             if (e.Column == null) return;
-            if (!(gridView1.GetRow(e.RowHandle) is BillTransDto er)) return;
-            GridCalculation(er,e.Column.FieldName);
+
+            if (!(gridView1.GetRow(e.RowHandle) is BillTransDto model)) return;
+
+
+            if (e.Column.FieldName == "Barcode" && e.Value != null && !string.IsNullOrEmpty(e.Value.ToString()))
+            {
+                var pos = DbUtils.GetProductDetails(e.Value.ToString());
+
+                if (pos == null)
+                {
+                    MessageBox.Show("Barcode Not Found..");
+
+                    if (gridView1.ActiveEditor.OldEditValue != null)
+                        model.Barcode = gridView1.ActiveEditor.OldEditValue.ToString();
+                    else
+                        model.Barcode = string.Empty;
+
+                    BeginInvoke(new MethodInvoker(() =>
+                    {
+                        gridView1.FocusedColumn = colBarcode;
+                    }));
+                        
+                    return;
+                }
+
+                // merge same barcode/product qty
+                if (PosPara.Merge_Qty_For_Same_Barcode && gridView1.RowCount > 1)
+                {
+                    var _details = grnTransDtoBindingSource1.DataSource as List<BillTransDto>;
+                    var pmodel = _details.FirstOrDefault(x => x.Barcode == e.Value.ToString() && x.Id != model.Id);
+                    if (pmodel != null)
+                    {
+                        pmodel.Qty = pmodel.Qty + 1;
+                        pmodel.Pcs = pmodel.Pcs + 1;
+                        gridView1.DeleteRow(e.RowHandle);
+                        gridControl1.RefreshDataSource();
+                        GridCalculation(pmodel, e.Column.FieldName);
+                        BeginInvoke(new MethodInvoker(() =>
+                        {
+                            gridView1.FocusedColumn = colBarcode;
+                        }));
+
+                        return;
+                    }
+                    
+                }
+                   model.ProductId = pos.Id;
+                    model.EmpId = Convert.ToInt32(empLookup1.SelectedValue);
+                    model.Salesman = empLookup1.SelectedText;
+
+                model.ChkNegative = pos.CheckNegative;
+                    model.Barcode = pos.BarCode;
+
+                    model.HsnCode = pos.HsnCode;
+
+                    model.ProductName = pos.ProductName;
+
+                model.Stock = Convert.ToDecimal( pos.StockQty);
+                    model.ColorId = pos.ColorId;
+
+
+                    model.ColorName = pos.ColorName;
+
+
+                    model.UomId = pos.PurUomId;
+
+                    model.Disc = pos.SaleDisc;
+
+                //  model.ProfitPer = pos.ProfitPer; // price profit %
+
+
+                if (accLookup1.LookupDto.RateType == "BLK")
+                {
+                    model.SaleRate = pos.Rate1;
+                }
+                else if (accLookup1.LookupDto.RateType == "SMBLK")
+                    model.SaleRate = pos.Rate2;
+                else
+                    model.SaleRate = pos.SaleRate;
+                    
+                    if(model.SaleRate==0)
+                        model.SaleRate = pos.SaleRate;
+
+                if (accLookup1.LookupDto.IsGst && !isImortOrSez)
+                {
+                    model.SgstPer = pos.Sgst;
+                    model.CgstPer = pos.Cgst;
+                    model.IgstPer = 0;
+                    model.Igst = 0;
+                }
+                else
+                {
+                    model.SgstPer = 0;
+                    model.Sgst = 0;
+                    model.CgstPer = 0;
+                    model.Cgst = 0;
+                    model.IgstPer = pos.Igst;
+                }
+                model.CessPer = pos.Cess;
+
+                model.Rate = decimal.Round((model.SaleRate * 100) / (100 + (model.SgstPer + model.CgstPer + model.IgstPer)), 2, MidpointRounding.AwayFromZero);
+
+                    model.Qty = 1;
+                    model.Pcs = 1;
+
+                    model.Mrp = pos.Mrp;
+
+
+                    
+                    model.ItemStatus = "Y";
+
+                // for moving focus after scannig barcode
+                GridFocus();
+            }
+
+            GridCalculation(model, e.Column.FieldName);
         }
+        
         private void GridView1_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode != Keys.Delete) return;
+            if (e.KeyCode != Keys.Delete && e.KeyCode!=Keys.Enter) return;
+
+            GridView view = sender as GridView;
+            var row = view.GetRow(view.FocusedRowHandle) as BillTransDto;
 
             if (e.KeyCode == Keys.Delete && e.Modifiers == Keys.Control)
             {
                 if (MessageBox.Show("Delete row?", "Confirmation", MessageBoxButtons.YesNo) !=
                   DialogResult.Yes)
                     return;
-                GridView view = sender as GridView;
-                var row = view.GetRow(view.FocusedRowHandle) as BillTransDto;
+                
                 view.DeleteRow(view.FocusedRowHandle);
                 DelTrans.Add(row);
                 FinalTotal();
             }
             else if (e.KeyCode == Keys.Delete)
             {
-                GridView view = sender as GridView;
+                
                 if (gridView1.FocusedColumn.FieldName == "ColorName")
                 {
                     view.SetRowCellValue(view.FocusedRowHandle, colColorName, string.Empty);
@@ -1412,6 +1809,8 @@ namespace Konto.Pos.Sales
                     view.SetRowCellValue(view.FocusedRowHandle, colDesignId, 0);
                 }
             }
+           
+
 
         }
 
@@ -1425,9 +1824,11 @@ namespace Konto.Pos.Sales
         {
             try
             {
+                if (e.KeyCode != Keys.Enter && e.KeyCode != Keys.F1) return;
                 if (Convert.ToInt32(accLookup1.SelectedValue) == 0) return;
                 var dr = PreOpenLookup();
                 if (dr == null) return;
+
                 if (gridView1.FocusedColumn.FieldName == "ProductName")
                 {
 
@@ -1445,55 +1846,32 @@ namespace Konto.Pos.Sales
                         e.Handled = true;
                     }
                 }
-                else if (gridView1.FocusedColumn.FieldName == "ColorName")
+                else if (gridView1.FocusedColumn.FieldName == "Salesman")
                 {
+
                     if (e.KeyCode == Keys.Return)
                     {
-                        if (dr.ColorId == 0)
+                        if (dr.EmpId == 0)
                         {
-                            OpenColorLookup(dr.ColorId, dr);
+                            OpenEmpLookup(dr.EmpId, dr);
                             // e.Handled = true;
                         }
                     }
                     else if (e.KeyCode == Keys.F1)
                     {
-                        OpenColorLookup(dr.ProductId, dr);
+                        OpenEmpLookup(dr.EmpId, dr);
                         e.Handled = true;
                     }
                 }
-                else if (gridView1.FocusedColumn.FieldName == "GradeName")
+
+                else if (gridView1.FocusedColumn.FieldName == "Barcode" && gridView1.ActiveEditor == null)
                 {
-                    if (e.KeyCode == Keys.Return)
-                    {
-                        if (dr.GradeId == 0)
-                        {
-                            OpenGradeLookup(dr.GradeId, dr);
-                            // e.Handled = true;
-                        }
-                    }
-                    else if (e.KeyCode == Keys.F1)
-                    {
-                        OpenGradeLookup(dr.GradeId, dr);
-                        e.Handled = true;
-                    }
+                    gridView1.DeleteRow(gridView1.FocusedRowHandle);
+                    this.SelectNextControl(gridControl1, true, true, true, true);
                 }
-                else if (gridView1.FocusedColumn.FieldName == "DesignName")
-                {
-                    if (e.KeyCode == Keys.Return)
-                    {
-                        if (dr.DesignId == 0)
-                        {
-                            OpenDesignLookup(dr.DesignId, dr);
-                            // e.Handled = true;
-                        }
-                    }
-                    else if (e.KeyCode == Keys.F1)
-                    {
-                        OpenDesignLookup(dr.DesignId, dr);
-                        e.Handled = true;
-                    }
-                }
-               
+
+
+
             }
             catch (Exception ex)
             {
@@ -1548,8 +1926,14 @@ namespace Konto.Pos.Sales
                 this.delvLookup.SelectedValue = this.accLookup1.SelectedValue;
                 this.delvLookup.buttonEdit1.Text = this.accLookup1.SelectedText;
                 this.delvLookup.SelectedText = this.accLookup1.SelectedText;
-               // addressLookup1.SetValue(this.delvLookup.LookupDto.AddressId);
-               // addressLookup1.SelectedValue = this.delvLookup.LookupDto.AddressId;
+                gstInTextEdit.Text = this.accLookup1.LookupDto.GSTIN;
+                customerNameTextEdit.Text = this.accLookup1.LookupDto.AccName;
+                addressTextEdit.Text = this.accLookup1.LookupDto.FullAddress;
+                
+                extra2TextEdit.Text = this.accLookup1.LookupDto.MobileNo;
+
+                // addressLookup1.SetValue(this.delvLookup.LookupDto.AddressId);
+                // addressLookup1.SelectedValue = this.delvLookup.LookupDto.AddressId;
                 //addressLookup1.buttonEdit1.Text = this.delvLookup.LookupDto.FullAddress;
                 dueDaysTextEdit.Text = this.accLookup1.LookupDto.CrDays.ToString();
                 if (this.accLookup1.LookupDto.TcsReq.ToUpper() == "YES")
@@ -1589,7 +1973,7 @@ namespace Konto.Pos.Sales
                 var _ListView = new SalesListView();
                 _ListView.Dock = DockStyle.Fill;
                 tabPageAdv2.Controls.Add(_ListView);
-                this.Text = "Sales Invoices [View]";
+                this.Text = "Pos [View]";
 
             }
             else if (tabControlAdv1.SelectedIndex == 2)
@@ -1625,7 +2009,7 @@ namespace Konto.Pos.Sales
             catch (Exception ex)
             {
 
-                Log.Error(ex, "Sales Invoice Save");
+                Log.Error(ex, "Pos Save");
                 MessageBoxAdv.Show(this, "Error While Save !!", "Exception ", ex.ToString());
             }
         }
@@ -1691,7 +2075,7 @@ namespace Konto.Pos.Sales
             }
             catch (Exception ex)
             {
-                Log.Error(ex, "Sales print");
+                Log.Error(ex, "Pos print");
                 MessageBoxAdv.Show(this, "Error While Print !!", "Exception ", ex.ToString());
 
             }
@@ -1700,7 +2084,7 @@ namespace Konto.Pos.Sales
         {
             base.NewRec();
             this.FilterView = new List<BillModel>();
-            this.Text = "Sales Voucher [Add New]";
+            this.Text = "Pos [Add New]";
             IsLoadData = false;
             paidLabel.Text = "UN-PAID";
 
@@ -1712,6 +2096,9 @@ namespace Konto.Pos.Sales
             
             empLookup1.SelectedValue = 1;
             empLookup1.SetGroup();
+            
+            extra2TextEdit.Text = "0000000000";
+            accLookup1.WalkInCustomer();
             createdLabelControl.Text = "Create By: " + KontoGlobals.UserName;
             modifyLabelControl.Text = string.Empty;
             this.ActiveControl = voucherLookup1.buttonEdit1;
@@ -1762,7 +2149,7 @@ namespace Konto.Pos.Sales
             billAmtSpinEdit.Value = 0;
             tcsAmtTextEdit.Value = 0;
             tcsPerTextEdit.Value = 0;
-            extra1TextEdit.Text = string.Empty;
+            //extra1TextEdit.Text = string.Empty;
             extra2TextEdit.Text = string.Empty;
             
             DelTrans = new List<BillTransDto>();
@@ -1865,7 +2252,9 @@ namespace Konto.Pos.Sales
             var _find = new BillModel();
             var config = new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<BillTransDto, BillTransModel>().ForMember(x => x.Id, p => p.Ignore());
+            cfg.CreateMap<BillTransDto, BillTransModel>().ForMember(x => x.Id, p => p.Ignore())
+            .ForMember(x => x.RefBankId, p => p.MapFrom(src => src.EmpId))
+            .ForMember(x => x.RpType, p => p.MapFrom(src => src.ItemStatus));
                
             });
             
@@ -1932,9 +2321,28 @@ namespace Konto.Pos.Sales
                         //Bill Reference Update
                         LedgerEff.BillRefEntry("Debit",_find,0,db);       //Insert or update in Billref table
 
-                        //Insert or update in LedgerTrans table
-                        LedgerEff.LedgerTransEntry("Debit", _find, db, Trans);
+                        BillPay _bp = null;
 
+                        if (this.PrimaryKey == 0)
+                        {
+                            var frm = new SalesPayView();
+                            frm.db = db;
+                            frm.BillNo = _find.VoucherNo;
+                            frm.BillAmt = _find.TotalAmount;
+                            frm.BillId = _find.Id;
+                            if (frm.ShowDialog() == DialogResult.OK)
+                            {
+                                _bp = frm.BP;
+
+                            }
+                        }
+
+
+                        //Insert or update in LedgerTrans table
+                        if (this.PrimaryKey==0)
+                            LedgerEff.LedgerTransEntry("Debit", _find, db, Trans,_bp);
+                        else
+                            LedgerEff.LedgerTransEntry("Debit", _find, db, Trans,_bp); // for update billpayment
 
                         // Insert in BtoB for BillAdjustment
                         LedgerEff.BtoBEntry("SInvoice", _find.Id, _find, db, BillList);
@@ -1963,14 +2371,35 @@ namespace Konto.Pos.Sales
                         //if(this.PrimaryKey==0)
                         //    DbUtils.UsedSerial(_find.VoucherId, _SerialValue, db);
 
+                        // Customer Master check if mobile no of length 10
+                        if (_find.Extra2.Length == 10)
+                        {
+                            var cust = db.Customers.FirstOrDefault(x => x.MobileNo == _find.Extra2);
+                            if (cust == null)
+                            {
+                                cust = new Data.Models.Pos.CustomerModel();
+                            }
+                            cust.CustomerName = customerNameTextEdit.Text.Trim();
+                            cust.MobileNo = _find.Extra2;
+                            cust.Address = addressTextEdit.Text;
+                            cust.GstNo = gstInTextEdit.Text;
+                            if (cust.Id == 0)
+                                db.Customers.Add(cust);
+                        }
+
                         db.SaveChanges();
+
+                       
+                        
+                       
+
                         _tran.Commit();
                         IsSaved = true;
                     }
                     catch (Exception ex)
                     {
                         _tran.Rollback();
-                        Log.Error(ex, "Sales Voucher " +" Save");
+                        Log.Error(ex, "Pos Voucher " +" Save");
                         MessageBoxAdv.Show(this, "Error While Save !!", "Exception ", ex.ToString());
 
                     }
@@ -1983,7 +2412,7 @@ namespace Konto.Pos.Sales
             {
                // NewRec();
                
-                MessageBoxAdv.Show(this, KontoGlobals.SaveMessage +" Voucher No.: " + _find.VoucherNo, "Saved !", MessageBoxButtons.OK, MessageBoxIcon.Information);
+               // MessageBoxAdv.Show(this, KontoGlobals.SaveMessage +" Voucher No.: " + _find.VoucherNo, "Saved !", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 if (!this.OpenForLookup && newmode)
                 {
                     if (this.voucherLookup1.GroupDto.PrintAfterSave && MessageBox.Show("Print Bill ?", "Print", MessageBoxButtons.YesNo) == DialogResult.Yes)
@@ -2058,7 +2487,7 @@ namespace Konto.Pos.Sales
             model.StateId = Convert.ToInt32(stateLookUpEdit.EditValue);
             model.VoucherNo = voucherNoTextEdit.Text.Trim();
             model.Extra2 = extra2TextEdit.Text.Trim();
-            model.Extra1 = extra1TextEdit.Text.Trim();
+            model.Extra1 = customerNameTextEdit.Text.Trim();
             model.Duedays = Convert.ToInt32(dueDaysTextEdit.Value);
             model.VehicleNo = vehicleNoTextEdit.Text.Trim();
             model.TcsPer = tcsPerTextEdit.Value;
@@ -2082,8 +2511,19 @@ namespace Konto.Pos.Sales
             return true;
 
         }
-      
+
         #endregion
 
+        private void extra2TextEdit_Enter(object sender, EventArgs e)
+        {
+            var edit = sender as TextEdit;
+            BeginInvoke(new MethodInvoker(() =>
+            {
+                edit.SelectionStart = 0;
+                edit.SelectionLength = edit.Text.Length;
+            }));
+        }
+
+        
     }
 }

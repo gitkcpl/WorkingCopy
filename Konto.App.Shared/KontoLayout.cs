@@ -177,6 +177,9 @@ namespace Konto.App.Shared
         public const string Sc_Index = "sc\\sc_index.xml";
         public const string Sc_Trans = "sc\\sc_trans.xml";
 
+        public const string Stock_Transfer_Index = "sc\\st_index.xml";
+        public const string Stock_Transfer_Trans = "sc\\st_trans.xml";
+
         public const string Purchase_Index = "PI\\purchase_index.xml";
         public const string Purchase_Trans = "PI\\purchase_trans.xml";
 
@@ -185,6 +188,8 @@ namespace Konto.App.Shared
 
         public const string Sales_Index = "SI\\sales_index.xml";
         public const string Sales_Trans = "SI\\sales_trans.xml";
+
+       
 
         public const string Sales_Return_Index = "SR\\sales_return_index.xml";
         public const string Sales_Return_Trans = "SR\\sales_return_trans.xml";
@@ -301,6 +306,17 @@ namespace Konto.App.Shared
 
         public const string Pos_Purchase_Index = "pos\\purchas_index.xml";
         public const string Pos_Purchase_Trans = "pos\\purchas_trans.xml";
+
+        public const string Pos_Sales_Index = "pos\\sales_index.xml";
+        public const string Pos_Sales_Trans = "pos\\sales_trans.xml";
+
+        public const string Pos_Sales_Return_Index = "pos\\sales_return_index.xml";
+        public const string Pos_Sales_Return_Trans = "pos\\sales_return_trans.xml";
+
+        public const string Pos_Purchase_Return_Index = "pos\\purchas_return_index.xml";
+        public const string Pos_Purchase_Return_Trans = "pos\\purchas_return_trans.xml";
+
+        public const string Pay_Mode_Master_List = "masters\\pay_model_list.xml";
 
         #endregion
     }

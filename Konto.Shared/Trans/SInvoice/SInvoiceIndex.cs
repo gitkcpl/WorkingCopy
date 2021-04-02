@@ -12,6 +12,7 @@ using Konto.Core.Shared;
 using Konto.Core.Shared.Frms;
 using Konto.Core.Shared.Libs;
 using Konto.Data;
+using Konto.Data.Models.Masters;
 using Konto.Data.Models.Masters.Dtos;
 using Konto.Data.Models.Transaction;
 using Konto.Data.Models.Transaction.Dtos;
@@ -53,7 +54,9 @@ namespace Konto.Shared.Trans.SInvoice
         private List<PendBillListDto> AllBill = new List<PendBillListDto>();
         private bool IsLoadData = false;
 
-       
+        private List<SerialBatchDto> Serials = new List<SerialBatchDto>();
+        private List<SerialBatchDto> DelSerials = new List<SerialBatchDto>();
+
         public SInvoiceIndex()
         {
             InitializeComponent();
@@ -129,6 +132,11 @@ namespace Konto.Shared.Trans.SInvoice
            // colIgst.OptionsColumn.AllowFocus = true;
             colIgstPer.OptionsColumn.AllowFocus = true;
             SetGridColumn();
+
+            if (!BillPara.Party_Wise_Challan)
+            {
+                GetPendingChallan(0);
+            }
         }
 
         private void VoucherLookup1_SelectedValueChanged(object sender, EventArgs e)
@@ -224,135 +232,8 @@ namespace Konto.Shared.Trans.SInvoice
                     GetOrderPending(accLookup1.LookupDto);
                     return;
                 }
-
-                var grnfrm = new PendingGrnForPurchase();
-                grnfrm.VoucherType = VoucherTypeEnum.SalesChallan;
-                grnfrm.ChallanType = ChallanTypeEnum.SALES_CHALLAN;
-                grnfrm.ChallanTypeId = "6,9";
-                grnfrm.AccId = Convert.ToInt32(accLookup1.SelectedValue);
-                grnfrm.Text = "Select Pending Challan";
-                if (grnfrm.ShowDialog() != DialogResult.OK) return;
-
-                Int32[] selectedRowHandles = grnfrm.SelectedRows;
-                if (selectedRowHandles == null || selectedRowHandles.Count() == 0) return;
-
-                List<BillTransDto> transDtos = new List<BillTransDto>();
-
-                var db = new KontoContext();
-                string bill = string.Empty, ordr = string.Empty;
-                foreach (var item in selectedRowHandles)
-                {
-                    var chln = grnfrm.gridView1.GetRow(item) as PendingChallanOnInvoiceDto;
-
-                    var prlist = new List<PendingChallanOnInvoiceDetDto>();
-                    var spcol = db.SpCollections.FirstOrDefault(k => k.Id ==
-                                (int)SpCollectionEnum.PendingChallanOnInvoiceDet);
-                    if (spcol == null)
-                    {
-                        prlist = db.Database.SqlQuery<PendingChallanOnInvoiceDetDto>(
-                        "dbo.PendingChallanOnInvoiceDet @CompanyId={0},@ChallanID={1}",
-                        Convert.ToInt32(KontoGlobals.CompanyId), (int)chln.Id).ToList();
-                    }
-                    else
-                    {
-                        prlist = db.Database.SqlQuery<PendingChallanOnInvoiceDetDto>(
-                         spcol.Name + "  @CompanyId={0},@ChallanID={1}",
-                          Convert.ToInt32(KontoGlobals.CompanyId), (int)chln.Id).ToList();
-                    }
-                    
-                    foreach (var ch in prlist)
-                    {
-                        BillTransDto ct = new BillTransDto();
-                        ct.ProductId = ch.ProductId;
-                        ct.ProductName = ch.Product;
-                        ct.Pcs = Convert.ToInt32(ch.Pcs);
-                        ct.Qty = ch.Qty != null ? (decimal)ch.Qty : 0;
-                        ct.Rate = ch.Rate != null ? (decimal)ch.Rate : 0;
-                        ct.Disc = ch.Disc;
-                        ct.DiscAmt = ch.DiscAmt;
-                        ct.UomId = ch.UomId;
-                        ct.LotNo = ch.LotNo;
-                        ct.DesignId = Convert.ToInt32(ch.DesignId);
-                        ct.ColorId = Convert.ToInt32(ch.ColorId);
-                        ct.GradeId = Convert.ToInt32(ch.GradeId);
-                        ct.DesignName = ch.DesignNo;
-                        ct.ColorName = ch.ColorName;
-                        ct.GradeName = ch.GradeName;
-                        if (ch.ChallanNo != null && !bill.Contains(ch.ChallanNo))
-                        {
-                            if(string.IsNullOrEmpty(bill))
-                                bill = ch.ChallanNo;
-                            else
-                                bill = bill + "," + ch.ChallanNo;
-                        }
-                        if (ch.OrderNO != null && !ordr.Contains(ch.OrderNO))
-                        {
-                            if(string.IsNullOrEmpty(ordr))
-                                ordr =  ch.OrderNO;
-                            else
-                                ordr = ordr + "," + ch.OrderNO;
-                        }
-                        ct.ChallanNo = ch.ChallanNo;
-                        ct.ChallanDate = ch.ChallanDate;
-                        ct.RefId = ch.Id;
-                        ct.RefTransId = ch.TransId;
-                        ct.RefVoucherId = ch.VoucherId;
-                        ct.OrderNo = ch.OrderNO;
-                        ct.OrderDate = ch.OrderDate;
-                        ct.OrdId = ch.OrdId;
-                        ct.FreightRate = ch.FreightRate != 0 ? ch.FreightRate : 0;
-                        ct.Freight = ch.Freight != 0 ? ch.Freight : 0;
-                        ct.OtherAdd = ch.OtherAdd;
-                        ct.OtherLess = ch.OtherLess;
-
-                        ct.Total = Convert.ToDecimal(ch.Total);
-                        ct.DiscAmt = ct.DiscAmt;
-                        if (accLookup1.LookupDto.IsGst && !isImortOrSez)
-                        {
-                            ct.SgstPer = ch.Sgst;
-                            ct.CgstPer = ch.Cgst;
-                            ct.IgstPer = 0;
-                            ct.Igst = 0;
-                        }
-                        else
-                        {
-                            ct.Sgst = 0;
-                            ct.SgstPer = 0;
-                            ct.Cgst = 0;
-                            ct.CgstPer = 0;
-                            ct.IgstPer = ch.Igst;
-                        }
-                        var gross = ct.Total - ct.DiscAmt + ct.Freight + ct.OtherAdd - ct.OtherLess;
-                        if (BillPara.Tax_RoundOff)
-                        {
-                            ct.Sgst = decimal.Round(gross * ct.SgstPer / 100, 0);
-                            ct.Cgst = decimal.Round(gross * ct.CgstPer / 100, 0); //, MidpointRounding.AwayFromZero);
-                            ct.Igst = decimal.Round(gross * ct.IgstPer / 100, 0); //, MidpointRounding.AwayFromZero);
-                        }
-                        else
-                        {
-                            ct.Sgst = decimal.Round(gross * ct.SgstPer / 100, 2);
-                            ct.Cgst = decimal.Round(gross * ct.CgstPer / 100, 2); //, MidpointRounding.AwayFromZero);
-                            ct.Igst = decimal.Round(gross * ct.IgstPer / 100, 2); //, MidpointRounding.AwayFromZero);
-                        }
-                        ct.Cess = decimal.Round(ct.Qty * ct.CessPer, 2);
-
-                        if (isImortOrSez)
-                        {
-                            ct.NetTotal = gross;
-                        }
-                        else if (!isImortOrSez)
-                        {
-                            ct.NetTotal = gross + ct.Sgst + ct.Cgst + ct.Igst + ct.Cess; // ct er.CessAmt; 
-                        }
-                        transDtos.Add(ct);
-                    }
-
-                }
-                refNoTextEdit.Text = ordr;
-                challanNotextEdit.Text = bill;
-                grnTransDtoBindingSource1.DataSource = transDtos;
-                FinalTotal();
+                GetPendingChallan(accLookup1.LookupDto.Id);
+                
             }
             catch (Exception ex)
             {
@@ -363,7 +244,151 @@ namespace Konto.Shared.Trans.SInvoice
             
         }
 
+        private void GetPendingChallan(int accid)
+        {
+            var grnfrm = new PendingGrnForPurchase();
+            grnfrm.VoucherType = VoucherTypeEnum.SalesChallan;
+            grnfrm.ChallanType = ChallanTypeEnum.SALES_CHALLAN;
+            grnfrm.ChallanTypeId = "6,9";
+            grnfrm.AccId = accid;
+            grnfrm.Text = "Select Pending Challan";
+            if (grnfrm.ShowDialog() != DialogResult.OK) return;
 
+            Int32[] selectedRowHandles = grnfrm.SelectedRows;
+            if (selectedRowHandles == null || selectedRowHandles.Count() == 0) return;
+
+            List<BillTransDto> transDtos = new List<BillTransDto>();
+
+            var db = new KontoContext();
+            string bill = string.Empty, ordr = string.Empty;
+
+            // if not party wise pending
+            if (selectedRowHandles.Length > 0 && !BillPara.Party_Wise_Challan)
+            {
+                var row = grnfrm.gridView1.GetRow(selectedRowHandles[0]) as PendingChallanOnInvoiceDto;
+                if (row != null)
+                {
+                    accLookup1.SetAcc(row.AccId);
+                    accLookup1.SelectedValue = row.AccId;
+                    challanNotextEdit.Text = row.ChallanNo;
+                    rcdDateEdit1.DateTime = row.ChallanDate;
+                }
+            }
+
+            foreach (var item in selectedRowHandles)
+            {
+                var chln = grnfrm.gridView1.GetRow(item) as PendingChallanOnInvoiceDto;
+
+                var prlist = new List<PendingChallanOnInvoiceDetDto>();
+                var spcol = db.SpCollections.FirstOrDefault(k => k.Id ==
+                            (int)SpCollectionEnum.PendingChallanOnInvoiceDet);
+                if (spcol == null)
+                {
+                    prlist = db.Database.SqlQuery<PendingChallanOnInvoiceDetDto>(
+                    "dbo.PendingChallanOnInvoiceDet @CompanyId={0},@ChallanID={1}",
+                    Convert.ToInt32(KontoGlobals.CompanyId), (int)chln.Id).ToList();
+                }
+                else
+                {
+                    prlist = db.Database.SqlQuery<PendingChallanOnInvoiceDetDto>(
+                     spcol.Name + "  @CompanyId={0},@ChallanID={1}",
+                      Convert.ToInt32(KontoGlobals.CompanyId), (int)chln.Id).ToList();
+                }
+
+                foreach (var ch in prlist)
+                {
+                    BillTransDto ct = new BillTransDto();
+                    ct.ProductId = ch.ProductId;
+                    ct.ProductName = ch.Product;
+                    ct.Pcs = Convert.ToInt32(ch.Pcs);
+                    ct.Qty = ch.Qty != null ? (decimal)ch.Qty : 0;
+                    ct.Rate = ch.Rate != null ? (decimal)ch.Rate : 0;
+                    ct.Disc = ch.Disc;
+                    ct.DiscAmt = ch.DiscAmt;
+                    ct.UomId = ch.UomId;
+                    ct.LotNo = ch.LotNo;
+                    ct.DesignId = Convert.ToInt32(ch.DesignId);
+                    ct.ColorId = Convert.ToInt32(ch.ColorId);
+                    ct.GradeId = Convert.ToInt32(ch.GradeId);
+                    ct.DesignName = ch.DesignNo;
+                    ct.ColorName = ch.ColorName;
+                    ct.GradeName = ch.GradeName;
+                    if (ch.ChallanNo != null && !bill.Contains(ch.ChallanNo))
+                    {
+                        if (string.IsNullOrEmpty(bill))
+                            bill = ch.ChallanNo;
+                        else
+                            bill = bill + "," + ch.ChallanNo;
+                    }
+                    if (ch.OrderNO != null && !ordr.Contains(ch.OrderNO))
+                    {
+                        if (string.IsNullOrEmpty(ordr))
+                            ordr = ch.OrderNO;
+                        else
+                            ordr = ordr + "," + ch.OrderNO;
+                    }
+                    ct.ChallanNo = ch.ChallanNo;
+                    ct.ChallanDate = ch.ChallanDate;
+                    ct.RefId = ch.Id;
+                    ct.RefTransId = ch.TransId;
+                    ct.RefVoucherId = ch.VoucherId;
+                    ct.OrderNo = ch.OrderNO;
+                    ct.OrderDate = ch.OrderDate;
+                    ct.OrdId = ch.OrdId;
+                    ct.FreightRate = ch.FreightRate != 0 ? ch.FreightRate : 0;
+                    ct.Freight = ch.Freight != 0 ? ch.Freight : 0;
+                    ct.OtherAdd = ch.OtherAdd;
+                    ct.OtherLess = ch.OtherLess;
+
+                    ct.Total = Convert.ToDecimal(ch.Total);
+                    ct.DiscAmt = ct.DiscAmt;
+                    if (accLookup1.LookupDto.IsGst && !isImortOrSez)
+                    {
+                        ct.SgstPer = ch.Sgst;
+                        ct.CgstPer = ch.Cgst;
+                        ct.IgstPer = 0;
+                        ct.Igst = 0;
+                    }
+                    else
+                    {
+                        ct.Sgst = 0;
+                        ct.SgstPer = 0;
+                        ct.Cgst = 0;
+                        ct.CgstPer = 0;
+                        ct.IgstPer = ch.Igst;
+                    }
+                    var gross = ct.Total - ct.DiscAmt + ct.Freight + ct.OtherAdd - ct.OtherLess;
+                    if (BillPara.Tax_RoundOff)
+                    {
+                        ct.Sgst = decimal.Round(gross * ct.SgstPer / 100, 0);
+                        ct.Cgst = decimal.Round(gross * ct.CgstPer / 100, 0); //, MidpointRounding.AwayFromZero);
+                        ct.Igst = decimal.Round(gross * ct.IgstPer / 100, 0); //, MidpointRounding.AwayFromZero);
+                    }
+                    else
+                    {
+                        ct.Sgst = decimal.Round(gross * ct.SgstPer / 100, 2);
+                        ct.Cgst = decimal.Round(gross * ct.CgstPer / 100, 2); //, MidpointRounding.AwayFromZero);
+                        ct.Igst = decimal.Round(gross * ct.IgstPer / 100, 2); //, MidpointRounding.AwayFromZero);
+                    }
+                    ct.Cess = decimal.Round(ct.Qty * ct.CessPer, 2);
+
+                    if (isImortOrSez)
+                    {
+                        ct.NetTotal = gross;
+                    }
+                    else if (!isImortOrSez)
+                    {
+                        ct.NetTotal = gross + ct.Sgst + ct.Cgst + ct.Igst + ct.Cess; // ct er.CessAmt; 
+                    }
+                    transDtos.Add(ct);
+                }
+
+            }
+            refNoTextEdit.Text = ordr;
+            challanNotextEdit.Text = bill;
+            grnTransDtoBindingSource1.DataSource = transDtos;
+            FinalTotal();
+        }
         private void GetOrderPending(AccLookupDto dto )
         {
             var ordfrm = new PendingOrderView();
@@ -957,6 +982,11 @@ namespace Konto.Shared.Trans.SInvoice
                                 BillPara.Use_OtherLess_As_RateDiff = (value == "Y") ? true : false;
                                 break;
                             }
+                        case 297:
+                            {
+                                BillPara.Party_Wise_Challan = (value == "Y") ? true : false;
+                                break;
+                            }
                     }
                 }
             }
@@ -1534,7 +1564,32 @@ namespace Konto.Shared.Trans.SInvoice
                         e.Handled = true;
                     }
                 }
-               
+                else if (e.KeyCode == Keys.Enter && gridView1.FocusedColumn.FieldName == "LotNo")
+                {
+                    ProductModel prod;
+                    using (var db = new KontoContext())
+                    {
+                        prod = db.Products.Find(dr.ProductId);
+
+                    }
+                    if (prod.SerialReq == "Yes" && prod.PTypeId == (int)ProductTypeEnum.FINISH)
+                    {
+                        var frms = new SerialNoView();
+                        frms.IsStockSelection = true;
+                        frms._BillTrans = grnTransDtoBindingSource1.DataSource as List<BillTransDto>;
+                        frms.ProductId = dr.ProductId;
+                        frms.RefTransId = dr.Id;
+                        if (frms.ShowDialog() == DialogResult.OK)
+                        {
+                            this.gridView1.FocusedColumn = gridView1.GetVisibleColumn(colQty.VisibleIndex);
+                            dr.Qty = 1;
+                            dr.LotNo = frms.SelectedSerial.SerialNo;
+                            dr.DesignId = frms.SelectedSerial.Id;
+                            GridCalculation(dr, "Qty");
+                        }
+                    }
+                }
+
             }
             catch (Exception ex)
             {
@@ -1801,8 +1856,9 @@ namespace Konto.Shared.Trans.SInvoice
             ewayBillTextEdit.Text = string.Empty;
             roundoffSpinEdit.Value = 0;
             billAmtSpinEdit.Value = 0;
-            tcsAmtTextEdit.Value = 0;
             tcsPerTextEdit.Value = 0;
+            tcsAmtTextEdit.Value = 0;
+            
             extra1TextEdit.Text = string.Empty;
             extra2TextEdit.Text = string.Empty;
             
@@ -1962,6 +2018,20 @@ namespace Konto.Shared.Trans.SInvoice
                             if (item.Id == 0) continue;
                             var _model = db.BillTrans.Find(item.Id);
                             _model.IsDeleted = true;
+
+
+
+                            var stockReq = db.Products.FirstOrDefault(k => k.Id == item.ProductId);
+
+                            //update serial sotck
+                            if (stockReq.SerialReq == "Yes" && stockReq.PTypeId == (int)ProductTypeEnum.FINISH)
+                            {
+                                var sr = db.SerialBatches.Find(item.DesignId);
+                                if (sr != null)
+                                {
+                                    sr.IsActive = true; // remove stock of serials
+                                }
+                            }
                         }
                         
                         //if(!string.IsNullOrEmpty(bill))
@@ -1992,8 +2062,19 @@ namespace Konto.Shared.Trans.SInvoice
                                 bool IsIssue = true;
                                 string TableName = "SaleInvoice";
 
-                                var stockReq = db.Products.FirstOrDefault(k => k.Id == item.ProductId).StockReq;
-                                if (stockReq == "No")
+                                var stockReq = db.Products.FirstOrDefault(k => k.Id == item.ProductId);
+
+                                    //update serial sotck
+                                if(stockReq.SerialReq=="Yes" && stockReq.PTypeId == (int)ProductTypeEnum.FINISH)
+                                {
+                                    var sr = db.SerialBatches.Find(item.DesignId);
+                                    if (sr != null)
+                                    {
+                                        sr.IsActive = false; // remove stock of serials
+                                    }
+                                }
+
+                                if (stockReq.StockReq == "No")
                                 {
                                     continue;
                                 }
@@ -2037,7 +2118,12 @@ namespace Konto.Shared.Trans.SInvoice
                     base.SaveDataAsync(newmode);
                     this.ResetPage();
                     this.NewRec();
+                    if (!BillPara.Party_Wise_Challan)
+                    {
+                        GetPendingChallan(0);
+                    }
                     voucherLookup1.buttonEdit1.Focus();
+
                 }
                 else
                 {

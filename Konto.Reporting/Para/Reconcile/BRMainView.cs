@@ -33,8 +33,26 @@ namespace Konto.Reporting.Para.Reoncile
             this.gridView1.RowUpdated += GridView1_RowUpdated;
             fDateEdit.EditValue = KontoGlobals.DFromDate;
             tDateEdit.EditValue = KontoGlobals.DToDate;
-
+            this.cancelSimpleButton.Click += CancelSimpleButton_Click;
             this.FirstActiveControl = fDateEdit;
+            this.FormClosed += BRMainView_FormClosed;
+        }
+
+        private void CancelSimpleButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
+
+        }
+
+        private void BRMainView_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            var tabpage = this.Parent as TabPageAdv;
+            if (tabpage != null)
+            {
+                var tabcontrol = tabpage.Parent as TabControlAdv;
+                if (tabcontrol != null)
+                    tabcontrol.TabPages.Remove(tabpage);
+            }
         }
 
         private void GridView1_InvalidValueException(object sender, DevExpress.XtraEditors.Controls.InvalidValueExceptionEventArgs e)

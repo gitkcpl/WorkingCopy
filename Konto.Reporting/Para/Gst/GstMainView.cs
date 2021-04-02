@@ -10,6 +10,7 @@ using Konto.Data;
 using Konto.Data.Models.Admin.Dtos;
 using Konto.Data.Models.Reports;
 using Konto.Data.Models.Transaction.Dtos;
+using Konto.Pos.Sales;
 using Konto.Shared.Account.DRCRNote;
 using Konto.Shared.Trans.SInvoice;
 using Konto.Shared.Trans.SReturn;
@@ -28,6 +29,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+
 
 namespace Konto.Reporting.Para.Gst
 {
@@ -241,7 +243,10 @@ namespace Konto.Reporting.Para.Gst
             }
             else
             {
-                frm = new SInvoiceIndex();
+                if (KontoGlobals.PackageId == (int)PackageType.POS)
+                    frm = new SalesIndex();
+                else
+                    frm = new SInvoiceIndex();
             }
 
             frm.tabControlAdv1.SelectedIndex = 0;

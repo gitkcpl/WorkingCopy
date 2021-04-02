@@ -21,9 +21,11 @@ namespace Konto.Trading.MillReceipt
         public MrvListView()
 
         {
+
+
             InitializeComponent();
             
-            if(MillRecPara.Challan_Required)
+                    if(MillRecPara.Challan_Required)
                 this.listDateRange1.VoucherType = VoucherTypeEnum.MillReceipt;
             else
                 this.listDateRange1.VoucherType = VoucherTypeEnum.MillReceiptVoucher;

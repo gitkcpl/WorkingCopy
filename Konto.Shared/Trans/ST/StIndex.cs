@@ -9,7 +9,6 @@ using Konto.App.Shared.Para;
 using Konto.Core.Shared.Frms;
 using Konto.Core.Shared.Libs;
 using Konto.Data;
-using Konto.Data.Models.Masters;
 using Konto.Data.Models.Masters.Dtos;
 using Konto.Data.Models.Transaction;
 using Konto.Data.Models.Transaction.Dtos;
@@ -17,14 +16,11 @@ using Konto.Shared.Masters.Color;
 using Konto.Shared.Masters.Design;
 using Konto.Shared.Masters.Grade;
 using Konto.Shared.Masters.Item;
-using Konto.Shared.Trans.Common;
-using Konto.Shared.Trans.Po;
 using Serilog;
 using Syncfusion.Windows.Forms;
 using Syncfusion.Windows.Forms.Tools;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.IO;
@@ -38,8 +34,7 @@ namespace Konto.Shared.Trans.ST
     {
         private List<ChallanModel> FilterView = new List<ChallanModel>();
         private List<GrnTransDto> DelTrans = new List<GrnTransDto>();
-        private List<GrnProdDto> prodDtos = new List<GrnProdDto>();
-        private List<GrnProdDto> DelProd = new List<GrnProdDto>();
+        
 
         TextEdit headerEdit = new TextEdit();
         GridColumn activeCol = null;
@@ -56,8 +51,8 @@ namespace Konto.Shared.Trans.ST
             colorRepositoryItemButtonEdit.ButtonClick += ColorRepositoryItemButtonEdit_ButtonClick;
             gradeRepositoryItemButtonEdit.ButtonClick += GradeRepositoryItemButtonEdit_ButtonClick;
             designRepositoryItemButtonEdit.ButtonClick += DesignRepositoryItemButtonEdit_ButtonClick;
-            accLookup1.SelectedValueChanged += AccLookup1_SelectedValueChanged;
-            repositoryItemHyperLinkEdit1.OpenLink += RepositoryItemHyperLinkEdit1_OpenLink;
+            
+           
             gridView1.InitNewRow += GridView1_InitNewRow;
             gridView1.CellValueChanged += GridView1_CellValueChanged;
             gridView1.KeyDown += GridView1_KeyDown;
@@ -65,15 +60,16 @@ namespace Konto.Shared.Trans.ST
             gridView1.CustomDrawRowIndicator += GridView1_CustomDrawRowIndicator;
             gridView1.ShowingEditor += GridView1_ShowingEditor;
             gridView1.MouseUp += GridView1_MouseUp;
-            lotNoRepositoryItemButtonEdit.ButtonClick += LotNoRepositoryItemButtonEdit_ButtonClick;
-            this.accLookup1.ShownPopup += AccLookup1_ShownPopup;
+            gridView1.ValidatingEditor += GridView1_ValidatingEditor;
+            gridView1.InvalidValueException += GridView1_InvalidValueException;
+          
             this.Shown += ScIndex_Shown;
             gridView1.DoubleClick += GridView1_DoubleClick;
-            this.MainLayoutFile = KontoFileLayout.Sc_Index;
-            this.GridLayoutFile = KontoFileLayout.Sc_Trans;
+            this.MainLayoutFile = KontoFileLayout.Stock_Transfer_Index;
+            this.GridLayoutFile = KontoFileLayout.Stock_Transfer_Trans;
             
             FillLookup();
-            SetParameter();
+          //  SetParameter();
             SetGridColumn();
 
             headerEdit.Hide();
@@ -83,6 +79,25 @@ namespace Konto.Shared.Trans.ST
             voucherLookup1.SelectedValueChanged += VoucherLookup1_SelectedValueChanged;
 
             this.FirstActiveControl = voucherLookup1;
+        }
+
+        private void GridView1_InvalidValueException(object sender, DevExpress.XtraEditors.Controls.InvalidValueExceptionEventArgs e)
+        {
+            e.ExceptionMode = DevExpress.XtraEditors.Controls.ExceptionMode.DisplayError;
+        }
+
+        private void GridView1_ValidatingEditor(object sender, DevExpress.XtraEditors.Controls.BaseContainerValidateEditorEventArgs e)
+        {
+            if(gridView1.FocusedColumn.FieldName=="Qty")
+            {
+                var _fromStock = Convert.ToDecimal(gridView1.GetRowCellValue(gridView1.FocusedRowHandle, colFromStock));
+                var _qty = Convert.ToDecimal(e.Value);
+                if(_qty>_fromStock)
+                {
+                    e.ErrorText = "Issue Qty Can No be greater than Stock Qty";
+                    e.Valid = false;
+                }
+            }
         }
 
         private void ScIndex_Shown(object sender, EventArgs e)
@@ -108,33 +123,20 @@ namespace Konto.Shared.Trans.ST
 
 
 
-        private void RepositoryItemHyperLinkEdit1_OpenLink(object sender, DevExpress.XtraEditors.Controls.OpenLinkEventArgs e)
-        {
-            if (grnTypeLookUpEdit.Text != "Purchase") return;
-            var er = gridView1.GetFocusedRow() as GrnTransDto;
-            var view = new PoIndex();
-            
-            int id = Convert.ToInt32(er.MiscId);
-            if (id == 0) return;
-            var window = new PoIndex();
-            window.Tag = MenuId.Purchase_Order;
-            window.EditKey = id;
-            window.ShowDialog();
-            
-        }
+       
 
 
 
         #region UDF
         private void SetGridColumn()
         {
-            colColorName.Visible = SCPara.Color_Required;
-            colDesignNo.Visible = SCPara.Design_Required;
-            colGradeName.Visible = SCPara.Grade_Required;
-            colCops.Visible = SCPara.Cut_Required;
-            colFreight.Visible = SCPara.Freight_Required;
-            colFreightRate.Visible = SCPara.Freight_Required;
-            colLotNo.Visible = SCPara.LotNo_Required;
+            //colColorName.Visible = SCPara.Color_Required;
+            //colDesignNo.Visible = SCPara.Design_Required;
+            //colGradeName.Visible = SCPara.Grade_Required;
+            //colCops.Visible = SCPara.Cut_Required;
+            //colFreight.Visible = SCPara.Freight_Required;
+            //colFreightRate.Visible = SCPara.Freight_Required;
+            //colLotNo.Visible = SCPara.LotNo_Required;
             
             if (KontoGlobals.PackageId == 1)
             {
@@ -145,7 +147,7 @@ namespace Konto.Shared.Trans.ST
         }
         private GrnTransDto PreOpenLookup()
         {
-            if (Convert.ToInt32(accLookup1.SelectedValue) == 0) return null;
+           
             gridView1.GetRow(gridView1.FocusedRowHandle);
             if (gridView1.GetRow(gridView1.FocusedRowHandle) == null)
             {
@@ -273,23 +275,12 @@ namespace Konto.Shared.Trans.ST
                 er.ProductName = frm.SelectedTex;
                 var model = frm.SelectedItem as ProductLookupDto;
                 er.UomId = model.UomId;
-                er.Rate = model.SaleRate;
-                
-                if (accLookup1.LookupDto.IsGst)
-                {
-                    er.SgstPer = model.Sgst;
+                er.Rate = model.DealerPrice;
+                     er.SgstPer = model.Sgst;
                     er.CgstPer = model.Cgst;
                     er.IgstPer = 0;
                     er.Igst = 0;
-                }
-                else
-                {
-                    er.SgstPer = 0;
-                    er.Sgst = 0;
-                    er.CgstPer = 0;
-                    er.Cgst = 0;
-                    er.IgstPer = model.Igst;
-                }
+               
                 er.CessPer = model.Cess;
                 gridView1.FocusedColumn = gridView1.GetNearestCanFocusedColumn(gridView1.FocusedColumn);
             }
@@ -348,12 +339,7 @@ namespace Konto.Shared.Trans.ST
         
             using (var db = new KontoContext())
             {
-               var  TransTypeList = (from p in  db.transTypes
-                                        where p.IsActive && !p.IsDeleted && (p.Category.ToUpper() == "OUTWARD" || p.Category == null)
-                                     select new BaseLookupDto()
-                                     {
-                                         DisplayText = p.TypeName,Id = p.Id
-                                     }).ToList();
+               
 
                 var _divLists = (from p in db.Divisions
                                  where p.IsActive && !p.IsDeleted
@@ -363,11 +349,11 @@ namespace Konto.Shared.Trans.ST
                                      Id = p.Id
                                  }).ToList();
 
-                var _storeLists = (from p in db.Stores
-                                 where p.IsActive && !p.IsDeleted
+                var _storeLists = (from p in db.Branches
+                                 where p.IsActive && !p.IsDeleted && p.CompId==KontoGlobals.CompanyId
                                  select new BaseLookupDto()
                                  {
-                                     DisplayText = p.StoreName,
+                                     DisplayText = p.BranchName,
                                      Id = p.Id
                                  }).ToList();
 
@@ -383,9 +369,10 @@ namespace Konto.Shared.Trans.ST
                
                
                 uomRepositoryItemLookUpEdit.DataSource = _uomlist;
-                grnTypeLookUpEdit.Properties.DataSource = TransTypeList;
+              
                 divLookUpEdit.Properties.DataSource = _divLists;
-                storeLookUpEdit.Properties.DataSource = _storeLists;
+                fromBranchLookUpEdit.Properties.DataSource = _storeLists;
+                toBranchLookUpEdit.Properties.DataSource = _storeLists;
             }
         }
 
@@ -405,11 +392,21 @@ namespace Konto.Shared.Trans.ST
                 voucherLookup1.Focus();
                 return false;
             }
-            else if (Convert.ToInt32(accLookup1.SelectedValue) == 0)
+            else if (string.IsNullOrEmpty(fromBranchLookUpEdit.Text))
             {
-                MessageBoxAdv.Show(this, "Invalid Party", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                accLookup1.Focus();
+                MessageBoxAdv.Show(this, "Invalid from Branch", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                fromBranchLookUpEdit.Focus();
                 return false;
+            }
+            else if (string.IsNullOrEmpty(toBranchLookUpEdit.Text))
+            {
+                MessageBoxAdv.Show(this, "Invalid To_Branch", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                toBranchLookUpEdit.Focus();
+                return false;
+            }
+            else if(fromBranchLookUpEdit.EditValue.ToString() == toBranchLookUpEdit.EditValue.ToString())
+            {
+                MessageBoxAdv.Show(this, "Send & Receiving Branch Can Not Be same", "Invalid Branch", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             else if (string.IsNullOrEmpty(challanNotextEdit.Text.Trim()))
             {
@@ -417,12 +414,7 @@ namespace Konto.Shared.Trans.ST
                 challanNotextEdit.Focus();
                 return false;
             }
-            else if (string.IsNullOrEmpty(grnTypeLookUpEdit.Text))
-            {
-                MessageBoxAdv.Show(this, "Invalid Outward Type", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                grnTypeLookUpEdit.Focus();
-                return false;
-            }
+            
             else if (dt > KontoGlobals.ToDate || dt < KontoGlobals.FromDate)
             {
                 MessageBoxAdv.Show(this, "Challan date out of financial range", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -430,12 +422,6 @@ namespace Konto.Shared.Trans.ST
                 return false;
             }
            
-            else if (string.IsNullOrEmpty(storeLookUpEdit.Text))
-            {
-                MessageBoxAdv.Show(this, "Invalid Store", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                storeLookUpEdit.Focus();
-                return false;
-            }
             else if (gridView1.RowCount == 1)
             {
                 MessageBoxAdv.Show(this, "At Least One Product Should be Entered", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -453,35 +439,24 @@ namespace Konto.Shared.Trans.ST
                 this.ResetPage();
                 this.PrimaryKey = model.Id;
                 divLookUpEdit.EditValue = model.DivId;
-                grnTypeLookUpEdit.EditValue = model.ChallanType;
+             
                 voucherLookup1.SelectedValue = model.VoucherId;
                 voucherLookup1.SetGroup(model.VoucherId);
                 voucherDateEdit.EditValue = KontoUtils.IToD(model.VoucherDate);
 
                 voucherNoTextEdit.Text = model.VoucherNo;
-                accLookup1.SelectedValue = model.AccId;
-                accLookup1.SetAcc(model.AccId);
-                delvLookup.SelectedValue = model.DelvAccId;
-                if (model.DelvAccId == null)
-                {
-                    delvLookup.SelectedValue = model.AccId;
-                    delvLookup.SetAcc((int)model.AccId);
-                }
-                else
-                    delvLookup.SetAcc((int)model.DelvAccId);
 
-                addressLookup1.SelectedValue = model.DelvAdrId;
 
-                if (Convert.ToInt32(model.DelvAdrId) > 0)
-                    addressLookup1.SetValue((int)model.DelvAdrId);
+                fromBranchLookUpEdit.EditValue = model.BranchId;
+                toBranchLookUpEdit.EditValue = model.ToBranchId;
+
+                transportModeComboBoxEdit.EditValue = model.Extra1; // mode of transport;
+                ewayBillNoTextEdit.Text = model.Extra2; // ewaybill no
+               
 
                 driverTextEdit.Text = model.DName;
 
-                if (Convert.ToInt32(model.AgentId) != 0)
-                {
-                    agentLookup.SelectedValue = model.AgentId;
-                    agentLookup.SetAcc(Convert.ToInt32(model.AgentId));
-                }
+               
                 challanNotextEdit.Text = model.ChallanNo;
 
 
@@ -490,7 +465,7 @@ namespace Konto.Shared.Trans.ST
                     empLookup1.SelectedValue = model.EmpId;
                     empLookup1.SetGroup();
                 }
-                storeLookUpEdit.EditValue = model.StoreId;
+                fromBranchLookUpEdit.EditValue = model.StoreId;
 
                 if (Convert.ToInt32(model.TransId) != 0)
                 {
@@ -570,110 +545,28 @@ namespace Konto.Shared.Trans.ST
                                      Total = ct.Total,
                                      UomId = (int)ct.UomId,
                                      OrdNo = o.VoucherNo,
-                                     ODate = o.VoucherDate
+                                     ODate = o.VoucherDate,BarcodeNo = pd.BarCode
                                  }).ToList();
 
-                    var spcol = _context.SpCollections.FirstOrDefault(k => k.Id ==
-                                   (int)SpCollectionEnum.OutwardprodList);
-                    if (spcol == null)
-                    {
-                        prodDtos = _context.Database.SqlQuery<GrnProdDto>(
-                                                    "dbo.OutwardprodList @CompanyId={0},@VoucherId={1}," +
-                                                    "@RefId={2}", KontoGlobals.CompanyId, (int)VoucherTypeEnum.SalesChallan, model.Id).ToList();
-
-                    }
-                    else
-                    {
-                        prodDtos = _context.Database.SqlQuery<GrnProdDto>(
-                         spcol.Name + " @CompanyId={0},@VoucherId={1}," +
-                                                    "@RefId={2}", KontoGlobals.CompanyId, (int)VoucherTypeEnum.SalesChallan, model.Id).ToList();
-                    }
+                    
                     this.grnTransDtoBindingSource1.DataSource = _list;
                 }
 
 
 
-                this.Text = "Sales Challan [View/Modify]";
+                this.Text = "Stock Transfer [View/Modify]";
             }
             catch (Exception ex)
             {
 
                 MessageBox.Show(ex.ToString());
-                Log.Error(ex, "Sales Challan edit");
+                Log.Error(ex, "stock transfer edit");
             }
            
 
         }
 
-        private void ShowItemDetail(GrnTransDto er)
-        {
-            ProductModel prod = null;
-            using (var db = new KontoContext())
-            {
-                prod = db.Products.Include("PType").SingleOrDefault(x => x.Id == er.ProductId);
-
-            }
-            if (prod == null || prod.SerialReq == "No") return;
-
-            var frm = new IssueItemDetailView();
-            frm.TypeEnum = (ProductTypeEnum)prod.PTypeId;
-            frm.ItemId = prod.Id;
-            frm.TransId = er.Id;
-            if (prod.PType.TypeName.ToUpper() == "YARN" || prod.PType.TypeName.ToUpper() == "POY")
-            {
-                frm.GridLayoutFileName = KontoFileLayout.Sc_Yarn_Item_Details;
-                frm.Text = "Box Details";
-            }
-            else if (prod.PType.TypeName.ToUpper() == "GREY")
-            {
-                frm.GridLayoutFileName = KontoFileLayout.Sc_Grey_Item_Details;
-                frm.Text = "Taka Details";
-            }
-            else if (prod.PType.TypeName.ToUpper() == "BEAM")
-            {
-                frm.GridLayoutFileName = KontoFileLayout.Sc_Beam_Item_Details;
-                frm.Text = "Beam Details";
-            }
-            else
-            {
-                frm.Text = "Product Details";
-                frm.GridLayoutFileName = KontoFileLayout.Sc_Finish_Item_Details;
-            }
-            frm.prodDtos = new BindingList<GrnProdDto>(this.prodDtos.Where(x=>x.TransId == er.Id).ToList());
-            if (frm.ShowDialog() != DialogResult.OK) return;
-            var tempprod = frm.gridControl1.DataSource as BindingList<GrnProdDto>;
-            
-            //remove existing entry
-            foreach (var po in tempprod)
-            {
-                this.prodDtos.Remove(po);
-            }
-
-            foreach (var pro in tempprod)
-            {
-                pro.RefId = this.PrimaryKey;
-                pro.TransId = er.Id;
-                pro.VoucherId = Convert.ToInt32(voucherLookup1.SelectedValue);
-                this.prodDtos.Add(pro);
-            }
-            foreach (var pro in frm.DelProd)
-            {
-                this.prodDtos.Remove(pro);
-                this.DelProd.Add(pro);
-            }
-            er.Qty =tempprod.Sum(x => x.NetWt);
-            var sumPcs = tempprod.Sum(x => x.Tops);
-            if (sumPcs > 0)
-            {
-                er.Pcs = sumPcs;
-            }
-            else
-            {
-                er.Pcs = tempprod.Count();
-            }
-
-            GridCalculation(er);
-        }
+        
 
         #endregion
 
@@ -722,9 +615,8 @@ namespace Konto.Shared.Trans.ST
             if (!"Pcs,Qty,ProductName".Contains(gridView1.FocusedColumn.FieldName)) return;
             var itm = gridView1.GetFocusedRow() as GrnTransDto;
             if (itm == null) return;
-            if ("Pcs,Qty".Contains(gridView1.FocusedColumn.FieldName)  && this.prodDtos.Any(x => x.TransId == itm.Id))
-                e.Cancel = true;
-            else if (gridView1.FocusedColumn.FieldName == "ProductName" && Convert.ToInt32(itm.RefId) > 0) 
+            
+             if (gridView1.FocusedColumn.FieldName == "ProductName" && Convert.ToInt32(itm.RefId) > 0) 
                 e.Cancel = true;
         }
 
@@ -738,14 +630,50 @@ namespace Konto.Shared.Trans.ST
         }
         private void GridControl1_Enter(object sender, EventArgs e)
         {
-            gridView1.FocusedColumn = gridView1.Columns["ProductName"];
+            gridView1.FocusedColumn = gridView1.Columns["BarcodeNo"];
         }
         private void GridView1_CellValueChanged(object sender, DevExpress.XtraGrid.Views.Base.CellValueChangedEventArgs e)
         {
-            if (e.Column == null) return;
-            var er = gridView1.GetRow(e.RowHandle) as GrnTransDto;
-            if (er == null) return;
-            GridCalculation(er);
+            try
+            {
+                if (e.Column == null) return;
+                var er = gridView1.GetRow(e.RowHandle) as GrnTransDto;
+
+                if (er == null) return;
+
+                if (string.IsNullOrEmpty(fromBranchLookUpEdit.Text) || string.IsNullOrEmpty(toBranchLookUpEdit.Text)) return;
+
+                if (e.Column.FieldName == "BarcodeNo" && e.Value != null && !string.IsNullOrEmpty(e.Value.ToString()))
+                {
+                    var pos = DbUtils.GetProductDetails(e.Value.ToString());
+
+                    if (pos == null)
+                    {
+                        MessageBox.Show("Barcode Not Found..");
+                        return;
+                    }
+                    er.FromStock = DbUtils.GetCurrentStock(pos.Id, Convert.ToInt32(fromBranchLookUpEdit.EditValue));
+                    er.ToStock = DbUtils.GetCurrentStock(pos.Id, Convert.ToInt32(toBranchLookUpEdit.EditValue));
+                    er.ProductName = pos.ProductName;
+                    er.ProductId = pos.Id;
+                    er.UomId = pos.PurUomId;
+                    er.Rate = pos.DealerPrice;
+                    er.SgstPer = pos.Sgst;
+                    er.CgstPer = pos.Cgst;
+                    er.IgstPer = 0;
+                    er.Igst = 0;
+
+                }
+
+                GridCalculation(er);
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.ToString());
+                Log.Error(ex,"st barcode");
+            }
+            
         }
         private void GridView1_KeyDown(object sender, KeyEventArgs e)
         {
@@ -787,7 +715,7 @@ namespace Konto.Shared.Trans.ST
         {
             try
             {
-                if (Convert.ToInt32(accLookup1.SelectedValue) == 0) return;
+               
                 var dr = PreOpenLookup();
                 if (dr == null) return;
                 if (gridView1.FocusedColumn.FieldName == "ProductName")
@@ -855,13 +783,7 @@ namespace Konto.Shared.Trans.ST
                         e.Handled = true;
                     }
                 }
-                else if(gridView1.FocusedColumn.FieldName == "LotNo")
-                {
-                    if (e.KeyCode == Keys.Return)
-                    {
-                        ShowItemDetail(dr);
-                    }
-                }
+               
             }
             catch (Exception ex)
             {
@@ -897,12 +819,7 @@ namespace Konto.Shared.Trans.ST
             if (dr != null)
                 OpenDesignLookup(dr.DesignId, dr);
         }
-        private void LotNoRepositoryItemButtonEdit_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
-        {
-            var dr = PreOpenLookup();
-            if (dr != null)
-                ShowItemDetail(dr);
-        }
+       
 
         #endregion
 
@@ -912,108 +829,8 @@ namespace Konto.Shared.Trans.ST
             headerEdit.Hide();
         }
 
-        private void AccLookup1_ShownPopup(object sender, EventArgs e)
-        {
-            if (Convert.ToInt32(accLookup1.SelectedValue) == 0 || this.PrimaryKey != 0) return;
-           // if (grnTypeLookUpEdit.Text.ToUpper() != "PURCHASE") return;
-            var ordfrm = new PendingOrderView();
-            ordfrm.VoucherType = VoucherTypeEnum.SalesOrder;
-            ordfrm.AccId = Convert.ToInt32(accLookup1.SelectedValue);
-            if (ordfrm.ShowDialog() != DialogResult.OK) return;
-
-            Int32[] selectedRowHandles = ordfrm.SelectedRows;
-            if (selectedRowHandles == null || selectedRowHandles.Count() == 0) return;
-            List<GrnTransDto> transDtos = new List<GrnTransDto>();
-            int id = 0;
-            foreach (var item in selectedRowHandles)
-            {
-                var ord = ordfrm.gridView1.GetRow(item) as PendingOrderDto;
-                GrnTransDto ct = new GrnTransDto();
-                id = id - 1;
-                ct.ProductId = Convert.ToInt32(ord.ProductId);
-                ct.ProductName = ord.Product;
-                ct.Pcs = ord.TotalPcs != null ? (int)ord.TotalPcs : 0;
-                ct.Cops = 0;// ord.Cut != 0 ? ord.Cut : 0;
-                ct.Qty = ord.PendingQty != null ? (decimal)ord.PendingQty : 0;
-                ct.Rate = ord.rate != null ? (decimal)ord.rate : 0;
-                //ct.FreightRate = ord.FreightRate != null ? (decimal)ord.FreightRate : 0;
-                //ct.Freight = ord.Freight != null ? (decimal)ord.Freight : 0;
-                //ct.OtherAdd = ord.OtherAdd != null ? (decimal)ord.OtherAdd : 0;
-                //ct.OtherLess = ord.OtherLess != null ? (decimal)ord.OtherLess : 0;
-                ct.DiscPer = ord.Disc != null ? (decimal)ord.Disc : 0;
-                ct.Disc = ord.DiscAmt != null ? (decimal)ord.DiscAmt : 0;
-                ct.Sgst = ord.SgstAmt != null ? (decimal)ord.SgstAmt : 0;
-                ct.SgstPer = ord.Sgst != null ? (decimal)ord.Sgst : 0;
-                ct.Cgst = ord.CgstAmt;// != null ? (decimal)ord.CgstAmt : 0;
-                ct.CgstPer = ord.Cgst;// != null ? (decimal)ord.Cgst : 0;
-                ct.Igst = ord.IgstAmt; // != null ? (decimal)ord.IgstAmt : 0;
-                ct.IgstPer = ord.Igst; // != null ? (decimal)ord.Igst : 0;
-                                       //ct.CessPer = ord.cess; // != null ? (decimal)ord.Cess : 0;
-                                       //  ct.Cess = ord.CessAmt; // != null ? (decimal)ord.CessAmt : 0;
-                ct.UomId = Convert.ToInt32(ord.UomId);
-                ct.DesignId = Convert.ToInt32(ord.DesignId);
-                ct.ColorId = Convert.ToInt32(ord.ColorId);
-                ct.GradeId = Convert.ToInt32(ord.GradeId);
-                ct.OrdNo = ord.VoucherNo;
-                ct.ODate = ord.VoucherDate;
-                //ct.OrdDate = ord.VouchDate;
-                ct.RefId = ord.TransId;
-                ct.MiscId = ord.Id;
-                ct.RefVoucherId = ord.VoucherId;
-                ct.ColorName = ord.ColorName;
-                ct.DesignNo = ord.DesignNo;
-                ct.GradeName = ord.GradeName;
-
-                ct.Gross = decimal.Round(ct.Qty * ct.Rate, 2);
-
-                decimal gross = ct.Gross - ct.Disc + ct.OtherAdd - ct.OtherLess + ct.Freight;
-
-                ct.Sgst = decimal.Round(gross * ct.SgstPer / 100, 2);
-                ct.Cgst = decimal.Round(gross * ct.CgstPer / 100, 2);//, MidpointRounding.AwayFromZero);
-                ct.Igst = decimal.Round(gross * ct.IgstPer / 100, 2);//, MidpointRounding.AwayFromZero);
-
-                ct.Total = gross + ct.Sgst + ct.Cgst + ct.Igst;
-                transDtos.Add(ct);
-            }
-            grnTransDtoBindingSource1.DataSource = transDtos;
-        }
-        private void AccLookup1_SelectedValueChanged(object sender, EventArgs e)
-        {
-
-            if (accLookup1.LookupDto == null) return;
-            if (this.PrimaryKey ==0 && Convert.ToInt32(this.accLookup1.SelectedValue) > 0)
-            {
-                this.delvLookup.SelectedValue = this.accLookup1.SelectedValue;
-                this.delvLookup.buttonEdit1.Text = this.accLookup1.SelectedText;
-                this.delvLookup.SelectedText = this.accLookup1.SelectedText;
-                this.delvLookup.LookupDto = this.accLookup1.LookupDto;
-                addressLookup1.SelectedValue = this.delvLookup.LookupDto.AddressId;
-                addressLookup1.SelectedText = this.delvLookup.LookupDto.FullAddress;
-                addressLookup1.buttonEdit1.Text = this.delvLookup.LookupDto.FullAddress;
-
-            }
-
-           
-
-            if (accLookup1.LookupDto.IsGst)
-            {
-                colSgst.Visible = true;
-                colSgstAmt.Visible = true;
-                colCgst.Visible = true;
-                colCgstAmt.Visible = true;
-                colIgst.Visible = false;
-                colIgstAmt.Visible = false;
-            }
-            else if(accLookup1.LookupDto.IsIgst)
-            {
-                colSgst.Visible = false;
-                colSgstAmt.Visible = false;
-                colCgst.Visible = false;
-                colCgstAmt.Visible = false;
-                colIgst.Visible = true;
-                colIgstAmt.Visible = true;
-            }
-        }
+      
+       
 
         private void TabControlAdv1_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -1033,7 +850,7 @@ namespace Konto.Shared.Trans.ST
                 var _ListView = new StListView();
                 _ListView.Dock = DockStyle.Fill;
                 tabPageAdv2.Controls.Add(_ListView);
-                this.Text = "Sales Challan [View]";
+                this.Text = "Stock Transfer [View]";
 
             }
         }
@@ -1079,7 +896,7 @@ namespace Konto.Shared.Trans.ST
 
                 PageReport rpt = new PageReport();
 
-                rpt.Load(new FileInfo("reg\\doc\\SalesChallan.rdlx"));
+                rpt.Load(new FileInfo("reg\\doc\\stock_transfer_challan.mrt"));
 
                 rpt.Report.DataSources[0].ConnectionProperties.ConnectString = KontoGlobals.sqlConnectionString.ConnectionString;
 
@@ -1089,11 +906,11 @@ namespace Konto.Shared.Trans.ST
                 doc.Parameters["challan"].CurrentValue = "N";
                 doc.Parameters["reportid"].CurrentValue = 0;
                 var frm = new KontoRepViewer(doc);
-                frm.Text = "Sales Challan";
+                frm.Text = "Transfer Challan";
                 var _tab = this.Parent.Parent as TabControlAdv;
                 if (_tab == null) return;
                 var pg1 = new TabPageAdv();
-                pg1.Text = "Challan Print";
+                pg1.Text = "Transfer Challan Print";
                 _tab.TabPages.Add(pg1);
                 _tab.SelectedTab = pg1;
                 frm.TopLevel = false;
@@ -1104,7 +921,7 @@ namespace Konto.Shared.Trans.ST
             }
             catch (Exception ex)
             {
-                Log.Error(ex, "Sc print");
+                Log.Error(ex, "st print");
                 MessageBoxAdv.Show(this, "Error While Print !!", "Exception ", ex.ToString());
 
             }
@@ -1113,22 +930,21 @@ namespace Konto.Shared.Trans.ST
         {
             base.NewRec();
             this.FilterView = new List<ChallanModel>();
-            this.Text = "Sales Challan [Add New]";
-            grnTypeLookUpEdit.EditValue = 6;
+            this.Text = "Stock Transfer [Add New]";
+           
             
             divLookUpEdit.EditValue = 1;
-            storeLookUpEdit.EditValue = 1;
+            fromBranchLookUpEdit.EditValue = 1;
             voucherNoTextEdit.Text = "New";
             voucherDateEdit.EditValue = DateTime.Now;
-          
+            fromBranchLookUpEdit.EditValue = KontoGlobals.BranchId;
             empLookup1.SelectedValue = 1;
             empLookup1.SetGroup();
             createdLabelControl.Text = "Create By: " + KontoGlobals.UserName;
             modifyLabelControl.Text = string.Empty;
             this.ActiveControl = voucherLookup1.buttonEdit1;
             voucherLookup1.SetDefault();
-            DelTrans = new List<GrnTransDto>();
-            DelProd = new List<GrnProdDto>();
+            challanNotextEdit.Text = "NA";
             this.grnTransDtoBindingSource1.DataSource = new List<GrnTransDto>();
             
         }
@@ -1136,20 +952,21 @@ namespace Konto.Shared.Trans.ST
         {
             base.ResetPage();
             
-            accLookup1.SetEmpty();
+            
             challanNotextEdit.Text = string.Empty;
            
             voucherDateEdit.DateTime = DateTime.Now;
            
             voucherNoTextEdit.Text = string.Empty;
-            agentLookup.SetEmpty();
+            toBranchLookUpEdit.EditValue = DBNull.Value;
+            fromBranchLookUpEdit.EditValue = DBNull.Value;
             transportLookup.SetEmpty();
             empLookup1.SetEmpty();
             lrNotextEdit.Text = string.Empty;
             lrDateEdit.EditValue = DateTime.Now;
             remarkTextEdit.Text = string.Empty;
             DelTrans = new List<GrnTransDto>();
-            DelProd = new List<GrnProdDto>();
+            
         }
         public override void EditPage(int _key)
         {
@@ -1200,10 +1017,7 @@ namespace Konto.Shared.Trans.ST
                 filter.Add(new Filter { PropertyName = "VoucherId", Operation = Op.Equals, Value = Convert.ToInt32(voucherLookup1.SelectedValue) });
             }
           
-            if (Convert.ToInt32(accLookup1.SelectedValue) > 0)
-            {
-                filter.Add(new Filter { PropertyName = "AccId", Operation = Op.Equals, Value = Convert.ToInt32(accLookup1.SelectedValue) });
-            }
+           
 
             filter.Add(new Filter { PropertyName = "CompId", Operation = Op.Equals, Value = KontoGlobals.CompanyId });
             filter.Add(new Filter { PropertyName = "YearId", Operation = Op.Equals, Value = KontoGlobals.YearId });
@@ -1270,7 +1084,7 @@ namespace Konto.Shared.Trans.ST
                             if (DbUtils.CheckExistVoucherNo(_find.VoucherId, _find.VoucherNo, db, _find.Id))
                             {
                                 MessageBox.Show("Duplicate Voucher No Not Allowed");
-                                //voucherNoTextEdit.Focus();
+                               
                                 _tran.Rollback();
                                 return;
                             }
@@ -1298,87 +1112,8 @@ namespace Konto.Shared.Trans.ST
                                
                             }
                             Trans.Add(tranModel);
-                            // add subdetails item details
-                            var prlist = prodDtos.Where(k => (k.TransId == transid && k.VoucherId == _find.VoucherId)).ToList();
-
-                            foreach (var p in prlist)
-                            {
-                                ProdOutModel Out = db.ProdOuts.Find(p.ProdOutId);
-                                ProdModel pm = new ProdModel();
-                                if (!MillIssPara.Taka_From_Stock)
-                                {
-                                    if (Out == null)
-                                    {
-
-                                        pm.ProductId = p.ProductId;
-                                        pm.ProdStatus = "ISSUE";
-                                        pm.RefId = _find.Id;
-                                        p.TransId = tranModel.Id;
-                                        pm.LotNo = tranModel.RefNo;
-                                        pm.NetWt = p.NetWt;
-                                        pm.Tops = p.Tops;
-                                        pm.YearId = KontoGlobals.YearId;
-                                        pm.CompId = KontoGlobals.CompanyId;
-                                        pm.BranchId = _find.BranchId;
-                                        pm.VoucherDate = _find.VoucherDate;
-                                        pm.VoucherNo = p.VoucherNo;
-                                        pm.VoucherId = p.VoucherId;
-                                        pm.TransId = p.TransId;
-                                        pm.SrNo = p.SrNo;
-                                        pm.CurrQty = p.NetWt;
-
-                                        if (p.ColorId != null && p.ColorId != 0)
-                                            pm.ColorId = p.ColorId;
-                                        else if (p.ColorId == 0)
-                                            p.ColorId = 1;
-
-                                        if (p.GradeId != null && p.GradeId != 0)
-                                            pm.GradeId = p.GradeId;
-                                        else if (p.GradeId == 0)
-                                            p.GradeId = 1;
-
-                                        if (tranModel.DesignId != null && tranModel.DesignId != 0)
-                                            pm.PlyProductId = tranModel.DesignId;
-                                        else if (pm.PlyProductId == 0)
-                                            pm.PlyProductId = 1;
-                                        pm.IsOk = true;
-                                        db.Prods.Add(pm);
-                                        db.SaveChanges();
-                                    }
-                                }
-                                else
-                                {
-                                    pm = db.Prods.Find(p.Id);
-                                    pm.ProdStatus = "ISSUE";
-                                }
-
-
-
-                                if (Out == null)
-                                    Out = new ProdOutModel();
-
-                                Out.ProductId = p.ProductId;
-                                Out.ColorId = p.ColorId;
-                                Out.GradeId = p.GradeId;
-                                Out.CompId = KontoGlobals.CompanyId;
-                                Out.YearId = KontoGlobals.YearId;
-                                Out.TakaStatus = "ISSUE";
-                                Out.SrNo = p.SrNo;
-                                Out.GrayMtr = (p.NetWt * -1);
-                                Out.Qty = (p.NetWt * -1);
-                                Out.ProdId = pm.Id;
-                                Out.RefId = _find.Id;
-                                Out.VoucherId = _find.VoucherId;
-                                Out.VoucherNo = p.VoucherNo;
-                                Out.TransId = tranModel.Id;
-
-                                if (Out.Id <= 0)
-                                {
-                                    db.ProdOuts.Add(Out);
-                                    db.SaveChanges();
-                                }
-                                ProdList.Add(Out);
-                            }
+                           
+                          
 
                         }
                         //delete item from ord trans
@@ -1389,38 +1124,10 @@ namespace Konto.Shared.Trans.ST
                             var _model = db.ChallanTranses.Find(item.Id);
                             _model.IsDeleted = true;
 
-                            var delProdOut = prodDtos.Where(k => k.TransId == item.Id).ToList();
-                            foreach (var poitem in delProdOut)
-                            {
-                                if (poitem.ProdOutId > 0)
-                                {
-                                    ProdOutModel pOut = db.ProdOuts.Find(poitem.ProdOutId);
-                                    pOut.IsDeleted = true;
-
-                                    ProdModel pitem = db.Prods.Find(poitem.Id);
-                                    pitem.ProdStatus = "STOCK";
-                                }
-                            }
+                           
                         }
 
-                        // delete from item details
-                        // delete from item details
-                        foreach (var p in DelProd)
-                        {
-                            if (p.Id == 0) continue;
-                            var prd = db.Prods.Find(p.Id);
-                            if (prd != null && MillIssPara.Taka_From_Stock)
-                            {
-                                prd.ProdStatus = "STOCK";
-                            }
-                            else
-                            {
-                                prd.IsDeleted = true;
-                            }
-                            var pout = db.ProdOuts.Find(p.ProdOutId);
-                            pout.IsDeleted = true;
-                        }
-
+                        
 
                         //sotock effect
                         var stk = db.StockTranses.Where(k => k.MasterRefId == _find.RowId).ToList();
@@ -1429,26 +1136,16 @@ namespace Konto.Shared.Trans.ST
 
                         foreach (var item in Trans)
                         {
-                            string TableName = "grn";
+                            string TableName = "st";
                             var stockReq = db.Products.FirstOrDefault(k => k.Id == item.ProductId).StockReq;
                             if (stockReq == "No") continue;
                             
-                            //var prList = ProdList.Where(x => x.TransId == item.Id).ToList();
-                            //if (prList.Count > 0)
-                            //{
-                            //    foreach (var prod in prList)
-                            //    {
-                            //       StockEffect.StockTransChlnProdEntry(_find, item,false, TableName, KontoGlobals.UserName, db, prod,false);
-                            //    }
-                            //}
-                            //else
-                            //{
+                            
                                 StockEffect.StockTransChlnEntry(_find, item,true, TableName, KontoGlobals.UserName, db);
-                           // }
+                           
                         }
                         
-                        //if (this.PrimaryKey == 0)
-                        //    DbUtils.UsedSerial(_find.VoucherId, _SerialValue, db);
+                        
 
                         db.SaveChanges();
                         _tran.Commit();
@@ -1457,7 +1154,7 @@ namespace Konto.Shared.Trans.ST
                     catch (Exception ex)
                     {
                         _tran.Rollback();
-                        Log.Error(ex, "Grn Save");
+                        Log.Error(ex, "st Save");
                         MessageBoxAdv.Show(this, "Error While Save !!", "Exception ", ex.ToString());
 
                     }
@@ -1473,7 +1170,7 @@ namespace Konto.Shared.Trans.ST
                 MessageBoxAdv.Show(this, KontoGlobals.SaveMessage +" Voucher No.: " + _find.VoucherNo, "Saved !", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 if (!this.OpenForLookup && newmode)
                 {
-                    if (this.voucherLookup1.GroupDto.PrintAfterSave && MessageBox.Show("Print Challan ?", "Print", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    if (this.voucherLookup1.GroupDto.PrintAfterSave && MessageBox.Show("Print Transfer Challan ?", "Print", MessageBoxButtons.YesNo) == DialogResult.Yes)
                     {
                         this.PrimaryKey = _find.Id;
                         Print();
@@ -1494,21 +1191,19 @@ namespace Konto.Shared.Trans.ST
         private void UpdateChallan(ChallanModel model)
         {
             model.DivId = Convert.ToInt32(divLookUpEdit.EditValue);
-            model.ChallanType = Convert.ToInt32(grnTypeLookUpEdit.EditValue);
+            model.ChallanType = (int) ChallanTypeEnum.TRANSFER_OUT;
             model.VoucherId = Convert.ToInt32(voucherLookup1.SelectedValue);
             model.VoucherDate = Convert.ToInt32(voucherDateEdit.DateTime.ToString("yyyyMMdd"));
-            model.DelvAccId = Convert.ToInt32(delvLookup.SelectedValue);
-            model.DelvAdrId = Convert.ToInt32(addressLookup1.SelectedValue);
-            model.AccId = Convert.ToInt32(accLookup1.SelectedValue);
+          
 
             model.VoucherNo = voucherNoTextEdit.Text.Trim();
 
-            model.AgentId = Convert.ToInt32(agentLookup.SelectedValue);
+           
             model.ChallanNo = challanNotextEdit.Text.Trim();
 
             model.VehicleNo = vehicleTextEdit.Text.Trim();
             model.EmpId = Convert.ToInt32(empLookup1.SelectedValue);
-            model.StoreId = Convert.ToInt32(storeLookUpEdit.EditValue);
+            model.StoreId = Convert.ToInt32(fromBranchLookUpEdit.EditValue);
             model.DName = driverTextEdit.Text.Trim();
             model.Remark = remarkTextEdit.Text.Trim();
             model.TransId = Convert.ToInt32(transportLookup.SelectedValue);
@@ -1517,7 +1212,12 @@ namespace Konto.Shared.Trans.ST
             model.TypeId = (int)TypeEnum.Outward;
             model.CompId = KontoGlobals.CompanyId;
             model.YearId = KontoGlobals.YearId;
-            model.BranchId = KontoGlobals.BranchId;
+            model.BranchId = Convert.ToInt32(fromBranchLookUpEdit.EditValue);
+            model.ToBranchId = Convert.ToInt32(toBranchLookUpEdit.EditValue);
+
+            model.Extra1 = transportModeComboBoxEdit.Text; // mode of transport
+            model.Extra2 = ewayBillNoTextEdit.Text.Trim(); // eway bill no
+            
             model.IsActive = true;
         }
 

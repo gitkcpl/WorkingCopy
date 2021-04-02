@@ -150,7 +150,7 @@ namespace Konto.Pos.Purchase
                         cmd.Parameters.Add("@CompanyId", SqlDbType.Int).Value = KontoGlobals.CompanyId;
                         cmd.Parameters.Add("@BranchId", SqlDbType.Int).Value = KontoGlobals.BranchId;
                         cmd.Parameters.Add("@YearId", SqlDbType.Int).Value = KontoGlobals.YearId;
-                        cmd.Parameters.Add("@VTypeId", SqlDbType.Int).Value = (int)VoucherTypeEnum.Pos_Purchase;
+                        cmd.Parameters.Add("@VTypeId", SqlDbType.Int).Value = (int)VoucherTypeEnum.PurchaseInvoice;
                         if (listDateRange1.SelectedItem.Extra1 == "Deleted")
                         {
                             cmd.Parameters.Add("@Deleted", SqlDbType.Int).Value = 1;
@@ -287,7 +287,7 @@ namespace Konto.Pos.Purchase
         public override void Print()
         {
             base.Print();
-            if (this.customGridView1.FocusedRowHandle <= 0) return;
+            if (this.customGridView1.FocusedRowHandle < 0) return;
             if (KontoView.Columns.ColumnByFieldName("Id") != null)
             {
                 if (KontoView.Columns.ColumnByFieldName("IsDeleted") != null)
@@ -299,8 +299,10 @@ namespace Konto.Pos.Purchase
                 }
                 var id = this.KontoView.GetRowCellValue(this.KontoView.FocusedRowHandle, "VoucherNo").ToString();
 
-                var frm = new DocPrintParaView(VoucherTypeEnum.Inward, "Grn Print",id,id, "ORD", "OrdId");
+                var frm = new DocPrintParaView(VoucherTypeEnum.PurchaseInvoice, "Purchase Print", id, id, "PURBILL", "BillId");
+                frm.EditKey = Convert.ToInt32(this.KontoView.GetRowCellValue(this.KontoView.FocusedRowHandle, "Id"));
                 frm.ShowDialog();
+               
 
 
             }

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BOMIndex));
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
             this.targetQtyButtonEdit = new DevExpress.XtraEditors.ButtonEdit();
@@ -35,7 +36,7 @@
             this.voucherLookup1 = new Konto.Shared.Masters.Voucher.VoucherLookup();
             this.voucherDateEdit = new DevExpress.XtraEditors.DateEdit();
             this.gridControl2 = new DevExpress.XtraGrid.GridControl();
-            this.portalOrderDtoBindingSource = new System.Windows.Forms.BindingSource();
+            this.portalOrderDtoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.gridView2 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colOrder = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colRefNo = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -61,7 +62,7 @@
             this.repositoryItemButtonEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
             this.QualityLookup = new Konto.Shared.Masters.Item.ItemLookup();
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
-            this.PformuladtobindingSource = new System.Windows.Forms.BindingSource();
+            this.PformuladtobindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colStock1 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.coldesctype = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -90,8 +91,8 @@
             this.layoutControlItem11 = new DevExpress.XtraLayout.LayoutControlItem();
             this.Remark = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.barcodeTransModelBindingSource = new System.Windows.Forms.BindingSource();
-            this.SITbindingSource = new System.Windows.Forms.BindingSource();
+            this.barcodeTransModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.SITbindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.barcodeSimpleButton = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.tabControlAdv1)).BeginInit();
             this.tabControlAdv1.SuspendLayout();
@@ -187,7 +188,7 @@
             this.layoutControl1.OptionsCustomizationForm.DesignTimeCustomizationFormPositionAndSize = new System.Drawing.Rectangle(491, 326, 650, 400);
             this.layoutControl1.Root = this.Root;
             this.layoutControl1.Size = new System.Drawing.Size(867, 419);
-            this.layoutControl1.TabIndex = 8;
+            this.layoutControl1.TabIndex = 0;
             this.layoutControl1.Text = "layoutControl1";
             // 
             // targetQtyButtonEdit
@@ -205,7 +206,7 @@
             this.targetQtyButtonEdit.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
             this.targetQtyButtonEdit.Size = new System.Drawing.Size(147, 24);
             this.targetQtyButtonEdit.StyleController = this.layoutControl1;
-            this.targetQtyButtonEdit.TabIndex = 15;
+            this.targetQtyButtonEdit.TabIndex = 5;
             // 
             // remarkTextEdit
             // 
@@ -213,7 +214,7 @@
             this.remarkTextEdit.Location = new System.Drawing.Point(90, 68);
             this.remarkTextEdit.Name = "remarkTextEdit";
             this.remarkTextEdit.Size = new System.Drawing.Size(765, 20);
-            this.remarkTextEdit.TabIndex = 9;
+            this.remarkTextEdit.TabIndex = 7;
             // 
             // voucherLookup1
             // 
@@ -226,7 +227,7 @@
             this.voucherLookup1.SelectedText = null;
             this.voucherLookup1.SelectedValue = null;
             this.voucherLookup1.Size = new System.Drawing.Size(147, 24);
-            this.voucherLookup1.TabIndex = 0;
+            this.voucherLookup1.TabIndex = 1;
             this.voucherLookup1.VTypeId = Konto.App.Shared.VoucherTypeEnum.BOM;
             // 
             // voucherDateEdit
@@ -247,7 +248,7 @@
             this.voucherDateEdit.Properties.Mask.UseMaskAsDisplayFormat = true;
             this.voucherDateEdit.Size = new System.Drawing.Size(135, 24);
             this.voucherDateEdit.StyleController = this.layoutControl1;
-            this.voucherDateEdit.TabIndex = 1;
+            this.voucherDateEdit.TabIndex = 3;
             // 
             // gridControl2
             // 
@@ -263,7 +264,7 @@
             this.Remark1ItemLookUpEdit,
             this.Remark2ItemLookUpEdit});
             this.gridControl2.Size = new System.Drawing.Size(843, 162);
-            this.gridControl2.TabIndex = 8;
+            this.gridControl2.TabIndex = 9;
             this.gridControl2.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView2});
             // 
@@ -507,7 +508,7 @@
             this.QualityLookup.Properties.SelectedValue = null;
             this.QualityLookup.Size = new System.Drawing.Size(324, 24);
             this.QualityLookup.StyleController = this.layoutControl1;
-            this.QualityLookup.TabIndex = 14;
+            this.QualityLookup.TabIndex = 6;
             // 
             // gridControl1
             // 
@@ -520,7 +521,7 @@
             this.gridControl1.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.IssuetypeItemLookUpEdit});
             this.gridControl1.Size = new System.Drawing.Size(843, 149);
-            this.gridControl1.TabIndex = 7;
+            this.gridControl1.TabIndex = 8;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
             // 
@@ -710,7 +711,7 @@
             this.ordertypeLookUpEdit1.Properties.ValueMember = "_Value";
             this.ordertypeLookUpEdit1.Size = new System.Drawing.Size(130, 24);
             this.ordertypeLookUpEdit1.StyleController = this.layoutControl1;
-            this.ordertypeLookUpEdit1.TabIndex = 2;
+            this.ordertypeLookUpEdit1.TabIndex = 4;
             // 
             // voucherNoTextEdit
             // 
@@ -725,7 +726,7 @@
             this.voucherNoTextEdit.Properties.MaxLength = 50;
             this.voucherNoTextEdit.Size = new System.Drawing.Size(107, 24);
             this.voucherNoTextEdit.StyleController = this.layoutControl1;
-            this.voucherNoTextEdit.TabIndex = 9;
+            this.voucherNoTextEdit.TabIndex = 2;
             // 
             // divLookUpEdit
             // 
@@ -894,6 +895,7 @@
             // 
             // barcodeSimpleButton
             // 
+            this.barcodeSimpleButton.AllowFocus = false;
             this.barcodeSimpleButton.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.barcodeSimpleButton.Appearance.Options.UseFont = true;
             this.barcodeSimpleButton.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("barcodeSimpleButton.ImageOptions.SvgImage")));
@@ -901,6 +903,7 @@
             this.barcodeSimpleButton.Name = "barcodeSimpleButton";
             this.barcodeSimpleButton.Size = new System.Drawing.Size(155, 23);
             this.barcodeSimpleButton.TabIndex = 1;
+            this.barcodeSimpleButton.TabStop = false;
             this.barcodeSimpleButton.Text = "Generate Barcode";
             // 
             // BOMIndex

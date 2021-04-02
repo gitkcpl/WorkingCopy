@@ -24,6 +24,7 @@ namespace Konto.Shared.Trans.PInvoice
         public ChallanTypeEnum ChallanType { get; set; }
         public string ChallanTypeId { get; set; }
         public int[] SelectedRows { get; set; }
+
         public PendingGrnForPurchase()
         {
             InitializeComponent();
@@ -65,6 +66,11 @@ namespace Konto.Shared.Trans.PInvoice
                 }
                 KontoUtils.RestoreLayoutGrid(this.GridLayoutFileName, gridView1);
                 this.ActiveControl = gridControl1;
+
+                if (this.AccId == 0)
+                {
+                    gridView1.OptionsSelection.MultiSelect = false;
+                }
             }
             catch (Exception ex)
             {

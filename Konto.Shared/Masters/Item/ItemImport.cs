@@ -44,6 +44,7 @@ namespace Konto.Shared.Masters.Item
                 var StockList = new List<StockBalModel>();
                 using (var db = new KontoContext())
                 {
+
                     var pid = db.Products.Max(k => k.Id);
                     int ProdctId = 0;
                     if (pid != 0)
@@ -126,7 +127,14 @@ namespace Konto.Shared.Masters.Item
                         if (!string.IsNullOrEmpty(_subname))
                         {
                             var _subgrp = db.PSubGroups.FirstOrDefault(x => x.SubName.ToUpper() == _subname.ToUpper());
-                            if (_subgrp != null)
+                            if (_subgrp == null)
+                            {
+                                _subgrp = new PSubGroupModel();
+                                _subgrp.IsActive = true;
+                                _subgrp.SubName = _subname;
+                                db.PSubGroups.Add(_subgrp);
+                                db.SaveChanges();
+                            }
                                 _imp.SubGroupId = _subgrp.Id;
                         }
                         
@@ -138,7 +146,14 @@ namespace Konto.Shared.Masters.Item
                         if (!string.IsNullOrEmpty(_category))
                         {
                             var _cat = db.CategroyModels.FirstOrDefault(x => x.CatName.ToUpper() == _category.ToUpper());
-                            if (_cat != null)
+                            if (_cat == null && _category.Length>1)
+                            {
+                                _cat = new PCategroyModel();
+                                _cat.CatName = _category;
+                                _cat.IsActive = true;
+                                db.CategroyModels.Add(_cat);
+                                db.SaveChanges();
+                            }
                                 _imp.CategoryId = _cat.Id;
                         }
 
@@ -150,7 +165,14 @@ namespace Konto.Shared.Masters.Item
                         if (!string.IsNullOrEmpty(_color))
                         {
                             var _col = db.ColorModels.FirstOrDefault(x => x.ColorName.ToUpper() == _color.ToUpper());
-                            if (_col != null)
+                            if (_col == null && _color.Length>1)
+                            {
+                                _col = new ColorModel();
+                                _col.ColorName = _color;
+                                _col.IsActive = true;
+                                db.ColorModels.Add(_col);
+                                db.SaveChanges();
+                            }
                                 _imp.ColorId = _col.Id;
                         }
 
@@ -162,25 +184,42 @@ namespace Konto.Shared.Masters.Item
                         if (!string.IsNullOrEmpty(_brand))
                         {
                             var br = db.Brands.FirstOrDefault(x => x.BrandName.ToUpper() == _brand.ToUpper());
-                            if (br != null)
-                                _imp.BrandId = br.Id;
+                            if (br == null && _brand.Length >1)
+                            {
+                                br = new BrandModel();
+                                br.BrandName = _brand;
+                                br.IsActive = true;
+                                db.Brands.Add(br);
+                                db.SaveChanges();
+                            
+                            }
+                            _imp.BrandId = br.Id;
                         }
 
                         if(_imp.BrandId==0)
-                        _imp.BrandId = 1;
+                            _imp.BrandId = 1;
 
                         var _size = item[18].ToString();
 
                         if (!string.IsNullOrEmpty(_size)){
                             var _sz= db.SizeModels.FirstOrDefault(x => x.SizeName.ToUpper() == _size.ToUpper());
-                            if (_sz != null)
+                            if (_sz == null)
+                            {
+                                _sz = new PSizeModel();
+                                _sz.SizeName = _size;
+                                db.SizeModels.Add(_sz);
+                                db.SaveChanges();
+                            }
                                 _imp.SizeId = _sz.Id;
                         }
 
                         if(_imp.SizeId==0)
                             _imp.SizeId = 1;
 
-                        _imp.AccId = Convert.ToInt32(item[19].ToString()); //pcs per pack
+                        if (item[19] != null)
+                            _imp.AccId = Convert.ToInt32(item[19].ToString()); //pcs per pack
+                        else
+                            _imp.AccId = 0;
 
                         _imp.StyleId = 1;
                         
@@ -201,7 +240,7 @@ namespace Konto.Shared.Masters.Item
                                 price.DealerPrice = Convert.ToDecimal(item[10]);
                                 price.SaleRate = Convert.ToDecimal(item[11]);
                                 price.Rate1 = Convert.ToDecimal(item[13]);
-                                price.Rate1 = Convert.ToDecimal(item[14]);
+                                price.Rate2 = Convert.ToDecimal(item[14]);
 
                                 price.IssueQty = 0;
                                 price.Qty = 0;
@@ -215,26 +254,29 @@ namespace Konto.Shared.Masters.Item
                     }
                     if (impList.Count > 0)
                     {
-                        db.Products.AddRange(impList);
+                        string itemname = "";
                         using (var trans = db.Database.BeginTransaction())
                         {
                             try
                             {
+                                db.Products.AddRange(impList);
+
                                 db.SaveChanges();
                                 foreach (var item in impList)
                                 {
-                                    var _Dt = _dataTable.Select("ProductName='" + item.ProductName + "'");
+                                    itemname = item.ProductName;
+                                    //var _Dt = _dataTable .Select("ProductName='" + item.ProductName + "'");
 
                                     var _dt = _dataTable.AsEnumerable().Where(x => x.Field<string>("PRODUCTNAME") == item.ProductName).FirstOrDefault();
                                     var price = new PriceModel();
                                     price.ProductId = item.Id;
-                                    if (_Dt != null && _Dt.Length > 0)
+                                    if (_dt != null)
                                     {
-                                        price.Mrp = Convert.ToDecimal(_Dt[0][9]);
-                                        price.DealerPrice = Convert.ToDecimal(_Dt[0][10]);
-                                        price.SaleRate = Convert.ToDecimal(_Dt[0][11]);
-                                        price.Rate1 = Convert.ToDecimal(_Dt[0][13]);
-                                        price.Rate1 = Convert.ToDecimal(_Dt[0][14]);
+                                        price.Mrp = Convert.ToDecimal(_dt[9]);
+                                        price.DealerPrice = Convert.ToDecimal(_dt[10]);
+                                        price.SaleRate = Convert.ToDecimal(_dt[11]);
+                                        price.Rate1 = Convert.ToDecimal(_dt[13]);
+                                        price.Rate2 = Convert.ToDecimal(_dt[14]);
                                     }
                                     price.IssueQty = 0;
                                     price.Qty = 0;
@@ -288,7 +330,7 @@ namespace Konto.Shared.Masters.Item
                             catch (Exception ex)
                             {
                                 trans.Rollback();
-                                Log.Error(ex, "product imprt under transaction");
+                                Log.Error(ex, "product imprt under transaction" + itemname);
                             }
                             
                         }

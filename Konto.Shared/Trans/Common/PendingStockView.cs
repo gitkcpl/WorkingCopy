@@ -4,6 +4,7 @@ using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Grid;
 using DevExpress.XtraGrid.Views.Grid.ViewInfo;
 using Konto.App.Shared;
+using Konto.App.Shared.Para;
 using Konto.Core.Shared;
 using Konto.Core.Shared.Frms;
 using Konto.Core.Shared.Libs;
@@ -27,6 +28,8 @@ namespace Konto.Shared.Trans.Common
         public int ItemId { get; set; }
         public List<DetailStockDto> list = new List<DetailStockDto>();
         public string GridLayoutFileName { get; set; }
+
+        public bool CommonStock { get; set; }
         public PendingStockView()
         {
             InitializeComponent();
@@ -112,6 +115,14 @@ namespace Konto.Shared.Trans.Common
                 else
                     this.GridLayoutFileName = KontoFileLayout.Stock_Finish_Item_Details;
 
+                int compid = 0;
+                if (this.CommonStock)
+                    compid = 0;
+                else
+                    compid = KontoGlobals.CompanyId;
+
+
+
                 using (var db = new KontoContext())
                 {
                     var spcol = db.SpCollections.FirstOrDefault(k => k.Id ==
@@ -121,13 +132,13 @@ namespace Konto.Shared.Trans.Common
                     {
                         list = db.Database.SqlQuery<DetailStockDto>(
                             "dbo.OutwardBeamProd @CompanyId={0} ,@ProductId={1},@IsOk={2},@vtype={3},@ptypeid={4}",
-                            KontoGlobals.CompanyId,this.ItemId, 1, this.StockType, (int)ProductType).ToList();
+                            compid,this.ItemId, 1, this.StockType, (int)ProductType).ToList();
                     }
                     else
                     {
                         list = db.Database.SqlQuery<DetailStockDto>(
                             spcol.Name + " @CompanyId={0} ,@ProductId={1},@IsOk={2},@vtype={3},@ptypeid={4}",
-                        KontoGlobals.CompanyId,this.ItemId, 1, this.StockType,(int)ProductType).ToList();
+                        compid, this.ItemId, 1, this.StockType,(int)ProductType).ToList();
                     }
 
                     gridControl1.DataSource = list;

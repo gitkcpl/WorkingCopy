@@ -63,5 +63,7 @@ namespace Konto.Data.Models.Masters.Dtos
         {
             get; set;
         } // varchar(max)
+
+        public string AccName { get; set; }
     }
 }

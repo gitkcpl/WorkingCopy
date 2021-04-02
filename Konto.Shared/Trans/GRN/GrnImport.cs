@@ -158,7 +158,7 @@ namespace Konto.Shared.Trans.GRN
                                                     if (dr["LotNo"] != null)
                                                         ctrans.LotNo = dr["LotNo"].ToString();
 
-                                                    ctrans.ProductId = Product.Id;
+                                                    ctrans.ProductId = ProductID;
                                                     ctrans.UomId = 24;//mtr
                                                     ctrans.Rate = 0;// db.Prices.FirstOrDefault(k => k.ProductId == Product.Id).DealerPrice;
                                                     ctrans.Cgst = 0;

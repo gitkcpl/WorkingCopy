@@ -23,10 +23,10 @@ namespace Konto.Pos.Purchase
             okSimpleButton.Click += OkSimpleButton_Click;
             cancelSimpleButton.Click += CancelSimpleButton_Click;
             genItemSimpleButton.Click += GenItemSimpleButton_Click;
+            
+            profitKontoSpinEdit.EditValueChanged += ProfitSpinEdit_EditValueChanged;
 
-            profitSpinEdit.EditValueChanged += ProfitSpinEdit_EditValueChanged;
-
-            saleRatespinEdit.EditValueChanged += SaleRatespinEdit_EditValueChanged;
+            saleRateKontoSpinEdit.EditValueChanged += SaleRatespinEdit_EditValueChanged;
 
             nameTextBoxExt.TextChanged += NameTextBoxExt_TextChanged;
 
@@ -42,6 +42,13 @@ namespace Konto.Pos.Purchase
             sizeCheckedComboBoxEdit.Properties.DisplayMember = "DisplayText";
             sizeCheckedComboBoxEdit.Properties.ValueMember = "Id";
 
+            qtyKontoSpinEdit.EditValueChanged += QtyKontoSpinEdit_EditValueChanged;
+
+        }
+
+        private void QtyKontoSpinEdit_EditValueChanged(object sender, EventArgs e)
+        {
+            pcsKontoSpinEdit.Value = Convert.ToInt32(qtyKontoSpinEdit.Value);
         }
 
         private void CancelSimpleButton_Click(object sender, EventArgs e)
@@ -56,12 +63,12 @@ namespace Konto.Pos.Purchase
 
         private void SaleRatespinEdit_EditValueChanged(object sender, EventArgs e)
         {
-            if(saleRatespinEdit.Value  >0)
+            if(saleRateKontoSpinEdit.Value  >0)
             {
-                mrpSpinEdit.Value = saleRatespinEdit.Value;
-                if (purRatespinEdit.Value == 0)
+                mrpKontoSpinEdit.Value = saleRateKontoSpinEdit.Value;
+                if (purRateKontoSpinEdit.Value == 0)
                 {
-                    purRatespinEdit.Value = Math.Round((saleRatespinEdit.Value * (100 / (100 + profitSpinEdit.Value))), 2, MidpointRounding.AwayFromZero);
+                    purRateKontoSpinEdit.Value = Math.Round((saleRateKontoSpinEdit.Value * (100 / (100 + profitKontoSpinEdit.Value))), 2, MidpointRounding.AwayFromZero);
                 }
             }
         }
@@ -70,13 +77,13 @@ namespace Konto.Pos.Purchase
         {
             var tx = (TaxModel) taxTypelookUpEdit.Properties.GetDataSourceRowByKeyValue(taxTypelookUpEdit.EditValue);
 
-            if (mrpSpinEdit.Value > 0 && purRatespinEdit.Value == 0)
-                saleRatespinEdit.Value = Math.Round(mrpSpinEdit.Value * (100 / (100 + profitSpinEdit.Value)), 2, MidpointRounding.AwayFromZero);
+            if (mrpKontoSpinEdit.Value > 0 && purRateKontoSpinEdit.Value == 0)
+                saleRateKontoSpinEdit.Value = Math.Round(mrpKontoSpinEdit.Value * (100 / (100 + profitKontoSpinEdit.Value)), 2, MidpointRounding.AwayFromZero);
             else
             {
                 if (tx != null)
                 {
-                    saleRatespinEdit.Value = Math.Round(purRatespinEdit.Value + (purRatespinEdit.Value * tx.Igst / 100) + (purRatespinEdit.Value * profitSpinEdit.Value) / 100, 2, MidpointRounding.AwayFromZero);
+                    saleRateKontoSpinEdit.Value = Math.Round(purRateKontoSpinEdit.Value + (purRateKontoSpinEdit.Value * tx.Igst / 100) + (purRateKontoSpinEdit.Value * profitKontoSpinEdit.Value) / 100, 2, MidpointRounding.AwayFromZero);
                 }
             }
 
@@ -109,12 +116,12 @@ namespace Konto.Pos.Purchase
             if (tx == null) return;
 
             
-            int _Qty = Convert.ToInt32(qtySpinEdit.Value);
+            decimal _Qty = qtyKontoSpinEdit.Value;
             int _TQty = 1;
 
             if (uniqueCheckEdit.Checked)
             {
-                _TQty = _Qty;
+                _TQty = Convert.ToInt32( _Qty);
                 _Qty = 1;
             }
             
@@ -171,13 +178,23 @@ namespace Konto.Pos.Purchase
                         model.CheckNegative = negativeCheckEdit.Checked;
                         model.SaleRateTaxInc = taxIncCheckEdit.Checked;
 
-                        model.Rate = purRatespinEdit.Value;
-                        model.Disc = purDiscspinEdit.Value;
-                        model.SellingPrice = saleRatespinEdit.Value;
-                        model.SaleDisc = saleDiscSpinEdit.Value;
-                        model.ProfitPer = profitSpinEdit.Value;
-                        model.Mrp = mrpSpinEdit.Value;
-                        model.Qty = _Qty;
+                        model.Rate = purRateKontoSpinEdit.Value;
+                        model.Disc = purDiscKontoSpinEdit.Value;
+                        model.SellingPrice = saleRateKontoSpinEdit.Value;
+                        model.SaleDisc = saleDiscKontoSpinEdit.Value;
+                        model.ProfitPer = profitKontoSpinEdit.Value;
+                        model.Mrp = mrpKontoSpinEdit.Value;
+
+                        model.BulkRate = bulkRateKontoSpinEdit.Value;
+                        model.SemiBulkRate = semBulkRateKontoSpinEdit.Value;
+                        model.BulkQty = bulkQtyKontoSpinEdit.Value;
+                        model.Pcs = Convert.ToInt32( pcsKontoSpinEdit.Value);
+                        model.AvgWt = wtKontoSpinEdit1.Value;
+
+                        if (uniqueCheckEdit.Checked)
+                            model.Qty = 1;
+                        else
+                            model.Qty = qtyKontoSpinEdit.Value;
 
                         ItemDetails.Add(model);
                     }
@@ -185,6 +202,8 @@ namespace Konto.Pos.Purchase
 
                 posPurTransDtoBindingSource.DataSource = ItemDetails;
                 gridControl1.RefreshDataSource();
+
+                styleNoTextEdit.Focus();
             }
             catch (Exception ex)
             {
@@ -286,25 +305,25 @@ namespace Konto.Pos.Purchase
                 unitLookUpEdit.Focus();
                 return false;
             }
-            else if (purRatespinEdit.Value <= 0)
+            else if (purRateKontoSpinEdit.Value <= 0)
             {
                 MessageBoxAdv.Show(this, "Enter Purchase Rate", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                purRatespinEdit.Focus();
+                purRateKontoSpinEdit.Focus();
                 return false;
             }
 
-            else if (saleRatespinEdit.Value <= 0)
+            else if (saleRateKontoSpinEdit.Value <= 0)
             {
-                MessageBoxAdv.Show(this, "Enter Purchase Rate", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                saleRatespinEdit.Focus();
+                MessageBoxAdv.Show(this, "Enter Sale Rate", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                saleRateKontoSpinEdit.Focus();
                 return false;
             }
 
-            else if (qtySpinEdit.Value == 0)
+            else if (qtyKontoSpinEdit.Value == 0)
             {
                 MessageBoxAdv.Show(this, "Enter Purchase Qty", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
-                qtySpinEdit.Focus();
+                qtyKontoSpinEdit.Focus();
                 return false;
             }
 

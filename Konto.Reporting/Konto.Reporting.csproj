@@ -516,6 +516,10 @@
       <Project>{462e3508-500d-4f85-8e0d-88b132b62d5c}</Project>
       <Name>Konto.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Konto.Pos\Konto.Pos.csproj">
+      <Project>{8D835986-C349-4241-9C50-786F3EBA7DA3}</Project>
+      <Name>Konto.Pos</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Konto.Shared\Konto.Shared.csproj">
       <Project>{ce5eaeb4-ddff-49f6-8cd5-b95c84107d3b}</Project>
       <Name>Konto.Shared</Name>

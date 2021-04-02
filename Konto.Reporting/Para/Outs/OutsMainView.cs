@@ -61,6 +61,7 @@ namespace Konto.Reporting.Para.Outs
             var frm = new OutsParaView();
             frm.TopLevel = false;
             frm.Parent = tabPageAdv2;
+            frm.PageAdv = this.tabControlAdv1;
             frm.Location = new Point(tabPageAdv2.Location.X + tabPageAdv2.Width / 2 - frm.Width / 2, tabPageAdv2.Location.Y + tabPageAdv2.Height / 2 - frm.Height / 2);
             frm.Show();
         }

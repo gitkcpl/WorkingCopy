@@ -1182,6 +1182,7 @@
             // 
             // billNoTextEdit
             // 
+            this.billNoTextEdit.EnterMoveNextControl = true;
             this.billNoTextEdit.Location = new System.Drawing.Point(392, 334);
             this.billNoTextEdit.Name = "billNoTextEdit";
             this.billNoTextEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));

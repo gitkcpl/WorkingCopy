@@ -47,6 +47,7 @@
             this.colBillId = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colProductName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.productRepositoryItemButtonEdit = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
+            this.colHsnCode = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colColorName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colorRepositoryItemButtonEdit = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
             this.colDesignName = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -125,7 +126,6 @@
             this.layoutControlItem14 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem7 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem23 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.colHsnCode = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.tabControlAdv1)).BeginInit();
             this.tabControlAdv1.SuspendLayout();
             this.tabPageAdv1.SuspendLayout();
@@ -603,6 +603,15 @@
             this.productRepositoryItemButtonEdit.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
             this.productRepositoryItemButtonEdit.Name = "productRepositoryItemButtonEdit";
+            // 
+            // colHsnCode
+            // 
+            this.colHsnCode.FieldName = "HsnCode";
+            this.colHsnCode.Name = "colHsnCode";
+            this.colHsnCode.OptionsColumn.AllowEdit = false;
+            this.colHsnCode.OptionsColumn.AllowFocus = false;
+            this.colHsnCode.Visible = true;
+            this.colHsnCode.VisibleIndex = 1;
             // 
             // colColorName
             // 
@@ -1142,6 +1151,7 @@
             // 
             // billNoTextEdit
             // 
+            this.billNoTextEdit.EnterMoveNextControl = true;
             this.billNoTextEdit.Location = new System.Drawing.Point(392, 334);
             this.billNoTextEdit.Name = "billNoTextEdit";
             this.billNoTextEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1448,15 +1458,6 @@
             this.layoutControlItem23.Size = new System.Drawing.Size(208, 28);
             this.layoutControlItem23.Text = "Bill Amount:";
             this.layoutControlItem23.TextSize = new System.Drawing.Size(133, 17);
-            // 
-            // colHsnCode
-            // 
-            this.colHsnCode.FieldName = "HsnCode";
-            this.colHsnCode.Name = "colHsnCode";
-            this.colHsnCode.OptionsColumn.AllowEdit = false;
-            this.colHsnCode.OptionsColumn.AllowFocus = false;
-            this.colHsnCode.Visible = true;
-            this.colHsnCode.VisibleIndex = 1;
             // 
             // PReturnIndex
             // 

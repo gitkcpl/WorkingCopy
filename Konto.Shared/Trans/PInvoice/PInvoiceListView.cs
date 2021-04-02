@@ -254,6 +254,21 @@ namespace Konto.Shared.Trans.PInvoice
                             foreach (var item in trans)
                             {
                                 item.IsDeleted = true;
+
+                                // product serial delete
+                                var srs = db.SerialBatches.Where(x => x.RefTransId == item.Id && x.RefVoucherId ==model.VoucherId).ToList();
+                                foreach (var sr in srs)
+                                {
+                                    var _sr = db.SerialBatches.Find(sr.Id);
+
+                                    if (!_sr.IsActive)
+                                    {
+                                        MessageBox.Show("Serial in Used. Can Not Delete");
+                                        _tran.Rollback();
+                                        return;
+                                    }
+                                    _sr.IsDeleted = true;
+                                }
                             }
 
 
@@ -286,7 +301,7 @@ namespace Konto.Shared.Trans.PInvoice
         public override void Print()
         {
             base.Print();
-            if (this.customGridView1.FocusedRowHandle <= 0) return;
+            if (this.customGridView1.FocusedRowHandle < 0) return;
             if (KontoView.Columns.ColumnByFieldName("Id") != null)
             {
                 if (KontoView.Columns.ColumnByFieldName("IsDeleted") != null)
@@ -298,11 +313,14 @@ namespace Konto.Shared.Trans.PInvoice
                 }
                 var id = this.KontoView.GetRowCellValue(this.KontoView.FocusedRowHandle, "VoucherNo").ToString();
 
-                var frm = new DocPrintParaView(VoucherTypeEnum.Inward, "Grn Print",id,id, "ORD", "OrdId");
+                var frm = new DocPrintParaView(VoucherTypeEnum.PurchaseInvoice, "Purchase Print", id, id, "PURBILL", "BillId");
+                frm.EditKey = Convert.ToInt32(this.KontoView.GetRowCellValue(this.KontoView.FocusedRowHandle, "Id"));
                 frm.ShowDialog();
 
 
+
             }
+
 
 
         }

@@ -5,6 +5,7 @@ using Konto.Data.Models.Masters;
 using Konto.Data.Models.Masters.Dtos;
 using Stimulsoft.Report;
 using Stimulsoft.Report.Dictionary;
+using Syncfusion.Windows.Forms.Tools;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -25,13 +26,36 @@ namespace Konto.Shared.Masters.Item
         {
             InitializeComponent();
             this.Load += BarcodeView_Load;
+            this.FormClosed += BarcodeView_FormClosed;
+            this.Shown += BarcodeView_Shown;
+        }
+
+        private void BarcodeView_Shown(object sender, EventArgs e)
+        {
+            if (this.PurchaseId != 0)
+            {
+                for (int i = 0; i < gridView1.RowCount; i++)
+                {
+                    gridView1.SelectRow(i);
+                }
+            }
+        }
+
+        private void BarcodeView_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            var tabpage = this.Parent as TabPageAdv;
+            if (tabpage != null)
+            {
+                var tabcontrol = tabpage.Parent as TabControlAdv;
+                if (tabcontrol != null)
+                    tabcontrol.TabPages.Remove(tabpage);
+            }
         }
 
         private void BarcodeView_Load(object sender, EventArgs e)
         {
 
-            if (this.PurchaseId != 0)
-            {
+            
                 using (var _context = new KontoContext())
                 {
                     _context.Database.CommandTimeout = 0;
@@ -64,10 +88,12 @@ namespace Konto.Shared.Masters.Item
                                   join cl in _context.ColorModels on pd.ColorId equals cl.Id into cl_join
                                   from cl in cl_join.DefaultIfEmpty()
 
-                                  join bt in _context.BillTrans on pd.Id equals bt.ProductId
+                                  join bt in _context.BillTrans on pd.Id equals bt.ProductId into pr_join
+                                  from bt in pr_join.DefaultIfEmpty()
 
-                                  where bal.CompanyId == KontoGlobals.CompanyId && bal.BranchId == KontoGlobals.BranchId && bal.YearId == KontoGlobals.YearId
-                                  && bt.BillId == this.PurchaseId
+                                  where bal.CompanyId == KontoGlobals.CompanyId && bal.BranchId == KontoGlobals.BranchId 
+                                  && bal.YearId == KontoGlobals.YearId
+                                  &&  (this.PurchaseId==0 || (bt.BillId == this.PurchaseId && !bt.IsDeleted)) && !pd.IsDeleted
 
                                   select new PosBarcodeListDto
                                   {
@@ -91,7 +117,14 @@ namespace Konto.Shared.Masters.Item
                     posBarcodeListDtoBindingSource.DataSource = _model;
                     gridControl1.RefreshDataSource();
                 }
-            }
+
+
+
+            // if purchase then select all rows
+
+           
+            
+            
         }
 
         private void okSimpleButton_Click(object sender, EventArgs e)
@@ -142,7 +175,9 @@ namespace Konto.Shared.Masters.Item
             rpt.Compile();
             rpt["condition"] = _cond;
             rpt["reportid"] = _ReportId;
-            
+            rpt["companyname"] = KontoGlobals.CompanyName;
+            rpt["empty_labels"] = emptyLabelSpinEdit.Value;
+
             if (_paraList.Count > 0)
                 rpt["item"] = "'Y'";
 

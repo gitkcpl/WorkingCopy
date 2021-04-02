@@ -216,6 +216,8 @@ namespace Konto.Data.Models.Transaction
 
         public decimal SaleRate { get; set; }
 
+        
+
         [ForeignKey("BillId")]
         public virtual BillModel Bill { get; set; }
 

@@ -41,5 +41,7 @@ namespace Konto.Data.Models.Transaction.Dtos
         public string VehicleNo { get; set; } // varchar(25)
 
         public string Remark { get; set; } // varchar(max)
+
+        public int AccId { get; set; }
     }
 }

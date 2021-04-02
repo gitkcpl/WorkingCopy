@@ -4,6 +4,7 @@ using Konto.Core.Shared;
 using Konto.Core.Shared.Frms;
 using Konto.Core.Shared.Libs;
 using Konto.Data.Models.Transaction.Dtos;
+using Konto.Pos.Sales;
 using Konto.Shared.Trans.SInvoice;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -53,7 +54,13 @@ namespace Konto.Reporting.Para.Gst
                 var row = view.GetRow(view.FocusedRowHandle) as docDetailList;
                 BillId = row.BillId;
             }
-            var vw = new SInvoiceIndex();
+            var vw = new KontoMetroForm();
+
+            if (KontoGlobals.PackageId == (int)PackageType.POS)
+                vw = new SalesIndex();
+            else
+             vw = new SInvoiceIndex();
+
             vw.tabControlAdv1.SelectedIndex = 0;
             vw.EditKey = BillId;
             vw.OpenForLookup = true;

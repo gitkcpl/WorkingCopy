@@ -99,6 +99,9 @@ namespace Konto.Pos.Purchase
             this.accLookup1.ShownPopup += AccLookup1_ShownPopup;
             FillLookup();
             SetParameter();
+
+
+
             
 
             headerEdit.Hide();
@@ -1312,6 +1315,8 @@ namespace Konto.Pos.Purchase
             billAmtSpinEdit.Value = model.TotalAmount;
             roundoffSpinEdit.Value = Convert.ToDecimal(model.RoundOff);
             paybleTextEdit.EditValue = model.TotalAmount - model.TdsAmt;
+            ewayBilltextEdit1.Text = model.EwayBillNo;
+
             createdLabelControl.Text = "Created By: " + model.CreateUser + " [ " + model.CreateDate + " ]";
             modifyLabelControl.Text = "Modified By: " + model.ModifyUser + " [ " + model.ModifyDate ?? string.Empty  + " ]";
 
@@ -1490,12 +1495,12 @@ namespace Konto.Pos.Purchase
             decimal qty = Convert.ToDecimal(view.GetRowCellValue(e.RowHandle, colQty));
             decimal rate = Convert.ToDecimal(view.GetRowCellValue(e.RowHandle, colRate));
 
-            if (product == 0)
-            {
-                e.Valid = false;
-                view.SetColumnError(colProductName, "Invalid Product");
-            }
-            else if (unit == 0)
+            //if (product == 0)
+            //{
+            //    e.Valid = false;
+            //    view.SetColumnError(colProductName, "Invalid Product");
+            //}
+            if (unit == 0)
             {
                 e.Valid = false;
                 view.SetColumnError(colUomId, "Invalid Unit");
@@ -2494,6 +2499,7 @@ namespace Konto.Pos.Purchase
             model.IsActive = true;
             model.TcsPer = tcsPerTextEdit.Value;
             model.TcsAmt = tcsAmtTextEdit.Value;
+            model.EwayBillNo = ewayBilltextEdit1.Text.Trim();
 
             if (!string.IsNullOrEmpty(costLookUpEdi.Text))
             {
@@ -2564,7 +2570,7 @@ namespace Konto.Pos.Purchase
                 model.HsnCode = pos.HsnCode;
 
                 model.ProductName = pos.ProductName;
-                model.ProductDesc = pos.ProductName;
+                model.ProductDesc = pos.Description;
 
 
                 model.GroupId = pos.GroupId;
@@ -2601,8 +2607,9 @@ namespace Konto.Pos.Purchase
                 price.Rate1 = pos.BulkRate;
                 price.Rate2 = pos.SemiBulkRate;
                 price.Mrp = pos.Mrp;
-                price.IssueQty = pos.Qty;
-                
+                price.IssueQty = pos.Pcs;
+
+                model.StdWt = pos.AvgWt;
 
                 if (model.Id == 0)
                 {
@@ -2670,6 +2677,7 @@ namespace Konto.Pos.Purchase
                 // add entry for stock bal table for each company && each branch
                
             }
+            gridControl1.RefreshDataSource();
 
             return true;
 

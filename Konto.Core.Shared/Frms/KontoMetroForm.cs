@@ -235,8 +235,15 @@ namespace Konto.Core.Shared.Frms
 
         private void navAction1_NewButtonClick(object sender, EventArgs e)
         {
-            this.ResetPage();
+
+            if (KontoGlobals.PackageId != (int)PackageType.POS)
+            {
+                this.ResetPage();
+
+                
+            }
             this.NewRec();
+
             this.RecordNo = 0;
             this.TotalRecord = 0;
             this.PrimaryKey = 0;

@@ -30,8 +30,10 @@
         {
             this.components = new System.ComponentModel.Container();
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
-            this.lookUpEdit1 = new DevExpress.XtraEditors.LookUpEdit();
-            this.storeLookUpEdit = new DevExpress.XtraEditors.LookUpEdit();
+            this.ewayBillNoTextEdit = new DevExpress.XtraEditors.TextEdit();
+            this.transportModeComboBoxEdit = new DevExpress.XtraEditors.ComboBoxEdit();
+            this.toBranchLookUpEdit = new DevExpress.XtraEditors.LookUpEdit();
+            this.fromBranchLookUpEdit = new DevExpress.XtraEditors.LookUpEdit();
             this.driverTextEdit = new DevExpress.XtraEditors.TextEdit();
             this.lrDateEdit = new DevExpress.XtraEditors.DateEdit();
             this.vehicleTextEdit = new DevExpress.XtraEditors.TextEdit();
@@ -43,6 +45,7 @@
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colId = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colChallanId = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colBarcodeNo = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colProductId = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colDesignId = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colGradeId = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -58,7 +61,9 @@
             this.colLotNo = new DevExpress.XtraGrid.Columns.GridColumn();
             this.lotNoRepositoryItemButtonEdit = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
             this.colCops = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colFromStock = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colPcs = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colToStock = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colQty = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colUomId = new DevExpress.XtraGrid.Columns.GridColumn();
             this.uomRepositoryItemLookUpEdit = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
@@ -96,24 +101,19 @@
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem17 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem20 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.layoutControlItem10 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem11 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem7 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem13 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem14 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem19 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.layoutControlItem15 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.colBarcodeNo = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colToStock = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colFromStock = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.transportModeComboBoxEdit = new DevExpress.XtraEditors.ComboBoxEdit();
             this.layoutControlItem8 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.textEdit1 = new DevExpress.XtraEditors.TextEdit();
+            this.layoutControlItem10 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem15 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem9 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)(this.tabControlAdv1)).BeginInit();
             this.tabControlAdv1.SuspendLayout();
@@ -122,8 +122,10 @@
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.lookUpEdit1.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.storeLookUpEdit.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ewayBillNoTextEdit.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.transportModeComboBoxEdit.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.toBranchLookUpEdit.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fromBranchLookUpEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.driverTextEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lrDateEdit.Properties.CalendarTimeProperties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lrDateEdit.Properties)).BeginInit();
@@ -149,21 +151,19 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem17)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem20)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem10)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem11)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem13)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem14)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem19)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem15)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.transportModeComboBoxEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem10)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem15)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).BeginInit();
             this.SuspendLayout();
             // 
@@ -202,10 +202,10 @@
             // 
             // layoutControl1
             // 
-            this.layoutControl1.Controls.Add(this.textEdit1);
+            this.layoutControl1.Controls.Add(this.ewayBillNoTextEdit);
             this.layoutControl1.Controls.Add(this.transportModeComboBoxEdit);
-            this.layoutControl1.Controls.Add(this.lookUpEdit1);
-            this.layoutControl1.Controls.Add(this.storeLookUpEdit);
+            this.layoutControl1.Controls.Add(this.toBranchLookUpEdit);
+            this.layoutControl1.Controls.Add(this.fromBranchLookUpEdit);
             this.layoutControl1.Controls.Add(this.driverTextEdit);
             this.layoutControl1.Controls.Add(this.lrDateEdit);
             this.layoutControl1.Controls.Add(this.vehicleTextEdit);
@@ -231,53 +231,87 @@
             this.layoutControl1.TabStop = false;
             this.layoutControl1.Text = "layoutControl1";
             // 
-            // lookUpEdit1
+            // ewayBillNoTextEdit
             // 
-            this.lookUpEdit1.EnterMoveNextControl = true;
-            this.lookUpEdit1.Location = new System.Drawing.Point(363, 33);
-            this.lookUpEdit1.Name = "lookUpEdit1";
-            this.lookUpEdit1.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
-            this.lookUpEdit1.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lookUpEdit1.Properties.Appearance.Options.UseFont = true;
-            this.lookUpEdit1.Properties.AppearanceDropDown.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lookUpEdit1.Properties.AppearanceDropDown.Options.UseFont = true;
-            this.lookUpEdit1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            this.ewayBillNoTextEdit.EnterMoveNextControl = true;
+            this.ewayBillNoTextEdit.Location = new System.Drawing.Point(758, 334);
+            this.ewayBillNoTextEdit.Name = "ewayBillNoTextEdit";
+            this.ewayBillNoTextEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ewayBillNoTextEdit.Properties.Appearance.Options.UseFont = true;
+            this.ewayBillNoTextEdit.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.ewayBillNoTextEdit.Properties.AppearanceFocused.Options.UseBorderColor = true;
+            this.ewayBillNoTextEdit.Properties.MaxLength = 500;
+            this.ewayBillNoTextEdit.Size = new System.Drawing.Size(181, 24);
+            this.ewayBillNoTextEdit.StyleController = this.layoutControl1;
+            this.ewayBillNoTextEdit.TabIndex = 12;
+            // 
+            // transportModeComboBoxEdit
+            // 
+            this.transportModeComboBoxEdit.EnterMoveNextControl = true;
+            this.transportModeComboBoxEdit.Location = new System.Drawing.Point(127, 334);
+            this.transportModeComboBoxEdit.Name = "transportModeComboBoxEdit";
+            this.transportModeComboBoxEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.transportModeComboBoxEdit.Properties.Appearance.Options.UseFont = true;
+            this.transportModeComboBoxEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.lookUpEdit1.Properties.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
-            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("DisplayText", "Name3")});
-            this.lookUpEdit1.Properties.DisplayMember = "DisplayText";
-            this.lookUpEdit1.Properties.ImmediatePopup = true;
-            this.lookUpEdit1.Properties.NullText = "";
-            this.lookUpEdit1.Properties.ShowHeader = false;
-            this.lookUpEdit1.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
-            this.lookUpEdit1.Properties.ValueMember = "Id";
-            this.lookUpEdit1.Size = new System.Drawing.Size(108, 24);
-            this.lookUpEdit1.StyleController = this.layoutControl1;
-            this.lookUpEdit1.TabIndex = 6;
+            this.transportModeComboBoxEdit.Properties.Items.AddRange(new object[] {
+            "Road",
+            "Rail",
+            "Air",
+            "Ship"});
+            this.transportModeComboBoxEdit.Properties.MaxLength = 100;
+            this.transportModeComboBoxEdit.Size = new System.Drawing.Size(128, 24);
+            this.transportModeComboBoxEdit.StyleController = this.layoutControl1;
+            this.transportModeComboBoxEdit.TabIndex = 10;
+            this.transportModeComboBoxEdit.Tag = "VoucherNo";
             // 
-            // storeLookUpEdit
+            // toBranchLookUpEdit
             // 
-            this.storeLookUpEdit.EnterMoveNextControl = true;
-            this.storeLookUpEdit.Location = new System.Drawing.Point(127, 33);
-            this.storeLookUpEdit.Name = "storeLookUpEdit";
-            this.storeLookUpEdit.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
-            this.storeLookUpEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.storeLookUpEdit.Properties.Appearance.Options.UseFont = true;
-            this.storeLookUpEdit.Properties.AppearanceDropDown.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.storeLookUpEdit.Properties.AppearanceDropDown.Options.UseFont = true;
-            this.storeLookUpEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            this.toBranchLookUpEdit.EnterMoveNextControl = true;
+            this.toBranchLookUpEdit.Location = new System.Drawing.Point(363, 33);
+            this.toBranchLookUpEdit.Name = "toBranchLookUpEdit";
+            this.toBranchLookUpEdit.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
+            this.toBranchLookUpEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toBranchLookUpEdit.Properties.Appearance.Options.UseFont = true;
+            this.toBranchLookUpEdit.Properties.AppearanceDropDown.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toBranchLookUpEdit.Properties.AppearanceDropDown.Options.UseFont = true;
+            this.toBranchLookUpEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.storeLookUpEdit.Properties.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
+            this.toBranchLookUpEdit.Properties.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
             new DevExpress.XtraEditors.Controls.LookUpColumnInfo("DisplayText", "Name3")});
-            this.storeLookUpEdit.Properties.DisplayMember = "DisplayText";
-            this.storeLookUpEdit.Properties.ImmediatePopup = true;
-            this.storeLookUpEdit.Properties.NullText = "";
-            this.storeLookUpEdit.Properties.ShowHeader = false;
-            this.storeLookUpEdit.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
-            this.storeLookUpEdit.Properties.ValueMember = "Id";
-            this.storeLookUpEdit.Size = new System.Drawing.Size(110, 24);
-            this.storeLookUpEdit.StyleController = this.layoutControl1;
-            this.storeLookUpEdit.TabIndex = 5;
+            this.toBranchLookUpEdit.Properties.DisplayMember = "DisplayText";
+            this.toBranchLookUpEdit.Properties.ImmediatePopup = true;
+            this.toBranchLookUpEdit.Properties.NullText = "";
+            this.toBranchLookUpEdit.Properties.ShowHeader = false;
+            this.toBranchLookUpEdit.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
+            this.toBranchLookUpEdit.Properties.ValueMember = "Id";
+            this.toBranchLookUpEdit.Size = new System.Drawing.Size(108, 24);
+            this.toBranchLookUpEdit.StyleController = this.layoutControl1;
+            this.toBranchLookUpEdit.TabIndex = 6;
+            // 
+            // fromBranchLookUpEdit
+            // 
+            this.fromBranchLookUpEdit.EnterMoveNextControl = true;
+            this.fromBranchLookUpEdit.Location = new System.Drawing.Point(127, 33);
+            this.fromBranchLookUpEdit.Name = "fromBranchLookUpEdit";
+            this.fromBranchLookUpEdit.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
+            this.fromBranchLookUpEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.fromBranchLookUpEdit.Properties.Appearance.Options.UseFont = true;
+            this.fromBranchLookUpEdit.Properties.AppearanceDropDown.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.fromBranchLookUpEdit.Properties.AppearanceDropDown.Options.UseFont = true;
+            this.fromBranchLookUpEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.fromBranchLookUpEdit.Properties.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("DisplayText", "Name3")});
+            this.fromBranchLookUpEdit.Properties.DisplayMember = "DisplayText";
+            this.fromBranchLookUpEdit.Properties.ImmediatePopup = true;
+            this.fromBranchLookUpEdit.Properties.NullText = "";
+            this.fromBranchLookUpEdit.Properties.ShowHeader = false;
+            this.fromBranchLookUpEdit.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
+            this.fromBranchLookUpEdit.Properties.ValueMember = "Id";
+            this.fromBranchLookUpEdit.Size = new System.Drawing.Size(110, 24);
+            this.fromBranchLookUpEdit.StyleController = this.layoutControl1;
+            this.fromBranchLookUpEdit.TabIndex = 5;
             // 
             // driverTextEdit
             // 
@@ -473,6 +507,7 @@
             this.gridView1.OptionsLayout.Columns.StoreAppearance = true;
             this.gridView1.OptionsLayout.StoreAllOptions = true;
             this.gridView1.OptionsLayout.StoreAppearance = true;
+            this.gridView1.OptionsNavigation.EnterMoveNextColumn = true;
             this.gridView1.OptionsNavigation.UseTabKey = false;
             this.gridView1.OptionsView.ColumnAutoWidth = false;
             this.gridView1.OptionsView.NewItemRowPosition = DevExpress.XtraGrid.Views.Grid.NewItemRowPosition.Bottom;
@@ -488,6 +523,15 @@
             // 
             this.colChallanId.FieldName = "ChallanId";
             this.colChallanId.Name = "colChallanId";
+            // 
+            // colBarcodeNo
+            // 
+            this.colBarcodeNo.FieldName = "BarcodeNo";
+            this.colBarcodeNo.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left;
+            this.colBarcodeNo.Name = "colBarcodeNo";
+            this.colBarcodeNo.Visible = true;
+            this.colBarcodeNo.VisibleIndex = 0;
+            this.colBarcodeNo.Width = 158;
             // 
             // colProductId
             // 
@@ -591,12 +635,32 @@
             this.colCops.FieldName = "Cops";
             this.colCops.Name = "colCops";
             // 
+            // colFromStock
+            // 
+            this.colFromStock.FieldName = "FromStock";
+            this.colFromStock.Name = "colFromStock";
+            this.colFromStock.OptionsColumn.AllowEdit = false;
+            this.colFromStock.OptionsColumn.AllowFocus = false;
+            this.colFromStock.Visible = true;
+            this.colFromStock.VisibleIndex = 2;
+            this.colFromStock.Width = 89;
+            // 
             // colPcs
             // 
             this.colPcs.FieldName = "Pcs";
             this.colPcs.Name = "colPcs";
             this.colPcs.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Pcs", "{0:F}")});
+            // 
+            // colToStock
+            // 
+            this.colToStock.FieldName = "ToStock";
+            this.colToStock.Name = "colToStock";
+            this.colToStock.OptionsColumn.AllowEdit = false;
+            this.colToStock.OptionsColumn.AllowFocus = false;
+            this.colToStock.Visible = true;
+            this.colToStock.VisibleIndex = 3;
+            this.colToStock.Width = 77;
             // 
             // colQty
             // 
@@ -951,7 +1015,7 @@
             this.voucherLookup1.SelectedValue = null;
             this.voucherLookup1.Size = new System.Drawing.Size(108, 24);
             this.voucherLookup1.TabIndex = 2;
-            this.voucherLookup1.VTypeId = Konto.App.Shared.VoucherTypeEnum.SalesChallan;
+            this.voucherLookup1.VTypeId = Konto.App.Shared.VoucherTypeEnum.Stock_Transfer;
             // 
             // Root
             // 
@@ -1013,17 +1077,6 @@
             this.layoutControlItem20.Size = new System.Drawing.Size(938, 273);
             this.layoutControlItem20.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem20.TextVisible = false;
-            // 
-            // layoutControlItem10
-            // 
-            this.layoutControlItem10.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.layoutControlItem10.AppearanceItemCaption.Options.UseFont = true;
-            this.layoutControlItem10.Control = this.transportLookup;
-            this.layoutControlItem10.Location = new System.Drawing.Point(254, 329);
-            this.layoutControlItem10.Name = "layoutControlItem10";
-            this.layoutControlItem10.Size = new System.Drawing.Size(377, 28);
-            this.layoutControlItem10.Text = "Transport:";
-            this.layoutControlItem10.TextSize = new System.Drawing.Size(119, 17);
             // 
             // layoutControlItem11
             // 
@@ -1094,22 +1147,11 @@
             this.layoutControlItem19.Text = "Send By:";
             this.layoutControlItem19.TextSize = new System.Drawing.Size(119, 17);
             // 
-            // layoutControlItem15
-            // 
-            this.layoutControlItem15.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.layoutControlItem15.AppearanceItemCaption.Options.UseFont = true;
-            this.layoutControlItem15.Control = this.driverTextEdit;
-            this.layoutControlItem15.Location = new System.Drawing.Point(0, 357);
-            this.layoutControlItem15.Name = "layoutControlItem15";
-            this.layoutControlItem15.Size = new System.Drawing.Size(254, 28);
-            this.layoutControlItem15.Text = "Driver:";
-            this.layoutControlItem15.TextSize = new System.Drawing.Size(119, 17);
-            // 
             // layoutControlItem2
             // 
             this.layoutControlItem2.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.layoutControlItem2.AppearanceItemCaption.Options.UseFont = true;
-            this.layoutControlItem2.Control = this.storeLookUpEdit;
+            this.layoutControlItem2.Control = this.fromBranchLookUpEdit;
             this.layoutControlItem2.Location = new System.Drawing.Point(0, 28);
             this.layoutControlItem2.Name = "layoutControlItem2";
             this.layoutControlItem2.Size = new System.Drawing.Size(236, 28);
@@ -1134,7 +1176,7 @@
             // 
             this.layoutControlItem4.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.layoutControlItem4.AppearanceItemCaption.Options.UseFont = true;
-            this.layoutControlItem4.Control = this.lookUpEdit1;
+            this.layoutControlItem4.Control = this.toBranchLookUpEdit;
             this.layoutControlItem4.Location = new System.Drawing.Point(236, 28);
             this.layoutControlItem4.Name = "layoutControlItem4";
             this.layoutControlItem4.Size = new System.Drawing.Size(234, 28);
@@ -1155,55 +1197,6 @@
             this.layoutControlItem5.Text = "<color=255, 0, 0>*</color>Ref No:";
             this.layoutControlItem5.TextSize = new System.Drawing.Size(119, 17);
             // 
-            // colBarcodeNo
-            // 
-            this.colBarcodeNo.FieldName = "BarcodeNo";
-            this.colBarcodeNo.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left;
-            this.colBarcodeNo.Name = "colBarcodeNo";
-            this.colBarcodeNo.Visible = true;
-            this.colBarcodeNo.VisibleIndex = 0;
-            this.colBarcodeNo.Width = 158;
-            // 
-            // colToStock
-            // 
-            this.colToStock.FieldName = "ToStock";
-            this.colToStock.Name = "colToStock";
-            this.colToStock.OptionsColumn.AllowEdit = false;
-            this.colToStock.OptionsColumn.AllowFocus = false;
-            this.colToStock.Visible = true;
-            this.colToStock.VisibleIndex = 3;
-            this.colToStock.Width = 77;
-            // 
-            // colFromStock
-            // 
-            this.colFromStock.FieldName = "FromStock";
-            this.colFromStock.Name = "colFromStock";
-            this.colFromStock.OptionsColumn.AllowEdit = false;
-            this.colFromStock.OptionsColumn.AllowFocus = false;
-            this.colFromStock.Visible = true;
-            this.colFromStock.VisibleIndex = 2;
-            this.colFromStock.Width = 89;
-            // 
-            // transportModeComboBoxEdit
-            // 
-            this.transportModeComboBoxEdit.EnterMoveNextControl = true;
-            this.transportModeComboBoxEdit.Location = new System.Drawing.Point(127, 334);
-            this.transportModeComboBoxEdit.Name = "transportModeComboBoxEdit";
-            this.transportModeComboBoxEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.transportModeComboBoxEdit.Properties.Appearance.Options.UseFont = true;
-            this.transportModeComboBoxEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.transportModeComboBoxEdit.Properties.Items.AddRange(new object[] {
-            "Road",
-            "Rail",
-            "Air",
-            "Ship"});
-            this.transportModeComboBoxEdit.Properties.MaxLength = 100;
-            this.transportModeComboBoxEdit.Size = new System.Drawing.Size(128, 24);
-            this.transportModeComboBoxEdit.StyleController = this.layoutControl1;
-            this.transportModeComboBoxEdit.TabIndex = 10;
-            this.transportModeComboBoxEdit.Tag = "VoucherNo";
-            // 
             // layoutControlItem8
             // 
             this.layoutControlItem8.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1215,25 +1208,33 @@
             this.layoutControlItem8.Text = "Mode Of Transport:";
             this.layoutControlItem8.TextSize = new System.Drawing.Size(119, 17);
             // 
-            // textEdit1
+            // layoutControlItem10
             // 
-            this.textEdit1.EnterMoveNextControl = true;
-            this.textEdit1.Location = new System.Drawing.Point(758, 334);
-            this.textEdit1.Name = "textEdit1";
-            this.textEdit1.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textEdit1.Properties.Appearance.Options.UseFont = true;
-            this.textEdit1.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.textEdit1.Properties.AppearanceFocused.Options.UseBorderColor = true;
-            this.textEdit1.Properties.MaxLength = 500;
-            this.textEdit1.Size = new System.Drawing.Size(181, 24);
-            this.textEdit1.StyleController = this.layoutControl1;
-            this.textEdit1.TabIndex = 12;
+            this.layoutControlItem10.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.layoutControlItem10.AppearanceItemCaption.Options.UseFont = true;
+            this.layoutControlItem10.Control = this.transportLookup;
+            this.layoutControlItem10.Location = new System.Drawing.Point(254, 329);
+            this.layoutControlItem10.Name = "layoutControlItem10";
+            this.layoutControlItem10.Size = new System.Drawing.Size(377, 28);
+            this.layoutControlItem10.Text = "Transport:";
+            this.layoutControlItem10.TextSize = new System.Drawing.Size(119, 17);
+            // 
+            // layoutControlItem15
+            // 
+            this.layoutControlItem15.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.layoutControlItem15.AppearanceItemCaption.Options.UseFont = true;
+            this.layoutControlItem15.Control = this.driverTextEdit;
+            this.layoutControlItem15.Location = new System.Drawing.Point(0, 357);
+            this.layoutControlItem15.Name = "layoutControlItem15";
+            this.layoutControlItem15.Size = new System.Drawing.Size(254, 28);
+            this.layoutControlItem15.Text = "Driver:";
+            this.layoutControlItem15.TextSize = new System.Drawing.Size(119, 17);
             // 
             // layoutControlItem9
             // 
             this.layoutControlItem9.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.layoutControlItem9.AppearanceItemCaption.Options.UseFont = true;
-            this.layoutControlItem9.Control = this.textEdit1;
+            this.layoutControlItem9.Control = this.ewayBillNoTextEdit;
             this.layoutControlItem9.Location = new System.Drawing.Point(631, 329);
             this.layoutControlItem9.Name = "layoutControlItem9";
             this.layoutControlItem9.Size = new System.Drawing.Size(307, 28);
@@ -1248,7 +1249,7 @@
             this.KontoLayout = this.layoutControl1;
             this.KontoMainView = this.gridView1;
             this.Name = "StIndex";
-            this.SettingCategroy = "Outward";
+            this.SettingCategroy = "Stock_Transfer";
             this.Text = "Stock Transfer";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             ((System.ComponentModel.ISupportInitialize)(this.tabControlAdv1)).EndInit();
@@ -1259,8 +1260,10 @@
             this.panelControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.lookUpEdit1.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.storeLookUpEdit.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ewayBillNoTextEdit.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.transportModeComboBoxEdit.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.toBranchLookUpEdit.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fromBranchLookUpEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.driverTextEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lrDateEdit.Properties.CalendarTimeProperties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lrDateEdit.Properties)).EndInit();
@@ -1286,21 +1289,19 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem17)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem20)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem10)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem11)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem13)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem14)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem19)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem15)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.transportModeComboBoxEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem10)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem15)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).EndInit();
             this.ResumeLayout(false);
 
@@ -1383,8 +1384,8 @@
         private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit lotNoRepositoryItemButtonEdit;
         private DevExpress.XtraEditors.TextEdit driverTextEdit;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem15;
-        private DevExpress.XtraEditors.LookUpEdit lookUpEdit1;
-        private DevExpress.XtraEditors.LookUpEdit storeLookUpEdit;
+        private DevExpress.XtraEditors.LookUpEdit toBranchLookUpEdit;
+        private DevExpress.XtraEditors.LookUpEdit fromBranchLookUpEdit;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem2;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem4;
         private DevExpress.XtraGrid.Columns.GridColumn colBarcodeNo;
@@ -1392,7 +1393,7 @@
         private DevExpress.XtraGrid.Columns.GridColumn colToStock;
         private DevExpress.XtraEditors.ComboBoxEdit transportModeComboBoxEdit;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem8;
-        private DevExpress.XtraEditors.TextEdit textEdit1;
+        private DevExpress.XtraEditors.TextEdit ewayBillNoTextEdit;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem9;
     }
 }

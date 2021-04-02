@@ -69,22 +69,47 @@ namespace Konto.Shared.Masters.FinYear
                             return;
                         }
 
-                        var fy = new FinYearModel();
+                        var pfy = db.FinYears.Find(KontoGlobals.YearId);
 
-                        fy.FromDate = Convert.ToInt32(fromDateEdit.DateTime.ToString("yyyyMMdd"));
-                        fy.ToDate = Convert.ToInt32(toDateEdit.DateTime.ToString("yyyyMMdd"));
 
-                        fy.FDate = fromDateEdit.DateTime;
-                        fy.TDate = toDateEdit.DateTime;
 
-                        fy.YearCode = fromDateEdit.DateTime.Year.ToString() + "-" + toDateEdit.DateTime.ToString("yy");
+                        var fy = new FinYearModel
+                        {
+                            FromDate = Convert.ToInt32(fromDateEdit.DateTime.ToString("yyyyMMdd")),
+                            ToDate = Convert.ToInt32(toDateEdit.DateTime.ToString("yyyyMMdd")),
 
-                        fy.IsActive = true;
-                        fy.IsDeleted = false;
-                        fy.PrevYearId = KontoGlobals.YearId;
+                            FDate = fromDateEdit.DateTime,
+                            TDate = toDateEdit.DateTime,
+
+                            YearCode = fromDateEdit.DateTime.Year.ToString() + "-" + toDateEdit.DateTime.ToString("yy"),
+
+                            IsActive = true,
+                            IsDeleted = false,
+                            PrevYearId = KontoGlobals.YearId
+                        };
+
+                        if (checkEdit1.Checked)
+                        {
+                           // for current financial year
+
+                          // pfy.DbName = db.Database.Connection.Database;
+                          //  pfy.NextYearDbName = fy.YearCode;
+                           // KontoGlobals.DbName = fy.YearCode;
+                            //for new financial year
+
+                           //fy.DbName = fy.YearCode;
+                        }
+
 
                         db.FinYears.Add(fy);
                         db.SaveChanges();
+
+                        // change coonection string for newly created database
+                       // KontoGlobals.sqlConnectionString.InitialCatalog = KontoGlobals.DbName;
+                       // db.Database.Connection.Database = pfy.YearCode;
+
+                      //  db.Database.CreateIfNotExists();
+                      //  _trn.Commit();
 
                         // transfer account in new year
 

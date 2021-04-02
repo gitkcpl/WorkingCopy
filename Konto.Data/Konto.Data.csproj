@@ -60,6 +60,7 @@
     <Compile Include="BaseDto.cs" />
     <Compile Include="BaseEntity.cs" />
     <Compile Include="BaseLookupDto.cs" />
+    <Compile Include="Models\Admin\ApiBal.cs" />
     <Compile Include="Models\Admin\AuditLog.cs" />
     <Compile Include="Models\Admin\DbVersion.cs" />
     <Compile Include="Models\Admin\Dtos\DBGroupDTO.cs" />
@@ -159,6 +160,7 @@
     <Compile Include="Models\Masters\Dtos\RefBankListDto.cs" />
     <Compile Include="Models\Masters\Dtos\RolePermissionDto.cs" />
     <Compile Include="Models\Masters\Dtos\RpSetLisDto.cs" />
+    <Compile Include="Models\Masters\Dtos\SerialBatchDto.cs" />
     <Compile Include="Models\Masters\Dtos\SizeListDto.cs" />
     <Compile Include="Models\Masters\Dtos\SizeLookupDto.cs" />
     <Compile Include="Models\Masters\Dtos\StateListViewDto.cs" />
@@ -201,6 +203,7 @@
     <Compile Include="Models\Masters\ReportTypeModel.cs" />
     <Compile Include="Models\Masters\RouteModel.cs" />
     <Compile Include="Models\Masters\RPSetModel.cs" />
+    <Compile Include="Models\Masters\SerialBatch.cs" />
     <Compile Include="Models\Masters\SerialNumbersShelf.cs" />
     <Compile Include="Models\Masters\SpPara.cs" />
     <Compile Include="Models\Masters\StateModel.cs" />
@@ -219,6 +222,7 @@
     <Compile Include="Models\Masters\WeftItemModel.cs" />
     <Compile Include="Models\Op\Dto\OpBalDto.cs" />
     <Compile Include="Models\Op\Dto\OpStockDto.cs" />
+    <Compile Include="Models\Pos\BillPay.cs" />
     <Compile Include="Models\Pos\CustomerModel.cs" />
     <Compile Include="Models\Pos\Dtos\CustomerListDto.cs" />
     <Compile Include="Models\Reports\BalDto.cs" />
@@ -307,6 +311,8 @@
     <Compile Include="Models\Transaction\Dtos\TakaCuttingListDto.cs" />
     <Compile Include="Models\Transaction\Dtos\VoucherNoDto.cs" />
     <Compile Include="Models\Transaction\EmailSmsLogModel.cs" />
+    <Compile Include="Models\Transaction\Ewb.cs" />
+    <Compile Include="Models\Transaction\EInv.cs" />
     <Compile Include="Models\Transaction\JobCardModel.cs" />
     <Compile Include="Models\Transaction\JobCardTransModel.cs" />
     <Compile Include="Models\Transaction\JobReceiptModel.cs" />
@@ -327,6 +333,7 @@
     <Compile Include="Models\Transaction\TradingDto\PendingForCuttingDto.cs" />
     <Compile Include="Models\Transaction\TransType.cs" />
     <Compile Include="Models\Pos\Dtos\PosPurTransDto.cs" />
+    <Compile Include="Models\Wvs\PendingJobDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -30,6 +30,9 @@ namespace Konto.Weaves.TakaOp
             List<ProdModel> ExcelProdList = new List<ProdModel>();
 
             KontoContext _db = new KontoContext();
+
+            _db.Configuration.AutoDetectChangesEnabled = false;
+
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
             openFileDialog1.RestoreDirectory = true;
             openFileDialog1.Title = "Open Taka Op Excel File";
@@ -81,6 +84,7 @@ namespace Konto.Weaves.TakaOp
                             if (ProductName != null)
                             {
                                 var pname = _db.Products.FirstOrDefault(k => k.ProductName == ProductName && k.ItemType == "I");
+                                if (pname == null) continue;
                                 product.ProductId = pname.Id;
 
                                 var DrawerName = dr["DesignNo"].ToString();
@@ -151,6 +155,7 @@ namespace Konto.Weaves.TakaOp
                     int sid = 0;
                     if (st != null)
                         sid = _db.StockTranses.Max(k => k.Id);
+                    var stList = new List<StockTransModel>();
 
                     foreach (var item in oplist)
                     {
@@ -188,11 +193,12 @@ namespace Konto.Weaves.TakaOp
                         strans.CreateDate = DateTime.Now;
                         strans.CreateUser = KontoGlobals.UserName;
 
-                        _db.StockTranses.Add(strans);
-                        _db.SaveChanges();
+                        stList.Add(strans);
+                        
 
                     }
-                
+                    _db.StockTranses.AddRange(stList);
+                    _db.SaveChanges();
                     _tran.Commit();
                     MessageBox.Show("upload & saved successfully");
                 }

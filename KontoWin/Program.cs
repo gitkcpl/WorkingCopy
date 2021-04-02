@@ -42,8 +42,8 @@ namespace KontoWin
                     Configuration config = ConfigurationManager.OpenExeConfiguration(Application.ExecutablePath);
                     config.AppSettings.Settings.Add("Edition", "0");
                     config.Save(ConfigurationSaveMode.Modified);
-
                 }
+
 
                 KontoGlobals.Edition = Convert.ToInt32(ConfigurationManager.AppSettings["Edition"].ToString());
                 

@@ -66,6 +66,7 @@
     <Compile Include="Para\SoPara.cs" />
     <Compile Include="Para\StoreIssuePara.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SysParameter.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

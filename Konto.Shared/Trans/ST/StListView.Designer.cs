@@ -96,16 +96,16 @@
             this.listDateRange1.Size = new System.Drawing.Size(514, 25);
             this.listDateRange1.TabIndex = 2;
             this.listDateRange1.ToDate = 0;
-            this.listDateRange1.VoucherType = Konto.App.Shared.VoucherTypeEnum.SalesChallan;
+            this.listDateRange1.VoucherType = Konto.App.Shared.VoucherTypeEnum.Stock_Transfer;
             // 
-            // ScListView
+            // StListView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.customGridControl1);
             this.KontoGrid = this.customGridControl1;
             this.KontoView = this.customGridView1;
-            this.Name = "ScListView";
+            this.Name = "StListView";
             this.Size = new System.Drawing.Size(1040, 311);
             this.Controls.SetChildIndex(this.panelControl2, 0);
             this.Controls.SetChildIndex(this.panelControl3, 0);

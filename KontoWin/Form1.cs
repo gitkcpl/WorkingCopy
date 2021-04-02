@@ -1,5 +1,4 @@
 ﻿using AutoUpdaterDotNET;
-using DevExpress.Data.Helpers;
 using DevExpress.XtraBars;
 using DevExpress.XtraSplashScreen;
 using Konto.App.Shared;
@@ -13,18 +12,14 @@ using Konto.Shared.Masters.Comp;
 using Konto.Shared.Masters.FinYear;
 using Konto.Shared.Masters.LogIn;
 using KontoWin.Db;
-using Microsoft.SqlServer.Dac;
-using Serilog;
 using Syncfusion.Windows.Forms;
 using Syncfusion.Windows.Forms.Tools;
-using Syncfusion.WinForms.Controls;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -349,6 +344,8 @@ namespace KontoWin
                                     Title = dr.Title,
                                     OrderIndex = dr.OrderIndex,
                                     ImageIndex = dr.ImageIndex
+                                    
+                                    
                                 };
                                 if (!erp.Any(x => x.Id == nr.Id))
                                     erp.Add(nr);
@@ -449,6 +446,10 @@ namespace KontoWin
 
             splash.CloseWaitForm();
             SetToolBar();
+
+
+            //read system level parameter
+            DbUtils.SetSysParameter();
         }
        
         void CreateMenuItem(ErpModule _erp, bool _isgroup)
@@ -462,6 +463,7 @@ namespace KontoWin
                 
                 mnu.Name = "menu" + _erp.Id;
                 mnu.Id = Convert.ToInt32(_erp.Id);
+                
                 if (_erp.ImageIndex != null)
                     mnu.ImageIndex = (int)_erp.ImageIndex;
 
@@ -475,6 +477,8 @@ namespace KontoWin
 
                     BarSubItem b3 = (BarSubItem)barManager1.Items["menu" + temp.Id];
                     b3.ItemLinks.Add(mnu);
+                    
+                        
                     // b3.ItemLinks.Add(mnu).BeginGroup = Convert.ToBoolean(_erp.IsSeprator);
                 }
                 else
@@ -493,12 +497,22 @@ namespace KontoWin
 
                 b1.ItemClick += B1_ItemClick;
                 barManager1.Items.Add(b1);
+                
+                    
                 var temp = erp.FirstOrDefault(x => x.Id == _erp.ParentId);
                 if (temp != null)
                 {
                     BarSubItem b2 = (BarSubItem)barManager1.Items["menu" + temp.Id];
                     if (b2 != null)
-                        b2.ItemLinks.Add(b1);
+                    {
+                        var lnk = b2.AddItem(b1);
+                        if (_erp.IsSeprator)
+                            lnk.BeginGroup = true;
+                    }
+                        //b2.ItemLinks.Add(b1);
+
+                    
+                        
                 }
 
             }
@@ -541,6 +555,13 @@ namespace KontoWin
                 {
 
                     BalanceCarryToNextYear();
+                    return;
+                }
+
+                if(e.Item.Id==906 && KontoGlobals.UserName.ToUpper()=="KEYSOFT") // Report Designer
+                {
+                    var frm = new RepDesignerIndex();
+                    frm.ShowDialog();
                     return;
                 }
 
@@ -650,11 +671,27 @@ namespace KontoWin
             productBarButtonItem.Tag= "Konto.Shared;" + "Konto.Shared.Masters.Item.ProductIndex";
             productBarButtonItem.Id = MenuId.Product_Master;
 
-            salesBarButtonItem.Tag = "Konto.Shared;" + "Konto.Shared.Trans.SInvoice.SInvoiceIndex";
-            salesBarButtonItem.Id = MenuId.Sales_Invoice;
-            
-            purchaseBarButtonItem.Tag = "Konto.Shared;" + "Konto.Shared.Trans.PInvoice.PInvoiceIndex";
-            purchaseBarButtonItem.Id = MenuId.Purchase_Invoice;
+            if (KontoGlobals.PackageId == (int) PackageType.POS)
+            {
+                salesBarButtonItem.Tag = "Konto.Pos;" + "Konto.Pos.Sales.SalesIndex";
+                salesBarButtonItem.Id = MenuId.Sales_Invoice;
+            }
+            else
+            {
+                salesBarButtonItem.Tag = "Konto.Shared;" + "Konto.Shared.Trans.SInvoice.SInvoiceIndex";
+                salesBarButtonItem.Id = MenuId.Sales_Invoice;
+            }
+
+            if (KontoGlobals.PackageId == (int)PackageType.POS)
+            {
+                purchaseBarButtonItem.Tag = "Konto.Pos;" + "Konto.Pos.Purchase.PurchaseIndex";
+                purchaseBarButtonItem.Id = MenuId.Purchase_Invoice;
+            }
+            else
+            {
+                purchaseBarButtonItem.Tag = "Konto.Shared;" + "Konto.Shared.Trans.PInvoice.PInvoiceIndex";
+                purchaseBarButtonItem.Id = MenuId.Purchase_Invoice;
+            }
 
             ledgerBarButtonItem.Tag = "Konto.Reporting;" + "Konto.Reporting.Para.Ledger.LedgerMainView";
             ledgerBarButtonItem.Id = MenuId.Ledger;

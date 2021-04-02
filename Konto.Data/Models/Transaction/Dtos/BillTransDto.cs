@@ -121,5 +121,22 @@ namespace Konto.Data.Models.Transaction.Dtos
 
         public string   Barcode { get; set; }
         public decimal RatePerQty { get; set; }
+        public decimal Stock { get; set; }
+
+        public decimal Profit { get; set; }
+        public decimal CostRate { get; set; }
+        public decimal Mrp { get; set; }
+
+   
+
+            public int EmpId { get; set; } // store in refbankid
+
+            public string ItemStatus { get; set; } // store in RPType
+
+            public string Salesman { get; set; }
+        public decimal AvgWt { get; set; }
+        public bool ChkNegative { get; set; }
+
+       
     }
 }

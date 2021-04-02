@@ -74,11 +74,11 @@ namespace Konto.Shared.Masters.Emp
        
         private void buttonEdit1_Enter(object sender, EventArgs e)
         {
-            if (Convert.ToInt32(this.SelectedValue) != 0)
-            {
-                this.buttonEdit1.SelectAll();
-                return;
-            }
+            //if (Convert.ToInt32(this.SelectedValue) != 0)
+           // {
+               // this.buttonEdit1.SelectAll();
+               // return;
+           // }
             ShowList();
         }
 

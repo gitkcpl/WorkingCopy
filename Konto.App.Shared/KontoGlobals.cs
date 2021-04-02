@@ -31,10 +31,12 @@ namespace Konto.App.Shared
             Others = 5
         }
 
-       
 
-        public static class KontoGlobals
-        {
+
+    public static class KontoGlobals
+    {
+        
+
         public static int Edition = 0;
 
         public static string DbGroup = "";
@@ -195,7 +197,8 @@ namespace Konto.App.Shared
             GateInward = 53,
             BomIssue=54,
             Pos_Purchase=55,
-            Pos_Invoice=56
+            Pos_Invoice=56,
+            Stock_Transfer=57
 
     }
         public enum TypeEnum

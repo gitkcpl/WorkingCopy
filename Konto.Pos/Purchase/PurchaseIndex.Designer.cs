@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PurchaseIndex));
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
             this.tcsAmtTextEdit = new DevExpress.XtraEditors.SpinEdit();
@@ -48,7 +49,7 @@
             this.invTypeLookUpEdit = new DevExpress.XtraEditors.LookUpEdit();
             this.transportLookup = new Konto.Shared.Masters.Acc.AccLookup();
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
-            this.grnTransDtoBindingSource1 = new System.Windows.Forms.BindingSource();
+            this.grnTransDtoBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colId = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colBillId = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -60,6 +61,7 @@
             this.designRepositoryItemButtonEdit = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
             this.colBrandId = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colCheckNegative = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colAvgWt = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colBulkRate = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colBulkQty = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colBrand = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -170,6 +172,8 @@
             this.billAdjustSimpleButton = new DevExpress.XtraEditors.SimpleButton();
             this.attachSimpleButton = new DevExpress.XtraEditors.SimpleButton();
             this.barcodeSimpleButton = new DevExpress.XtraEditors.SimpleButton();
+            this.ewayBilltextEdit1 = new DevExpress.XtraEditors.TextEdit();
+            this.layoutControlItem15 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)(this.tabControlAdv1)).BeginInit();
             this.tabControlAdv1.SuspendLayout();
             this.tabPageAdv1.SuspendLayout();
@@ -249,6 +253,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.tcsAmountlayoutControlItem)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ewayBilltextEdit1.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem15)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControlAdv1
@@ -295,6 +301,7 @@
             // 
             // layoutControl1
             // 
+            this.layoutControl1.Controls.Add(this.ewayBilltextEdit1);
             this.layoutControl1.Controls.Add(this.tcsAmtTextEdit);
             this.layoutControl1.Controls.Add(this.tcsPerTextEdit);
             this.layoutControl1.Controls.Add(this.costLookUpEdi);
@@ -567,7 +574,7 @@
             this.bookLookup.TabIndex = 5;
             this.bookLookup.TaxType = null;
             this.bookLookup.TransportLookup = null;
-            this.bookLookup.VoucherType = Konto.App.Shared.VoucherTypeEnum.Pos_Purchase;
+            this.bookLookup.VoucherType = Konto.App.Shared.VoucherTypeEnum.PurchaseInvoice;
             // 
             // itcLookUpEdit
             // 
@@ -602,6 +609,7 @@
             this.billNoTextEdit.Properties.Appearance.Options.UseFont = true;
             this.billNoTextEdit.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.billNoTextEdit.Properties.AppearanceFocused.Options.UseBorderColor = true;
+            this.billNoTextEdit.Properties.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.billNoTextEdit.Properties.MaxLength = 25;
             this.billNoTextEdit.Size = new System.Drawing.Size(169, 24);
             this.billNoTextEdit.StyleController = this.layoutControl1;
@@ -760,6 +768,7 @@
             this.colDesignName,
             this.colBrandId,
             this.colCheckNegative,
+            this.colAvgWt,
             this.colBulkRate,
             this.colBulkQty,
             this.colBrand,
@@ -866,7 +875,7 @@
             this.colColorName.Name = "colColorName";
             this.colColorName.OptionsColumn.AllowEdit = false;
             this.colColorName.Visible = true;
-            this.colColorName.VisibleIndex = 32;
+            this.colColorName.VisibleIndex = 33;
             this.colColorName.Width = 109;
             // 
             // colorRepositoryItemButtonEdit
@@ -901,19 +910,27 @@
             this.colCheckNegative.Name = "colCheckNegative";
             this.colCheckNegative.Width = 114;
             // 
+            // colAvgWt
+            // 
+            this.colAvgWt.Caption = "Weight";
+            this.colAvgWt.FieldName = "AvgWt";
+            this.colAvgWt.Name = "colAvgWt";
+            this.colAvgWt.Visible = true;
+            this.colAvgWt.VisibleIndex = 7;
+            // 
             // colBulkRate
             // 
             this.colBulkRate.FieldName = "BulkRate";
             this.colBulkRate.Name = "colBulkRate";
             this.colBulkRate.Visible = true;
-            this.colBulkRate.VisibleIndex = 26;
+            this.colBulkRate.VisibleIndex = 27;
             // 
             // colBulkQty
             // 
             this.colBulkQty.FieldName = "BulkQty";
             this.colBulkQty.Name = "colBulkQty";
             this.colBulkQty.Visible = true;
-            this.colBulkQty.VisibleIndex = 27;
+            this.colBulkQty.VisibleIndex = 28;
             // 
             // colBrand
             // 
@@ -922,7 +939,7 @@
             this.colBrand.Name = "colBrand";
             this.colBrand.OptionsColumn.AllowEdit = false;
             this.colBrand.Visible = true;
-            this.colBrand.VisibleIndex = 30;
+            this.colBrand.VisibleIndex = 31;
             // 
             // brandRepositoryItemButtonEdit
             // 
@@ -967,7 +984,7 @@
             this.colTaxId.FieldName = "TaxId";
             this.colTaxId.Name = "colTaxId";
             this.colTaxId.Visible = true;
-            this.colTaxId.VisibleIndex = 24;
+            this.colTaxId.VisibleIndex = 25;
             this.colTaxId.Width = 80;
             // 
             // taxRepositoryItemLookUpEdit
@@ -1028,7 +1045,7 @@
             this.colSaleRate.FieldName = "SaleRate";
             this.colSaleRate.Name = "colSaleRate";
             this.colSaleRate.Visible = true;
-            this.colSaleRate.VisibleIndex = 8;
+            this.colSaleRate.VisibleIndex = 9;
             // 
             // colUomId
             // 
@@ -1036,7 +1053,7 @@
             this.colUomId.FieldName = "UomId";
             this.colUomId.Name = "colUomId";
             this.colUomId.Visible = true;
-            this.colUomId.VisibleIndex = 7;
+            this.colUomId.VisibleIndex = 8;
             this.colUomId.Width = 63;
             // 
             // uomRepositoryItemLookUpEdit
@@ -1060,7 +1077,7 @@
             this.colRate.FieldName = "Rate";
             this.colRate.Name = "colRate";
             this.colRate.Visible = true;
-            this.colRate.VisibleIndex = 9;
+            this.colRate.VisibleIndex = 10;
             // 
             // colTotal
             // 
@@ -1073,14 +1090,14 @@
             this.colTotal.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Total", "{0:F}")});
             this.colTotal.Visible = true;
-            this.colTotal.VisibleIndex = 10;
+            this.colTotal.VisibleIndex = 11;
             // 
             // colDisc
             // 
             this.colDisc.FieldName = "Disc";
             this.colDisc.Name = "colDisc";
             this.colDisc.Visible = true;
-            this.colDisc.VisibleIndex = 11;
+            this.colDisc.VisibleIndex = 12;
             // 
             // colDiscAmt
             // 
@@ -1091,14 +1108,14 @@
             this.colDiscAmt.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "DiscAmt", "{0:F}")});
             this.colDiscAmt.Visible = true;
-            this.colDiscAmt.VisibleIndex = 12;
+            this.colDiscAmt.VisibleIndex = 13;
             // 
             // colFreightRate
             // 
             this.colFreightRate.FieldName = "FreightRate";
             this.colFreightRate.Name = "colFreightRate";
             this.colFreightRate.Visible = true;
-            this.colFreightRate.VisibleIndex = 13;
+            this.colFreightRate.VisibleIndex = 14;
             this.colFreightRate.Width = 86;
             // 
             // colFreight
@@ -1110,7 +1127,7 @@
             this.colFreight.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Freight", "{0:F}")});
             this.colFreight.Visible = true;
-            this.colFreight.VisibleIndex = 14;
+            this.colFreight.VisibleIndex = 15;
             // 
             // colOtherAdd
             // 
@@ -1121,7 +1138,7 @@
             this.colOtherAdd.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "OtherAdd", "{0:F}")});
             this.colOtherAdd.Visible = true;
-            this.colOtherAdd.VisibleIndex = 15;
+            this.colOtherAdd.VisibleIndex = 16;
             // 
             // colOtherLess
             // 
@@ -1132,14 +1149,14 @@
             this.colOtherLess.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "OtherLess", "{0:F}")});
             this.colOtherLess.Visible = true;
-            this.colOtherLess.VisibleIndex = 16;
+            this.colOtherLess.VisibleIndex = 17;
             // 
             // colSgstPer
             // 
             this.colSgstPer.FieldName = "SgstPer";
             this.colSgstPer.Name = "colSgstPer";
             this.colSgstPer.Visible = true;
-            this.colSgstPer.VisibleIndex = 17;
+            this.colSgstPer.VisibleIndex = 18;
             // 
             // colSgst
             // 
@@ -1150,14 +1167,14 @@
             this.colSgst.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Sgst", "{0:F}")});
             this.colSgst.Visible = true;
-            this.colSgst.VisibleIndex = 18;
+            this.colSgst.VisibleIndex = 19;
             // 
             // colCgstPer
             // 
             this.colCgstPer.FieldName = "CgstPer";
             this.colCgstPer.Name = "colCgstPer";
             this.colCgstPer.Visible = true;
-            this.colCgstPer.VisibleIndex = 19;
+            this.colCgstPer.VisibleIndex = 20;
             // 
             // colItemCode
             // 
@@ -1193,14 +1210,14 @@
             this.colCgst.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Cgst", "{0:F}")});
             this.colCgst.Visible = true;
-            this.colCgst.VisibleIndex = 20;
+            this.colCgst.VisibleIndex = 21;
             // 
             // colIgstPer
             // 
             this.colIgstPer.FieldName = "IgstPer";
             this.colIgstPer.Name = "colIgstPer";
             this.colIgstPer.Visible = true;
-            this.colIgstPer.VisibleIndex = 21;
+            this.colIgstPer.VisibleIndex = 22;
             // 
             // colIgst
             // 
@@ -1211,7 +1228,7 @@
             this.colIgst.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Igst", "{0:F}")});
             this.colIgst.Visible = true;
-            this.colIgst.VisibleIndex = 22;
+            this.colIgst.VisibleIndex = 23;
             // 
             // colGroupId
             // 
@@ -1225,7 +1242,7 @@
             this.colGroupName.Name = "colGroupName";
             this.colGroupName.OptionsColumn.AllowEdit = false;
             this.colGroupName.Visible = true;
-            this.colGroupName.VisibleIndex = 28;
+            this.colGroupName.VisibleIndex = 29;
             this.colGroupName.Width = 100;
             // 
             // groupRepositoryItemButtonEdit
@@ -1261,14 +1278,14 @@
             this.colCategory.Name = "colCategory";
             this.colCategory.OptionsColumn.AllowEdit = false;
             this.colCategory.Visible = true;
-            this.colCategory.VisibleIndex = 31;
+            this.colCategory.VisibleIndex = 32;
             // 
             // colMrp
             // 
             this.colMrp.FieldName = "Mrp";
             this.colMrp.Name = "colMrp";
             this.colMrp.Visible = true;
-            this.colMrp.VisibleIndex = 25;
+            this.colMrp.VisibleIndex = 26;
             // 
             // colCess
             // 
@@ -1291,7 +1308,7 @@
             this.colNetTotal.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "NetTotal", "{0:F}")});
             this.colNetTotal.Visible = true;
-            this.colNetTotal.VisibleIndex = 34;
+            this.colNetTotal.VisibleIndex = 35;
             this.colNetTotal.Width = 113;
             // 
             // colOrderDate
@@ -1326,7 +1343,7 @@
             this.colSize.Name = "colSize";
             this.colSize.OptionsColumn.AllowEdit = false;
             this.colSize.Visible = true;
-            this.colSize.VisibleIndex = 33;
+            this.colSize.VisibleIndex = 34;
             // 
             // sizeRepositoryItemButtonEdit
             // 
@@ -1348,7 +1365,7 @@
             this.colSubGroupName.Name = "colSubGroupName";
             this.colSubGroupName.OptionsColumn.AllowEdit = false;
             this.colSubGroupName.Visible = true;
-            this.colSubGroupName.VisibleIndex = 29;
+            this.colSubGroupName.VisibleIndex = 30;
             this.colSubGroupName.Width = 117;
             // 
             // subGroupRepositoryItemButtonEdit
@@ -1370,7 +1387,7 @@
             this.colRemark.FieldName = "Remark";
             this.colRemark.Name = "colRemark";
             this.colRemark.Visible = true;
-            this.colRemark.VisibleIndex = 23;
+            this.colRemark.VisibleIndex = 24;
             this.colRemark.Width = 198;
             // 
             // colColorId
@@ -1541,7 +1558,7 @@
             this.accLookup1.TabIndex = 8;
             this.accLookup1.TaxType = null;
             this.accLookup1.TransportLookup = null;
-            this.accLookup1.VoucherType = Konto.App.Shared.VoucherTypeEnum.Pos_Purchase;
+            this.accLookup1.VoucherType = Konto.App.Shared.VoucherTypeEnum.PurchaseInvoice;
             // 
             // voucherNoTextEdit
             // 
@@ -1570,7 +1587,7 @@
             this.voucherLookup1.SelectedValue = null;
             this.voucherLookup1.Size = new System.Drawing.Size(169, 24);
             this.voucherLookup1.TabIndex = 4;
-            this.voucherLookup1.VTypeId = Konto.App.Shared.VoucherTypeEnum.Pos_Purchase;
+            this.voucherLookup1.VTypeId = Konto.App.Shared.VoucherTypeEnum.PurchaseInvoice;
             // 
             // tdsPerTextEdit
             // 
@@ -1687,7 +1704,8 @@
             this.tcsPerlayoutControlItem,
             this.tcsAmountlayoutControlItem,
             this.emptySpaceItem1,
-            this.layoutControlItem7});
+            this.layoutControlItem7,
+            this.layoutControlItem15});
             this.Root.Name = "Root";
             this.Root.Padding = new DevExpress.XtraLayout.Utils.Padding(3, 3, 3, 3);
             this.Root.Size = new System.Drawing.Size(944, 419);
@@ -1987,9 +2005,9 @@
             // emptySpaceItem1
             // 
             this.emptySpaceItem1.AllowHotTrack = false;
-            this.emptySpaceItem1.Location = new System.Drawing.Point(0, 301);
+            this.emptySpaceItem1.Location = new System.Drawing.Point(0, 329);
             this.emptySpaceItem1.Name = "emptySpaceItem1";
-            this.emptySpaceItem1.Size = new System.Drawing.Size(520, 56);
+            this.emptySpaceItem1.Size = new System.Drawing.Size(520, 28);
             this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
             // 
             // layoutControlItem7
@@ -2055,6 +2073,31 @@
             this.barcodeSimpleButton.TabStop = false;
             this.barcodeSimpleButton.Text = "New Barcode";
             // 
+            // ewayBilltextEdit1
+            // 
+            this.ewayBilltextEdit1.EnterMoveNextControl = true;
+            this.ewayBilltextEdit1.Location = new System.Drawing.Point(96, 306);
+            this.ewayBilltextEdit1.Name = "ewayBilltextEdit1";
+            this.ewayBilltextEdit1.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ewayBilltextEdit1.Properties.Appearance.Options.UseFont = true;
+            this.ewayBilltextEdit1.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.ewayBilltextEdit1.Properties.AppearanceFocused.Options.UseBorderColor = true;
+            this.ewayBilltextEdit1.Properties.MaxLength = 50;
+            this.ewayBilltextEdit1.Size = new System.Drawing.Size(425, 24);
+            this.ewayBilltextEdit1.StyleController = this.layoutControl1;
+            this.ewayBilltextEdit1.TabIndex = 25;
+            // 
+            // layoutControlItem15
+            // 
+            this.layoutControlItem15.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.layoutControlItem15.AppearanceItemCaption.Options.UseFont = true;
+            this.layoutControlItem15.Control = this.ewayBilltextEdit1;
+            this.layoutControlItem15.Location = new System.Drawing.Point(0, 301);
+            this.layoutControlItem15.Name = "layoutControlItem15";
+            this.layoutControlItem15.Size = new System.Drawing.Size(520, 28);
+            this.layoutControlItem15.Text = "EWB No:";
+            this.layoutControlItem15.TextSize = new System.Drawing.Size(88, 17);
+            // 
             // PurchaseIndex
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2063,7 +2106,7 @@
             this.KontoLayout = this.layoutControl1;
             this.KontoMainView = this.gridView1;
             this.Name = "PurchaseIndex";
-            this.SettingCategroy = "PurchaseBill";
+            this.SettingCategroy = "Pos_PurchaseBill";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Pos Purchase Voucher";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
@@ -2148,6 +2191,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.tcsAmountlayoutControlItem)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ewayBilltextEdit1.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem15)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -2295,5 +2340,8 @@
         private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit subGroupRepositoryItemButtonEdit;
         private DevExpress.XtraGrid.Columns.GridColumn colTaxId;
         private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit repositoryItemLookUpEdit1;
+        private DevExpress.XtraGrid.Columns.GridColumn colAvgWt;
+        private DevExpress.XtraEditors.TextEdit ewayBilltextEdit1;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem15;
     }
 }

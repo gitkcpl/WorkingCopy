@@ -28,8 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SInvoiceListView));
             this.listDateRange1 = new Konto.Core.Shared.Libs.ListDateRange();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.ewbButton = new DevExpress.XtraEditors.SimpleButton();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.customGridControl3 = new Konto.Core.Shared.Libs.CustomGridControl();
             this.customGridView3 = new Konto.Core.Shared.Libs.CustomGridView();
@@ -37,9 +39,11 @@
             this.customGridView2 = new Konto.Core.Shared.Libs.CustomGridView();
             this.customGridControl1 = new Konto.Core.Shared.Libs.CustomGridControl();
             this.customGridView1 = new Konto.Core.Shared.Libs.CustomGridView();
+            this.einvSimpleButton = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).BeginInit();
             this.panelControl2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).BeginInit();
+            this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.customGridControl3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.customGridView3)).BeginInit();
@@ -68,6 +72,7 @@
             // 
             this.listDateRange1.FromDate = 0;
             this.listDateRange1.IsAnalysis = false;
+            this.listDateRange1.KontoGrid = null;
             this.listDateRange1.Location = new System.Drawing.Point(477, 4);
             this.listDateRange1.Name = "listDateRange1";
             this.listDateRange1.SelectedItem = null;
@@ -78,11 +83,29 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.einvSimpleButton);
+            this.panel1.Controls.Add(this.ewbButton);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel1.Location = new System.Drawing.Point(0, 281);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(991, 30);
             this.panel1.TabIndex = 15;
+            // 
+            // ewbButton
+            // 
+            this.ewbButton.AllowFocus = false;
+            this.ewbButton.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ewbButton.Appearance.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(22)))), ((int)(((byte)(91)))));
+            this.ewbButton.Appearance.Options.UseFont = true;
+            this.ewbButton.Appearance.Options.UseForeColor = true;
+            this.ewbButton.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("ewbButton.ImageOptions.SvgImage")));
+            this.ewbButton.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
+            this.ewbButton.Location = new System.Drawing.Point(3, 3);
+            this.ewbButton.Name = "ewbButton";
+            this.ewbButton.Size = new System.Drawing.Size(91, 24);
+            this.ewbButton.TabIndex = 8;
+            this.ewbButton.TabStop = false;
+            this.ewbButton.Text = "E-Way Bill";
             // 
             // tableLayoutPanel1
             // 
@@ -218,6 +241,22 @@
             this.customGridView1.OptionsView.ShowFooter = true;
             this.customGridView1.OptionsView.ShowGroupPanel = false;
             // 
+            // einvSimpleButton
+            // 
+            this.einvSimpleButton.AllowFocus = false;
+            this.einvSimpleButton.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.einvSimpleButton.Appearance.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.einvSimpleButton.Appearance.Options.UseFont = true;
+            this.einvSimpleButton.Appearance.Options.UseForeColor = true;
+            this.einvSimpleButton.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("simpleButton1.ImageOptions.SvgImage")));
+            this.einvSimpleButton.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
+            this.einvSimpleButton.Location = new System.Drawing.Point(110, 3);
+            this.einvSimpleButton.Name = "einvSimpleButton";
+            this.einvSimpleButton.Size = new System.Drawing.Size(91, 24);
+            this.einvSimpleButton.TabIndex = 9;
+            this.einvSimpleButton.TabStop = false;
+            this.einvSimpleButton.Text = "E-Invoice";
+            // 
             // SInvoiceListView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -237,6 +276,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).EndInit();
             this.panelControl2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).EndInit();
+            this.panel1.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.customGridControl3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.customGridView3)).EndInit();
@@ -258,5 +298,7 @@
         private Core.Shared.Libs.CustomGridView customGridView2;
         private Core.Shared.Libs.CustomGridControl customGridControl1;
         private Core.Shared.Libs.CustomGridView customGridView1;
+        private DevExpress.XtraEditors.SimpleButton ewbButton;
+        private DevExpress.XtraEditors.SimpleButton einvSimpleButton;
     }
 }

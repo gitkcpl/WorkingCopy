@@ -14,6 +14,7 @@ using Konto.Data.Models.Masters;
 using Konto.Data.Models.Masters.Dtos;
 using Konto.Data.Models.Transaction;
 using Konto.Data.Models.Transaction.Dtos;
+using Konto.Data.Models.Wvs;
 using Konto.Shared.Masters.Color;
 using Konto.Shared.Masters.Design;
 using Konto.Shared.Masters.Item;
@@ -91,9 +92,70 @@ namespace Konto.Trading.JobReceipt
             this.Load += JrIndex_Load;
 
             this.FirstActiveControl = voucherLookup1;
+            jobcardButtonEdit.ButtonClick += JobcardButtonEdit_ButtonClick;
         }
 
-        private void LotNoRepositoryItemButtonEdit_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
+        private void JobcardButtonEdit_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
+        {
+            var frm = new JobcardPedingForJrView();
+            if (frm.ShowDialog() != DialogResult.OK) return;
+            var row = frm.gridView1.GetRow(frm.gridView1.FocusedRowHandle) as PendingJobDto;
+
+            jobcardButtonEdit.Text = row.VoucherNo;
+            var _db = new KontoContext();
+            var jobcardlist = _db.jobCardTrans.Where(k => k.JobCardId == row.Id && k.IsDeleted == false && k.RefId > 0).ToList();
+            var i = 0;
+            var trans = grnTransDtoBindingSource1.DataSource as List<MrvTransDto>;
+
+            foreach (var item in jobcardlist)
+            {
+                --i;
+                MrvTransDto ct = new MrvTransDto();
+                ct.Id = i;
+                ct.ProductId = Convert.ToInt32( item.ItemId);
+                var pd = _db.Products.FirstOrDefault(k => k.Id == item.ItemId);
+
+                ct.ProductName = pd.ProductName;
+                ct.DesignId = Convert.ToInt32(item.DesignId) ;
+                
+                var dm = _db.Products.Find(ct.DesignId);
+                
+                if(dm!=null)
+                    ct.DesignNo = dm.ProductName;
+                
+                ct.ColorId = Convert.ToInt32( item.Ply);
+                var cl = _db.ColorModels.Find(ct.ColorId);
+                if (cl != null)
+                    ct.ColorName = cl.ColorName;
+
+                ct.Qty = (decimal)item.ConsumeQty;
+                ct.UomId = 24;
+                
+               
+
+                if (accLookup1.LookupDto.IsGst)
+                {
+                    ct.SgstPer = processLookup1.LookupDto.Sgst; 
+                    ct.CgstPer = processLookup1.LookupDto.Cgst; 
+                    ct.IgstPer = 0;
+                    ct.Igst = 0;
+                }
+                else
+                {
+                    ct.Sgst = 0;
+                    ct.SgstPer = 0;
+                    ct.Cgst = 0;
+                    ct.CgstPer = 0;
+                    ct.IgstPer = processLookup1.LookupDto.Igst; 
+                }
+                trans.Add(ct);
+            }
+
+            gridControl1.RefreshDataSource();
+
+            }
+
+            private void LotNoRepositoryItemButtonEdit_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
         {
             var dr = PreOpenLookup();
             if (dr != null)

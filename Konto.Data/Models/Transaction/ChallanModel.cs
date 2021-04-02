@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Konto.Data.Models.Masters;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -168,8 +169,17 @@ namespace Konto.Data.Models.Transaction
 
         public int RefId { get; set; }
         public int RefVoucherId { get; set; }
-
+        public int? ToBranchId { get; set; }
         public virtual ICollection<ChallanTransModel> ChallanTrans { get; set; }
+        [ForeignKey("BranchId")]
+        public virtual BranchModel Branch { get; set; }
 
+        [ForeignKey("ToBranchId")]
+        public virtual BranchModel ToBranch { get; set; }
+
+      
+
+        [ForeignKey("VoucherId")]
+        public VoucherModel Voucher { get; set; }
     }
 }

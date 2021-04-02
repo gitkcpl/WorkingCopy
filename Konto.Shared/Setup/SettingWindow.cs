@@ -3,6 +3,7 @@ using Konto.Core.Shared;
 using Konto.Data;
 using Konto.Data.Models.Admin;
 using Konto.Data.Models.Admin.Dtos;
+using Konto.Shared.Masters.Acc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,25 @@ namespace Konto.Shared.Setup
         {
             InitializeComponent();
             okSimpleButton.Click += OkSimpleButton_Click;
+            customGridControl1.ProcessGridKey += CustomGridControl1_ProcessGridKey;
+        }
+
+        private void CustomGridControl1_ProcessGridKey(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Enter && e.Modifiers == Keys.Control )
+            {
+                var row = customGridView1.GetRow(customGridView1.FocusedRowHandle) as ParaDto;
+                if (row == null) return;
+                var frm = new AccLkpWindow();
+                frm.Tag = MenuId.Account;
+                frm.SelectedValue = Convert.ToInt32(row.ParaValue);
+                frm.ShowDialog();
+                
+                row.ParaValue = frm.SelectedValue.ToString();
+                row.Remark = frm.SelectedTex;
+
+
+            }
         }
 
         private void OkSimpleButton_Click(object sender, EventArgs e)

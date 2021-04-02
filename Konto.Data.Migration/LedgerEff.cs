@@ -1,4 +1,5 @@
 ﻿using Konto.App.Shared;
+using Konto.Data.Models.Pos;
 using Konto.Data.Models.Transaction;
 using Konto.Data.Models.Transaction.Dtos;
 using System;
@@ -582,7 +583,7 @@ namespace Konto.Data
         }
 
         // Ledger effect for Invoice and Return Module
-        public static void LedgerTransEntry(string type, BillModel model, KontoContext db, List<BillTransModel> trans)
+        public static void LedgerTransEntry(string type, BillModel model, KontoContext db, List<BillTransModel> trans, BillPay _bp=null)
         {
             var st = db.Ledgers.Where(k => k.RefId == model.RowId && k.IsActive && k.IsDeleted == false).ToList();
             if (st.Count > 0) //Delete from LedgerTrans if exist
@@ -1240,6 +1241,29 @@ namespace Konto.Data
             //    list.Add(ledger);
 
             //}
+
+
+           
+
+
+            if ( model.TypeId == (int) VoucherTypeEnum.SaleInvoice && KontoGlobals.PackageId == (int)PackageType.POS)
+            {
+
+
+
+                if (_bp == null)
+                {
+                    var bps = db.BillPays.Where(x => x.BillId == model.Id).ToList();
+                    foreach (var item in bps)
+                    {
+                       list.AddRange(Pos_Receipt(db, item, model));
+                    }
+                }
+                else
+                {
+                   list.AddRange(Pos_Receipt(db, _bp, model));
+                }
+            }
 
 
             db.Ledgers.AddRange(list);
@@ -4567,6 +4591,228 @@ namespace Konto.Data
 
 
 
+        }
+
+
+        public static List<LedgerTransModel> Pos_Receipt(KontoContext db, BillPay bp, BillModel model)
+        {
+            
+
+            var list = new List<LedgerTransModel>();
+
+            LedgerTransModel ledger;
+
+            if (bp.DiscAmt > 0) // for Post Sale Discount 
+            {
+                var para = db.CompParas.FirstOrDefault(x => x.ParaId == 267 && x.CompId == KontoGlobals.CompanyId);
+                
+
+                ledger = new LedgerTransModel
+                {
+                    RefId = model.RowId,
+                    VoucherId = model.VoucherId,
+                    CompanyId = model.CompId,
+                    YearId = model.YearId,
+                    BillNo = model.VoucherNo,
+                    VoucherNo = model.VoucherNo,
+                    VoucherDate = bp.PayDate,
+                    Remark = model.Remarks,
+                    Narration = model.Remarks,
+                    LrNo = model.DocNo,
+                    LrDate = model.DocDate,
+
+                    AccountId = model.AccId,
+                    RefAccountId = Convert.ToInt32(para.ParaValue),
+                    Debit = 0,
+                    Credit = bp.DiscAmt,
+                    BilllAmount = model.TotalAmount,
+                    Amount = -1 * (bp.Pay1Amt - bp.ChangeAmt),
+                    TransCode = model.RowId
+                };
+                list.Add(ledger);
+                ledger = new LedgerTransModel
+                {
+                    RefId = model.RowId,
+                    VoucherId = model.VoucherId,
+                    CompanyId = model.CompId,
+                    YearId = model.YearId,
+                    BillNo = model.VoucherNo,
+                    VoucherNo = model.VoucherNo,
+                    VoucherDate = bp.PayDate,
+                    Remark = model.Remarks,
+                    Narration = model.Remarks,
+                    LrNo = model.DocNo,
+                    LrDate = model.DocDate,
+
+                    RefAccountId = model.AccId,
+                    AccountId = Convert.ToInt32(para.ParaValue),
+                    Credit = 0,
+                    Debit = bp.DiscAmt,
+                    BilllAmount = model.TotalAmount,
+                    Amount = (bp.Pay1Amt - bp.ChangeAmt),
+                    TransCode = model.RowId
+                };
+                list.Add(ledger);
+            }
+
+            if (Convert.ToInt32(bp.Pay1Id) > 0 && bp.Pay1Amt > 0) // for cash
+            {
+                var pay1 = db.Hastes.Find(bp.Pay1Id);
+
+                ledger = new LedgerTransModel
+                {
+                    RefId = model.RowId,
+                    VoucherId = model.VoucherId,
+                    CompanyId = model.CompId,
+                    YearId = model.YearId,
+                    BillNo = model.VoucherNo,
+                    VoucherNo = model.VoucherNo,
+                    VoucherDate = bp.PayDate,
+                    Remark = model.Remarks,
+                    Narration = model.Remarks,
+                    LrNo = model.DocNo,
+                    LrDate = model.DocDate,
+
+                    AccountId = model.AccId,
+                    RefAccountId = pay1.AccId,
+                    Debit = 0,
+                    Credit =bp.Pay1Amt- bp.ChangeAmt,
+                    BilllAmount = model.TotalAmount,
+                    Amount = -1*(bp.Pay1Amt - bp.ChangeAmt),
+                    TransCode = model.RowId
+                };
+                list.Add(ledger);
+                ledger = new LedgerTransModel
+                {
+                    RefId = model.RowId,
+                    VoucherId = model.VoucherId,
+                    CompanyId = model.CompId,
+                    YearId = model.YearId,
+                    BillNo = model.VoucherNo,
+                    VoucherNo = model.VoucherNo,
+                    VoucherDate = bp.PayDate,
+                    Remark = model.Remarks,
+                    Narration = model.Remarks,
+                    LrNo = model.DocNo,
+                    LrDate = model.DocDate,
+
+                    RefAccountId = model.AccId,
+                    AccountId = pay1.AccId,
+                     Credit= 0,
+                    Debit = bp.Pay1Amt - bp.ChangeAmt,
+                    BilllAmount = model.TotalAmount,
+                    Amount = (bp.Pay1Amt - bp.ChangeAmt),
+                    TransCode = model.RowId
+                };
+                list.Add(ledger);
+            }
+
+            if (Convert.ToInt32(bp.Pay2Id) > 0 && bp.Pay2Amt > 0) // for 2nd payment
+            {
+                var pay2 = db.Hastes.Find(bp.Pay2Id);
+
+                ledger = new LedgerTransModel
+                {
+                    RefId = model.RowId,
+                    VoucherId = model.VoucherId,
+                    CompanyId = model.CompId,
+                    YearId = model.YearId,
+                    BillNo = model.VoucherNo,
+                    VoucherNo = model.VoucherNo,
+                    VoucherDate = bp.PayDate,
+                    Remark = model.Remarks,
+                    Narration = model.Remarks,
+                    LrNo = model.DocNo,
+                    LrDate = model.DocDate,
+
+                    AccountId = model.AccId,
+                    RefAccountId = pay2.AccId,
+                    Debit = 0,
+                    Credit = bp.Pay2Amt,
+                    BilllAmount = model.TotalAmount,
+                    Amount = -1 * bp.Pay2Amt,
+                    TransCode = model.RowId
+                };
+                list.Add(ledger);
+                ledger = new LedgerTransModel
+                {
+                    RefId = model.RowId,
+                    VoucherId = model.VoucherId,
+                    CompanyId = model.CompId,
+                    YearId = model.YearId,
+                    BillNo = model.VoucherNo,
+                    VoucherNo = model.VoucherNo,
+                    VoucherDate = bp.PayDate,
+                    Remark = model.Remarks,
+                    Narration = model.Remarks,
+                    LrNo = model.DocNo,
+                    LrDate = model.DocDate,
+
+                    RefAccountId = model.AccId,
+                    AccountId = pay2.AccId,
+                    Credit = 0,
+                    Debit = bp.Pay2Amt,
+                    BilllAmount = model.TotalAmount,
+                    Amount = bp.Pay2Amt,
+                    TransCode = model.RowId
+                };
+                list.Add(ledger);
+            }
+
+            if (Convert.ToInt32(bp.Pay3Id) > 0 && bp.Pay3Amt > 0) // for 2nd payment
+            {
+                var pay3 = db.Hastes.Find(bp.Pay3Id);
+
+                ledger = new LedgerTransModel
+                {
+                    RefId = model.RowId,
+                    VoucherId = model.VoucherId,
+                    CompanyId = model.CompId,
+                    YearId = model.YearId,
+                    BillNo = model.VoucherNo,
+                    VoucherNo = model.VoucherNo,
+                    VoucherDate = bp.PayDate,
+                    Remark = model.Remarks,
+                    Narration = model.Remarks,
+                    LrNo = model.DocNo,
+                    LrDate = model.DocDate,
+
+                    AccountId = model.AccId,
+                    RefAccountId = pay3.AccId,
+                    Debit = 0,
+                    Credit = bp.Pay3Amt,
+                    BilllAmount = model.TotalAmount,
+                    Amount = -1 * bp.Pay3Amt,
+                    TransCode = model.RowId
+                };
+                list.Add(ledger);
+                ledger = new LedgerTransModel
+                {
+                    RefId = model.RowId,
+                    VoucherId = model.VoucherId,
+                    CompanyId = model.CompId,
+                    YearId = model.YearId,
+                    BillNo = model.VoucherNo,
+                    VoucherNo = model.VoucherNo,
+                    VoucherDate = bp.PayDate,
+                    Remark = model.Remarks,
+                    Narration = model.Remarks,
+                    LrNo = model.DocNo,
+                    LrDate = model.DocDate,
+
+                    RefAccountId = model.AccId,
+                    AccountId = pay3.AccId,
+                    Credit = 0,
+                    Debit = bp.Pay3Amt,
+                    BilllAmount = model.TotalAmount,
+                    Amount = bp.Pay3Amt,
+                    TransCode = model.RowId
+                };
+                list.Add(ledger);
+            }
+
+            return list;
+           
         }
 
     }

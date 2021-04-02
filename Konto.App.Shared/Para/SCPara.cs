@@ -22,7 +22,7 @@ namespace Konto.App.Shared.Para
         public static bool Auto_Bill_Generate_Required = false;
         public static bool Direct_Issue_From_Purchase = true;
         public static bool Direct_Sale_From_Purchase = false;
-        public static bool Ask_for_issue_in_job_receipt_in_purchase = true;
+        public static bool Common_Stock = false;
         public static bool Disable_TakaQty_In_Issue = true;
         public static bool Taka_From_Stock = true;
         public static bool Jobcard_Required = true;

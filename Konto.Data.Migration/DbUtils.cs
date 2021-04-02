@@ -1,13 +1,15 @@
 ﻿using Konto.App.Shared;
+using Konto.Data.Models.Masters;
 using Konto.Data.Models.Masters.Dtos;
 using Konto.Data.Models.Transaction.Dtos;
 using System.Linq;
 
 namespace Konto.Data
 {
-    
+
     public class DbUtils
     {
+       
         public static string NextSerialNo(int vid, KontoContext db,int isNew=0)
         {
             SerialDto serialno = null;
@@ -274,6 +276,53 @@ namespace Konto.Data
                               }).FirstOrDefault();
 
                 return _model;
+            }
+        }
+
+        public static decimal GetCurrentStock(int productid,int branchid)
+        {
+            using(var db =new KontoContext())
+            {
+                var st = db.StockBals.FirstOrDefault(x => x.CompanyId == KontoGlobals.CompanyId &&
+                                    x.YearId == KontoGlobals.YearId && x.BranchId == branchid && x.ProductId == productid);
+
+                var stb = (from p in db.StockTranses
+                           where p.ItemId == productid && p.BranchId == branchid
+                             group p by 1 into g
+                           select new
+                           {
+                               Stock = g.Sum(x => x.RcptQty) - g.Sum(x => x.IssueQty)
+                           }).FirstOrDefault();
+                if (stb != null)
+                {
+                    var stock = st.OpQty + stb.Stock;
+                    return stock;
+                }
+                else
+                    if (st != null)
+                    return st.OpQty;
+                else
+                    return  0;
+                
+            }
+        }
+
+        public static void SetSysParameter()
+        {
+            // global system level parameter reading
+            var db = new KontoContext();
+            var sysparas = db.SysParas.Where(x => x.Category == "sys");
+
+            foreach (var item in sysparas)
+            {
+                if (item.Id == 500)
+                    SysParameter.AspUserId = item.DefaultValue;
+                else if (item.Id == 501)
+                    SysParameter.AspUserPass = item.DefaultValue;
+                else if (item.Id == 503)
+                    SysParameter.AspGspName = item.DefaultValue;
+                else if (item.Id == 504)
+                    SysParameter.AspApiBaseUrl = item.DefaultValue;
             }
         }
     }

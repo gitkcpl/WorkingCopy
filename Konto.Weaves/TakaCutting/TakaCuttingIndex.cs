@@ -616,7 +616,7 @@ namespace Konto.Weaves.TakaCutting
                                
                                 pmodel.ColorId = (item.ColorId > 0) ? item.ColorId : _find.ColorId;
                                 pmodel.Remark = _find.Remark;
-                                pmodel.VoucherNo = _find.VoucherNo + "/" + CutvoucherNo;
+                                pmodel.VoucherNo = item.VoucherNo;
                                 CutvoucherNo = CutvoucherNo + 1;
 
                                 pmodel.ProdStatus = "STOCK";

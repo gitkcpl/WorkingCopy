@@ -21,9 +21,7 @@ namespace Konto.Data.Models.Masters
         
         public int ProductId { get; set; }
 
-        [NotMapped]
-        [Required]
-        public string ProductName { get; set; }
+        
 
         [Display(Name = "Desc Type")]
         public int DescType { get; set; }

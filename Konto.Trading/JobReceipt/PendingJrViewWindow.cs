@@ -120,6 +120,9 @@ namespace Konto.Trading.JobReceipt
                         (int)KontoGlobals.CompanyId, this.AccId, (int)VoucherTypeEnum.JobIssue,
                        (int)ChallanTypeEnum.ISSUE_FOR_JOB, this.AddEdit, this.EditKey, this.ProcessId).ToList();
                     }
+
+                    if (list.Count == 0)
+                        this.Close();
                     this.pendingMillReceiptSpBindingSource.DataSource = list;   
                 }
             }

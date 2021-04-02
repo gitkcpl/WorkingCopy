@@ -253,6 +253,7 @@
             this.addressLookup1.DelvAccLookup = this.delvLookup;
             this.addressLookup1.Location = new System.Drawing.Point(550, 61);
             this.addressLookup1.LookupDto = null;
+            this.addressLookup1.LookupTitle = null;
             this.addressLookup1.Name = "addressLookup1";
             this.addressLookup1.PrimaryKey = null;
             this.addressLookup1.RequiredField = false;
@@ -268,9 +269,10 @@
             this.delvLookup.GroupId = 0;
             this.delvLookup.Location = new System.Drawing.Point(112, 61);
             this.delvLookup.LookupDto = null;
+            this.delvLookup.LookupTitle = null;
             this.delvLookup.Name = "delvLookup";
             this.delvLookup.Nature = null;
-            this.delvLookup.NewGroupId = App.Shared.LedgerGroupEnum.SUNDRY_DEBTORS;
+            this.delvLookup.NewGroupId = Konto.App.Shared.LedgerGroupEnum.SUNDRY_DEBTORS;
             this.delvLookup.PrimaryKey = null;
             this.delvLookup.RequiredField = true;
             this.delvLookup.SelectedText = null;
@@ -382,9 +384,10 @@
             this.agentLookup.GroupId = 31;
             this.agentLookup.Location = new System.Drawing.Point(112, 85);
             this.agentLookup.LookupDto = null;
+            this.agentLookup.LookupTitle = null;
             this.agentLookup.Name = "agentLookup";
             this.agentLookup.Nature = null;
-            this.agentLookup.NewGroupId = App.Shared.LedgerGroupEnum.CREDITORS_FOR_BROKERAGE;
+            this.agentLookup.NewGroupId = Konto.App.Shared.LedgerGroupEnum.CREDITORS_FOR_BROKERAGE;
             this.agentLookup.PrimaryKey = null;
             this.agentLookup.RequiredField = false;
             this.agentLookup.SelectedText = null;
@@ -402,9 +405,10 @@
             this.transportLookup.GroupId = 32;
             this.transportLookup.Location = new System.Drawing.Point(112, 362);
             this.transportLookup.LookupDto = null;
+            this.transportLookup.LookupTitle = null;
             this.transportLookup.Name = "transportLookup";
             this.transportLookup.Nature = null;
-            this.transportLookup.NewGroupId = App.Shared.LedgerGroupEnum.CREDITORS_FOR_TRANSPORTATION;
+            this.transportLookup.NewGroupId = Konto.App.Shared.LedgerGroupEnum.CREDITORS_FOR_TRANSPORTATION;
             this.transportLookup.PrimaryKey = null;
             this.transportLookup.RequiredField = false;
             this.transportLookup.SelectedText = null;
@@ -501,6 +505,7 @@
             this.gridView1.OptionsLayout.Columns.StoreAppearance = true;
             this.gridView1.OptionsLayout.StoreAllOptions = true;
             this.gridView1.OptionsLayout.StoreAppearance = true;
+            this.gridView1.OptionsNavigation.EnterMoveNextColumn = true;
             this.gridView1.OptionsNavigation.UseTabKey = false;
             this.gridView1.OptionsView.ColumnAutoWidth = false;
             this.gridView1.OptionsView.NewItemRowPosition = DevExpress.XtraGrid.Views.Grid.NewItemRowPosition.Bottom;
@@ -908,6 +913,7 @@
             // empLookup1
             // 
             this.empLookup1.Location = new System.Drawing.Point(817, 33);
+            this.empLookup1.LookupTitle = null;
             this.empLookup1.Name = "empLookup1";
             this.empLookup1.PrimaryKey = null;
             this.empLookup1.RequiredField = true;
@@ -993,9 +999,10 @@
             this.accLookup1.GroupId = 0;
             this.accLookup1.Location = new System.Drawing.Point(112, 33);
             this.accLookup1.LookupDto = null;
+            this.accLookup1.LookupTitle = null;
             this.accLookup1.Name = "accLookup1";
             this.accLookup1.Nature = null;
-            this.accLookup1.NewGroupId = App.Shared.LedgerGroupEnum.SUNDRY_DEBTORS;
+            this.accLookup1.NewGroupId = Konto.App.Shared.LedgerGroupEnum.SUNDRY_DEBTORS;
             this.accLookup1.PrimaryKey = null;
             this.accLookup1.RequiredField = true;
             this.accLookup1.SelectedText = null;
@@ -1025,6 +1032,7 @@
             // 
             this.voucherLookup1.GroupDto = null;
             this.voucherLookup1.Location = new System.Drawing.Point(550, 5);
+            this.voucherLookup1.LookupTitle = null;
             this.voucherLookup1.Name = "voucherLookup1";
             this.voucherLookup1.PrimaryKey = null;
             this.voucherLookup1.RequiredField = true;

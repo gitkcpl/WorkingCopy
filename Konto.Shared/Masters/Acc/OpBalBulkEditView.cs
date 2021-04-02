@@ -310,14 +310,21 @@ namespace Konto.Shared.Masters.Acc
                         foreach (var item in UpdatedOpBal)
                         {
                             var mod = db.AccBals.Find(item.BalId);
+                            
+                            mod.Bal = mod.Bal - mod.OpBal + item.OpBal;
+                            
                             mod.OpBal = item.OpBal;
                             mod.OpCredit = item.OpCredit;
                             mod.OpDebit = item.OpDebit;
+
+                            
                            
                             var acmodel = db.Accs.Find(item.AccountId);
                             acmodel.GstIn = item.GstIn;
                             acmodel.PanNo = item.PanNo;
                             acmodel.AadharNo = item.AadharNo;
+
+
                         }
                         db.SaveChanges();
                         _tran.Commit();

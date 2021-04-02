@@ -94,6 +94,8 @@ namespace Konto.Shared.Masters.Item
                                    Cut = pd.Cut,
                                    TaxId = pd.TaxId,SaleRateTaxInc = pd.SaleRateTaxInc,SizeName = sz1.SizeName,
                                    PurDisc = pd.PurDisc,SaleDisc=pd.SaleDisc,RatePerQty= pd.Price2
+                                   
+                                   
                                }
                 ).ToList();
 

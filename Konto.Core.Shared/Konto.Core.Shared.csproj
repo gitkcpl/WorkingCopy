@@ -171,6 +171,7 @@
     <Reference Include="Serilog.Sinks.File, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
       <HintPath>..\packages\Serilog.Sinks.File.4.1.0\lib\net45\Serilog.Sinks.File.dll</HintPath>
     </Reference>
+    <Reference Include="Stimulsoft.Report, Version=2020.4.1.0, Culture=neutral, PublicKeyToken=ebe6666cba19647a, processorArchitecture=MSIL" />
     <Reference Include="Syncfusion.Core.WinForms, Version=18.1460.0.42, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
     <Reference Include="Syncfusion.DataSource.WinForms, Version=18.1460.0.42, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
     <Reference Include="Syncfusion.Grid.Base, Version=18.1460.0.42, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
@@ -261,6 +262,12 @@
     <Compile Include="Frms\LookupForm.Designer.cs">
       <DependentUpon>LookupForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Frms\RepDesignerIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frms\RepDesignerIndex.Designer.cs">
+      <DependentUpon>RepDesignerIndex.cs</DependentUpon>
+    </Compile>
     <Compile Include="Frms\SendEmailView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -318,11 +325,23 @@
     <Compile Include="Libs\KontoComboBoxEx.Designer.cs">
       <DependentUpon>KontoComboBoxEx.cs</DependentUpon>
     </Compile>
+    <Compile Include="Libs\KontoSpinEdit.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Libs\KontoSpinEdit.Designer.cs">
+      <DependentUpon>KontoSpinEdit.cs</DependentUpon>
+    </Compile>
     <Compile Include="Libs\KontoTextBoxExt.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Libs\KontoTextBoxExt.Designer.cs">
       <DependentUpon>KontoTextBoxExt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Libs\KontoTextEdit.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Libs\KontoTextEdit.Designer.cs">
+      <DependentUpon>KontoTextEdit.cs</DependentUpon>
     </Compile>
     <Compile Include="Libs\ListAction.cs">
       <SubType>UserControl</SubType>
@@ -392,6 +411,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Frms\LookupForm.resx">
       <DependentUpon>LookupForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frms\RepDesignerIndex.resx">
+      <DependentUpon>RepDesignerIndex.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Frms\SendEmailView.resx">
       <DependentUpon>SendEmailView.cs</DependentUpon>

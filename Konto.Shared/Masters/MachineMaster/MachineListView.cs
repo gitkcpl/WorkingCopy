@@ -98,5 +98,12 @@ namespace Konto.Shared.Masters.MachineMaster
                 //MessageBoxAdv.Show()
             }
         }
+
+        public override void ImportExcel()
+        {
+            base.ImportExcel();
+            var _exp = new MacImport();
+            _exp.ShowDialog();
+        }
     }
 }
