@@ -44,9 +44,7 @@ namespace Konto.Data.Models.Masters.Dtos
         public bool SaleRateTaxInc { get; set; }
         public decimal PurDisc { get; set; }
         public decimal SaleDisc { get; set; }
-        public  string SizeName { get; set; }
-
+       public  string SizeName { get; set; }
         public decimal RatePerQty { get; set; }
-        
     }
 }

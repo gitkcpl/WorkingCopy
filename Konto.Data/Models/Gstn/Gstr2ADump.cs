@@ -43,6 +43,6 @@ namespace Konto.Data.Models.Gstn
         public int CompId { get; set; }
         public int YearId { get; set; }
         public DateTime CreateDate { get; set; }
-        public List<Gstr2ATransDump> Gstr2aTrans { get; set; }
+        public virtual ICollection<Gstr2ATransDump> Gstr2aTrans { get; set; }
     }
 }

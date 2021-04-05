@@ -16,7 +16,5 @@ namespace Konto.Data.Models.Masters
         public int Id { get; set; }
         [MaxLength(500)]
         public string FieldName { get; set; }
-        public string Extra1 { get; set; }
     }
-
 }

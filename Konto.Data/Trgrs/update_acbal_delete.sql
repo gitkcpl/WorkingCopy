@@ -32,6 +32,6 @@ CREATE TRIGGER [dbo].[update_acbal_delete]
 END
 GO
 
-ALTER TABLE [dbo].[LedgerTrans] disable TRIGGER [update_acbal_delete]
+ALTER TABLE [dbo].[LedgerTrans] DISABLE TRIGGER [update_acbal_delete]
 GO
 

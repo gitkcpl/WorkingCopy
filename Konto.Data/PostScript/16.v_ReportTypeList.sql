@@ -57,8 +57,8 @@ IF NOT EXISTS(SELECT 1 FROM dbo.ReportType WHERE FileName='Reg\\Summary.rdlx' AN
 INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, CreateUser, IsActive, 
 IsDeleted,RowId,SpName,remarks)
 Values('Summary','SALE', 12,'Reg\\Summary.rdlx',GETDATE(),'Admin',1,0,NEWID(),'dbo.sales_reg',
-'None-Book-Party-Agent-Item')
-update dbo.ReportType set remarks='None-Book-Party-Agent-Item' where FileName='Reg\\Summary.rdlx' AND ReportTypes='SALE'
+'None-Book-Party-Agent-Item-Party+Item-Item+Party-Agent+Party-Book+Party')
+update dbo.ReportType set remarks='None-Book-Party-Agent-Item-Party+Item-Item+Party-Agent+Party-Book+Party' where FileName='Reg\\Summary.rdlx' AND ReportTypes='SALE'
 
 
 
@@ -79,158 +79,101 @@ update dbo.ReportType set remarks='None-Book-Party-Agent' where FileName='Reg\\B
 
 
 IF NOT EXISTS(SELECT 1 FROM dbo.ReportType WHERE FileName='Reg\\Details.rdlx' AND ReportTypes='PURCHASE')
-INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, CreateUser, IsActive,
-IsDeleted,RowId,SpName,remarks)
-Values('Details','PURCHASE', 13,'Reg\\Details.rdlx',GETDATE(),'Admin',1,0,NEWID(),'dbo.sales_reg','None-Book-Party-Agent-Item')
-update dbo.ReportType set remarks='None-Book-Party-Agent-Item' where FileName='Reg\\Details.rdlx' AND ReportTypes='PURCHASE'
-
+INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, CreateUser, IsActive, IsDeleted,RowId,SpName)
+Values('Details','PURCHASE', 13,'Reg\\Details.rdlx',GETDATE(),'Admin',1,0,NEWID(),'dbo.sales_reg')
 
 IF NOT EXISTS(SELECT 1 FROM dbo.ReportType WHERE FileName='Reg\\Summary.rdlx' AND ReportTypes='PURCHASE')
-INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, CreateUser,
-IsActive, IsDeleted,RowId,SpName,Remarks)
-Values('Summary','PURCHASE', 13,'Reg\\Summary.rdlx',GETDATE(),'Admin',1,0,NEWID(),'dbo.sales_reg',
-'None-Book-Party-Agent-Item-Party+Item-Item+Party-Agent+Party-Book+Party')
-update dbo.ReportType set remarks='None-Book-Party-Agent-Item-Party+Item-Item+Party-Agent+Party-Book+Party' where FileName='Reg\\Summary.rdlx' AND ReportTypes='PURCHASE'
-
+INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, CreateUser, IsActive, IsDeleted,RowId,SpName)
+Values('Summary','PURCHASE', 13,'Reg\\Summary.rdlx',GETDATE(),'Admin',1,0,NEWID(),'dbo.sales_reg')
 
 IF NOT EXISTS(SELECT 1 FROM dbo.ReportType WHERE FileName='Reg\\Summary_monthly.rdlx' AND ReportTypes='PURCHASE')
-INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, 
-	CreateUser, IsActive, IsDeleted,RowId,SpName,remarks)
-Values('Monthly Summary','PURCHASE', 13,'Reg\\Summary_monthly.rdlx',GETDATE(),'Admin',1,0,NEWID(),'dbo.sales_reg',
-'None-Book-Party-Agent-Item')
-update dbo.ReportType set remarks='None-Book-Party-Agent-Item' where FileName='Reg\\Summary_monthly.rdlx' AND ReportTypes='PURCHASE'
-
+INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, CreateUser, IsActive, IsDeleted,RowId,SpName)
+Values('Monthly Summary','PURCHASE', 13,'Reg\\Summary_monthly.rdlx',GETDATE(),'Admin',1,0,NEWID(),'dbo.sales_reg')
 
 IF NOT EXISTS(SELECT 1 FROM dbo.ReportType WHERE FileName='Reg\\BillWise.rdlx' AND ReportTypes='PURCHASE')
-INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, CreateUser, IsActive,
-IsDeleted,RowId,SpName,Remarks)
-Values('BillNo Wise','PURCHASE', 13,'Reg\\BillWise.rdlx',GETDATE(),'Admin',1,0,NEWID(),'dbo.sales_reg','None-Book-Party-Agent')
-update dbo.ReportType set remarks='None-Book-Party-Agent' where FileName='Reg\\BillWise.rdlx' AND ReportTypes='PURCHASE'
-
+INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, CreateUser, IsActive, IsDeleted,RowId,SpName)
+Values('BillNo Wise','PURCHASE', 13,'Reg\\BillWise.rdlx',GETDATE(),'Admin',1,0,NEWID(),'dbo.sales_reg')
 
 IF NOT EXISTS(SELECT 1 FROM dbo.ReportType WHERE FileName='Reg\\Details.rdlx' AND ReportTypes='SRETURN')
-INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, CreateUser,
-IsActive, IsDeleted,RowId,SpName,remarks)
-Values('Details','SRETURN', 19,'Reg\\Details.rdlx',GETDATE(),'Admin',1,0,NEWID(),'dbo.sales_reg','None-Book-Party-Agent-Item')
-update dbo.ReportType set remarks='None-Book-Party-Agent-Item' where FileName='Reg\\Details.rdlx' AND ReportTypes='SRETURN'
-
+INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, CreateUser, IsActive, IsDeleted,RowId,SpName)
+Values('Details','SRETURN', 19,'Reg\\Details.rdlx',GETDATE(),'Admin',1,0,NEWID(),'dbo.sales_reg')
 
 IF NOT EXISTS(SELECT 1 FROM dbo.ReportType WHERE FileName='Reg\\Summary.rdlx' AND ReportTypes='SRETURN')
-INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, 
-	CreateUser, IsActive, IsDeleted,RowId,SpName,remarks)
-Values('Summary','SRETURN', 19,'Reg\\Summary.rdlx',GETDATE(),'Admin',1,0,NEWID(),'dbo.sales_reg',
-'None-Book-Party-Agent-Item-Party+Item-Item+Party-Agent+Party-Book+Party')
-update dbo.ReportType set remarks='None-Book-Party-Agent-Item-Party+Item-Item+Party-Agent+Party-Book+Party' where FileName='Reg\\Summary.rdlx' AND ReportTypes='SRETURN'
-
+INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, CreateUser, IsActive, IsDeleted,RowId,SpName)
+Values('Summary','SRETURN', 19,'Reg\\Summary.rdlx',GETDATE(),'Admin',1,0,NEWID(),'dbo.sales_reg')
 
 IF NOT EXISTS(SELECT 1 FROM dbo.ReportType WHERE FileName='Reg\\Summary_monthly.rdlx' AND ReportTypes='SRETURN')
-INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, CreateUser, IsActive,
-	IsDeleted,RowId,SpName,remarks)
-Values('Monthly Summary','SRETURN', 19,'Reg\\Summary_monthly.rdlx',GETDATE(),'Admin',1,0,NEWID(),'dbo.sales_reg',
-'None-Book-Party-Agent-Item')
-update dbo.ReportType set remarks='None-Book-Party-Agent-Item' where FileName='Reg\\Summary_monthly.rdlx' AND ReportTypes='SRETURN'
-
+INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, CreateUser, IsActive, IsDeleted,RowId,SpName)
+Values('Monthly Summary','SRETURN', 19,'Reg\\Summary_monthly.rdlx',GETDATE(),'Admin',1,0,NEWID(),'dbo.sales_reg')
 
 IF NOT EXISTS(SELECT 1 FROM dbo.ReportType WHERE FileName='Reg\\BillWise.rdlx' AND ReportTypes='SRETURN')
-INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, CreateUser,
-	IsActive, IsDeleted,RowId,SpName,remarks)
-Values('BillNo Wise','SRETURN', 19,'Reg\\BillWise.rdlx',GETDATE(),'Admin',1,0,NEWID(),'dbo.sales_reg','None-Book-Party-Agent')
-update dbo.ReportType set remarks='None-Book-Party-Agent' where FileName='Reg\\BillWise.rdlx' AND ReportTypes='SRETURN'
-
+INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, CreateUser, IsActive, IsDeleted,RowId,SpName)
+Values('BillNo Wise','SRETURN', 19,'Reg\\BillWise.rdlx',GETDATE(),'Admin',1,0,NEWID(),'dbo.sales_reg')
 
 IF NOT EXISTS(SELECT 1 FROM dbo.ReportType WHERE FileName='Reg\\Details.rdlx' AND ReportTypes='PRETURN')
 INSERT INTO dbo.ReportType(Id,ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, CreateUser, IsActive, IsDeleted,RowId,SpName)
 Values(24,'Details','PRETURN', 18,'Reg\\Details.rdlx',GETDATE(),'Admin',1,0,NEWID(),'dbo.sales_reg')
-update dbo.ReportType set remarks='None-Book-Party-Agent-Item' where FileName='Reg\\Details.rdlx' AND ReportTypes='PRETURN'
-
 
 IF NOT EXISTS(SELECT 1 FROM dbo.ReportType WHERE FileName='Reg\\Summary.rdlx' AND ReportTypes='PRETURN')
 INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, CreateUser, IsActive, IsDeleted,RowId,SpName)
 Values('Summary','PRETURN', 18,'Reg\\Summary.rdlx',GETDATE(),'Admin',1,0,NEWID(),'dbo.sales_reg')
-update dbo.ReportType set remarks='None-Book-Party-Agent-Item-Party+Item-Item+Party-Agent+Party-Book+Party' where FileName='Reg\\Summary.rdlx' AND ReportTypes='PRETURN'
 
 IF NOT EXISTS(SELECT 1 FROM dbo.ReportType WHERE FileName='Reg\\Summary_monthly.rdlx' AND ReportTypes='PRETURN')
 INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, CreateUser, IsActive, IsDeleted,RowId,SpName)
 Values('Monthly Summary','PRETURN', 18,'Reg\\Summary_monthly.rdlx',GETDATE(),'Admin',1,0,NEWID(),'dbo.sales_reg')
-update dbo.ReportType set remarks='None-Book-Party-Agent-Item' where FileName='Reg\\Summary_monthly.rdlx' AND ReportTypes='PRETURN'
 
 IF NOT EXISTS(SELECT 1 FROM dbo.ReportType WHERE FileName='Reg\\BillWise.rdlx' AND ReportTypes='PRETURN')
 INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, CreateUser, IsActive, IsDeleted,RowId,SpName)
 Values('BillNo Wise','PRETURN', 18,'Reg\\BillWise.rdlx',GETDATE(),'Admin',1,0,NEWID(),'dbo.sales_reg')
-update dbo.ReportType set remarks='None-Book-Party-Agent' where FileName='Reg\\BillWise.rdlx' AND ReportTypes='PRETURN'
-
 
 IF NOT EXISTS(SELECT 1 FROM dbo.ReportType WHERE FileName='Reg\\DrCr_Details.rdlx' AND ReportTypes='DEBIT')
 INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, CreateUser, IsActive, IsDeleted,RowId,SpName)
 Values('Details','DEBIT', 24,'Reg\\DrCr_Details.rdlx',GETDATE(),'Admin',1,0,NEWID(),'dbo.sales_reg')
-update dbo.ReportType set remarks='None-Book-Party-Agent' where FileName='Reg\\DrCr_Details.rdlx' AND ReportTypes='DEBIT'
-
-
 
 IF NOT EXISTS(SELECT 1 FROM dbo.ReportType WHERE FileName='Reg\\Summary.rdlx' AND ReportTypes='DEBIT')
 INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, CreateUser, IsActive, IsDeleted,RowId,SpName)
 Values('Summary','DEBIT', 24,'Reg\\Summary.rdlx',GETDATE(),'Admin',1,0,NEWID(),'dbo.sales_reg')
-update dbo.ReportType set remarks='None-Book-Party-Agent-Agent+Party-Book+Party' where FileName='Reg\\Summary.rdlx' AND ReportTypes='DEBIT'
-
 
 IF NOT EXISTS(SELECT 1 FROM dbo.ReportType WHERE FileName='Reg\\Summary_monthly.rdlx' AND ReportTypes='DEBIT')
 INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, CreateUser, IsActive, IsDeleted,RowId,SpName)
 Values('Monthly Summary','DEBIT', 24,'Reg\\Summary_monthly.rdlx',GETDATE(),'Admin',1,0,NEWID(),'dbo.sales_reg')
-update dbo.ReportType set remarks='None-Book-Party-Agent' where FileName='Reg\\Summary_monthly.rdlx' AND ReportTypes='DEBIT'
-
 
 IF NOT EXISTS(SELECT 1 FROM dbo.ReportType WHERE FileName='Reg\\BillWise.rdlx' AND ReportTypes='DEBIT')
 INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, CreateUser, IsActive, IsDeleted,RowId,SpName)
 Values('BillNo Wise','DEBIT', 24,'Reg\\BillWise.rdlx',GETDATE(),'Admin',1,0,NEWID(),'dbo.sales_reg')
-update dbo.ReportType set remarks='None-Book-Party-Agent' where FileName='Reg\\BillWise.rdlx' AND ReportTypes='DEBIT'
-
 
 IF NOT EXISTS(SELECT 1 FROM dbo.ReportType WHERE FileName='Reg\\GenExp_Details.rdlx' AND ReportTypes='GEXPENSE')
 INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, CreateUser, IsActive, IsDeleted,RowId,SpName)
 Values('Details','GEXPENSE', 23,'Reg\\GenExp_Details.rdlx',GETDATE(),'Admin',1,0,NEWID(),'dbo.sales_reg')
-update dbo.ReportType set remarks='None-Book-Party-Agent' where FileName='Reg\\GenExp_Details.rdlx' AND ReportTypes='GEXPENSE'
-
 
 IF NOT EXISTS(SELECT 1 FROM dbo.ReportType WHERE FileName='Reg\\Summary.rdlx' AND ReportTypes='GEXPENSE')
 INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, CreateUser, IsActive, IsDeleted,RowId,SpName)
 Values('Summary','GEXPENSE', 23,'Reg\\Summary.rdlx',GETDATE(),'Admin',1,0,NEWID(),'dbo.sales_reg')
-update dbo.ReportType set remarks='None-Book-Party-Agent-Agent+Party-Book+Party' where FileName='Reg\\Summary.rdlx' AND ReportTypes='GEXPENSE'
 
 IF NOT EXISTS(SELECT 1 FROM dbo.ReportType WHERE FileName='Reg\\Summary_monthly.rdlx' AND ReportTypes='GEXPENSE')
 INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, CreateUser, IsActive, IsDeleted,RowId,SpName)
 Values('Monthly Summary','GEXPENSE', 23,'Reg\\Summary_monthly.rdlx',GETDATE(),'Admin',1,0,NEWID(),'dbo.sales_reg')
-update dbo.ReportType set remarks='None-Book-Party-Agent' where FileName='Reg\\Summary_monthly.rdlx' AND ReportTypes='GEXPENSE'
-
 
 IF NOT EXISTS(SELECT 1 FROM dbo.ReportType WHERE FileName='Reg\\GenExp_BillWise.rdlx' AND ReportTypes='GEXPENSE')
 INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, CreateUser, IsActive, IsDeleted,RowId,SpName)
 Values('BillNo Wise','GEXPENSE', 23,'Reg\\GenExp_BillWise.rdlx',GETDATE(),'Admin',1,0,NEWID(),'dbo.sales_reg')
-update dbo.ReportType set remarks='None-Book-Party-Agent' where FileName='Reg\\GenExp_BillWise.rdlx' AND ReportTypes='GEXPENSE'
-
 
 IF NOT EXISTS(SELECT 1 FROM dbo.ReportType WHERE FileName='Reg\\Details.rdlx' AND ReportTypes='RCM')
 INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, CreateUser, IsActive, IsDeleted,RowId,SpName)
 Values('Details','RCM', 23,'Reg\\Details.rdlx',GETDATE(),'Admin',1,0,NEWID(),'dbo.sales_reg')
-update dbo.ReportType set remarks='None-Book-Party-Agent-Item' where FileName='Reg\\GenExp_Details.rdlx' AND ReportTypes='RCM'
-
 
 IF NOT EXISTS(SELECT 1 FROM dbo.ReportType WHERE FileName='Reg\\Summary.rdlx' AND ReportTypes='RCM')
 INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, CreateUser, IsActive, IsDeleted,RowId,SpName)
 Values('Summary','RCM', 23,'Reg\\Summary.rdlx',GETDATE(),'Admin',1,0,NEWID(),'dbo.sales_reg')
-update dbo.ReportType set remarks='None-Book-Party-Agent-Agent+Party-Book+Party-Party+Item-Item+Party' where FileName='Reg\\Summary.rdlx' AND ReportTypes='RCM'
 
 
 IF NOT EXISTS(SELECT 1 FROM dbo.ReportType WHERE FileName='Reg\\Summary_monthly.rdlx' AND ReportTypes='RCM')
 INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, CreateUser, IsActive, IsDeleted,RowId,SpName)
 Values('Monthly Summary','RCM', 23,'Reg\\Summary_monthly.rdlx',GETDATE(),'Admin',1,0,NEWID(),'dbo.sales_reg')
-update dbo.ReportType set remarks='None-Book-Party-Agent-Item' where FileName='Reg\\Summary_monthly.rdlx' AND ReportTypes='RCM'
-
 
 IF NOT EXISTS(SELECT 1 FROM dbo.ReportType WHERE FileName='Reg\\BillWise.rdlx' AND ReportTypes='RCM')
 INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, CreateUser, IsActive, IsDeleted,RowId,SpName)
 Values('BillNo Wise Details','RCM', 23 ,'Reg\\BillWise.rdlx',GETDATE(),'Admin',1,0,NEWID(),'dbo.sales_reg')
-update dbo.ReportType set remarks='None-Book-Party-Agent-Item' where FileName='Reg\\GenExp_BillWise.rdlx' AND ReportTypes='RCM'
-
 
 IF NOT EXISTS(SELECT 1 FROM dbo.ReportType WHERE FileName='Reg\\Challan.rdlx' AND ReportTypes='SCHALLAN')
 INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, CreateUser, IsActive, IsDeleted,RowId,SpName)
@@ -667,18 +610,5 @@ Values('Job Challan F1','JIB', 38,'reg\doc\jobChallan.rdlx',GETDATE(),'Admin',1,
 IF NOT EXISTS(SELECT 1 FROM dbo.ReportType WHERE FileName='reg\doc\TakaJobSalesChallan.rdlx' and VoucherTypeId=46)
 INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, CreateUser, IsActive, IsDeleted,RowId,SpName)
 Values('Job Challan F1','JSC', 46,'reg\doc\TakaJobSalesChallan.rdlx',GETDATE(),'Admin',1,0,NEWID(),'dbo.ChallanPrint')SET IDENTITY_INSERT dbo.ReportType OFF 
-
-
-update dbo.Reporttyp set VoucherTypeId=2  WHERE FileName='reg\doc\ReqRep.rdlx'
-
-IF NOT EXISTS(SELECT 1 FROM dbo.ReportType WHERE FileName='reg\doc\ReqRep.rdlx' and VoucherTypeId=2)
-INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, CreateUser, IsActive, IsDeleted,RowId,SpName)
-Values('Request Document','REQDOC', 2,'reg\doc\ReqRep.rdlx',GETDATE(),'Admin',1,0,NEWID(),'dbo.OrderPrint')
-
-
-
-IF NOT EXISTS(SELECT 1 FROM dbo.ReportType WHERE FileName='reg\doc\JvPrint.rdlx' and VoucherTypeId=14)
-INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, CreateUser, IsActive, IsDeleted,RowId,SpName)
-Values('Journal Voucher','JVP', 14,'reg\doc\JvPrint.rdlx',GETDATE(),'Admin',1,0,NEWID(),'dbo.JvPrint')
 
 Go

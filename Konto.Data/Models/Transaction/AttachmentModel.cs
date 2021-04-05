@@ -14,7 +14,7 @@ namespace Konto.Data.Models.Transaction
         public AttachmentModel()
         {
             IsActive = true;
-           // Id = 0;
+           
         }
         public int RefVoucherId { get; set; }
         public int VoucherId { get; set; }

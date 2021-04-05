@@ -112,10 +112,8 @@ BEGIN
 INSERT INTO dbo.ListPage
 (
    Id, Descr,SpName,LayoutFile,VTypeId,GroupCol,SumCol
-)values (46, 'Product Wise List','dbo.ChallanSummaryList','GRN\ProductSummaryView.xml',5,'pd.ProductName',null)
+)values (46, 'Product Wise List','dbo.ChallaSummaryList','GRN\ProductSummaryView.xml',5,'pd.ProductName',null)
 END
-
-update dbo.ListPage set SpName='dbo.ChallanSummaryList' where id=46
 
  if NOT exists (select 1 from ListPage em where em.Id=159)
 BEGIN
@@ -1283,9 +1281,6 @@ INSERT INTO dbo.ListPage
 )values (190, 'Product Wise List','dbo.SJSummaryList','SJ\ProductSummaryView.xml',52,'pd.ProductName',null)
 END
 
-
-
-
 --Taka wise job recept 
 if NOT exists (select 1 from ListPage em where em.Id=196)
 BEGIN
@@ -1327,125 +1322,5 @@ INSERT INTO dbo.ListPage
 )values (200, 'Deleted List','dbo.ChallanList','TakaJR\DeletedView.xml',51,null,null,'Deleted')
 END
 
-/*Sales Invoice */
-if NOT exists (select 1 from ListPage em where em.Id=201)
-BEGIN
-INSERT INTO dbo.ListPage
-(
-   Id, Descr,SpName,LayoutFile,VTypeId,GroupCol,SumCol,Extra1
-)values (201, 'Party_Monthly','dbo.bill_analysis','analysis\sale\party_monthly.olapx',12,null,null,'analysis')
-END
-
-if NOT exists (select 1 from ListPage em where em.Id=202)
-BEGIN
-INSERT INTO dbo.ListPage
-(
-   Id, Descr,SpName,LayoutFile,VTypeId,GroupCol,SumCol,Extra1
-)values (202, 'Party_Item_Monthly','dbo.bill_analysis','analysis\sale\party_item_monthly.olapx',12,null,null,'analysis')
-END
-
-if NOT exists (select 1 from ListPage em where em.Id=203)
-BEGIN
-INSERT INTO dbo.ListPage
-(
-   Id, Descr,SpName,LayoutFile,VTypeId,GroupCol,SumCol,Extra1
-)values (203, 'Item_Monthly','dbo.bill_analysis','analysis\sale\item_monthly.olapx',12,null,null,'analysis')
-END
-
-
-/*Sales Return Invoice */
-if NOT exists (select 1 from ListPage em where em.Id=204)
-BEGIN
-INSERT INTO dbo.ListPage
-(
-   Id, Descr,SpName,LayoutFile,VTypeId,GroupCol,SumCol,Extra1
-)values (204, 'Party_Monthly','dbo.bill_analysis','analysis\saleret\party_monthly.olapx',19,null,null,'analysis')
-END
-
-if NOT exists (select 1 from ListPage em where em.Id=205)
-BEGIN
-INSERT INTO dbo.ListPage
-(
-   Id, Descr,SpName,LayoutFile,VTypeId,GroupCol,SumCol,Extra1
-)values (205, 'Party_Item_Monthly','dbo.bill_analysis','analysis\saleret\party_item_monthly.olapx',19,null,null,'analysis')
-END
-
-if NOT exists (select 1 from ListPage em where em.Id=206)
-BEGIN
-INSERT INTO dbo.ListPage
-(
-   Id, Descr,SpName,LayoutFile,VTypeId,GroupCol,SumCol,Extra1
-)values (206, 'Item_Monthly','dbo.bill_analysis','analysis\saleret\item_monthly.olapx',19,null,null,'analysis')
-END
-
-
-/*Purchase Return Invoice */
-if NOT exists (select 1 from ListPage em where em.Id=207)
-BEGIN
-INSERT INTO dbo.ListPage
-(
-   Id, Descr,SpName,LayoutFile,VTypeId,GroupCol,SumCol,Extra1
-)values (207, 'Party_Monthly','dbo.bill_analysis','analysis\purret\party_monthly.olapx',18,null,null,'analysis')
-END
-
-if NOT exists (select 1 from ListPage em where em.Id=208)
-BEGIN
-INSERT INTO dbo.ListPage
-(
-   Id, Descr,SpName,LayoutFile,VTypeId,GroupCol,SumCol,Extra1
-)values (208, 'Party_Item_Monthly','dbo.bill_analysis','analysis\purret\party_item_monthly.olapx',18,null,null,'analysis')
-END
-
-if NOT exists (select 1 from ListPage em where em.Id=209)
-BEGIN
-INSERT INTO dbo.ListPage
-(
-   Id, Descr,SpName,LayoutFile,VTypeId,GroupCol,SumCol,Extra1
-)values (209, 'Item_Monthly','dbo.bill_analysis','analysis\purret\item_monthly.olapx',18,null,null,'analysis')
-END
-
-
-
-if NOT exists (select 1 from ListPage em where em.Id=235)
-BEGIN
-INSERT INTO dbo.ListPage
-(
-   Id, Descr,SpName,LayoutFile,VTypeId,GroupCol,SumCol,Extra1
-)values (235, 'Bom List','dbo.bomList','apparel\bom_list.xml',34,null,null,'bom')
-END
-
-
--- taka production
-if NOT exists (select 1 from ListPage em where em.Id=236)
-BEGIN
-INSERT INTO dbo.ListPage
-(
-   Id, Descr,SpName,LayoutFile,VTypeId,GroupCol,SumCol
-)values (236, 'Normal List','dbo.TakaprodList','weaving\tp_NormalListView.xml',17,null,null)
-END
- 
-if NOT exists (select 1 from ListPage em where em.Id=237)
-BEGIN
-INSERT INTO dbo.ListPage
-(
-   Id, Descr,SpName,LayoutFile,VTypeId,GroupCol,SumCol
-)values (237, 'Product Wise Summary','dbo.TakaProdSummaryList','weaving\tp_product_summaryList.xml',17,'pd.ProductName',null)
-END
-
-if NOT exists (select 1 from ListPage em where em.Id=238)
-BEGIN
-INSERT INTO dbo.ListPage
-(
-   Id, Descr,SpName,LayoutFile,VTypeId,GroupCol,SumCol
-)values (238, 'Machine Wise Summary','dbo.TakaProdSummaryList','weaving\tp_mach_summaryList.xml',17,'m.MachineName',null)
-END
-
-if NOT exists (select 1 from ListPage em where em.Id=239)
-BEGIN
-INSERT INTO dbo.ListPage
-(
-   Id, Descr,SpName,LayoutFile,VTypeId,GroupCol,SumCol,Extra1
-)values (239, 'Deleted List','dbo.TakaprodList','weaving\tp_DeletedView.xml',17,null,null,'Deleted')
-END
 
 SET IDENTITY_INSERT dbo.ListPage OFF

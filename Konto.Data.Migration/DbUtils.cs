@@ -1,15 +1,14 @@
 ﻿using Konto.App.Shared;
-using Konto.Data.Models.Masters;
+using Konto.App.Shared.Para;
 using Konto.Data.Models.Masters.Dtos;
 using Konto.Data.Models.Transaction.Dtos;
 using System.Linq;
 
 namespace Konto.Data
 {
-
+    
     public class DbUtils
     {
-       
         public static string NextSerialNo(int vid, KontoContext db,int isNew=0)
         {
             SerialDto serialno = null;
@@ -71,8 +70,8 @@ namespace Konto.Data
         public static bool CheckExistVoucherNo(int vid,string _vno, KontoContext db, int _key)
         {
             var _exist = db.Bills.Any(x => x.VoucherNo == _vno && x.VoucherId == vid &&
-                                       x.VoucherDate >= KontoGlobals.FromDate && x.VoucherDate <= KontoGlobals.ToDate
-                                      && x.CompId == KontoGlobals.CompanyId && x.Id!=_key && !x.IsDeleted);
+                                      x.VoucherDate >= KontoGlobals.FromDate && x.VoucherDate <= KontoGlobals.ToDate 
+                                      && x.CompId == KontoGlobals.CompanyId && x.Id!=_key && !x.IsDeleted && x.IsActive);
 
             return _exist;
         }
@@ -101,7 +100,7 @@ namespace Konto.Data
         public static ProductDetailsDto GetProductDetails(int id)
         {
 
-            using(var _context = new KontoContext())
+            using (var _context = new KontoContext())
             {
                 _context.Database.CommandTimeout = 0;
                 var _model = (from pd in _context.Products
@@ -179,7 +178,8 @@ namespace Konto.Data
                                   Rate1 = pr.Rate1,
                                   Rate2 = pr.Rate2,
                                   SizeId = pd.SizeId,
-                                  SubGrupId = pd.SubGroupId,StyleNo= pr.BatchNo
+                                  SubGrupId = pd.SubGroupId,
+                                  StyleNo = pr.BatchNo
                               }).FirstOrDefault();
 
                 return _model;
@@ -189,7 +189,7 @@ namespace Konto.Data
 
 
         // get data by barcode
-        public static ProductDetailsDto GetProductDetails(string  barcode)
+        public static ProductDetailsDto GetProductDetails(string barcode)
         {
 
             using (var _context = new KontoContext())
@@ -224,6 +224,9 @@ namespace Konto.Data
                               join cl in _context.ColorModels on pd.ColorId equals cl.Id into cl_join
                               from cl in cl_join.DefaultIfEmpty()
 
+                              join bc in _context.ItemBatches on pd.Id equals bc.ProductId into bc_join
+                              from bc in bc_join.DefaultIfEmpty()
+
                               where bal.CompanyId == KontoGlobals.CompanyId && bal.BranchId == KontoGlobals.BranchId && bal.YearId == KontoGlobals.YearId &&
                               !pd.IsDeleted && pd.BarCode == barcode
                               select new ProductDetailsDto()
@@ -240,7 +243,7 @@ namespace Konto.Data
                                   OpQty = bal.OpQty,
                                   ProductCode = pd.ProductCode,
                                   ProductType = pt.TypeName,
-                                  SaleRate = pr.SaleRate,
+                                  SaleRate = bc!=null ? bc.SaleRate : pr.SaleRate,
                                   StockPcs = bal.BalNos + bal.OpNos,
                                   StockQty = bal.BalQty + bal.OpQty,
                                   SubName = sub.SubName,
@@ -265,13 +268,14 @@ namespace Konto.Data
                                   CategroyId = pd.CategoryId,
                                   ColorId = pd.ColorId,
                                   ColorName = cl.ColorName,
-                                  Mrp = pr.Mrp,
+                                  Mrp = bc==null ? pr.Mrp : bc.Mrp,
                                   Qty = pr.Qty,
-                                  Rate1 = pr.Rate1,
-                                  Rate2 = pr.Rate2,
+                                  Rate1 = bc != null ? bc.BulkRate : pr.Rate1 ,
+                                  Rate2 = bc!=null ? bc.SemiBulkRate : pr.Rate2,
                                   SizeId = pd.SizeId,
                                   SubGrupId = pd.SubGroupId,
-                                  StyleNo = pr.BatchNo,Description = pd.ProductDesc,
+                                  StyleNo = pr.BatchNo,
+                                  Description = pd.ProductDesc,
                                   ProfitPer = pd.Price1
                               }).FirstOrDefault();
 
@@ -279,16 +283,16 @@ namespace Konto.Data
             }
         }
 
-        public static decimal GetCurrentStock(int productid,int branchid)
+        public static decimal GetCurrentStock(int productid, int branchid)
         {
-            using(var db =new KontoContext())
+            using (var db = new KontoContext())
             {
                 var st = db.StockBals.FirstOrDefault(x => x.CompanyId == KontoGlobals.CompanyId &&
                                     x.YearId == KontoGlobals.YearId && x.BranchId == branchid && x.ProductId == productid);
 
                 var stb = (from p in db.StockTranses
                            where p.ItemId == productid && p.BranchId == branchid
-                             group p by 1 into g
+                           group p by 1 into g
                            select new
                            {
                                Stock = g.Sum(x => x.RcptQty) - g.Sum(x => x.IssueQty)
@@ -302,8 +306,8 @@ namespace Konto.Data
                     if (st != null)
                     return st.OpQty;
                 else
-                    return  0;
-                
+                    return 0;
+
             }
         }
 
@@ -326,6 +330,4 @@ namespace Konto.Data
             }
         }
     }
-
-
 }

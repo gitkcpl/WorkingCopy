@@ -20,6 +20,7 @@ BEGIN
            bm.BillNo ChallanNo,
 		   bm.RcdDate AS ChallanDate,
 		   bm.Extra2,
+           bm.Extra1,
            bm.AccId,
            ac.AccName Party,
 		   ac.GstIn,

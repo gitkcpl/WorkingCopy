@@ -94,7 +94,8 @@ BEGIN
 	       fcty.CityName FCity, fst.StateName FState,
 		   CMP.Email CEmail,CMP.FPincode CFPincode,CMP.GstIn CGstIn,CMP.IfsCode CIfsCode,
 		   CMP.LogoPath LogoPath,CMP.PanNo CPanNo
-		   ,CMP.Mobile CMobile,CMP.Phone CPhone,cmp.Pincode CPincode, ag.AccName AS Agent
+		   ,CMP.Mobile CMobile,CMP.Phone CPhone,cmp.Pincode CPincode, ag.AccName AS Agent,
+           ot.ModifyUser
    FROM dbo.Ord Ord
    INNER JOIN dbo.Voucher Voucher ON Voucher.Id = Ord.VoucherId
    INNER JOIN dbo.Acc acc ON Ord.AccId = acc.Id

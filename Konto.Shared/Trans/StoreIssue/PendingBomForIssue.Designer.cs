@@ -82,7 +82,7 @@
             // 
             // pendingOrderDtoBindingSource
             // 
-            this.pendingOrderDtoBindingSource.DataSource = typeof(Konto.Data.Models.Apparel.Dtos.PendingBomDto);
+            //this.pendingOrderDtoBindingSource.DataSource = typeof(Konto.Data.Models.pe);
             // 
             // gridControl1
             // 

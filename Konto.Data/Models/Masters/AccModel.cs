@@ -125,6 +125,7 @@ namespace Konto.Data.Models.Masters
         public virtual int? CollById { get; set; }
 
         public virtual decimal DiscPer { get; set; }
+
         public int AddressId
         {
             get; set;

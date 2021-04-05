@@ -11,9 +11,7 @@ insert into ErpModule ([Id],[ParentId],[ModuleDesc],[OrderIndex],[LinkButton],[S
 		   null,null,null,1,'/Konto.Wpf;component/MenuIcon/master.png',0,
 		   0,0,0,null,null,1,GETDATE(),8,1,0,NEWID()) 
 end
-
-
-
+		   update dbo.ErpModule set IconPath='/Konto.Wpf;component/MenuIcon/master.png' where id=100
 go
 if NOT exists (select 1 from ErpModule em where em.Id=1)
 begin
@@ -539,11 +537,7 @@ insert into ErpModule ([Id],[ParentId],[ModuleDesc],[OrderIndex],[LinkButton],[S
 		   0,0,0,null,null,1,GETDATE(),GETDATE(),21,1,0,NEWID())
 end
 go
-
-	   
-
-
-
+	   update dbo.ErpModule set IconPath='/Konto.Wpf;component/MenuIcon/voucher.png' where id=135
 
 if NOT exists (select 1 from ErpModule em where em.Id=1071)
 begin
@@ -1262,7 +1256,7 @@ insert into ErpModule ([Id],[ParentId],[ModuleDesc],[OrderIndex],[LinkButton],[S
            ,[DefaultReport],[DefaultLayout],[TableName],[AssemblyName],[MainAssembly]
            ,[ListAssembly],[MDI],[Title],[Visible],[IconPath],[CheckRight]
            ,[VisibleOnDashBoard],[VisibleOnSideBar],[IsSeprator],[Extra1],[Extra2],[Offline],CreateDate)
-		   values(371,378,'Yarn Production',12,null,null,0,
+		   values(371,378,'Production',12,null,null,0,
 		   null,null,'Production (Packing List)','Konto.Yarn.YarnProduction.YarnProdIndex','Konto.Yarn',
 		   null,null,'Production',1,'/Konto.Wpf;component/MenuIcon/gray.png',0,
 		   0,0,0,null,null,1,GETDATE())
@@ -2026,7 +2020,7 @@ insert into ErpModule ([Id],[ParentId],[ModuleDesc],[OrderIndex],[LinkButton],[S
 end
  	   update dbo.ErpModule set IconPath='/Konto.Wpf;component/MenuIcon/tax.png' where id=833
 
-if NOT exists (select 1 from ErpModule em where em.Id=834)
+ if NOT exists (select 1 from ErpModule em where em.Id=834)
 begin
 insert into ErpModule ([Id],[ParentId],[ModuleDesc],[OrderIndex],[LinkButton],[ShortCutKey],[PackageId]
            ,[DefaultReport],[DefaultLayout],[TableName],[AssemblyName],[MainAssembly]
@@ -2037,10 +2031,9 @@ insert into ErpModule ([Id],[ParentId],[ModuleDesc],[OrderIndex],[LinkButton],[S
 		   null,null,'Gstr-2 Reconcile',1,null,0,
 		   0,0,0,null,null,1,GETDATE())
 end
+ 	   update dbo.ErpModule set IconPath='/Konto.Wpf;component/MenuIcon/tax.png' where id=834
 
-update dbo.ErpModule set [AssemblyName] = 'Konto.Reporting.Para.Gstr2.Gst2Reconcile' where id=834
-
-if NOT exists (select 1 from ErpModule em where em.Id=835)
+ if NOT exists (select 1 from ErpModule em where em.Id=835)
 begin
 insert into ErpModule ([Id],[ParentId],[ModuleDesc],[OrderIndex],[LinkButton],[ShortCutKey],[PackageId]
            ,[DefaultReport],[DefaultLayout],[TableName],[AssemblyName],[MainAssembly]
@@ -2620,7 +2613,7 @@ insert into ErpModule ([Id],[ParentId],[ModuleDesc],[OrderIndex],[LinkButton],[S
 		   null,null,'Opening Cheque',0,'/Konto.Wpf;component/MenuIcon/opening.png',0,
 		   0,0,0,null,null,1,GETDATE(),GETDATE())
 end  
- 	   
+ 	   update dbo.ErpModule set IconPath='/Konto.Wpf;component/MenuIcon/opening.png' where id=148
 
 if NOT exists (select 1 from ErpModule em where em.Id=150)
 begin
@@ -2634,7 +2627,7 @@ insert into ErpModule ([Id],[ParentId],[ModuleDesc],[OrderIndex],[LinkButton],[S
 		   null,null,'Opening Taka Stock',0,'/Konto.Wpf;component/MenuIcon/opening.png',0,
 		   0,0,0,null,null,1,GETDATE(),GETDATE())
 end  
- 	  
+ 	   update dbo.ErpModule set IconPath='/Konto.Wpf;component/MenuIcon/opening.png' where id=150
 
 if NOT exists (select 1 from ErpModule em where em.Id=151)
 begin
@@ -2676,20 +2669,7 @@ insert into ErpModule ([Id],[ParentId],[ModuleDesc],[OrderIndex],[LinkButton],[S
 		   null,null,'Warp Item',1,'/Konto.Wpf;component/MenuIcon/opening.png',0,
 		   0,0,0,null,null,1,GETDATE(),GETDATE())
 end
-
-if NOT exists (select 1 from ErpModule em where em.Id=154)
-begin
-insert into ErpModule ([Id],[ParentId],[ModuleDesc],[OrderIndex],[LinkButton],[ShortCutKey],[PackageId]
-           ,[DefaultReport],[DefaultLayout],[TableName],[AssemblyName],[MainAssembly]
-           ,[ListAssembly],[MDI],[Title],[Visible],[IconPath],[CheckRight]
-           ,[VisibleOnDashBoard],[VisibleOnSideBar],[IsSeprator],[Extra1],[Extra2],[Offline],
-		   [CreateDate],[ModifyDate])
-		   values(154,100,'Machine Position',8,null,null,0,
-		   null,null,'Machine Position','Konto.Shared.Masters.Position.PositionIndex','Konto.Shared',
-		   null,null,'Machine Position',1,'/Konto.Wpf;component/MenuIcon/opening.png',0,
-		   0,0,0,null,null,1,GETDATE(),GETDATE())
-end
- 	  
+ 	   update dbo.ErpModule set IconPath='/Konto.Wpf;component/MenuIcon/opening.png' where id=153
 
 if NOT exists (select 1 from ErpModule em where em.Id=1061)
 begin
@@ -2793,12 +2773,10 @@ insert into ErpModule ([Id],[ParentId],[ModuleDesc],[OrderIndex],[LinkButton],[S
            ,[ListAssembly],[MDI],[Title],[Visible],[IconPath],[CheckRight]
            ,[VisibleOnDashBoard],[VisibleOnSideBar],[IsSeprator],[Extra1],[Extra2],[Offline],CreateDate)
 		   values(1070,378,'Job Card',17,null,null,0,
-		   null,null,'challan','Konto.Yarn.JobCard.JobCardIndex','Konto.Yarn',
+		   null,null,'challan','Konto.Yarn.YarnProduction.JobCardIndex','Konto.Yarn',
 		   null,null,'Job Card',1,'/Konto.Wpf;component/MenuIcon/gray.png',0,
 		   0,0,0,null,null,1,GETDATE())
 END
-
-
 
 --IF NOT exists (select 1 from ErpModule em where em.Id=1066)
 --begin
@@ -2840,55 +2818,3 @@ insert into ErpModule ([Id],[ParentId],[ModuleDesc],[OrderIndex],[LinkButton],[S
 end
 
 update dbo.ErpModule set IconPath='/Konto.Wpf;component/MenuIcon/setup.png' where id=912
-
-
-if NOT exists (select 1 from ErpModule em where em.Id=1073)
-begin
-insert into ErpModule ([Id],[ParentId],[ModuleDesc],[OrderIndex],[LinkButton],[ShortCutKey],[PackageId]
-           ,[DefaultReport],[DefaultLayout],[TableName],[AssemblyName],[MainAssembly]
-           ,[ListAssembly],[MDI],[Title],[Visible],[IconPath],[CheckRight]
-           ,[VisibleOnDashBoard],[VisibleOnSideBar],[IsSeprator],[Extra1],[Extra2],[Offline],CreateDate)
-		   values(1073,829,'Gst Payment Assist',2,null,null,0,
-		   null,null,null,null,null,
-		   null,null,'Gst',1,'/Konto.Wpf;component/MenuIcon/tax.png',0,
-		   0,0,0,null,null,1,GETDATE())
-end
-
-IF NOT exists (select 1 from ErpModule em where em.Id=1103)
-begin
-insert into ErpModule ([Id],[ParentId],[ModuleDesc],[OrderIndex],[LinkButton],[ShortCutKey],[PackageId]
-           ,[DefaultReport],[DefaultLayout],[TableName],[AssemblyName],[MainAssembly]
-           ,[ListAssembly],[MDI],[Title],[Visible],[IconPath],[CheckRight]
-           ,[VisibleOnDashBoard],[VisibleOnSideBar],[IsSeprator],[Extra1],[Extra2],[Offline],
-		   [CreateDate],[ModifyDate])
-		   values(1103,1100,'Quality Control',3,null,null,1,
-		   null,null,'QualityControl','Konto.Apparel.Qc.QualityControlIndex','Konto.Apparel',
-		   null,null,'QualityControl',1,'/Konto.Wpf;component/MenuIcon/setup.png',0,
-		   0,0,0,null,null,1,GETDATE(),GETDATE())
-end
-
-IF NOT exists (select 1 from ErpModule em where em.Id=1104)
-begin
-insert into ErpModule ([Id],[ParentId],[ModuleDesc],[OrderIndex],[LinkButton],[ShortCutKey],[PackageId]
-           ,[DefaultReport],[DefaultLayout],[TableName],[AssemblyName],[MainAssembly]
-           ,[ListAssembly],[MDI],[Title],[Visible],[IconPath],[CheckRight]
-           ,[VisibleOnDashBoard],[VisibleOnSideBar],[IsSeprator],[Extra1],[Extra2],[Offline],
-		   [CreateDate],[ModifyDate])
-		   values(1104,1100,'Barcode',3,null,null,1,
-		   null,null,'Barcode','Konto.Apparel.BC.BarcodeIndex','Konto.Apparel',
-		   null,null,'Barcode',1,'/Konto.Wpf;component/MenuIcon/setup.png',0,
-		   0,0,0,null,null,1,GETDATE(),GETDATE())
-end
-
-IF NOT exists (select 1 from ErpModule em where em.Id=1105)
-begin
-insert into ErpModule ([Id],[ParentId],[ModuleDesc],[OrderIndex],[LinkButton],[ShortCutKey],[PackageId]
-           ,[DefaultReport],[DefaultLayout],[TableName],[AssemblyName],[MainAssembly]
-           ,[ListAssembly],[MDI],[Title],[Visible],[IconPath],[CheckRight]
-           ,[VisibleOnDashBoard],[VisibleOnSideBar],[IsSeprator],[Extra1],[Extra2],[Offline],
-		   [CreateDate],[ModifyDate])
-		   values(1105,1100,'Outward',4,null,null,1,
-		   null,null,'Outward','Konto.Apparel.Out.OutwardIndex','Konto.Apparel',
-		   null,null,'Outward',1,'/Konto.Wpf;component/MenuIcon/setup.png',0,
-		   0,0,0,null,null,1,GETDATE(),GETDATE())
-end

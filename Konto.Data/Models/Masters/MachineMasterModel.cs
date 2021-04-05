@@ -1,5 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Konto.Data.Models.Masters
 {
@@ -11,8 +16,9 @@ namespace Konto.Data.Models.Masters
             this.IsActive = true;
             this.IsDeleted = false;
         }
+
         [MaxLength(25)]
-        [Display(Name = "machinename")]
+        
         public string MachineName { get; set; }
 
         [MaxLength]

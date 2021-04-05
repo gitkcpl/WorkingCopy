@@ -256,10 +256,10 @@ namespace Konto.Shared.Trans.PInvoice
                                 item.IsDeleted = true;
 
                                 // product serial delete
-                                var srs = db.SerialBatches.Where(x => x.RefTransId == item.Id && x.RefVoucherId ==model.VoucherId).ToList();
+                                var srs = db.ItemSerials.Where(x => x.RefTransId == item.Id && x.RefVoucherId ==model.VoucherId).ToList();
                                 foreach (var sr in srs)
                                 {
-                                    var _sr = db.SerialBatches.Find(sr.Id);
+                                    var _sr = db.ItemSerials.Find(sr.Id);
 
                                     if (!_sr.IsActive)
                                     {

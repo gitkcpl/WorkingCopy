@@ -22,7 +22,7 @@ BEGIN
 	  ac.AccName PARTY,
 	  ISNULL(ag.AccName,Agent.AccName) Agent,
 	  bm.TotalPcs,bm.TotalQty,
-	  bm.GrossAmount,bm.GrossAmount - bt.disc + bt.OtherA - bt.OtherL AS TaxableAmt ,
+	  bm.GrossAmount,ISNULL(bt.Taxable,0) TaxableAmt,
 	  bt.Cgst,
 	  bt.Sgst,
 	  bt.Igst,
@@ -59,7 +59,10 @@ BEGIN
 	  bm.IsActive,
 	  bm.IsDeleted
  	 FROM dbo.BillMain bm
-	 LEFT OUTER JOIN (SELECT BillId, SUM(DiscAmt) disc, SUM(OtherAdd) AS OtherA, SUM(OtherLess) AS OtherL, SUM(Cgst) Cgst, SUM(Sgst) Sgst, SUM(Igst) Igst FROM dbo.BillTrans GROUP BY BillId) bt ON bt.BillId = bm.Id
+	  LEFT OUTER JOIN (SELECT BillId, SUM(DiscAmt) disc,SUM(Cess) AS Cess, 
+		SUM(OtherAdd) AS OtherA, SUM(OtherLess) AS OtherL, SUM(Cgst) Cgst, SUM(Sgst) Sgst, SUM(Igst) Igst,
+		SUM(NetTotal-ISNULL(Sgst,0)-ISNULL(Cgst,0)-ISNULL(Igst,0)-ISNULL(Cess,0)) Taxable FROM dbo.BillTrans
+		WHERE IsDeleted=0 GROUP BY BillId) bt ON bt.BillId = bm.Id
 	 LEFT OUTER JOIN  dbo.Acc ac on bm.AccId =ac.Id 
 	 LEFT OUTER JOIN dbo.Acc bk ON bk.Id = bm.BookAcId
      LEFT OUTER JOIN dbo.Acc Agent on ac.AgentId = Agent.Id

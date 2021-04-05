@@ -831,30 +831,12 @@ IF NOT EXISTS(SELECT 1 FROM dbo.SysPara WHERE Id=207)
 INSERT INTO dbo.SysPara(Id,Descr,DefaultValue,ValueDescr,Category)
 Values(207,'Store Issue Against Order','N','Y for Yes N for No','StoreIssue')
 
-IF NOT EXISTS(SELECT 1 FROM dbo.SysPara WHERE Id=236) -- SaleInvoice
+IF NOT EXISTS(SELECT 1 FROM dbo.SysPara WHERE Id=208)
 INSERT INTO dbo.SysPara(Id,Descr,DefaultValue,ValueDescr,Category)
-Values(236,'Order Required For Invoice ?','N','Y for Yes N for No','SaleInvoice')
+Values(208,'Issue By Barcode','N','Y for Yes N for No','StoreIssue')
 
-IF NOT EXISTS(SELECT 1 FROM dbo.SysPara WHERE Id=237) -- purchase invoice
+IF NOT EXISTS(SELECT 1 FROM dbo.SysPara WHERE Id=209)
 INSERT INTO dbo.SysPara(Id,Descr,DefaultValue,ValueDescr,Category)
-Values(237,'Order Required For Invoice ?','Y','Y for Yes N for No','PurchaseBill')
-
-IF NOT EXISTS(SELECT 1 FROM dbo.SysPara WHERE Id=238) -- purchase invoice
-INSERT INTO dbo.SysPara(Id,Descr,DefaultValue,ValueDescr,Category)
-Values(238,'Hsn Code Required ?','N','Y for Yes N for No','PurchaseBill')
-
-
-IF NOT EXISTS(SELECT 1 FROM dbo.SysPara WHERE Id=239) -- SaleInvoice
-INSERT INTO dbo.SysPara(Id,Descr,DefaultValue,ValueDescr,Category)
-Values(239,'Hsn Code Required ?','N','Y for Yes N for No','SaleInvoice')
-
-IF NOT EXISTS(SELECT 1 FROM dbo.SysPara WHERE Id=240) -- purchase return
-INSERT INTO dbo.SysPara(Id,Descr,DefaultValue,ValueDescr,Category)
-Values(240,'Hsn Code Required ?','N','Y for Yes N for No','PurchaseRet')
-
-
-IF NOT EXISTS(SELECT 1 FROM dbo.SysPara WHERE Id=241) -- sales return
-INSERT INTO dbo.SysPara(Id,Descr,DefaultValue,ValueDescr,Category)
-Values(241,'Hsn Code Required ?','N','Y for Yes N for No','SaleRet')
+Values(209,'Taka From Stock','N','Y for Yes N for No','StoreIssue')
 
 SET IDENTITY_INSERT dbo.SysPara OFF

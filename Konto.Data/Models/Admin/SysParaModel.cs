@@ -31,7 +31,7 @@ namespace Konto.Data.Models.Admin
 
         [MaxLength(50)]
         [Display(Name = "Category")]
-        public string Category { get; set; }
+               public string Category { get; set; }
 
 
         [Required(ErrorMessage = "Row Id is required")]

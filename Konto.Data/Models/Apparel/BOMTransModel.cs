@@ -1,4 +1,5 @@
 ﻿using Konto.Data.Models.Masters;
+using Konto.Data.Models.Transaction;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -11,6 +12,11 @@ namespace Konto.Data.Models.Apparel
     [Table("BOMTrans")]
     public class BOMTransModel : AuditedEntity
     {
+        public BOMTransModel()
+        {
+            IsActive = true;
+           
+        }
         public int ProductId { get; set; }
         public int ColorId { get; set; }
         public int AccId { get; set; }
@@ -25,6 +31,8 @@ namespace Konto.Data.Models.Apparel
 
         public decimal RefQty { get; set; }
         public int BOMId { get; set; }
+        
+        [Index]
         public int OrderTransId { get; set; }
         public int TransType { get; set; }
         public string Remark1 { get; set; }
@@ -33,6 +41,9 @@ namespace Konto.Data.Models.Apparel
         [ForeignKey("ProductId")]
         public ProductModel Product { get; set; }
 
-        
+      
+
+        [ForeignKey("BOMId")]
+        public BomModel Bom { get; set; }
     }
 }

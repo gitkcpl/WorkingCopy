@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,7 +8,6 @@ namespace Konto.Data.Models.Masters.Dtos
 {
     public class WeftItemDto
     {
-        [Required]
         public string ProductName { get; set; }
         public int? VoucherDate { get; set; }
 
@@ -29,7 +27,7 @@ namespace Konto.Data.Models.Masters.Dtos
         public decimal? CostNWaste { get; set; }
         public decimal? OneMtrCost { get; set; }
         public decimal? Denier { get; set; }
-     
+
         public decimal? Change { get; set; }
         public decimal? Qty { get; set; }
         public decimal? PI { get; set; }
@@ -52,11 +50,9 @@ namespace Konto.Data.Models.Masters.Dtos
         public int Panno { get; set; }
         public string Extra1 { get; set; }
         public string Extra2 { get; set; }
-      
+
 
         public int Id { get; set; }
-
-        [Required]
         public int? ProductId { get; set; }
         public int TypeId { get; set; } //1-Weft,2-Warp
         public int? ColorId { get; set; }

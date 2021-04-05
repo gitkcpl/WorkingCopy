@@ -7,11 +7,13 @@ using System.Threading.Tasks;
 
 namespace Konto.Data.Models.Masters.Dtos
 {
-    public class SerialBatchDto 
+    public class SerialBatchDto
     {
         public int Id { get; set; }
 
-        [Required][MaxLength(50)][MinLength(2)]
+        [Required]
+        [MaxLength(50)]
+        [MinLength(2)]
         public string SerialNo { get; set; }
 
         public int RefId { get; set; }

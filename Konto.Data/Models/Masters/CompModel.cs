@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Konto.Data.Models.Masters
 {
@@ -157,13 +160,14 @@ namespace Konto.Data.Models.Masters
         public virtual string TransactionalAPI { get; set; }
 
         [MaxLength(50)]
-        public virtual string   GstInUserId { get; set; }
+        public virtual string GstInUserId { get; set; }
 
         [MaxLength(50)]
         public virtual string EwayBillUserId { get; set; }
 
         [MaxLength(50)]
         public virtual string EwayBillPassword { get; set; }
+
 
         [MaxLength(50)]
         public string AppKey { get; set; }
@@ -175,7 +179,6 @@ namespace Konto.Data.Models.Masters
         public string SEK { get; set; }
 
         public DateTime? TokenExp { get; set; }
-
         public virtual ICollection<BranchModel> Branches { get; set; }
 
     }

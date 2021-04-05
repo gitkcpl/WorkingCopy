@@ -8,7 +8,7 @@ namespace Konto.Data.Models.Reports
 {
     public class GsttwoDto
     {
-     
+
         public string NoteType { get; set; }
         public string PDescription { get; set; }
         public string UQC { get; set; }

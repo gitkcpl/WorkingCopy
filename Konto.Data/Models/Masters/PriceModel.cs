@@ -47,7 +47,6 @@ namespace Konto.Data.Models.Masters
 
         [Display(Name = "Issue Qty")]
         public decimal IssueQty { get; set; }
-
         public decimal Rate1 { get; set; }
 
         public decimal Rate2 { get; set; }

@@ -315,7 +315,8 @@ namespace Konto.Shared.Trans.SInvoice
                                 //update serial sotck
                                 if (stockReq.SerialReq == "Yes" && stockReq.PTypeId == (int)ProductTypeEnum.FINISH)
                                 {
-                                    var sr = db.SerialBatches.Find(item.DesignId);
+                                    if (string.IsNullOrEmpty(item.LotNo)) continue;
+                                    var sr = db.ItemSerials.Find(item.LotNo);
                                     if (sr != null)
                                     {
                                         sr.IsActive = true; // remove stock of serials
@@ -403,7 +404,8 @@ namespace Konto.Shared.Trans.SInvoice
                                 //update serial sotck
                                 if (stockReq.SerialReq == "Yes" && stockReq.PTypeId == (int)ProductTypeEnum.FINISH)
                                 {
-                                    var sr = db.SerialBatches.Find(item.DesignId);
+                                    if (string.IsNullOrEmpty(item.LotNo)) continue;
+                                    var sr = db.ItemSerials.Find(item.LotNo);
                                     if (sr != null)
                                     {
                                         sr.IsActive = true; // remove stock of serials

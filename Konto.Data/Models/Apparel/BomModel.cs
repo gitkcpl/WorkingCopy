@@ -1,16 +1,17 @@
 ﻿using Konto.Data.Models.Masters;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Konto.Data.Models.Apparel
 {
     [Table("BOM")]
     public class BomModel : AuditedEntity
     {
+        public BomModel()
+        {
+            IsActive = true;
+            
+        }
+
         public int DivisionId { get; set; }
         public int VoucherId { get; set; }
         public string VoucherNo { get; set; }

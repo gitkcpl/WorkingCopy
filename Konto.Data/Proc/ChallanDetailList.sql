@@ -14,6 +14,7 @@ BEGIN
 	 SELECT dv.DivisionName ,tt.TypeName,
 	 ISNULL(CONVERT(Date,Convert(varchar(8),c.VoucherDate),112),'')  as ChallanDate, 
 	 c.VoucherNo ChallanNo,
+	 c.ChallanNo RefNo,
 	 ac.PrintName Party,
 	 v.VoucherName VoucherName,
 	 p.ProductName Product,

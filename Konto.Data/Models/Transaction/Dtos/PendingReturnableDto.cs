@@ -74,7 +74,7 @@ namespace Konto.Data.Models.Transaction.Dtos
 
         public virtual string LotNo { get; set; }
 
-       public virtual string Remark { get; set; }
+        public virtual string Remark { get; set; }
 
         public virtual decimal? rate { get; set; }
 
@@ -82,7 +82,7 @@ namespace Konto.Data.Models.Transaction.Dtos
 
         public virtual int Id { get; set; }
 
-       
+
 
         public virtual decimal RcptQty { get; set; }
 

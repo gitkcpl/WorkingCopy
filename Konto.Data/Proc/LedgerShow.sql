@@ -74,7 +74,7 @@ BEGIN
 	           WHERE  (
 			        
 	                      CompID = @companyid
-						  AND op.YearId = @startyear
+						  AND op.YearId = @year
 	                  )  
 
 					   AND
@@ -106,60 +106,60 @@ BEGIN
               AND rs.ParameterName = 'acgroup'
     ))
 
-	           UNION ALL
+	          -- UNION ALL
 
-	           -- op From Transaction
-	           SELECT  l.CompanyId ,
-	                  l.AccountID,
-	                  'Op Balance',
-	                  ISNULL(SUM(l.Debit), 0),
-	                  ISNULL(SUM(l.Credit), 0),
-	                  0,
-	                  0[FinYear],
-	                  0[FinMonth],
-					  ISNULL(SUM(l.Amount),0),ac.AccName
-	           FROM   dbo.LedgerTrans l
-			        INNER JOIN acc AS ac  ON  l.AccountID = ac.Id
-					LEFT OUTER JOIN dbo.AccBal acb ON acb.AccId =l.AccountId
-              AND L.CompanyId = acb.CompId AND l.yearid = acb.yearid
-	                INNER JOIN acgroup AS acg ON  acg.Id = acb.GroupId
-	           WHERE  l.CompanyID = @companyid AND l.yearid=@year AND l.IsDeleted = 0
+	 --          -- op From Transaction
+	 --          SELECT  l.CompanyId ,
+	 --                 l.AccountID,
+	 --                 'Op Balance',
+	 --                 ISNULL(SUM(l.Debit), 0),
+	 --                 ISNULL(SUM(l.Credit), 0),
+	 --                 0,
+	 --                 0[FinYear],
+	 --                 0[FinMonth],
+		--			  ISNULL(SUM(l.Amount),0),ac.AccName
+	 --          FROM   dbo.LedgerTrans l
+		--	        INNER JOIN acc AS ac  ON  l.AccountID = ac.Id
+		--			LEFT OUTER JOIN dbo.AccBal acb ON acb.AccId =l.AccountId
+  --            AND L.CompanyId = acb.CompId AND l.yearid = acb.yearid
+	 --               INNER JOIN acgroup AS acg ON  acg.Id = acb.GroupId
+	 --          WHERE  l.CompanyID = @companyid AND l.yearid=@year AND l.IsDeleted = 0
 	                 
-	                  AND ((L.VoucherDate < @fromdate AND (acg.Nature ='ASSETS' OR acg.Nature = 'LIABILITIES'))
-					  OR (L.VoucherDate < @fromdate AND L.VoucherDate>=@finstartdate)
-					  )
-					  AND
-					   ((
-                  @party = 'N'
-                  AND
-                  (
-                      @partyid = 0
-                      OR L.AccountId = @partyid
-                  )
-              )
-              OR (EXISTS
-    (
-        SELECT 1
-        FROM dbo.ReportPara rs
-        WHERE rs.ReportId = @reportid
-              AND L.AccountId = rs.ParameterValue
-              AND rs.ParameterName = 'party'
-    )))
-	 AND
-          (
-              @acgroup = 'N'
-              OR EXISTS
-    (
-        SELECT 1
-        FROM dbo.ReportPara rs
-        WHERE rs.ReportId = @reportid
-              AND acg.Id = rs.ParameterValue
-              AND rs.ParameterName = 'acgroup'
-    ))
+	 --                 AND ((L.VoucherDate < @fromdate AND (acg.Nature ='ASSETS' OR acg.Nature = 'LIABILITIES'))
+		--			  OR (L.VoucherDate < @fromdate AND L.VoucherDate>=@finstartdate)
+		--			  )
+		--			  AND
+		--			   ((
+  --                @party = 'N'
+  --                AND
+  --                (
+  --                    @partyid = 0
+  --                    OR L.AccountId = @partyid
+  --                )
+  --            )
+  --            OR (EXISTS
+  --  (
+  --      SELECT 1
+  --      FROM dbo.ReportPara rs
+  --      WHERE rs.ReportId = @reportid
+  --            AND L.AccountId = rs.ParameterValue
+  --            AND rs.ParameterName = 'party'
+  --  )))
+	 --AND
+  --        (
+  --            @acgroup = 'N'
+  --            OR EXISTS
+  --  (
+  --      SELECT 1
+  --      FROM dbo.ReportPara rs
+  --      WHERE rs.ReportId = @reportid
+  --            AND acg.Id = rs.ParameterValue
+  --            AND rs.ParameterName = 'acgroup'
+  --  ))
 	                  
-	           GROUP BY
-	                  l.CompanyId,
-	                  l.AccountId,ac.AccName
+	 --          GROUP BY
+	 --                 l.CompanyId,
+	 --                 l.AccountId,ac.AccName
 
 
 	           -- Closing From Transaction
@@ -182,7 +182,7 @@ BEGIN
 			   LEFT OUTER JOIN dbo.Acc ac ON ac.Id = l.AccountId
               	LEFT OUTER JOIN dbo.AccBal ab ON ab.AccId =l.AccountId
               AND L.CompanyId = ab.CompId AND l.yearid = ab.yearid
-			       WHERE  l.CompanyID = @companyid AND l.yearid=@year and l.IsDeleted = 0
+			       WHERE  l.CompanyID = @companyid and l.VoucherDate BETWEEN @fromdate AND @todate and l.IsDeleted = 0
 	                --  AND l.AccountID = @partyid
 	                  AND l.VoucherDate BETWEEN @fromdate AND @todate
 					 

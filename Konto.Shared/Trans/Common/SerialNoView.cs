@@ -116,7 +116,7 @@ namespace Konto.Shared.Trans.Common
                 }
                 using(var db = new KontoContext())
                 {
-                    if(db.SerialBatches.Any(x=>x.SerialNo.ToUpper() == e.Value.ToString().ToUpper() && 
+                    if(db.ItemSerials.Any(x=>x.SerialNo.ToUpper() == e.Value.ToString().ToUpper() && 
                     x.Id!= row.Id))
                     {
                         e.Valid = false;
@@ -170,7 +170,7 @@ namespace Konto.Shared.Trans.Common
 
                 using (var db = new KontoContext())
                 {
-                    var srs = (from p in db.SerialBatches
+                    var srs = (from p in db.ItemSerials
                                     where p.ProductId == this.ProductId
                                     && p.IsActive && !p.IsDeleted
                                     select new SerialBatchDto

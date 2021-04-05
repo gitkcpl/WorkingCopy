@@ -35,8 +35,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Data.v20.1, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.Xpo.v20.1, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -72,6 +70,7 @@
     <Compile Include="Models\Admin\ListPageModel.cs" />
     <Compile Include="Models\Admin\Menu_PackageModel.cs" />
     <Compile Include="Models\Admin\Permissions.cs" />
+    <Compile Include="Models\Admin\RefreshToken.cs" />
     <Compile Include="Models\Admin\RolePermissions.cs" />
     <Compile Include="Models\Admin\Roles.cs" />
     <Compile Include="Models\Admin\SPCollectionModel.cs" />
@@ -84,7 +83,6 @@
     <Compile Include="Models\Apparel\Dtos\BarcodeTransDto.cs" />
     <Compile Include="Models\Apparel\Dtos\BomOrderDto.cs" />
     <Compile Include="Models\Apparel\Dtos\BomTransDto.cs" />
-    <Compile Include="Models\Apparel\Dtos\PendingBomDto.cs" />
     <Compile Include="Models\Gstn\Gstr2ADump.cs" />
     <Compile Include="Models\Gstn\Gstr2ATransDump.cs" />
     <Compile Include="Models\Gstn\RecoGstr2BtoBDto.cs" />
@@ -128,8 +126,8 @@
     <Compile Include="Models\Masters\Dtos\ColorLookupDto.cs" />
     <Compile Include="Models\Masters\Dtos\ColorMathingListDto.cs" />
     <Compile Include="Models\Masters\Dtos\CompListDto.cs" />
-    <Compile Include="Models\Masters\Dtos\CountryListViewDto.cs" />
     <Compile Include="Models\Masters\Dtos\CostHeadListDto.cs" />
+    <Compile Include="Models\Masters\Dtos\CountryListViewDto.cs" />
     <Compile Include="Models\Masters\Dtos\DivListDto.cs" />
     <Compile Include="Models\Masters\Dtos\EmpListDto.cs" />
     <Compile Include="Models\Masters\Dtos\EmpLookupDto.cs" />
@@ -182,6 +180,7 @@
     <Compile Include="Models\Masters\FinYearModel.cs" />
     <Compile Include="Models\Masters\GradeModel.cs" />
     <Compile Include="Models\Masters\HasteModel.cs" />
+    <Compile Include="Models\Masters\ItemSerial.cs" />
     <Compile Include="Models\Masters\MachineMasterModel.cs" />
     <Compile Include="Models\Masters\Nob.cs" />
     <Compile Include="Models\Masters\NopModule.cs" />
@@ -203,7 +202,7 @@
     <Compile Include="Models\Masters\ReportTypeModel.cs" />
     <Compile Include="Models\Masters\RouteModel.cs" />
     <Compile Include="Models\Masters\RPSetModel.cs" />
-    <Compile Include="Models\Masters\SerialBatch.cs" />
+    <Compile Include="Models\Masters\ItemBatch.cs" />
     <Compile Include="Models\Masters\SerialNumbersShelf.cs" />
     <Compile Include="Models\Masters\SpPara.cs" />
     <Compile Include="Models\Masters\StateModel.cs" />
@@ -225,6 +224,7 @@
     <Compile Include="Models\Pos\BillPay.cs" />
     <Compile Include="Models\Pos\CustomerModel.cs" />
     <Compile Include="Models\Pos\Dtos\CustomerListDto.cs" />
+    <Compile Include="Models\Pos\Dtos\PosPurTransDto.cs" />
     <Compile Include="Models\Reports\BalDto.cs" />
     <Compile Include="Models\Reports\Gst3bDto.cs" />
     <Compile Include="Models\Reports\Gstr1HsnDto.cs" />
@@ -288,31 +288,28 @@
     <Compile Include="Models\Transaction\Dtos\OpBillListDto.cs" />
     <Compile Include="Models\Transaction\Dtos\OrdAprvalDto.cs" />
     <Compile Include="Models\Transaction\Dtos\OrdDto.cs" />
-    <Compile Include="Models\Transaction\Dtos\OrderListDto.cs" />
     <Compile Include="Models\Transaction\Dtos\PaymentHistoryDto.cs" />
     <Compile Include="Models\Transaction\Dtos\PendBillListDto.cs" />
     <Compile Include="Models\Transaction\Dtos\PendingChallanOnInvoiceDto.cs" />
     <Compile Include="Models\Transaction\Dtos\PendingChallanOnInvoiceDetDto.cs" />
     <Compile Include="Models\Transaction\Dtos\PendingGateDto.cs" />
+    <Compile Include="Models\Transaction\Dtos\PendingIndentDto.cs" />
     <Compile Include="Models\Transaction\Dtos\PendingLotDto.cs" />
     <Compile Include="Models\Transaction\Dtos\PendingMillReceiptSp.cs" />
     <Compile Include="Models\Transaction\Dtos\PendingMRProd.cs" />
-    <Compile Include="Models\Transaction\Dtos\PndingIndentDto.cs" />
     <Compile Include="Models\Transaction\Dtos\PendingOrderDto.cs" />
     <Compile Include="Models\Transaction\Dtos\PendingReturnableDto.cs" />
     <Compile Include="Models\Transaction\Dtos\ProdOutDto.cs" />
     <Compile Include="Models\Transaction\Dtos\ProdWeftItemDTO.cs" />
     <Compile Include="Models\Transaction\Dtos\Prod_EmpDto.cs" />
-    <Compile Include="Models\Transaction\Dtos\RcpuiDto.cs" />
-    <Compile Include="Models\Transaction\Dtos\RcpuiTransDto.cs" />
     <Compile Include="Models\Transaction\Dtos\SerialDto.cs" />
     <Compile Include="Models\Transaction\Dtos\SJDto.cs" />
     <Compile Include="Models\Transaction\Dtos\SJModelDto.cs" />
     <Compile Include="Models\Transaction\Dtos\TakaCuttingListDto.cs" />
     <Compile Include="Models\Transaction\Dtos\VoucherNoDto.cs" />
+    <Compile Include="Models\Transaction\EInv.cs" />
     <Compile Include="Models\Transaction\EmailSmsLogModel.cs" />
     <Compile Include="Models\Transaction\Ewb.cs" />
-    <Compile Include="Models\Transaction\EInv.cs" />
     <Compile Include="Models\Transaction\JobCardModel.cs" />
     <Compile Include="Models\Transaction\JobCardTransModel.cs" />
     <Compile Include="Models\Transaction\JobReceiptModel.cs" />
@@ -324,15 +321,12 @@
     <Compile Include="Models\Transaction\ProdOutModel.cs" />
     <Compile Include="Models\Transaction\Prod_EmpModel.cs" />
     <Compile Include="Models\Transaction\Prod_WeftModel.cs" />
-    <Compile Include="Models\Transaction\RCPUIModel.cs" />
-    <Compile Include="Models\Transaction\RCPUITransModel.cs" />
     <Compile Include="Models\Transaction\StockTransModel.cs" />
     <Compile Include="Models\Transaction\TakaBeamModel.cs" />
     <Compile Include="Models\Transaction\TradingDto\GreyPurchaseAgainstGoDto.cs" />
     <Compile Include="Models\Transaction\TradingDto\JobIssueBarcodeDto.cs" />
     <Compile Include="Models\Transaction\TradingDto\PendingForCuttingDto.cs" />
     <Compile Include="Models\Transaction\TransType.cs" />
-    <Compile Include="Models\Pos\Dtos\PosPurTransDto.cs" />
     <Compile Include="Models\Wvs\PendingJobDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -345,204 +339,6 @@
       <Project>{F9E8AE77-5F5F-4F20-9CAD-D21A874F4130}</Project>
       <Name>Konto.App.Shared</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Proc\BeamprodList.sql" />
-    <EmbeddedResource Include="Proc\BeamprodReport.sql" />
-    <EmbeddedResource Include="Proc\BeamwithtakaReport.sql" />
-    <EmbeddedResource Include="Proc\BillDetailList.sql" />
-    <EmbeddedResource Include="Proc\BillList.sql" />
-    <EmbeddedResource Include="Proc\BillPrint.sql" />
-    <EmbeddedResource Include="Proc\BillSummaryList.sql" />
-    <EmbeddedResource Include="Proc\bill_analysis.sql" />
-    <EmbeddedResource Include="Proc\BOMList.sql" />
-    <EmbeddedResource Include="Proc\BrokerageDetailList.sql" />
-    <EmbeddedResource Include="Proc\BrokerBill.sql" />
-    <EmbeddedResource Include="Proc\BrokerPrint.sql" />
-    <EmbeddedResource Include="Proc\ChallanDetailList.sql" />
-    <EmbeddedResource Include="Proc\ChallanList.sql" />
-    <EmbeddedResource Include="Proc\ChallanPrint.sql" />
-    <EmbeddedResource Include="Proc\ChallanSummaryList.sql" />
-    <EmbeddedResource Include="Proc\ChallanTransForMRChallanId.sql" />
-    <EmbeddedResource Include="Proc\Challan_Reg.sql" />
-    <EmbeddedResource Include="Proc\ChequeLetterPrint.sql" />
-    <EmbeddedResource Include="Proc\ColorMatchList.sql" />
-    <EmbeddedResource Include="Proc\CRDRDetailList.sql" />
-    <EmbeddedResource Include="Proc\DataFreeze.sql" />
-    <EmbeddedResource Include="Proc\DeliveryAddressList.sql" />
-    <EmbeddedResource Include="Proc\docDetailList.sql" />
-    <EmbeddedResource Include="Proc\EmailsmsLogrec.sql" />
-    <EmbeddedResource Include="Proc\ExpenseDetailList.sql" />
-    <EmbeddedResource Include="Proc\FoldTransForId.sql" />
-    <EmbeddedResource Include="Proc\FreeMachineList.sql" />
-    <EmbeddedResource Include="Proc\GenerateSerialNumberSp.sql" />
-    <EmbeddedResource Include="Proc\GenExpenseList.sql" />
-    <EmbeddedResource Include="Proc\GetColorForProductId.sql" />
-    <EmbeddedResource Include="Proc\GetOrderApproveList.sql" />
-    <EmbeddedResource Include="Proc\GetWeftById.sql" />
-    <EmbeddedResource Include="Proc\Get_Account_Bal.sql" />
-    <EmbeddedResource Include="Proc\GOList.sql" />
-    <EmbeddedResource Include="Proc\GPList.sql" />
-    <EmbeddedResource Include="Proc\gp_analysis.sql" />
-    <EmbeddedResource Include="Proc\Gst3BReport.sql" />
-    <EmbeddedResource Include="Proc\Gstr1DetailView.sql" />
-    <EmbeddedResource Include="Proc\gstr1_doc.sql" />
-    <EmbeddedResource Include="Proc\Gstr2Report.sql" />
-    <EmbeddedResource Include="Proc\gstr2_Exempt.sql" />
-    <EmbeddedResource Include="Proc\GSTR2_Reconsile.sql" />
-    <EmbeddedResource Include="Proc\GSTR3BDetails.sql" />
-    <EmbeddedResource Include="Proc\GSTRB2csDetail.sql" />
-    <EmbeddedResource Include="Proc\GstReport.sql" />
-    <EmbeddedResource Include="Proc\GstReportBtoc.sql" />
-    <EmbeddedResource Include="Proc\GstReportBtocs.sql" />
-    <EmbeddedResource Include="Proc\HsnSmryDetail.sql" />
-    <EmbeddedResource Include="Proc\HsnSummary.sql" />
-    <EmbeddedResource Include="Proc\IntLedger_Reports.sql" />
-    <EmbeddedResource Include="Proc\InwardOutwardStock.sql" />
-    <EmbeddedResource Include="Proc\ITC04.sql" />
-    <EmbeddedResource Include="Proc\JobCardDetailList.sql" />
-    <EmbeddedResource Include="Proc\JobCardList.sql" />
-    <EmbeddedResource Include="Proc\JobIssuePending_Reg.sql" />
-    <EmbeddedResource Include="Proc\JVDetailList.sql" />
-    <EmbeddedResource Include="Proc\LedgerShow.sql" />
-    <EmbeddedResource Include="Proc\Ledger_Reports.sql" />
-    <EmbeddedResource Include="Proc\ListofBill.sql" />
-    <EmbeddedResource Include="Proc\MachineWiseTakaProdList.sql" />
-    <EmbeddedResource Include="Proc\MiDetailList.sql" />
-    <EmbeddedResource Include="Proc\MiList.sql" />
-    <EmbeddedResource Include="Proc\MillJobIssue_Reg.sql" />
-    <EmbeddedResource Include="Proc\MillJobIssue_RegTaka.sql" />
-    <EmbeddedResource Include="Proc\MiSummaryList.sql" />
-    <EmbeddedResource Include="Proc\MonthlyStockReportTextile.sql" />
-    <EmbeddedResource Include="Proc\MRVoucherList.sql" />
-    <EmbeddedResource Include="Proc\mrv_bill_detail_list.sql" />
-    <EmbeddedResource Include="Proc\mrv_bill_list.sql" />
-    <EmbeddedResource Include="Proc\OpBalSp.sql" />
-    <EmbeddedResource Include="Proc\OrderAgainstchallanReport.sql" />
-    <EmbeddedResource Include="Proc\OrderDetailsReport.sql" />
-    <EmbeddedResource Include="Proc\OrderPrint.sql" />
-    <EmbeddedResource Include="Proc\OutsAdjustAcc.sql" />
-    <EmbeddedResource Include="Proc\OutstandingReport.sql" />
-    <EmbeddedResource Include="Proc\Outstanding_Ageing.sql" />
-    <EmbeddedResource Include="Proc\Outs_Ageing_Fifo.sql" />
-    <EmbeddedResource Include="Proc\OutwardBeamProd.sql" />
-    <EmbeddedResource Include="Proc\OutwardprodList.sql" />
-    <EmbeddedResource Include="Proc\OutwardRefinishTaka.sql" />
-    <EmbeddedResource Include="Proc\PackingPrint.sql" />
-    <EmbeddedResource Include="Proc\PatiyaPrintQualityWise.sql" />
-    <EmbeddedResource Include="Proc\PaymemtReceiptDetailList.sql" />
-    <EmbeddedResource Include="Proc\PaymemtReceiptList.sql" />
-    <EmbeddedResource Include="Proc\Payment_Reg.sql" />
-    <EmbeddedResource Include="Proc\PendingBatch.sql" />
-    <EmbeddedResource Include="Proc\PendingBatchLot.sql" />
-    <EmbeddedResource Include="Proc\PendingBeamLoading.sql" />
-    <EmbeddedResource Include="Proc\PendingBill.sql" />
-    <EmbeddedResource Include="Proc\PendingChallanOnInvoice.sql" />
-    <EmbeddedResource Include="Proc\PendingChallanOnInvoiceDet.sql" />
-    <EmbeddedResource Include="Proc\PendingChallanOnReturn.sql" />
-    <EmbeddedResource Include="Proc\PendingForCutting.sql" />
-    <EmbeddedResource Include="Proc\PendingForCuttingDet.sql" />
-    <EmbeddedResource Include="Proc\PendingGreyOrderonChallan.sql" />
-    <EmbeddedResource Include="Proc\PendingJobCard.sql" />
-    <EmbeddedResource Include="Proc\PendingJOBonChallan.sql" />
-    <EmbeddedResource Include="Proc\PendingJOBReceipt.sql" />
-    <EmbeddedResource Include="Proc\PendingJRProd.sql" />
-    <EmbeddedResource Include="Proc\PendingLotSp.sql" />
-    <EmbeddedResource Include="Proc\PendingMillIssue.sql" />
-    <EmbeddedResource Include="Proc\PendingMillReceipt.sql" />
-    <EmbeddedResource Include="Proc\PendingMillReceiptVoucher.sql" />
-    <EmbeddedResource Include="Proc\PendingMRProd.sql" />
-    <EmbeddedResource Include="Proc\PendingOJC.sql" />
-    <EmbeddedResource Include="Proc\PendingOJCProd.sql" />
-    <EmbeddedResource Include="Proc\PendingOrderonChallan.sql" />
-    <EmbeddedResource Include="Proc\PendingOrderonJobCard.sql" />
-    <EmbeddedResource Include="Proc\PendingOrderonYarnJobCard.sql" />
-    <EmbeddedResource Include="Proc\PendingReceiptOnInvoice.sql" />
-    <EmbeddedResource Include="Proc\PendingTakaprod_reg.sql" />
-    <EmbeddedResource Include="Proc\PendingTransferOut.sql" />
-    <EmbeddedResource Include="Proc\PermissionList.sql" />
-    <EmbeddedResource Include="Proc\PODetailList.sql" />
-    <EmbeddedResource Include="Proc\POList.sql" />
-    <EmbeddedResource Include="Proc\POSummaryList.sql" />
-    <EmbeddedResource Include="Proc\ProductOpBalSp.sql" />
-    <EmbeddedResource Include="Proc\PRSummaryList.sql" />
-    <EmbeddedResource Include="Proc\RCPUIList.sql" />
-    <EmbeddedResource Include="Proc\ReconsileList.sql" />
-    <EmbeddedResource Include="Proc\SalaryGeneration.sql" />
-    <EmbeddedResource Include="Proc\sales_reg.sql" />
-    <EmbeddedResource Include="Proc\Settinglist.sql" />
-    <EmbeddedResource Include="Proc\SJSummaryList.sql" />
-    <EmbeddedResource Include="Proc\StockDetails.sql" />
-    <EmbeddedResource Include="Proc\StockReport.sql" />
-    <EmbeddedResource Include="Proc\TakaprodList.sql" />
-    <EmbeddedResource Include="Proc\TDS.sql" />
-    <EmbeddedResource Include="Proc\TemplateList.sql" />
-    <EmbeddedResource Include="Proc\TrialBalanceReport.sql" />
-    <EmbeddedResource Include="Proc\YarnProd_Reg.sql" />
-    <EmbeddedResource Include="Proc\YarnWIP.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Proc\AccLookup.sql" />
-    <EmbeddedResource Include="Proc\Bal_sheet.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Fun\KeyMonthName.sql" />
-    <EmbeddedResource Include="Fun\ufnGetNumeric.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Trgrs\update_acbal_delete.sql" />
-    <EmbeddedResource Include="Trgrs\update_acbal_insert.sql" />
-    <EmbeddedResource Include="Trgrs\update_acbal_update.sql" />
-    <EmbeddedResource Include="Trgrs\update_stockbal_delete.sql" />
-    <EmbeddedResource Include="Trgrs\update_stockbal_insert.sql" />
-    <EmbeddedResource Include="Trgrs\update_stockbal_update.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="PostScript\10.v_Acc.sql" />
-    <EmbeddedResource Include="PostScript\04.v_alterMenu.sql" />
-    <EmbeddedResource Include="PostScript\09.v_defaultEntry.sql" />
-    <EmbeddedResource Include="PostScript\08.v_LedgerGroup.sql" />
-    <EmbeddedResource Include="PostScript\14.v_ListPageScript.sql" />
-    <EmbeddedResource Include="PostScript\01.v_Menu.sql" />
-    <EmbeddedResource Include="PostScript\02.v_Nob.sql" />
-    <EmbeddedResource Include="PostScript\07.v_Nop.sql" />
-    <EmbeddedResource Include="PostScript\03.v_PackageWiseMenu.sql" />
-    <EmbeddedResource Include="PostScript\11.v_Permissions.sql" />
-    <EmbeddedResource Include="PostScript\16.v_ReportTypeList.sql" />
-    <EmbeddedResource Include="PostScript\15.v_SPCollections.sql" />
-    <EmbeddedResource Include="PostScript\05.v_Statelist.sql" />
-    <EmbeddedResource Include="PostScript\12.v_SysPara.sql" />
-    <EmbeddedResource Include="PostScript\13.v_TransType.sql" />
-    <EmbeddedResource Include="PostScript\06.v_Uom.sql" />
-    <EmbeddedResource Include="PostScript\18.v_Voucher.sql" />
-    <EmbeddedResource Include="PostScript\17.v_VoucherTypeInit.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="PostScript\19.v_TempFieldList.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Proc\HsnSummaryDetail.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Proc\SJList.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Proc\SJDetail.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Proc\BillPrintLotWise.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Proc\GstSummaryCross.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Proc\PendingOrderonIssue.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Proc\GetBoxTakaByBarcode.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="PostScript\21.v_PosMenu.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

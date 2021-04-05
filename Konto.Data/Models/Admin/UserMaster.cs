@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Konto.Data.Models.Masters;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -36,9 +37,32 @@ namespace Konto.Data.Models.Admin
         [Display(Name = "Emp Id")]
         public int? EmpId { get; set; }
 
-        
+        public int? BranchId { get; set; }
+
+        public string Email { get; set; }
+
+        public string PasswordHash { get; set; }
+        public bool AcceptTerms { get; set; }
+
+        public string VerificationToken { get; set; }
+        public DateTime? Verified { get; set; }
+        public bool IsVerified => Verified.HasValue || PasswordReset.HasValue;
+        public string ResetToken { get; set; }
+        public DateTime? ResetTokenExpires { get; set; }
+        public DateTime? PasswordReset { get; set; }
+
+        public List<RefreshToken> RefreshTokens { get; set; }
+
         [ForeignKey("RoleId")]
         public virtual RolesModel Role { get; set; }
+
+        [ForeignKey("BranchId")]
+        public virtual BranchModel BranchFk { get; set; }
+
+        public bool OwnsToken(string token)
+        {
+            return this.RefreshTokens?.Find(x => x.Token == token) != null;
+        }
     }
 
 }

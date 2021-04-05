@@ -44,6 +44,7 @@ namespace Konto.Data.Models.Transaction
        
         [Display(Name = "Ply")]
         public int? Ply { get; set; }
+        [Index]
         [Display(Name = "RefId")]
         public int? RefId { get; set; }
         [Display(Name = "DesignId")]
@@ -54,10 +55,8 @@ namespace Konto.Data.Models.Transaction
         [MaxLength]
         [Display(Name = "Remark")]
         public string Remark { get; set; }
-
+       
         public int RefTransId { get; set; }
-
         public int TransType { get; set; }
-
     }
 }

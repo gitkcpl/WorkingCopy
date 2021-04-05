@@ -24,7 +24,7 @@ BEGIN
     WHERE ID = @yearid;
     --PRINT @finstartdate
 
-	SELECT TOP 1 @prevstartdate = fromdate,@prevenddate=@todate,@yearid = @preyearid FROM dbo.FinYear
+	SELECT TOP 1 @prevstartdate = fromdate,@prevenddate=todate,@preyearid = Id FROM dbo.FinYear
 	WHERE FromDate < @finstartdate ORDER BY FromDate DESC
     
 	IF @summary='Y'

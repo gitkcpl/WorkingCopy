@@ -33,6 +33,7 @@ namespace Konto.Data.Models.Transaction
         public string VoucherNo { get; set; }
 
         [Display(Name = "Voucher Date")]
+        [Index]
         public int? VoucherDate { get; set; }
 
         [Display(Name = "Bill Trans Id")]
@@ -58,6 +59,7 @@ namespace Konto.Data.Models.Transaction
         public decimal AdjustAmt { get; set; }
 
         [Display(Name = "Account Id")]
+        [Index]
         public int? AccountId { get; set; }
 
         [Display(Name = "Agent Id")]

@@ -1,12 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Konto.Data.Models.Masters
 {
-
-    
-
-
     [Table("PFormula")]
     public class PFormulaModel : AuditedEntity
     {
@@ -16,37 +17,21 @@ namespace Konto.Data.Models.Masters
             this.IsActive = true;
            
         }
-
-        [Display(Name = "Product Id")]
-        
+        //[NotMapped]
+        //[Required]
+        //public string ProductName { get; set; }
         public int ProductId { get; set; }
 
-        
-
-        [Display(Name = "Desc Type")]
         public int DescType { get; set; }
 
-        [NotMapped]
-        [Display(Name = "Category")]
-        public string Category { get; set; }
-
-        [Display(Name = "Qty")]
         public decimal Qty { get; set; }
 
-        [Display(Name = "Cut")]
         public decimal Cut { get; set; }
 
-        [Display(Name = "Color Id")]
         public int ColorId { get; set; }
 
-        [NotMapped]
-        [Display(Name = "ColorName")]
-        public string ColorName { get; set; }
-
-        [Display(Name = "Rate")]
         public decimal Rate { get; set; }
 
-        [Display(Name = "Total")]
         public decimal Total { get; set; }
 
         [MaxLength(500)]
@@ -61,7 +46,6 @@ namespace Konto.Data.Models.Masters
         [Display(Name = "Extra2")]
         public string Extra2 { get; set; }
 
-       
         [Required]
         public int? RefProductId { get; set; }
 
@@ -73,7 +57,5 @@ namespace Konto.Data.Models.Masters
 
         [ForeignKey("RefProductId")]
         public ProductModel RefProduct { get; set; }
-
-        
     }
 }

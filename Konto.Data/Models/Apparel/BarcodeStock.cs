@@ -24,10 +24,13 @@ namespace Konto.Data.Models.Apparel
         [MaxLength(50)][Index]
         public virtual string BarcodeNo { get; set; }
 
-        
+        [Index]
         public virtual int BarcodeId { get; set; }
         public virtual int RefId { get; set; }
         [ForeignKey("DivId")]
         public virtual DivisionModel Div { get; set; }
+
+        [ForeignKey("EmpId")]
+        public virtual EmpModel Emp { get; set; }
     }
 }

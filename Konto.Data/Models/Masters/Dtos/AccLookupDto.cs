@@ -93,8 +93,7 @@ namespace Konto.Data.Models.Masters.Dtos
 
         public bool IsSelected { get; set; }
 
-        public decimal DiscPer { get; set; }
-        public string   RateType { get; set; }
-        
+        public  decimal DiscPer { get; set; }
+        public string RateType { get; set; }
     }
 }

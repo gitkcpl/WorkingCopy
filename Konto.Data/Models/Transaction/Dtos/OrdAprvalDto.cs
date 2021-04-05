@@ -1,4 +1,4 @@
-﻿using DevExpress.Data.Details;
+﻿
 using System;
 using System.Globalization;
 
@@ -27,12 +27,12 @@ namespace Konto.Data.Models.Transaction.Dtos
         public decimal? Rate { get; set; }
         public decimal? Total { get; set; }
         public decimal? NetTotal { get; set; }
+        public int TransId { get; set; }
 
         public string UsageAt { get; set; }
         public DateTime RequireDate { get; set; }
         public string Division { get; set; }
         public string Priority { get; set; }
         public string RequestBy { get; set; }
-        public int TransId { get; set; }
     }
 }

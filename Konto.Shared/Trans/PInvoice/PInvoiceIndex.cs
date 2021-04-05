@@ -1209,7 +1209,7 @@ namespace Konto.Shared.Trans.PInvoice
 
                 this.grnTransDtoBindingSource1.DataSource = _lst;
 
-                this.Serials = (from p in _context.SerialBatches
+                this.Serials = (from p in _context.ItemSerials
                                 where p.RefId == model.Id && p.RefVoucherId == model.VoucherId
                                 && !p.IsDeleted
                                 select new SerialBatchDto
@@ -1984,10 +1984,10 @@ namespace Konto.Shared.Trans.PInvoice
                             var _serisl = this.Serials.Where(x => x.RefTransId == transid).ToList();
                             foreach (var sr in _serisl)
                             {
-                                SerialBatch srs = new SerialBatch();
+                                ItemSerial srs = new ItemSerial();
 
                                 if(sr.Id>0)
-                                    srs = db.SerialBatches.Find(sr.Id);
+                                    srs = db.ItemSerials.Find(sr.Id);
                                 srs.SerialNo = sr.SerialNo;
                                 srs.RefId = _find.Id;
                                 srs.RefTransId = tranModel.Id;
@@ -1999,7 +1999,7 @@ namespace Konto.Shared.Trans.PInvoice
                                 if (sr.Id <= 0)
                                 {
                                     srs.IsActive = true;
-                                    db.SerialBatches.Add(srs);
+                                    db.ItemSerials.Add(srs);
                                 }
                             }
 
@@ -2012,7 +2012,7 @@ namespace Konto.Shared.Trans.PInvoice
                         {
                             if (item.Id == 0) continue;
 
-                            var sr = db.SerialBatches.Find(item.Id);
+                            var sr = db.ItemBatches.Find(item.Id);
 
                             sr.IsDeleted = true;
                         }
@@ -2063,7 +2063,7 @@ namespace Konto.Shared.Trans.PInvoice
                             foreach (var sr in srs)
                             {
                                 if (sr.Id == 0) continue;
-                                var _sr = db.SerialBatches.Find(sr.Id);
+                                var _sr = db.ItemSerials.Find(sr.Id);
                                 
                                 if(!_sr.IsActive)
                                 {

@@ -175,7 +175,7 @@ namespace Konto.Pos.Purchase
                         model.PurUomId = Convert.ToInt32(purUnitlookUpEdit.EditValue);
                         model.UomId = Convert.ToInt32(unitLookUpEdit.EditValue);
 
-                        model.CheckNegative = negativeCheckEdit.Checked;
+                        model.ChkNegative = negativeCheckEdit.Checked;
                         model.SaleRateTaxInc = taxIncCheckEdit.Checked;
 
                         model.Rate = purRateKontoSpinEdit.Value;

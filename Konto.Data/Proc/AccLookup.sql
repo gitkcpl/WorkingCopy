@@ -3,7 +3,7 @@ EXEC ('CREATE PROC [dbo].[AccLookup] AS SELECT 1 AS Id')
 GO 
 
 ALTER PROCEDURE [dbo].[AccLookup]
-	@vouchertypeid INT = 0 ,
+	 @vouchertypeid INT = 0 ,
     @groupid INT = 0 ,
     @companyid INT = 0 ,
     @yearid INT = 0 ,

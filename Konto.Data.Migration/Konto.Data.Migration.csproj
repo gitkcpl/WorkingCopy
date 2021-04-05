@@ -56,21 +56,9 @@
     <Compile Include="DbUtils.cs" />
     <Compile Include="KontoContext .cs" />
     <Compile Include="LedgerEff.cs" />
-    <Compile Include="Migrations\202005291122277_sp_lookup.cs" />
-    <Compile Include="Migrations\202005291122277_sp_lookup.designer.cs">
-      <DependentUpon>202005291122277_sp_lookup.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\202005300852524_Initial.cs" />
     <Compile Include="Migrations\202005300852524_Initial.Designer.cs">
       <DependentUpon>202005300852524_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202005300855134_sp.cs" />
-    <Compile Include="Migrations\202005300855134_sp.Designer.cs">
-      <DependentUpon>202005300855134_sp.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202006010937422_sp-1.cs" />
-    <Compile Include="Migrations\202006010937422_sp-1.Designer.cs">
-      <DependentUpon>202006010937422_sp-1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\202006010955202_taka_beam.cs" />
     <Compile Include="Migrations\202006010955202_taka_beam.Designer.cs">
@@ -104,21 +92,181 @@
     <Compile Include="Migrations\202007211456058_item-cproductid.Designer.cs">
       <DependentUpon>202007211456058_item-cproductid.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202007241145433_sp-17.cs" />
-    <Compile Include="Migrations\202007241145433_sp-17.Designer.cs">
-      <DependentUpon>202007241145433_sp-17.cs</DependentUpon>
+    <Compile Include="Migrations\202007241530388_error.cs" />
+    <Compile Include="Migrations\202007241530388_error.Designer.cs">
+      <DependentUpon>202007241530388_error.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202007241152361_sp-18.cs" />
-    <Compile Include="Migrations\202007241152361_sp-18.Designer.cs">
-      <DependentUpon>202007241152361_sp-18.cs</DependentUpon>
+    <Compile Include="Migrations\202007270657455_fix_datetime.cs" />
+    <Compile Include="Migrations\202007270657455_fix_datetime.Designer.cs">
+      <DependentUpon>202007270657455_fix_datetime.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202007241519482_error.cs" />
-    <Compile Include="Migrations\202007241519482_error.Designer.cs">
-      <DependentUpon>202007241519482_error.cs</DependentUpon>
+    <Compile Include="Migrations\202007271054096_error_bill.cs" />
+    <Compile Include="Migrations\202007271054096_error_bill.Designer.cs">
+      <DependentUpon>202007271054096_error_bill.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202007270652510_fix_datetime.cs" />
-    <Compile Include="Migrations\202007270652510_fix_datetime.Designer.cs">
-      <DependentUpon>202007270652510_fix_datetime.cs</DependentUpon>
+    <Compile Include="Migrations\202007301219005_added_cut_product.cs" />
+    <Compile Include="Migrations\202007301219005_added_cut_product.Designer.cs">
+      <DependentUpon>202007301219005_added_cut_product.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008060604513_added_discper_in_account.cs" />
+    <Compile Include="Migrations\202008060604513_added_discper_in_account.Designer.cs">
+      <DependentUpon>202008060604513_added_discper_in_account.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008121328227_billmain_Addless.cs" />
+    <Compile Include="Migrations\202008121328227_billmain_Addless.designer.cs">
+      <DependentUpon>202008121328227_billmain_Addless.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008220643107_index_on_BillRef.cs" />
+    <Compile Include="Migrations\202008220643107_index_on_BillRef.Designer.cs">
+      <DependentUpon>202008220643107_index_on_BillRef.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008220753031_rate_decial.cs" />
+    <Compile Include="Migrations\202008220753031_rate_decial.designer.cs">
+      <DependentUpon>202008220753031_rate_decial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009040828283_prod_out_lotNo.cs" />
+    <Compile Include="Migrations\202009040828283_prod_out_lotNo.designer.cs">
+      <DependentUpon>202009040828283_prod_out_lotNo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009161312102_init_weaves.cs" />
+    <Compile Include="Migrations\202009161312102_init_weaves.designer.cs">
+      <DependentUpon>202009161312102_init_weaves.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009251010120_add_col_tdsacid_bill_trans.cs" />
+    <Compile Include="Migrations\202009251010120_add_col_tdsacid_bill_trans.designer.cs">
+      <DependentUpon>202009251010120_add_col_tdsacid_bill_trans.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202010030447454_tcs_decimal_bill_acc.cs" />
+    <Compile Include="Migrations\202010030447454_tcs_decimal_bill_acc.designer.cs">
+      <DependentUpon>202010030447454_tcs_decimal_bill_acc.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202010090758397_added_col_plainQty.cs" />
+    <Compile Include="Migrations\202010090758397_added_col_plainQty.designer.cs">
+      <DependentUpon>202010090758397_added_col_plainQty.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202010211507462_added_user_Webapi.cs" />
+    <Compile Include="Migrations\202010211507462_added_user_Webapi.designer.cs">
+      <DependentUpon>202010211507462_added_user_Webapi.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202010220752416_refresh_token.cs" />
+    <Compile Include="Migrations\202010220752416_refresh_token.designer.cs">
+      <DependentUpon>202010220752416_refresh_token.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011171228408_added_postion_packtype.cs" />
+    <Compile Include="Migrations\202011171228408_added_postion_packtype.designer.cs">
+      <DependentUpon>202011171228408_added_postion_packtype.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012020803128_added_salerate_billtrans.cs" />
+    <Compile Include="Migrations\202012020803128_added_salerate_billtrans.designer.cs">
+      <DependentUpon>202012020803128_added_salerate_billtrans.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012060915178_attachment_identity.cs" />
+    <Compile Include="Migrations\202012060915178_attachment_identity.designer.cs">
+      <DependentUpon>202012060915178_attachment_identity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012100940585_added_col_gate.cs" />
+    <Compile Include="Migrations\202012100940585_added_col_gate.Designer.cs">
+      <DependentUpon>202012100940585_added_col_gate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012101205173_gate_entry.cs" />
+    <Compile Include="Migrations\202012101205173_gate_entry.designer.cs">
+      <DependentUpon>202012101205173_gate_entry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012180633176_cost_head.cs" />
+    <Compile Include="Migrations\202012180633176_cost_head.designer.cs">
+      <DependentUpon>202012180633176_cost_head.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012210404004_add_costhead_billmain.cs" />
+    <Compile Include="Migrations\202012210404004_add_costhead_billmain.designer.cs">
+      <DependentUpon>202012210404004_add_costhead_billmain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101090709044_Bom.cs" />
+    <Compile Include="Migrations\202101090709044_Bom.designer.cs">
+      <DependentUpon>202101090709044_Bom.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101101135295_weave_update.cs" />
+    <Compile Include="Migrations\202101101135295_weave_update.designer.cs">
+      <DependentUpon>202101101135295_weave_update.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101201211401_added_rate_in_product.cs" />
+    <Compile Include="Migrations\202101201211401_added_rate_in_product.designer.cs">
+      <DependentUpon>202101201211401_added_rate_in_product.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101221144341_added_tcs_challan.cs" />
+    <Compile Include="Migrations\202101221144341_added_tcs_challan.designer.cs">
+      <DependentUpon>202101221144341_added_tcs_challan.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101301510536_apparel_inward.cs" />
+    <Compile Include="Migrations\202101301510536_apparel_inward.designer.cs">
+      <DependentUpon>202101301510536_apparel_inward.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102021447030_Added_Gstr2AReco.cs" />
+    <Compile Include="Migrations\202102021447030_Added_Gstr2AReco.designer.cs">
+      <DependentUpon>202102021447030_Added_Gstr2AReco.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102031458177_added_series_vouchersetup.cs" />
+    <Compile Include="Migrations\202102031458177_added_series_vouchersetup.designer.cs">
+      <DependentUpon>202102031458177_added_series_vouchersetup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102190732458_added_gstin_company.cs" />
+    <Compile Include="Migrations\202102190732458_added_gstin_company.designer.cs">
+      <DependentUpon>202102190732458_added_gstin_company.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102270618343_alter_prod_emp.cs" />
+    <Compile Include="Migrations\202102270618343_alter_prod_emp.designer.cs">
+      <DependentUpon>202102270618343_alter_prod_emp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103040852044_added_prevyearid_finyear.cs" />
+    <Compile Include="Migrations\202103040852044_added_prevyearid_finyear.designer.cs">
+      <DependentUpon>202103040852044_added_prevyearid_finyear.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103091331199_added_customer_master.cs" />
+    <Compile Include="Migrations\202103091331199_added_customer_master.designer.cs">
+      <DependentUpon>202103091331199_added_customer_master.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103131121527_add_column_jobcard.cs" />
+    <Compile Include="Migrations\202103131121527_add_column_jobcard.designer.cs">
+      <DependentUpon>202103131121527_add_column_jobcard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103181313153_add_tobranch_challan.cs" />
+    <Compile Include="Migrations\202103181313153_add_tobranch_challan.designer.cs">
+      <DependentUpon>202103181313153_add_tobranch_challan.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103181320422_accid_challan.cs" />
+    <Compile Include="Migrations\202103181320422_accid_challan.designer.cs">
+      <DependentUpon>202103181320422_accid_challan.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103261541545_pos_serial.cs" />
+    <Compile Include="Migrations\202103261541545_pos_serial.designer.cs">
+      <DependentUpon>202103261541545_pos_serial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104021123347_sp-3.cs" />
+    <Compile Include="Migrations\202104021123347_sp-3.designer.cs">
+      <DependentUpon>202104021123347_sp-3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104021157174_ewb.cs" />
+    <Compile Include="Migrations\202104021157174_ewb.designer.cs">
+      <DependentUpon>202104021157174_ewb.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104050913578_rename_serial.cs" />
+    <Compile Include="Migrations\202104050913578_rename_serial.designer.cs">
+      <DependentUpon>202104050913578_rename_serial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104050922541_report_para_index.cs" />
+    <Compile Include="Migrations\202104050922541_report_para_index.designer.cs">
+      <DependentUpon>202104050922541_report_para_index.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104050929147_item_serials_new.cs" />
+    <Compile Include="Migrations\202104050929147_item_serials_new.designer.cs">
+      <DependentUpon>202104050929147_item_serials_new.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104050931182_added_qty_item_serial.cs" />
+    <Compile Include="Migrations\202104050931182_added_qty_item_serial.designer.cs">
+      <DependentUpon>202104050931182_added_qty_item_serial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104050940122_add_refid_serials.cs" />
+    <Compile Include="Migrations\202104050940122_add_refid_serials.designer.cs">
+      <DependentUpon>202104050940122_add_refid_serials.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -136,17 +284,297 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202005291122277_sp_lookup.resx">
-      <DependentUpon>202005291122277_sp_lookup.cs</DependentUpon>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202008121328227_billmain_Addless.resx">
+      <DependentUpon>202008121328227_billmain_Addless.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008220643107_index_on_BillRef.resx">
+      <DependentUpon>202008220643107_index_on_BillRef.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008220753031_rate_decial.resx">
+      <DependentUpon>202008220753031_rate_decial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009040828283_prod_out_lotNo.resx">
+      <DependentUpon>202009040828283_prod_out_lotNo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009161312102_init_weaves.resx">
+      <DependentUpon>202009161312102_init_weaves.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009251010120_add_col_tdsacid_bill_trans.resx">
+      <DependentUpon>202009251010120_add_col_tdsacid_bill_trans.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010030447454_tcs_decimal_bill_acc.resx">
+      <DependentUpon>202010030447454_tcs_decimal_bill_acc.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010090758397_added_col_plainQty.resx">
+      <DependentUpon>202010090758397_added_col_plainQty.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010211507462_added_user_Webapi.resx">
+      <DependentUpon>202010211507462_added_user_Webapi.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010220752416_refresh_token.resx">
+      <DependentUpon>202010220752416_refresh_token.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011171228408_added_postion_packtype.resx">
+      <DependentUpon>202011171228408_added_postion_packtype.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012020803128_added_salerate_billtrans.resx">
+      <DependentUpon>202012020803128_added_salerate_billtrans.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012060915178_attachment_identity.resx">
+      <DependentUpon>202012060915178_attachment_identity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012100940585_added_col_gate.resx">
+      <DependentUpon>202012100940585_added_col_gate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012101205173_gate_entry.resx">
+      <DependentUpon>202012101205173_gate_entry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012180633176_cost_head.resx">
+      <DependentUpon>202012180633176_cost_head.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012210404004_add_costhead_billmain.resx">
+      <DependentUpon>202012210404004_add_costhead_billmain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101090709044_Bom.resx">
+      <DependentUpon>202101090709044_Bom.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101101135295_weave_update.resx">
+      <DependentUpon>202101101135295_weave_update.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101201211401_added_rate_in_product.resx">
+      <DependentUpon>202101201211401_added_rate_in_product.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101221144341_added_tcs_challan.resx">
+      <DependentUpon>202101221144341_added_tcs_challan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101301510536_apparel_inward.resx">
+      <DependentUpon>202101301510536_apparel_inward.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102021447030_Added_Gstr2AReco.resx">
+      <DependentUpon>202102021447030_Added_Gstr2AReco.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102031458177_added_series_vouchersetup.resx">
+      <DependentUpon>202102031458177_added_series_vouchersetup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102190732458_added_gstin_company.resx">
+      <DependentUpon>202102190732458_added_gstin_company.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102270618343_alter_prod_emp.resx">
+      <DependentUpon>202102270618343_alter_prod_emp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103040852044_added_prevyearid_finyear.resx">
+      <DependentUpon>202103040852044_added_prevyearid_finyear.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103091331199_added_customer_master.resx">
+      <DependentUpon>202103091331199_added_customer_master.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103131121527_add_column_jobcard.resx">
+      <DependentUpon>202103131121527_add_column_jobcard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103181313153_add_tobranch_challan.resx">
+      <DependentUpon>202103181313153_add_tobranch_challan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103181320422_accid_challan.resx">
+      <DependentUpon>202103181320422_accid_challan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103261541545_pos_serial.resx">
+      <DependentUpon>202103261541545_pos_serial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104021123347_sp-3.resx">
+      <DependentUpon>202104021123347_sp-3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104021157174_ewb.resx">
+      <DependentUpon>202104021157174_ewb.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104050913578_rename_serial.resx">
+      <DependentUpon>202104050913578_rename_serial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104050922541_report_para_index.resx">
+      <DependentUpon>202104050922541_report_para_index.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104050929147_item_serials_new.resx">
+      <DependentUpon>202104050929147_item_serials_new.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104050931182_added_qty_item_serial.resx">
+      <DependentUpon>202104050931182_added_qty_item_serial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104050940122_add_refid_serials.resx">
+      <DependentUpon>202104050940122_add_refid_serials.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PostScript\01.v_Menu.sql" />
+    <EmbeddedResource Include="PostScript\02.v_Nob.sql" />
+    <EmbeddedResource Include="PostScript\03.v_PackageWiseMenu.sql" />
+    <EmbeddedResource Include="PostScript\04.v_alterMenu.sql" />
+    <EmbeddedResource Include="PostScript\05.v_Statelist.sql" />
+    <EmbeddedResource Include="PostScript\06.v_Uom.sql" />
+    <EmbeddedResource Include="PostScript\07.v_Nop.sql" />
+    <EmbeddedResource Include="PostScript\08.v_LedgerGroup.sql" />
+    <EmbeddedResource Include="PostScript\09.v_defaultEntry.sql" />
+    <EmbeddedResource Include="PostScript\10.v_Acc.sql" />
+    <EmbeddedResource Include="PostScript\11.v_Permissions.sql" />
+    <EmbeddedResource Include="PostScript\12.v_SysPara.sql" />
+    <EmbeddedResource Include="PostScript\13.v_TransType.sql" />
+    <EmbeddedResource Include="PostScript\14.v_ListPageScript.sql" />
+    <EmbeddedResource Include="PostScript\15.v_SPCollections.sql" />
+    <EmbeddedResource Include="PostScript\16.v_ReportTypeList.sql" />
+    <EmbeddedResource Include="PostScript\17.v_VoucherTypeInit.sql" />
+    <EmbeddedResource Include="PostScript\18.v_Voucher.sql" />
+    <EmbeddedResource Include="PostScript\19.v_TempFieldList.sql" />
+    <EmbeddedResource Include="Proc\AccLookup.sql" />
+    <EmbeddedResource Include="Proc\Bal_sheet.sql" />
+    <EmbeddedResource Include="Proc\BeamprodList.sql" />
+    <EmbeddedResource Include="Proc\BeamprodReport.sql" />
+    <EmbeddedResource Include="Proc\BeamwithtakaReport.sql" />
+    <EmbeddedResource Include="Proc\BillDetailList.sql" />
+    <EmbeddedResource Include="Proc\BillList.sql" />
+    <EmbeddedResource Include="Proc\BillPrint.sql" />
+    <EmbeddedResource Include="Proc\BillPrintLotWise.sql" />
+    <EmbeddedResource Include="Proc\BillSummaryList.sql" />
+    <EmbeddedResource Include="Proc\bill_analysis.sql" />
+    <EmbeddedResource Include="Proc\BOMList.sql" />
+    <EmbeddedResource Include="Proc\BrokerageDetailList.sql" />
+    <EmbeddedResource Include="Proc\BrokerBill.sql" />
+    <EmbeddedResource Include="Proc\BrokerPrint.sql" />
+    <EmbeddedResource Include="Proc\ChallanDetailList.sql" />
+    <EmbeddedResource Include="Proc\ChallanList.sql" />
+    <EmbeddedResource Include="Proc\ChallanPrint.sql" />
+    <EmbeddedResource Include="Proc\ChallanSummaryList.sql" />
+    <EmbeddedResource Include="Proc\ChallanTransForMRChallanId.sql" />
+    <EmbeddedResource Include="Proc\Challan_Reg.sql" />
+    <EmbeddedResource Include="Proc\ChequeLetterPrint.sql" />
+    <EmbeddedResource Include="Proc\ColorMatchList.sql" />
+    <EmbeddedResource Include="Proc\CRDRDetailList.sql" />
+    <EmbeddedResource Include="Proc\DataFreeze.sql" />
+    <EmbeddedResource Include="Proc\DeliveryAddressList.sql" />
+    <EmbeddedResource Include="Proc\docDetailList.sql" />
+    <EmbeddedResource Include="Proc\EmailsmsLogrec.sql" />
+    <EmbeddedResource Include="Proc\ExpenseDetailList.sql" />
+    <EmbeddedResource Include="Proc\FoldTransForId.sql" />
+    <EmbeddedResource Include="Proc\FreeMachineList.sql" />
+    <EmbeddedResource Include="Proc\GenerateSerialNumberSp.sql" />
+    <EmbeddedResource Include="Proc\GenExpenseList.sql" />
+    <EmbeddedResource Include="Proc\GetColorForProductId.sql" />
+    <EmbeddedResource Include="Proc\GetOrderApproveList.sql" />
+    <EmbeddedResource Include="Proc\GetWeftById.sql" />
+    <EmbeddedResource Include="Proc\Get_Account_Bal.sql" />
+    <EmbeddedResource Include="Proc\GOList.sql" />
+    <EmbeddedResource Include="Proc\GPList.sql" />
+    <EmbeddedResource Include="Proc\gp_analysis.sql" />
+    <EmbeddedResource Include="Proc\Gst3BReport.sql" />
+    <EmbeddedResource Include="Proc\Gstr1DetailView.sql" />
+    <EmbeddedResource Include="Proc\gstr1_doc.sql" />
+    <EmbeddedResource Include="Proc\Gstr2Report.sql" />
+    <EmbeddedResource Include="Proc\gstr2_Exempt.sql" />
+    <EmbeddedResource Include="Proc\GSTR2_Reconsile.sql" />
+    <EmbeddedResource Include="Proc\GSTR3BDetails.sql" />
+    <EmbeddedResource Include="Proc\GSTRB2csDetail.sql" />
+    <EmbeddedResource Include="Proc\GstReport.sql" />
+    <EmbeddedResource Include="Proc\GstReportBtoc.sql" />
+    <EmbeddedResource Include="Proc\GstReportBtocs.sql" />
+    <EmbeddedResource Include="Proc\GstSummaryCross.sql" />
+    <EmbeddedResource Include="Proc\HsnSmryDetail.sql" />
+    <EmbeddedResource Include="Proc\HsnSummary.sql" />
+    <EmbeddedResource Include="Proc\HsnSummaryDetail.sql" />
+    <EmbeddedResource Include="Proc\IntLedger_Reports.sql" />
+    <EmbeddedResource Include="Proc\InwardOutwardStock.sql" />
+    <EmbeddedResource Include="Proc\ITC04.sql" />
+    <EmbeddedResource Include="Proc\JobCardDetailList.sql" />
+    <EmbeddedResource Include="Proc\JobCardList.sql" />
+    <EmbeddedResource Include="Proc\JobIssuePending_Reg.sql" />
+    <EmbeddedResource Include="Proc\JVDetailList.sql" />
+    <EmbeddedResource Include="Proc\LedgerShow.sql" />
+    <EmbeddedResource Include="Proc\Ledger_Reports.sql" />
+    <EmbeddedResource Include="Proc\ListofBill.sql" />
+    <EmbeddedResource Include="Proc\MachineWiseTakaProdList.sql" />
+    <EmbeddedResource Include="Proc\MiDetailList.sql" />
+    <EmbeddedResource Include="Proc\MiList.sql" />
+    <EmbeddedResource Include="Proc\MillJobIssue_Reg.sql" />
+    <EmbeddedResource Include="Proc\MillJobIssue_RegTaka.sql" />
+    <EmbeddedResource Include="Proc\MiSummaryList.sql" />
+    <EmbeddedResource Include="Proc\MonthlyStockReportTextile.sql" />
+    <EmbeddedResource Include="Proc\MRVoucherList.sql" />
+    <EmbeddedResource Include="Proc\mrv_bill_detail_list.sql" />
+    <EmbeddedResource Include="Proc\mrv_bill_list.sql" />
+    <EmbeddedResource Include="Proc\OpBalSp.sql" />
+    <EmbeddedResource Include="Proc\OrderAgainstchallanReport.sql" />
+    <EmbeddedResource Include="Proc\OrderDetailsReport.sql" />
+    <EmbeddedResource Include="Proc\OrderPrint.sql" />
+    <EmbeddedResource Include="Proc\OutsAdjustAcc.sql" />
+    <EmbeddedResource Include="Proc\OutstandingReport.sql" />
+    <EmbeddedResource Include="Proc\Outstanding_Ageing.sql" />
+    <EmbeddedResource Include="Proc\Outs_Ageing_Fifo.sql" />
+    <EmbeddedResource Include="Proc\OutwardBeamProd.sql" />
+    <EmbeddedResource Include="Proc\OutwardprodList.sql" />
+    <EmbeddedResource Include="Proc\OutwardRefinishTaka.sql" />
+    <EmbeddedResource Include="Proc\PackingPrint.sql" />
+    <EmbeddedResource Include="Proc\PatiyaPrintQualityWise.sql" />
+    <EmbeddedResource Include="Proc\PaymemtReceiptDetailList.sql" />
+    <EmbeddedResource Include="Proc\PaymemtReceiptList.sql" />
+    <EmbeddedResource Include="Proc\Payment_Reg.sql" />
+    <EmbeddedResource Include="Proc\PendingBatch.sql" />
+    <EmbeddedResource Include="Proc\PendingBatchLot.sql" />
+    <EmbeddedResource Include="Proc\PendingBeamLoading.sql" />
+    <EmbeddedResource Include="Proc\PendingBill.sql" />
+    <EmbeddedResource Include="Proc\PendingChallanOnInvoice.sql" />
+    <EmbeddedResource Include="Proc\PendingChallanOnInvoiceDet.sql" />
+    <EmbeddedResource Include="Proc\PendingChallanOnReturn.sql" />
+    <EmbeddedResource Include="Proc\PendingForCutting.sql" />
+    <EmbeddedResource Include="Proc\PendingForCuttingDet.sql" />
+    <EmbeddedResource Include="Proc\PendingGreyOrderonChallan.sql" />
+    <EmbeddedResource Include="Proc\PendingJobCard.sql" />
+    <EmbeddedResource Include="Proc\PendingJOBonChallan.sql" />
+    <EmbeddedResource Include="Proc\PendingJOBReceipt.sql" />
+    <EmbeddedResource Include="Proc\PendingJRProd.sql" />
+    <EmbeddedResource Include="Proc\PendingLotSp.sql" />
+    <EmbeddedResource Include="Proc\PendingMillIssue.sql" />
+    <EmbeddedResource Include="Proc\PendingMillReceipt.sql" />
+    <EmbeddedResource Include="Proc\PendingMillReceiptVoucher.sql" />
+    <EmbeddedResource Include="Proc\PendingMRProd.sql" />
+    <EmbeddedResource Include="Proc\PendingOJC.sql" />
+    <EmbeddedResource Include="Proc\PendingOJCProd.sql" />
+    <EmbeddedResource Include="Proc\PendingOrderonChallan.sql" />
+    <EmbeddedResource Include="Proc\PendingOrderonIssue.sql" />
+    <EmbeddedResource Include="Proc\PendingOrderonJobCard.sql" />
+    <EmbeddedResource Include="Proc\PendingOrderonYarnJobCard.sql" />
+    <EmbeddedResource Include="Proc\PendingReceiptOnInvoice.sql" />
+    <EmbeddedResource Include="Proc\PendingTakaprod_reg.sql" />
+    <EmbeddedResource Include="Proc\PendingTransferOut.sql" />
+    <EmbeddedResource Include="Proc\PermissionList.sql" />
+    <EmbeddedResource Include="Proc\PODetailList.sql" />
+    <EmbeddedResource Include="Proc\POList.sql" />
+    <EmbeddedResource Include="Proc\POSummaryList.sql" />
+    <EmbeddedResource Include="Proc\ProductOpBalSp.sql" />
+    <EmbeddedResource Include="Proc\PRSummaryList.sql" />
+    <EmbeddedResource Include="Proc\RCPUIList.sql" />
+    <EmbeddedResource Include="Proc\ReconsileList.sql" />
+    <EmbeddedResource Include="Proc\SalaryGeneration.sql" />
+    <EmbeddedResource Include="Proc\sales_reg.sql" />
+    <EmbeddedResource Include="Proc\Settinglist.sql" />
+    <EmbeddedResource Include="Proc\SJDetail.sql" />
+    <EmbeddedResource Include="Proc\SJList.sql" />
+    <EmbeddedResource Include="Proc\SJSummaryList.sql" />
+    <EmbeddedResource Include="Proc\StockDetails.sql" />
+    <EmbeddedResource Include="Proc\StockReport.sql" />
+    <EmbeddedResource Include="Proc\TakaprodList.sql" />
+    <EmbeddedResource Include="Proc\TDS.sql" />
+    <EmbeddedResource Include="Proc\TemplateList.sql" />
+    <EmbeddedResource Include="Proc\TrialBalanceReport.sql" />
+    <EmbeddedResource Include="Proc\YarnProd_Reg.sql" />
+    <EmbeddedResource Include="Proc\YarnWIP.sql" />
+    <EmbeddedResource Include="Trgrs\update_acbal_delete.sql" />
+    <EmbeddedResource Include="Trgrs\update_acbal_insert.sql" />
+    <EmbeddedResource Include="Trgrs\update_acbal_update.sql" />
+    <EmbeddedResource Include="Trgrs\update_stockbal_delete.sql" />
+    <EmbeddedResource Include="Trgrs\update_stockbal_insert.sql" />
+    <EmbeddedResource Include="Trgrs\update_stockbal_update.sql" />
+  </ItemGroup>
+  <ItemGroup>
     <EmbeddedResource Include="Migrations\202005300852524_Initial.resx">
       <DependentUpon>202005300852524_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202005300855134_sp.resx">
-      <DependentUpon>202005300855134_sp.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202006010937422_sp-1.resx">
-      <DependentUpon>202006010937422_sp-1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202006010955202_taka_beam.resx">
       <DependentUpon>202006010955202_taka_beam.cs</DependentUpon>
@@ -172,22 +600,79 @@
     <EmbeddedResource Include="Migrations\202007211456058_item-cproductid.resx">
       <DependentUpon>202007211456058_item-cproductid.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202007241145433_sp-17.resx">
-      <DependentUpon>202007241145433_sp-17.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202007241530388_error.resx">
+      <DependentUpon>202007241530388_error.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202007241152361_sp-18.resx">
-      <DependentUpon>202007241152361_sp-18.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202007270657455_fix_datetime.resx">
+      <DependentUpon>202007270657455_fix_datetime.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202007241519482_error.resx">
-      <DependentUpon>202007241519482_error.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202007271054096_error_bill.resx">
+      <DependentUpon>202007271054096_error_bill.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202007270652510_fix_datetime.resx">
-      <DependentUpon>202007270652510_fix_datetime.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202007301219005_added_cut_product.resx">
+      <DependentUpon>202007301219005_added_cut_product.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008060604513_added_discper_in_account.resx">
+      <DependentUpon>202008060604513_added_discper_in_account.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
+    <EmbeddedResource Include="Fun\KeyMonthName.sql" />
+    <EmbeddedResource Include="Fun\ufnGetNumeric.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Proc\BankFrwardList.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Proc\ledger_audit.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Fun\splitstring.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Proc\PendingReturnable.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Proc\Hsn_Pur_Summary.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Proc\ReqList.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Proc\GetRequsetApproveList.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Proc\req_det_list.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Proc\pending_request_for_order.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Proc\pending_gate_entry_for_grn.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Proc\JvPrint.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Proc\PendingOrderonBom.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Proc\beam_status_by_machine.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Proc\TakaCuttingList.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Proc\TakaCuttingDetailList.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Proc\BatchList.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Proc\BatchDetailList.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="PostScript\20.v_PosMenu.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

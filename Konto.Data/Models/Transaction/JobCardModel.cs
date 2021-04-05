@@ -12,7 +12,7 @@ namespace Konto.Data.Models.Transaction
     public class JobCardModel : AuditedEntity
     {
         public JobCardModel()
-        { 
+        {
             this.IsDeleted = false;
             IsActive = true;
         }
@@ -29,7 +29,7 @@ namespace Konto.Data.Models.Transaction
 
         [Display(Name = "Order Date")]
         public DateTime? OrdDate { get; set; }
-       
+
         [Display(Name = "Div Id")]
         public int? DivId { get; set; }
         [Display(Name = "Company Id")]
@@ -81,7 +81,8 @@ namespace Konto.Data.Models.Transaction
         [Display(Name = "Batch Id")]
         public int? BatchId { get; set; }
         [Display(Name = "Qty")]
-        public decimal Qty { get; set; }
+        public decimal? Qty { get; set; }
+
         public decimal TolPer { get; set; }
 
         [MaxLength(50)]
@@ -94,7 +95,5 @@ namespace Konto.Data.Models.Transaction
         [MaxLength]
         [Display(Name = "Remark")]
         public string Remark { get; set; }
-
-        
     }
 }

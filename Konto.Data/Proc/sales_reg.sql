@@ -2,14 +2,13 @@
 EXEC ('CREATE PROC [dbo].[sales_reg] AS SELECT 1 AS Id') 
 GO
 
-
-ALTER  PROC [dbo].[sales_reg]
+ALTER PROC [dbo].[sales_reg]
     @fromdate INT = 20190401,
     @todate INT = 20200331,
     @companyid INT = 1,
     @reportid INT = 0,
     @party VARCHAR(1) = 'N',
-	@book VARCHAR(1) = 'N',
+    @book VARCHAR(1) = 'N',
     @agent INT = 0,
     @city VARCHAR(1) = 'N',
     @area VARCHAR(1) = 'N',
@@ -17,16 +16,25 @@ ALTER  PROC [dbo].[sales_reg]
     @bookid INT = 0,
     @item VARCHAR(1) = 'N',
     @color VARCHAR(1) = 'N',
-	@RCM VARCHAR(3) = 'NO',
+    @RCM VARCHAR(3) = 'NO',
     @voucherid INT = 0,
     @branchid INT = 0,
     @transid INT = 0,
     @divid INT = 0,
-	@vtypeid INT=0,
-	@groupid INT =0
-AS
-
-SELECT cm.Id AS CompanyId,bm.Id AS SalesID,
+    @vtypeid INT = 0,
+    @groupid INT = 0 
+	AS
+	
+	;WITH cte
+                        AS (SELECT dt = DATEADD(DAY, - (DAY(STR(@fromdate)) - 1), STR(@fromdate))
+                            UNION ALL
+                            SELECT DATEADD(MONTH, 1, dt)
+                            FROM cte
+                            WHERE dt < DATEADD(DAY, - (DAY(STR(@todate)) - 1), STR(@todate)))
+SELECT DATENAME(MONTH, cte.dt) MName,
+       CAST(STR(YEAR(cte.dt), 4) + REPLACE(STR(MONTH(cte.dt), 2), SPACE(1), 0) AS INT) YearMonth,
+       cm.Id AS CompanyId,
+       bm.Id AS SalesID,
        bm.VoucherId,
        bm.VoucherDate,
        CONVERT(DATE, CONVERT(VARCHAR(8), bm.VoucherDate), 112) BillDate,
@@ -41,38 +49,45 @@ SELECT cm.Id AS CompanyId,bm.Id AS SalesID,
                CAST(YEAR(CONVERT(DATE, CONVERT(VARCHAR(8), bm.VoucherDate), 112)) AS VARCHAR(4)) + '-'
                + CAST(YEAR(CONVERT(DATE, CONVERT(VARCHAR(8), bm.VoucherDate), 112)) + 1 AS VARCHAR(4))
        END AS FY,
-	        CASE
+       CASE
            WHEN bm.BillType = 'DEBIT NOTE' THEN
                'D'
            ELSE
-		  'C'
+               'C'
        END AS NoteType,
-	   bm.SpecialNotes AS NoteReason,
-	   bm.Extra1 AS Against,
-       ISNULL(bm.BillNo,bm.VoucherNo) AS BillNo,
+       bm.SpecialNotes AS NoteReason,
+       bm.Extra1 AS Against,
+       CASE
+           WHEN v.VTypeId = 13
+                OR v.VTypeId = 26 THEN
+               bm.BillNo
+           ELSE
+               bm.VoucherNo
+       END AS BillNo,
        bm.RefNo ChallanNo,
        CAST(CAST(bm.BillNo AS VARBINARY(MAX)) AS BIGINT) [SortBillNo],
-	   bm.Extra1 AS OrderNo,
+       bm.Extra1 AS OrderNo,
        bm.AccId AS AccountId,
        ac.AccName Party,
-       ISNULL(bm.BookAcId,bt.ToAccId) AS SalesAcId,
-       ISNULL(bk.AccName,toac.AccName) SalesBook,
+       ISNULL(bm.BookAcId, bt.ToAccId) AS SalesAcId,
+       ISNULL(bk.AccName, toac.AccName) SalesBook,
        v.VoucherName Voucher,
-	   bm.AgentId,ag.AccName Agent,
+       bm.AgentId,
+       ag.AccName Agent,
        bm.TotalPcs,
        bm.TotalQty,
-	   bm.GrossAmount AS TotalAmount,
+       bm.GrossAmount AS TotalAmount,
        bm.TotalAmount + bm.TcsAmt AS BillAmount,
        bm.EwayBillNo,
        bm.Remarks AS SalesRemark,
        bm.DocNo AS LrNo,
-	   bm.DocDate AS LrDate,
+       bm.DocDate AS LrDate,
        tr.AccName trans_name,
-	   bm.TransId AS TransportID,
-	   tr.RowId AS RowID,
+       bm.TransId AS TransportID,
+       tr.RowId AS RowID,
        bt.ProductId AS ItemID,
        p.ProductName AS Item,
-       ISNULL(p.HsnCode,bt.HsnCode) AS HsnCode,
+       ISNULL(p.HsnCode, bt.HsnCode) AS HsnCode,
        bt.ColorId AS ColorID,
        cl.ColorName AS Color,
        cl.ColorCode,
@@ -86,14 +101,14 @@ SELECT cm.Id AS CompanyId,bm.Id AS SalesID,
        bt.Pcs,
        bt.Qty,
        bt.UomId AS UnitID,
-	   bt.Remark ItemRemark,
+       bt.Remark ItemRemark,
        um.UnitCode,
        bt.Rate,
        bt.Total,
        bt.Disc AS DiscPer,
        bt.DiscAmt AS DiscAmount,
        bt.FreightRate,
-	   bt.Freight,	 
+       bt.Freight,
        bt.TcsPer,
        bt.TcsAmt,
        bt.OtherAdd AddAmt,
@@ -108,30 +123,38 @@ SELECT cm.Id AS CompanyId,bm.Id AS SalesID,
        bt.CessPer AS Cess,
        bt.Cess AS CessAmt,
        bt.NetTotal,
-	   ac.GstIn,
+       ac.GstIn,
        bt.LotNo,
-	   cm.CompName,
-	   cm.PrintName CompanyPrint,
-	   acb.Address1+acb.Address2 AS PartyAddress,
-	   pct.CityName AS City,
-	   pa.AreaName AS Area,
-	   pst.StateName AS State_Name,
-	   pst.GstCode AS StatCode,
-	   acb.MobileNo AS PartyMobile,
-	   acb.Email AS PartyEmail,
-	   cm.Address1 CAddress1,
-	   cm.Address2 CAddress2,
-	   cm.Pincode CPinCode,
-	   c.CityName CCity,
-	   st.StateName CState,
-	   cm.Mobile CMobile,cm.Phone CPhone,cm.GstIn CGstin,cm.PanNo,cm.Email CEmail
-FROM dbo.BillMain bm
+       cm.CompName,
+       cm.PrintName CompanyPrint,
+       acb.Address1 + acb.Address2 AS PartyAddress,
+       pct.CityName AS City,
+       pa.AreaName AS Area,
+       pst.StateName AS State_Name,
+       pst.GstCode AS StatCode,
+       acb.MobileNo AS PartyMobile,
+       acb.Email
+       AS
+       PartyEmail,
+       cm.Address1 CAddress1,
+       cm.Address2 CAddress2,
+       cm.Pincode CPinCode,
+       c.CityName CCity,
+       st.StateName CState,
+       cm.Mobile CMobile,
+       cm.Phone CPhone,
+       cm.GstIn CGstin,
+       cm.PanNo,
+       cm.Email CEmail
+FROM cte
+    LEFT OUTER JOIN dbo.BillMain bm
+        ON LEFT(STR(bm.VoucherDate, 8), 6) = STR(YEAR(cte.dt), 4) + REPLACE(STR(MONTH(cte.dt), 2), SPACE(1), 0)
     LEFT OUTER JOIN dbo.BillTrans bt
         ON bm.Id = bt.BillId
     LEFT OUTER JOIN dbo.Product p
         ON p.Id = bt.ProductId
-	LEFT OUTER JOIN dbo.Acc toac
-		ON toac.Id = bt.ToAccId
+    LEFT OUTER JOIN dbo.Acc toac
+        ON toac.Id = bt.ToAccId
     LEFT OUTER JOIN dbo.Product dm
         ON dm.Id = bt.DesignId
     LEFT OUTER JOIN dbo.Color cl
@@ -140,14 +163,15 @@ FROM dbo.BillMain bm
         ON gd.Id = bt.Id
     LEFT OUTER JOIN dbo.Acc ac
         ON ac.Id = bm.AccId
-	LEFT OUTER JOIN dbo.AccBal acb
-        ON acb.AccId = ac.Id AND acb.CompId = @companyid
+    LEFT OUTER JOIN dbo.AccBal acb
+        ON acb.AccId = ac.Id
+           AND acb.CompId = @companyid
     LEFT OUTER JOIN dbo.City pct
-	    ON pct.Id = acb.CityId
+        ON pct.Id = acb.CityId
     LEFT OUTER JOIN dbo.Area pa
-	    ON pa.Id = acb.AreaId
+        ON pa.Id = acb.AreaId
     LEFT OUTER JOIN dbo.State pst
-	ON pst.Id = pct.StateId
+        ON pst.Id = pct.StateId
     LEFT OUTER JOIN dbo.Acc bk
         ON bk.Id = bm.BookAcId
     LEFT OUTER JOIN dbo.Acc ag
@@ -167,20 +191,28 @@ FROM dbo.BillMain bm
     LEFT OUTER JOIN dbo.Challan ch
         ON ch.Id = bt.RefId
            AND ch.VoucherId = bt.RefVoucherId
-
-WHERE bm.IsActive = 1 AND bm.IsDeleted = 0 AND bt.IsActive = 1 AND bt.IsDeleted = 0 AND bm.VoucherDate
+WHERE bm.IsActive = 1
+      AND bm.IsDeleted = 0
+      AND bt.IsActive = 1
+      AND bt.IsDeleted = 0
+      AND bm.VoucherDate
       BETWEEN @fromdate AND @todate
-      AND bm.CompId = @companyid AND (@vtypeid=0 or v.VTypeId=@vtypeid)
+      AND bm.CompId = @companyid
+      AND
+      (
+          @vtypeid = 0
+          OR v.VTypeId = @vtypeid
+      )
       AND
       (
           @transid = 0
           OR tr.Id = @transid
       )
-	  AND
-	  (
-	    @groupid = 0
-		OR dm.GroupId = @groupid
-	  )
+      AND
+      (
+          @groupid = 0
+          OR dm.GroupId = @groupid
+      )
       AND
       (
           @divid = 0
@@ -196,7 +228,7 @@ WHERE bm.IsActive = 1 AND bm.IsDeleted = 0 AND bt.IsActive = 1 AND bt.IsDeleted 
           @partygroup = 0
           OR ac.PGroupId = @partygroup
       )
-	      AND
+      AND
       (
           @RCM = 'NO'
           OR bm.Rcm = @RCM
@@ -238,7 +270,9 @@ WHERE bm.IsActive = 1 AND bm.IsDeleted = 0 AND bt.IsActive = 1 AND bt.IsDeleted 
       AND
       (
           @book = 'N'
-          OR (EXISTS
+          OR
+          (
+              EXISTS
 (
     SELECT 1
     FROM dbo.ReportPara rs
@@ -246,7 +280,7 @@ WHERE bm.IsActive = 1 AND bm.IsDeleted = 0 AND bt.IsActive = 1 AND bt.IsDeleted 
           AND bm.BookAcId = rs.ParameterValue
           AND rs.ParameterName = 'book'
 )
-OR EXISTS
+              OR EXISTS
 (
     SELECT 1
     FROM dbo.ReportPara rs
@@ -254,8 +288,6 @@ OR EXISTS
           AND bt.ToAccId = rs.ParameterValue
           AND rs.ParameterName = 'book'
 )
-
-)
-
+          )
       );
 GO

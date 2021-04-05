@@ -28,7 +28,7 @@ SELECT @finstartdate = FromDate FROM dbo.FinYear WHERE ID=@year
 	        ag.GroupName GroupName ,
             ac.AccName Party ,
             ac.Id AccountID ,
-            ac.GroupId GroupId ,
+            op.GroupId GroupId ,
 			CASE WHEN ISNULL(op.OpBal,0) + ISNULL(optr.TranAmt,0) > 0 THEN ISNULL(op.OpBal,0)+ISNULL(optr.TranAmt,0) ELSE 0 END AS OpDebit,
 			CASE WHEN ISNULL(op.OpBal,0) + ISNULL(optr.TranAmt,0) < 0 THEN -1*(ISNULL(op.OpBal,0)+ ISNULL(optr.TranAmt,0)) ELSE 0 END AS OpCredit,
 
@@ -90,11 +90,12 @@ SELECT @finstartdate = FromDate FROM dbo.FinYear WHERE ID=@year
               AND ( ISNULL(tr.TranAmt, 0) + ISNULL(op.OpBal,0) + ISNULL(optr.TranAmt,0)) <> 0
 			  AND @showall='N'
             )
-            OR ( ac.GroupId = @groupid
-                 AND ( ISNULL(tr.Debit, 0) > 0
-                       OR ISNULL(tr.Credit, 0) > 0
-                       OR ISNULL(op.OpBal,0) <> 0
-                     )
+            OR ( op.GroupId = @groupid
+                 AND (
+                 ISNULL(tr.TranAmt, 0)<>0 OR  
+                 ISNULL(op.OpBal,0)<>0 OR 
+                 ISNULL(optr.TranAmt,0)<>0)
+
                ) OR(@showall='Y' AND @groupid=0 AND (ISNULL(tr.TranAmt, 0)<>0 OR  ISNULL(op.OpBal,0)<>0 OR ISNULL(optr.TranAmt,0)<>0) ) ) 
 
     ORDER BY ag.TbSort,ag.GroupName ,

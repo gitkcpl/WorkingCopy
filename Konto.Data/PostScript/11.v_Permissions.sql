@@ -3540,46 +3540,4 @@ BEGIN
 	values(523,'Gstr1_Report-Print',NEWID(),1059,'Report',6)
 END
 
--- grey Order
-IF NOT EXISTS (SELECT 1 FROM dbo.Permissions WHERE Id=563)
-BEGIN
-	INSERT INTO dbo.Permissions(Id,PermissionDescription,RowId,ModuleId,PermissionType,PermissionTypeId)
-	values(563,'Grey-Order-Create',NEWID(),373,'Transaction',1)
-END
-
-IF NOT EXISTS (SELECT 1 FROM dbo.Permissions WHERE Id=564)
-BEGIN
-	INSERT INTO dbo.Permissions(Id,PermissionDescription,RowId,ModuleId,PermissionType,PermissionTypeId)
-	values(564,'Grey-Order-Modify',NEWID(),373,'Transaction',2)
-END                       
-
-IF NOT EXISTS (SELECT 1 FROM dbo.Permissions WHERE Id=565)
-BEGIN
-	INSERT INTO dbo.Permissions(Id,PermissionDescription,RowId,ModuleId,PermissionType,PermissionTypeId)
-	values(565,'Grey-Order-Delete',NEWID(),373,'Transaction',3)
-END
-
-IF NOT EXISTS (SELECT 1 FROM dbo.Permissions WHERE Id=566)
-BEGIN
-	INSERT INTO dbo.Permissions(Id,PermissionDescription,RowId,ModuleId,PermissionType,PermissionTypeId)
-	values(566,'Grey-Order-View',NEWID(),373,'Transaction',4)
-END
-
-IF NOT EXISTS (SELECT 1 FROM dbo.Permissions WHERE Id=567)
-BEGIN
-	INSERT INTO dbo.Permissions(Id,PermissionDescription,RowId,ModuleId,PermissionType,PermissionTypeId)
-	values(567,'Grey-Order-Export',NEWID(),373,'Transaction',5)
-END
-
-IF NOT EXISTS (SELECT 1 FROM dbo.Permissions WHERE Id=568)
-BEGIN
-	INSERT INTO dbo.Permissions(Id,PermissionDescription,RowId,ModuleId,PermissionType,PermissionTypeId)
-	values(568,'Grey-Order-Print',NEWID(),373,'Transaction',6)
-END
--- BOM
-
-
-
-
-
 SET IDENTITY_INSERT dbo.Permissions OFF

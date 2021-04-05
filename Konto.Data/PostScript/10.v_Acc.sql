@@ -537,11 +537,18 @@ INSERT INTO dbo.AccBal(AccId,AddressId,Bal,CompId,GroupId,OpBal,OpCredit,OpDebit
 Share,YearId,CityId,AreaId,RouteId)
 Values(36,0,0,1,29,0,0,0,
 0,1,1,1,1)
+
 IF NOT EXISTS(select 1 from dbo.AccBal em WHERE AccId=34 and CompId=1 and YearId=1)
 INSERT INTO dbo.AccBal(AccId,AddressId,Bal,CompId,GroupId,OpBal,OpCredit,OpDebit,
 Share,YearId,CityId,AreaId,RouteId)
 Values(34,0,0,1,19,0,0,0,
 0,1,1,1,1)
 
-
-
+-- update runing balance
+UPDATE ab SET ab.Bal = ab.OpBal + ISNULL(lt.bal,0) FROM dbo.AccBal ab
+LEFT OUTER JOIN (SELECT l.AccountId,l.CompanyId,
+l.YearId, SUM(Debit)-SUM(Credit) bal FROM dbo.LedgerTrans l
+GROUP BY l.CompanyId,l.YearId,l.AccountId)Lt
+ON AB.CompId = lt.CompanyId AND ab.YearId = lt.YearId
+ AND ab.AccId = lt.AccountId
+ 

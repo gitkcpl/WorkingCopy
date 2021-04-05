@@ -38,7 +38,7 @@ namespace Konto.Data.Models.Transaction
 
         [Required(ErrorMessage = "Voucher Date is required")]
         [Display(Name = "Voucher Date")]
-       
+        
         public int VoucherDate { get; set; }
 
         [MaxLength(25)]

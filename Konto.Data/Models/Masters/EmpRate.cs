@@ -1,4 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Konto.Data.Models.Masters
 {
@@ -16,8 +21,7 @@ namespace Konto.Data.Models.Masters
 
 
         [ForeignKey("ProductId")]
-        public virtual  ProductModel Product { get; set; }
+        public virtual ProductModel Product { get; set; }
 
     }
-
 }

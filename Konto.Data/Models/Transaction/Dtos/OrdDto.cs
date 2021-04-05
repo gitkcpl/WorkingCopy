@@ -20,7 +20,6 @@ namespace Konto.Data.Models.Transaction.Dtos
         public int OrderStatusId { get; set; }
         public int EmpId { get; set; }
         public int DivisionId { get; set; }
-
         public int AgentId { get; set; }
 
         public int TransportId { get; set; }

@@ -57,8 +57,5 @@ namespace Konto.Data.Models.Masters
         } // varchar(50)
 
         public int PrevYearId { get; set; }
-      //  public string DbName { get; set; }
-       // public string NextYearDbName { get; set; }
-
     }
 }

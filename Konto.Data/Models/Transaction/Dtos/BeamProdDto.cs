@@ -60,8 +60,9 @@ namespace Konto.Data.Models.Transaction.Dtos
         }
 
         //used in Taka opening for Voucher date 
-        public DateTime? VouDate {
-            get;set;
+        public DateTime? VouDate
+        {
+            get; set;
         }
 
         public string Weaver { get; set; }
@@ -72,7 +73,7 @@ namespace Konto.Data.Models.Transaction.Dtos
         public decimal? Qty { get; set; }
 
         public int? BoxProductId { get; set; }
-       
+
         public string ProductName { get; set; }
         public string DesignNo { get; set; }
         public string ColorName { get; set; }
@@ -90,7 +91,7 @@ namespace Konto.Data.Models.Transaction.Dtos
         public int? Pallet { get; set; }
         public int? SubGradeId { get; set; }
         public string TwistType { get; set; }
-        public string YarnName { get; set; } 
+        public string YarnName { get; set; }
         public string MendorName { get; set; }
         public string BatchName { get; set; }
         public string GradeName { get; set; }

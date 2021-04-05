@@ -22,14 +22,14 @@ namespace Konto.Data.Models.Masters
         [Display(Name = "Remark")]
         public virtual string Remark { get; set; }
 
-        [ForeignKey("BranchId")]
-        public virtual BranchModel Branch { get; set; }
-
         public virtual bool IsQc { get; set; }
         public virtual bool IsQcOut { get; set; }
         public virtual bool IsOutward { get; set; }
         public virtual bool IsFinishWareHouse { get; set; }
+
         public virtual int Priority { get; set; }
 
+        [ForeignKey("BranchId")]
+        public virtual BranchModel Branch { get; set; }
     }
 }

@@ -760,6 +760,12 @@
     <Compile Include="Masters\Item\ItemLookup.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Masters\Item\ItemMultiEditView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\Item\ItemMultiEditView.Designer.cs">
+      <DependentUpon>ItemMultiEditView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Masters\Item\ProdOpBalBulkEditView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1978,6 +1984,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Masters\Item\ItemImport.resx">
       <DependentUpon>ItemImport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Item\ItemMultiEditView.resx">
+      <DependentUpon>ItemMultiEditView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Masters\Item\ProdOpBalBulkEditView.resx">
       <DependentUpon>ProdOpBalBulkEditView.cs</DependentUpon>

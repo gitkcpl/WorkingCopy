@@ -377,7 +377,8 @@ namespace Konto.Shared.Masters.Voucher
                             db.Vouchers.Add(model);
                             db.SaveChanges();
                         }
-
+                        if (md == null)
+                            md = new VchSetupModel();
                         md.InvoiceHeading = headingTextEdit.Text.Trim();
                         md.VoucherId = model.Id;
                         md.VchWidth = (int)widthspinEdit.Value;

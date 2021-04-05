@@ -43,11 +43,10 @@ namespace Konto.Data
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
             modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
 
-            //Database.SetInitializer(new MigrateDatabaseToLatestVersion<KontoContext, Migrations.Configuration>());
-            //Database.SetInitializer(new mig);
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<KontoContext, Migrations.Configuration>());
             base.OnModelCreating(modelBuilder);
             modelBuilder.Properties<DateTime>().Configure(c => c.HasColumnType("datetime2"));
-            // modelBuilder.Properties<DateTime>().Configure(c => c.HasColumnType("datetime2"));
+
             // modelBuilder.Entity<AccModel>().Property(p => p.GSTDate).HasColumnType("datetime2");
         }
 

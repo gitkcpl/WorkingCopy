@@ -54,15 +54,9 @@ BEGIN
 	left outer join Voucher v on v.Id=c.VoucherId 
 	where c.IsActive=1 and c.IsDeleted=0  and (c.AccId=@AccountId or @AccountId =0)
 	and ((ct.Qty-isnull(outwrd.Qty,0)) >0)
+--	and (ISNULL(ct.Pcs,0)- ISNULL(outwrd.Pcs,0)>0)
 	and ((v.VTypeId = @VoucherTypeID OR (v.VtypeId = 44 and @VoucherTypeID=37) or(v.VtypeId = 45 and @VoucherTypeID=38)))
 	and (c.ChallanType IN (7,8,11,2) )
-
-
---	where c.IsActive=1 and c.IsDeleted=0  and (c.AccId=@AccountId or @AccountId =0)
---	and ((ct.Qty-isnull(outwrd.Qty,0)) >0)
-----	and (ISNULL(ct.Pcs,0)- ISNULL(outwrd.Pcs,0)>0)
---	and (v.VTypeId = @VoucherTypeID OR v.VtypeId = 44 )
---	and (c.ChallanType IN (7,8,11,2) )
 	
 END
 GO

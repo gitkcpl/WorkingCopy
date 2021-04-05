@@ -20,7 +20,7 @@ ROW_NUMBER() OVER( PARTITION BY ch.id ORDER BY cd.Id) AS BoxSr,
        ch.VoucherDate,
 	   CONVERT(DATETIME2, CONVERT(VARCHAR(8), ch.VoucherDate), 112) ChallanDate,
        ch.VoucherNo,
-       ch.ChallanNo,
+       ch.ChallanNo RefNo,
        ch.AccId,
        ac.AccName Party,
        tr.AccName Transport,
@@ -54,6 +54,7 @@ ROW_NUMBER() OVER( PARTITION BY ch.id ORDER BY cd.Id) AS BoxSr,
        uom.UnitName,
        ch.VehicleNo,
        ch.DName,
+	   pm.Extra1 BarcodeNo,
        cd.SrNo,
        cd.GrayMtr,
        cd.GrayPcs,
@@ -72,6 +73,7 @@ ROW_NUMBER() OVER( PARTITION BY ch.id ORDER BY cd.Id) AS BoxSr,
        pm.CopsWt,
        pm.BoxWt,
        pm.CartnWt,
+	   pm.TransId GrnTransId,
     --   pm.GrossWt,
 	   CASE WHEN (pm.GrossWt - pm.TareWt) = -1*cd.Qty THEN pm.GrossWt ELSE 0 END AS GrossWt,
     --   pm.TareWt,
@@ -118,7 +120,8 @@ ROW_NUMBER() OVER( PARTITION BY ch.id ORDER BY cd.Id) AS BoxSr,
 	   wv.AccName Weaver,cm.LogoPath,ac.GstIn Gstin,dlv.GstIn DelGstIn,dlv.AccName DelvParty
 	   ,od.VoucherNo as OrderNo,  CONVERT(DATETIME2, CONVERT(VARCHAR(8), od.VoucherDate), 112)  as OrderDate,
 	   od.RefNo as PONo, brc.BranchName,PDes.ProductName as ParentDesign,ch.Remark As ChRemark,
-  inward.ChallanNo PartyChallan,CONVERT(DATETIME2, CONVERT(VARCHAR(8), inward.VoucherDate), 112) InwardDate
+  inward.ChallanNo PartyChallan,CONVERT(DATETIME2, CONVERT(VARCHAR(8), inward.VoucherDate), 112) InwardDate,
+  ch.TotalAmount,s.StoreName
 FROM dbo.Challan ch
     LEFT OUTER JOIN dbo.ChallanTrans ct   ON ct.ChallanId = ch.Id
     LEFT OUTER JOIN(SELECT * FROM  dbo.ProdOut cd WHERE cd.IsDeleted=0 )cd ON cd.TransId = ct.Id
@@ -166,6 +169,7 @@ FROM dbo.Challan ch
 						group by so.RefNo, so.VoucherNo, so.VoucherDate,ot.Id
 				) od on od.Id =ct.RefId
 	LEFT OUTER JOIN dbo.Branch brc ON brc.Id = ch.BranchId
+	 LEFT OUTER JOIN Store s on s.Id=ch.StoreId
   LEFT OUTER JOIN challan inward ON ct.MiscId = inward.Id AND ct.RefVoucherId = inward.VoucherId
     WHERE (@id=0 or ch.Id=@id) AND ct.IsDeleted=0 AND (@Challan='N' OR  EXISTs(SELECT 1
 							 FROM dbo.ReportPara RP

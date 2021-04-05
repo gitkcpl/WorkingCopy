@@ -583,7 +583,7 @@ namespace Konto.Data
         }
 
         // Ledger effect for Invoice and Return Module
-        public static void LedgerTransEntry(string type, BillModel model, KontoContext db, List<BillTransModel> trans, BillPay _bp=null)
+        public static void LedgerTransEntry(string type, BillModel model, KontoContext db, List<BillTransModel> trans, BillPay _bp = null)
         {
             var st = db.Ledgers.Where(k => k.RefId == model.RowId && k.IsActive && k.IsDeleted == false).ToList();
             if (st.Count > 0) //Delete from LedgerTrans if exist
@@ -648,15 +648,6 @@ namespace Konto.Data
             }
             //   if (model.HasteId == null)
             //       model.HasteId = 28;
-            var billdate = Convert.ToInt32(Convert.ToDateTime(model.RcdDate).ToString("yyyyMMdd"));
-
-            bool _SaveBillDate = false;
-            if( (model.TypeId == (int)VoucherTypeEnum.PurchaseInvoice || model.TypeId == (int)VoucherTypeEnum.GenExpense ||
-                model.TypeId == (int)VoucherTypeEnum.JobReceiptVoucher || model.TypeId == (int)VoucherTypeEnum.MillReceiptVoucher)
-                && model.RcdDate != null)
-            {
-                _SaveBillDate = true;
-            }
 
             //for party
             ledger = new LedgerTransModel
@@ -667,7 +658,7 @@ namespace Konto.Data
                 YearId = model.YearId,
                 BillNo = type == "Debit" ? model.VoucherNo : model.BillNo,
                 VoucherNo = model.VoucherNo,
-                VoucherDate = _SaveBillDate ?  billdate: model.VoucherDate,
+                VoucherDate = model.VoucherDate,
                 TransDate = model.VDate,
                 Remark = model.Remarks,
                 Narration = model.Remarks,
@@ -695,7 +686,7 @@ namespace Konto.Data
                     YearId = model.YearId,
                     BillNo = type == "Debit" ? model.VoucherNo : model.BillNo,
                     VoucherNo = model.VoucherNo,
-                    VoucherDate = _SaveBillDate ? billdate : model.VoucherDate,
+                    VoucherDate = model.VoucherDate,
                     TransDate = model.VDate,
                     Remark = model.Remarks,
                     Narration = model.Remarks,
@@ -731,7 +722,7 @@ namespace Konto.Data
                         YearId = model.YearId,
                         BillNo = type == "Debit" ? model.VoucherNo : model.BillNo,
                         VoucherNo = model.VoucherNo,
-                        VoucherDate = _SaveBillDate ? billdate : model.VoucherDate,
+                        VoucherDate = model.VoucherDate,
                         TransDate = model.VDate,
                         Remark = model.Remarks,
                         Narration = model.Remarks,
@@ -766,7 +757,7 @@ namespace Konto.Data
                         YearId = model.YearId,
                         BillNo = type == "Debit" ? model.VoucherNo : model.BillNo,
                         VoucherNo = model.VoucherNo,
-                        VoucherDate = _SaveBillDate ? billdate : model.VoucherDate,
+                        VoucherDate = model.VoucherDate,
                         TransDate = model.VDate,
                         Remark = model.Remarks,
                         Narration = model.Remarks,
@@ -791,7 +782,7 @@ namespace Konto.Data
                         YearId = model.YearId,
                         BillNo = type == "Debit" ? model.VoucherNo : model.BillNo,
                         VoucherNo = model.VoucherNo,
-                        VoucherDate = _SaveBillDate ? billdate : model.VoucherDate,
+                        VoucherDate = model.VoucherDate,
                         TransDate = model.VDate,
                         Remark = model.Remarks,
                         Narration = model.Remarks,
@@ -824,7 +815,7 @@ namespace Konto.Data
                 ledger.YearId = model.YearId;
                 ledger.BillNo = type == "Debit" ? model.VoucherNo : model.BillNo;
                 ledger.VoucherNo = model.VoucherNo;
-                    ledger.VoucherDate = model.VoucherDate;
+                ledger.VoucherDate = model.VoucherDate;
                 ledger.TransDate = model.VDate;
                 ledger.Remark = model.Remarks;
                 ledger.Narration = model.Remarks;
@@ -1243,10 +1234,8 @@ namespace Konto.Data
             //}
 
 
-           
 
-
-            if ( model.TypeId == (int) VoucherTypeEnum.SaleInvoice && KontoGlobals.PackageId == (int)PackageType.POS)
+            if (model.TypeId == (int)VoucherTypeEnum.SaleInvoice && KontoGlobals.PackageId == (int)PackageType.POS)
             {
 
 
@@ -1256,12 +1245,12 @@ namespace Konto.Data
                     var bps = db.BillPays.Where(x => x.BillId == model.Id).ToList();
                     foreach (var item in bps)
                     {
-                       list.AddRange(Pos_Receipt(db, item, model));
+                        list.AddRange(Pos_Receipt(db, item, model));
                     }
                 }
                 else
                 {
-                   list.AddRange(Pos_Receipt(db, _bp, model));
+                    list.AddRange(Pos_Receipt(db, _bp, model));
                 }
             }
 
@@ -1520,7 +1509,9 @@ namespace Konto.Data
                         {
                             if (p != null)
                             {
-                                var adl1 = db.RPSets.FirstOrDefault(k => k.Field == "Adl1" && k.RecPay == "P" && k.YearId == KontoGlobals.YearId && k.Drcr != "Y");
+                                var adl1 = db.RPSets.FirstOrDefault(k => k.Field == "Adl1" && k.RecPay == "P" 
+                                                                    && k.YearId == KontoGlobals.YearId && k.Drcr != "Y"
+                                                                    && k.CompId == KontoGlobals.CompanyId);
                                 if (p.Adla1 != 0 && adl1 != null)
                                 {
                                     LedgerTransModel l = new LedgerTransModel();
@@ -1606,7 +1597,8 @@ namespace Konto.Data
                                     list.Add(m);
 
                                 }
-                                var adl2 = db.RPSets.FirstOrDefault(k => k.Field == "Adl2" && k.RecPay == "P" && k.YearId == KontoGlobals.YearId && k.Drcr != "Y");
+                                var adl2 = db.RPSets.FirstOrDefault(k => k.Field == "Adl2" && k.RecPay == "P" && k.YearId == KontoGlobals.YearId && k.Drcr != "Y"
+                                && k.CompId == KontoGlobals.CompanyId);
 
                                 if (p.Adla2 != 0 && adl2 != null)
                                 {
@@ -1690,7 +1682,8 @@ namespace Konto.Data
                                     list.Add(m);
                                 }
 
-                                var adl3 = db.RPSets.FirstOrDefault(k => k.Field == "Adl3" && k.RecPay == "P" && k.YearId == KontoGlobals.YearId && k.Drcr != "Y");
+                                var adl3 = db.RPSets.FirstOrDefault(k => k.Field == "Adl3" && k.RecPay == "P" && k.YearId == KontoGlobals.YearId && k.Drcr != "Y"
+                                && k.CompId == KontoGlobals.CompanyId);
 
                                 if (p.Adla3 != 0 && adl3 != null)
                                 {
@@ -1774,7 +1767,8 @@ namespace Konto.Data
 
                                     list.Add(m);
                                 }
-                                var adl4 = db.RPSets.FirstOrDefault(k => k.Field == "Adl4" && k.RecPay == "P" && k.YearId == KontoGlobals.YearId && k.Drcr != "Y");
+                                var adl4 = db.RPSets.FirstOrDefault(k => k.Field == "Adl4" && k.RecPay == "P" && k.YearId == KontoGlobals.YearId && k.Drcr != "Y"
+                                && k.CompId == KontoGlobals.CompanyId);
 
                                 if (p.Adla4 != 0 && adl4 != null)
                                 {
@@ -1858,7 +1852,8 @@ namespace Konto.Data
                                     list.Add(m);
                                 }
 
-                                var adl5 = db.RPSets.FirstOrDefault(k => k.Field == "Adl5" && k.RecPay == "P" && k.YearId == KontoGlobals.YearId && k.Drcr != "Y");
+                                var adl5 = db.RPSets.FirstOrDefault(k => k.Field == "Adl5" && k.RecPay == "P" && k.YearId == KontoGlobals.YearId && k.Drcr != "Y"
+                                && k.CompId == KontoGlobals.CompanyId);
 
                                 if (p.Adla5 != 0 && adl5 != null)
                                 {
@@ -1941,7 +1936,8 @@ namespace Konto.Data
 
                                     list.Add(m);
                                 }
-                                var adl6 = db.RPSets.FirstOrDefault(k => k.Field == "Adl6" && k.RecPay == "P" && k.YearId == KontoGlobals.YearId && k.Drcr != "Y");
+                                var adl6 = db.RPSets.FirstOrDefault(k => k.Field == "Adl6" && k.RecPay == "P" && k.YearId == KontoGlobals.YearId && k.Drcr != "Y"
+                                && k.CompId == KontoGlobals.CompanyId);
 
                                 if (p.Adla6 != 0 && adl6 != null)
                                 {
@@ -2023,7 +2019,8 @@ namespace Konto.Data
 
                                     list.Add(m);
                                 }
-                                var adl7 = db.RPSets.FirstOrDefault(k => k.Field == "Adl7" && k.RecPay == "P" && k.YearId == KontoGlobals.YearId && k.Drcr != "Y");
+                                var adl7 = db.RPSets.FirstOrDefault(k => k.Field == "Adl7" && k.RecPay == "P" && k.YearId == KontoGlobals.YearId && k.Drcr != "Y"
+                                && k.CompId == KontoGlobals.CompanyId);
 
                                 if (p.Adla7 != 0 && adl7 != null)
                                 {
@@ -2107,7 +2104,8 @@ namespace Konto.Data
 
                                     list.Add(m);
                                 }
-                                var adl8 = db.RPSets.FirstOrDefault(k => k.Field == "Adl8" && k.RecPay == "P" && k.YearId == KontoGlobals.YearId && k.Drcr != "Y");
+                                var adl8 = db.RPSets.FirstOrDefault(k => k.Field == "Adl8" && k.RecPay == "P" && k.YearId == KontoGlobals.YearId && k.Drcr != "Y"
+                                && k.CompId == KontoGlobals.CompanyId);
 
                                 if (p.Adla8 != 0 && adl8 != null)
                                 {
@@ -2190,7 +2188,8 @@ namespace Konto.Data
 
                                     list.Add(m);
                                 }
-                                var adl9 = db.RPSets.FirstOrDefault(k => k.Field == "Adl9" && k.RecPay == "P" && k.YearId == KontoGlobals.YearId && k.Drcr != "Y");
+                                var adl9 = db.RPSets.FirstOrDefault(k => k.Field == "Adl9" && k.RecPay == "P" && k.YearId == KontoGlobals.YearId && k.Drcr != "Y"
+                                && k.CompId == KontoGlobals.CompanyId);
 
                                 if (p.Adla9 != 0 && adl9 != null)
                                 {
@@ -2273,7 +2272,8 @@ namespace Konto.Data
 
                                     list.Add(m);
                                 }
-                                var adl10 = db.RPSets.FirstOrDefault(k => k.Field == "Adl10" && k.RecPay == "P" && k.YearId == KontoGlobals.YearId && k.Drcr != "Y");
+                                var adl10 = db.RPSets.FirstOrDefault(k => k.Field == "Adl10" && k.RecPay == "P" && k.YearId == KontoGlobals.YearId && k.Drcr != "Y"
+                                && k.CompId == KontoGlobals.CompanyId);
 
                                 if (p.Adla10 != 0 && adl10 != null)
                                 {
@@ -2524,7 +2524,8 @@ namespace Konto.Data
                     {
                         foreach (var p in billList)
                         {
-                            var adl1 = db.RPSets.FirstOrDefault(k => k.Field == "Adl1" && k.RecPay == "R" && k.YearId == KontoGlobals.YearId && k.Drcr != "Y");
+                            var adl1 = db.RPSets.FirstOrDefault(k => k.Field == "Adl1" && k.RecPay == "R" && k.YearId == KontoGlobals.YearId && k.Drcr != "Y"
+                            && k.CompId == KontoGlobals.CompanyId);
 
                             if (p.Adla1 != 0 && adl1 != null)
                             {
@@ -2609,7 +2610,8 @@ namespace Konto.Data
 
                                 list.Add(m);
                             }
-                            var adl2 = db.RPSets.FirstOrDefault(k => k.Field == "Adl2" && k.RecPay == "R" && k.YearId == KontoGlobals.YearId && k.Drcr != "Y");
+                            var adl2 = db.RPSets.FirstOrDefault(k => k.Field == "Adl2" && k.RecPay == "R" && k.YearId == KontoGlobals.YearId && k.Drcr != "Y"
+                            && k.CompId == KontoGlobals.CompanyId);
 
                             if (p.Adla2 != 0 && adl2 != null)
                             {
@@ -2693,7 +2695,8 @@ namespace Konto.Data
                                 list.Add(m);
                             }
 
-                            var adl3 = db.RPSets.FirstOrDefault(k => k.Field == "Adl3" && k.RecPay == "R" && k.YearId == KontoGlobals.YearId && k.Drcr != "Y");
+                            var adl3 = db.RPSets.FirstOrDefault(k => k.Field == "Adl3" && k.RecPay == "R" && k.YearId == KontoGlobals.YearId && k.Drcr != "Y"
+                            && k.CompId == KontoGlobals.CompanyId);
 
                             if (p.Adla3 != 0 && adl3 != null)
                             {
@@ -2776,7 +2779,8 @@ namespace Konto.Data
 
                                 list.Add(m);
                             }
-                            var adl4 = db.RPSets.FirstOrDefault(k => k.Field == "Adl4" && k.RecPay == "R" && k.YearId == KontoGlobals.YearId && k.Drcr != "Y");
+                            var adl4 = db.RPSets.FirstOrDefault(k => k.Field == "Adl4" && k.RecPay == "R" && k.YearId == KontoGlobals.YearId && k.Drcr != "Y"
+                            && k.CompId == KontoGlobals.CompanyId);
 
                             if (p.Adla4 != 0 && adl4 != null)
                             {
@@ -2860,7 +2864,8 @@ namespace Konto.Data
 
                                 list.Add(m);
                             }
-                            var adl5 = db.RPSets.FirstOrDefault(k => k.Field == "Adl5" && k.RecPay == "R" && k.YearId == KontoGlobals.YearId && k.Drcr != "Y");
+                            var adl5 = db.RPSets.FirstOrDefault(k => k.Field == "Adl5" && k.RecPay == "R" && k.YearId == KontoGlobals.YearId && k.Drcr != "Y"
+                            && k.CompId == KontoGlobals.CompanyId);
 
                             if (p.Adla5 != 0 && adl5 != null)
                             {
@@ -2942,7 +2947,8 @@ namespace Konto.Data
 
                                 list.Add(m);
                             }
-                            var adl6 = db.RPSets.FirstOrDefault(k => k.Field == "Adl6" && k.RecPay == "R" && k.YearId == KontoGlobals.YearId && k.Drcr != "Y");
+                            var adl6 = db.RPSets.FirstOrDefault(k => k.Field == "Adl6" && k.RecPay == "R" && k.YearId == KontoGlobals.YearId && k.Drcr != "Y"
+                            && k.CompId == KontoGlobals.CompanyId);
 
                             if (p.Adla6 != 0 && adl6 != null)
                             {
@@ -3025,7 +3031,8 @@ namespace Konto.Data
 
                                 list.Add(m);
                             }
-                            var adl7 = db.RPSets.FirstOrDefault(k => k.Field == "Adl7" && k.RecPay == "R" && k.YearId == KontoGlobals.YearId && k.Drcr != "Y");
+                            var adl7 = db.RPSets.FirstOrDefault(k => k.Field == "Adl7" && k.RecPay == "R" && k.YearId == KontoGlobals.YearId && k.Drcr != "Y"
+                            && k.CompId == KontoGlobals.CompanyId);
 
                             if (p.Adla7 != 0 && adl7 != null)
                             {
@@ -3109,7 +3116,8 @@ namespace Konto.Data
 
                                 list.Add(m);
                             }
-                            var adl8 = db.RPSets.FirstOrDefault(k => k.Field == "Adl8" && k.RecPay == "P" && k.YearId == KontoGlobals.YearId && k.Drcr != "Y");
+                            var adl8 = db.RPSets.FirstOrDefault(k => k.Field == "Adl8" && k.RecPay == "P" && k.YearId == KontoGlobals.YearId && k.Drcr != "Y"
+                            && k.CompId == KontoGlobals.CompanyId);
 
                             if (p.Adla8 != 0 && adl8 != null)
                             {
@@ -3191,7 +3199,8 @@ namespace Konto.Data
 
                                 list.Add(m);
                             }
-                            var adl9 = db.RPSets.FirstOrDefault(k => k.Field == "Adl9" && k.RecPay == "R" && k.YearId == KontoGlobals.YearId && k.Drcr != "Y");
+                            var adl9 = db.RPSets.FirstOrDefault(k => k.Field == "Adl9" && k.RecPay == "R" && k.YearId == KontoGlobals.YearId && k.Drcr != "Y"
+                            && k.CompId == KontoGlobals.CompanyId);
 
                             if (p.Adla9 != 0 && adl9 != null)
                             {
@@ -3275,7 +3284,8 @@ namespace Konto.Data
 
                                 list.Add(m);
                             }
-                            var adl10 = db.RPSets.FirstOrDefault(k => k.Field == "Adl10" && k.RecPay == "R" && k.YearId == KontoGlobals.YearId && k.Drcr != "Y");
+                            var adl10 = db.RPSets.FirstOrDefault(k => k.Field == "Adl10" && k.RecPay == "R" && k.YearId == KontoGlobals.YearId && k.Drcr != "Y"
+                            && k.CompId == KontoGlobals.CompanyId);
 
                             if (p.Adla10 != 0 && adl10 != null)
                             {
@@ -4517,7 +4527,8 @@ namespace Konto.Data
         public static bool DataFreezeStatus(int MDate, int VTypeId, KontoContext _db)
         {
             DataFreezeModel cds = _db.DFreeze.Where(p => p.VoucherTypeID == VTypeId && p.FromDate <= MDate && p.ToDate >= MDate && p.Freeze == true
-            && p.CompanyID == KontoGlobals.CompanyId).FirstOrDefault();
+             && p.CompanyID == KontoGlobals.CompanyId).FirstOrDefault();
+
             if (cds != null)
             {
                 return false;
@@ -4593,10 +4604,9 @@ namespace Konto.Data
 
         }
 
-
         public static List<LedgerTransModel> Pos_Receipt(KontoContext db, BillPay bp, BillModel model)
         {
-            
+
 
             var list = new List<LedgerTransModel>();
 
@@ -4605,7 +4615,7 @@ namespace Konto.Data
             if (bp.DiscAmt > 0) // for Post Sale Discount 
             {
                 var para = db.CompParas.FirstOrDefault(x => x.ParaId == 267 && x.CompId == KontoGlobals.CompanyId);
-                
+
 
                 ledger = new LedgerTransModel
                 {
@@ -4676,9 +4686,9 @@ namespace Konto.Data
                     AccountId = model.AccId,
                     RefAccountId = pay1.AccId,
                     Debit = 0,
-                    Credit =bp.Pay1Amt- bp.ChangeAmt,
+                    Credit = bp.Pay1Amt - bp.ChangeAmt,
                     BilllAmount = model.TotalAmount,
-                    Amount = -1*(bp.Pay1Amt - bp.ChangeAmt),
+                    Amount = -1 * (bp.Pay1Amt - bp.ChangeAmt),
                     TransCode = model.RowId
                 };
                 list.Add(ledger);
@@ -4698,7 +4708,7 @@ namespace Konto.Data
 
                     RefAccountId = model.AccId,
                     AccountId = pay1.AccId,
-                     Credit= 0,
+                    Credit = 0,
                     Debit = bp.Pay1Amt - bp.ChangeAmt,
                     BilllAmount = model.TotalAmount,
                     Amount = (bp.Pay1Amt - bp.ChangeAmt),
@@ -4812,7 +4822,7 @@ namespace Konto.Data
             }
 
             return list;
-           
+
         }
 
     }

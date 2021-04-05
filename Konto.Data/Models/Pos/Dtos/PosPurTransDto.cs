@@ -30,13 +30,13 @@ namespace Konto.Data.Models.Pos.Dtos
         public int PurUomId { get; set; }
 
         public decimal SaleDisc { get; set; }
-        public bool CheckNegative { get; set; }
+       
         public bool SaleRateTaxInc { get; set; }
         public int TaxId { get; set; }
 
         public decimal ProfitPer { get; set; }
 
-       
+        
         public decimal BulkRate { get; set; }
         public decimal SemiBulkRate { get; set; }
         public decimal BulkQty { get; set; }

@@ -9,8 +9,8 @@ using System.Threading.Tasks;
 
 namespace Konto.Data.Models.Pos
 {
-
     [Table("bill_pays")]
+
     public class BillPay : AuditedEntity
     {
         public int PayDate { get; set; }
@@ -26,13 +26,13 @@ namespace Konto.Data.Models.Pos
 
         public decimal ChangeAmt { get; set; }
         [MaxLength(50)]
-        public string  RefNo1 { get; set; }
+        public string RefNo1 { get; set; }
         [MaxLength(50)]
         public string RefNo2 { get; set; }
 
         [ForeignKey("BillId")]
         public BillModel BillModel { get; set; }
 
-        
+
     }
 }

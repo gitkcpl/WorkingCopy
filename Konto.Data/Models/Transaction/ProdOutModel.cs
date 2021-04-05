@@ -88,6 +88,7 @@ namespace Konto.Data.Models.Transaction
 
         public virtual bool? IsOk { get; set; }
 
+
         [MaxLength]
         [Display(Name = "Remark")]
         public virtual string Remark { get; set; }

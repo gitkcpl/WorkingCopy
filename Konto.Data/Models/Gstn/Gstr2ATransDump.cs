@@ -15,6 +15,7 @@ namespace Konto.Data.Models.Gstn
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+        
         public int MainId { get; set; }
         public decimal Cgst { get; set; }
         public decimal Sgst { get; set; }
@@ -24,6 +25,6 @@ namespace Konto.Data.Models.Gstn
         public decimal Taxable { get; set; }
 
         [ForeignKey("MainId")]
-        public Gstr2ADump Gstr2ADump { get; set; }
+        public virtual Gstr2ADump Gstr2ADump { get; set; }
     }
 }

@@ -34,7 +34,7 @@ namespace Konto.Data
         {
             this.Database.CommandTimeout = 0;
         }
-        public KontoContext (string connectionString)
+        public KontoContext(string connectionString)
             : base(connectionString)
         {
             this.Database.CommandTimeout = 0;
@@ -42,17 +42,16 @@ namespace Konto.Data
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            
+
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
             modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
 
-            //Database.SetInitializer(new MigrateDatabaseToLatestVersion<KontoContext, Migrations.Configuration>());
-            //Database.SetInitializer(new mig);
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<KontoContext, Migrations.Configuration>());
+
+            //Database.SetInitializer<KontoContext>(null);
+
             base.OnModelCreating(modelBuilder);
             modelBuilder.Properties<DateTime>().Configure(c => c.HasColumnType("datetime2"));
-            // modelBuilder.Properties<DateTime>().Configure(c => c.HasColumnType("datetime2"));
-            // modelBuilder.Entity<AccModel>().Property(p => p.GSTDate).HasColumnType("datetime2");
-
             modelBuilder.Entity<BillTransModel>().Property(p => p.Rate).HasPrecision(18, 4);
             modelBuilder.Entity<BillTransModel>().Property(p => p.Qty).HasPrecision(18, 3);
             modelBuilder.Entity<ChallanTransModel>().Property(p => p.Rate).HasPrecision(18, 4);
@@ -60,13 +59,17 @@ namespace Konto.Data
             modelBuilder.Entity<BillModel>().Property(p => p.TcsPer).HasPrecision(18, 3);
             modelBuilder.Entity<AccOtherModel>().Property(p => p.TcsPer).HasPrecision(18, 3);
 
-            //modelBuilder.Entity<AttachmentModel>().Property(p => p.Id).HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity);
+            modelBuilder.Entity<ItemBatch>().HasIndex(p => new { p.ProductId, p.BatchNo }).IsUnique();
+
+            modelBuilder.Entity<ItemSerial>().HasIndex(p => new { p.ProductId, p.SerialNo }).IsUnique();
+
+            // modelBuilder.Entity<AccModel>().Property(p => p.GSTDate).HasColumnType("datetime2");
         }
 
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
-           TrackChanges();
+            TrackChanges();
             return await base.SaveChangesAsync(cancellationToken);
         }
 
@@ -100,9 +103,9 @@ namespace Konto.Data
                 {
                     throw new Exception("Erron at Save", ex);
                 }
-                
+
             }
-            
+
         }
 
         public string UserIpAddress
@@ -142,7 +145,7 @@ namespace Konto.Data
         private void TrackChanges()
         {
 
-           
+
 
             var modifiedEntities = ChangeTracker.Entries()
                 .Where(p => p.State == EntityState.Modified).ToList();
@@ -151,7 +154,7 @@ namespace Konto.Data
 
             foreach (var change in modifiedEntities)
             {
-               
+
                 if (change.Entity is AuditedEntity)
                 {
                     var primaryKey = GetPrimaryKeyValue(change);
@@ -219,37 +222,42 @@ namespace Konto.Data
 
         #region "DbSet"
 
-
         #region "Admin"
         public DbSet<ErpModule> ErpModules { get; set; }
-            public DbSet<UserMasterModel> UserMasters { get; set; }
-            public DbSet<PermissionsModel> Permissions { get; set; }
-            public DbSet<RolesModel> Roles { get; set; }
-            public DbSet<RolePermission> RolePermissions { get; set; }
-            public DbSet<Menu_PackageModel> Menu_Packages { get; set; }
-            public DbSet<AuditLog> AuditLogs { get; set; }
-            public DbSet<SysParaModel> SysParas { get; set; }
-            public DbSet<CompParaModel> CompParas { get; set; }
+        public DbSet<UserMasterModel> UserMasters { get; set; }
+        public DbSet<PermissionsModel> Permissions { get; set; }
+        public DbSet<RolesModel> Roles { get; set; }
+        public DbSet<RolePermission> RolePermissions { get; set; }
+        public DbSet<Menu_PackageModel> Menu_Packages { get; set; }
+        public DbSet<AuditLog> AuditLogs { get; set; }
+        public DbSet<SysParaModel> SysParas { get; set; }
+        public DbSet<CompParaModel> CompParas { get; set; }
         public DbSet<ListPageModel> ListPages { get; set; }
         public DbSet<SPCollectionModel> SpCollections { get; set; }
+
+        public DbSet<RefreshToken> RefreshTokens { get; set; }
+
+        public DbSet<Gstr2ADump> Gstr2ADumps { get; set; }
+        public DbSet<Gstr2ATransDump> Gstr2ATransDumps { get; set; }
+
         #endregion
 
         #region "Masters"
         public DbSet<CountryModel> Countries { get; set; }
-            public DbSet<StateModel> States { get; set; }
-            public DbSet<CityModel> Cities { get; set; }
-            public DbSet<AreaModel> Areas { get; set; }
-            public DbSet<BranchModel> Branches { get; set; }
-            public DbSet<DivisionModel> Divisions { get; set; }
-            public DbSet<CompModel> Companies { get; set; }
-            public DbSet<AcGroupModel> AcGroupModels { get; set; }
-            public DbSet<VoucherTypeModel> VoucherTypes { get; set; }
-            public DbSet<VoucherPartyModel> VoucherParties { get; set; }
-            public DbSet<VoucherBookModel> VoucherBooks { get; set; }
-            public DbSet<VoucherItemModel> VoucherItems { get; set; }
-            public DbSet<VoucherModel> Vouchers { get; set; }
-            public DbSet<VchSetupModel> VchSetups { get; set; }
-            public DbSet<RouteModel> Routes { get; set; }
+        public DbSet<StateModel> States { get; set; }
+        public DbSet<CityModel> Cities { get; set; }
+        public DbSet<AreaModel> Areas { get; set; }
+        public DbSet<BranchModel> Branches { get; set; }
+        public DbSet<DivisionModel> Divisions { get; set; }
+        public DbSet<CompModel> Companies { get; set; }
+        public DbSet<AcGroupModel> AcGroupModels { get; set; }
+        public DbSet<VoucherTypeModel> VoucherTypes { get; set; }
+        public DbSet<VoucherPartyModel> VoucherParties { get; set; }
+        public DbSet<VoucherBookModel> VoucherBooks { get; set; }
+        public DbSet<VoucherItemModel> VoucherItems { get; set; }
+        public DbSet<VoucherModel> Vouchers { get; set; }
+        public DbSet<VchSetupModel> VchSetups { get; set; }
+        public DbSet<RouteModel> Routes { get; set; }
         public DbSet<EmpModel> Emps { get; set; }
         public DbSet<ReportTypeModel> ReportTypes { get; set; }
         public DbSet<PartyGroupModel> PartyGroups { get; set; }
@@ -287,6 +295,8 @@ namespace Konto.Data
         public DbSet<TemplateTrans> Templatetrans { get; set; }
         public DbSet<TempFieldModel> TempFields { get; set; }
 
+        public DbSet<CostHeadModel> CostHeads {get;set;}
+
         #endregion
         #region product
         public DbSet<UomModel> Uoms { get; set; }
@@ -303,10 +313,6 @@ namespace Konto.Data
         public DbSet<PFormulaModel> PFormulas { get; set; }
         public DbSet<WeftItemModel> WeftItems { get; set; }
         public DbSet<RefBankModel> RefBanks { get; set; }
-        public DbSet<CostHeadModel> CostHeads { get; set; }
-
-        public DbSet<BomModel> Boms { get; set; }
-        public DbSet<BOMTransModel> BOMTranses { get; set; }
 
         #endregion
 
@@ -333,39 +339,41 @@ namespace Konto.Data
         public DbSet<TakaBeamModel> TakaBeams { get; set; }
         public DbSet<BatchModel> batches { get; set; }
         public DbSet<BatchTransModel> batchTranses { get; set; }
-
         #endregion
+
         #region Weavings
-        public DbSet<PositionModel> Positions { get; set; }
-        public DbSet<PackingTypeModel> PackingTypes { get; set; }
         public DbSet<JobCardModel> jobCards { get; set; }
         public DbSet<JobCardTransModel> jobCardTrans { get; set; }
         public DbSet<Prod_WeftModel> prod_Wefts { get; set; }
         public DbSet<MachineMasterModel> MachineMasters { get; set; }
         public DbSet<LoadingTranModel> loadingTranModels { get; set; }
         public DbSet<Prod_EmpModel> Prod_Emps { get; set; }
+        public DbSet<PositionModel> Positions { get; set; }
+        public DbSet<PackingTypeModel> PackingTypes { get; set; }
         public DbSet<EmpRate> EmpRates { get; set; }
+        #endregion
+
+        #region Apparel
+        public DbSet<BomModel> Boms { get; set; }
+        public DbSet<BOMTransModel> BOMTranses { get; set; }
 
         public DbSet<BarcodeModel> Barcodes { get; set; }
         public DbSet<BarcodeTrans> BarcodeTrans { get; set; }
         public DbSet<BarcodeStock> BarcodeStocks { get; set; }
-
-        public DbSet<Gstr2ADump> Gstr2ADumps { get; set; }
-        public DbSet<Gstr2ATransDump> Gstr2ATransDumps { get; set; }
-
-        public DbSet<RCPUIModel> RCPUIs { get; set; }
-        public DbSet<RCPUITransModel> RcpuiTrans { get; set; }
-
-        public DbSet<CustomerModel> Customers { get; set; }
-
         #endregion
 
+        #region POS
+
+        public DbSet<CustomerModel> Customers { get; set; }
         public DbSet<BillPay> BillPays { get; set; }
-        public DbSet<SerialBatch> SerialBatches { get; set; }
+        public DbSet<ItemBatch> ItemBatches { get; set; }
+        public DbSet<ItemSerial> ItemSerials { get; set; }
+        #endregion
 
         public DbSet<Ewb> Ewbs { get; set; }
         public DbSet<ApiBal> ApiBals { get; set; }
         public DbSet<EInv> EInvs { get; set; }
+
         #endregion
     }
 

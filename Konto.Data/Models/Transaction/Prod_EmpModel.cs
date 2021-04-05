@@ -12,7 +12,7 @@ namespace Konto.Data.Models.Transaction
     public class Prod_EmpModel : AuditedEntity
     {
         public Prod_EmpModel()
-        { 
+        {
             this.IsActive = true;
             this.IsDeleted = false;
         }
@@ -55,6 +55,5 @@ namespace Konto.Data.Models.Transaction
         [MaxLength(50)]
         [Display(Name = "Extra2")]
         public string Extra2 { get; set; }
-         
     }
 }

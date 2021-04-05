@@ -12,7 +12,7 @@ BEGIN
 
   SET NOCOUNT ON
   SELECT
-	CASE WHEN vt.Id IN (12,19) or (vt.Id=24 OR ISNULL(BM.Extra1, 'NA') = 'SALES') THEN '1.Outward Supply'
+	CASE WHEN vt.Id IN (12,19) or (vt.Id=24 AND ISNULL(BM.Extra1, 'NA') = 'SALE') THEN '1.Outward Supply'
 	ELSE CASE WHEN ISNULL(bm.Rcm,'NA')='YES' THEN '3.Inward Supply Under RCM' ELSE '2.Inward Supply' END END SupplyType,
     vt.TypeName TransType
    ,b.AccName Books
@@ -22,7 +22,7 @@ BEGIN
       WHEN vt.Id IN (12, 13, 23) OR
         (vt.Id = 24 AND
         ISNULL(bm.BillType, 'NA') = 'DEBIT NOTE' AND
-        ISNULL(BM.Extra1, 'NA') = 'SALES') OR
+        ISNULL(BM.Extra1, 'NA') = 'SALE') OR
         (vt.Id = 24 AND
         ISNULL(bm.BillType, 'NA') = 'CREDIT NOTE' AND
         ISNULL(BM.Extra1, 'NA') = 'PURCHASE') THEN bt.NetTotal - bt.Cgst - bt.Sgst - bt.Igst
@@ -32,7 +32,7 @@ BEGIN
       WHEN vt.Id IN (12, 13, 23) OR
         (vt.Id = 24 AND
         ISNULL(bm.BillType, 'NA') = 'DEBIT NOTE' AND
-        ISNULL(BM.Extra1, 'NA') = 'SALES') OR
+        ISNULL(BM.Extra1, 'NA') = 'SALE') OR
         (vt.Id = 24 AND
         ISNULL(bm.BillType, 'NA') = 'CREDIT NOTE' AND
         ISNULL(BM.Extra1, 'NA') = 'PURCHASE') THEN bt.Cgst
@@ -42,7 +42,7 @@ BEGIN
       WHEN vt.Id IN (12, 13, 23) OR
         (vt.Id = 24 AND
         ISNULL(bm.BillType, 'NA') = 'DEBIT NOTE' AND
-        ISNULL(BM.Extra1, 'NA') = 'SALES') OR
+        ISNULL(BM.Extra1, 'NA') = 'SALE') OR
         (vt.Id = 24 AND
         ISNULL(bm.BillType, 'NA') = 'CREDIT NOTE' AND
         ISNULL(BM.Extra1, 'NA') = 'PURCHASE') THEN bt.Sgst
@@ -52,7 +52,7 @@ BEGIN
       WHEN vt.Id IN (12, 13, 23) OR
         (vt.Id = 24 AND
         ISNULL(bm.BillType, 'NA') = 'DEBIT NOTE' AND
-        ISNULL(BM.Extra1, 'NA') = 'SALES') OR
+        ISNULL(BM.Extra1, 'NA') = 'SALE') OR
         (vt.Id = 24 AND
         ISNULL(bm.BillType, 'NA') = 'CREDIT NOTE' AND
         ISNULL(BM.Extra1, 'NA') = 'PURCHASE') THEN bt.Igst
@@ -62,7 +62,7 @@ BEGIN
       WHEN vt.Id IN (12, 13, 23) OR
         (vt.Id = 24 AND
         ISNULL(bm.BillType, 'NA') = 'DEBIT NOTE' AND
-        ISNULL(BM.Extra1, 'NA') = 'SALES') OR
+        ISNULL(BM.Extra1, 'NA') = 'SALE') OR
         (vt.Id = 24 AND
         ISNULL(bm.BillType, 'NA') = 'CREDIT NOTE' AND
         ISNULL(BM.Extra1, 'NA') = 'PURCHASE') THEN bt.NetTotal
@@ -122,6 +122,8 @@ BEGIN
   WHERE vt.id IN (12, 13, 23, 24, 19, 18)
   AND bm.Voucherdate BETWEEN @fromdate AND @todate
   AND bm.compid = @compid
+  and
+  bm.IsDeleted=0 AND bm.IsActive=1 AND bt.IsDeleted=0 
 
 END
 GO

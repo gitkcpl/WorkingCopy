@@ -293,7 +293,7 @@ namespace Konto.Weaves.JobCard
                             ord.ColorId = 1;
                         }
                         var yarnlist = db.WeftItems.Where(k => k.IsDeleted == false &&
-                                    k.ProductId == ord.ProductId && k.MColorId == ord.ColorId
+                                    k.ItemId == ord.ProductId && k.MColorId == ord.ColorId
                                     && k.TypeId > 100).ToList();
 
                         int yId = 0;

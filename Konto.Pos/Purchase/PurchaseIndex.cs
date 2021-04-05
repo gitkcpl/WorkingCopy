@@ -1407,7 +1407,8 @@ namespace Konto.Pos.Purchase
                                 GroupName= grp.GroupName,ItemCode= p.ProductCode,Mrp= pr.Mrp,ProfitPer= p.Price1,
                                 PurUomId= p.UomId,SaleDisc= p.SaleDisc,SaleRateTaxInc= p.SaleRateTaxInc,SellingPrice= pr.SaleRate,
                                 SemiBulkRate= pr.Rate2,Size= sz1.SizeName,SizeId= p.SizeId,StyleNo= pr.BatchNo,SubGroupId=p.SubGroupId,
-                                SubGroupName= sub.SubName,TaxId = p.TaxId
+                                SubGroupName= sub.SubName,TaxId = p.TaxId,ChkNegative= p.CheckNegative,Profit= p.Price1,AvgWt=bt.AvgWt==null ?0 : (decimal)bt.AvgWt
+                               
 
                             }
                              ).ToList();
@@ -1614,7 +1615,7 @@ namespace Konto.Pos.Purchase
                 model.TaxId = pos.TaxId;
 
                 model.SaleRateTaxInc = pos.SaleRateTaxInc;
-                model.CheckNegative = pos.CheckNegative;
+                model.ChkNegative = pos.CheckNegative;
 
                 model.PurUomId = (int)pos.UomId;
                 model.UomId = pos.PurUomId;
@@ -2315,7 +2316,12 @@ namespace Konto.Pos.Purchase
                             item.Id = tranModel.Id;
                             Trans.Add(tranModel);
 
+                           
                         }
+
+                        // update batch for item if enable batch in company level
+                        CreateOrUpdateBatchRate(_translist, db);
+                        
 
                         // attachment
                         foreach (var item in _TransFile)
@@ -2585,7 +2591,7 @@ namespace Konto.Pos.Purchase
                 model.TaxId = pos.TaxId;
 
                 model.SaleRateTaxInc = pos.SaleRateTaxInc;
-                model.CheckNegative = pos.CheckNegative;
+                model.CheckNegative = pos.ChkNegative;
 
                 model.PurUomId = (int)pos.UomId;
                 model.UomId = pos.PurUomId;
@@ -2625,6 +2631,10 @@ namespace Konto.Pos.Purchase
                     price.ProductId = model.Id;
                     pos.ProductId = model.Id;
                     db.Prices.Add(price);
+
+
+                   
+                    
 
                     var complist = db.Companies.Where(p => p.IsActive && !p.IsDeleted).ToList();
                     var yearlist = db.FinYears.Where(x => x.IsActive == true && x.IsDeleted == false).ToList();
@@ -2670,6 +2680,9 @@ namespace Konto.Pos.Purchase
                         }
                     }
 
+
+
+
                     barcode = (Convert.ToInt32(barcode) + 1).ToString();
                 }
 
@@ -2682,6 +2695,45 @@ namespace Konto.Pos.Purchase
             return true;
 
 
+        }
+
+
+        private bool CreateOrUpdateBatchRate(List<PosPurTransDto> poss,KontoContext db)
+        {
+
+            foreach (var pos in poss)
+            {
+
+                string batchno = "NA";
+                
+                if (!string.IsNullOrEmpty(pos.LotNo))
+                    batchno = pos.LotNo;
+
+                    var bch = db.ItemBatches.SingleOrDefault(x => x.BatchNo == batchno && x.ProductId == pos.ProductId);
+
+                
+                if (bch == null)
+                    bch = new ItemBatch();
+
+                bch.ProductId = pos.ProductId;
+                bch.Qty = pos.Qty;
+                bch.RefId = (int) pos.BillId;
+                bch.RefTransId = pos.Id;
+                bch.RefVoucherId = Convert.ToInt32(voucherLookup1.SelectedValue);
+                bch.Mrp = pos.Mrp;
+                bch.DealerPrice = pos.Rate;
+                bch.SemiBulkRate = pos.SemiBulkRate;
+                bch.BulkRate = pos.BulkRate;
+                bch.SaleRate = pos.SaleRate;
+                bch.SerialNo = pos.Barcode;
+                bch.BatchNo = batchno;
+
+
+                if (bch.Id == 0)
+                    db.ItemBatches.Add(bch);
+            }
+
+            return true;
         }
 
         #endregion

@@ -631,7 +631,7 @@ namespace Konto.Pos.Sales
 
         private void GridView1_InvalidRowException(object sender, DevExpress.XtraGrid.Views.Base.InvalidRowExceptionEventArgs e)
         {
-            e.ExceptionMode = ExceptionMode.NoAction;
+            e.ExceptionMode = ExceptionMode.DisplayError;
         }
 
         private void GridView1_ValidateRow(object sender, DevExpress.XtraGrid.Views.Base.ValidateRowEventArgs e)

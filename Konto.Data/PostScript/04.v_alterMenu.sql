@@ -53,7 +53,6 @@ update ErpModule set Title ='Gstr2 Reconcile', AssemblyName ='Konto.Reporting.Pa
 
 update ErpModule set AssemblyName ='Konto.Shared.Security.ChangePasswordIndex', MainAssembly='Konto.Shared' where id=702
 
-update ErpModule set  AssemblyName ='Konto.Reporting.Para.Gst.PaymentAssist', MainAssembly='Konto.Reporting' where id=1073
 ----Update prodout
 --UPDATE dbo.ProdOut SET GrayMtr = Qty WHERE Qty < 0
 ----Update Pcs, Qty, TotalAmount in Order

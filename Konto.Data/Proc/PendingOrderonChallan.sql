@@ -40,7 +40,7 @@ BEGIN
 	--AND  o.CompId = 1
 	-- AND  v.VTypeId=3 and (o.AccId=68 or (ac.PGroupId in(select a.PGroupId from Acc a where a.Id=68)))
 	AND  o.CompId = @CompanyId
-	 AND  v.VTypeId=@VoucherTypeID and (o.AccId=@AccountId or (ac.PGroupId in(select a.PGroupId from Acc a where a.Id=@AccountId AND a.PGroupId<>1)))
+	 AND  (v.VTypeId=@VoucherTypeID or V.VTypeId =39) and (o.AccId=@AccountId or (ac.PGroupId in(select a.PGroupId from Acc a where a.Id=@AccountId AND a.PGroupId<>1)))
 	and ((ot.Qty-isnull(ct.Qty,0)) >0) AND o.IsActive =1 AND o.IsDeleted = 0
 	--and (o.VoucherDate between @FromDate and @ToDate)
 END

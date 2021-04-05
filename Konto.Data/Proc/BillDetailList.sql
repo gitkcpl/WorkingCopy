@@ -32,6 +32,7 @@ BEGIN
 	  bt.OceanFrt,
 	  bt.OtherAdd,
 	  bt.OtherLess,
+	  bt.NetTotal- bt.sgst-bt.cgst-bt.igst-bt.cess as TaxableAmt,
 	  bt.Cgst CgstAmt,
 	  bt.SgstPer,
 	  bt.Sgst SgstAmt,

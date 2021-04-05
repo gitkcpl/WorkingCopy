@@ -38,10 +38,12 @@ namespace Konto.Data.Models.Transaction
 
         [Required(ErrorMessage = "Voucher Id is required")]
         [Display(Name = "Voucher Id")]
+       
         public int VoucherId { get; set; }
 
         [Required(ErrorMessage = "Voucher Date is required")]
         [Display(Name = "Voucher Date")]
+        [Index]
         public int? VoucherDate { get; set; }
 
         [Required(ErrorMessage = "Trans Date is required")]
@@ -58,6 +60,7 @@ namespace Konto.Data.Models.Transaction
 
         [Required(ErrorMessage = "Account Id is required")]
         [Display(Name = "Account Id")]
+        [Index]
         public int? AccountId { get; set; }
 
         [Display(Name = "Ref Account Id")]

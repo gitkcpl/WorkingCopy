@@ -121,69 +121,69 @@ namespace Konto.Data.Models.Masters
         [Display(Name = "Extra2")]
         public string Extra2 { get; set; }
 
-        [NotMapped]
-        [MaxLength(150)]
-        public string ProductName { get; set; }
+        //[NotMapped]
+        //[MaxLength(150)]
+        //public string ProductName { get; set; }
 
-        [NotMapped]
-        [MaxLength(150)]
-        public string AccName { get; set; }
+        //[NotMapped]
+        //[MaxLength(150)]
+        //public string AccName { get; set; }
 
-        [NotMapped]
-        [MaxLength(150)]
-        public string ColorName { get; set; }
+        //[NotMapped]
+        //[MaxLength(150)]
+        //public string ColorName { get; set; }
 
-        [NotMapped]
-        [MaxLength(150)]
-        public string MainColor { get; set; }
+        //[NotMapped]
+        //[MaxLength(150)]
+        //public string MainColor { get; set; }
 
-        [NotMapped]
-        [MaxLength(150)]
-        public string ItemName { get; set; }
+        //[NotMapped]
+        //[MaxLength(150)]
+        //public string ItemName { get; set; }
 
-        [NotMapped]
-        [MaxLength(150)]
-        public decimal? LengthInMtr { get; set; }
+        //[NotMapped]
+        //[MaxLength(150)]
+        //public decimal? LengthInMtr { get; set; }
 
-        [NotMapped]
-        [MaxLength(150)]
-        public decimal? LengthInCm { get; set; }
+        //[NotMapped]
+        //[MaxLength(150)]
+        //public decimal? LengthInCm { get; set; }
 
-        [NotMapped]
-        [MaxLength(150)]
-        public decimal? QWeight { get; set; }
+        //[NotMapped]
+        //[MaxLength(150)]
+        //public decimal? QWeight { get; set; }
 
-        [NotMapped]
-        [MaxLength(150)]
-        public decimal? Wastage { get; set; }
+        //[NotMapped]
+        //[MaxLength(150)]
+        //public decimal? Wastage { get; set; }
 
-        [NotMapped]
-        [MaxLength(150)]
-        public decimal? Wastageper { get; set; }
+        //[NotMapped]
+        //[MaxLength(150)]
+        //public decimal? Wastageper { get; set; }
 
-        [NotMapped]
-        [MaxLength(150)]
-        public decimal? AvPick { get; set; }
+        //[NotMapped]
+        //[MaxLength(150)]
+        //public decimal? AvPick { get; set; }
 
-        [NotMapped]
-        [MaxLength(150)]
-        public decimal? YCost { get; set; }
+        //[NotMapped]
+        //[MaxLength(150)]
+        //public decimal? YCost { get; set; }
 
-        [NotMapped]
-        [MaxLength(150)]
-        public decimal? JobCharges { get; set; }
+        //[NotMapped]
+        //[MaxLength(150)]
+        //public decimal? JobCharges { get; set; }
 
-        [NotMapped]
-        [MaxLength(150)]
-        public decimal? CostWWaste { get; set; }
+        //[NotMapped]
+        //[MaxLength(150)]
+        //public decimal? CostWWaste { get; set; }
 
-        [NotMapped]
-        [MaxLength(150)]
-        public decimal? CostNWaste { get; set; }
+        //[NotMapped]
+        //[MaxLength(150)]
+        //public decimal? CostNWaste { get; set; }
 
-        [NotMapped]
-        [MaxLength(150)]
-        public decimal? OneMtrCost { get; set; }
+        //[NotMapped]
+        //[MaxLength(150)]
+        //public decimal? OneMtrCost { get; set; }
 
         [ForeignKey("RefId")]
         public virtual ProductModel product { get; set; }

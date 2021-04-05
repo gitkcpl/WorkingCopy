@@ -10,12 +10,12 @@ namespace Konto.Data.Models.Masters.Dtos
     public class EmpRateDto
     {
         public int Id { get; set; }
-        
+
         public int EmpId { get; set; }
         public int ProductId { get; set; }
 
         [Required]
-        [Range(1,99999)]
+        [Range(1, 99999)]
         public decimal Rate { get; set; }
 
         [Required]

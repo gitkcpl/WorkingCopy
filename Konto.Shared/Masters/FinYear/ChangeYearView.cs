@@ -6,12 +6,8 @@ using Konto.Data.Models.Reports;
 using Syncfusion.Windows.Forms.Tools;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Konto.Shared.Masters.FinYear
@@ -103,7 +99,7 @@ namespace Konto.Shared.Masters.FinYear
 
                         db.FinYears.Add(fy);
                         db.SaveChanges();
-
+  
                         // change coonection string for newly created database
                        // KontoGlobals.sqlConnectionString.InitialCatalog = KontoGlobals.DbName;
                        // db.Database.Connection.Database = pfy.YearCode;
@@ -119,6 +115,7 @@ namespace Konto.Shared.Masters.FinYear
 
                         List<AccBalModel> bals = new List<AccBalModel>();
                         List<StockBalModel> sbs = new List<StockBalModel>();
+                        List<RPSetModel> rps = new List<RPSetModel>();
 
                         foreach (var cmp in cmps)
                         {
@@ -228,12 +225,40 @@ namespace Konto.Shared.Masters.FinYear
                             }
 
 
+                            // transfer receipt paymetn settings
+                            var resc = db.RPSets.Where(x => x.CompId == cmp.Id && x.YearId == KontoGlobals.YearId).ToList();
+                            foreach (var rp in resc)
+                            {
+                                var _rp = new RPSetModel()
+                                {
+                                    AccountId = rp.AccountId,
+                                    YearId = fy.Id,
+                                    Field = rp.Field,
+                                    HsnCode = rp.HsnCode,
+                                    Drcr = rp.Drcr,
+                                    CalcOn = rp.CalcOn,
+                                    AmtCap = rp.AmtCap,
+                                    CompId = cmp.Id,
+                                    IsActive = true,
+                                    IsDeleted = false,
+                                    PerCap = rp.PerCap,
+                                    PlusMinus = rp.PlusMinus,
+                                    RecPay = rp.RecPay,
+                                    Remark = rp.Remark,
+                                    TaxId = rp.TaxId,
+                                    VoucherId = rp.VoucherId
+                                };
+                                rps.Add(_rp);
+                            }
 
                         }
 
                         db.AccBals.AddRange(bals);
 
                         db.StockBals.AddRange(sbs);
+
+                        db.RPSets.AddRange(rps); // receipt payment settings
+                        
 
                         db.SaveChanges();
                         _trn.Commit();

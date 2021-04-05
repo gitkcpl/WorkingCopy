@@ -59,7 +59,7 @@ namespace Konto.Data.Models.Masters.Dtos
         public virtual string CollDay { get; set; }
 
         public virtual int? CollById { get; set; }
-
         public virtual decimal DiscPer { get; set; }
+
     }
 }

@@ -58,7 +58,7 @@ namespace Konto.Data.Models.Transaction
         [Index]
         public Guid RefRowId { get; set; }
 
-       
+
 
         [ForeignKey("TransId")]
         public AccModel Transport { get; set; }

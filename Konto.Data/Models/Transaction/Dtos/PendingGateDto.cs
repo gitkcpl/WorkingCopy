@@ -11,9 +11,7 @@ namespace Konto.Data.Models.Transaction.Dtos
 
         public int Id { get; set; }
         public int VoucherId { get; set; }
-        public string   SrNo { get; set; }
+        public string SrNo { get; set; }
         public DateTime EntryDate { get; set; }
     }
-
-
 }

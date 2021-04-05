@@ -35,9 +35,11 @@ namespace Konto.Data.Models.Transaction
         public Guid RefId { get; set; }
 
         [Display(Name = "Master Ref Id")]
+        [Index]
         public Guid? MasterRefId { get; set; }
 
         [Display(Name = "Voucher Date")]
+        [Index]
         public int VoucherDate { get; set; }
 
         [Display(Name = "Trans Date")]
@@ -55,9 +57,11 @@ namespace Konto.Data.Models.Transaction
         public string VoucherNo { get; set; }
 
         [Display(Name = "Account Id")]
+        [Index]
         public int? AccountId { get; set; }
 
         [Display(Name = "Item Id")]
+        [Index]
         public int ItemId { get; set; }
 
         [Display(Name = "Rcpt Nos")]

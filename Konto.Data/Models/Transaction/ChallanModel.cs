@@ -43,7 +43,7 @@ namespace Konto.Data.Models.Transaction
         {
             get
             {
-                if (VoucherDate != null)
+                if (VoucherDate != 0)
                 { return (DateTime.ParseExact(VoucherDate.ToString(), "yyyyMMdd", CultureInfo.CurrentCulture)); }
                 else return null;
             }
@@ -169,8 +169,10 @@ namespace Konto.Data.Models.Transaction
 
         public int RefId { get; set; }
         public int RefVoucherId { get; set; }
+
         public int? ToBranchId { get; set; }
         public virtual ICollection<ChallanTransModel> ChallanTrans { get; set; }
+
         [ForeignKey("BranchId")]
         public virtual BranchModel Branch { get; set; }
 
@@ -178,7 +180,6 @@ namespace Konto.Data.Models.Transaction
         public virtual BranchModel ToBranch { get; set; }
 
       
-
         [ForeignKey("VoucherId")]
         public VoucherModel Voucher { get; set; }
     }

@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 
 namespace Konto.Data.Models.Admin
 {
-
     [Table("api_bal")]
     public class ApiBal
     {

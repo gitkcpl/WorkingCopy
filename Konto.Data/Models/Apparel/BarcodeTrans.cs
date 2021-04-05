@@ -30,6 +30,7 @@ namespace Konto.Data.Models.Apparel
 
         [Index][MaxLength(31)]
         public virtual string BarcodeNo { get; set; }
+
         public virtual int? BarcodeId { get; set; }
 
         [ForeignKey("EmpId")]

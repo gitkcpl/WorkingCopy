@@ -114,10 +114,10 @@ namespace Konto.Data.Models.Transaction.Dtos
         public int? ODate { get; set; }
 
         public string RefNo { get; set; }
-
         public string BarcodeNo { get; set; }
 
-        public  decimal FromStock { get; set; }
+        public decimal FromStock { get; set; }
         public decimal ToStock { get; set; }
+
     }
 }

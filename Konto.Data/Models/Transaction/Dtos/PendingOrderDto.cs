@@ -17,7 +17,6 @@ namespace Konto.Data.Models.Transaction.Dtos
 
         public virtual int DelvAccId { get; set; }
 
-        public virtual string Party { get; set; }
         public virtual string Address1 { get; set; }
 
         public virtual string Address2 { get; set; }
@@ -33,7 +32,6 @@ namespace Konto.Data.Models.Transaction.Dtos
         public virtual decimal? TotalQty { get; set; }
 
         public virtual decimal? PendingQty { get; set; }
-        public virtual decimal? IssueQty { get; set; }
 
         public virtual string Product { get; set; }
 
@@ -93,5 +91,6 @@ namespace Konto.Data.Models.Transaction.Dtos
 
         public virtual string RefNo { get; set; }
 
+        public virtual string Party { get; set; }
     }
 }

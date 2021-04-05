@@ -82,7 +82,6 @@ namespace Konto.Data.Models.Transaction.Dtos
         public string Remark { get; set; }
  
         public string ChallanNo { get; set; }
-        
         public DateTime? ChallanDate {
             get
             {
@@ -116,27 +115,25 @@ namespace Konto.Data.Models.Transaction.Dtos
         public int? OrdDate { get; set; }
         public int? ChDate { get; set; }
         public decimal SaleRate { get; set; }
-
         public string HsnCode { get; set; }
 
-        public string   Barcode { get; set; }
+        public string Barcode { get; set; }
         public decimal RatePerQty { get; set; }
+
         public decimal Stock { get; set; }
 
         public decimal Profit { get; set; }
         public decimal CostRate { get; set; }
         public decimal Mrp { get; set; }
 
-   
+       
+        public int EmpId { get; set; } // store in refbankid
 
-            public int EmpId { get; set; } // store in refbankid
+        public string ItemStatus { get; set; } // store in RPType
 
-            public string ItemStatus { get; set; } // store in RPType
+        public string Salesman { get; set; }
 
-            public string Salesman { get; set; }
         public decimal AvgWt { get; set; }
         public bool ChkNegative { get; set; }
-
-       
     }
 }

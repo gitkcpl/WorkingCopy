@@ -133,6 +133,8 @@ namespace Konto.Shared.Trans.SInvoice
             colIgstPer.OptionsColumn.AllowFocus = true;
             SetGridColumn();
 
+            colProductName.OptionsColumn.ReadOnly = true;
+
             if (!BillPara.Party_Wise_Challan)
             {
                 GetPendingChallan(0);
@@ -1584,7 +1586,7 @@ namespace Konto.Shared.Trans.SInvoice
                             this.gridView1.FocusedColumn = gridView1.GetVisibleColumn(colQty.VisibleIndex);
                             dr.Qty = 1;
                             dr.LotNo = frms.SelectedSerial.SerialNo;
-                            dr.DesignId = frms.SelectedSerial.Id;
+                           // dr.DesignId = frms.SelectedSerial.Id;
                             GridCalculation(dr, "Qty");
                         }
                     }
@@ -2024,9 +2026,9 @@ namespace Konto.Shared.Trans.SInvoice
                             var stockReq = db.Products.FirstOrDefault(k => k.Id == item.ProductId);
 
                             //update serial sotck
-                            if (stockReq.SerialReq == "Yes" && stockReq.PTypeId == (int)ProductTypeEnum.FINISH)
+                            if (stockReq.SerialReq == "Yes" && stockReq.PTypeId == (int)ProductTypeEnum.FINISH && !string.IsNullOrEmpty(item.LotNo))
                             {
-                                var sr = db.SerialBatches.Find(item.DesignId);
+                                var sr = db.ItemSerials.SingleOrDefault(x=>x.SerialNo== item.LotNo);
                                 if (sr != null)
                                 {
                                     sr.IsActive = true; // remove stock of serials
@@ -2067,7 +2069,8 @@ namespace Konto.Shared.Trans.SInvoice
                                     //update serial sotck
                                 if(stockReq.SerialReq=="Yes" && stockReq.PTypeId == (int)ProductTypeEnum.FINISH)
                                 {
-                                    var sr = db.SerialBatches.Find(item.DesignId);
+                                    if (string.IsNullOrEmpty(item.LotNo)) continue;
+                                    var sr = db.ItemSerials.SingleOrDefault(x=>x.SerialNo==item.LotNo);
                                     if (sr != null)
                                     {
                                         sr.IsActive = false; // remove stock of serials
