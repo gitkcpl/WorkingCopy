@@ -327,6 +327,7 @@ namespace Konto.Data
                     SysParameter.AspGspName = item.DefaultValue;
                 else if (item.Id == 504)
                     SysParameter.AspApiBaseUrl = item.DefaultValue;
+                
             }
         }
     }

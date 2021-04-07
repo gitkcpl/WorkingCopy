@@ -46,9 +46,9 @@ namespace Konto.Data
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
             modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
 
-            Database.SetInitializer(new MigrateDatabaseToLatestVersion<KontoContext, Migrations.Configuration>());
+           // Database.SetInitializer(new MigrateDatabaseToLatestVersion<KontoContext, Migrations.Configuration>());
 
-            //Database.SetInitializer<KontoContext>(null);
+           Database.SetInitializer<KontoContext>(null);
 
             base.OnModelCreating(modelBuilder);
             modelBuilder.Properties<DateTime>().Configure(c => c.HasColumnType("datetime2"));

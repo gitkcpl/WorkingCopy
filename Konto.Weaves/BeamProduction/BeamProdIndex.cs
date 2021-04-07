@@ -50,6 +50,15 @@ namespace Konto.Weaves.BeamProduction
             {
                 BeamNotextEdit.Text = "New-" + DbUtils.NextSerialNo(Convert.ToInt32(voucherLookup11.SelectedValue), 1);
             }
+
+            if (voucherLookup11.GroupDto != null && voucherLookup11.GroupDto.ManualSeries)
+            {
+                BeamNotextEdit.Enabled = true;
+            }
+            else
+            {
+                BeamNotextEdit.Enabled = false;
+            }
         }
 
         private void BeamProdIndex_Load(object sender, EventArgs e)
@@ -397,8 +406,9 @@ namespace Konto.Weaves.BeamProduction
                         // _find.VoucherNo = BeamNotextEdit.Text;
                         if (this.PrimaryKey==0 && !voucherLookup11.GroupDto.ManualSeries)
                         {
-                            var _srno = DbUtils.NextSerialNo((int)_find.VoucherId, db, 0);
-                            _find.VoucherNo = _srno;
+                            if (!voucherLookup11.GroupDto.ManualSeries)
+                                _find.VoucherNo = DbUtils.NextSerialNo((int)_find.VoucherId, db, 0);
+                            //_find.VoucherNo = _srno;
                             _find.SrNo = 1;
                         }
                         else

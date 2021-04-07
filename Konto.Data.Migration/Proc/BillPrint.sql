@@ -124,7 +124,9 @@ BEGIN
            bm.RefNo as OrderNo,
            devabl.mobileno as DevMobileNo,
            pp.Mrp,ps.SizeName,bk.AccName as BookName,
-            bm.RequireDate,tr.GstIn TransGstIn
+            bm.RequireDate,tr.GstIn TransGstIn,
+            cmp.FAddress1,cmp.FAddress2,fcty.CityName FCity,
+            fst.StateName FState
     FROM dbo.BillMain bm
         INNER JOIN dbo.BillTrans bt
             ON bm.Id = bt.BillId
@@ -182,6 +184,12 @@ BEGIN
             ON ccty.Id = cm.CityId
         LEFT OUTER JOIN dbo.[State] cst
             ON cst.Id = cm.StateId
+
+        LEFT OUTER JOIN dbo.City fcty
+            ON fcty.Id = cm.FCityId
+        LEFT OUTER JOIN dbo.[State] fst
+            ON fst.Id = cm.FStateId
+
 		LEFT OUTER JOIN dbo.[Haste] hst
             ON hst.Id = bm.HasteId
 		LEFT OUTER JOIN dbo.[Challan] ch

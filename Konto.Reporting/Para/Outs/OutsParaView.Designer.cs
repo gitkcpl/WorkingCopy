@@ -165,6 +165,8 @@
             this.layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem7 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.allCompCheckEdit = new DevExpress.XtraEditors.CheckEdit();
+            this.layoutControlItem8 = new DevExpress.XtraLayout.LayoutControlItem();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
@@ -231,6 +233,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.allCompCheckEdit.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -287,6 +291,7 @@
             // 
             // layoutControl1
             // 
+            this.layoutControl1.Controls.Add(this.allCompCheckEdit);
             this.layoutControl1.Controls.Add(this.areaGridControl);
             this.layoutControl1.Controls.Add(this.booksGridControl);
             this.layoutControl1.Controls.Add(this.cityGridControl);
@@ -320,7 +325,7 @@
             this.areaGridControl.Location = new System.Drawing.Point(556, 38);
             this.areaGridControl.MainView = this.areaGridView;
             this.areaGridControl.Name = "areaGridControl";
-            this.areaGridControl.Size = new System.Drawing.Size(220, 203);
+            this.areaGridControl.Size = new System.Drawing.Size(220, 204);
             this.areaGridControl.TabIndex = 25;
             this.areaGridControl.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.areaGridView});
@@ -390,7 +395,7 @@
             this.booksGridControl.Location = new System.Drawing.Point(11, 38);
             this.booksGridControl.MainView = this.booksGridView;
             this.booksGridControl.Name = "booksGridControl";
-            this.booksGridControl.Size = new System.Drawing.Size(324, 203);
+            this.booksGridControl.Size = new System.Drawing.Size(324, 204);
             this.booksGridControl.TabIndex = 24;
             this.booksGridControl.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.booksGridView});
@@ -455,7 +460,7 @@
             this.cityGridControl.Location = new System.Drawing.Point(339, 38);
             this.cityGridControl.MainView = this.cityGridView;
             this.cityGridControl.Name = "cityGridControl";
-            this.cityGridControl.Size = new System.Drawing.Size(213, 203);
+            this.cityGridControl.Size = new System.Drawing.Size(213, 204);
             this.cityGridControl.TabIndex = 23;
             this.cityGridControl.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.cityGridView});
@@ -517,7 +522,7 @@
             // paidLookUpEdit
             // 
             this.paidLookUpEdit.EnterMoveNextControl = true;
-            this.paidLookUpEdit.Location = new System.Drawing.Point(634, 312);
+            this.paidLookUpEdit.Location = new System.Drawing.Point(634, 313);
             this.paidLookUpEdit.Name = "paidLookUpEdit";
             this.paidLookUpEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.paidLookUpEdit.Properties.Appearance.Options.UseFont = true;
@@ -539,7 +544,7 @@
             // daysTextEdit1
             // 
             this.daysTextEdit1.EnterMoveNextControl = true;
-            this.daysTextEdit1.Location = new System.Drawing.Point(634, 284);
+            this.daysTextEdit1.Location = new System.Drawing.Point(634, 285);
             this.daysTextEdit1.Name = "daysTextEdit1";
             this.daysTextEdit1.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.daysTextEdit1.Properties.Appearance.Options.UseFont = true;
@@ -550,7 +555,7 @@
             // groupOnLookUpEdit
             // 
             this.groupOnLookUpEdit.EnterMoveNextControl = true;
-            this.groupOnLookUpEdit.Location = new System.Drawing.Point(408, 312);
+            this.groupOnLookUpEdit.Location = new System.Drawing.Point(408, 313);
             this.groupOnLookUpEdit.Name = "groupOnLookUpEdit";
             this.groupOnLookUpEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupOnLookUpEdit.Properties.Appearance.Options.UseFont = true;
@@ -571,7 +576,7 @@
             // 
             // checkEdit1
             // 
-            this.checkEdit1.Location = new System.Drawing.Point(328, 284);
+            this.checkEdit1.Location = new System.Drawing.Point(328, 285);
             this.checkEdit1.Name = "checkEdit1";
             this.checkEdit1.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkEdit1.Properties.Appearance.Options.UseFont = true;
@@ -586,7 +591,7 @@
             this.empGridControl1.Location = new System.Drawing.Point(395, 38);
             this.empGridControl1.MainView = this.empGridView1;
             this.empGridControl1.Name = "empGridControl1";
-            this.empGridControl1.Size = new System.Drawing.Size(381, 203);
+            this.empGridControl1.Size = new System.Drawing.Size(381, 204);
             this.empGridControl1.TabIndex = 18;
             this.empGridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.empGridView1});
@@ -651,7 +656,7 @@
             this.pgGridControl1.Location = new System.Drawing.Point(11, 38);
             this.pgGridControl1.MainView = this.pgGridView1;
             this.pgGridControl1.Name = "pgGridControl1";
-            this.pgGridControl1.Size = new System.Drawing.Size(380, 203);
+            this.pgGridControl1.Size = new System.Drawing.Size(380, 204);
             this.pgGridControl1.TabIndex = 17;
             this.pgGridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.pgGridView1});
@@ -716,7 +721,7 @@
             this.agentGridControl1.Location = new System.Drawing.Point(395, 38);
             this.agentGridControl1.MainView = this.agentGridView1;
             this.agentGridControl1.Name = "agentGridControl1";
-            this.agentGridControl1.Size = new System.Drawing.Size(381, 203);
+            this.agentGridControl1.Size = new System.Drawing.Size(381, 204);
             this.agentGridControl1.TabIndex = 16;
             this.agentGridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.agentGridView1});
@@ -778,7 +783,7 @@
             // typeLookUpEdit
             // 
             this.typeLookUpEdit.EnterMoveNextControl = true;
-            this.typeLookUpEdit.Location = new System.Drawing.Point(85, 251);
+            this.typeLookUpEdit.Location = new System.Drawing.Point(85, 252);
             this.typeLookUpEdit.Name = "typeLookUpEdit";
             this.typeLookUpEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.typeLookUpEdit.Properties.Appearance.Options.UseFont = true;
@@ -801,7 +806,7 @@
             // 
             this.pTDateEdit.EditValue = null;
             this.pTDateEdit.EnterMoveNextControl = true;
-            this.pTDateEdit.Location = new System.Drawing.Point(85, 363);
+            this.pTDateEdit.Location = new System.Drawing.Point(85, 364);
             this.pTDateEdit.Name = "pTDateEdit";
             this.pTDateEdit.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
             this.pTDateEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -820,7 +825,7 @@
             // 
             this.pFDateEdit.EditValue = null;
             this.pFDateEdit.EnterMoveNextControl = true;
-            this.pFDateEdit.Location = new System.Drawing.Point(85, 335);
+            this.pFDateEdit.Location = new System.Drawing.Point(85, 336);
             this.pFDateEdit.Name = "pFDateEdit";
             this.pFDateEdit.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
             this.pFDateEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -838,10 +843,10 @@
             // repGridControl1
             // 
             this.repGridControl1.DataSource = this.reportTypeModelBindingSource;
-            this.repGridControl1.Location = new System.Drawing.Point(328, 284);
+            this.repGridControl1.Location = new System.Drawing.Point(328, 285);
             this.repGridControl1.MainView = this.repGridView1;
             this.repGridControl1.Name = "repGridControl1";
-            this.repGridControl1.Size = new System.Drawing.Size(448, 123);
+            this.repGridControl1.Size = new System.Drawing.Size(448, 122);
             this.repGridControl1.TabIndex = 10;
             this.repGridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.repGridView1});
@@ -989,7 +994,7 @@
             this.acGroupGridControl.Location = new System.Drawing.Point(11, 38);
             this.acGroupGridControl.MainView = this.acGroupGridView;
             this.acGroupGridControl.Name = "acGroupGridControl";
-            this.acGroupGridControl.Size = new System.Drawing.Size(380, 203);
+            this.acGroupGridControl.Size = new System.Drawing.Size(380, 204);
             this.acGroupGridControl.TabIndex = 9;
             this.acGroupGridControl.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.acGroupGridView});
@@ -1051,7 +1056,7 @@
             // tDateEdit
             // 
             this.tDateEdit.EditValue = null;
-            this.tDateEdit.Location = new System.Drawing.Point(85, 307);
+            this.tDateEdit.Location = new System.Drawing.Point(85, 308);
             this.tDateEdit.Name = "tDateEdit";
             this.tDateEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tDateEdit.Properties.Appearance.Options.UseFont = true;
@@ -1068,7 +1073,7 @@
             // fDateEdit
             // 
             this.fDateEdit.EditValue = null;
-            this.fDateEdit.Location = new System.Drawing.Point(85, 279);
+            this.fDateEdit.Location = new System.Drawing.Point(85, 280);
             this.fDateEdit.Name = "fDateEdit";
             this.fDateEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.fDateEdit.Properties.Appearance.Options.UseFont = true;
@@ -1088,7 +1093,7 @@
             this.ledgerGridControl.Location = new System.Drawing.Point(11, 38);
             this.ledgerGridControl.MainView = this.ledgerGridView;
             this.ledgerGridControl.Name = "ledgerGridControl";
-            this.ledgerGridControl.Size = new System.Drawing.Size(765, 203);
+            this.ledgerGridControl.Size = new System.Drawing.Size(765, 204);
             this.ledgerGridControl.TabIndex = 7;
             this.ledgerGridControl.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.ledgerGridView});
@@ -1415,7 +1420,8 @@
             this.layoutControlItem5,
             this.layoutControlItem6,
             this.layoutControlItem7,
-            this.emptySpaceItem2});
+            this.emptySpaceItem2,
+            this.layoutControlItem8});
             this.Root.Name = "Root";
             this.Root.Padding = new DevExpress.XtraLayout.Utils.Padding(3, 3, 3, 3);
             this.Root.Size = new System.Drawing.Size(787, 418);
@@ -1426,7 +1432,7 @@
             this.toDateLayoutControlItem4.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.toDateLayoutControlItem4.AppearanceItemCaption.Options.UseFont = true;
             this.toDateLayoutControlItem4.Control = this.tDateEdit;
-            this.toDateLayoutControlItem4.Location = new System.Drawing.Point(0, 302);
+            this.toDateLayoutControlItem4.Location = new System.Drawing.Point(0, 303);
             this.toDateLayoutControlItem4.Name = "toDateLayoutControlItem4";
             this.toDateLayoutControlItem4.Size = new System.Drawing.Size(317, 28);
             this.toDateLayoutControlItem4.Text = "To Date:";
@@ -1437,7 +1443,7 @@
             this.fromDateLayoutControlItem3.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.fromDateLayoutControlItem3.AppearanceItemCaption.Options.UseFont = true;
             this.fromDateLayoutControlItem3.Control = this.fDateEdit;
-            this.fromDateLayoutControlItem3.Location = new System.Drawing.Point(0, 274);
+            this.fromDateLayoutControlItem3.Location = new System.Drawing.Point(0, 275);
             this.fromDateLayoutControlItem3.Name = "fromDateLayoutControlItem3";
             this.fromDateLayoutControlItem3.Size = new System.Drawing.Size(317, 28);
             this.fromDateLayoutControlItem3.Text = "From Date:";
@@ -1453,7 +1459,7 @@
             this.tabbedControlGroup1.Name = "tabbedControlGroup1";
             this.tabbedControlGroup1.Padding = new DevExpress.XtraLayout.Utils.Padding(3, 3, 3, 3);
             this.tabbedControlGroup1.SelectedTabPage = this.layoutControlGroup1;
-            this.tabbedControlGroup1.Size = new System.Drawing.Size(781, 246);
+            this.tabbedControlGroup1.Size = new System.Drawing.Size(781, 247);
             this.tabbedControlGroup1.TabPages.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlGroup1,
             this.layoutControlGroup8,
@@ -1466,7 +1472,7 @@
             this.layoutControlItem1});
             this.layoutControlGroup1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup1.Name = "layoutControlGroup1";
-            this.layoutControlGroup1.Size = new System.Drawing.Size(769, 207);
+            this.layoutControlGroup1.Size = new System.Drawing.Size(769, 208);
             this.layoutControlGroup1.Text = "Account";
             // 
             // layoutControlItem1
@@ -1474,7 +1480,7 @@
             this.layoutControlItem1.Control = this.ledgerGridControl;
             this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(769, 207);
+            this.layoutControlItem1.Size = new System.Drawing.Size(769, 208);
             this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem1.TextVisible = false;
             // 
@@ -1485,7 +1491,7 @@
             this.layoutControlItem4});
             this.layoutControlGroup8.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup8.Name = "layoutControlGroup8";
-            this.layoutControlGroup8.Size = new System.Drawing.Size(769, 207);
+            this.layoutControlGroup8.Size = new System.Drawing.Size(769, 208);
             this.layoutControlGroup8.Text = "Ledger Group/Agent";
             // 
             // layoutControlItem2
@@ -1493,7 +1499,7 @@
             this.layoutControlItem2.Control = this.acGroupGridControl;
             this.layoutControlItem2.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(384, 207);
+            this.layoutControlItem2.Size = new System.Drawing.Size(384, 208);
             this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem2.TextVisible = false;
             // 
@@ -1502,7 +1508,7 @@
             this.layoutControlItem4.Control = this.agentGridControl1;
             this.layoutControlItem4.Location = new System.Drawing.Point(384, 0);
             this.layoutControlItem4.Name = "layoutControlItem4";
-            this.layoutControlItem4.Size = new System.Drawing.Size(385, 207);
+            this.layoutControlItem4.Size = new System.Drawing.Size(385, 208);
             this.layoutControlItem4.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem4.TextVisible = false;
             // 
@@ -1513,7 +1519,7 @@
             this.layoutControlItem11});
             this.layoutControlGroup9.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup9.Name = "layoutControlGroup9";
-            this.layoutControlGroup9.Size = new System.Drawing.Size(769, 207);
+            this.layoutControlGroup9.Size = new System.Drawing.Size(769, 208);
             this.layoutControlGroup9.Text = "Party Group/Salesman";
             // 
             // layoutControlItem10
@@ -1521,7 +1527,7 @@
             this.layoutControlItem10.Control = this.pgGridControl1;
             this.layoutControlItem10.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem10.Name = "layoutControlItem10";
-            this.layoutControlItem10.Size = new System.Drawing.Size(384, 207);
+            this.layoutControlItem10.Size = new System.Drawing.Size(384, 208);
             this.layoutControlItem10.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem10.TextVisible = false;
             // 
@@ -1530,7 +1536,7 @@
             this.layoutControlItem11.Control = this.empGridControl1;
             this.layoutControlItem11.Location = new System.Drawing.Point(384, 0);
             this.layoutControlItem11.Name = "layoutControlItem11";
-            this.layoutControlItem11.Size = new System.Drawing.Size(385, 207);
+            this.layoutControlItem11.Size = new System.Drawing.Size(385, 208);
             this.layoutControlItem11.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem11.TextVisible = false;
             // 
@@ -1542,7 +1548,7 @@
             this.layoutControlItem18});
             this.layoutControlGroup4.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup4.Name = "layoutControlGroup4";
-            this.layoutControlGroup4.Size = new System.Drawing.Size(769, 207);
+            this.layoutControlGroup4.Size = new System.Drawing.Size(769, 208);
             this.layoutControlGroup4.Text = "Book/City/Area";
             // 
             // layoutControlItem16
@@ -1550,7 +1556,7 @@
             this.layoutControlItem16.Control = this.cityGridControl;
             this.layoutControlItem16.Location = new System.Drawing.Point(328, 0);
             this.layoutControlItem16.Name = "layoutControlItem16";
-            this.layoutControlItem16.Size = new System.Drawing.Size(217, 207);
+            this.layoutControlItem16.Size = new System.Drawing.Size(217, 208);
             this.layoutControlItem16.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem16.TextVisible = false;
             // 
@@ -1559,7 +1565,7 @@
             this.layoutControlItem17.Control = this.booksGridControl;
             this.layoutControlItem17.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem17.Name = "layoutControlItem17";
-            this.layoutControlItem17.Size = new System.Drawing.Size(328, 207);
+            this.layoutControlItem17.Size = new System.Drawing.Size(328, 208);
             this.layoutControlItem17.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem17.TextVisible = false;
             // 
@@ -1568,7 +1574,7 @@
             this.layoutControlItem18.Control = this.areaGridControl;
             this.layoutControlItem18.Location = new System.Drawing.Point(545, 0);
             this.layoutControlItem18.Name = "layoutControlItem18";
-            this.layoutControlItem18.Size = new System.Drawing.Size(224, 207);
+            this.layoutControlItem18.Size = new System.Drawing.Size(224, 208);
             this.layoutControlItem18.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem18.TextVisible = false;
             // 
@@ -1578,11 +1584,11 @@
             this.tabbedControlGroup2.AppearanceTabPage.HeaderActive.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
             this.tabbedControlGroup2.AppearanceTabPage.HeaderActive.Options.UseFont = true;
             this.tabbedControlGroup2.AppearanceTabPage.HeaderActive.Options.UseForeColor = true;
-            this.tabbedControlGroup2.Location = new System.Drawing.Point(317, 246);
+            this.tabbedControlGroup2.Location = new System.Drawing.Point(317, 247);
             this.tabbedControlGroup2.Name = "tabbedControlGroup2";
             this.tabbedControlGroup2.Padding = new DevExpress.XtraLayout.Utils.Padding(3, 3, 3, 3);
             this.tabbedControlGroup2.SelectedTabPage = this.layoutControlGroup2;
-            this.tabbedControlGroup2.Size = new System.Drawing.Size(464, 166);
+            this.tabbedControlGroup2.Size = new System.Drawing.Size(464, 165);
             this.tabbedControlGroup2.TabPages.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlGroup2,
             this.layoutControlGroup3});
@@ -1593,7 +1599,7 @@
             this.layoutControlItem3});
             this.layoutControlGroup2.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup2.Name = "layoutControlGroup2";
-            this.layoutControlGroup2.Size = new System.Drawing.Size(452, 127);
+            this.layoutControlGroup2.Size = new System.Drawing.Size(452, 126);
             this.layoutControlGroup2.Text = "Report Type";
             // 
             // layoutControlItem3
@@ -1601,7 +1607,7 @@
             this.layoutControlItem3.Control = this.repGridControl1;
             this.layoutControlItem3.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem3.Name = "layoutControlItem3";
-            this.layoutControlItem3.Size = new System.Drawing.Size(452, 127);
+            this.layoutControlItem3.Size = new System.Drawing.Size(452, 126);
             this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem3.TextVisible = false;
             // 
@@ -1615,7 +1621,7 @@
             this.layoutControlItem15});
             this.layoutControlGroup3.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup3.Name = "layoutControlGroup3";
-            this.layoutControlGroup3.Size = new System.Drawing.Size(452, 127);
+            this.layoutControlGroup3.Size = new System.Drawing.Size(452, 126);
             this.layoutControlGroup3.Text = "Others";
             // 
             // emptySpaceItem1
@@ -1623,7 +1629,7 @@
             this.emptySpaceItem1.AllowHotTrack = false;
             this.emptySpaceItem1.Location = new System.Drawing.Point(0, 56);
             this.emptySpaceItem1.Name = "emptySpaceItem1";
-            this.emptySpaceItem1.Size = new System.Drawing.Size(452, 71);
+            this.emptySpaceItem1.Size = new System.Drawing.Size(452, 70);
             this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
             // 
             // layoutControlItem12
@@ -1673,7 +1679,7 @@
             this.layoutControlItem5.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.layoutControlItem5.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem5.Control = this.pFDateEdit;
-            this.layoutControlItem5.Location = new System.Drawing.Point(0, 330);
+            this.layoutControlItem5.Location = new System.Drawing.Point(0, 331);
             this.layoutControlItem5.Name = "layoutControlItem5";
             this.layoutControlItem5.Size = new System.Drawing.Size(317, 28);
             this.layoutControlItem5.Text = "Pay From:";
@@ -1684,7 +1690,7 @@
             this.layoutControlItem6.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.layoutControlItem6.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem6.Control = this.pTDateEdit;
-            this.layoutControlItem6.Location = new System.Drawing.Point(0, 358);
+            this.layoutControlItem6.Location = new System.Drawing.Point(0, 359);
             this.layoutControlItem6.Name = "layoutControlItem6";
             this.layoutControlItem6.Size = new System.Drawing.Size(317, 28);
             this.layoutControlItem6.Text = "To:";
@@ -1695,7 +1701,7 @@
             this.layoutControlItem7.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.layoutControlItem7.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem7.Control = this.typeLookUpEdit;
-            this.layoutControlItem7.Location = new System.Drawing.Point(0, 246);
+            this.layoutControlItem7.Location = new System.Drawing.Point(0, 247);
             this.layoutControlItem7.Name = "layoutControlItem7";
             this.layoutControlItem7.Size = new System.Drawing.Size(317, 28);
             this.layoutControlItem7.Text = "Report Type:";
@@ -1704,10 +1710,33 @@
             // emptySpaceItem2
             // 
             this.emptySpaceItem2.AllowHotTrack = false;
-            this.emptySpaceItem2.Location = new System.Drawing.Point(0, 386);
+            this.emptySpaceItem2.Location = new System.Drawing.Point(0, 387);
             this.emptySpaceItem2.Name = "emptySpaceItem2";
-            this.emptySpaceItem2.Size = new System.Drawing.Size(317, 26);
+            this.emptySpaceItem2.Size = new System.Drawing.Size(158, 25);
             this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
+            // 
+            // allCompCheckEdit
+            // 
+            this.allCompCheckEdit.EnterMoveNextControl = true;
+            this.allCompCheckEdit.Location = new System.Drawing.Point(163, 392);
+            this.allCompCheckEdit.Name = "allCompCheckEdit";
+            this.allCompCheckEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.allCompCheckEdit.Properties.Appearance.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(22)))), ((int)(((byte)(91)))));
+            this.allCompCheckEdit.Properties.Appearance.Options.UseFont = true;
+            this.allCompCheckEdit.Properties.Appearance.Options.UseForeColor = true;
+            this.allCompCheckEdit.Properties.Caption = "All Company";
+            this.allCompCheckEdit.Size = new System.Drawing.Size(155, 21);
+            this.allCompCheckEdit.StyleController = this.layoutControl1;
+            this.allCompCheckEdit.TabIndex = 26;
+            // 
+            // layoutControlItem8
+            // 
+            this.layoutControlItem8.Control = this.allCompCheckEdit;
+            this.layoutControlItem8.Location = new System.Drawing.Point(158, 387);
+            this.layoutControlItem8.Name = "layoutControlItem8";
+            this.layoutControlItem8.Size = new System.Drawing.Size(159, 25);
+            this.layoutControlItem8.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem8.TextVisible = false;
             // 
             // OutsParaView
             // 
@@ -1788,6 +1817,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.allCompCheckEdit.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1928,5 +1959,7 @@
         private Core.Shared.Libs.CustomGridColumn customGridColumn12;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem18;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem2;
+        private DevExpress.XtraEditors.CheckEdit allCompCheckEdit;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem8;
     }
 }

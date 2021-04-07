@@ -114,7 +114,7 @@ LEFT OUTER JOIN (SELECT bp.BillId,SUM(bp.Pay1Amt + bp.DiscAmt - bp.ChangeAmt+bp.
 )bp ON br.BillId = bp.BillId
 
                                 
-	WHERE  br.IsActive = 1 AND br.IsDeleted = 0 AND bm.IsActive = 1 AND bm.IsDeleted = 0 AND br.CompanyId = @CompanyId
+	WHERE  br.IsActive = 1 AND br.IsDeleted = 0 AND bm.IsActive = 1 AND bm.IsDeleted = 0 AND (@companyId=0 or br.CompanyId = @CompanyId)
 	      --AND ( @paid = 'PAID'
        --               OR ( CAST(br.BillAmt - ISNULL(adj.Pay,0) - ISNULL(Selfadj.SelfPay,0) - ISNULL(adj.Rg,0) -ISNULL(br.TdsAmt,0) + ISNULL(br.TcsAmt,0) - ISNULL(br.RetAmt,0) - ISNULL(br.AdjustAmt,0) AS NUMERIC(18,2)) <> 0 )
        --             )

@@ -13,6 +13,7 @@ namespace Konto.App.Shared
         public static string AspUserPass = "taxpro*199";
         public static string AspGspName = "TaxPro_Production";
         public static string AspApiBaseUrl = "https://einvapi.charteredinfo.com";
+       
 
         #endregion
     }

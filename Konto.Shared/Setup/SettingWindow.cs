@@ -49,22 +49,31 @@ namespace Konto.Shared.Setup
                 {
                     foreach (ParaDto para in ModelList)
                     {
-                        CompParaModel _compPara = new CompParaModel();
-                        if (para.Id == 0)
+                        if (this.SettingCategroy != "sys")
                         {
-                            _compPara.ParaValue = para.ParaValue;
-                            _compPara.ParaId = para.ParaId;
-                            _compPara.CompId = KontoGlobals.CompanyId;
-                            _compPara.Remark = para.Remark;
-                            _compPara.RowId = Guid.NewGuid();
-                            db.CompParas.Add(_compPara);
+                            CompParaModel _compPara = new CompParaModel();
+                            if (para.Id == 0)
+                            {
+                                _compPara.ParaValue = para.ParaValue;
+                                _compPara.ParaId = para.ParaId;
+                                _compPara.CompId = KontoGlobals.CompanyId;
+                                _compPara.Remark = para.Remark;
+                                _compPara.RowId = Guid.NewGuid();
+                                db.CompParas.Add(_compPara);
+                            }
+                            else
+                            {
+                                _compPara = db.CompParas.Find(para.Id);
+                                _compPara.ParaValue = para.ParaValue;
+
+                            }
                         }
                         else
                         {
-                            _compPara = db.CompParas.Find(para.Id);
-                            _compPara.ParaValue = para.ParaValue;
-                            
+                            var _para = db.SysParas.Find(para.ParaId);
+                            _para.DefaultValue = para.ParaValue;
                         }
+
                         //// add all parameter to dictionary
                         //if (ParaUtils.ParaDict.ContainsKey(para.Id))
                         //{
@@ -89,10 +98,28 @@ namespace Konto.Shared.Setup
         {
             using(var db = new KontoContext())
             {
-               var  ModelList = db.Database.SqlQuery<ParaDto>(
-               "dbo.Settingslist @CompanyId={0}, @Category={1}",
-               KontoGlobals.CompanyId, this.SettingCategroy).ToList();
-                this.paraDtoBindingSource.DataSource = ModelList;
+                if (this.SettingCategroy != "sys")
+                {
+                    var ModelList = db.Database.SqlQuery<ParaDto>(
+                    "dbo.Settingslist @CompanyId={0}, @Category={1}",
+                    KontoGlobals.CompanyId, this.SettingCategroy).ToList();
+                    this.paraDtoBindingSource.DataSource = ModelList;
+                }
+                else
+                {
+                    var modelist = (from p in db.SysParas
+                                    where p.Category == "sys"
+                                    select new ParaDto
+                                    {
+                                        Category = p.Category,
+                                        DefaultValue = p.DefaultValue,
+                                        Descr = p.Descr,
+                                        ParaId = p.Id,
+                                        ParaValue = p.DefaultValue,
+                                        ValueDescr = p.ValueDescr
+                                    }).ToList();
+                    this.paraDtoBindingSource.DataSource = modelist;
+                }
             }
         }
 
@@ -100,6 +127,11 @@ namespace Konto.Shared.Setup
         {
             this.Close();
             this.Dispose();
+        }
+
+        private void customGridControl1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

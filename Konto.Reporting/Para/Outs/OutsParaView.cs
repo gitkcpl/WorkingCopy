@@ -394,7 +394,11 @@ namespace Konto.Reporting.Para.Outs
                 //doc.Parameters["cityid"].CurrentValue = Convert.ToInt32(cityLookup1.SelectedValue);
                // doc.Parameters["areaid"].CurrentValue = Convert.ToInt32(areaLookup1.SelectedValue);
                 doc.Parameters["branchid"].CurrentValue = 0;
-                doc.Parameters["companyid"].CurrentValue = KontoGlobals.CompanyId;
+
+
+               
+                   doc.Parameters["companyid"].CurrentValue = KontoGlobals.CompanyId;
+                
                 doc.Parameters["yearid"].CurrentValue = KontoGlobals.YearId;
                 doc.Parameters["fromdate"].CurrentValue = Convert.ToInt32(this.fDateEdit.DateTime.ToString("yyyyMMdd"));
                 doc.Parameters["todate"].CurrentValue = Convert.ToInt32(this.tDateEdit.DateTime.ToString("yyyyMMdd"));
@@ -417,6 +421,12 @@ namespace Konto.Reporting.Para.Outs
                 doc.Parameters["reportid"].CurrentValue = _ReportId;
                 doc.Parameters["report_title"].CurrentValue = rw.ReportName + " For The Period " + this.fDateEdit.DateTime.ToShortDateString() + " To " +
                                                               this.tDateEdit.DateTime.ToShortDateString();
+
+                // merge outstanding with all company
+                if(allCompCheckEdit.Checked && doc.Parameters.Contains("multi_company"))
+                {
+                    doc.Parameters["multi_company"].CurrentValue = "Y";
+                }
 
                 if (doc.Parameters.Contains("range1")) // add parameter for ageing report
                 {

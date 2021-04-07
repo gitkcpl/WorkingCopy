@@ -41,8 +41,9 @@ namespace Konto.Shared.Masters.Voucher
                 var _vmodel = db.Vouchers.FirstOrDefault(x => x.VTypeId == (int)this.VTypeId);
                 if (_vmodel != null)
                 {
-                    this.SelectedValue = _vmodel.Id;
                     SetGroup(_vmodel.Id);
+                    this.SelectedValue = _vmodel.Id;
+                    
                 }
             }
         }
@@ -77,7 +78,7 @@ namespace Konto.Shared.Masters.Voucher
                                  Sms = st.SmsAfterSave,
                                  StartFrom = st.StartFrom,
                                  Width = st.VchWidth,
-                                 Id = vc.Id
+                                 Id = vc.Id,ManualSeries= st.ManualSeries
                              }
                     ).FirstOrDefault();
                 if (this.GroupDto != null)

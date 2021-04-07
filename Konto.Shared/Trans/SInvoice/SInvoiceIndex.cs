@@ -104,7 +104,14 @@ namespace Konto.Shared.Trans.SInvoice
             this.Shown += SInvoiceIndex_Shown;
 
             this.FirstActiveControl = voucherLookup1;
+            this.voucherDateEdit.EditValueChanged += VoucherDateEdit_EditValueChanged;
 
+        }
+
+        private void VoucherDateEdit_EditValueChanged(object sender, EventArgs e)
+        {
+            if (this.PrimaryKey != 0) return;
+            rcdDateEdit1.EditValue = voucherDateEdit.EditValue;
         }
 
         private void TcsAmtTextEdit_EditValueChanged(object sender, EventArgs e)
@@ -1812,7 +1819,7 @@ namespace Konto.Shared.Trans.SInvoice
             empLookup1.SetGroup();
             createdLabelControl.Text = "Create By: " + KontoGlobals.UserName;
             modifyLabelControl.Text = string.Empty;
-            this.ActiveControl = voucherLookup1.buttonEdit1;
+            this.ActiveControl =voucherDateEdit;
 
             if (!BillPara.Ask_For_Voucher_Selection)
                 voucherLookup1.SetDefault();
@@ -2125,7 +2132,7 @@ namespace Konto.Shared.Trans.SInvoice
                     {
                         GetPendingChallan(0);
                     }
-                    voucherLookup1.buttonEdit1.Focus();
+                    voucherDateEdit.Focus();
 
                 }
                 else

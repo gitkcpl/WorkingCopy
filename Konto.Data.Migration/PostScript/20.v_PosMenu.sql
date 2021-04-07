@@ -161,3 +161,17 @@ insert into ErpModule ([Id],[ParentId],[ModuleDesc],[OrderIndex],[LinkButton],[S
 		   null,null,'Sales Return',1,'/Konto.Wpf;component/MenuIcon/opening.png',0,
 		   0,0,0,null,',6,',1,GETDATE(),GETDATE(),9,1,0,NEWID())
 end
+
+
+if NOT exists (select 1 from ErpModule em where em.Id=1240)
+begin
+insert into ErpModule ([Id],[ParentId],[ModuleDesc],[OrderIndex],[LinkButton],[ShortCutKey],[PackageId]
+           ,[DefaultReport],[DefaultLayout],[TableName],[AssemblyName],[MainAssembly]
+           ,[ListAssembly],[MDI],[Title],[Visible],[IconPath],[CheckRight]
+           ,[VisibleOnDashBoard],[VisibleOnSideBar],[IsSeprator],[Extra1],[Extra2],[Offline],
+		   [CreateDate],[ModifyDate],ImageIndex,IsActive,IsDeleted,RowId)
+		   values(1240,1200,'Rate Update',40,null,null,0,
+		   null,null,'Rate Update','Konto.Shared.Masters.Item.ItemMultiEditView','Konto.Shared',
+		   null,null,'Rate Update',1,'/Konto.Wpf;component/MenuIcon/opening.png',0,
+		   0,0,1,null,',6,',1,GETDATE(),GETDATE(),9,1,0,NEWID())
+end

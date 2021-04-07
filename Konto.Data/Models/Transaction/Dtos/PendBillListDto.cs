@@ -39,7 +39,7 @@ namespace Konto.Data.Models.Transaction.Dtos
         public string BillNo { get; set; }
         public string Supplier { get; set; }
         public string VoucherName { get; set; }
-
+        public  int Days { get; set; }
         public decimal? TotalQty { get; set; }
         public decimal? TotalAmt { get; set; }
         public decimal? Gross { get; set; }

@@ -810,7 +810,7 @@ namespace Konto.Trading.JobReceipt
                 gridView1.Focus();
                 return false;
             }
-            else if (trans.Any(x => x.Rate == 0))
+            else if (!JobRecPara.Challan_Required && trans.Any(x => x.Rate == 0))
             {
                 MessageBoxAdv.Show(this, "Invalid Rate", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 gridView1.FocusedColumn = colRate;
@@ -833,16 +833,16 @@ namespace Konto.Trading.JobReceipt
                     return false;
                 }
 
-                find1 = db.Challans.FirstOrDefault(
-              x => x.AccId == accid && !x.IsDeleted && x.ChallanNo == challanNotextEdit.Text.Trim() && x.CompId == KontoGlobals.CompanyId
-              && x.YearId == KontoGlobals.YearId && x.Id != this.PrimaryKey);
+              //  find1 = db.Challans.FirstOrDefault(
+              //x => x.AccId == accid && !x.IsDeleted && x.ChallanNo == challanNotextEdit.Text.Trim() && x.CompId == KontoGlobals.CompanyId
+              //&& x.YearId == KontoGlobals.YearId && x.Id != this.PrimaryKey);
 
-                if (find1 != null)
-                {
-                    MessageBox.Show("Entered Challan No Already Exists for this Party");
-                    challanNotextEdit.Focus();
-                    return false;
-                }
+              //  if (find1 != null)
+              //  {
+              //      MessageBox.Show("Entered Challan No Already Exists for this Party");
+              //      challanNotextEdit.Focus();
+              //      return false;
+              //  }
 
             }
 

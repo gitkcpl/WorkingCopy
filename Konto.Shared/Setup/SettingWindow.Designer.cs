@@ -102,6 +102,7 @@
             this.customGridControl1.TabIndex = 5;
             this.customGridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.customGridView1});
+            this.customGridControl1.Click += new System.EventHandler(this.customGridControl1_Click);
             // 
             // paraDtoBindingSource
             // 

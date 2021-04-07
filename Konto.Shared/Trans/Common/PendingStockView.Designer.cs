@@ -71,6 +71,7 @@
             this.colPlyProductId = new Konto.Core.Shared.Libs.CustomGridColumn();
             this.colVTypeId = new Konto.Core.Shared.Libs.CustomGridColumn();
             this.colLotNo = new Konto.Core.Shared.Libs.CustomGridColumn();
+            this.colColorName = new Konto.Core.Shared.Libs.CustomGridColumn();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.detailStockDtoBindingSource)).BeginInit();
@@ -156,6 +157,7 @@
             this.colYarnName,
             this.colGradeId,
             this.colColorId,
+            this.colColorName,
             this.colVoucherId,
             this.colVoucherDate,
             this.colVoucherNo,
@@ -410,7 +412,7 @@
             this.colRemark.FieldName = "Remark";
             this.colRemark.Name = "colRemark";
             this.colRemark.Visible = true;
-            this.colRemark.VisibleIndex = 11;
+            this.colRemark.VisibleIndex = 12;
             this.colRemark.Width = 136;
             // 
             // colPlyProductId
@@ -430,6 +432,13 @@
             this.colLotNo.Visible = true;
             this.colLotNo.VisibleIndex = 4;
             this.colLotNo.Width = 81;
+            // 
+            // colColorName
+            // 
+            this.colColorName.FieldName = "ColorName";
+            this.colColorName.Name = "colColorName";
+            this.colColorName.Visible = true;
+            this.colColorName.VisibleIndex = 11;
             // 
             // PendingStockView
             // 
@@ -493,5 +502,6 @@
         private Core.Shared.Libs.CustomGridColumn colVTypeId;
         private Core.Shared.Libs.CustomGridColumn colLotNo;
         private Core.Shared.Libs.CustomGridColumn colVDate;
+        private Core.Shared.Libs.CustomGridColumn colColorName;
     }
 }

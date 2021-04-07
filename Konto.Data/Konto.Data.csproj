@@ -155,6 +155,7 @@
     <Compile Include="Models\Masters\Dtos\ProductLookupDto.cs" />
     <Compile Include="Models\Masters\Dtos\PTypeListDto.cs" />
     <Compile Include="Models\Masters\Dtos\PTypeLookupDto.cs" />
+    <Compile Include="Models\Masters\Dtos\RateChangeDto.cs" />
     <Compile Include="Models\Masters\Dtos\RefBankListDto.cs" />
     <Compile Include="Models\Masters\Dtos\RolePermissionDto.cs" />
     <Compile Include="Models\Masters\Dtos\RpSetLisDto.cs" />

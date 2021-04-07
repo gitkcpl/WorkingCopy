@@ -557,6 +557,11 @@ namespace KontoWin
                     BalanceCarryToNextYear();
                     return;
                 }
+                if(e.Item.Id==909 && KontoGlobals.UserName.ToUpper() == "KEYSOFT") // global setup
+                {
+                    GlobalSetup();
+                    return;
+                }
 
                 if(e.Item.Id==906 && KontoGlobals.UserName.ToUpper()=="KEYSOFT") // Report Designer
                 {
@@ -592,6 +597,12 @@ namespace KontoWin
             //form1.StartPosition = FormStartPosition.CenterParent ;
         }
 
+        private void GlobalSetup()
+        {
+            var frm = new Konto.Shared.Setup.SettingWindow();
+            frm.SettingCategroy = "sys";
+            frm.ShowDialog();
+        }
         private void BalanceCarryToNextYear()
         {
             using (KontoContext db = new KontoContext())

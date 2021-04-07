@@ -22,7 +22,8 @@ BEGIN
 	    p.BoxWt,p.CartnWt,p.GrossWt,p.TareWt,P.NetWt,
 	    ISNULL(p.NetWt,0)+ISNULL(iss.IssueQty,0) Qty,
 	    p.DivId,p.CurrQty,p.FinQty,p.IssueRefId,
-	    p.IssueRefVoucherId,p.Remark,p.PlyProductId,p.VTypeId, p.LotNo,c.ChallanNo RefNo
+	    p.IssueRefVoucherId,p.Remark,p.PlyProductId,p.VTypeId, p.LotNo,c.ChallanNo RefNo,
+		cl.ColorName
  FROM dbo.prod  p
  LEFT OUTER JOIN dbo.Challan c ON c.Id = p.RefId AND c.VoucherId  = p.VoucherId
  LEFT OUTER JOIN dbo.Color cl ON cl.Id = p.ColorId
@@ -51,7 +52,8 @@ SELECT p.Id,p.RowId,p.TransId,p.SrNo,c.VoucherNo AS InwardNo,ac.AccName AS Weave
 	    p.BoxWt,p.CartnWt,p.GrossWt,p.TareWt,P.NetWt,
 	    ISNULL(po.Qty,0) Qty,
 	    p.DivId,p.CurrQty,p.FinQty,p.IssueRefId,
-	    p.IssueRefVoucherId,p.Remark,p.PlyProductId,p.VTypeId, p.LotNo,c.ChallanNo RefNo
+	    p.IssueRefVoucherId,p.Remark,p.PlyProductId,p.VTypeId, p.LotNo,c.ChallanNo RefNo,
+		cl.ColorName
  FROM dbo.prod  p
  LEFT OUTER JOIN dbo.ProdOut po ON po.ProdId = p.Id
   LEFT OUTER JOIN ( SELECT pt.ProdId,pt.Qty FROM dbo.ProdOut pt 
@@ -79,7 +81,8 @@ BEGIN
 	    p.BoxWt,p.CartnWt,p.GrossWt,p.TareWt,P.NetWt,
 	    ISNULL(p.NetWt,0)+ISNULL(iss.IssueQty,0) Qty,
 	    p.DivId,p.CurrQty,p.FinQty,p.IssueRefId,
-	    p.IssueRefVoucherId,p.Remark,p.PlyProductId,p.VTypeId, p.LotNo,c.ChallanNo RefNo
+	    p.IssueRefVoucherId,p.Remark,p.PlyProductId,p.VTypeId, p.LotNo,c.ChallanNo RefNo,
+		cl.ColorName
  FROM dbo.prod  p
  LEFT OUTER JOIN dbo.Challan c ON c.Id = p.RefId AND c.VoucherId  = p.VoucherId
  LEFT OUTER JOIN dbo.Color cl ON cl.Id = p.ColorId
@@ -107,7 +110,8 @@ BEGIN
 	    p.BoxWt,p.CartnWt,p.GrossWt,p.TareWt,P.NetWt,
 	    p.NetWt Qty,
 	    p.DivId,p.CurrQty,p.FinQty,p.IssueRefId,
-	    p.IssueRefVoucherId,p.Remark,p.PlyProductId,p.VTypeId, p.LotNo,c.ChallanNo RefNo
+	    p.IssueRefVoucherId,p.Remark,p.PlyProductId,p.VTypeId, p.LotNo,c.ChallanNo RefNo,
+		cl.ColorName
  FROM dbo.prod  p
  LEFT OUTER JOIN dbo.Challan c ON c.Id = p.RefId AND c.VoucherId  = p.VoucherId
  LEFT OUTER JOIN dbo.Color cl ON cl.Id = p.ColorId

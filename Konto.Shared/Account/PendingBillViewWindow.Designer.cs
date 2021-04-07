@@ -109,6 +109,7 @@
             this.colAdla9 = new Konto.Core.Shared.Libs.CustomGridColumn();
             this.colAdlp10 = new Konto.Core.Shared.Libs.CustomGridColumn();
             this.colAdla10 = new Konto.Core.Shared.Libs.CustomGridColumn();
+            this.colDays = new Konto.Core.Shared.Libs.CustomGridColumn();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
@@ -130,7 +131,7 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(931, 37);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(955, 37);
             this.tableLayoutPanel1.TabIndex = 11;
             // 
             // cancelSimpleButton
@@ -139,7 +140,7 @@
             this.cancelSimpleButton.Appearance.Options.UseFont = true;
             this.cancelSimpleButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cancelSimpleButton.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("cancelSimpleButton.ImageOptions.SvgImage")));
-            this.cancelSimpleButton.Location = new System.Drawing.Point(837, 3);
+            this.cancelSimpleButton.Location = new System.Drawing.Point(861, 3);
             this.cancelSimpleButton.Name = "cancelSimpleButton";
             this.cancelSimpleButton.Size = new System.Drawing.Size(91, 31);
             this.cancelSimpleButton.TabIndex = 1;
@@ -150,7 +151,7 @@
             this.okSimpleButton.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.okSimpleButton.Appearance.Options.UseFont = true;
             this.okSimpleButton.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("okSimpleButton.ImageOptions.SvgImage")));
-            this.okSimpleButton.Location = new System.Drawing.Point(745, 3);
+            this.okSimpleButton.Location = new System.Drawing.Point(769, 3);
             this.okSimpleButton.Name = "okSimpleButton";
             this.okSimpleButton.Size = new System.Drawing.Size(86, 31);
             this.okSimpleButton.TabIndex = 0;
@@ -175,7 +176,7 @@
             this.gridControl1.Name = "gridControl1";
             this.gridControl1.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryItemTextEdit1});
-            this.gridControl1.Size = new System.Drawing.Size(931, 419);
+            this.gridControl1.Size = new System.Drawing.Size(955, 419);
             this.gridControl1.TabIndex = 1;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -204,6 +205,7 @@
             this.colBillNo,
             this.colSupplier,
             this.colVoucherName,
+            this.colDays,
             this.colTotalQty,
             this.colTotalAmt,
             this.colGross,
@@ -308,7 +310,7 @@
             this.colChallanDate.OptionsColumn.ReadOnly = true;
             this.colChallanDate.Visible = true;
             this.colChallanDate.VisibleIndex = 3;
-            this.colChallanDate.Width = 94;
+            this.colChallanDate.Width = 80;
             // 
             // colInvoiceNo
             // 
@@ -469,7 +471,7 @@
             this.colTdsAmt.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TdsAmt", "{0:F}")});
             this.colTdsAmt.Visible = true;
-            this.colTdsAmt.VisibleIndex = 7;
+            this.colTdsAmt.VisibleIndex = 8;
             this.colTdsAmt.Width = 79;
             // 
             // colNetTotal
@@ -483,7 +485,7 @@
             this.colNetTotal.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "NetTotal", "{0:F}")});
             this.colNetTotal.Visible = true;
-            this.colNetTotal.VisibleIndex = 4;
+            this.colNetTotal.VisibleIndex = 5;
             this.colNetTotal.Width = 86;
             // 
             // colPaidAmt
@@ -496,7 +498,7 @@
             this.colPaidAmt.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "PaidAmt", "{0:F}")});
             this.colPaidAmt.Visible = true;
-            this.colPaidAmt.VisibleIndex = 5;
+            this.colPaidAmt.VisibleIndex = 6;
             this.colPaidAmt.Width = 79;
             // 
             // colRetAmt
@@ -509,7 +511,7 @@
             this.colRetAmt.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "RetAmt", "{0:F}")});
             this.colRetAmt.Visible = true;
-            this.colRetAmt.VisibleIndex = 6;
+            this.colRetAmt.VisibleIndex = 7;
             // 
             // colDueAmt
             // 
@@ -521,7 +523,7 @@
             this.colDueAmt.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "DueAmt", "{0:F}")});
             this.colDueAmt.Visible = true;
-            this.colDueAmt.VisibleIndex = 8;
+            this.colDueAmt.VisibleIndex = 9;
             // 
             // colItemRemark
             // 
@@ -589,7 +591,7 @@
             this.colAmount.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Amount", "{0:F}")});
             this.colAmount.Visible = true;
-            this.colAmount.VisibleIndex = 9;
+            this.colAmount.VisibleIndex = 10;
             this.colAmount.Width = 92;
             // 
             // repositoryItemTextEdit1
@@ -628,7 +630,7 @@
             this.colAdlp1.FieldName = "Adlp1";
             this.colAdlp1.Name = "colAdlp1";
             this.colAdlp1.Visible = true;
-            this.colAdlp1.VisibleIndex = 10;
+            this.colAdlp1.VisibleIndex = 11;
             // 
             // colAdla1
             // 
@@ -640,7 +642,7 @@
             this.colAdla1.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Adla1", "{0:F}")});
             this.colAdla1.Visible = true;
-            this.colAdla1.VisibleIndex = 11;
+            this.colAdla1.VisibleIndex = 12;
             // 
             // colAdlp2
             // 
@@ -650,7 +652,7 @@
             this.colAdlp2.FieldName = "Adlp2";
             this.colAdlp2.Name = "colAdlp2";
             this.colAdlp2.Visible = true;
-            this.colAdlp2.VisibleIndex = 12;
+            this.colAdlp2.VisibleIndex = 13;
             // 
             // colAdla2
             // 
@@ -662,7 +664,7 @@
             this.colAdla2.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Adla2", "{0:F}")});
             this.colAdla2.Visible = true;
-            this.colAdla2.VisibleIndex = 13;
+            this.colAdla2.VisibleIndex = 14;
             // 
             // colAdlp3
             // 
@@ -672,7 +674,7 @@
             this.colAdlp3.FieldName = "Adlp3";
             this.colAdlp3.Name = "colAdlp3";
             this.colAdlp3.Visible = true;
-            this.colAdlp3.VisibleIndex = 14;
+            this.colAdlp3.VisibleIndex = 15;
             // 
             // colAdla3
             // 
@@ -684,7 +686,7 @@
             this.colAdla3.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Adla3", "{0:F}")});
             this.colAdla3.Visible = true;
-            this.colAdla3.VisibleIndex = 15;
+            this.colAdla3.VisibleIndex = 16;
             // 
             // colAdlp4
             // 
@@ -694,7 +696,7 @@
             this.colAdlp4.FieldName = "Adlp4";
             this.colAdlp4.Name = "colAdlp4";
             this.colAdlp4.Visible = true;
-            this.colAdlp4.VisibleIndex = 16;
+            this.colAdlp4.VisibleIndex = 17;
             // 
             // colAdla4
             // 
@@ -706,7 +708,7 @@
             this.colAdla4.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Adla4", "{0:F}")});
             this.colAdla4.Visible = true;
-            this.colAdla4.VisibleIndex = 17;
+            this.colAdla4.VisibleIndex = 18;
             // 
             // colAdlp5
             // 
@@ -716,7 +718,7 @@
             this.colAdlp5.FieldName = "Adlp5";
             this.colAdlp5.Name = "colAdlp5";
             this.colAdlp5.Visible = true;
-            this.colAdlp5.VisibleIndex = 18;
+            this.colAdlp5.VisibleIndex = 19;
             // 
             // colAdla5
             // 
@@ -728,7 +730,7 @@
             this.colAdla5.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Adla5", "{0:F}")});
             this.colAdla5.Visible = true;
-            this.colAdla5.VisibleIndex = 19;
+            this.colAdla5.VisibleIndex = 20;
             // 
             // colAdlp6
             // 
@@ -738,7 +740,7 @@
             this.colAdlp6.FieldName = "Adlp6";
             this.colAdlp6.Name = "colAdlp6";
             this.colAdlp6.Visible = true;
-            this.colAdlp6.VisibleIndex = 20;
+            this.colAdlp6.VisibleIndex = 21;
             // 
             // colAdla6
             // 
@@ -750,7 +752,7 @@
             this.colAdla6.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Adla6", "{0:F}")});
             this.colAdla6.Visible = true;
-            this.colAdla6.VisibleIndex = 21;
+            this.colAdla6.VisibleIndex = 22;
             // 
             // colAdlp7
             // 
@@ -760,7 +762,7 @@
             this.colAdlp7.FieldName = "Adlp7";
             this.colAdlp7.Name = "colAdlp7";
             this.colAdlp7.Visible = true;
-            this.colAdlp7.VisibleIndex = 22;
+            this.colAdlp7.VisibleIndex = 23;
             // 
             // colAdla7
             // 
@@ -772,7 +774,7 @@
             this.colAdla7.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Adla7", "{0:F}")});
             this.colAdla7.Visible = true;
-            this.colAdla7.VisibleIndex = 23;
+            this.colAdla7.VisibleIndex = 24;
             // 
             // colAdlp8
             // 
@@ -782,7 +784,7 @@
             this.colAdlp8.FieldName = "Adlp8";
             this.colAdlp8.Name = "colAdlp8";
             this.colAdlp8.Visible = true;
-            this.colAdlp8.VisibleIndex = 24;
+            this.colAdlp8.VisibleIndex = 25;
             // 
             // colAdla8
             // 
@@ -794,7 +796,7 @@
             this.colAdla8.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Adla8", "{0:F}")});
             this.colAdla8.Visible = true;
-            this.colAdla8.VisibleIndex = 25;
+            this.colAdla8.VisibleIndex = 26;
             // 
             // colAdlp9
             // 
@@ -804,7 +806,7 @@
             this.colAdlp9.FieldName = "Adlp9";
             this.colAdlp9.Name = "colAdlp9";
             this.colAdlp9.Visible = true;
-            this.colAdlp9.VisibleIndex = 26;
+            this.colAdlp9.VisibleIndex = 27;
             // 
             // colAdla9
             // 
@@ -816,7 +818,7 @@
             this.colAdla9.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Adla9", "{0:F}")});
             this.colAdla9.Visible = true;
-            this.colAdla9.VisibleIndex = 27;
+            this.colAdla9.VisibleIndex = 28;
             // 
             // colAdlp10
             // 
@@ -826,7 +828,7 @@
             this.colAdlp10.FieldName = "Adlp10";
             this.colAdlp10.Name = "colAdlp10";
             this.colAdlp10.Visible = true;
-            this.colAdlp10.VisibleIndex = 28;
+            this.colAdlp10.VisibleIndex = 29;
             // 
             // colAdla10
             // 
@@ -838,7 +840,15 @@
             this.colAdla10.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Adla10", "{0:F}")});
             this.colAdla10.Visible = true;
-            this.colAdla10.VisibleIndex = 29;
+            this.colAdla10.VisibleIndex = 30;
+            // 
+            // colDays
+            // 
+            this.colDays.FieldName = "Days";
+            this.colDays.Name = "colDays";
+            this.colDays.Visible = true;
+            this.colDays.VisibleIndex = 4;
+            this.colDays.Width = 42;
             // 
             // PendingBillViewWindow
             // 
@@ -849,7 +859,7 @@
             this.CaptionButtonColor = System.Drawing.Color.White;
             this.CaptionFont = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CaptionForeColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(931, 456);
+            this.ClientSize = new System.Drawing.Size(955, 456);
             this.Controls.Add(this.gridControl1);
             this.Controls.Add(this.tableLayoutPanel1);
             this.MetroColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(165)))), ((int)(((byte)(220)))));
@@ -946,5 +956,6 @@
         private Core.Shared.Libs.CustomGridColumn colAdla10;
         private System.Windows.Forms.Label lblBalance;
         private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit repositoryItemTextEdit1;
+        private Core.Shared.Libs.CustomGridColumn colDays;
     }
 }

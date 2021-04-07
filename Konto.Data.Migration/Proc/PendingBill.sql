@@ -23,6 +23,7 @@ BEGIN
 	 br.VoucherDate AS ChlnDate,@RefTransId RefTransId,@RefVoucherId RefVoucherId,
 	 v.VoucherName,
 	 ac.AccName ,
+	 DATEDIFF(D, DATEADD(D, ac.CrDays, CONVERT(DATETIME2, CONVERT(VARCHAR(8), br.VoucherDate))), GETDATE()) [Days],
 	 ISNULL(br.GrossAmt,0.00) AS Total,
 	 ISNULL(br.BillAmt,0.00) AS NetTotal,
 	 CAST(ISNULL(adj.Pay,0.00) + ISNULL(selfa.Amount,0) - ISNULL(bb.Pay,0) AS NUMERIC(18,2)) + ISNULL(br.AdjustAmt,0) AS PaidAmt,

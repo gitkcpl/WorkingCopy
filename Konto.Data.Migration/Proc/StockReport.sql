@@ -62,8 +62,11 @@ BEGIN
 	y.TransOutPcs , 
 	y.RefIssPcs,
 	y.InwPcs,
-	y.OutPcs
-
+	y.OutPcs,
+	ISNULL(pp.SaleRate,0) SaleRate,
+	ISNULL(pp.DealerPrice,0) DealerPrice,
+	ISNULL(pp.Mrp,0) Mrp,
+	ISNULL(y.StockQty,0) * ISNULL(pp.DealerPrice,0) StockValue
 	FROM dbo.Product p 
 	LEFT OUTER JOIN (
 	--In Quantities
@@ -113,6 +116,7 @@ BEGIN
 	x.PurPcs + x.InForJobPcs + x.TransInPcs + x.MillPcs + x.JobPcs + x.ProdPcs + x.SRetPcs + x.StoreIssRetPcs + x.InFromJobPcs AS InwPcs,
 
 	x.MillIsPcs + x.SalePcs + x.StoreIssPcs + x.PRetPcs + x.IsForJobPcs + x.SaleJobPcs + x.TransOutPcs + x.RefIssPcs AS OutPcs
+	
 	FROM (
 	SELECT st.BranchId ,pd.ProductName AS Product, ISNULL(st.ItemId,0) AS ItemId,
 	SUM(CASE WHEN vch.VTypeId = 29 THEN st.RcptQty ELSE 0 END ) AS OpQty,
@@ -177,7 +181,9 @@ BEGIN
 		AND (st.BranchId = @BranchId OR  @BranchId = 0) AND (st.DivId = @DivId OR @DivId = 0)
 		AND  st.VoucherDate < @FromDate AND st.IsActive = 1 AND st.IsDeleted = 0	GROUP BY st.ItemId
 	) z ON z.ItemId = p.Id
+	LEFT OUTER JOIN ProductPrice AS pp ON pp.ProductId = p.Id
 	WHERE (p.PTypeId = @PTypeId OR @ptype = 'N') AND p.IsDeleted = 0
+	
 	ORDER BY p.ProductName
 END
 

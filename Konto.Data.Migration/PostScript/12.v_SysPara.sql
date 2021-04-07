@@ -1258,6 +1258,10 @@ INSERT INTO dbo.SysPara(Id,Descr,DefaultValue,ValueDescr,Category)
 Values(504,'Api Base Url','https://einvapi.charteredinfo.com','Api Base Url','sys')
 
 
+--IF NOT EXISTS(SELECT 1 FROM dbo.SysPara WHERE Id=505) 
+--INSERT INTO dbo.SysPara(Id,Descr,DefaultValue,ValueDescr,Category)
+--Values(505,'Multi Company Outstanding','N','Y for Yes,N For No','sys')
+
 
 -- For Company Level
 --IF NOT EXISTS(SELECT 1 FROM dbo.SysPara WHERE Id=600) 

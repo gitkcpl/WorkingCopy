@@ -63,6 +63,7 @@ namespace Konto.Shared.OpBill
 
                                 var bill = new BillModel();
                                 string partyname = item[1].ToString();
+
                                 bill.BillNo = item[2].ToString();
 
                                 var p = db.Accs.FirstOrDefault(k => k.AccName == partyname);
@@ -93,7 +94,9 @@ namespace Konto.Shared.OpBill
                                 {
                                     bill.BillNo = "NA";
                                 }
-                                var vchr = db.Vouchers.FirstOrDefault(k => k.VTypeId == 26);
+                                
+                                 var vchr = db.Vouchers.FirstOrDefault(k => k.VTypeId == 26);
+
                                 bill.VoucherId = vchr.Id;
                                 bill.VoucherNo = DbUtils.NextSerialNo(bill.VoucherId, db);
 

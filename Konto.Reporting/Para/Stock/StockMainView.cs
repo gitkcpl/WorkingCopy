@@ -105,7 +105,7 @@ namespace Konto.Reporting.Para.Stock
             }
             catch (Exception ex)
             {
-
+                MessageBox.Show(ex.ToString());
                 Log.Error(ex,"error from stock");
             }
         }
@@ -131,6 +131,8 @@ namespace Konto.Reporting.Para.Stock
             dateEdit1.DateTime = KontoGlobals.DFromDate;
             dateEdit2.DateTime = KontoGlobals.DToDate;
             this.ActiveControl = dateEdit1;
+
+            branchLookUpEdit.EditValue = KontoGlobals.BranchId;
 
         }
 

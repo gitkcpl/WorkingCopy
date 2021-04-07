@@ -66,5 +66,10 @@ namespace Konto.Data.Models.Reports
 
         public int? StockPcs { get; set; }
 
+        public decimal SaleRate { get; set; }
+        public decimal DealerPrice { get; set; }
+        public decimal Mrp { get; set; }
+        public decimal StockValue { get; set; }
+
     }
 }

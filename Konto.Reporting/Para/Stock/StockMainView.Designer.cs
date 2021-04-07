@@ -91,6 +91,8 @@
             this.gridBand5 = new DevExpress.XtraGrid.Views.BandedGrid.GridBand();
             this.colStockPcs = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.colStockQty = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.colDealerPrice = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.colStockValue = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.pTypeLookup1 = new Konto.Shared.Masters.ProductType.PTypeLookup();
             this.dateEdit2 = new DevExpress.XtraEditors.DateEdit();
             this.dateEdit1 = new DevExpress.XtraEditors.DateEdit();
@@ -340,7 +342,9 @@
             this.colRefIssPcs,
             this.colStoreIssPcs,
             this.colPRetPcs,
-            this.colStockPcs});
+            this.colStockPcs,
+            this.colStockValue,
+            this.colDealerPrice});
             this.bandedGridView1.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFullFocus;
             this.bandedGridView1.GridControl = this.gridControl1;
             this.bandedGridView1.Name = "bandedGridView1";
@@ -750,10 +754,12 @@
             this.gridBand5.Caption = "Stock";
             this.gridBand5.Columns.Add(this.colStockPcs);
             this.gridBand5.Columns.Add(this.colStockQty);
+            this.gridBand5.Columns.Add(this.colDealerPrice);
+            this.gridBand5.Columns.Add(this.colStockValue);
             this.gridBand5.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Right;
             this.gridBand5.Name = "gridBand5";
             this.gridBand5.VisibleIndex = 4;
-            this.gridBand5.Width = 150;
+            this.gridBand5.Width = 377;
             // 
             // colStockPcs
             // 
@@ -762,6 +768,7 @@
             this.colStockPcs.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "StockPcs", "{0:0.##}")});
             this.colStockPcs.Visible = true;
+            this.colStockPcs.Width = 99;
             // 
             // colStockQty
             // 
@@ -770,6 +777,28 @@
             this.colStockQty.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "StockQty", "{0:0.##}")});
             this.colStockQty.Visible = true;
+            this.colStockQty.Width = 99;
+            // 
+            // colDealerPrice
+            // 
+            this.colDealerPrice.Caption = "DP";
+            this.colDealerPrice.FieldName = "DealerPrice";
+            this.colDealerPrice.Name = "colDealerPrice";
+            this.colDealerPrice.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
+            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Average, "DealerPrice", "AVG={0:0.##}")});
+            this.colDealerPrice.Visible = true;
+            this.colDealerPrice.Width = 79;
+            // 
+            // colStockValue
+            // 
+            this.colStockValue.DisplayFormat.FormatString = "F";
+            this.colStockValue.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.colStockValue.FieldName = "StockValue";
+            this.colStockValue.Name = "colStockValue";
+            this.colStockValue.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
+            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "StockValue", "{0:0.##}")});
+            this.colStockValue.Visible = true;
+            this.colStockValue.Width = 100;
             // 
             // pTypeLookup1
             // 
@@ -1129,12 +1158,14 @@
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem10;
         public DevExpress.XtraEditors.SimpleButton okSimpleButton;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem6;
+        public DevExpress.XtraEditors.SimpleButton excelSimpleButton;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem11;
         private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand11;
         private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand2;
         private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand3;
         private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand4;
         private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand5;
-        public DevExpress.XtraEditors.SimpleButton excelSimpleButton;
-        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem11;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colDealerPrice;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colStockValue;
     }
 }

@@ -2463,6 +2463,7 @@
     <None Include="Properties\DataSources\Konto.Data.Models.Masters.CompModel.datasource" />
     <None Include="Properties\DataSources\Konto.Data.Models.Masters.Dtos.EmpRateDto.datasource" />
     <None Include="Properties\DataSources\Konto.Data.Models.Masters.Dtos.PosBarcodeListDto.datasource" />
+    <None Include="Properties\DataSources\Konto.Data.Models.Masters.Dtos.RateChangeDto.datasource" />
     <None Include="Properties\DataSources\Konto.Data.Models.Masters.Dtos.SerialBatchDto.datasource" />
     <None Include="Properties\DataSources\Konto.Data.Models.Masters.FinYearModel.datasource" />
     <None Include="Properties\DataSources\Konto.Data.Models.Masters.PFormulaModel.datasource" />
