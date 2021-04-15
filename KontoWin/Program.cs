@@ -44,6 +44,14 @@ namespace KontoWin
                     config.Save(ConfigurationSaveMode.Modified);
                 }
 
+                if(ConfigurationManager.AppSettings["Env"] == null)
+                {
+                    KontoGlobals.IsDevelopment = false;
+                }
+                else
+                {
+                    KontoGlobals.IsDevelopment = true;
+                }
 
                 KontoGlobals.Edition = Convert.ToInt32(ConfigurationManager.AppSettings["Edition"].ToString());
                 

@@ -2,6 +2,8 @@
 EXEC ('CREATE PROC [dbo].[Ledger_Reports] AS SELECT 1 AS Id') 
 GO
 
+/****** Object:  StoredProcedure [dbo].[Ledger_Reports]    Script Date: 15-04-2021 10:13:35 ******/
+
 ALTER PROCEDURE [dbo].[Ledger_Reports]	
     @fromdate INT = 20170401,
     @todate INT = 20180331,
@@ -34,6 +36,7 @@ SELECT
        xx.BillNo,
        xx.Voucher,
        xx.Particular,
+      --CASE WHEN ISnull(xx.ReferenceAccountId,0)=30 THEN xx.Remarks ELSE xx.Particular END AS Particular,
 	   xx.OpBal,
        xx.DebitAmt,
        xx.CreditAmt,
@@ -50,7 +53,8 @@ SELECT
                FORMAT(-1 * xx.Bal, 'N') + ' Cr'
        END Bal,
        xx.Amount,
-       xx.Narration,
+      CASE WHEN ISNULL(xx.Narration,'NULL') ='NULL' 
+		THEN '' ELSE xx.Narration end Narration,
        xx.Chequeno,
        xx.AccountName,
        xx.flag,
@@ -60,7 +64,7 @@ SELECT
        xx.ReferenceAccountId,
        xx.VTypeId,
        xx.AccountId,
-       xx.Remarks,
+       CASE WHEN ISnull(xx.ReferenceAccountId,0)=30 THEN xx.Remarks ELSE null END AS Remarks,
        xx.VoucherID,
        xx.AcGroup,
        xx.Address1,
@@ -383,4 +387,3 @@ ORDER BY xx.AccountName,
          xx.flag,
          xx.VoucherDate,xx.Id
 GO
-

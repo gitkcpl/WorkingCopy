@@ -123,7 +123,9 @@ ROW_NUMBER() OVER( PARTITION BY ct.id ORDER BY cd.Id) AS BoxSr,
 	   od.RefNo as PONo, brc.BranchName,PDes.ProductName as ParentDesign,ch.Remark As ChRemark,
 		cmv.ChallanNo PartychallanNo,CONVERT(DATETIME2, CONVERT(VARCHAR(8), cmv.VoucherDate), 112) InwardDate,
 		ch.TotalAmount,s.StoreName,pm.LotNo SrLot,p.HsnCode,dadr.MobileNo DevMobileNo,
-		ch.Extra2,ch.Extra3,ch.Extra4,ht.HasteName,pro.ProcessName ,dv.DivisionName
+		ch.Extra2,ch.Extra3,ch.Extra4,ht.HasteName,pro.ProcessName ,dv.DivisionName,
+		brt.BranchName ToBranch,p.BarCode, brt.Address1 TbAddress1,
+		brt.Address2 TbAddress2
 FROM dbo.Challan ch
     LEFT OUTER JOIN dbo.ChallanTrans ct   ON ct.ChallanId = ch.Id
     LEFT OUTER JOIN(SELECT * FROM  dbo.ProdOut cd WHERE cd.IsDeleted=0 )cd ON cd.TransId = ct.Id
@@ -174,6 +176,7 @@ FROM dbo.Challan ch
 						group by so.RefNo, so.VoucherNo, so.VoucherDate,ot.Id
 				) od on od.Id =ct.RefId
 	LEFT OUTER JOIN dbo.Branch brc ON brc.Id = ch.BranchId
+	LEFT OUTER JOIN dbo.Branch brt ON brt.Id = ch.ToBranchId
 	 LEFT OUTER JOIN Store s on s.Id=ch.StoreId
  -- LEFT OUTER JOIN challan inward ON ct.MiscId = inward.Id AND ct.RefVoucherId = inward.VoucherId
     WHERE (@id=0 or ch.Id=@id) AND ct.IsDeleted=0 AND (@Challan='N' OR  EXISTs(SELECT 1

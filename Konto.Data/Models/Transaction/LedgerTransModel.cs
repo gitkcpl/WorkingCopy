@@ -98,8 +98,8 @@ namespace Konto.Data.Models.Transaction
         [Display(Name = "Narration")]
         public string Narration { get; set; }
 
-        [MaxLength(2000)]
-        [Display(Name = "Remark")]
+        
+        
         public string Remark { get; set; }
 
         [Display(Name = "Lr Date")]

@@ -9,11 +9,12 @@ namespace Konto.App.Shared.Para
     public static class ReceiptPara
     {
         public static bool Auto_Bill_Adjust = false;
+        public static bool Show_Ledger_Balance = true;
 
     }
     public static class PaymentPara
     {
         public static bool Auto_Bill_Adjust = false;
-
+        public static bool Show_Ledger_Balance = true;
     }
 }

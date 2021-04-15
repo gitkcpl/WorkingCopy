@@ -94,13 +94,13 @@ namespace Konto.Trading.MillIssue
                     {
                         list = db.Database.SqlQuery<DetailStockDto>(
                             "dbo.OutwardBeamProd @CompanyId={0} ,@ProductId={1},@IsOk={2},@vtype={3},@ptypeid={4}",
-                            KontoGlobals.CompanyId,0, 1, this.IssueType, (int)ProductTypeEnum.GREY).ToList();
+                            KontoGlobals.CompanyId,this.ProductId, 1, this.IssueType, (int)ProductTypeEnum.GREY).ToList();
                     }
                     else
                     {
                         list = db.Database.SqlQuery<DetailStockDto>(
                             spcol.Name + " @CompanyId={0} ,@ProductId={1},@IsOk={2},@vtype={3},@ptypeid={4}",
-                        KontoGlobals.CompanyId,0, 1, this.IssueType,(int)ProductTypeEnum.GREY).ToList();
+                        KontoGlobals.CompanyId,this.ProductId, 1, this.IssueType,(int)ProductTypeEnum.GREY).ToList();
                     }
 
                     gridControl1.DataSource = list;

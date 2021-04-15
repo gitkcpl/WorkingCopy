@@ -155,14 +155,21 @@ namespace Konto.Shared.Trans.SalesChallan
                                 var delProdOut = db.ProdOuts.Where(p => p.TransId == item.Id &&
                                      p.RefId == item.ChallanId &&
                                      p.VoucherId == model.VoucherId).ToList();
+
+
+                                var prds = db.Prods.Where(x=> x.RefId == item.ChallanId && x.TransId == item.Id
+                                && x.VoucherId == model.VoucherId && !x.IsDeleted).ToList();
+
+                                foreach (var pd in prds)
+                                {
+                                    pd.IsDeleted = true;
+                                }
+                                
+                                
+
                                 foreach (var poitem in delProdOut)
                                 {
-                                    var pitem = db.Prods.Find(poitem.ProdId);
-
-                                    if (pitem != null)
-                                    {
-                                        pitem.ProdStatus = "STOCK";
-                                    }
+                                    
                                     poitem.IsDeleted = true;
                                 }
                                item.IsDeleted = true;

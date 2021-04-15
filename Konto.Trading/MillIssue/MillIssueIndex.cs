@@ -272,6 +272,7 @@ namespace Konto.Trading.MillIssue
                 }
                 er.ProductId = frm.SelectedValue;
                 er.ProductName = frm.SelectedTex;
+                
                 var model = frm.SelectedItem as ProductLookupDto;
                 er.UomId = model.PurUomId;
                 er.Rate = model.DealerPrice;
@@ -967,6 +968,7 @@ namespace Konto.Trading.MillIssue
             var frm = new PendingGreyForMillView();
             if (Convert.ToInt32(grnTypeLookUpEdit.EditValue) == (int)ChallanTypeEnum.REFINISH_ISSUE)
                 frm.IssueType = "Refinish";
+            frm.ProductId = productid;
             if (frm.ShowDialog() != DialogResult.OK) return;
             var selpd = frm.list.Where(x => x.IsSelected).ToList();
             //if(frm._LotMeters > 0)
@@ -996,9 +998,11 @@ namespace Konto.Trading.MillIssue
 
                 if (miTransDtos.Count > 0)
                 {
-                    var mit = miTransDtos.FirstOrDefault();
-                    if(mit.ProductId == item.ProductId)
-                    {
+                    var mit = gridView1.GetRow(gridView1.FocusedRowHandle) as MiTransDto; //  miTransDtos.FirstOrDefault();
+                    
+                      
+                   // if(mit.ProductId == item.ProductId)
+                   // {
                         int _pcs = 0;
                         decimal _qty = 0;
                         foreach (var _taka in _takalist)
@@ -1027,16 +1031,16 @@ namespace Konto.Trading.MillIssue
 
                         mit.Pcs = mit.Pcs + _pcs;
                         mit.Qty = mit.Qty + _qty;
-                    }
-                    else
-                    {
-                        MessageBox.Show("Product Not match");
-                    }
+                    //}
+                    //else
+                    //{
+                    //    MessageBox.Show("Product Not match");
+                    //}
                     break;
                 }
 
               
-
+               
                 var trans = new MiTransDto();
                 trans.ChallanId = 0;
                 trans.Id = rowid;
@@ -1506,7 +1510,16 @@ namespace Konto.Trading.MillIssue
         private void consumeSimpleButton_Click(object sender, EventArgs e)
         {
             if (!this.ViewOnlyMode)
-                ShowPendingTaka(0);
+            {
+                int pid = 0;
+                if(gridView1.FocusedRowHandle >= 0)
+                {
+                    var rw = gridView1.GetRow(gridView1.FocusedRowHandle) as MiTransDto;
+                    if (rw != null)
+                        pid = rw.ProductId;
+                }
+                ShowPendingTaka(pid);
+            }
             
         }
     }

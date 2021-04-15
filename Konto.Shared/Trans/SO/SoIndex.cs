@@ -30,6 +30,7 @@ namespace Konto.Shared.Trans.SO
 {
     public partial class SoIndex : KontoMetroForm
     {
+        private decimal _DiscPer = 0;
         private List<OrdDto> FilterView = new List<OrdDto>();
         private List<OrdTransDto> DelTrans = new List<OrdTransDto>(); 
         //private ProductDto _selectedProdudt;
@@ -112,8 +113,19 @@ namespace Konto.Shared.Trans.SO
             if (er.LotPcs > 0 && er.Cut > 0)
                 er.Qty = er.LotPcs * er.Cut;
 
+            var dr = uomRepositoryItemLookUpEdit.GetDataSourceRowByKeyValue(er.UomId) as UomLookupDto;
 
-            er.Total = decimal.Round(er.Qty * er.Rate, 2, MidpointRounding.AwayFromZero);
+            if (dr != null && dr.RateOn == "N" && er.Qty > 0)
+            {
+                er.Total = decimal.Round(er.LotPcs * er.Rate, 2, MidpointRounding.AwayFromZero);
+            }
+            else
+            {
+                er.Total = decimal.Round(er.Qty * er.Rate, 2, MidpointRounding.AwayFromZero);
+            }
+
+           // er.Total = decimal.Round(er.Qty * er.Rate, 2, MidpointRounding.AwayFromZero);
+
             if (er.Disc > 0)
                 er.DiscAmt = decimal.Round(er.Total * er.Disc / 100, 2, MidpointRounding.AwayFromZero);
             decimal gross = er.Total - er.DiscAmt;
@@ -231,6 +243,10 @@ namespace Konto.Shared.Trans.SO
                 var model = frm.SelectedItem as ProductLookupDto;
                 er.UomId = model.UomId;
                 er.Rate = model.SaleRate;
+                er.Disc = this._DiscPer;
+                if (er.Disc == 0)
+                    er.Disc = model.SaleDisc;
+
                 if (accLookup1.LookupDto.IsGst)
                 {
                     er.Sgst = model.Sgst;
@@ -711,6 +727,7 @@ namespace Konto.Shared.Trans.SO
         private void AccLookup1_SelectedValueChanged(object sender, EventArgs e)
         {
             if (accLookup1.LookupDto == null) return;
+            _DiscPer = this.accLookup1.LookupDto.DiscPer;
             if (accLookup1.LookupDto.IsGst)
             {
                 colSgst.Visible = true;
@@ -728,6 +745,11 @@ namespace Konto.Shared.Trans.SO
                 colCgstAmt.Visible = false;
                 colIgst.Visible = true;
                 colIgstAmt.Visible = true;
+            }
+            if(this.PrimaryKey==0 && accLookup1.LookupDto.AgentId!=null)
+            {
+                agentLookup.SetAcc((int) accLookup1.LookupDto.AgentId);
+                agentLookup.SelectedValue = accLookup1.LookupDto.AgentId;
             }
         }
 

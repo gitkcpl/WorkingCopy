@@ -10,7 +10,7 @@ namespace Konto.Data.Models.Transaction.Dtos
         [Required(ErrorMessage = "Quality Name Required")]
         public string ProductName { get; set; }
 
-        [Required(ErrorMessage = "Finish Quality Name Required")]
+        
         public string FinishQuality { get; set; }
 
         public string ColorName { get; set; }

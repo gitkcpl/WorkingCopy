@@ -327,7 +327,10 @@ namespace Konto.Data
                     SysParameter.AspGspName = item.DefaultValue;
                 else if (item.Id == 504)
                     SysParameter.AspApiBaseUrl = item.DefaultValue;
-                
+                else if (item.Id == 505)
+                    SysParameter.Common_Order = item.DefaultValue == "Y" ? true : false;
+                else if (item.Id == 506)
+                    SysParameter.Common_Stock = item.DefaultValue == "Y" ? true : false;
             }
         }
     }

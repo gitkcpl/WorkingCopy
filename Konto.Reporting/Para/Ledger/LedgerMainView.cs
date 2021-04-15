@@ -440,6 +440,7 @@ namespace Konto.Reporting.Para.Ledger
                 
             }
             this.ledgertransDtoBindingSource.DataSource = Trans;
+          
             gridView1.ExpandAllGroups();
             gridView1.Focus();
         }

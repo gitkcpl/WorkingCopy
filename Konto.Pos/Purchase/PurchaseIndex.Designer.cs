@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PurchaseIndex));
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
+            this.ewayBilltextEdit1 = new DevExpress.XtraEditors.TextEdit();
             this.tcsAmtTextEdit = new DevExpress.XtraEditors.SpinEdit();
             this.tcsPerTextEdit = new DevExpress.XtraEditors.SpinEdit();
             this.costLookUpEdi = new DevExpress.XtraEditors.LookUpEdit();
@@ -168,12 +169,11 @@
             this.tcsAmountlayoutControlItem = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.layoutControlItem7 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem15 = new DevExpress.XtraLayout.LayoutControlItem();
             this.paidLabel = new System.Windows.Forms.Label();
             this.billAdjustSimpleButton = new DevExpress.XtraEditors.SimpleButton();
             this.attachSimpleButton = new DevExpress.XtraEditors.SimpleButton();
             this.barcodeSimpleButton = new DevExpress.XtraEditors.SimpleButton();
-            this.ewayBilltextEdit1 = new DevExpress.XtraEditors.TextEdit();
-            this.layoutControlItem15 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)(this.tabControlAdv1)).BeginInit();
             this.tabControlAdv1.SuspendLayout();
             this.tabPageAdv1.SuspendLayout();
@@ -181,6 +181,7 @@
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ewayBilltextEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tcsAmtTextEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tcsPerTextEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.costLookUpEdi.Properties)).BeginInit();
@@ -253,7 +254,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.tcsAmountlayoutControlItem)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ewayBilltextEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem15)).BeginInit();
             this.SuspendLayout();
             // 
@@ -346,6 +346,20 @@
             this.layoutControl1.TabIndex = 0;
             this.layoutControl1.TabStop = false;
             this.layoutControl1.Text = "layoutControl1";
+            // 
+            // ewayBilltextEdit1
+            // 
+            this.ewayBilltextEdit1.EnterMoveNextControl = true;
+            this.ewayBilltextEdit1.Location = new System.Drawing.Point(96, 306);
+            this.ewayBilltextEdit1.Name = "ewayBilltextEdit1";
+            this.ewayBilltextEdit1.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ewayBilltextEdit1.Properties.Appearance.Options.UseFont = true;
+            this.ewayBilltextEdit1.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.ewayBilltextEdit1.Properties.AppearanceFocused.Options.UseBorderColor = true;
+            this.ewayBilltextEdit1.Properties.MaxLength = 50;
+            this.ewayBilltextEdit1.Size = new System.Drawing.Size(425, 24);
+            this.ewayBilltextEdit1.StyleController = this.layoutControl1;
+            this.ewayBilltextEdit1.TabIndex = 25;
             // 
             // tcsAmtTextEdit
             // 
@@ -2021,6 +2035,17 @@
             this.layoutControlItem7.Text = "Lr No:";
             this.layoutControlItem7.TextSize = new System.Drawing.Size(88, 17);
             // 
+            // layoutControlItem15
+            // 
+            this.layoutControlItem15.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.layoutControlItem15.AppearanceItemCaption.Options.UseFont = true;
+            this.layoutControlItem15.Control = this.ewayBilltextEdit1;
+            this.layoutControlItem15.Location = new System.Drawing.Point(0, 301);
+            this.layoutControlItem15.Name = "layoutControlItem15";
+            this.layoutControlItem15.Size = new System.Drawing.Size(520, 28);
+            this.layoutControlItem15.Text = "EWB No:";
+            this.layoutControlItem15.TextSize = new System.Drawing.Size(88, 17);
+            // 
             // paidLabel
             // 
             this.paidLabel.AutoSize = true;
@@ -2073,31 +2098,6 @@
             this.barcodeSimpleButton.TabStop = false;
             this.barcodeSimpleButton.Text = "New Barcode";
             // 
-            // ewayBilltextEdit1
-            // 
-            this.ewayBilltextEdit1.EnterMoveNextControl = true;
-            this.ewayBilltextEdit1.Location = new System.Drawing.Point(96, 306);
-            this.ewayBilltextEdit1.Name = "ewayBilltextEdit1";
-            this.ewayBilltextEdit1.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ewayBilltextEdit1.Properties.Appearance.Options.UseFont = true;
-            this.ewayBilltextEdit1.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.ewayBilltextEdit1.Properties.AppearanceFocused.Options.UseBorderColor = true;
-            this.ewayBilltextEdit1.Properties.MaxLength = 50;
-            this.ewayBilltextEdit1.Size = new System.Drawing.Size(425, 24);
-            this.ewayBilltextEdit1.StyleController = this.layoutControl1;
-            this.ewayBilltextEdit1.TabIndex = 25;
-            // 
-            // layoutControlItem15
-            // 
-            this.layoutControlItem15.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.layoutControlItem15.AppearanceItemCaption.Options.UseFont = true;
-            this.layoutControlItem15.Control = this.ewayBilltextEdit1;
-            this.layoutControlItem15.Location = new System.Drawing.Point(0, 301);
-            this.layoutControlItem15.Name = "layoutControlItem15";
-            this.layoutControlItem15.Size = new System.Drawing.Size(520, 28);
-            this.layoutControlItem15.Text = "EWB No:";
-            this.layoutControlItem15.TextSize = new System.Drawing.Size(88, 17);
-            // 
             // PurchaseIndex
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2106,7 +2106,7 @@
             this.KontoLayout = this.layoutControl1;
             this.KontoMainView = this.gridView1;
             this.Name = "PurchaseIndex";
-            this.SettingCategroy = "Pos_PurchaseBill";
+            this.SettingCategroy = "PurchaseBill";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Pos Purchase Voucher";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
@@ -2119,6 +2119,7 @@
             this.panelControl1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.ewayBilltextEdit1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tcsAmtTextEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tcsPerTextEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.costLookUpEdi.Properties)).EndInit();
@@ -2191,7 +2192,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.tcsAmountlayoutControlItem)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ewayBilltextEdit1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem15)).EndInit();
             this.ResumeLayout(false);
 

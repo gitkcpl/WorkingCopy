@@ -2,7 +2,7 @@
 EXEC ('CREATE PROC [dbo].[OutstandingReport] AS SELECT 1 AS Id') 
 GO
 
-ALTER PROCEDURE dbo.OutstandingReport
+ALTER PROCEDURE [dbo].[OutstandingReport]
  	@CompanyId INT = 1,
 	@YearId INT = 1,
 	@fromdate INT = 20180401 ,
@@ -54,7 +54,7 @@ BEGIN
 	CAST(br.GrossAmt  as numeric(18,2)) AS GrossAmt,
 --CAST(br.BillAmt  as numeric(18,2)) AS BillAmt,
 	CASE WHEN br.RefType = 'Debit' THEN CAST(br.BillAmt  as numeric(18,2)) ELSE -1*CAST(br.BillAmt  as numeric(18,2)) END AS BillAmt ,
-	CAST(ISNULL(adj.Pay,0)  as numeric(18,2)) + ISNULL(br.AdjustAmt,0) AS AdjustAmt, 
+	CAST(ISNULL(adj.Pay,0)  as numeric(18,2))+ISNULL(selfAdj.SelfPay,0) + ISNULL(br.AdjustAmt,0) AS AdjustAmt, 
 	CAST(ISNULL(adj.Rg,0) as numeric(18,2)) + ISNULL(br.RetAmt,0) AS ReturnAmt, 
 	CAST(ISNULL(br.TdsAmt,0) as numeric(18,2)) AS TdsAmt, 
 	CAST(ISNULL(br.TcsAmt,0) as numeric(18,2)) AS TcsAmt, 
@@ -66,7 +66,7 @@ BEGIN
     ELSE CAST(CAST(br.BillAmt - ISNULL(adj.Pay,0) - ISNULL(Selfadj.SelfPay,0)  - ISNULL(adj.Rg,0) -ISNULL(br.TdsAmt,0)  - ISNULL(br.RetAmt,0) - ISNULL(br.AdjustAmt,0) AS NUMERIC(18,2)) -ISNULL(bp.rcpt,0) AS VARCHAR(25))  + ' Cr' END Pending,                   
 
 	ISNULL(selfAdj.SelfPay, 0) SelfPay,
-	 DATEDIFF(D, CONVERT(DATETIME2, CONVERT(VARCHAR(8), bm.VoucherDate)), GETDATE()) AS Days, 
+	 DATEDIFF(D,  DATEADD(D, ac.CrDays, CONVERT(DATETIME2, CONVERT(VARCHAR(8), bm.VoucherDate))), GETDATE()) AS Days, 
 	  DATEADD(D, ac.CrDays, CONVERT(DATETIME2, CONVERT(VARCHAR(8), bm.VoucherDate))) AS DueDate, CASE when acb.Bal <0 THEN STR(-1*acb.bal) + ' cr' ELSE STR(acb.bal) + ' Dr' END Bal,
 	  br.BillId Id, vc.VTypeId,br.RefType
 	FROM dbo.BillRef br
@@ -82,7 +82,7 @@ BEGIN
 	LEFT JOIN dbo.Acc ag ON ag.Id = ac.AgentId
 	--LEFT OUTER JOIN dbo.Acc agb ON agb.Id = bm.AgentId
 	LEFT JOIN dbo.Company co ON co.Id = br.CompanyId
-	LEFT JOIN (SELECT SUM(CASE WHEN b.TransType = 'Payment' THEN b.Amount + ISNULL(b.Adla1,0) + 
+	LEFT JOIN (SELECT SUM(CASE WHEN b.TransType IN ('Payment','SInvoice','PInvoice')  THEN b.Amount + ISNULL(b.Adla1,0) + 
 	ISNULL(b.Adla2,0) + ISNULL(b.Adla3,0) + ISNULL(b.Adla4,0) + ISNULL(b.Adla5,0) +
 	ISNULL(b.Adla6,0) + ISNULL(b.Adla7,0) + ISNULL(b.Adla8,0) + ISNULL(b.Adla9,0) + ISNULL(b.Adla10,0) ELSE 0 END) Pay, 
 	SUM(CASE WHEN b.TransType = 'Return' THEN b.Amount ELSE 0 END) Rg,b.RefCode	FROM dbo.BtoB b
@@ -118,10 +118,10 @@ LEFT OUTER JOIN (SELECT bp.BillId,SUM(bp.Pay1Amt + bp.DiscAmt - bp.ChangeAmt+bp.
 	      --AND ( @paid = 'PAID'
        --               OR ( CAST(br.BillAmt - ISNULL(adj.Pay,0) - ISNULL(Selfadj.SelfPay,0) - ISNULL(adj.Rg,0) -ISNULL(br.TdsAmt,0) + ISNULL(br.TcsAmt,0) - ISNULL(br.RetAmt,0) - ISNULL(br.AdjustAmt,0) AS NUMERIC(18,2)) <> 0 )
        --             )
+	    AND  ISNULL(acg.Extra1,'N')=@nature
 
 	     AND ( (@paid = 'PAID' AND 
-	      ((@nature='R' AND br.RefType='DEBIT') OR(@nature='P' AND br.RefType='CREDIT'))
-	      AND  
+	     
 	       ( CAST(ABS(br.BillAmt) - ISNULL(adj.Pay,0) - ISNULL(Selfadj.SelfPay,0) -
 	        ISNULL(adj.Rg,0) -ISNULL(br.TdsAmt,0)  - 
 	        ISNULL(br.RetAmt,0) - ISNULL(br.AdjustAmt,0)-ISNULL(bp.rcpt,0) AS NUMERIC(18,2)) = 0 ))
@@ -204,4 +204,5 @@ LEFT OUTER JOIN (SELECT bp.BillId,SUM(bp.Pay1Amt + bp.DiscAmt - bp.ChangeAmt+bp.
 	ORDER BY ac.AccName, br.VoucherDate
 
 END
+
 GO

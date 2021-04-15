@@ -25,6 +25,7 @@ namespace Konto.App.Shared.Para
         public static bool OtherLess_Required = true;
         public static bool Cess_Required = false;
         public static bool Generate_Barcode = false;
+        public static bool Lock_Move_Next = true;
         
     }
 }

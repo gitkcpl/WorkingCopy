@@ -95,7 +95,8 @@ namespace Konto.Shared.Masters.Item
                                   ModifyUser = pd.ModifyUser,
                                   SerialReq = pd.SerialReq, SaleRateTaxInc= pd.SaleRateTaxInc,
                                   CostPrice= pd.ActualCost,Mrp= pr.Mrp,Rate1= pr.Rate1,Rate2=pr.Rate2,
-                                  ColorName= cl1.ColorName,PcsPerPack = pd.AccId != null ? (int)pd.AccId : 0
+                                  ColorName= cl1.ColorName,PcsPerPack = pd.AccId != null ? (int)pd.AccId : 0,
+                                  StyleNo = pr.BatchNo
                               }
                 ).ToList();
 

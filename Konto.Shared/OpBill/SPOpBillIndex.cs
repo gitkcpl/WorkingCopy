@@ -431,7 +431,7 @@ namespace Konto.Shared.OpBill
                         }
                         db.SaveChanges();
                        
-                        UpdateOpeningBalance(db,model);
+                       // UpdateOpeningBalance(db,model);
 
                         _tran.Commit();
                         IsSaved = true;

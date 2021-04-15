@@ -279,6 +279,17 @@ namespace Konto.Shared.Masters.Comp
                 buttonEdit1.Text = string.Empty;
                 pictureEdit1.Image = null;
             }
+
+            if (!string.IsNullOrEmpty(model.Extra1))
+            {
+                pictureEdit2.Image = Image.FromFile(model.Extra1);
+                buttonEdit2.Text = model.Extra1;
+            }
+            else
+            {
+                buttonEdit2.Text = string.Empty;
+                pictureEdit2.Image = null;
+            }
         }
 
         public override void FirstRec()
@@ -385,12 +396,18 @@ namespace Konto.Shared.Masters.Comp
             model.GstInUserId = gstinUserIdText.Text;
             model.EwayBillUserId = ewayBillUserIdText.Text;
             model.EwayBillPassword = ewayBillPasswordText.Text;
-
+            
 
             if (pictureEdit1.EditValue != null)
                 model.LogoPath = buttonEdit1.Text;
             else
                 model.LogoPath = null;
+
+            if (pictureEdit2.EditValue != null)
+                model.Extra1 = buttonEdit2.Text;
+            else
+                model.Extra1 = null;
+
 
             using (var db = new KontoContext())
             {
@@ -562,6 +579,17 @@ namespace Konto.Shared.Masters.Comp
             {
                 buttonEdit1.Text = dlg.FileName;
                 pictureEdit1.Image = Image.FromFile(dlg.FileName);
+            }
+        }
+
+        private void buttonEdit2_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
+        {
+            var dlg = new OpenFileDialog();
+            //Open the Pop-Up Window to select the file 
+            if (dlg.ShowDialog() == DialogResult.OK)
+            {
+                buttonEdit2.Text = dlg.FileName;
+                pictureEdit2.Image = Image.FromFile(dlg.FileName);
             }
         }
     }

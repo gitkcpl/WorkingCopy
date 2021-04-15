@@ -333,6 +333,11 @@ namespace Konto.Shared.Trans.GRN
                                 GRNPara.Generate_Barcode = (value == "Y") ? true : false;
                                 break;
                             }
+                        case 302:
+                            {
+                                GRNPara.Lock_Move_Next = (value == "Y") ? true : false;
+                                break;
+                            }
                     }
                 }
             }
@@ -354,6 +359,7 @@ namespace Konto.Shared.Trans.GRN
                 var model = frm.SelectedItem as ProductLookupDto;
                 er.UomId = model.PurUomId;
                 er.Rate = model.DealerPrice;
+                er.Disc = model.PurDisc;
                 if (accLookup1.LookupDto.IsGst)
                 {
                     er.SgstPer = model.Sgst;
@@ -642,20 +648,24 @@ namespace Konto.Shared.Trans.GRN
 
                 this.grnTransDtoBindingSource1.DataSource = _list;
 
-            if (DbUtils.CheckExistinBill(model.Id, model.VoucherId, _context))
-            {
-                okSimpleButton.Enabled = false;
-                this.UpdateMessage("Edit Restricted! Invoice has Reference");
-               
-            }
-            if (DbUtils.CheckExistinChallan(model.Id, model.VoucherId, _context))
-            {
-                okSimpleButton.Enabled = false;
-                this.UpdateMessage("Edit Restricted! Issue has Reference");
-
-            }
             
 
+
+            if (GRNPara.Lock_Move_Next)
+            {
+
+                if (DbUtils.CheckExistinBill(model.Id, model.VoucherId, _context))
+                {
+                    okSimpleButton.Enabled = false;
+                    this.UpdateMessage("Edit Restricted! Invoice has Reference");
+                }
+
+                if (DbUtils.CheckExistinChallan(model.Id, model.VoucherId, _context))
+                {
+                    okSimpleButton.Enabled = false;
+                    this.UpdateMessage("Edit Restricted! Issue has Reference");
+                }
+            }
             
 
             this.Text = "Grn (Inward) [View/Modify]";
@@ -838,7 +848,11 @@ namespace Konto.Shared.Trans.GRN
             
             var rw = gridView1.GetRow(e.RowHandle) as GrnTransDto;
             rw.Id = -1 * gridView1.RowCount;
-            rw.LotNo = voucherNoTextEdit.Text.Substring(4, voucherNoTextEdit.Text.Length - 4);
+            if (this.PrimaryKey==0)
+                rw.LotNo = voucherNoTextEdit.Text.Substring(4, voucherNoTextEdit.Text.Length - 4);
+            else
+                rw.LotNo = voucherNoTextEdit.Text;
+
             if(rw.RefId == null && gridView1.RowCount > 1)
             {
                 var prw = gridView1.GetRow(gridView1.RowCount - 2) as GrnTransDto;
@@ -1140,6 +1154,12 @@ namespace Konto.Shared.Trans.GRN
                 colCgstAmt.Visible = false;
                 colIgst.Visible = true;
                 colIgstAmt.Visible = true;
+            }
+
+            if (this.PrimaryKey == 0 && accLookup1.LookupDto.AgentId != null)
+            {
+                agentLookup.SetAcc((int)accLookup1.LookupDto.AgentId);
+                agentLookup.SelectedValue = accLookup1.LookupDto.AgentId;
             }
         }
 

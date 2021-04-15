@@ -2577,7 +2577,7 @@ namespace Konto.Pos.Purchase
 
                 model.ProductName = pos.ProductName;
                 model.ProductDesc = pos.Description;
-
+                model.VendorId = Convert.ToInt32(accLookup1.SelectedValue);
 
                 model.GroupId = pos.GroupId;
                 model.SubGroupId = pos.SubGroupId;

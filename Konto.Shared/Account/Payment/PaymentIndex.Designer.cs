@@ -35,6 +35,7 @@
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.colBalance = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colParticular = new DevExpress.XtraGrid.Columns.GridColumn();
             this.accRepositoryItemButtonEdit = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
             this.colNetTotal = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -73,6 +74,7 @@
             this.jobBookLayoutControlItem = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.simpleLabelItem1 = new DevExpress.XtraLayout.SimpleLabelItem();
             this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.billAdjustSimpleButton = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.tabControlAdv1)).BeginInit();
@@ -109,6 +111,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.jobBookLayoutControlItem)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -182,9 +185,10 @@
             this.bookLookup.GroupId = 0;
             this.bookLookup.Location = new System.Drawing.Point(105, 33);
             this.bookLookup.LookupDto = null;
+            this.bookLookup.LookupTitle = null;
             this.bookLookup.Name = "bookLookup";
             this.bookLookup.Nature = "";
-            this.bookLookup.NewGroupId = 0;
+            this.bookLookup.NewGroupId = Konto.App.Shared.LedgerGroupEnum.NONE;
             this.bookLookup.PrimaryKey = null;
             this.bookLookup.RequiredField = true;
             this.bookLookup.SelectedText = null;
@@ -258,6 +262,7 @@
             this.gridView1.Appearance.Row.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.gridView1.Appearance.Row.Options.UseFont = true;
             this.gridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.colBalance,
             this.colParticular,
             this.colNetTotal,
             this.colRpType,
@@ -296,6 +301,20 @@
             this.gridView1.PreviewFieldName = "Remark";
             this.gridView1.RowHeight = 30;
             // 
+            // colBalance
+            // 
+            this.colBalance.AppearanceCell.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(22)))), ((int)(((byte)(91)))));
+            this.colBalance.AppearanceCell.Options.UseForeColor = true;
+            this.colBalance.AppearanceCell.Options.UseTextOptions = true;
+            this.colBalance.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
+            this.colBalance.FieldName = "Balance";
+            this.colBalance.Name = "colBalance";
+            this.colBalance.OptionsColumn.AllowEdit = false;
+            this.colBalance.OptionsColumn.AllowFocus = false;
+            this.colBalance.Visible = true;
+            this.colBalance.VisibleIndex = 1;
+            this.colBalance.Width = 91;
+            // 
             // colParticular
             // 
             this.colParticular.ColumnEdit = this.accRepositoryItemButtonEdit;
@@ -323,7 +342,7 @@
             this.colNetTotal.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "NetTotal", "{0:F}")});
             this.colNetTotal.Visible = true;
-            this.colNetTotal.VisibleIndex = 1;
+            this.colNetTotal.VisibleIndex = 2;
             this.colNetTotal.Width = 98;
             // 
             // repositoryItemTextEdit1
@@ -340,7 +359,7 @@
             this.colRpType.FieldName = "RpType";
             this.colRpType.Name = "colRpType";
             this.colRpType.Visible = true;
-            this.colRpType.VisibleIndex = 2;
+            this.colRpType.VisibleIndex = 3;
             this.colRpType.Width = 102;
             // 
             // payTypeRepositoryItemLookUpEdit
@@ -366,7 +385,7 @@
             this.colRemark.FieldName = "Remark";
             this.colRemark.Name = "colRemark";
             this.colRemark.Visible = true;
-            this.colRemark.VisibleIndex = 4;
+            this.colRemark.VisibleIndex = 5;
             this.colRemark.Width = 208;
             // 
             // colChequeNo
@@ -375,7 +394,7 @@
             this.colChequeNo.FieldName = "ChequeNo";
             this.colChequeNo.Name = "colChequeNo";
             this.colChequeNo.Visible = true;
-            this.colChequeNo.VisibleIndex = 3;
+            this.colChequeNo.VisibleIndex = 4;
             this.colChequeNo.Width = 117;
             // 
             // colRefBank
@@ -384,7 +403,7 @@
             this.colRefBank.FieldName = "RefBank";
             this.colRefBank.Name = "colRefBank";
             this.colRefBank.Visible = true;
-            this.colRefBank.VisibleIndex = 5;
+            this.colRefBank.VisibleIndex = 6;
             this.colRefBank.Width = 287;
             // 
             // refBankRepositoryItemButtonEdit
@@ -473,6 +492,7 @@
             // empLookup1
             // 
             this.empLookup1.Location = new System.Drawing.Point(306, 89);
+            this.empLookup1.LookupTitle = null;
             this.empLookup1.Name = "empLookup1";
             this.empLookup1.PrimaryKey = null;
             this.empLookup1.RequiredField = true;
@@ -546,6 +566,7 @@
             // 
             this.voucherLookup1.GroupDto = null;
             this.voucherLookup1.Location = new System.Drawing.Point(105, 5);
+            this.voucherLookup1.LookupTitle = null;
             this.voucherLookup1.Name = "voucherLookup1";
             this.voucherLookup1.PrimaryKey = null;
             this.voucherLookup1.RequiredField = true;
@@ -603,6 +624,7 @@
             this.jobBookLayoutControlItem,
             this.layoutControlItem6,
             this.layoutControlItem3,
+            this.simpleLabelItem1,
             this.emptySpaceItem1});
             this.Root.Name = "Root";
             this.Root.Padding = new DevExpress.XtraLayout.Utils.Padding(3, 3, 3, 3);
@@ -682,12 +704,25 @@
             this.layoutControlItem3.Text = "Voucher No:";
             this.layoutControlItem3.TextSize = new System.Drawing.Size(97, 17);
             // 
+            // simpleLabelItem1
+            // 
+            this.simpleLabelItem1.AllowHotTrack = false;
+            this.simpleLabelItem1.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.simpleLabelItem1.AppearanceItemCaption.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(22)))), ((int)(((byte)(91)))));
+            this.simpleLabelItem1.AppearanceItemCaption.Options.UseFont = true;
+            this.simpleLabelItem1.AppearanceItemCaption.Options.UseForeColor = true;
+            this.simpleLabelItem1.Location = new System.Drawing.Point(690, 28);
+            this.simpleLabelItem1.Name = "simpleLabelItem1";
+            this.simpleLabelItem1.Size = new System.Drawing.Size(208, 24);
+            this.simpleLabelItem1.Text = "0.00";
+            this.simpleLabelItem1.TextSize = new System.Drawing.Size(97, 17);
+            // 
             // emptySpaceItem1
             // 
             this.emptySpaceItem1.AllowHotTrack = false;
-            this.emptySpaceItem1.Location = new System.Drawing.Point(690, 28);
+            this.emptySpaceItem1.Location = new System.Drawing.Point(898, 28);
             this.emptySpaceItem1.Name = "emptySpaceItem1";
-            this.emptySpaceItem1.Size = new System.Drawing.Size(248, 24);
+            this.emptySpaceItem1.Size = new System.Drawing.Size(40, 24);
             this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
             // 
             // billAdjustSimpleButton
@@ -747,6 +782,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.jobBookLayoutControlItem)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
             this.ResumeLayout(false);
 
@@ -783,7 +819,6 @@
         private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit repositoryItemTextEdit1;
         private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit challanNoRrepositoryItemButtonEdit;
         private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit payTypeRepositoryItemLookUpEdit;
-        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem1;
         private System.Windows.Forms.BindingSource bindingSource1;
         private DevExpress.XtraGrid.Columns.GridColumn colParticular;
         private DevExpress.XtraGrid.Columns.GridColumn colNetTotal;
@@ -800,5 +835,8 @@
         private DevExpress.XtraGrid.Columns.GridColumn colTotal;
         private DevExpress.XtraGrid.Columns.GridColumn colTdsAmt;
         private DevExpress.XtraGrid.Columns.GridColumn colTdsAcId;
+        private DevExpress.XtraGrid.Columns.GridColumn colBalance;
+        private DevExpress.XtraLayout.SimpleLabelItem simpleLabelItem1;
+        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem1;
     }
 }

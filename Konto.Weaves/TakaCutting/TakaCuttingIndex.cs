@@ -591,6 +591,7 @@ namespace Konto.Weaves.TakaCutting
                                 pmodel.CProductId = _find.ProductId;
                                 pmodel.ProductId = _find.ProductId;
                                 pmodel.ColorId = item.ColorId;
+                                pmodel.Remark = _find.Remark;
                                 pmodel.ModifyUser = KontoGlobals.UserName;
                                 pmodel.ModifyDate = DateTime.Now;
                             }

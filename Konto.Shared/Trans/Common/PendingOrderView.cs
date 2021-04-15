@@ -52,7 +52,13 @@ namespace Konto.Shared.Trans.Common
         {
             try
             {
-                using(var db = new KontoContext())
+                int compid = 0;
+                if (SysParameter.Common_Order)
+                    compid = 0;
+                else
+                    compid = KontoGlobals.CompanyId;
+
+                using (var db = new KontoContext())
                 {
                     var spcol = db.SpCollections.FirstOrDefault(k => k.Id ==
                       (int)SpCollectionEnum.PendingOrderonChallan);
@@ -61,13 +67,13 @@ namespace Konto.Shared.Trans.Common
                     {
                         listDtos = db.Database.SqlQuery<PendingOrderDto>(
                             "dbo.PendingOrderonChallan @CompanyId={0},@AccountId={1},@VoucherTypeID={2}",
-                      KontoGlobals.CompanyId, this.AccId,this.VoucherType).ToList();
+                      compid, this.AccId,this.VoucherType).ToList();
                     }
                     else
                     {
                         listDtos = db.Database.SqlQuery<PendingOrderDto>(
                          spcol.Name + " @CompanyId={0},@AccountId={1},@VoucherTypeID={2}",
-                         KontoGlobals.CompanyId, this.AccId, this.VoucherType).ToList();
+                         compid, this.AccId, this.VoucherType).ToList();
                     }
                     if(listDtos.Count == 0)
                     {

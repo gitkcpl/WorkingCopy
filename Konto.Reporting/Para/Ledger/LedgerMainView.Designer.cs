@@ -46,6 +46,7 @@
             this.colBillNo = new Konto.Core.Shared.Libs.CustomGridColumn();
             this.colVoucher = new Konto.Core.Shared.Libs.CustomGridColumn();
             this.colParticular1 = new Konto.Core.Shared.Libs.CustomGridColumn();
+            this.repositoryItemMemoEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemMemoEdit();
             this.colDebitAmt1 = new Konto.Core.Shared.Libs.CustomGridColumn();
             this.colCreditAmt1 = new Konto.Core.Shared.Libs.CustomGridColumn();
             this.colBalanceAmt1 = new Konto.Core.Shared.Libs.CustomGridColumn();
@@ -129,6 +130,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.detailsGridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ledgertransDtoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemMemoEdit1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ledgerMonthlyDtoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.monthlyGridView)).BeginInit();
@@ -297,6 +299,8 @@
             this.detailsGridControl1.LookAndFeel.UseDefaultLookAndFeel = false;
             this.detailsGridControl1.MainView = this.gridView1;
             this.detailsGridControl1.Name = "detailsGridControl1";
+            this.detailsGridControl1.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
+            this.repositoryItemMemoEdit1});
             this.detailsGridControl1.Size = new System.Drawing.Size(824, 99);
             this.detailsGridControl1.TabIndex = 7;
             this.detailsGridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
@@ -382,8 +386,8 @@
             this.gridView1.Name = "gridView1";
             this.gridView1.OptionsBehavior.AllowFixedGroups = DevExpress.Utils.DefaultBoolean.True;
             this.gridView1.OptionsBehavior.AllowIncrementalSearch = true;
-            this.gridView1.OptionsBehavior.Editable = false;
             this.gridView1.OptionsBehavior.FocusLeaveOnTab = true;
+            this.gridView1.OptionsBehavior.ReadOnly = true;
             this.gridView1.OptionsCustomization.AllowGroup = false;
             this.gridView1.OptionsCustomization.QuickCustomizationIcons.Image = null;
             this.gridView1.OptionsCustomization.QuickCustomizationIcons.TransperentColor = System.Drawing.Color.Empty;
@@ -396,10 +400,14 @@
             this.gridView1.OptionsSelection.CheckBoxSelectorField = "Audit";
             this.gridView1.OptionsSelection.MultiSelect = true;
             this.gridView1.OptionsSelection.MultiSelectMode = DevExpress.XtraGrid.Views.Grid.GridMultiSelectMode.CheckBoxRowSelect;
+            this.gridView1.OptionsView.AutoCalcPreviewLineCount = true;
             this.gridView1.OptionsView.ColumnAutoWidth = false;
             this.gridView1.OptionsView.GroupFooterShowMode = DevExpress.XtraGrid.Views.Grid.GroupFooterShowMode.VisibleAlways;
+            this.gridView1.OptionsView.RowAutoHeight = true;
             this.gridView1.OptionsView.ShowFooter = true;
             this.gridView1.OptionsView.ShowGroupPanel = false;
+            this.gridView1.OptionsView.ShowPreview = true;
+            this.gridView1.PreviewFieldName = "Remarks";
             this.gridView1.SortInfo.AddRange(new DevExpress.XtraGrid.Columns.GridColumnSortInfo[] {
             new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.colAccountName, DevExpress.Data.ColumnSortOrder.Ascending)});
             // 
@@ -437,11 +445,16 @@
             // 
             // colParticular1
             // 
+            this.colParticular1.ColumnEdit = this.repositoryItemMemoEdit1;
             this.colParticular1.FieldName = "Particular";
             this.colParticular1.Name = "colParticular1";
             this.colParticular1.Visible = true;
             this.colParticular1.VisibleIndex = 4;
             this.colParticular1.Width = 193;
+            // 
+            // repositoryItemMemoEdit1
+            // 
+            this.repositoryItemMemoEdit1.Name = "repositoryItemMemoEdit1";
             // 
             // colDebitAmt1
             // 
@@ -1094,6 +1107,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.detailsGridControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ledgertransDtoBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemMemoEdit1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ledgerMonthlyDtoBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.monthlyGridView)).EndInit();
@@ -1208,5 +1222,6 @@
         public Core.Shared.Libs.CustomGridControl itemCustomGridControl;
         public Core.Shared.Libs.CustomGridView itemCustomGridView;
         private DevExpress.XtraLayout.LayoutControlItem itemLayoutControlItem;
+        private DevExpress.XtraEditors.Repository.RepositoryItemMemoEdit repositoryItemMemoEdit1;
     }
 }

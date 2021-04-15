@@ -46,5 +46,9 @@ namespace Konto.Data.Models.Masters.Dtos
         public decimal SaleDisc { get; set; }
        public  string SizeName { get; set; }
         public decimal RatePerQty { get; set; }
+        public decimal Mrp { get; set; }
+
+        public decimal Rate1 { get; set; }
+        public decimal Rate2 { get; set; }
     }
 }

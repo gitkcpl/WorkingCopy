@@ -116,7 +116,7 @@ namespace Konto.Shared.Trans.Common
                     this.GridLayoutFileName = KontoFileLayout.Stock_Finish_Item_Details;
 
                 int compid = 0;
-                if (this.CommonStock)
+                if (SysParameter.Common_Stock)
                     compid = 0;
                 else
                     compid = KontoGlobals.CompanyId;

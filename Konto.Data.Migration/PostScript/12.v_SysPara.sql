@@ -1235,6 +1235,28 @@ INSERT INTO dbo.SysPara(Id,Descr,DefaultValue,ValueDescr,Category)
 Values(297,'Party Wise Challan','Y','Y for Yes N for No','SaleInvoice')
 
 
+IF NOT EXISTS(SELECT 1 FROM dbo.SysPara WHERE Id=298) -- SaleInvoice
+INSERT INTO dbo.SysPara(Id,Descr,DefaultValue,ValueDescr,Category)
+Values(298,'Barcode Required','N','Y for Yes N for No','SaleInvoice')
+
+IF NOT EXISTS(SELECT 1 FROM dbo.SysPara WHERE Id=299) -- Purchase Invoice
+INSERT INTO dbo.SysPara(Id,Descr,DefaultValue,ValueDescr,Category)
+Values(299,'Barcode Required','N','Y for Yes N for No','PurchaseBill')
+
+IF NOT EXISTS(SELECT 1 FROM dbo.SysPara WHERE Id=300) -- Sales Return
+INSERT INTO dbo.SysPara(Id,Descr,DefaultValue,ValueDescr,Category)
+Values(300,'Barcode Required','N','Y for Yes N for No','SaleRet')
+
+IF NOT EXISTS(SELECT 1 FROM dbo.SysPara WHERE Id=301) -- Purchase Return
+INSERT INTO dbo.SysPara(Id,Descr,DefaultValue,ValueDescr,Category)
+Values(301,'Barcode Required','N','Y for Yes N for No','PurchaseRet')
+
+IF NOT EXISTS(SELECT 1 FROM dbo.SysPara WHERE Id=302) -- Grn/Inward
+INSERT INTO dbo.SysPara(Id,Descr,DefaultValue,ValueDescr,Category)
+Values(302,'Lock If Move Next','Y','Y for Yes N for No','GRN')
+
+
+
 -- for system level
 IF NOT EXISTS(SELECT 1 FROM dbo.SysPara WHERE Id=500) 
 INSERT INTO dbo.SysPara(Id,Descr,DefaultValue,ValueDescr,Category)
@@ -1256,6 +1278,15 @@ Values(503,'Gsp Name Production','TaxPro_Production','Gsp Name','sys')
 IF NOT EXISTS(SELECT 1 FROM dbo.SysPara WHERE Id=504) 
 INSERT INTO dbo.SysPara(Id,Descr,DefaultValue,ValueDescr,Category)
 Values(504,'Api Base Url','https://einvapi.charteredinfo.com','Api Base Url','sys')
+
+
+IF NOT EXISTS(SELECT 1 FROM dbo.SysPara WHERE Id=505) 
+INSERT INTO dbo.SysPara(Id,Descr,DefaultValue,ValueDescr,Category)
+Values(505,'Common Order For All Company','N','Y For Yes/N For No','sys')
+
+IF NOT EXISTS(SELECT 1 FROM dbo.SysPara WHERE Id=506) 
+INSERT INTO dbo.SysPara(Id,Descr,DefaultValue,ValueDescr,Category)
+Values(506,'Common Stock For All Company','N','Y For Yes/N For No','sys')
 
 
 --IF NOT EXISTS(SELECT 1 FROM dbo.SysPara WHERE Id=505) 

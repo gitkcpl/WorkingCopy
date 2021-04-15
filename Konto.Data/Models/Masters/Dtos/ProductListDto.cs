@@ -45,6 +45,8 @@ namespace Konto.Data.Models.Masters.Dtos
         public string   Size { get; set; }
 
         public bool SaleRateTaxInc { get; set; }
+        public string StyleNo { get; set; }
+        
 
     }
 }

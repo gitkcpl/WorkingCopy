@@ -405,7 +405,7 @@ namespace Konto.Shared.Trans.SInvoice
                                 if (stockReq.SerialReq == "Yes" && stockReq.PTypeId == (int)ProductTypeEnum.FINISH)
                                 {
                                     if (string.IsNullOrEmpty(item.LotNo)) continue;
-                                    var sr = db.ItemSerials.Find(item.LotNo);
+                                    var sr = db.ItemSerials.SingleOrDefault(x=>x.SerialNo == item.LotNo);
                                     if (sr != null)
                                     {
                                         sr.IsActive = true; // remove stock of serials

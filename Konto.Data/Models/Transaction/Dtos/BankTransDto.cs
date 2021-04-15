@@ -37,5 +37,7 @@ namespace Konto.Data.Models.Transaction.Dtos
         public int TdsAcId { get; set; }
         public decimal TdsAmt { get; set; }
         public decimal TdsPer { get; set; }
+
+        public string Balance { get; set; }
     }
 }

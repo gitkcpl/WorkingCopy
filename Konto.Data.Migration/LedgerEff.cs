@@ -3382,7 +3382,7 @@ namespace Konto.Data
 
         ///////////////////////////Ledger effect of Jv entry
         public static void LedgerTransEntryJv(string user, BillModel model, KontoContext db,
-            List<BillTransModel> trans)
+            List<BillTransModel> trans, List<BankTransDto> jvs =null )
         {
             var st = db.Ledgers.Where(k => k.RefId == model.RowId && k.IsActive && k.IsDeleted == false).ToList();
             if (st.Count > 0) //Delete from LedgerTrans if exist
@@ -3398,11 +3398,56 @@ namespace Konto.Data
 
             List<LedgerTransModel> list = new List<LedgerTransModel>();
 
+           
+
+
             LedgerTransModel ledger;
             if (trans.Count > 2)
             {
+
+
                 foreach (var tr in trans)
                 {
+                    string remks = string.Empty;
+                    var jvss = new List<BankTransDto>();
+
+                    if (tr.Total > 0)
+                    {
+                        jvss = jvs.Where(x => x.ToAccId != tr.ToAccId && x.NetTotal > 0).ToList();
+
+                        foreach (var jv in jvss)
+                        {
+                            remks = remks + jv.Particular + " " + jv.NetTotal.ToString("F") + " Dr" + ", ";
+                        }
+
+                        jvss = jvs.Where(x => x.ToAccId != tr.ToAccId && x.Total > 0).ToList();
+
+                        foreach (var jv in jvss)
+                        {
+                            remks = remks + jv.Particular + " " + jv.Total.ToString("F") + " Cr" + ", ";
+                        }
+
+                    }
+
+                    if(tr.NetTotal >0 )
+                    {
+                        
+
+                        jvss = jvs.Where(x => x.ToAccId != tr.ToAccId && x.Total > 0).ToList();
+
+                        foreach (var jv in jvss)
+                        {
+                            remks = remks + jv.Particular + " " + jv.Total.ToString("F") + " Cr" + ", ";
+                        }
+
+                        jvss = jvs.Where(x => x.ToAccId != tr.ToAccId && x.NetTotal > 0).ToList();
+
+                        foreach (var jv in jvss)
+                        {
+                            remks = remks + jv.Particular + " " + jv.Total.ToString("F") + " Dr" + ", ";
+                        }
+                    }
+
 
                     if (tr.Total != 0)
                     {
@@ -3416,13 +3461,13 @@ namespace Konto.Data
                             VoucherNo = model.VoucherNo,
                             VoucherDate = model.VoucherDate,
                             TransDate = model.VDate,
-                            Remark = model.Remarks,
+                            Remark = remks,
                             Narration = tr.Remark,
                             LrNo = model.DocNo,
                             LrDate = model.DocDate,
                             CreateDate = DateTime.Now,
                             CreateUser = user,
-
+                            
                             AccountId = tr.ToAccId,
                             RefAccountId = 30,
                             Debit = 0,
@@ -3446,13 +3491,13 @@ namespace Konto.Data
                             VoucherNo = model.VoucherNo,
                             VoucherDate = model.VoucherDate,
                             TransDate = model.VDate,
-                            Remark = model.Remarks,
+                           
                             Narration = tr.Remark,
                             LrNo = model.DocNo,
                             LrDate = model.DocDate,
                             CreateDate = DateTime.Now,
                             CreateUser = user,
-
+                            Remark = remks,
                             AccountId = tr.ToAccId,
                             RefAccountId = 30,
                             Debit = Convert.ToDecimal(tr.NetTotal),

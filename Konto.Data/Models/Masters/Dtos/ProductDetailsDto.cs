@@ -21,9 +21,7 @@ namespace Konto.Data.Models.Masters.Dtos
         public string ColorName { get; set; }
         public string BrandName { get; set; }
 
-        public decimal Mrp { get; set; }
-        public decimal Rate1 { get; set; }
-        public decimal Rate2 { get; set; }
+        
         public decimal Qty { get; set; }
 
         public string StyleNo { get; set; }

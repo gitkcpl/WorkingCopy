@@ -265,7 +265,18 @@ namespace Konto.Shared.Trans.Po
                 er.Qty = er.NoOfLot * er.Cut;
 
 
-            er.Total = decimal.Round(er.Qty * er.Rate, 2, MidpointRounding.AwayFromZero);
+            var dr = uomRepositoryItemLookUpEdit.GetDataSourceRowByKeyValue(er.UomId) as UomLookupDto;
+
+            if (dr != null && dr.RateOn == "N" && er.Qty > 0)
+            {
+                er.Total = decimal.Round(er.LotPcs * er.Rate, 2, MidpointRounding.AwayFromZero);
+            }
+            else
+            {
+                er.Total = decimal.Round(er.Qty * er.Rate, 2, MidpointRounding.AwayFromZero);
+            }
+
+            //er.Total = decimal.Round(er.Qty * er.Rate, 2, MidpointRounding.AwayFromZero);
             if (er.Disc > 0)
                 er.DiscAmt = decimal.Round(er.Total * er.Disc / 100, 2, MidpointRounding.AwayFromZero);
             decimal gross = er.Total - er.DiscAmt;
@@ -394,6 +405,8 @@ namespace Konto.Shared.Trans.Po
                 var model = frm.SelectedItem as ProductLookupDto;
                 er.UomId = model.UomId;
                 er.Rate = model.DealerPrice;
+                er.Disc = model.PurDisc;
+
                 if (accLookup1.LookupDto.IsGst)
                 {
                     er.Sgst = model.Sgst;
@@ -882,6 +895,11 @@ namespace Konto.Shared.Trans.Po
                 colCgstAmt.Visible = false;
                 colIgst.Visible = true;
                 colIgstAmt.Visible = true;
+            }
+            if (this.PrimaryKey == 0 && accLookup1.LookupDto.AgentId != null)
+            {
+                agentLookup.SetAcc((int)accLookup1.LookupDto.AgentId);
+                agentLookup.SelectedValue = accLookup1.LookupDto.AgentId;
             }
         }
 

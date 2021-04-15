@@ -36,6 +36,7 @@ namespace Konto.App.Shared.Para
         public static bool HsnCode_Required = false;
         public static bool Use_OtherLess_As_RateDiff = false;
         public static bool Party_Wise_Challan = true;
+        public static bool Barcode_Required = false;
     }
     public static class PosPara
     {
@@ -82,6 +83,7 @@ namespace Konto.App.Shared.Para
         public static int Qty_Decimal = 2;
         public static bool Allow_Gst_Editable = false;
         public static bool HsnCode_Required = false;
+        public static bool Barcode_Required = false;
 
     }
 

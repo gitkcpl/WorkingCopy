@@ -11,6 +11,7 @@ using Konto.Core.Shared.Frms;
 using Konto.Core.Shared.Libs;
 using Konto.Data;
 using Konto.Data.Models.Masters;
+using Konto.Data.Models.Masters.Dtos;
 using Konto.Data.Models.Transaction;
 using Konto.Data.Models.Transaction.Dtos;
 using Konto.Shared.Account.Receipt;
@@ -42,6 +43,7 @@ namespace Konto.Shared.Account.Payment
         private int LastBookId;
         private int LastVoucherId;
         private DateTime LastVoucherDate = DateTime.Now;
+       
         public PaymentIndex()
         {
             InitializeComponent();
@@ -77,14 +79,38 @@ namespace Konto.Shared.Account.Payment
             gridView1.InvalidValueException += GridView1_InvalidValueException;
             billAdjustSimpleButton.Click += BillAdjustSimpleButton_Click;
             voucherLookup1.SelectedValueChanged += VoucherLookup1_SelectedValueChanged;
+            bookLookup.SelectedValueChanged += BookLookup_SelectedValueChanged;
 
             this.FirstActiveControl = voucherLookup1;
             this.Shown += PaymentIndex_Shown;
         }
 
+        private void BookLookup_SelectedValueChanged(object sender, EventArgs e)
+        {
+
+            if (bookLookup.LookupDto == null) return;
+            simpleLabelItem1.Text = bookLookup.LookupDto.Balance;
+
+        }
+
         private void PaymentIndex_Shown(object sender, EventArgs e)
         {
-            colRefBank.VisibleIndex = -1;
+            try
+            {
+                colRefBank.VisibleIndex = -1;
+                colBalance.VisibleIndex = 1;
+                colBalance.AppearanceCell.ForeColor = Color.FromArgb(227, 22, 91);
+                colBalance.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
+
+               
+                Root.AddItem(simpleLabelItem1, emptySpaceItem1,DevExpress.XtraLayout.Utils.InsertType.Left);
+            }
+            catch (Exception ex)
+            {
+
+                
+            }
+            
         }
 
         private void RefBankRepositoryItemButtonEdit_ButtonClick(object sender, ButtonPressedEventArgs e)
@@ -287,9 +313,13 @@ namespace Konto.Shared.Account.Payment
             frm.ShowDialog();
             if (frm.DialogResult == DialogResult.OK)
             {
+                var acc = frm.SelectedItem as AccLookupDto;
                 er.ToAccId = frm.SelectedValue;
                 er.Particular = frm.SelectedTex;
                 
+                if (acc != null)
+                    er.Balance = acc.Balance;
+
                 gridView1.FocusedColumn = gridView1.GetNearestCanFocusedColumn(gridView1.FocusedColumn);
             }
            
@@ -357,8 +387,9 @@ namespace Konto.Shared.Account.Payment
             voucherLookup1.SelectedValue = model.VoucherId;
             voucherLookup1.SetGroup(model.VoucherId);
 
-            bookLookup.SelectedValue = model.AccId;
             bookLookup.SetAcc(Convert.ToInt32(model.AccId));
+            bookLookup.SelectedValue = model.AccId;
+           
             voucherDateEdit.EditValue = KontoUtils.IToD(model.VoucherDate);
             voucherNoTextEdit.Text = model.VoucherNo;
 
@@ -395,9 +426,10 @@ namespace Konto.Shared.Account.Payment
                              from ac in joinAc.DefaultIfEmpty()
                              join rb in _context.RefBanks on bt.RefBankId equals rb.Id into joinRb
                              from rb in joinRb.DefaultIfEmpty()
+                             join acb in _context.AccBals on bt.ToAccId equals acb.AccId
                              orderby bt.Id
                              where bt.IsActive && bt.IsDeleted == false &&
-                             bt.BillId == model.Id
+                             bt.BillId == model.Id && acb.CompId == KontoGlobals.CompanyId & acb.YearId== KontoGlobals.YearId
                              select new BankTransDto
                              {
                                  BillId = bt.BillId,
@@ -413,7 +445,8 @@ namespace Konto.Shared.Account.Payment
                                 Total = bt.Total,
                                 TdsAcId = bt.TdsAcId,
                                 TdsPer = bt.TdsPer,
-                                TdsAmt = bt.TdsAmt
+                                TdsAmt = bt.TdsAmt,
+                                Balance = acb.Bal > 0 ? acb.Bal.ToString() + " Dr" : Math.Abs(acb.Bal).ToString() + " Cr"
                              }
                              ).ToList();
 
@@ -1058,7 +1091,7 @@ namespace Konto.Shared.Account.Payment
 
                             UpdateBtob(db, _find, transid, item);
                             
-                            DeleteDrCrIfExist(db, _find, item);
+                            //DeleteDrCrIfExist(db, _find, item);
                         }
                         
                         foreach (var item in DelBill)
@@ -1211,7 +1244,7 @@ namespace Konto.Shared.Account.Payment
                 b.RefVoucherId = model.VoucherId;
                 db.BtoBs.Add(b);
 
-                UpdateDrCrForAdjustAmount(db, model, item, b);
+               // UpdateDrCrForAdjustAmount(db, model, item, b);
             }
         }
         private bool UpdateBill(KontoContext db,BillModel model)

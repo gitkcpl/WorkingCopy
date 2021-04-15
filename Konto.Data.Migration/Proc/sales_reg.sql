@@ -164,8 +164,8 @@ FROM cte
     LEFT OUTER JOIN dbo.Acc ac
         ON ac.Id = bm.AccId
     LEFT OUTER JOIN dbo.AccBal acb
-        ON acb.AccId = ac.Id
-           AND acb.CompId = @companyid
+        ON acb.AccId = bm.AccId
+           AND acb.CompId = bm.CompId and acb.YearId= bm.YearId
     LEFT OUTER JOIN dbo.City pct
         ON pct.Id = acb.CityId
     LEFT OUTER JOIN dbo.Area pa

@@ -4,6 +4,7 @@ using DevExpress.XtraSplashScreen;
 using Konto.App.Shared;
 using Konto.Core.Shared;
 using Konto.Core.Shared.Frms;
+using Konto.Core.Shared.Libs;
 using Konto.Data;
 using Konto.Data.Models.Admin;
 using Konto.Data.Models.Reports;
@@ -199,9 +200,19 @@ namespace KontoWin
 
             KontoGlobals.sqlConnectionString.InitialCatalog = KontoGlobals.DbName;
 
-            var frm = new LogInWindowView();
-            frm.IsStartup = true;
-            var res = frm.ShowDialog();
+            DialogResult res = DialogResult.Cancel;
+
+            if (!KontoGlobals.IsDevelopment) {
+                var frm = new LogInWindowView();
+                frm.IsStartup = true;
+                 res = frm.ShowDialog();
+            }
+            else
+            {
+                if (AutoLogin())
+                    res = DialogResult.OK;
+            }
+            
             if (res == DialogResult.OK)
             {
                 var frmc = new SelectCompanyView();
@@ -451,7 +462,31 @@ namespace KontoWin
             //read system level parameter
             DbUtils.SetSysParameter();
         }
-       
+
+        private bool AutoLogin()
+        {
+            using (var db = new KontoContext())
+            {
+                string enc = KontoUtils.Encrypt("key@1234", "sblw-3hn8-sqoy19");
+                var Ulist = db.UserMasters.Include("Role").FirstOrDefault(k => k.UserName.ToUpper() == "KEYSOFT"
+                         && k.UserPass == enc);
+
+                if (Ulist != null)
+                {
+                    KontoGlobals.UserId = Ulist.Id;
+                    KontoGlobals.UserName = Ulist.UserName;
+                    var usr = db.UserMasters.FirstOrDefault(k => k.Id == KontoGlobals.UserId);
+                    KontoGlobals.UserRoleId = usr.RoleId;
+
+                    if (usr.Role != null)
+                        KontoGlobals.isSysAdm = usr.Role.IsSysAdmin;
+
+                    KontoGlobals.EmpId = usr.EmpId != null ? (int)usr.EmpId : 0;
+                    RBAC.UserRight = new RBACUser(Ulist.UserName);
+                }
+            }
+            return true;
+        }
         void CreateMenuItem(ErpModule _erp, bool _isgroup)
         {
             if (_isgroup)
@@ -602,6 +637,7 @@ namespace KontoWin
             var frm = new Konto.Shared.Setup.SettingWindow();
             frm.SettingCategroy = "sys";
             frm.ShowDialog();
+            DbUtils.SetSysParameter();
         }
         private void BalanceCarryToNextYear()
         {

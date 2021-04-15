@@ -38,7 +38,7 @@ namespace Konto.App.Shared
         
 
         public static int Edition = 0;
-
+        public static bool IsDevelopment = false;
         public static string DbGroup = "";
             public static string DbName = "";
             public static int UserId = 1;

@@ -29,10 +29,14 @@
         private void InitializeComponent()
         {
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
+            this.buttonEdit2 = new DevExpress.XtraEditors.ButtonEdit();
+            this.pictureEdit2 = new DevExpress.XtraEditors.PictureEdit();
+            this.kontoTextBoxExt19 = new Konto.Core.Shared.Libs.KontoTextBoxExt();
+            this.facStateIdComboBoxEx = new Konto.Core.Shared.Libs.KontoComboBoxEx();
+            this.stateIdComboBox = new Konto.Core.Shared.Libs.KontoComboBoxEx();
             this.ewayBillPasswordText = new Konto.Core.Shared.Libs.KontoTextBoxExt();
             this.ewayBillUserIdText = new Konto.Core.Shared.Libs.KontoTextBoxExt();
             this.gstinUserIdText = new Konto.Core.Shared.Libs.KontoTextBoxExt();
-            this.kontoTextBoxExt19 = new Konto.Core.Shared.Libs.KontoTextBoxExt();
             this.portTextBoxExt = new Konto.Core.Shared.Libs.KontoTextBoxExt();
             this.smtpTextBoxExt = new Konto.Core.Shared.Libs.KontoTextBoxExt();
             this.nobLookUpEdit = new DevExpress.XtraEditors.LookUpEdit();
@@ -57,11 +61,9 @@
             this.phoneTextBoxExt = new Konto.Core.Shared.Libs.KontoTextBoxExt();
             this.facPinCodeTextBoxExt = new Konto.Core.Shared.Libs.KontoTextBoxExt();
             this.facCityLookup = new Konto.Shared.Masters.City.CityLookup();
-            this.facStateIdComboBoxEx = new Konto.Core.Shared.Libs.KontoComboBoxEx();
             this.facAddress2TextBoxExt = new Konto.Core.Shared.Libs.KontoTextBoxExt();
             this.pinCodeTextBoxExt = new Konto.Core.Shared.Libs.KontoTextBoxExt();
             this.cityLookup1 = new Konto.Shared.Masters.City.CityLookup();
-            this.stateIdComboBox = new Konto.Core.Shared.Libs.KontoComboBoxEx();
             this.address2TextBoxExt = new Konto.Core.Shared.Libs.KontoTextBoxExt();
             this.address1TextBoxExt = new Konto.Core.Shared.Libs.KontoTextBoxExt();
             this.facAddress1TextBoxExt = new Konto.Core.Shared.Libs.KontoTextBoxExt();
@@ -74,7 +76,6 @@
             this.layoutControlItem26 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem27 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem28 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.layoutControlItem29 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem30 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem3 = new DevExpress.XtraLayout.EmptySpaceItem();
@@ -86,6 +87,8 @@
             this.layoutControlItem36 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem37 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem38 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem39 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem40 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlGroup6 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
@@ -124,10 +127,14 @@
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.buttonEdit2.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureEdit2.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.kontoTextBoxExt19)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.facStateIdComboBoxEx)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.stateIdComboBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ewayBillPasswordText)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ewayBillUserIdText)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gstinUserIdText)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.kontoTextBoxExt19)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.portTextBoxExt)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.smtpTextBoxExt)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nobLookUpEdit.Properties)).BeginInit();
@@ -151,10 +158,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.emailTextBoxExt)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.phoneTextBoxExt)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.facPinCodeTextBoxExt)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.facStateIdComboBoxEx)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.facAddress2TextBoxExt)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pinCodeTextBoxExt)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.stateIdComboBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.address2TextBoxExt)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.address1TextBoxExt)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.facAddress1TextBoxExt)).BeginInit();
@@ -167,7 +172,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem26)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem27)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem28)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem29)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem30)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).BeginInit();
@@ -179,6 +183,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem36)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem37)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem38)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem39)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem40)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
@@ -247,10 +253,14 @@
             // 
             // layoutControl1
             // 
+            this.layoutControl1.Controls.Add(this.buttonEdit2);
+            this.layoutControl1.Controls.Add(this.pictureEdit2);
+            this.layoutControl1.Controls.Add(this.kontoTextBoxExt19);
+            this.layoutControl1.Controls.Add(this.facStateIdComboBoxEx);
+            this.layoutControl1.Controls.Add(this.stateIdComboBox);
             this.layoutControl1.Controls.Add(this.ewayBillPasswordText);
             this.layoutControl1.Controls.Add(this.ewayBillUserIdText);
             this.layoutControl1.Controls.Add(this.gstinUserIdText);
-            this.layoutControl1.Controls.Add(this.kontoTextBoxExt19);
             this.layoutControl1.Controls.Add(this.portTextBoxExt);
             this.layoutControl1.Controls.Add(this.smtpTextBoxExt);
             this.layoutControl1.Controls.Add(this.nobLookUpEdit);
@@ -261,8 +271,6 @@
             this.layoutControl1.Controls.Add(this.paraTextBoxExt);
             this.layoutControl1.Controls.Add(this.sendPassTextBoxExt);
             this.layoutControl1.Controls.Add(this.sendFromTextBoxExt);
-            this.layoutControl1.Controls.Add(this.facStateIdComboBoxEx);
-            this.layoutControl1.Controls.Add(this.stateIdComboBox);
             this.layoutControl1.Controls.Add(this.companyTextBoxExt);
             this.layoutControl1.Controls.Add(this.insuranceTextBoxExt);
             this.layoutControl1.Controls.Add(this.ifscTextBoxExt);
@@ -301,6 +309,69 @@
             this.layoutControl1.Size = new System.Drawing.Size(943, 382);
             this.layoutControl1.TabIndex = 8;
             this.layoutControl1.Text = "layoutControl1";
+            // 
+            // buttonEdit2
+            // 
+            this.buttonEdit2.Location = new System.Drawing.Point(457, 399);
+            this.buttonEdit2.Name = "buttonEdit2";
+            this.buttonEdit2.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton()});
+            this.buttonEdit2.Properties.ReadOnly = true;
+            this.buttonEdit2.Size = new System.Drawing.Size(460, 20);
+            this.buttonEdit2.StyleController = this.layoutControl1;
+            this.buttonEdit2.TabIndex = 14;
+            this.buttonEdit2.TabStop = false;
+            this.buttonEdit2.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.buttonEdit2_ButtonClick);
+            // 
+            // pictureEdit2
+            // 
+            this.pictureEdit2.Location = new System.Drawing.Point(457, 279);
+            this.pictureEdit2.Name = "pictureEdit2";
+            this.pictureEdit2.Properties.ShowCameraMenuItem = DevExpress.XtraEditors.Controls.CameraMenuItemVisibility.Auto;
+            this.pictureEdit2.Properties.SizeMode = DevExpress.XtraEditors.Controls.PictureSizeMode.Squeeze;
+            this.pictureEdit2.Size = new System.Drawing.Size(460, 116);
+            this.pictureEdit2.StyleController = this.layoutControl1;
+            this.pictureEdit2.TabIndex = 13;
+            // 
+            // kontoTextBoxExt19
+            // 
+            this.kontoTextBoxExt19.BeforeTouchSize = new System.Drawing.Size(322, 26);
+            this.kontoTextBoxExt19.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(211)))), ((int)(((byte)(212)))));
+            this.kontoTextBoxExt19.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.kontoTextBoxExt19.EnterMoveNextControl = true;
+            this.kontoTextBoxExt19.Location = new System.Drawing.Point(123, 12);
+            this.kontoTextBoxExt19.Name = "kontoTextBoxExt19";
+            this.kontoTextBoxExt19.Size = new System.Drawing.Size(349, 20);
+            this.kontoTextBoxExt19.Style = Syncfusion.Windows.Forms.Tools.TextBoxExt.theme.Metro;
+            this.kontoTextBoxExt19.TabIndex = 1;
+            this.kontoTextBoxExt19.Text = "kontoTextBoxExt2";
+            this.kontoTextBoxExt19.ThemeName = "Metro";
+            this.kontoTextBoxExt19.UseBorderColorOnFocus = true;
+            // 
+            // facStateIdComboBoxEx
+            // 
+            this.facStateIdComboBoxEx.BackColor = System.Drawing.Color.White;
+            this.facStateIdComboBoxEx.EnterMoveNextControl = true;
+            this.facStateIdComboBoxEx.Location = new System.Drawing.Point(593, 161);
+            this.facStateIdComboBoxEx.Name = "facStateIdComboBoxEx";
+            this.facStateIdComboBoxEx.Size = new System.Drawing.Size(91, 26);
+            this.facStateIdComboBoxEx.Style.EditorStyle.BackColor = System.Drawing.Color.White;
+            this.facStateIdComboBoxEx.Style.TokenStyle.CloseButtonBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.facStateIdComboBoxEx.TabIndex = 1;
+            this.facStateIdComboBoxEx.Tag = "CountryId";
+            // 
+            // stateIdComboBox
+            // 
+            this.stateIdComboBox.BackColor = System.Drawing.Color.White;
+            this.stateIdComboBox.EnterMoveNextControl = true;
+            this.stateIdComboBox.Location = new System.Drawing.Point(147, 161);
+            this.stateIdComboBox.Name = "stateIdComboBox";
+            this.stateIdComboBox.Size = new System.Drawing.Size(91, 26);
+            this.stateIdComboBox.Style.EditorStyle.BackColor = System.Drawing.Color.White;
+            this.stateIdComboBox.Style.TokenStyle.CloseButtonBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.stateIdComboBox.TabIndex = 1;
+            this.stateIdComboBox.Tag = "CountryId";
+            this.stateIdComboBox.ThemeName = "Metro";
             // 
             // ewayBillPasswordText
             // 
@@ -349,21 +420,6 @@
             this.gstinUserIdText.Text = "gstInUserId";
             this.gstinUserIdText.ThemeName = "Metro";
             this.gstinUserIdText.UseBorderColorOnFocus = true;
-            // 
-            // kontoTextBoxExt19
-            // 
-            this.kontoTextBoxExt19.BeforeTouchSize = new System.Drawing.Size(322, 26);
-            this.kontoTextBoxExt19.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(211)))), ((int)(((byte)(212)))));
-            this.kontoTextBoxExt19.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.kontoTextBoxExt19.EnterMoveNextControl = true;
-            this.kontoTextBoxExt19.Location = new System.Drawing.Point(123, 12);
-            this.kontoTextBoxExt19.Name = "kontoTextBoxExt19";
-            this.kontoTextBoxExt19.Size = new System.Drawing.Size(349, 20);
-            this.kontoTextBoxExt19.Style = Syncfusion.Windows.Forms.Tools.TextBoxExt.theme.Metro;
-            this.kontoTextBoxExt19.TabIndex = 1;
-            this.kontoTextBoxExt19.Text = "kontoTextBoxExt2";
-            this.kontoTextBoxExt19.ThemeName = "Metro";
-            this.kontoTextBoxExt19.UseBorderColorOnFocus = true;
             // 
             // portTextBoxExt
             // 
@@ -439,6 +495,7 @@
             this.pictureEdit1.Location = new System.Drawing.Point(457, 58);
             this.pictureEdit1.Name = "pictureEdit1";
             this.pictureEdit1.Properties.ShowCameraMenuItem = DevExpress.XtraEditors.Controls.CameraMenuItemVisibility.Auto;
+            this.pictureEdit1.Properties.SizeMode = DevExpress.XtraEditors.Controls.PictureSizeMode.Squeeze;
             this.pictureEdit1.Size = new System.Drawing.Size(460, 177);
             this.pictureEdit1.StyleController = this.layoutControl1;
             this.pictureEdit1.TabIndex = 1;
@@ -743,18 +800,6 @@
             this.facCityLookup.Size = new System.Drawing.Size(91, 26);
             this.facCityLookup.TabIndex = 1;
             // 
-            // facStateIdComboBoxEx
-            // 
-            this.facStateIdComboBoxEx.BackColor = System.Drawing.Color.White;
-            this.facStateIdComboBoxEx.EnterMoveNextControl = true;
-            this.facStateIdComboBoxEx.Location = new System.Drawing.Point(593, 161);
-            this.facStateIdComboBoxEx.Name = "facStateIdComboBoxEx";
-            this.facStateIdComboBoxEx.Size = new System.Drawing.Size(91, 26);
-            this.facStateIdComboBoxEx.Style.EditorStyle.BackColor = System.Drawing.Color.White;
-            this.facStateIdComboBoxEx.Style.TokenStyle.CloseButtonBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.facStateIdComboBoxEx.TabIndex = 1;
-            this.facStateIdComboBoxEx.Tag = "CountryId";
-            // 
             // facAddress2TextBoxExt
             // 
             this.facAddress2TextBoxExt.BeforeTouchSize = new System.Drawing.Size(322, 26);
@@ -798,19 +843,6 @@
             this.cityLookup1.SelectedValue = null;
             this.cityLookup1.Size = new System.Drawing.Size(91, 26);
             this.cityLookup1.TabIndex = 1;
-            // 
-            // stateIdComboBox
-            // 
-            this.stateIdComboBox.BackColor = System.Drawing.Color.White;
-            this.stateIdComboBox.EnterMoveNextControl = true;
-            this.stateIdComboBox.Location = new System.Drawing.Point(147, 161);
-            this.stateIdComboBox.Name = "stateIdComboBox";
-            this.stateIdComboBox.Size = new System.Drawing.Size(91, 26);
-            this.stateIdComboBox.Style.EditorStyle.BackColor = System.Drawing.Color.White;
-            this.stateIdComboBox.Style.TokenStyle.CloseButtonBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.stateIdComboBox.TabIndex = 1;
-            this.stateIdComboBox.Tag = "CountryId";
-            this.stateIdComboBox.ThemeName = "Metro";
             // 
             // address2TextBoxExt
             // 
@@ -915,7 +947,7 @@
             // 
             this.tabbedControlGroup1.Location = new System.Drawing.Point(0, 0);
             this.tabbedControlGroup1.Name = "tabbedControlGroup1";
-            this.tabbedControlGroup1.SelectedTabPage = this.layoutControlGroup6;
+            this.tabbedControlGroup1.SelectedTabPage = this.layoutControlGroup7;
             this.tabbedControlGroup1.Size = new System.Drawing.Size(926, 428);
             this.tabbedControlGroup1.TabPages.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlGroup6,
@@ -927,7 +959,6 @@
             this.layoutControlItem26,
             this.layoutControlItem27,
             this.layoutControlItem28,
-            this.emptySpaceItem1,
             this.layoutControlItem29,
             this.layoutControlItem30,
             this.emptySpaceItem3,
@@ -938,7 +969,9 @@
             this.layoutControlItem35,
             this.layoutControlItem36,
             this.layoutControlItem37,
-            this.layoutControlItem38});
+            this.layoutControlItem38,
+            this.layoutControlItem39,
+            this.layoutControlItem40});
             this.layoutControlGroup7.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup7.Name = "layoutControlGroup7";
             this.layoutControlGroup7.Size = new System.Drawing.Size(902, 381);
@@ -985,14 +1018,6 @@
             this.layoutControlItem28.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.layoutControlItem28.Text = "Company Para:";
             this.layoutControlItem28.TextSize = new System.Drawing.Size(117, 17);
-            // 
-            // emptySpaceItem1
-            // 
-            this.emptySpaceItem1.AllowHotTrack = false;
-            this.emptySpaceItem1.Location = new System.Drawing.Point(438, 221);
-            this.emptySpaceItem1.Name = "emptySpaceItem1";
-            this.emptySpaceItem1.Size = new System.Drawing.Size(464, 160);
-            this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
             // 
             // layoutControlItem29
             // 
@@ -1120,6 +1145,25 @@
             this.layoutControlItem38.Size = new System.Drawing.Size(438, 24);
             this.layoutControlItem38.Text = "Eway Bill Password:";
             this.layoutControlItem38.TextSize = new System.Drawing.Size(117, 17);
+            // 
+            // layoutControlItem39
+            // 
+            this.layoutControlItem39.Control = this.pictureEdit2;
+            this.layoutControlItem39.Location = new System.Drawing.Point(438, 221);
+            this.layoutControlItem39.Name = "layoutControlItem39";
+            this.layoutControlItem39.Size = new System.Drawing.Size(464, 136);
+            this.layoutControlItem39.Text = "Signature:";
+            this.layoutControlItem39.TextLocation = DevExpress.Utils.Locations.Top;
+            this.layoutControlItem39.TextSize = new System.Drawing.Size(117, 13);
+            // 
+            // layoutControlItem40
+            // 
+            this.layoutControlItem40.Control = this.buttonEdit2;
+            this.layoutControlItem40.Location = new System.Drawing.Point(438, 357);
+            this.layoutControlItem40.Name = "layoutControlItem40";
+            this.layoutControlItem40.Size = new System.Drawing.Size(464, 24);
+            this.layoutControlItem40.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem40.TextVisible = false;
             // 
             // layoutControlGroup6
             // 
@@ -1575,10 +1619,14 @@
             this.panelControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.buttonEdit2.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureEdit2.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.kontoTextBoxExt19)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.facStateIdComboBoxEx)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.stateIdComboBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ewayBillPasswordText)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ewayBillUserIdText)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gstinUserIdText)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.kontoTextBoxExt19)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.portTextBoxExt)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.smtpTextBoxExt)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nobLookUpEdit.Properties)).EndInit();
@@ -1602,10 +1650,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.emailTextBoxExt)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.phoneTextBoxExt)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.facPinCodeTextBoxExt)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.facStateIdComboBoxEx)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.facAddress2TextBoxExt)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pinCodeTextBoxExt)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.stateIdComboBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.address2TextBoxExt)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.address1TextBoxExt)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.facAddress1TextBoxExt)).EndInit();
@@ -1618,7 +1664,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem26)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem27)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem28)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem29)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem30)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).EndInit();
@@ -1630,6 +1675,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem36)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem37)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem38)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem39)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem40)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
@@ -1736,7 +1783,6 @@
         private Core.Shared.Libs.KontoTextBoxExt holyWordTextBoxExt;
         private Core.Shared.Libs.KontoTextBoxExt paraTextBoxExt;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem28;
-        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem1;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem29;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem30;
         private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem3;
@@ -1756,5 +1802,9 @@
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem36;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem37;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem38;
+        private DevExpress.XtraEditors.ButtonEdit buttonEdit2;
+        private DevExpress.XtraEditors.PictureEdit pictureEdit2;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem39;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem40;
     }
 }

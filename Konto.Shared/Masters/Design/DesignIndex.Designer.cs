@@ -203,6 +203,8 @@
             this.tabControlAdv1.BeforeTouchSize = new System.Drawing.Size(841, 439);
             this.tabControlAdv1.Size = new System.Drawing.Size(841, 439);
             this.tabControlAdv1.ThemeStyle.PrimitiveButtonStyle.DisabledNextPageImage = null;
+            this.tabControlAdv1.Controls.SetChildIndex(this.tabPageAdv4, 0);
+            this.tabControlAdv1.Controls.SetChildIndex(this.tabPageAdv3, 0);
             this.tabControlAdv1.Controls.SetChildIndex(this.tabPageAdv2, 0);
             this.tabControlAdv1.Controls.SetChildIndex(this.tabPageAdv1, 0);
             // 
@@ -219,7 +221,15 @@
             // 
             // tabPageAdv2
             // 
-            this.tabPageAdv2.Size = new System.Drawing.Size(816, 428);
+            this.tabPageAdv2.Size = new System.Drawing.Size(816, 436);
+            // 
+            // tabPageAdv3
+            // 
+            this.tabPageAdv3.Size = new System.Drawing.Size(816, 436);
+            // 
+            // tabPageAdv4
+            // 
+            this.tabPageAdv4.Size = new System.Drawing.Size(816, 436);
             // 
             // layoutControl1
             // 
@@ -271,6 +281,7 @@
             // catelogLookup1
             // 
             this.catelogLookup1.Location = new System.Drawing.Point(130, 294);
+            this.catelogLookup1.LookupTitle = null;
             this.catelogLookup1.Name = "catelogLookup1";
             this.catelogLookup1.PrimaryKey = null;
             this.catelogLookup1.RequiredField = false;
@@ -452,6 +463,7 @@
             // pTypeLookup1
             // 
             this.pTypeLookup1.Location = new System.Drawing.Point(381, 66);
+            this.pTypeLookup1.LookupTitle = null;
             this.pTypeLookup1.Name = "pTypeLookup1";
             this.pTypeLookup1.PrimaryKey = null;
             this.pTypeLookup1.RequiredField = false;
@@ -489,9 +501,10 @@
             this.accLookup1.GroupId = 0;
             this.accLookup1.Location = new System.Drawing.Point(130, 318);
             this.accLookup1.LookupDto = null;
+            this.accLookup1.LookupTitle = null;
             this.accLookup1.Name = "accLookup1";
             this.accLookup1.Nature = null;
-            this.accLookup1.NewGroupId = 0;
+            this.accLookup1.NewGroupId = Konto.App.Shared.LedgerGroupEnum.NONE;
             this.accLookup1.PrimaryKey = null;
             this.accLookup1.RequiredField = false;
             this.accLookup1.SelectedText = null;
@@ -499,6 +512,7 @@
             this.accLookup1.Size = new System.Drawing.Size(300, 28);
             this.accLookup1.TabIndex = 24;
             this.accLookup1.TaxType = null;
+            this.accLookup1.TransportLookup = null;
             this.accLookup1.VoucherType = Konto.App.Shared.VoucherTypeEnum.None;
             // 
             // dateEdit1
@@ -600,6 +614,7 @@
             // colorLookup1
             // 
             this.colorLookup1.Location = new System.Drawing.Point(488, 87);
+            this.colorLookup1.LookupTitle = null;
             this.colorLookup1.Name = "colorLookup1";
             this.colorLookup1.PrimaryKey = null;
             this.colorLookup1.RequiredField = false;
@@ -611,6 +626,7 @@
             // sizeLookup1
             // 
             this.sizeLookup1.Location = new System.Drawing.Point(124, 87);
+            this.sizeLookup1.LookupTitle = null;
             this.sizeLookup1.Name = "sizeLookup1";
             this.sizeLookup1.PrimaryKey = null;
             this.sizeLookup1.RequiredField = false;
@@ -622,6 +638,7 @@
             // categoryLookup1
             // 
             this.categoryLookup1.Location = new System.Drawing.Point(488, 63);
+            this.categoryLookup1.LookupTitle = null;
             this.categoryLookup1.Name = "categoryLookup1";
             this.categoryLookup1.PrimaryKey = null;
             this.categoryLookup1.RequiredField = false;
@@ -633,6 +650,7 @@
             // brandLookup1
             // 
             this.brandLookup1.Location = new System.Drawing.Point(124, 63);
+            this.brandLookup1.LookupTitle = null;
             this.brandLookup1.Name = "brandLookup1";
             this.brandLookup1.PrimaryKey = null;
             this.brandLookup1.RequiredField = false;
@@ -644,6 +662,7 @@
             // subGroupLookup1
             // 
             this.subGroupLookup1.Location = new System.Drawing.Point(488, 38);
+            this.subGroupLookup1.LookupTitle = null;
             this.subGroupLookup1.Name = "subGroupLookup1";
             this.subGroupLookup1.PrimaryKey = null;
             this.subGroupLookup1.RequiredField = false;
@@ -669,6 +688,7 @@
             // groupLookup1
             // 
             this.groupLookup1.Location = new System.Drawing.Point(124, 38);
+            this.groupLookup1.LookupTitle = null;
             this.groupLookup1.Name = "groupLookup1";
             this.groupLookup1.PrimaryKey = null;
             this.groupLookup1.RequiredField = false;

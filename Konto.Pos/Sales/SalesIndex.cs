@@ -17,7 +17,6 @@ using Konto.Data.Models.Masters.Dtos;
 using Konto.Data.Models.Pos;
 using Konto.Data.Models.Transaction;
 using Konto.Data.Models.Transaction.Dtos;
-using Konto.Shared.Account;
 using Konto.Shared.Masters.Color;
 using Konto.Shared.Masters.Design;
 using Konto.Shared.Masters.Emp;
@@ -281,7 +280,7 @@ namespace Konto.Pos.Sales
                 if (PosPara.Post_Sale_Discount_Account_Id == 0)
                 {
                     MessageBox.Show("Pos Sale Discount A/c Not Exist. Please add in Invoice Settings");
-                    this.Close();
+                   // this.Close();
                    // return;
                 }
                 else

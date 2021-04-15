@@ -69,6 +69,7 @@ BEGIN
 	   ISNULL(bp1.PostDisc,0) PostDisc,
 	   bm.TotalAmount - ISNULL(bl.Pay,0)- ISNULL(bl.Rg,0) - ISNULL(bp1.CashAmt,0)-ISNULL(bp1.CardAmt,0)-ISNULL(bp1.WalletAmt,0)-ISNULL(bp1.OthersAmt,0) -ISNULL(bp1.PostDisc,0) PendAmt, 
 	   cast( CASe when gstr.BillId is null then 0 else 1 end as bit)  Gstr2A,
+	   ct.CityName City,
 	   isnull(adr.[Address1],'NA') + ' ' +isnull(adr.[Address2],'NA') + ' ' + isnull(ar.AreaName,'NA')  FullAddress
  	 FROM dbo.BillMain bm
 	  LEFT OUTER JOIN (SELECT BillId, SUM(DiscAmt) disc,SUM(Cess) AS Cess, 
@@ -84,6 +85,7 @@ BEGIN
      LEFT OUTER JOIN  dbo.Voucher v on bm.VoucherId =v.Id
      LEFT OUTER JOIN dbo.AccAddress adr on bm.DelvAdrId =adr.Id
      LEFT OUTER JOIN dbo.Area AS ar ON adr.AreaId = ar.Id
+     LEFT OUTER JOIN dbo.City AS ct  ON adr.CityId = ct.Id
 	 LEFT OUTER JOIN dbo.[State] st on st.Id = bm.StateId
 	 Left outer join dbo.gstr2a_dump gstr on gstr.BillId = bm.Id
 	 LEFT OUTER JOIN(SELECT bp.BillId,

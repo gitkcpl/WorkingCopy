@@ -10,6 +10,7 @@ using Konto.App.Shared.Para;
 using Konto.Core.Shared.Frms;
 using Konto.Core.Shared.Libs;
 using Konto.Data;
+using Konto.Data.Models.Masters.Dtos;
 using Konto.Data.Models.Transaction;
 using Konto.Data.Models.Transaction.Dtos;
 using Konto.Shared.Masters.Acc;
@@ -75,6 +76,24 @@ namespace Konto.Shared.Account.Receipt
             voucherLookup1.SelectedValueChanged += VoucherLookup1_SelectedValueChanged;
             refBankRepositoryItemButtonEdit.ButtonClick += RefBankRepositoryItemButtonEdit_ButtonClick;
             this.FirstActiveControl = voucherLookup1;
+            bookLookup.SelectedValueChanged += BookLookup_SelectedValueChanged;
+            this.Shown += ReceiptIndex_Shown;
+        }
+
+        private void ReceiptIndex_Shown(object sender, EventArgs e)
+        {
+            colBalance.VisibleIndex = 1;
+            colBalance.AppearanceCell.ForeColor = Color.FromArgb(227, 22, 91);
+            colBalance.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
+
+
+            Root.AddItem(simpleLabelItem1, emptySpaceItem1, DevExpress.XtraLayout.Utils.InsertType.Left);
+        }
+
+        private void BookLookup_SelectedValueChanged(object sender, EventArgs e)
+        {
+            if (bookLookup.LookupDto == null) return;
+            simpleLabelItem1.Text = bookLookup.LookupDto.Balance;
         }
 
         private void RefBankRepositoryItemButtonEdit_ButtonClick(object sender, ButtonPressedEventArgs e)
@@ -275,9 +294,14 @@ namespace Konto.Shared.Account.Receipt
             frm.ShowDialog();
             if (frm.DialogResult == DialogResult.OK)
             {
+                var acc = frm.SelectedItem as AccLookupDto;
+
                 er.ToAccId = frm.SelectedValue;
                 er.Particular = frm.SelectedTex;
                 
+                if (acc != null)
+                    er.Balance = acc.Balance;
+
                 gridView1.FocusedColumn = gridView1.GetNearestCanFocusedColumn(gridView1.FocusedColumn);
             }
            
@@ -345,8 +369,9 @@ namespace Konto.Shared.Account.Receipt
             voucherLookup1.SelectedValue = model.VoucherId;
             voucherLookup1.SetGroup(model.VoucherId);
 
-            bookLookup.SelectedValue = model.AccId;
             bookLookup.SetAcc(Convert.ToInt32(model.AccId));
+            bookLookup.SelectedValue = model.AccId;
+          
             voucherDateEdit.EditValue = KontoUtils.IToD(model.VoucherDate);
             voucherNoTextEdit.Text = model.VoucherNo;
 
@@ -383,9 +408,10 @@ namespace Konto.Shared.Account.Receipt
                              from ac in joinAc.DefaultIfEmpty()
                              join rb in _context.RefBanks on bt.RefBankId equals rb.Id into joinRb
                              from rb in joinRb.DefaultIfEmpty()
+                             join acb in _context.AccBals on bt.ToAccId equals acb.AccId
                              orderby bt.Id
                              where bt.IsActive && bt.IsDeleted == false &&
-                             bt.BillId == model.Id
+                             bt.BillId == model.Id && acb.CompId == KontoGlobals.CompanyId & acb.YearId == KontoGlobals.YearId
                              select new BankTransDto
                              {
                                  BillId = bt.BillId,
@@ -397,7 +423,8 @@ namespace Konto.Shared.Account.Receipt
                                  RefBankId = bt.RefBankId,
                                  Remark = bt.Remark,
                                  RpType = bt.RpType,
-                                 ToAccId = (int)bt.ToAccId
+                                 ToAccId = (int)bt.ToAccId,
+                                 Balance = acb.Bal > 0 ? acb.Bal.ToString() + " Dr" : Math.Abs(acb.Bal).ToString() + " Cr"
                              }
                              ).ToList();
 
@@ -881,7 +908,7 @@ namespace Konto.Shared.Account.Receipt
 
                             UpdateBtob(db, _find, transid, item);
                             
-                            DeleteDrCrIfExist(db, _find, item);
+                            //DeleteDrCrIfExist(db, _find, item);
                         }
                         
                         foreach (var item in DelBill)
@@ -1031,7 +1058,7 @@ namespace Konto.Shared.Account.Receipt
                 b.RefVoucherId = model.VoucherId;
                 db.BtoBs.Add(b);
 
-                UpdateDrCrForAdjustAmount(db, model, item, b);
+               // UpdateDrCrForAdjustAmount(db, model, item, b);
             }
         }
         private bool UpdateBill(KontoContext db,BillModel model)
@@ -1096,7 +1123,11 @@ namespace Konto.Shared.Account.Receipt
                 var adl1 = _db.RPSets.FirstOrDefault(k => k.Field == "Adl1" && k.RecPay == "R" && k.YearId == KontoGlobals.YearId && k.Drcr == "Y");
                 if (adl1 != null)
                 {
-                    BillModel dr = new BillModel();
+                    BillModel dr=null;
+
+                    dr = _db.Bills.SingleOrDefault(x => x.RefId == p.Id && x.RefVoucherId == model.VoucherId);
+                    if(dr==null)
+                        dr =   new BillModel();
 
                     dr.CompId = KontoGlobals.CompanyId;
                     dr.YearId = KontoGlobals.YearId;
@@ -1118,8 +1149,6 @@ namespace Konto.Shared.Account.Receipt
                     dr.BookAcId = adl1.AccountId;
                     dr.VoucherId = (int)adl1.VoucherId;
                     dr.VoucherNo =  DbUtils.NextSerialNo(dr.VoucherId, _db);
-                    dr.CreateUser = KontoGlobals.UserName;
-                    dr.CreateDate = DateTime.Now;
                     dr.AgentId = 1;
                     dr.VDate = model.VDate;
                     dr.VoucherDate = model.VoucherDate;
@@ -1130,10 +1159,19 @@ namespace Konto.Shared.Account.Receipt
                     dr.TotalQty = 1;
                     dr.TotalAmount = Convert.ToDecimal(amount);
                     dr.SpecialNotes = "07-Others";
-                    _db.Bills.Add(dr);
+                    dr.RefId = p.Id;
+                    dr.RefVoucherId = model.VoucherId;
+                        
+                    if(dr.Id==0)
+                        _db.Bills.Add(dr);
+
                     _db.SaveChanges();
 
-                    BillTransModel tr = new BillTransModel();
+                    BillTransModel tr = null;
+
+                    tr = _db.BillTrans.SingleOrDefault(x => x.BillId == dr.Id);
+                    if (tr == null)
+                        tr = new BillTransModel();
 
                     tr.BillId = dr.Id;
                     tr.Remark = adl1.Remark;

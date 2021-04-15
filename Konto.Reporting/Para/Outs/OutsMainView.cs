@@ -124,6 +124,7 @@ namespace Konto.Reporting.Para.Outs
                     if (Trans.Count == 0)
                     {
                         MessageBox.Show("Record Not Found");
+                        splashScreenManager1.CloseWaitForm();
                         return;
                     }
 

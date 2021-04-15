@@ -896,7 +896,7 @@ namespace Konto.Shared.Trans.ST
 
                 PageReport rpt = new PageReport();
 
-                rpt.Load(new FileInfo("reg\\doc\\stock_transfer_challan.mrt"));
+                rpt.Load(new FileInfo("reg\\doc\\stock_transfer_challan.rdlx"));
 
                 rpt.Report.DataSources[0].ConnectionProperties.ConnectString = KontoGlobals.sqlConnectionString.ConnectionString;
 

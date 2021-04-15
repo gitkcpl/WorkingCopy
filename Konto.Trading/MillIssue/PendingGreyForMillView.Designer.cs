@@ -75,6 +75,7 @@
             this.colPlyProductId = new Konto.Core.Shared.Libs.CustomGridColumn();
             this.colVTypeId = new Konto.Core.Shared.Libs.CustomGridColumn();
             this.colLotNo = new Konto.Core.Shared.Libs.CustomGridColumn();
+            this.colColorName = new Konto.Core.Shared.Libs.CustomGridColumn();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.detailStockDtoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
@@ -198,6 +199,7 @@
             this.colTransId,
             this.colRefNo,
             this.colVDate,
+            this.colColorName,
             this.colSrNo,
             this.colInwardNo,
             this.colWeaver,
@@ -274,7 +276,7 @@
             this.colRefNo.FieldName = "RefNo";
             this.colRefNo.Name = "colRefNo";
             this.colRefNo.Visible = true;
-            this.colRefNo.VisibleIndex = 6;
+            this.colRefNo.VisibleIndex = 7;
             this.colRefNo.Width = 83;
             // 
             // colVDate
@@ -283,7 +285,7 @@
             this.colVDate.FieldName = "VDate";
             this.colVDate.Name = "colVDate";
             this.colVDate.Visible = true;
-            this.colVDate.VisibleIndex = 8;
+            this.colVDate.VisibleIndex = 9;
             this.colVDate.Width = 102;
             // 
             // colSrNo
@@ -292,8 +294,6 @@
             this.colSrNo.Name = "colSrNo";
             this.colSrNo.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Custom)});
-            this.colSrNo.Visible = true;
-            this.colSrNo.VisibleIndex = 1;
             this.colSrNo.Width = 54;
             // 
             // colInwardNo
@@ -302,7 +302,7 @@
             this.colInwardNo.FieldName = "InwardNo";
             this.colInwardNo.Name = "colInwardNo";
             this.colInwardNo.Visible = true;
-            this.colInwardNo.VisibleIndex = 7;
+            this.colInwardNo.VisibleIndex = 8;
             this.colInwardNo.Width = 118;
             // 
             // colWeaver
@@ -310,7 +310,7 @@
             this.colWeaver.FieldName = "Weaver";
             this.colWeaver.Name = "colWeaver";
             this.colWeaver.Visible = true;
-            this.colWeaver.VisibleIndex = 9;
+            this.colWeaver.VisibleIndex = 10;
             this.colWeaver.Width = 187;
             // 
             // colProductId
@@ -355,8 +355,8 @@
             this.colVoucherNo.FieldName = "VoucherNo";
             this.colVoucherNo.Name = "colVoucherNo";
             this.colVoucherNo.Visible = true;
-            this.colVoucherNo.VisibleIndex = 10;
-            this.colVoucherNo.Width = 100;
+            this.colVoucherNo.VisibleIndex = 1;
+            this.colVoucherNo.Width = 80;
             // 
             // colRefId
             // 
@@ -489,6 +489,14 @@
             this.colLotNo.VisibleIndex = 4;
             this.colLotNo.Width = 81;
             // 
+            // colColorName
+            // 
+            this.colColorName.FieldName = "ColorName";
+            this.colColorName.Name = "colColorName";
+            this.colColorName.Visible = true;
+            this.colColorName.VisibleIndex = 6;
+            this.colColorName.Width = 94;
+            // 
             // PendingGreyForMillView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -560,5 +568,6 @@
         private Core.Shared.Libs.CustomGridColumn colLotNo;
         private Syncfusion.Windows.Forms.Tools.AutoLabel autoLabel1;
         private DevExpress.XtraEditors.SpinEdit textEdit1;
+        private Core.Shared.Libs.CustomGridColumn colColorName;
     }
 }

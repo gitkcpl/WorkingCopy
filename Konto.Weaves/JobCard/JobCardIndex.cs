@@ -200,7 +200,7 @@ namespace Konto.Weaves.JobCard
             if (frm.DialogResult == DialogResult.OK)
             {
                 yarngridView.BeginDataUpdate();
-                er.ColorId = frm.SelectedValue;
+                er.Ply = frm.SelectedValue;
                 er.ColorCategory = frm.SelectedTex;
 
                 yarngridView.EndDataUpdate();
@@ -277,6 +277,7 @@ namespace Konto.Weaves.JobCard
                         jc.ItemId = ord.ProductId;
                         jc.ItemType = ord.ProductName;
                         jc.ColorCategory = ord.ColorName;
+                        jc.ColorId = ord.ColorId;
                         jc.DesignName = ord.Design;
                         jc.DesignId = ord.DesignId;
                         jc.Ply = ord.ColorId;
@@ -311,7 +312,7 @@ namespace Konto.Weaves.JobCard
                             yr.DesignName = db.Products.FirstOrDefault(k => k.Id == y.ProductId).ProductName;
                             yr.ItemId = y.MColorId;
                             yr.ItemType = db.ColorModels.FirstOrDefault(k => k.Id == y.MColorId).ColorName;
-                            yr.Ply = y.ColorId;
+                            yr.ColorId = y.ColorId;
                             yr.ColorCategory = db.ColorModels.FirstOrDefault(k => k.Id == y.ColorId).ColorName;
                             yr.ColorPer = y.Denier;
                             yr.ConsumeQty = y.PI;

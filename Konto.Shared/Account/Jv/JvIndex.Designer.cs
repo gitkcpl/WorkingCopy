@@ -70,6 +70,7 @@
             this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
             this.billAdjustSimpleButton = new DevExpress.XtraEditors.SimpleButton();
+            this.colBalance = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.tabControlAdv1)).BeginInit();
             this.tabControlAdv1.SuspendLayout();
             this.tabPageAdv1.SuspendLayout();
@@ -231,6 +232,7 @@
             this.gridView1.Appearance.Row.Options.UseFont = true;
             this.gridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.colParticular,
+            this.colBalance,
             this.colTotal,
             this.colNetTotal,
             this.colRpType,
@@ -290,7 +292,7 @@
             this.colTotal.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Total", "{0:F}")});
             this.colTotal.Visible = true;
-            this.colTotal.VisibleIndex = 1;
+            this.colTotal.VisibleIndex = 2;
             this.colTotal.Width = 113;
             // 
             // repositoryItemTextEdit1
@@ -310,7 +312,7 @@
             this.colNetTotal.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "NetTotal", "{0:F}")});
             this.colNetTotal.Visible = true;
-            this.colNetTotal.VisibleIndex = 2;
+            this.colNetTotal.VisibleIndex = 3;
             this.colNetTotal.Width = 119;
             // 
             // colRpType
@@ -319,7 +321,7 @@
             this.colRpType.FieldName = "RpType";
             this.colRpType.Name = "colRpType";
             this.colRpType.Visible = true;
-            this.colRpType.VisibleIndex = 3;
+            this.colRpType.VisibleIndex = 4;
             this.colRpType.Width = 102;
             // 
             // payTypeRepositoryItemLookUpEdit
@@ -345,7 +347,7 @@
             this.colRemark.FieldName = "Remark";
             this.colRemark.Name = "colRemark";
             this.colRemark.Visible = true;
-            this.colRemark.VisibleIndex = 4;
+            this.colRemark.VisibleIndex = 5;
             this.colRemark.Width = 352;
             // 
             // colChequeNo
@@ -428,6 +430,7 @@
             // empLookup1
             // 
             this.empLookup1.Location = new System.Drawing.Point(306, 89);
+            this.empLookup1.LookupTitle = null;
             this.empLookup1.Name = "empLookup1";
             this.empLookup1.PrimaryKey = null;
             this.empLookup1.RequiredField = true;
@@ -501,6 +504,7 @@
             // 
             this.voucherLookup1.GroupDto = null;
             this.voucherLookup1.Location = new System.Drawing.Point(83, 5);
+            this.voucherLookup1.LookupTitle = null;
             this.voucherLookup1.Name = "voucherLookup1";
             this.voucherLookup1.PrimaryKey = null;
             this.voucherLookup1.RequiredField = true;
@@ -643,6 +647,18 @@
             this.billAdjustSimpleButton.TabIndex = 1;
             this.billAdjustSimpleButton.Text = "Bill Adjust";
             // 
+            // colBalance
+            // 
+            this.colBalance.AppearanceCell.Options.UseTextOptions = true;
+            this.colBalance.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
+            this.colBalance.FieldName = "Balance";
+            this.colBalance.Name = "colBalance";
+            this.colBalance.OptionsColumn.AllowEdit = false;
+            this.colBalance.OptionsColumn.AllowFocus = false;
+            this.colBalance.Visible = true;
+            this.colBalance.VisibleIndex = 1;
+            this.colBalance.Width = 107;
+            // 
             // JvIndex
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -737,5 +753,6 @@
         private DevExpress.XtraGrid.Columns.GridColumn colBillId;
         private DevExpress.XtraEditors.SimpleButton billAdjustSimpleButton;
         private DevExpress.XtraGrid.Columns.GridColumn colTotal;
+        private DevExpress.XtraGrid.Columns.GridColumn colBalance;
     }
 }

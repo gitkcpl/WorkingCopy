@@ -1478,7 +1478,7 @@
             this.KontoLayout = this.layoutControl1;
             this.KontoMainView = this.gridView1;
             this.Name = "PRIndex";
-            this.SettingCategroy = "PurchaseRet";
+            this.SettingCategroy = "Pos_Pr";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Purchase Return Voucher";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;

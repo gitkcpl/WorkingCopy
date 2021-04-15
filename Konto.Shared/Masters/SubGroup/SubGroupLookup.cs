@@ -73,11 +73,11 @@ namespace Konto.Shared.Masters.SubGroup
             }
             else if (keyData == Keys.Return)
             {
-                if (Convert.ToInt32(this.SelectedValue) == 0 && this.RequiredField)
-                {
+               // if (Convert.ToInt32(this.SelectedValue) == 0 && this.RequiredField)
+               // {
                     ShowList();
                     return true;
-                }
+               // }
             }
             return base.ProcessCmdKey(ref msg, keyData);
         }

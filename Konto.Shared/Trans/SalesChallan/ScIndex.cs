@@ -40,6 +40,8 @@ namespace Konto.Shared.Trans.SalesChallan
         private List<GrnTransDto> DelTrans = new List<GrnTransDto>();
         private List<GrnProdDto> prodDtos = new List<GrnProdDto>();
         private List<GrnProdDto> DelProd = new List<GrnProdDto>();
+        
+        private decimal _DiscPer = 0;
 
         TextEdit headerEdit = new TextEdit();
         GridColumn activeCol = null;
@@ -287,7 +289,12 @@ namespace Konto.Shared.Trans.SalesChallan
                 var model = frm.SelectedItem as ProductLookupDto;
                 er.UomId = model.UomId;
                 er.Rate = model.SaleRate;
-                
+
+                er.Disc = this._DiscPer;
+                if (er.Disc == 0)
+                    er.Disc = model.SaleDisc;
+
+
                 if (accLookup1.LookupDto.IsGst)
                 {
                     er.SgstPer = model.Sgst;
@@ -681,7 +688,10 @@ namespace Konto.Shared.Trans.SalesChallan
                 this.DelProd.Add(pro);
             }
             er.Qty =tempprod.Sum(x => x.NetWt);
-            var sumPcs = tempprod.Sum(x => x.Tops);
+            
+            var sumPcs = tempprod .Where(x=>x.Tops>0).Sum(x => x.Tops);
+            sumPcs = sumPcs + tempprod.Where(x => x.Tops == 0).Count();
+
             if (sumPcs > 0)
             {
                 er.Pcs = sumPcs;
@@ -949,8 +959,9 @@ namespace Konto.Shared.Trans.SalesChallan
             {
                 var ord = ordfrm.gridView1.GetRow(item) as PendingOrderDto;
                 GrnTransDto ct = new GrnTransDto();
-                id = id - 1;
+                id--;
                 ct.ProductId = Convert.ToInt32(ord.ProductId);
+                ct.Id = id;
                 ct.ProductName = ord.Product;
                 ct.Pcs = ord.TotalPcs != null ? (int)ord.TotalPcs : 0;
                 ct.Cops = 0;// ord.Cut != 0 ? ord.Cut : 0;
@@ -1001,6 +1012,7 @@ namespace Konto.Shared.Trans.SalesChallan
         {
 
             if (accLookup1.LookupDto == null) return;
+            _DiscPer = this.accLookup1.LookupDto.DiscPer;
             if (this.PrimaryKey ==0 && Convert.ToInt32(this.accLookup1.SelectedValue) > 0)
             {
                 this.delvLookup.SelectedValue = this.accLookup1.SelectedValue;
@@ -1010,7 +1022,12 @@ namespace Konto.Shared.Trans.SalesChallan
                 addressLookup1.SelectedValue = this.delvLookup.LookupDto.AddressId;
                 addressLookup1.SelectedText = this.delvLookup.LookupDto.FullAddress;
                 addressLookup1.buttonEdit1.Text = this.delvLookup.LookupDto.FullAddress;
-
+                
+                if(accLookup1.LookupDto.AgentId != null)
+                {
+                    agentLookup.SetAcc((int)accLookup1.LookupDto.AgentId);
+                    agentLookup.SelectedValue = accLookup1.LookupDto.AgentId;
+                }
             }
 
            
@@ -1149,6 +1166,7 @@ namespace Konto.Shared.Trans.SalesChallan
             voucherLookup1.SetDefault();
             DelTrans = new List<GrnTransDto>();
             DelProd = new List<GrnProdDto>();
+            prodDtos = new List<GrnProdDto>();
             this.grnTransDtoBindingSource1.DataSource = new List<GrnTransDto>();
             
         }
@@ -1170,6 +1188,7 @@ namespace Konto.Shared.Trans.SalesChallan
             remarkTextEdit.Text = string.Empty;
             DelTrans = new List<GrnTransDto>();
             DelProd = new List<GrnProdDto>();
+            prodDtos = new List<GrnProdDto>();
         }
         public override void EditPage(int _key)
         {
@@ -1325,55 +1344,61 @@ namespace Konto.Shared.Trans.SalesChallan
                             {
                                 ProdOutModel Out = db.ProdOuts.Find(p.ProdOutId);
                                 ProdModel pm = new ProdModel();
-                                if (!SCPara.Taka_From_Stock)
-                                {
-                                    if (Out == null)
-                                    {
 
+                                if (p.Id == 0)
+                                {
+                                    if (p.ProductId == 0) {
+                                        pm.ProductId = item.ProductId;
+                                        pm.CProductId = item.ProductId;
+
+                                            }
+                                    else
+                                    {
                                         pm.ProductId = p.ProductId;
-                                        pm.ProdStatus = "ISSUE";
-                                        pm.RefId = _find.Id;
-                                        p.TransId = tranModel.Id;
-                                        pm.LotNo = tranModel.RefNo;
-                                        pm.NetWt = p.NetWt;
-                                        pm.Tops = p.Tops;
-                                        pm.YearId = KontoGlobals.YearId;
-                                        pm.CompId = KontoGlobals.CompanyId;
-                                        pm.BranchId = _find.BranchId;
-                                        pm.VoucherDate = _find.VoucherDate;
-                                        pm.VoucherNo = p.VoucherNo;
-                                        pm.VoucherId = p.VoucherId;
-                                        pm.TransId = p.TransId;
-                                        pm.SrNo = p.SrNo;
-                                        pm.CurrQty = p.NetWt;
-
-                                        if (p.ColorId != null && p.ColorId != 0)
-                                            pm.ColorId = p.ColorId;
-                                        else if (p.ColorId == 0)
-                                            p.ColorId = 1;
-
-                                        if (p.GradeId != null && p.GradeId != 0)
-                                            pm.GradeId = p.GradeId;
-                                        else if (p.GradeId == 0)
-                                            p.GradeId = 1;
-
-                                        if (tranModel.DesignId != null && tranModel.DesignId != 0)
-                                            pm.PlyProductId = tranModel.DesignId;
-                                        else if (pm.PlyProductId == 0)
-                                            pm.PlyProductId = 1;
-                                        pm.IsOk = true;
-                                        db.Prods.Add(pm);
-                                        db.SaveChanges();
+                                        pm.CProductId = p.ProductId;
                                     }
+
+                                    pm.ProdStatus = "ISSUE";
+                                    pm.RefId = _find.Id;
+                                    p.TransId = tranModel.Id;
+                                    pm.LotNo = tranModel.RefNo;
+                                    pm.NetWt = p.NetWt;
+                                    pm.Tops = p.Tops;
+                                    pm.YearId = KontoGlobals.YearId;
+                                    pm.CompId = KontoGlobals.CompanyId;
+                                    pm.BranchId = _find.BranchId;
+                                    pm.VoucherDate = _find.VoucherDate;
+                                    pm.VoucherNo = p.VoucherNo;
+                                    pm.VoucherId = p.VoucherId;
+                                    pm.TransId = p.TransId;
+                                    pm.SrNo = p.SrNo;
+                                    pm.CurrQty = p.NetWt;
+                                    pm.CProductId = p.ProductId;
+                                    if (p.ColorId != null && p.ColorId != 0)
+                                        pm.ColorId = p.ColorId;
+                                    else if (p.ColorId == 0)
+                                        p.ColorId = 1;
+
+                                    if (p.GradeId != null && p.GradeId != 0)
+                                        pm.GradeId = p.GradeId;
+                                    else if (p.GradeId == 0)
+                                        p.GradeId = 1;
+
+                                    if (tranModel.DesignId != null && tranModel.DesignId != 0)
+                                        pm.PlyProductId = tranModel.DesignId;
+                                    else if (pm.PlyProductId == 0)
+                                        pm.PlyProductId = 1;
+                                    pm.IsOk = true;
+                                    db.Prods.Add(pm);
+                                    db.SaveChanges();
                                 }
-                                else
-                                {
-                                    if (p.Id > 0)
+                                else 
                                     {
-                                        pm = db.Prods.Find(p.Id);
-                                        pm.ProdStatus = "ISSUE";
+                                         pm = db.Prods.Find(p.Id);
+                                        if(pm!=null)
+                                            pm.ProdStatus = "ISSUE";
                                     }
-                                }
+                               
 
 
 
@@ -1394,12 +1419,14 @@ namespace Konto.Shared.Trans.SalesChallan
                                 Out.VoucherId = _find.VoucherId;
                                 Out.VoucherNo = p.VoucherNo;
                                 Out.TransId = tranModel.Id;
-
+                                
                                 if (Out.Id <= 0)
                                 {
                                     db.ProdOuts.Add(Out);
                                     db.SaveChanges();
                                 }
+
+                                
                                 ProdList.Add(Out);
                             }
 
@@ -1420,8 +1447,17 @@ namespace Konto.Shared.Trans.SalesChallan
                                     ProdOutModel pOut = db.ProdOuts.Find(poitem.ProdOutId);
                                     pOut.IsDeleted = true;
 
-                                    ProdModel pitem = db.Prods.Find(poitem.Id);
-                                    pitem.ProdStatus = "STOCK";
+                                    if (poitem.Id > 0)
+                                    {
+                                        ProdModel pitem = db.Prods.SingleOrDefault(x => x.Id == poitem.Id && x.RefId == poitem.RefId
+                                        && x.TransId == poitem.RefTransId);
+
+                                        if(pitem!=null)
+                                        {
+                                            pitem.IsDeleted = true;
+                                        }
+                                        
+                                    }
                                 }
                             }
                         }
@@ -1430,18 +1466,17 @@ namespace Konto.Shared.Trans.SalesChallan
                         // delete from item details
                         foreach (var p in DelProd)
                         {
-                            if (p.Id == 0) continue;
-                            var prd = db.Prods.Find(p.Id);
-                            if (prd != null && MillIssPara.Taka_From_Stock)
-                            {
-                                prd.ProdStatus = "STOCK";
-                            }
-                            else
-                            {
-                                prd.IsDeleted = true;
-                            }
+                            if (p.ProdOutId == 0) continue;
                             var pout = db.ProdOuts.Find(p.ProdOutId);
-                            pout.IsDeleted = true;
+                            if (pout != null)
+                                pout.IsDeleted = true;
+
+                            if (p.Id == 0) continue;
+                            var prd = db.Prods.SingleOrDefault(x=>x.Id == p.Id && x.RefId == p.RefId && x.TransId == p.TransId);
+                            if (prd != null)
+                                prd.IsDeleted = true;
+                            
+                           
                         }
 
 

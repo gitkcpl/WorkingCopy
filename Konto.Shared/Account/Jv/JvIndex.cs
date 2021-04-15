@@ -10,6 +10,7 @@ using Konto.App.Shared;
 using Konto.Core.Shared.Frms;
 using Konto.Core.Shared.Libs;
 using Konto.Data;
+using Konto.Data.Models.Masters.Dtos;
 using Konto.Data.Models.Transaction;
 using Konto.Data.Models.Transaction.Dtos;
 using Konto.Shared.Masters.Acc;
@@ -71,6 +72,14 @@ namespace Konto.Shared.Account.Jv
             voucherLookup1.SelectedValueChanged += VoucherLookup1_SelectedValueChanged;
             
             this.FirstActiveControl = voucherLookup1;
+            this.Shown += JvIndex_Shown;
+        }
+
+        private void JvIndex_Shown(object sender, EventArgs e)
+        {
+            colBalance.VisibleIndex = 1;
+            colBalance.AppearanceCell.ForeColor = Color.FromArgb(227, 22, 91);
+            colBalance.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
         }
 
         private void VoucherLookup1_SelectedValueChanged(object sender, EventArgs e)
@@ -245,9 +254,14 @@ namespace Konto.Shared.Account.Jv
             frm.ShowDialog();
             if (frm.DialogResult == DialogResult.OK)
             {
+                var acc = frm.SelectedItem as AccLookupDto;
+
                 er.ToAccId = frm.SelectedValue;
                 er.Particular = frm.SelectedTex;
-                
+
+                if (acc != null)
+                    er.Balance = acc.Balance;
+
                 gridView1.FocusedColumn = gridView1.GetNearestCanFocusedColumn(gridView1.FocusedColumn);
             }
            
@@ -349,9 +363,10 @@ namespace Konto.Shared.Account.Jv
                              from ac in joinAc.DefaultIfEmpty()
                              join rb in _context.RefBanks on bt.RefBankId equals rb.Id into joinRb
                              from rb in joinRb.DefaultIfEmpty()
+                             join acb in _context.AccBals on bt.ToAccId equals acb.AccId
                              orderby bt.Id
                              where bt.IsActive && bt.IsDeleted == false &&
-                             bt.BillId == model.Id
+                             bt.BillId == model.Id && acb.CompId == KontoGlobals.CompanyId & acb.YearId == KontoGlobals.YearId
                              select new BankTransDto
                              {
                                  BillId = bt.BillId,
@@ -363,7 +378,8 @@ namespace Konto.Shared.Account.Jv
                                  RefBankId = bt.RefBankId,
                                  Remark = bt.Remark,
                                  RpType = bt.RpType,
-                                 ToAccId = (int)bt.ToAccId,Total= bt.Total
+                                 ToAccId = (int)bt.ToAccId,Total= bt.Total,
+                                 Balance = acb.Bal > 0 ? acb.Bal.ToString() + " Dr" : Math.Abs(acb.Bal).ToString() + " Cr"
                              }
                              ).ToList();
 
@@ -831,7 +847,7 @@ namespace Konto.Shared.Account.Jv
 
                         LedgerEff.BillRefEntryJv(_find, Trans, DelTrans, db);
                         //Insert or update in LedgerTrans table
-                        LedgerEff.LedgerTransEntryJv(KontoGlobals.UserName, _find, db, Trans);
+                        LedgerEff.LedgerTransEntryJv(KontoGlobals.UserName, _find, db, Trans,_translist);
 
                         //if (this.PrimaryKey == 0)
                         //    DbUtils.UsedSerial(_find.VoucherId, _SerialValue, db);

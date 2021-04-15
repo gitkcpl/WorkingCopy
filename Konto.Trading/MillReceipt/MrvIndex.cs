@@ -75,7 +75,7 @@ namespace Konto.Trading.MillReceipt
 
             FillLookup();
             SetParameter();
-            
+            SetGridColumn();
 
             headerEdit.Hide();
             headerEdit.Parent = this.gridControl1;
@@ -109,6 +109,7 @@ namespace Konto.Trading.MillReceipt
             colCgstAmt.OptionsColumn.AllowEdit = true;
             colIgstAmt.OptionsColumn.AllowFocus = true;
             colIgstAmt.OptionsColumn.AllowEdit = true;
+
             SetGridColumn();
 
         }
@@ -584,7 +585,7 @@ namespace Konto.Trading.MillReceipt
                 gridView1.Focus();
                 return false;
             }
-            else if (trans.Any(x => x.Rate == 0))
+            else if (!MillRecPara.Challan_Required && trans.Any(x => x.Rate == 0))
             {
                 MessageBoxAdv.Show(this, "Invalid Rate", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 gridView1.FocusedColumn = colRate;
@@ -607,16 +608,16 @@ namespace Konto.Trading.MillReceipt
                     return false;
                 }
 
-                find1 = db.Challans.FirstOrDefault(
-              x => x.AccId == accid && !x.IsDeleted && x.ChallanNo == challanNotextEdit.Text.Trim() && x.CompId == KontoGlobals.CompanyId
-              && x.YearId == KontoGlobals.YearId && x.Id != this.PrimaryKey);
+              //  find1 = db.Challans.FirstOrDefault(
+              //x => x.AccId == accid && !x.IsDeleted && x.ChallanNo == challanNotextEdit.Text.Trim() && x.CompId == KontoGlobals.CompanyId
+              //&& x.YearId == KontoGlobals.YearId && x.Id != this.PrimaryKey);
 
-                if (find1 != null)
-                {
-                    MessageBox.Show("Entered Challan No Already Exists for this Party");
-                    challanNotextEdit.Focus();
-                    return false;
-                }
+              //  if (find1 != null)
+              //  {
+              //      MessageBox.Show("Entered Challan No Already Exists for this Party");
+              //      challanNotextEdit.Focus();
+              //      return false;
+              //  }
 
             }
 
@@ -1554,12 +1555,10 @@ namespace Konto.Trading.MillReceipt
                                     pOut = db.ProdOuts.Find(p.Id);
                                 
                                 
-                                
                                 map.Map(p, pOut);
 
                                 pOut.IsActive = true;
 
-                                
 
                                 //var _orgPd = db.Prods.Find(p.ProdId);
                                 //if (_orgPd != null)
@@ -1573,17 +1572,42 @@ namespace Konto.Trading.MillReceipt
                                 //}
 
                                 pOut.Qty = p.FinMrt;
+                                
+                                pOut.TakaStatus = "NMRC";
+
+                                var prod = new ProdModel();
+
+                                 string _tp = "TP1";
 
                                 if (p.Id==0)
                                 {
-                                    pOut.VoucherNo = _find.VoucherNo;
+                                    
+                                    //pOut.VoucherNo = _find.VoucherNo;
                                     pOut.TransId = tranModel.Id;
                                     pOut.VoucherId = _find.VoucherId;
-                                    pOut.TakaStatus = "MillRec";
+                                    pOut.TakaStatus = "NMRC";
+
+                                    if (item.ColorId == 0)
+                                    {
+                                        if (p.ColorId == 0)
+                                            pOut.ColorId = 1;
+                                        else
+                                            pOut.ColorId = p.ColorId;
+                                    }
+                                    else
+                                    {
+                                        pOut.ColorId = item.ColorId;
+                                    }
+
                                     pOut.RefId = _find.Id;
                                     db.ProdOuts.Add(pOut);
-                                    
+                                    db.SaveChanges();
                                 }
+
+
+                                UpdateProd(pOut, db,tranModel);
+
+
                             }
 
                         }
@@ -1598,6 +1622,11 @@ namespace Konto.Trading.MillReceipt
                             foreach (var item1 in delprod)
                             {
                                 item1.IsDeleted = true;
+                                var pd1 = db.Prods.FirstOrDefault(x => x.IssueRefId == item1.Id);
+
+                                if (pd1 != null)
+                                    pd1.IsDeleted = true;
+
                             }
                         }
 
@@ -1610,7 +1639,15 @@ namespace Konto.Trading.MillReceipt
                             {
                                 prd.FinMrt = p.FinMrt;
                                 prd.IsDeleted = true;
+
+                               //find for receive Fresh Taka Entry
+                               
+                                var pd1 = db.Prods.FirstOrDefault(x => x.IssueRefId == prd.Id);
+                                
+                                if (pd1 != null)
+                                    pd1.IsDeleted = true;
                             }
+                            
                         }
 
                         //sotock effect
@@ -1684,6 +1721,224 @@ namespace Konto.Trading.MillReceipt
             }
         }
 
+        private void UpdateProd(ProdOutModel po, KontoContext db,ChallanTransModel bt)
+        {
+
+            var pd1 = db.Prods.Find(po.ProdId);
+            if (pd1 != null)
+            {
+                pd1.CProductId = pd1.ProductId;
+            }
+
+            if(po.TP1 > 0)
+            {
+                var pd = new ProdModel();
+                
+                if (po.Id > 0)
+                    pd = db.Prods.FirstOrDefault(x => x.IssueRefId == po.Id && x.TwistType == "TP1");
+                
+                if (pd == null)
+                    pd = new ProdModel();
+
+                pd.ProductId = bt.ProductId;
+                pd.ColorId = po.ColorId;
+                pd.PalletProductId = bt.DesignId;
+                pd.IssueRefId = po.Id;
+                pd.VoucherNo = po.VoucherNo + "-" + po.SrNo.ToString();
+                pd.NetWt = Convert.ToDecimal(po.TP1);
+                pd.CurrQty = Convert.ToDecimal(po.TP1);
+                pd.IsActive = true;
+                pd.ProdStatus = "MR";
+                pd.SrNo = po.SrNo;
+                pd.VoucherDate = Convert.ToInt32(Convert.ToDateTime(voucherDateEdit.EditValue).ToString("yyyyMMdd"));
+                pd.VoucherId = Convert.ToInt32(voucherLookup1.SelectedValue);
+                pd.CompId = KontoGlobals.CompanyId;
+                pd.YearId = KontoGlobals.YearId;
+                pd.TwistType = "TP1";
+                pd.TransId = po.TransId;
+                pd.RefId = po.RefId;
+                pd.RefSCId = po.ProdId; //org prodprtaka id
+                pd.Remark = po.VoucherNo;
+                pd.CProductId = pd.ProductId;
+
+                if (pd.Id == 0)
+                    db.Prods.Add(pd);
+            }
+            if (po.TP2 > 0)
+            {
+                var pd = new ProdModel();
+                if (po.Id > 0)
+                    pd = db.Prods.FirstOrDefault(x => x.IssueRefId == po.Id && x.TwistType == "TP2");
+                
+                if (pd == null)
+                    pd = new ProdModel();
+
+                pd.ProductId = bt.ProductId;
+                pd.IssueRefId = po.Id;
+                pd.ColorId = po.ColorId;
+                pd.PalletProductId = bt.DesignId;
+                pd.IssueRefId = po.Id;
+                pd.VoucherNo =  po.VoucherNo + "-" + po.SrNo.ToString() + "/1";
+                pd.Remark = po.VoucherNo;
+                pd.NetWt = Convert.ToDecimal(po.TP2);
+                pd.CurrQty = Convert.ToDecimal(po.TP2);
+                pd.IsActive = true;
+                pd.ProdStatus = "MR";
+                pd.SrNo = po.SrNo;
+                pd.TransId = po.TransId;
+                pd.RefId = po.RefId;
+                pd.RefSCId = po.ProdId; //org prodprtaka id
+                pd.VoucherDate = Convert.ToInt32(Convert.ToDateTime(voucherDateEdit.EditValue).ToString("yyyyMMdd"));
+                pd.VoucherId = Convert.ToInt32(voucherLookup1.SelectedValue);
+                pd.CompId = KontoGlobals.CompanyId;
+                pd.YearId = KontoGlobals.YearId;
+                pd.TwistType = "TP2";
+                pd.CProductId = pd.ProductId;
+
+                if (pd.Id == 0)
+                    db.Prods.Add(pd);
+            }
+            else
+            {
+                if (po.Id > 0)
+                {
+                    var pd = db.Prods.FirstOrDefault(x => x.IssueRefId == po.Id && x.TwistType == "TP2");
+                    if (pd != null) pd.IsDeleted = true;
+                }
+                
+            }
+
+            if (po.TP3 > 0)
+            {
+                var pd = new ProdModel();
+                if (po.Id > 0)
+                    pd = db.Prods.FirstOrDefault(x => x.IssueRefId == po.Id && x.TwistType == "TP3");
+                
+                if (pd == null)
+                    pd = new ProdModel();
+
+                pd.ProductId = bt.ProductId;
+                pd.ColorId = po.ColorId;
+                pd.PalletProductId = bt.DesignId;
+                pd.IssueRefId = po.Id;
+                pd.VoucherNo = po.VoucherNo + "-" + po.SrNo.ToString() + "/2";
+                pd.NetWt = Convert.ToDecimal(po.TP3);
+                pd.CurrQty = Convert.ToDecimal(po.TP3);
+                pd.IsActive = true;
+                pd.ProdStatus = "MR";
+                pd.SrNo = po.SrNo;
+                pd.TransId = po.TransId;
+                pd.RefId = po.RefId;
+                pd.RefSCId = po.ProdId; //org prodprtaka id
+                pd.VoucherDate = Convert.ToInt32(Convert.ToDateTime(voucherDateEdit.EditValue).ToString("yyyyMMdd"));
+                pd.VoucherId = Convert.ToInt32(voucherLookup1.SelectedValue);
+                pd.CompId = KontoGlobals.CompanyId;
+                pd.YearId = KontoGlobals.YearId;
+                pd.TwistType = "TP3";
+                pd.Remark = po.VoucherNo;
+                pd.CProductId = pd.ProductId;
+
+                if (pd.Id == 0)
+                    db.Prods.Add(pd);
+            }
+            else
+            {
+                if (po.Id > 0)
+                {
+                    var pd = db.Prods.FirstOrDefault(x => x.IssueRefId == po.Id && x.TwistType == "TP3");
+                    if (pd != null)  pd.IsDeleted = true;
+                }
+
+            }
+
+            if (po.TP4 > 0)
+            {
+                var pd = new ProdModel();
+                if (po.Id > 0)
+                    pd = db.Prods.FirstOrDefault(x => x.IssueRefId == po.Id && x.TwistType == "TP4");
+
+                if (pd == null)
+                    pd = new ProdModel();
+
+                pd.ProductId = bt.ProductId;
+                pd.ColorId = po.ColorId;
+                pd.PalletProductId = bt.DesignId;
+                pd.IssueRefId = po.Id;
+                pd.VoucherNo = po.VoucherNo + "-" + po.SrNo.ToString() + "/3";
+                pd.NetWt = Convert.ToDecimal(po.TP4);
+                pd.CurrQty = Convert.ToDecimal(po.TP4);
+                pd.IsActive = true;
+                pd.ProdStatus = "MR";
+                pd.SrNo = po.SrNo;
+                pd.TransId = po.TransId;
+                pd.RefId = po.RefId;
+                pd.RefSCId = po.ProdId; //org prodprtaka id
+                pd.VoucherDate = Convert.ToInt32(Convert.ToDateTime(voucherDateEdit.EditValue).ToString("yyyyMMdd"));
+                pd.VoucherId = Convert.ToInt32(voucherLookup1.SelectedValue);
+                pd.CompId = KontoGlobals.CompanyId;
+                pd.YearId = KontoGlobals.YearId;
+                pd.TwistType = "TP4";
+                pd.Remark = po.VoucherNo;
+                pd.CProductId = pd.ProductId;
+
+                if (pd.Id == 0)
+                    db.Prods.Add(pd);
+            }
+            else
+            {
+                if (po.Id > 0)
+                {
+                    var pd = db.Prods.FirstOrDefault(x => x.IssueRefId == po.Id && x.TwistType == "TP4");
+                    if(pd!=null) pd.IsDeleted = true;
+                }
+
+            }
+
+            if (po.TP5 > 0)
+            {
+                var pd = new ProdModel();
+                if (po.Id > 0)
+                    pd = db.Prods.FirstOrDefault(x => x.IssueRefId == po.Id && x.TwistType == "TP5");
+                
+                if (pd == null)
+                    pd = new ProdModel();
+
+                pd.ProductId = bt.ProductId;
+                pd.ColorId = po.ColorId;
+                pd.PalletProductId = bt.DesignId;
+                pd.IssueRefId = po.Id;
+                pd.VoucherNo = po.VoucherNo + "-" + po.SrNo.ToString() + "/4";
+                pd.NetWt = Convert.ToDecimal(po.TP5);
+                pd.CurrQty = Convert.ToDecimal(po.TP5);
+                pd.IsActive = true;
+                pd.ProdStatus = "MR";
+                pd.SrNo = po.SrNo;
+                pd.TransId = po.TransId;
+                pd.RefId = po.RefId;
+                pd.RefSCId = po.ProdId; //org prodprtaka id
+                pd.VoucherDate = Convert.ToInt32(Convert.ToDateTime(voucherDateEdit.EditValue).ToString("yyyyMMdd"));
+                pd.VoucherId = Convert.ToInt32(voucherLookup1.SelectedValue);
+                pd.CompId = KontoGlobals.CompanyId;
+                pd.YearId = KontoGlobals.YearId;
+                pd.TwistType = "TP5";
+                pd.Remark = po.VoucherNo;
+                pd.CProductId = pd.ProductId;
+
+                if (pd.Id == 0)
+                    db.Prods.Add(pd);
+            }
+            else
+            {
+                if (po.Id > 0)
+                {
+                    var pd = db.Prods.FirstOrDefault(x => x.IssueRefId == po.Id && x.TwistType == "TP5");
+                    if (pd != null) pd.IsDeleted = true;
+                }
+
+            }
+
+        }
+        
         private bool UpdateChallan(KontoContext db,ChallanModel model)
         {
            

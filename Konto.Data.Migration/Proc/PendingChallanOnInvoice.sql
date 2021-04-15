@@ -29,7 +29,8 @@ BEGIN
 	LEFT OUTER JOIN (SELECT SUM(ISNULL(ct.IssueQty,0)) InwQty, SUM(ISNULL(ct.IssuePcs,0)) InwPcs, ct.ChallanId FROM ChallanTrans ct GROUP BY ct.ChallanId) ct ON ct.ChallanId = ch.Id
 	where (@AccountId=0 or  ch.AccId=@AccountId)
 	AND NOT EXISTS ( SELECT 1 FROM dbo.BillTrans bt WHERE bt.RefId = ch.Id and IsActive = 1 AND IsDeleted = 0 ) 
-	AND ch.IsActive = 1 AND ch.IsDeleted = 0 AND ( (v.VTypeId=46 OR v.VTypeId=@VoucherTypeID)and (isnull(ch.ChallanType,0) in (SELECT id FROM @chid)  )) --IN (7,8) OR ISNULL(ch.ChallanType ,0) in (1,6,9))
+	AND ch.IsActive = 1 AND ch.IsDeleted = 0 AND
+	( (v.VTypeId=46 OR v.VTypeId=@VoucherTypeID) or (isnull(ch.ChallanType,0) in (SELECT id FROM @chid)  )) --IN (7,8) OR ISNULL(ch.ChallanType ,0) in (1,6,9))
 	and ch.CompId=@companyid
 END
 GO

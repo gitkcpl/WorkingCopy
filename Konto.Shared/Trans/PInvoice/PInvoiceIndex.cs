@@ -521,7 +521,7 @@ namespace Konto.Shared.Trans.PInvoice
                 er.Rate = model.DealerPrice;
                 er.HsnCode = model.HsnCode;
                 er.SaleRate = decimal.Round((model.DealerPrice + (model.DealerPrice * model.Igst / 100)), 2, MidpointRounding.AwayFromZero);
-                
+                er.Barcode = model.BarCode;
                 er.RatePerQty = model.RatePerQty;
 
                 er.Cut = model.Cut;
@@ -545,9 +545,12 @@ namespace Konto.Shared.Trans.PInvoice
 
                 // Product serial implementaion
 
-                
 
-                gridView1.FocusedColumn = gridView1.GetNearestCanFocusedColumn(gridView1.FocusedColumn);
+
+                if (colBarcode.Visible)
+                    gridView1.FocusedColumn = gridView1.GetVisibleColumn(colProductName.VisibleIndex + 1);
+                else
+                    gridView1.FocusedColumn = gridView1.GetNearestCanFocusedColumn(colProductName);
             }
             GridCalculation(er);
         }
@@ -611,6 +614,25 @@ namespace Konto.Shared.Trans.PInvoice
             colCut.Visible = PurchasePara.Cut_Required;
             colHsnCode.Visible = PurchasePara.HsnCode_Required;
 
+            colBarcode.Visible = PurchasePara.Barcode_Required;
+            colOtherAdd.Visible = PurchasePara.OtherAdd_Required;
+            colOtherLess.Visible = PurchasePara.OtherLess_Required;
+            colCess.Visible = PurchasePara.Cess_Required;
+            colCessPer.Visible = PurchasePara.Cess_Required;
+
+            if (PurchasePara.Barcode_Required)
+            {
+                colProductName.VisibleIndex = -1;
+
+                colBarcode.VisibleIndex = 0;
+                colBarcode.Fixed = FixedStyle.Left;
+                colProductName.VisibleIndex = 1;
+            }
+            else
+            {
+                colProductName.VisibleIndex = 0;
+            }
+
             //Rate Decimal Settings
             var repo1 = new RepositoryItemTextEdit();
             repo1.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
@@ -661,7 +683,7 @@ namespace Konto.Shared.Trans.PInvoice
 
             var uom = uomRepositoryItemLookUpEdit.GetDataSourceRowByKeyValue(er.UomId) as UomLookupDto;
 
-            if (uom != null && uom.RateOn == "N" && er.Qty > 0)
+            if (uom != null && uom.RateOn == "N" && er.Pcs > 0)
             {
                 if(er.RatePerQty > 0)
                     er.Total = decimal.Round(er.Pcs * er.Rate/er.RatePerQty, 2, MidpointRounding.AwayFromZero);
@@ -863,6 +885,11 @@ namespace Konto.Shared.Trans.PInvoice
                         case 238:
                             {
                                 PurchasePara.HsnCode_Required = (value == "Y") ? true : false;
+                                break;
+                            }
+                        case 299:
+                            {
+                                PurchasePara.Barcode_Required = (value == "Y") ? true : false;
                                 break;
                             }
                     }
@@ -1201,7 +1228,8 @@ namespace Konto.Shared.Trans.PInvoice
                                 ColorName=cl.ColorName,Cut= bt.Cut,DesignName= dm.ProductCode,GradeName= gd.GradeName,
                                 LotNo = bt.LotNo,OrdDate= or.VoucherDate,OrderNo= or.VoucherNo,OrdId= or.Id,
                                 Pcs= bt.Pcs,ProductId =(int)bt.ProductId,ProductName= p.ProductName,RefId= bt.RefId,
-                                RefTransId= bt.RefTransId,RefVoucherId=bt.RefVoucherId,SaleRate=bt.SaleRate, RatePerQty=p.Price2
+                                RefTransId= bt.RefTransId,RefVoucherId=bt.RefVoucherId,SaleRate=bt.SaleRate, RatePerQty=p.Price2,
+                                Barcode= p.BarCode
                             }
                              ).ToList();
                              
@@ -1376,8 +1404,104 @@ namespace Konto.Shared.Trans.PInvoice
         private void GridView1_CellValueChanged(object sender, DevExpress.XtraGrid.Views.Base.CellValueChangedEventArgs e)
         {
             if (e.Column == null) return;
-            if (!(gridView1.GetRow(e.RowHandle) is BillTransDto er)) return;
-            GridCalculation(er,e.Column.FieldName);
+            if (!(gridView1.GetRow(e.RowHandle) is BillTransDto model)) return;
+
+            if (e.Column.FieldName == "Barcode" && e.Value != null && !string.IsNullOrEmpty(e.Value.ToString()))
+            {
+                var pos = DbUtils.GetProductDetails(e.Value.ToString());
+
+                if (pos == null)
+                {
+                    MessageBox.Show("Barcode Not Found..");
+
+                    if (gridView1.ActiveEditor.OldEditValue != null)
+                        model.Barcode = gridView1.ActiveEditor.OldEditValue.ToString();
+                    else
+                        model.Barcode = string.Empty;
+
+                    BeginInvoke(new MethodInvoker(() =>
+                    {
+                        gridView1.FocusedColumn = colBarcode;
+                    }));
+
+                    return;
+                }
+
+                //// merge same barcode/product qty
+                //if (PosPara.Merge_Qty_For_Same_Barcode && gridView1.RowCount > 1)
+                //{
+                //    var _details = grnTransDtoBindingSource1.DataSource as List<BillTransDto>;
+                //    var pmodel = _details.FirstOrDefault(x => x.Barcode == e.Value.ToString() && x.Id != model.Id);
+                //    if (pmodel != null)
+                //    {
+                //        pmodel.Qty = pmodel.Qty + 1;
+                //        pmodel.Pcs = pmodel.Pcs + 1;
+                //        gridView1.DeleteRow(e.RowHandle);
+                //        gridControl1.RefreshDataSource();
+                //        GridCalculation(pmodel, e.Column.FieldName);
+                //        BeginInvoke(new MethodInvoker(() =>
+                //        {
+                //            gridView1.FocusedColumn = colBarcode;
+                //        }));
+
+                //        return;
+                //    }
+
+                //}
+                model.ProductId = pos.Id;
+               
+                model.ChkNegative = pos.CheckNegative;
+                model.Barcode = pos.BarCode;
+
+                model.HsnCode = pos.HsnCode;
+
+                model.ProductName = pos.ProductName;
+
+                model.Stock = Convert.ToDecimal(pos.StockQty);
+
+                model.ColorId = pos.ColorId;
+
+                model.ColorName = pos.ColorName;
+
+                model.Cut = pos.Cut;
+                model.UomId = pos.PurUomId;
+
+                model.Disc = pos.PurDisc;
+
+                //  model.ProfitPer = pos.ProfitPer; // price profit %
+
+
+                model.Rate = pos.DealerPrice;
+                model.RatePerQty = pos.RatePerQty;
+
+                if (accLookup1.LookupDto.IsGst && !isImortOrSez)
+                {
+                    model.SgstPer = pos.Sgst;
+                    model.CgstPer = pos.Cgst;
+                    model.IgstPer = 0;
+                    model.Igst = 0;
+                }
+                else
+                {
+                    model.SgstPer = 0;
+                    model.Sgst = 0;
+                    model.CgstPer = 0;
+                    model.Cgst = 0;
+                    model.IgstPer = pos.Igst;
+                }
+                model.CessPer = pos.Cess;
+
+                model.SaleRate = decimal.Round((model.Rate + (model.Rate * (model.SgstPer + model.CgstPer + model.IgstPer) / 100)), 2, MidpointRounding.AwayFromZero);
+                model.Qty = 1;
+                model.Pcs = 1;
+
+               
+
+                // for moving focus after scannig barcode
+                gridView1.FocusedColumn = gridView1.GetVisibleColumn(colProductName.VisibleIndex);
+            }
+
+            GridCalculation(model,e.Column.FieldName);
         }
         private void GridView1_KeyDown(object sender, KeyEventArgs e)
         {

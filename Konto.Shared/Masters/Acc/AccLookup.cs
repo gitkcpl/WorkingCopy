@@ -156,11 +156,11 @@ namespace Konto.Shared.Masters.Acc
             }
             else if (keyData == Keys.Return)
             {
-                if (Convert.ToInt32(this.SelectedValue) == 0)
-                {
+                //if (Convert.ToInt32(this.SelectedValue) == 0)
+               // {
                     ShowList();
                     return true;
-                }
+               // }
             }
 
             return base.ProcessCmdKey(ref msg, keyData);

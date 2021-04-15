@@ -43,6 +43,7 @@ BEGIN
            bt.Pcs,
            bt.Qty,
            bt.Rate,
+           bt.SaleRate,
            bt.Total,
            um.UnitCode,
            um.UnitName,

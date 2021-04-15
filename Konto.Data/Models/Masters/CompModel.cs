@@ -136,6 +136,8 @@ namespace Konto.Data.Models.Masters
         [Display(Name = "Logo Path")]
         public virtual string LogoPath { get; set; }
 
+      
+
         [MaxLength]
         [Display(Name = "Extra1")]
         public virtual string Extra1 { get; set; }

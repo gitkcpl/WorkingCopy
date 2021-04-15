@@ -27,6 +27,7 @@ namespace Konto.App.Shared.Para
         public static int Rate_Decimal = 2;
         public static int Qty_Decimal = 2;
         public static bool HsnCode_Required = false;
+        public static bool Barcode_Required = false;
     }
 
     public class PosPrPara
