@@ -109,7 +109,7 @@ BEGIN
  
     WHERE (bm.IsDeleted=@Deleted AND bm.IsActive = @Cancelled) AND bm.CompId = @CompanyId AND bm.YearId = @YearId
     AND (bm.VoucherDate  between @FromDate and @ToDate) and v.VTypeId=@VTypeId
-    AND (@BranchId=0 OR bm.BranchId=@BranchId) 
+   AND (@BranchId=0 OR  (bm.BranchId is null or bm.BranchId=@BranchId)) 
 
     ORDER by bm.VoucherDate DESC, CAST(bm.BillNo AS VARBINARY(MAX)) DESC
     

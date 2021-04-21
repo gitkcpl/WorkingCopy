@@ -37,6 +37,7 @@ namespace Konto.Pos.Purchase
             this.cancelSimpleButton = new DevExpress.XtraEditors.SimpleButton();
             this.okSimpleButton = new DevExpress.XtraEditors.SimpleButton();
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
+            this.pcsKontoSpinEdit = new Konto.Core.Shared.Libs.KontoSpinEdit(this.components);
             this.wtKontoSpinEdit1 = new Konto.Core.Shared.Libs.KontoSpinEdit(this.components);
             this.qtyKontoSpinEdit = new Konto.Core.Shared.Libs.KontoSpinEdit(this.components);
             this.genItemSimpleButton = new DevExpress.XtraEditors.SimpleButton();
@@ -175,11 +176,11 @@ namespace Konto.Pos.Purchase
             this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem18 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem20 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.pcsKontoSpinEdit = new Konto.Core.Shared.Libs.KontoSpinEdit(this.components);
             this.layoutControlItem22 = new DevExpress.XtraLayout.LayoutControlItem();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pcsKontoSpinEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.wtKontoSpinEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.qtyKontoSpinEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sizeCheckedComboBoxEdit.Properties)).BeginInit();
@@ -239,7 +240,6 @@ namespace Konto.Pos.Purchase
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem18)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem20)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pcsKontoSpinEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem22)).BeginInit();
             this.SuspendLayout();
             // 
@@ -319,13 +319,31 @@ namespace Konto.Pos.Purchase
             this.layoutControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.layoutControl1.Location = new System.Drawing.Point(0, 0);
             this.layoutControl1.Name = "layoutControl1";
-            this.layoutControl1.OptionsCustomizationForm.DesignTimeCustomizationFormPositionAndSize = new System.Drawing.Rectangle(716, 168, 650, 400);
+            this.layoutControl1.OptionsCustomizationForm.DesignTimeCustomizationFormPositionAndSize = new System.Drawing.Rectangle(641, 425, 650, 400);
             this.layoutControl1.OptionsFocus.AllowFocusControlOnActivatedTabPage = true;
             this.layoutControl1.OptionsFocus.AllowFocusTabbedGroups = false;
             this.layoutControl1.Root = this.Root;
             this.layoutControl1.Size = new System.Drawing.Size(897, 436);
             this.layoutControl1.TabIndex = 9;
             this.layoutControl1.Text = "layoutControl1";
+            // 
+            // pcsKontoSpinEdit
+            // 
+            this.pcsKontoSpinEdit.EditValue = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.pcsKontoSpinEdit.EnterMoveNextControl = true;
+            this.pcsKontoSpinEdit.Location = new System.Drawing.Point(786, 197);
+            this.pcsKontoSpinEdit.Name = "pcsKontoSpinEdit";
+            this.pcsKontoSpinEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pcsKontoSpinEdit.Properties.Appearance.Options.UseFont = true;
+            this.pcsKontoSpinEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.pcsKontoSpinEdit.Size = new System.Drawing.Size(106, 24);
+            this.pcsKontoSpinEdit.StyleController = this.layoutControl1;
+            this.pcsKontoSpinEdit.TabIndex = 30;
             // 
             // wtKontoSpinEdit1
             // 
@@ -404,11 +422,14 @@ namespace Konto.Pos.Purchase
             // gridControl1
             // 
             this.gridControl1.DataSource = this.posPurTransDtoBindingSource;
+            this.gridControl1.EmbeddedNavigator.Buttons.Append.Enabled = false;
+            this.gridControl1.EmbeddedNavigator.Buttons.Edit.Enabled = false;
             this.gridControl1.Location = new System.Drawing.Point(5, 251);
             this.gridControl1.MainView = this.gridView1;
             this.gridControl1.Name = "gridControl1";
             this.gridControl1.Size = new System.Drawing.Size(887, 180);
             this.gridControl1.TabIndex = 4;
+            this.gridControl1.UseEmbeddedNavigator = true;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
             // 
@@ -989,7 +1010,7 @@ namespace Konto.Pos.Purchase
             this.semBulkRateKontoSpinEdit.Properties.Appearance.Options.UseFont = true;
             this.semBulkRateKontoSpinEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.semBulkRateKontoSpinEdit.Size = new System.Drawing.Size(101, 24);
+            this.semBulkRateKontoSpinEdit.Size = new System.Drawing.Size(96, 24);
             this.semBulkRateKontoSpinEdit.StyleController = this.layoutControl1;
             this.semBulkRateKontoSpinEdit.TabIndex = 24;
             // 
@@ -1241,6 +1262,7 @@ namespace Konto.Pos.Purchase
             this.purUnitlookUpEdit.Size = new System.Drawing.Size(91, 24);
             this.purUnitlookUpEdit.StyleController = this.layoutControl1;
             this.purUnitlookUpEdit.TabIndex = 13;
+            this.purUnitlookUpEdit.EditValueChanged += new System.EventHandler(this.purUnitlookUpEdit_EditValueChanged);
             // 
             // unitLookUpEdit
             // 
@@ -1557,8 +1579,10 @@ namespace Konto.Pos.Purchase
             this.layoutControlItem31.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem31.Control = this.subGroupLookup1;
             this.layoutControlItem31.Location = new System.Drawing.Point(274, 56);
+            this.layoutControlItem31.MinSize = new System.Drawing.Size(204, 24);
             this.layoutControlItem31.Name = "layoutControlItem31";
             this.layoutControlItem31.Size = new System.Drawing.Size(288, 24);
+            this.layoutControlItem31.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.layoutControlItem31.Text = "Sub Group:";
             this.layoutControlItem31.TextSize = new System.Drawing.Size(97, 17);
             // 
@@ -1624,7 +1648,7 @@ namespace Konto.Pos.Purchase
             this.semiBulkLayoutControlItem.Control = this.semBulkRateKontoSpinEdit;
             this.semiBulkLayoutControlItem.Location = new System.Drawing.Point(481, 192);
             this.semiBulkLayoutControlItem.Name = "semiBulkLayoutControlItem";
-            this.semiBulkLayoutControlItem.Size = new System.Drawing.Size(205, 28);
+            this.semiBulkLayoutControlItem.Size = new System.Drawing.Size(200, 28);
             this.semiBulkLayoutControlItem.Text = "Semi Bulk Rate:";
             this.semiBulkLayoutControlItem.TextSize = new System.Drawing.Size(97, 17);
             // 
@@ -1772,32 +1796,14 @@ namespace Konto.Pos.Purchase
             this.layoutControlItem20.Text = "Weight:";
             this.layoutControlItem20.TextSize = new System.Drawing.Size(97, 17);
             // 
-            // pcsKontoSpinEdit
-            // 
-            this.pcsKontoSpinEdit.EditValue = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.pcsKontoSpinEdit.EnterMoveNextControl = true;
-            this.pcsKontoSpinEdit.Location = new System.Drawing.Point(791, 197);
-            this.pcsKontoSpinEdit.Name = "pcsKontoSpinEdit";
-            this.pcsKontoSpinEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pcsKontoSpinEdit.Properties.Appearance.Options.UseFont = true;
-            this.pcsKontoSpinEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.pcsKontoSpinEdit.Size = new System.Drawing.Size(101, 24);
-            this.pcsKontoSpinEdit.StyleController = this.layoutControl1;
-            this.pcsKontoSpinEdit.TabIndex = 30;
-            // 
             // layoutControlItem22
             // 
             this.layoutControlItem22.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.layoutControlItem22.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem22.Control = this.pcsKontoSpinEdit;
-            this.layoutControlItem22.Location = new System.Drawing.Point(686, 192);
+            this.layoutControlItem22.Location = new System.Drawing.Point(681, 192);
             this.layoutControlItem22.Name = "layoutControlItem22";
-            this.layoutControlItem22.Size = new System.Drawing.Size(205, 28);
+            this.layoutControlItem22.Size = new System.Drawing.Size(210, 28);
             this.layoutControlItem22.Text = "Barcode Pcs:";
             this.layoutControlItem22.TextSize = new System.Drawing.Size(97, 17);
             // 
@@ -1816,10 +1822,12 @@ namespace Konto.Pos.Purchase
             this.Name = "PurchaseProductView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Purchase Product & Barcode";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.PurchaseProductView_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pcsKontoSpinEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.wtKontoSpinEdit1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.qtyKontoSpinEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.sizeCheckedComboBoxEdit.Properties)).EndInit();
@@ -1879,7 +1887,6 @@ namespace Konto.Pos.Purchase
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem18)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem20)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pcsKontoSpinEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem22)).EndInit();
             this.ResumeLayout(false);
 

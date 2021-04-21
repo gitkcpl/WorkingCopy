@@ -178,22 +178,24 @@ namespace Konto.Shared.Account.Receipt
                                 _tran.Rollback();
                                 return;
                             }
-                            // Delete drcr debit note 
-                            //var drCr = db.BillTrans.Where(k => (k.RefId == model.Id && k.RefVoucherId == model.VoucherId)).ToList();
 
-                            //foreach (var item in drCr)
-                            //{
-                            //    var drCrM = db.Bills.FirstOrDefault(k => k.Id == item.BillId);
-                            //    //Delete ledger from crder note
-                            //    var st = db.Ledgers.Where(k => k.RefId == drCrM.RowId && k.IsActive && k.IsDeleted == false).ToList();
-                            //    db.Ledgers.RemoveRange(st);
-                            //    if (drCrM != null)
-                            //    {
-                            //        db.Bills.Remove(drCrM);
-                            //        db.SaveChanges();
-                            //    }
-                            //}
+                            //Delete drcr debit note
 
+                            var drCr = db.BillTrans.Where(k => (k.RefId == model.Id && k.RefVoucherId == model.VoucherId)).ToList();
+
+                            foreach (var item in drCr)
+                            {
+                                var drCrM = db.Bills.FirstOrDefault(k => k.Id == item.BillId);
+                                drCrM.IsDeleted = true;
+                                
+                               
+                                var st = db.Ledgers.Where(k => k.RefId == drCrM.RowId && k.IsActive && k.IsDeleted == false).ToList();
+                                db.Ledgers.RemoveRange(st);
+
+                                item.IsDeleted = true;
+                            }
+
+                            
                             var trans = db.BillTrans.Where(x => x.BillId == model.Id).ToList();
                             foreach (var item in trans)
                             {

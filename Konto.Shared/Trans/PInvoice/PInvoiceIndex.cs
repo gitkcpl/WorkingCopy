@@ -2149,7 +2149,7 @@ namespace Konto.Shared.Trans.PInvoice
 
                             item.RefVoucherId = _find.Id;
                             item.VoucherId = _find.VoucherId;
-                            if (item.Id == 0)
+                            if (item.Id <= 0)
                             {
                                 string fpath = item.FilePath;// uploadedFile.FileNameInStorage.ToString(); 
                                 int lst = fpath.LastIndexOf(".");
@@ -2178,7 +2178,7 @@ namespace Konto.Shared.Trans.PInvoice
                         //delete item from  trans
                         foreach (var item in DelTrans)
                         {
-                            if (item.Id == 0) continue;
+                            if (item.Id <= 0) continue;
                             var _model = db.BillTrans.Find(item.Id);
                             _model.IsDeleted = true;
 
@@ -2321,15 +2321,18 @@ namespace Konto.Shared.Trans.PInvoice
             model.TransId = Convert.ToInt32(transportLookup.SelectedValue);
             model.DocNo = lrNotextEdit.Text.Trim();
             model.DocDate = Convert.ToDateTime(lrDateEdit.EditValue);
+
             model.TypeId = (int)VoucherTypeEnum.PurchaseInvoice;
             model.CompId = KontoGlobals.CompanyId;
             model.YearId = KontoGlobals.YearId;
             model.BranchId = KontoGlobals.BranchId;
             model.RoundOff = roundoffSpinEdit.Value;
+            
             model.Duedays = Convert.ToInt32(dueDaysTextEdit.Value);
             model.HasteId = Convert.ToInt32(tdsAccLookup.SelectedValue);
             model.TdsPer = tdsPerTextEdit.Value;
             model.TdsAmt = tdsAmtTextEdit.Value;
+            
             var _translist = grnTransDtoBindingSource1.DataSource as List<BillTransDto>;
             model.GrossAmount = _translist.Sum(x => x.Total);
             model.TotalAmount = billAmtSpinEdit.Value;

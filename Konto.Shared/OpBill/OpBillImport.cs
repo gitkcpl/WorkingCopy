@@ -130,14 +130,14 @@ namespace Konto.Shared.OpBill
                                 billr.BillId = bill.Id;
                                 billr.CompanyId = KontoGlobals.CompanyId;
                                 billr.YearId = KontoGlobals.YearId;
-
+                                billr.BranchId = KontoGlobals.BranchId;
                                 billr.AccountId = bill.AccId;
                                 billr.GrossAmt = bill.TotalAmount;
                                 billr.BillAmt = bill.TotalAmount;
                                 billr.AdjustAmt = bill.GrossAmount;
                                 billr.RetAmt = (decimal)bill.TotalPcs;
                                 billr.TdsAmt = bill.TdsAmt;
-
+                                billr.BillTransId = bill.Id;
                                 billr.BillVoucherId = bill.VoucherId;
 
                                 billr.BillNo = bill.BillNo;

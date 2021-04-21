@@ -2,7 +2,7 @@
 EXEC ('CREATE PROC [dbo].[OrderAgainstchallanReport] AS SELECT 1 AS Id') 
 GO
 
-ALTER PROCEDURE [dbo].[OrderAgainstchallanReport]
+alter PROCEDURE [dbo].[OrderAgainstchallanReport]
  	@CompanyId int,
 	@ordStatus varchar(100)='All',
 	@VoucherID int=0,
@@ -27,9 +27,10 @@ AS
 BEGIN
 	select o.VoucherNo,
 	ISNULL(CONVERT(Date,Convert(varchar(8),o.VoucherDate),112),'')  as VoucherDate,
- 
+	ot.Id OrdTranId,ot.Id OrdId,
 	ac.AccName as PartyName, ISNULL(o.AccId,0) AS DelvAccId, ad.Address1,ad.Address2,
-	ISNULL(ad.Id,0) AS DelvAdrId,c.CityName,ISNULL(o.TransportId,0) AS TransportId ,ot.LotPcs AS TotalPcs,CAST(ot.Qty as numeric(18,2)) as TotalQty,
+	ISNULL(ad.Id,0) AS DelvAdrId,c.CityName,ISNULL(o.TransportId,0) AS TransportId ,ot.LotPcs AS TotalPcs,
+	CAST(ot.Qty as numeric(18,2)) as TotalQty,
 	cast((ot.Qty-isnull(ct.RcptQty,0))  as numeric(18,2)) as PendingQty,
 	cast(isnull(ct.RcptQty,0) as numeric(18,2)) as RcptQty,
 	p.ProductName as Product,ot.ProductId,co.ColorName,ot.ColorId,ot.Cut,ot.DivisionId,ot.DesignId,
@@ -37,7 +38,10 @@ BEGIN
 	ot.UomId,ot.LotPcs,cast(ot.NetTotal  as numeric(18,2)) as NetTotal,ot.NoOfLot
 	,cast(ot.rate as numeric(18,2)) as rate,ot.Sgst,ot.SgstAmt,isnull(ot.Cgst,0) AS Cgst,
 	ISNULL(ot.CgstAmt,0) AS CgstAmt,isnull(ot.Igst,0) AS Igst,isnull(ot.IgstAmt,0) AS IgstAmt,ot.Total,
-	ot.Disc,ot.DiscAmt,ot.Id as TransId,o.Id ,o.VoucherId , o.Remarks, ct.VoucherNo AS challanNo, ISNULL(CONVERT(Date,Convert(varchar(8),ct.VoucherDate),112),'')  as ChallanDate
+	ot.Disc,ot.DiscAmt,ot.Id as TransId,o.Id ,o.VoucherId , o.Remarks, ct.VoucherNo AS challanNo,
+	 ct.ChalDate,ct.ChalItem,ct.RcptPcs,
+	 ct.InvNo,ct.InvDate,ct.BillNo
+	 
 	from dbo.Ord o
 	left outer join dbo.OrdTrans ot on ot.OrdId=o.Id
 	left outer join dbo.Product p on p.Id=ot.ProductId
@@ -49,14 +53,37 @@ BEGIN
 	LEFT OUTER JOIN dbo.AccAddress ad ON ad.Id = acb.AddressId 
 	LEFT OUTER JOIN dbo.Acc ac on ac.id=o.AccId
 	LEFT OUTER JOIN dbo.City c ON c.Id = ad.CityId
-	left outer join (SELECT ct.ProductId,sum(ct.Qty)as RcptQty , ISNULL(ct.RefId,0) AS RefId, ch.VoucherNo,ch.VoucherDate,	ISNULL(ct.RefVoucherId,0) AS RefVoucherId  
+	left outer join (SELECT p2.ProductName ChalItem,
+		sum(ct.Qty)as RcptQty , 
+		ISNULL(ct.RefId,0) AS RefId, ISNULL(ct.MiscId,0)MiscId,
+		ch.VoucherNo,SUM(ct.Pcs)RcptPcs,
+	ISNULL(CONVERT(Date,Convert(varchar(8),ch.VoucherDate),112),'')ChalDate,
+		ISNULL(ct.RefVoucherId,0) AS RefVoucherId,
+		bt1.InvNo,bt1.BillNo,bt1.InvDate  
+		
 					 FROM dbo.ChallanTrans ct
 					 LEFT OUTER JOIN dbo.Challan ch ON ch.Id = ct.challanId
-			         WHERE ct.IsActive=1 and ct.IsDeleted=0
-			         GROUP BY ct.RefId, ISNULL(ct.RefVoucherId,0), ct.ProductId, ch.VoucherNo, ch.VoucherDate
-	)ct on ct.RefId=ot.Id AND ct.RefVoucherId = o.VoucherId and ct.ProductId = ot.ProductId
+					 LEFT OUTER JOIN Product AS p2 ON p2.Id = ct.ProductId
+					 LEFT OUTER JOIN (
+					 	SELECT bm.VoucherNo InvNo,bm.BillNo,
+					 	ISNULL(CONVERT(Date,Convert(varchar(8),bm.VoucherDate),112),'')InvDate,
+					 	 bt.RefId,bt.RefTransId,bt.RefVoucherId
+					 	  FROM  BillTrans bt
+					 LEFT OUTER JOIN BillMain AS bm
+					                ON bm.Id = bt.BillId
+					 	WHERE bm.IsDeleted=0 AND bm.IsActive=1 AND bt.IsDeleted=0
+					 	AND bt.IsActive=1  AND bt.RefId IS NOT NULL
+					 ) bt1
+					 	ON ct.Id = bt1.RefTransId AND ct.ChallanId = bt1.RefId
+			         WHERE ch.VoucherId = bt1.RefVoucherId and
+			          ct.IsActive=1 and ct.IsDeleted=0 AND ct.RefId IS NOT NULL
+			         GROUP BY ct.RefId, ct.RefVoucherId,ct.MiscId,
+			         p2.ProductName, ch.VoucherNo, ch.VoucherDate,
+			         bt1.InvNo,bt1.BillNo,bt1.Invdate
+	)ct on ct.RefId=ot.Id 
 	left outer join dbo.Voucher v on v.Id=o.VoucherId 
-	WHERE  o.CompId = @CompanyId   
+	WHERE  ct.RefVoucherId = o.VoucherId AND o.Id = ct.MiscId
+	AND o.CompId = @CompanyId   
 	AND (o.VoucherDate between @FromDate and @ToDate)
 	AND  (v.VTypeId=@VTypeID or @VTypeID=0)
 	AND o.IsActive =1 AND o.IsDeleted = 0 AND ot.IsDeleted=0
@@ -131,5 +158,6 @@ BEGIN
       )
 
 END
+
 GO
 

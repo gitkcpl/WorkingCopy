@@ -1760,6 +1760,7 @@ namespace Konto.Trading.MillReceipt
                 pd.RefSCId = po.ProdId; //org prodprtaka id
                 pd.Remark = po.VoucherNo;
                 pd.CProductId = pd.ProductId;
+                pd.BranchId = KontoGlobals.BranchId;
 
                 if (pd.Id == 0)
                     db.Prods.Add(pd);
@@ -1794,6 +1795,7 @@ namespace Konto.Trading.MillReceipt
                 pd.YearId = KontoGlobals.YearId;
                 pd.TwistType = "TP2";
                 pd.CProductId = pd.ProductId;
+                pd.BranchId = KontoGlobals.BranchId;
 
                 if (pd.Id == 0)
                     db.Prods.Add(pd);
@@ -1837,6 +1839,7 @@ namespace Konto.Trading.MillReceipt
                 pd.TwistType = "TP3";
                 pd.Remark = po.VoucherNo;
                 pd.CProductId = pd.ProductId;
+                pd.BranchId = KontoGlobals.BranchId;
 
                 if (pd.Id == 0)
                     db.Prods.Add(pd);
@@ -1880,6 +1883,7 @@ namespace Konto.Trading.MillReceipt
                 pd.TwistType = "TP4";
                 pd.Remark = po.VoucherNo;
                 pd.CProductId = pd.ProductId;
+                pd.BranchId = KontoGlobals.BranchId;
 
                 if (pd.Id == 0)
                     db.Prods.Add(pd);
@@ -1923,6 +1927,7 @@ namespace Konto.Trading.MillReceipt
                 pd.TwistType = "TP5";
                 pd.Remark = po.VoucherNo;
                 pd.CProductId = pd.ProductId;
+                pd.BranchId = KontoGlobals.BranchId;
 
                 if (pd.Id == 0)
                     db.Prods.Add(pd);

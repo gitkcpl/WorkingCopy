@@ -127,7 +127,8 @@ BEGIN
            pp.Mrp,ps.SizeName,bk.AccName as BookName,
             bm.RequireDate,tr.GstIn TransGstIn,
             cmp.FAddress1,cmp.FAddress2,fcty.CityName FCity,
-            fst.StateName FState
+            fst.StateName FState,
+            cm.Insurance as CInsurance
     FROM dbo.BillMain bm
         INNER JOIN dbo.BillTrans bt
             ON bm.Id = bt.BillId

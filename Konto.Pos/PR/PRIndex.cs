@@ -1686,7 +1686,7 @@ namespace Konto.Pos.PR
                         //delete item from  trans
                         foreach (var item in DelTrans)
                         {
-                            if (item.Id == 0) continue;
+                            if (item.Id <= 0) continue;
                             var _model = db.BillTrans.Find(item.Id);
                             _model.IsDeleted = true;
                         }

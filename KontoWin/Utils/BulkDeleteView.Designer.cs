@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
             this.cancelSimpleButton = new DevExpress.XtraEditors.SimpleButton();
             this.okSimpleButton = new DevExpress.XtraEditors.SimpleButton();
             this.customGridControl1 = new Konto.Core.Shared.Libs.CustomGridControl();
@@ -44,6 +45,7 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel1.Controls.Add(this.simpleButton1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.cancelSimpleButton, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.okSimpleButton, 1, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -51,8 +53,20 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(765, 37);
             this.tableLayoutPanel1.TabIndex = 5;
+            // 
+            // simpleButton1
+            // 
+            this.simpleButton1.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.simpleButton1.Appearance.Options.UseFont = true;
+            this.simpleButton1.Location = new System.Drawing.Point(3, 3);
+            this.simpleButton1.Name = "simpleButton1";
+            this.simpleButton1.Size = new System.Drawing.Size(86, 31);
+            this.simpleButton1.TabIndex = 7;
+            this.simpleButton1.Text = "Import";
+            this.simpleButton1.Click += new System.EventHandler(this.simpleButton1_Click);
             // 
             // cancelSimpleButton
             // 
@@ -149,5 +163,6 @@
         public DevExpress.XtraEditors.SimpleButton okSimpleButton;
         public Konto.Core.Shared.Libs.CustomGridControl customGridControl1;
         public Konto.Core.Shared.Libs.CustomGridView customGridView1;
+        public DevExpress.XtraEditors.SimpleButton simpleButton1;
     }
 }

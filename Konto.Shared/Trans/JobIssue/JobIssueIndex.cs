@@ -668,6 +668,7 @@ namespace Konto.Shared.Trans.JobIssue
             frm.Text = "Taka/Box Details";
             frm.TransId = Convert.ToInt32(er.Id);
             frm.ItemId = er.ProductId;
+            frm.IsEditableQty = true;
             frm.prodDtos = new BindingList<GrnProdDto>(this.prodDtos.Where(x => x.TransId == er.Id || x.RefTransId == er.Id).ToList());
             if (frm.ShowDialog() != DialogResult.OK) return;
             var tempprod = frm.gridControl1.DataSource as BindingList<GrnProdDto>;
@@ -1556,7 +1557,7 @@ namespace Konto.Shared.Trans.JobIssue
                         //delete item fro trans table entry
                         foreach (var ditem in DelTrans)
                         {
-                            if (ditem.Id == 0) continue;
+                            if (ditem.Id <= 0) continue;
                             var _model = db.ChallanTranses.Find(ditem.Id);
                             _model.IsDeleted = true;
 

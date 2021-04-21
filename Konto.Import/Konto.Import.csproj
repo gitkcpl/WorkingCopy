@@ -1,0 +1,185 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{CD3879A2-6CBA-4545-A540-2B4D44AAD93D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Konto.Import</RootNamespace>
+    <AssemblyName>Konto.Import</AssemblyName>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.Data.Desktop.v20.1, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Data.v20.1, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Printing.v20.1.Core, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Sparkline.v20.1.Core, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Utils.v20.1, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraEditors.v20.1, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="EntityFramework">
+      <HintPath>..\Konto.Yarn\bin\Debug\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Konto.Yarn\bin\Debug\Serilog.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Shared.Base, Version=18.1460.0.42, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Class1.cs" />
+    <Compile Include="ImportView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ImportView.Designer.cs">
+      <DependentUpon>ImportView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ImpContext.cs" />
+    <Compile Include="Models\Account.cs" />
+    <Compile Include="Models\AcGroup.cs" />
+    <Compile Include="Models\Area.cs" />
+    <Compile Include="Models\AuditLog.cs" />
+    <Compile Include="Models\Bank.cs" />
+    <Compile Include="Models\BankBill.cs" />
+    <Compile Include="Models\BankBillAdjust.cs" />
+    <Compile Include="Models\BankTrans.cs" />
+    <Compile Include="Models\Batch.cs" />
+    <Compile Include="Models\BtoB.cs" />
+    <Compile Include="Models\BtoBTrans.cs" />
+    <Compile Include="Models\Cash.cs" />
+    <Compile Include="Models\CashBill.cs" />
+    <Compile Include="Models\CashBillAdjust.cs" />
+    <Compile Include="Models\CashTrans.cs" />
+    <Compile Include="Models\City.cs" />
+    <Compile Include="Models\ClosingEntry.cs" />
+    <Compile Include="Models\Color.cs" />
+    <Compile Include="Models\Company.cs" />
+    <Compile Include="Models\CrDrBill.cs" />
+    <Compile Include="Models\CrDrNote.cs" />
+    <Compile Include="Models\CrDrNoteAddon.cs" />
+    <Compile Include="Models\CrDrNoteTrans.cs" />
+    <Compile Include="Models\Grade.cs" />
+    <Compile Include="Models\IRN.cs" />
+    <Compile Include="Models\Issue.cs" />
+    <Compile Include="Models\IssueTrans.cs" />
+    <Compile Include="Models\Item.cs" />
+    <Compile Include="Models\ItemCat.cs" />
+    <Compile Include="Models\JobCard.cs" />
+    <Compile Include="Models\Jv.cs" />
+    <Compile Include="Models\JvBill.cs" />
+    <Compile Include="Models\JvTrans.cs" />
+    <Compile Include="Models\KeyYear.cs" />
+    <Compile Include="Models\Ledger.cs" />
+    <Compile Include="Models\LmsProd.cs" />
+    <Compile Include="Models\MachineIssue.cs" />
+    <Compile Include="Models\OpAccount.cs" />
+    <Compile Include="Models\OpPurchase.cs" />
+    <Compile Include="Models\OpSales.cs" />
+    <Compile Include="Models\Party_Payment.cs" />
+    <Compile Include="Models\Pc.cs" />
+    <Compile Include="Models\PcTrans.cs" />
+    <Compile Include="Models\PcTransD.cs" />
+    <Compile Include="Models\Po.cs" />
+    <Compile Include="Models\PoTrans.cs" />
+    <Compile Include="Models\Purchase.cs" />
+    <Compile Include="Models\PurchaseAddOn.cs" />
+    <Compile Include="Models\PurchaseBill.cs" />
+    <Compile Include="Models\PurchaseRet.cs" />
+    <Compile Include="Models\PurchaseRetAdOn.cs" />
+    <Compile Include="Models\PurchaseRetBill.cs" />
+    <Compile Include="Models\PurchaseRetTrans.cs" />
+    <Compile Include="Models\PurchaseTrans.cs" />
+    <Compile Include="Models\Sale.cs" />
+    <Compile Include="Models\SaleAddon.cs" />
+    <Compile Include="Models\SaleRet.cs" />
+    <Compile Include="Models\SaleRetAddon.cs" />
+    <Compile Include="Models\SaleRetTrans.cs" />
+    <Compile Include="Models\SalesPay.cs" />
+    <Compile Include="Models\SalesPurchaseFooter.cs" />
+    <Compile Include="Models\SalesRetBill.cs" />
+    <Compile Include="Models\SaleTrans.cs" />
+    <Compile Include="Models\Sc.cs" />
+    <Compile Include="Models\Screen.cs" />
+    <Compile Include="Models\ScTransD.cs" />
+    <Compile Include="Models\SmsMaster.cs" />
+    <Compile Include="Models\So.cs" />
+    <Compile Include="Models\SoDelv.cs" />
+    <Compile Include="Models\SoTrans.cs" />
+    <Compile Include="Models\State.cs" />
+    <Compile Include="Models\StockData.cs" />
+    <Compile Include="Models\TaxPayersEWBSessionDB.cs" />
+    <Compile Include="Models\TexProd.cs" />
+    <Compile Include="Models\Transport.cs" />
+    <Compile Include="Models\Uom.cs" />
+    <Compile Include="Models\VatClass.cs" />
+    <Compile Include="Models\Voucher.cs" />
+    <Compile Include="Models\VoucherType.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WaitForm1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WaitForm1.Designer.cs">
+      <DependentUpon>WaitForm1.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Konto.App.Shared\Konto.App.Shared.csproj">
+      <Project>{F9E8AE77-5F5F-4F20-9CAD-D21A874F4130}</Project>
+      <Name>Konto.App.Shared</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Konto.Core.Shared\Konto.Core.Shared.csproj">
+      <Project>{69C2E195-1DB0-4023-B81E-81851F5B3042}</Project>
+      <Name>Konto.Core.Shared</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Konto.Data.Migration\Konto.Data.Migration.csproj">
+      <Project>{344bb825-179d-462a-9ea4-441baad6bebf}</Project>
+      <Name>Konto.Data.Migration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Konto.Data\Konto.Data.csproj">
+      <Project>{462e3508-500d-4f85-8e0d-88b132b62d5c}</Project>
+      <Name>Konto.Data</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ImportView.resx">
+      <DependentUpon>ImportView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="WaitForm1.resx">
+      <DependentUpon>WaitForm1.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

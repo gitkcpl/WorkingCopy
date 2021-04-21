@@ -130,5 +130,13 @@ namespace Konto.Shared.Masters.Design
                 MessageBoxAdv.Show(this, "Error While Delete !!", "Exception ", ex.ToString());
             }
         }
+
+        public override void ImportExcel()
+        {
+            base.ImportExcel();
+
+            var frm = new DesignImport();
+            frm.ShowDialog();
+        }
     }
 }

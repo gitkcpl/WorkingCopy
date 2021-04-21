@@ -157,12 +157,12 @@ namespace Konto.Shared.Masters.Recpayset
                 addLessLookUpEdit.Focus();
                 return false;
             }
-            else if (string.IsNullOrEmpty(perHeadKontoTextBoxExt.Text))
-            {
-                MessageBoxAdv.Show(this, "Invalid Percentage Heading", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                perHeadKontoTextBoxExt.Focus();
-                return false;
-            }
+            //else if (string.IsNullOrEmpty(perHeadKontoTextBoxExt.Text))
+            //{
+            //    MessageBoxAdv.Show(this, "Invalid Percentage Heading", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //    perHeadKontoTextBoxExt.Focus();
+            //    return false;
+            //}
             else if (string.IsNullOrEmpty(amtHeadingKontoTextBoxExt.Text))
             {
                 MessageBoxAdv.Show(this, "Invalid Amount Heading", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -213,7 +213,8 @@ namespace Konto.Shared.Masters.Recpayset
             using (var db = new KontoContext())
             {
                 var find = db.RPSets.FirstOrDefault(
-                   x => x.Field == fieldLookUpEdit1.EditValue.ToString() && x.Id != this.PrimaryKey && !x.IsDeleted);
+                   x => x.Field == fieldLookUpEdit1.EditValue.ToString() && x.Id != this.PrimaryKey && !x.IsDeleted
+                   && x.RecPay == typeLookUpEdit.EditValue.ToString());
 
                 if (find != null)
                 {
@@ -371,7 +372,12 @@ namespace Konto.Shared.Masters.Recpayset
                 model.AmtCap = amtHeadingKontoTextBoxExt.Text.Trim();
                 model.Drcr = drCrLookUpEdit.EditValue.ToString();
                 model.AccountId = Convert.ToInt32(accLookup1.SelectedValue);
-                model.TaxId = Convert.ToInt32(taxTypelookUpEdit.EditValue);
+                
+                if (!string.IsNullOrEmpty(taxTypelookUpEdit.Text))
+                    model.TaxId = Convert.ToInt32(taxTypelookUpEdit.EditValue);
+                else
+                    model.TaxId = null;
+
                 model.HsnCode = hsnCodeKontoTextBoxExt.Text.Trim();
                 model.Remark = descrKontoTextBoxExt.Text.Trim();
                 model.VoucherId = Convert.ToInt32(voucherLookup1.SelectedValue);

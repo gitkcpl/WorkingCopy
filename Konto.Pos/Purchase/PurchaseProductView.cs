@@ -1,4 +1,6 @@
 ﻿using Konto.Core.Shared;
+using Konto.Core.Shared.Frms;
+using Konto.Core.Shared.Libs;
 using Konto.Data;
 using Konto.Data.Models.Masters;
 using Konto.Data.Models.Pos.Dtos;
@@ -16,7 +18,8 @@ namespace Konto.Pos.Purchase
         public List<PosPurTransDto> ItemDetails = new List<PosPurTransDto>();
         public bool IsGst { get; set; }
 
-        
+        public string GridLayoutFileName = "pos\\pur_barcode_grid.xml";
+        public string MainLayoutFileName = "pos\\pur_barcode.xml";
         public PurchaseProductView()
         {
             InitializeComponent();
@@ -43,9 +46,33 @@ namespace Konto.Pos.Purchase
             sizeCheckedComboBoxEdit.Properties.ValueMember = "Id";
 
             qtyKontoSpinEdit.EditValueChanged += QtyKontoSpinEdit_EditValueChanged;
+            
+           
 
         }
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == (Keys.F1 | Keys.Shift))
+            {
+                KontoUtils.SaveLayoutGrid(this.GridLayoutFileName, this.gridView1);
+                KontoUtils.SaveMainFormLayout(this.MainLayoutFileName, layoutControl1);
+                return true;
+            }
+            else if (keyData == (Keys.F2 | Keys.Shift))
+            {
 
+                var frm = new GridPropertView();
+                frm.gridControl1.DataSource = this.gridControl1.DataSource;
+                frm.gridView1.Assign(this.gridView1, false);
+                if (frm.ShowDialog() != DialogResult.OK) return true;
+                this.gridView1.Assign(frm.gridView1, false);
+                KontoUtils.SaveLayoutGrid(this.GridLayoutFileName, this.gridView1);
+                return true;
+            }
+
+
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
         private void QtyKontoSpinEdit_EditValueChanged(object sender, EventArgs e)
         {
             pcsKontoSpinEdit.Value = Convert.ToInt32(qtyKontoSpinEdit.Value);
@@ -256,6 +283,9 @@ namespace Konto.Pos.Purchase
             taxIncCheckEdit.Checked = true;
             negativeCheckEdit.Checked = true;
 
+            KontoUtils.RestoreLayoutGrid(this.GridLayoutFileName, gridView1);
+            KontoUtils.RestoreMainFormLayout(this.MainLayoutFileName, layoutControl1);
+
             this.ActiveControl = barcodeTextBoxExt;
         }
 
@@ -300,7 +330,7 @@ namespace Konto.Pos.Purchase
             }
             else if (string.IsNullOrEmpty(unitLookUpEdit.Text))
             {
-                MessageBoxAdv.Show(this, "Invalid Tax Type", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBoxAdv.Show(this, "Invalid Sale Unit", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
               
                 unitLookUpEdit.Focus();
                 return false;
@@ -318,6 +348,12 @@ namespace Konto.Pos.Purchase
                 saleRateKontoSpinEdit.Focus();
                 return false;
             }
+            else if(saleRateKontoSpinEdit.Value< purRateKontoSpinEdit.Value)
+            {
+                MessageBoxAdv.Show(this, "Sale Rate Can not be less than pruchase rate", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                saleRateKontoSpinEdit.Focus();
+                return false;
+            }
 
             else if (qtyKontoSpinEdit.Value == 0)
             {
@@ -328,6 +364,11 @@ namespace Konto.Pos.Purchase
             }
 
             return true;
+        }
+
+        private void purUnitlookUpEdit_EditValueChanged(object sender, EventArgs e)
+        {
+            unitLookUpEdit.EditValue = purUnitlookUpEdit.EditValue;
         }
     }
 }

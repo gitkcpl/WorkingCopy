@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Konto.Data.Models.Masters;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Globalization;
@@ -216,8 +217,13 @@ namespace Konto.Data.Models.Transaction
 
         public decimal SaleRate { get; set; }
 
+       
+
         [ForeignKey("BillId")]
         public virtual BillModel Bill { get; set; }
+
+      
+
 
     }
 }

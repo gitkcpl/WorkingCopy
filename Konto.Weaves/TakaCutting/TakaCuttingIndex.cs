@@ -542,6 +542,7 @@ namespace Konto.Weaves.TakaCutting
                             _find.CreateUser = createuser;
                         }
 
+                       
                         //DELETED ENTRY FROM DATABASE
 
                         foreach (var p in DelBeamProd)

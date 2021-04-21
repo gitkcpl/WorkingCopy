@@ -160,9 +160,49 @@ namespace Konto.Shared.Account
             var er = gridView1.GetRow(e.RowHandle) as PendBillListDto;//e.Row;
 
             if (er == null) return;
+            if(e.Column.FieldName == "Adlp1")
+            {
+                er.Adla1 = decimal.Round((decimal)er.NetTotal * er.Adlp1 / 100, 0, MidpointRounding.AwayFromZero);
+            }
+            else if (e.Column.FieldName == "Adlp2")
+            {
+                er.Adla2 = decimal.Round((decimal)er.NetTotal * er.Adlp2 / 100, 0, MidpointRounding.AwayFromZero);
+            }
+            else if (e.Column.FieldName == "Adlp3")
+            {
+                er.Adla3 = decimal.Round((decimal)er.NetTotal * er.Adlp3 / 100, 0, MidpointRounding.AwayFromZero);
+            }
+            else if (e.Column.FieldName == "Adlp4")
+            {
+                er.Adla4 = decimal.Round((decimal)er.NetTotal * er.Adlp4 / 100, 0, MidpointRounding.AwayFromZero);
+            }
+            else if (e.Column.FieldName == "Adlp5")
+            {
+                er.Adla5 = decimal.Round((decimal)er.NetTotal * er.Adlp5 / 100, 0, MidpointRounding.AwayFromZero);
+            }
+            else if (e.Column.FieldName == "Adlp6")
+            {
+                er.Adla6 = decimal.Round((decimal)er.NetTotal * er.Adlp6 / 100, 0, MidpointRounding.AwayFromZero);
+            }
+            else if (e.Column.FieldName == "Adlp7")
+            {
+                er.Adla7 = decimal.Round((decimal)er.NetTotal * er.Adlp7 / 100, 0, MidpointRounding.AwayFromZero);
+            }
+            else if (e.Column.FieldName == "Adlp8")
+            {
+                er.Adla8 = decimal.Round((decimal)er.NetTotal * er.Adlp8 / 100, 0, MidpointRounding.AwayFromZero);
+            }
+            else if (e.Column.FieldName == "Adlp9")
+            {
+                er.Adla9 = decimal.Round((decimal)er.NetTotal * er.Adlp9 / 100, 0, MidpointRounding.AwayFromZero);
+            }
+            else if (e.Column.FieldName == "Adlp10")
+            {
+                er.Adla10 = decimal.Round((decimal)er.NetTotal * er.Adlp10 / 100, 0, MidpointRounding.AwayFromZero);
+            }
 
             if (er.Amount != null)
-            {
+                {
                 if (pm1 == "P")
                 {
                     er.Adla1 = er.Adla1;

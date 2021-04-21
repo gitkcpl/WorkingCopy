@@ -26,7 +26,7 @@ namespace Konto.Data.Models.Transaction.Dtos
         public decimal Amount { get; set; }
         public string Extra1 { get; set; }
         public string Extra2 { get; set; }
-        [Required]
+       
         public string EmpName { get; set; }
 
     }

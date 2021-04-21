@@ -387,7 +387,7 @@ namespace Konto.Shared.Masters.Design
         {
             this.ResetPage();
             this.PrimaryKey = model.Id;
-            noTextBoxExt.Text = model.BarCode;
+           // noTextBoxExt.Text = model.BarCode;
             dateEdit1.EditValue = model.DDate;
             nameTextBoxExt.Text = model.ProductName;
             descTextBoxExt.Text = model.ProductDesc;
@@ -433,6 +433,7 @@ namespace Konto.Shared.Masters.Design
             sizeLookup1.SelectedValue = model.SizeId;
             sizeLookup1.SetGroup();
             toggleSwitch1.EditValue = model.IsActive;
+            partyDesignNokontoTextBoxExt.Text = model.Ingr;
             this.Text = "Design Master [View/Modify]";
 
             toggleSwitch1.Enabled = true;
@@ -616,7 +617,7 @@ namespace Konto.Shared.Masters.Design
                         else
                             model.ColorId = Convert.ToInt32(colorLookup1.SelectedValue);
 
-
+                        model.Ingr = partyDesignNokontoTextBoxExt.Text.Trim();
                         if (this.PrimaryKey == 0)
                         {
                             db.Products.Add(model);

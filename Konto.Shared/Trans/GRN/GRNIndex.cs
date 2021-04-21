@@ -95,6 +95,16 @@ namespace Konto.Shared.Trans.GRN
             voucherLookup1.SelectedValueChanged += VoucherLookup1_SelectedValueChanged;
 
             this.FirstActiveControl = grnTypeLookUpEdit;
+            voucherDateEdit.EditValueChanged += VoucherDateEdit_EditValueChanged;
+        }
+
+        private void VoucherDateEdit_EditValueChanged(object sender, EventArgs e)
+        {
+            if(this.PrimaryKey == 0)
+            {
+                receiveDateEdit.EditValue = voucherDateEdit.EditValue;
+                lrDateEdit.EditValue = voucherDateEdit.EditValue;
+            }
         }
 
         private void VoucherLookup1_SelectedValueChanged(object sender, EventArgs e)
@@ -359,7 +369,9 @@ namespace Konto.Shared.Trans.GRN
                 var model = frm.SelectedItem as ProductLookupDto;
                 er.UomId = model.PurUomId;
                 er.Rate = model.DealerPrice;
-                er.Disc = model.PurDisc;
+                
+                er.DiscPer = model.PurDisc;
+
                 if (accLookup1.LookupDto.IsGst)
                 {
                     er.SgstPer = model.Sgst;
@@ -1023,7 +1035,7 @@ namespace Konto.Shared.Trans.GRN
                 ct.ProductId = Convert.ToInt32(ord.ProductId);
                 ct.ProductName = ord.Product;
                 ct.Pcs = ord.TotalPcs != null ? (int)ord.TotalPcs : 0;
-                ct.Cops = 0;// ord.Cut != 0 ? ord.Cut : 0;
+                ct.Cops = ord.Cut ?? 0;
                 ct.Qty = ord.PendingQty != null ? (decimal)ord.PendingQty : 0;
                 ct.Rate = ord.rate != null ? (decimal)ord.rate : 0;
                 ct.LotNo = voucherNoTextEdit.Text.Substring(4, voucherNoTextEdit.Text.Length - 4);
@@ -1330,6 +1342,7 @@ namespace Konto.Shared.Trans.GRN
 
             this.GateId = 0;
             this.GateVoucherId = 0;
+            
         }
         public override void ResetPage()
         {
@@ -1356,6 +1369,7 @@ namespace Konto.Shared.Trans.GRN
             DelProd = new List<GrnProdDto>();
             this.GateId = 0;
             this.GateVoucherId = 0;
+            gateSrNoTextEdit.Text = string.Empty;
         }
         public override void EditPage(int _key)
         {
@@ -1640,7 +1654,7 @@ namespace Konto.Shared.Trans.GRN
                         //delete item from ord trans
                         foreach (var item in DelTrans)
                         {
-                            if (item.Id == 0) continue;
+                            if (item.Id <= 0) continue;
                             var _model = db.ChallanTranses.Find(item.Id);
                             _model.IsDeleted = true;
                         }
@@ -1648,7 +1662,7 @@ namespace Konto.Shared.Trans.GRN
                         // delete from item details
                         foreach (var p in DelProd)
                         {
-                            if (p.Id == 0) continue;
+                            if (p.Id <= 0) continue;
                              var prd = db.Prods.Find(p.Id);
                              if(prd!=null)
                                 prd.IsDeleted = true;

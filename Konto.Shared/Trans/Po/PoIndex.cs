@@ -1243,7 +1243,7 @@ namespace Konto.Shared.Trans.Po
                         //delete item from ord trans
                         foreach (var item in DelTrans)
                         {
-                            if (item.Id == 0) continue;
+                            if (item.Id <= 0) continue;
                             var _model = db.OrdTranses.Find(item.Id);
                             _model.IsDeleted = true;
                         }

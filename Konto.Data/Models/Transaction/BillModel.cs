@@ -38,7 +38,7 @@ namespace Konto.Data.Models.Transaction
 
         [Required(ErrorMessage = "Voucher Date is required")]
         [Display(Name = "Voucher Date")]
-        
+        [Index]
         public int VoucherDate { get; set; }
 
         [MaxLength(25)]
@@ -117,6 +117,7 @@ namespace Konto.Data.Models.Transaction
         public string RefNo { get; set; }
 
         [Display(Name = "Book Acc Id")]
+        [Index]
         public int? BookAcId { get; set; }
 
         [Display(Name = "Acc Id")]
@@ -233,6 +234,8 @@ namespace Konto.Data.Models.Transaction
 
         public int CostHeadId { get; set; }
 
+       
+
         [NotMapped]
         public string DelAddress { get; set; }
 
@@ -240,6 +243,7 @@ namespace Konto.Data.Models.Transaction
         [ForeignKey("VoucherId")]
         public virtual VoucherModel Voucher { get; set; }
 
+       
         
     }
 }

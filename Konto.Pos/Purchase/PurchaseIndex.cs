@@ -2358,14 +2358,14 @@ namespace Konto.Pos.Purchase
                         //delete item from  trans
                         foreach (var item in DelTrans)
                         {
-                            if (item.Id == 0) continue;
+                            if (item.Id <= 0) continue;
                             var _model = db.BillTrans.Find(item.Id);
                             _model.IsDeleted = true;
                         }
                         // delete from Attachment
                         foreach (var item in _DelFile)
                         {
-                            if (item.Id == 0) continue;
+                            if (item.Id <= 0) continue;
                             var _model = db.Attachments.Find(item.Id);
                             _model.IsDeleted = true;
 

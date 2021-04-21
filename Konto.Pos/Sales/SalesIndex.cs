@@ -2306,7 +2306,7 @@ namespace Konto.Pos.Sales
                         //delete item from  trans
                         foreach (var item in DelTrans)
                         {
-                            if (item.Id == 0) continue;
+                            if (item.Id <= 0) continue;
                             var _model = db.BillTrans.Find(item.Id);
                             _model.IsDeleted = true;
                         }
@@ -2318,7 +2318,7 @@ namespace Konto.Pos.Sales
                         //    _find.RefNo = ordr;
 
                         //Bill Reference Update
-                        LedgerEff.BillRefEntry("Debit",_find,0,db);       //Insert or update in Billref table
+                        //LedgerEff.BillRefEntry("Debit",_find,0,db);       //Insert or update in Billref table
 
                         BillPay _bp = null;
 

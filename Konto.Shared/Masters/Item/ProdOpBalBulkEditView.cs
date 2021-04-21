@@ -1,4 +1,5 @@
-﻿using DevExpress.XtraEditors;
+﻿using Aspose.Cells;
+using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Controls;
 using DevExpress.XtraVerticalGrid;
 using Konto.App.Shared;
@@ -12,6 +13,7 @@ using Syncfusion.Windows.Forms;
 using Syncfusion.Windows.Forms.Tools;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -47,6 +49,7 @@ namespace Konto.Shared.Masters.Item
             listAction1.ExcelButtonClick += ListAction1_ExcelButtonClick;
             listAction1.WordButtonClick += ListAction1_WordButtonClick;
             listAction1.PdfButtonClick += ListAction1_PdfButtonClick;
+            listAction1.ImportButtonClick += ListAction1_ImportButtonClick;
 
             this.customGridView1.RowUpdated += CustomGridView1_RowUpdated;
             this.customGridView1.InvalidRowException += CustomGridView1_InvalidRowException;
@@ -61,6 +64,71 @@ namespace Konto.Shared.Masters.Item
             this.FormClosed += OpBalBulkEditView_FormClosed;
             this.Shown += ProdOpBalBulkEditView_Shown;
             listAction1.PrintButtonClick += ListAction1_PrintButtonClick;
+        }
+
+        private void ListAction1_ImportButtonClick(object sender, EventArgs e)
+        {
+            DataTable _dataTable = null;
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+            openFileDialog1.RestoreDirectory = true;
+            openFileDialog1.Title = "Open Account Excel File";
+            openFileDialog1.FilterIndex = 2;
+            openFileDialog1.CheckFileExists = true;
+            openFileDialog1.CheckPathExists = true;
+            openFileDialog1.ShowDialog();
+            string filePath = openFileDialog1.FileName;
+            if (string.IsNullOrEmpty(filePath)) return;
+
+            Workbook workbook = new Workbook(filePath);
+            Worksheet worksheet = workbook.Worksheets[0];
+            var exp = new ExportTableOptions
+            {
+                ExportAsString = true,
+
+                ExportColumnName = true
+            };
+            worksheet.Cells.DeleteBlankColumns();
+            worksheet.Cells.DeleteBlankRows();
+            _dataTable = worksheet.Cells.ExportDataTable(0, 0, worksheet.Cells.MaxRow + 1, worksheet.Cells.MaxColumn + 1, exp);
+            using (var db = new KontoContext())
+            {
+                using (var _tran = db.Database.BeginTransaction())
+                {
+                    try
+                    {
+
+                        db.Database.ExecuteSqlCommand("update ProductBal set opqty=0,opnos=0 where " +
+                            "companyid=" + KontoGlobals.CompanyId + " AND yearid =" + KontoGlobals.YearId
+                            + " and branchid=" + KontoGlobals.BranchId);
+
+                        foreach (DataRow _dt in _dataTable.Rows)
+                        {
+                            if (_dt["ProductName"] == null) continue;
+                            var pdname = _dt["ProductName"].ToString();
+                            var pd = db.Products.FirstOrDefault(x => x.ProductName.ToUpper() == pdname.ToUpper());
+                            if (pd == null) continue;
+                            var pbal = db.StockBals.FirstOrDefault(x => x.ProductId == pd.Id &&
+                                x.CompanyId == KontoGlobals.CompanyId && x.YearId == KontoGlobals.YearId
+                                    && x.BranchId == KontoGlobals.BranchId);
+                            if (pbal == null) continue;
+                            pbal.OpNos = Convert.ToInt32(_dt["OpPcs"] ?? 0);
+                            pbal.OpQty = Convert.ToDecimal(_dt["OpQty"] ?? 0);
+                            pbal.Rate = Convert.ToDecimal(_dt["Rate"] ?? 0);
+                        }
+                        db.SaveChanges();
+                        _tran.Commit();
+
+                        MessageBox.Show("OP Stock Updated...");
+                    }
+                    catch (Exception ex)
+                    {
+
+                        _tran.Rollback();
+                        MessageBox.Show(ex.ToString());
+                    }
+                    
+                }
+            }
         }
 
         private void ListAction1_PrintButtonClick(object sender, EventArgs e)
@@ -312,5 +380,6 @@ namespace Konto.Shared.Masters.Item
             this.Close();
             this.Dispose();
         }
+        
     }
 }

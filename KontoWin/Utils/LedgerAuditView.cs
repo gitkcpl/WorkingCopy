@@ -2,6 +2,7 @@
 using Konto.Core.Shared;
 using Konto.Core.Shared.Frms;
 using Konto.Data;
+using Konto.Import;
 using Konto.Shared.Account.DRCRNote;
 using Konto.Shared.Account.GenExpense;
 using Konto.Shared.Account.Jv;
@@ -154,6 +155,24 @@ namespace KontoWin.Utils
         private void okSimpleButton_Click(object sender, EventArgs e)
         {
             GetData();
+        }
+
+        private void simpleButton1_Click(object sender, EventArgs e)
+        {
+            var frm = new ImportView();
+            frm.ShowDialog();
+            //var frm = new Konto.Reporting.GE.RepGateEntryView();
+            //var _tab = this.Parent.Parent as TabControlAdv;
+            //if (_tab == null) return;
+            //var pg1 = new TabPageAdv();
+            //pg1.Text = "GateEntry Report";
+            //_tab.TabPages.Add(pg1);
+            //_tab.SelectedTab = pg1;
+            //frm.WindowState = FormWindowState.Maximized;
+            //frm.TopLevel = false;
+            //frm.Parent = pg1;
+            //frm.Location = new Point(pg1.Location.X + pg1.Width / 2 - frm.Width / 2, pg1.Location.Y + pg1.Height / 2 - frm.Height / 2);
+            //frm.Show();// = true;
         }
     }
 }

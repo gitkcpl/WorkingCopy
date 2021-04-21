@@ -491,6 +491,7 @@
             // groupLookup1
             // 
             this.groupLookup1.Location = new System.Drawing.Point(442, 361);
+            this.groupLookup1.LookupTitle = null;
             this.groupLookup1.Name = "groupLookup1";
             this.groupLookup1.PrimaryKey = null;
             this.groupLookup1.RequiredField = false;
@@ -503,6 +504,7 @@
             // 
             this.voucherLookup1.GroupDto = null;
             this.voucherLookup1.Location = new System.Drawing.Point(101, 436);
+            this.voucherLookup1.LookupTitle = null;
             this.voucherLookup1.Name = "voucherLookup1";
             this.voucherLookup1.PrimaryKey = null;
             this.voucherLookup1.RequiredField = false;
@@ -541,9 +543,10 @@
             this.accLookup1.GroupId = 0;
             this.accLookup1.Location = new System.Drawing.Point(101, 412);
             this.accLookup1.LookupDto = null;
+            this.accLookup1.LookupTitle = null;
             this.accLookup1.Name = "accLookup1";
             this.accLookup1.Nature = null;
-            this.accLookup1.NewGroupId = 0;
+            this.accLookup1.NewGroupId = Konto.App.Shared.LedgerGroupEnum.NONE;
             this.accLookup1.PrimaryKey = null;
             this.accLookup1.RequiredField = false;
             this.accLookup1.SelectedText = null;
@@ -1498,7 +1501,7 @@
             this.tabbedControlGroup2.Location = new System.Drawing.Point(335, 267);
             this.tabbedControlGroup2.Name = "tabbedControlGroup2";
             this.tabbedControlGroup2.Padding = new DevExpress.XtraLayout.Utils.Padding(3, 3, 3, 3);
-            this.tabbedControlGroup2.SelectedTabPage = this.layoutControlGroup3;
+            this.tabbedControlGroup2.SelectedTabPage = this.layoutControlGroup2;
             this.tabbedControlGroup2.Size = new System.Drawing.Size(446, 191);
             this.tabbedControlGroup2.TabPages.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlGroup2,

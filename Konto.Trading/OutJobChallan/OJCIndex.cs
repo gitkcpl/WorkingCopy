@@ -141,6 +141,7 @@ namespace Konto.Trading.OutJobChallan
 
 
             var dr = uomRepositoryItemLookUpEdit.GetDataSourceRowByKeyValue(er.UomId) as UomLookupDto;
+            if (dr == null) return;
 
             if (dr.RateOn == "N")
             {
@@ -486,7 +487,13 @@ namespace Konto.Trading.OutJobChallan
                 gridView1.Focus();
                 return false;
             }
-
+            else if (trans.Any(x =>x.ChallanNo==null))
+            {
+                MessageBoxAdv.Show(this, "Invalid Challan No", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                gridView1.FocusedColumn = colChallanNo;
+                gridView1.Focus();
+                return false;
+            }
             else if (trans.Any(x => x.Qty == 0))
             {
                 MessageBoxAdv.Show(this, "Invalid Meters", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -605,8 +612,10 @@ namespace Konto.Trading.OutJobChallan
                              from dm in join_dm.DefaultIfEmpty()
                              join mit in _context.ChallanTranses on new {x1=(int) ct.RefId,x2= ct.MiscId } equals new {x1=mit.Id,x2=mit.ChallanId} into join_mi
                              from mit in join_mi.DefaultIfEmpty()
-                             join gp in _context.Products on mit.ProductId equals gp.Id
-                             join mi in _context.Challans on mit.ChallanId equals mi.Id
+                             join gp in _context.Products on mit.ProductId equals gp.Id into join_gp
+                             from gp in join_gp.DefaultIfEmpty()
+                             join mi in _context.Challans on mit.ChallanId equals mi.Id into join_mi1
+                             from mi in join_mi1.DefaultIfEmpty()
                              orderby ct.Id
                              where ct.IsActive == true && ct.IsDeleted == false &&
                              ct.ChallanId == model.Id
@@ -620,7 +629,8 @@ namespace Konto.Trading.OutJobChallan
                                  IgstPer = ct.IgstPer, LotNo = ct.LotNo, MiscId = ct.MiscId, OtherAdd = ct.OtherAdd, OtherLess = ct.OtherLess,
                                  Pcs = ct.Pcs, ProductId = (int)ct.ProductId, ProductName = pd.ProductName, Qty = ct.Qty, Rate = ct.Rate, RefId = ct.RefId,
                                  RefVoucherId = ct.RefVoucherId, Remark = ct.Remark, Sgst = ct.Sgst, SgstPer = ct.SgstPer, Total = ct.Total, UomId = (int)ct.UomId,
-                                 ChallanNo = mi.VoucherNo,GreyQuality = gp.ProductName,ShQty = ct.IssueQty- ct.Qty,ShPer = ((ct.IssueQty-ct.Qty)/ct.IssueQty)*100
+                                 ChallanNo = mi.VoucherNo==null ? "0": mi.VoucherNo ,GreyQuality = gp.ProductName,ShQty = ct.IssueQty- ct.Qty,
+                                 ShPer = ct.IssueQty >0 ? ((ct.IssueQty-ct.Qty)/ct.IssueQty)*100 : 0
                              }).ToList();
 
                var  _prodDtos = _context.ProdOuts.Where(x => x.RefId == model.Id && !x.IsDeleted).ToList();
@@ -1423,7 +1433,7 @@ namespace Konto.Trading.OutJobChallan
                             }
                             map = new Mapper(config);
                             map.Map(item, tranModel);
-
+                            
                             if (!bill.Contains(item.ChallanNo))
                             {
                                 if (string.IsNullOrEmpty(bill))

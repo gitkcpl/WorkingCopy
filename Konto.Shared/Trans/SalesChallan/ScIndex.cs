@@ -290,9 +290,9 @@ namespace Konto.Shared.Trans.SalesChallan
                 er.UomId = model.UomId;
                 er.Rate = model.SaleRate;
 
-                er.Disc = this._DiscPer;
-                if (er.Disc == 0)
-                    er.Disc = model.SaleDisc;
+                er.DiscPer = this._DiscPer;
+                if (er.DiscPer == 0)
+                    er.DiscPer = model.SaleDisc;
 
 
                 if (accLookup1.LookupDto.IsGst)
@@ -964,9 +964,10 @@ namespace Konto.Shared.Trans.SalesChallan
                 ct.Id = id;
                 ct.ProductName = ord.Product;
                 ct.Pcs = ord.TotalPcs != null ? (int)ord.TotalPcs : 0;
-                ct.Cops = 0;// ord.Cut != 0 ? ord.Cut : 0;
+                ct.Cops = ord.Cut ?? 0;
                 ct.Qty = ord.PendingQty != null ? (decimal)ord.PendingQty : 0;
                 ct.Rate = ord.rate != null ? (decimal)ord.rate : 0;
+               
                 //ct.FreightRate = ord.FreightRate != null ? (decimal)ord.FreightRate : 0;
                 //ct.Freight = ord.Freight != null ? (decimal)ord.Freight : 0;
                 //ct.OtherAdd = ord.OtherAdd != null ? (decimal)ord.OtherAdd : 0;
@@ -1435,7 +1436,7 @@ namespace Konto.Shared.Trans.SalesChallan
                         //delete item fro trans table entry
                         foreach (var item in DelTrans)
                         {
-                            if (item.Id == 0) continue;
+                            if (item.Id <= 0) continue;
                             var _model = db.ChallanTranses.Find(item.Id);
                             _model.IsDeleted = true;
 
@@ -1466,7 +1467,7 @@ namespace Konto.Shared.Trans.SalesChallan
                         // delete from item details
                         foreach (var p in DelProd)
                         {
-                            if (p.ProdOutId == 0) continue;
+                            if (p.ProdOutId <= 0) continue;
                             var pout = db.ProdOuts.Find(p.ProdOutId);
                             if (pout != null)
                                 pout.IsDeleted = true;

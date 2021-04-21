@@ -1934,6 +1934,12 @@ namespace Konto.Shared.Trans.SInvoice
                 
                 doc.Parameters["Bill"].CurrentValue = "N";
                 doc.Parameters["reportid"].CurrentValue = 0;
+                if (doc.Parameters.Contains("todate"))
+                    doc.Parameters["todate"].CurrentValue = Convert.ToInt32(voucherDateEdit.DateTime.ToString("yyyyMMdd"));
+                if (doc.Parameters.Contains("compid"))
+                    doc.Parameters["compid"].CurrentValue = KontoGlobals.CompanyId;
+                if (doc.Parameters.Contains("accid"))
+                    doc.Parameters["accid"].CurrentValue = Convert.ToInt32(accLookup1.SelectedValue);
                 
               //  rpt.ResourceLocator = new MySubreportLocator();
                 //var subrep = rpt.Report.Body.ReportItems["Page1"] as GrapeCity.ActiveReports.PageReportModel.Container;

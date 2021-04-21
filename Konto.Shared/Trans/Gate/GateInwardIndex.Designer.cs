@@ -213,7 +213,7 @@
             this.accLookup1.LookupTitle = null;
             this.accLookup1.Name = "accLookup1";
             this.accLookup1.Nature = null;
-            this.accLookup1.NewGroupId = App.Shared.LedgerGroupEnum.SUNDRY_CREDITORS;
+            this.accLookup1.NewGroupId = Konto.App.Shared.LedgerGroupEnum.SUNDRY_CREDITORS;
             this.accLookup1.PrimaryKey = null;
             this.accLookup1.RequiredField = true;
             this.accLookup1.SelectedText = null;

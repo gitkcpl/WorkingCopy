@@ -1,4 +1,5 @@
-﻿using DevExpress.XtraEditors;
+﻿using Aspose.Cells;
+using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Controls;
 using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Base;
@@ -15,6 +16,7 @@ using Syncfusion.Windows.Forms;
 using Syncfusion.Windows.Forms.Tools;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -50,6 +52,7 @@ namespace Konto.Shared.Masters.Acc
             listAction1.ExcelButtonClick += ListAction1_ExcelButtonClick;
             listAction1.WordButtonClick += ListAction1_WordButtonClick;
             listAction1.PdfButtonClick += ListAction1_PdfButtonClick;
+            listAction1.ImportButtonClick += ListAction1_ImportButtonClick;
 
             this.customGridView1.RowUpdated += CustomGridView1_RowUpdated;
          
@@ -64,6 +67,78 @@ namespace Konto.Shared.Masters.Acc
             this.FormClosed += OpBalBulkEditView_FormClosed;
             this.Shown += OpBalBulkEditView_Shown;
 
+        }
+
+        private void ListAction1_ImportButtonClick(object sender, EventArgs e)
+        {
+            DataTable _dataTable = null;
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+            openFileDialog1.RestoreDirectory = true;
+            openFileDialog1.Title = "Open Account Excel File";
+            openFileDialog1.FilterIndex = 2;
+            openFileDialog1.CheckFileExists = true;
+            openFileDialog1.CheckPathExists = true;
+            openFileDialog1.ShowDialog();
+            string filePath = openFileDialog1.FileName;
+            if (string.IsNullOrEmpty(filePath)) return;
+
+            Workbook workbook = new Workbook(filePath);
+            Worksheet worksheet = workbook.Worksheets[0];
+            var exp = new ExportTableOptions
+            {
+                ExportAsString = true,
+
+                ExportColumnName = true
+            };
+            worksheet.Cells.DeleteBlankColumns();
+            worksheet.Cells.DeleteBlankRows();
+            _dataTable = worksheet.Cells.ExportDataTable(0, 0, worksheet.Cells.MaxRow + 1, worksheet.Cells.MaxColumn + 1, exp);
+            using (var db = new KontoContext())
+            {
+                using (var _tran = db.Database.BeginTransaction())
+                {
+                    try
+                    {
+
+                        db.Database.ExecuteSqlCommand("update accbal set opdebit=0,opcredit=0,opbal=0 where " +
+                            "compid=" + KontoGlobals.CompanyId + " AND yearid =" + KontoGlobals.YearId);
+                           
+
+                        foreach (DataRow _dt in _dataTable.Rows)
+                        {
+                            if (_dt["AccountName"] == null) continue;
+                            var pdname = _dt["AccountName"].ToString();
+                            var pd = db.Accs.FirstOrDefault(x => x.AccName.ToUpper() == pdname.ToUpper());
+                            if (pd == null) continue;
+                            var pbal = db.AccBals.FirstOrDefault(x => x.AccId == pd.Id &&
+                                x.CompId == KontoGlobals.CompanyId && x.YearId == KontoGlobals.YearId);
+                                    
+                            if (pbal == null) continue;
+                            pbal.OpDebit = Convert.ToInt32(_dt["OpDebit"] ?? 0);
+                            pbal.OpCredit = Convert.ToDecimal(_dt["OpCredit"] ?? 0);
+                            if (pbal.OpDebit > 0)
+                                pbal.OpBal = pbal.OpDebit;
+                            else
+                                pbal.OpBal = -1 * pbal.OpCredit;
+
+                        }
+                        db.SaveChanges();
+
+                        DbUtils.Update_Account_Balance(db);
+
+                        _tran.Commit();
+
+                        MessageBox.Show("OP Stock Updated...");
+                    }
+                    catch (Exception ex)
+                    {
+
+                        _tran.Rollback();
+                        MessageBox.Show(ex.ToString());
+                    }
+
+                }
+            }
         }
 
         private void OpBalBulkEditView_Shown(object sender, EventArgs e)
@@ -311,7 +386,7 @@ namespace Konto.Shared.Masters.Acc
                         {
                             var mod = db.AccBals.Find(item.BalId);
                             
-                            mod.Bal = mod.Bal - mod.OpBal + item.OpBal;
+                           // mod.Bal = mod.Bal - mod.OpBal + item.OpBal;
                             
                             mod.OpBal = item.OpBal;
                             mod.OpCredit = item.OpCredit;
@@ -327,6 +402,9 @@ namespace Konto.Shared.Masters.Acc
 
                         }
                         db.SaveChanges();
+
+                        DbUtils.Update_Account_Balance(db);
+
                         _tran.Commit();
                         MessageBoxAdv.Show(this, KontoGlobals.SaveMessage, "Saved !", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         UpdatedOpBal = new List<OpBalDto>();

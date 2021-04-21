@@ -210,6 +210,8 @@ namespace Konto.App.Shared
         public const string Jrv_Trans = "jrv\\jrv_trans.xml";
         public const string Jrv_Pending_Detail = "jrv\\mrv_pending_trans.xml";
 
+        public const string Job_Receipt_Against_Issue_Layout = "jrv\\job_rcpt_against_issue.xml";
+
         public const string StockJournal_Index = "trans\\StockJournal_Index.xml";
         public const string StockJournal_Trans = "trans\\StockJournal_Trans.xml";
 

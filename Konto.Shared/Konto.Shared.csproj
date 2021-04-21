@@ -643,6 +643,12 @@
     <Compile Include="Masters\Design\DesignLookup.Designer.cs">
       <DependentUpon>DesignLookup.cs</DependentUpon>
     </Compile>
+    <Compile Include="Masters\Design\DesignImport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\Design\DesignImport.Designer.cs">
+      <DependentUpon>DesignImport.cs</DependentUpon>
+    </Compile>
     <Compile Include="Masters\Div\DivIndex.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1927,6 +1933,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Masters\Design\DesignLookup.resx">
       <DependentUpon>DesignLookup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Design\DesignImport.resx">
+      <DependentUpon>DesignImport.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Masters\Div\DivIndex.resx">
       <DependentUpon>DivIndex.cs</DependentUpon>

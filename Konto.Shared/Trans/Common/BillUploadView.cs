@@ -720,7 +720,7 @@ namespace Konto.Shared.Trans.Common
                         bill.YearId = KontoGlobals.YearId;
                         bill.CompId = KontoGlobals.CompanyId;
                         bill.IsActive = true;
-
+                        bill.BranchId = KontoGlobals.BranchId;
                         bill.IsDeleted = false;
                         bill.CreateUser = KontoGlobals.UserName;
                         bill.CreateDate = DateTime.Now;
@@ -1511,7 +1511,7 @@ namespace Konto.Shared.Trans.Common
                             bill.IsDeleted = false;
                             bill.CreateUser = KontoGlobals.UserName;
                             bill.CreateDate = DateTime.Now;
-
+                            bill.BranchId = KontoGlobals.BranchId;
                             bill.BillType = "Regular";
                             bill.Rcm = "NO";
                             bill.RcdDate = DateTime.Now.Date;
@@ -2478,6 +2478,7 @@ namespace Konto.Shared.Trans.Common
                         bill.DivisionId = 1;
                         bill.YearId = KontoGlobals.YearId;
                         bill.CompId = KontoGlobals.CompanyId;
+                        bill.BranchId = KontoGlobals.BranchId;
                         bill.IsActive = true;
                         bill.IsDeleted = false;
                         bill.CreateUser = KontoGlobals.UserName;
@@ -3444,7 +3445,7 @@ namespace Konto.Shared.Trans.Common
                         bill.YearId = KontoGlobals.YearId;
                         bill.CompId = KontoGlobals.CompanyId;
                         bill.IsActive = true;
-
+                        bill.BranchId = KontoGlobals.BranchId;
                         bill.IsDeleted = false;
                         bill.CreateUser = KontoGlobals.UserName;
                         bill.CreateDate = DateTime.Now;

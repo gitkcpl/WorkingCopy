@@ -710,6 +710,25 @@ IF NOT EXISTS(SELECT 1 FROM dbo.ReportType WHERE FileName='reg\doc\JvPrint.rdlx'
 INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, CreateUser, IsActive, IsDeleted,RowId,SpName)
 Values('Journal Voucher','JVP', 14,'reg\doc\JvPrint.rdlx',GETDATE(),'Admin',1,0,NEWID(),'dbo.JvPrint')
 
+
+IF NOT EXISTS(SELECT 1 FROM dbo.ReportType WHERE FileName='Konto.Reporting.XReport.XJobInc.JobIncomeXRep' AND ReportTypes='Job_Income')
+INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, CreateUser, IsActive, IsDeleted,RowId,SpName)
+Values('Inward','Job_Income', 5,'Konto.Reporting.XReport.XJobInc.JobIncomeXRep',GETDATE(),'Admin',1,0,NEWID(),'dbo.job_work_income')
+
+IF NOT EXISTS(SELECT 1 FROM dbo.ReportType WHERE FileName='Konto.Reporting.XReport.XJobInc.JobIncomeDetailsXRep' AND ReportTypes='Job_Income')
+INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, CreateUser, IsActive, IsDeleted,RowId,SpName)
+Values('Inward Details','Job_Income', 5,'Konto.Reporting.XReport.XJobInc.JobIncomeDetailsXRep',GETDATE(),'Admin',1,0,NEWID(),'dbo.job_work_income')
+
+
+IF NOT EXISTS(SELECT 1 FROM dbo.ReportType WHERE FileName='Konto.Reporting.XReport.XJobInc.JobInwardVsOutwardXRep' AND ReportTypes='Job_Income')
+INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, CreateUser, IsActive, IsDeleted,RowId,SpName)
+Values('Inward Vs Outward Details','Job_Income', 5,'Konto.Reporting.XReport.XJobInc.JobInwardVsOutwardXRep',GETDATE(),'Admin',1,0,NEWID(),'dbo.job_income_inwardVsOutward')
+
+
+IF NOT EXISTS(SELECT 1 FROM dbo.ReportType WHERE FileName='Konto.Reporting.XReport.XGate.GateEntryXRep' AND ReportTypes='Gate_Inward')
+INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, CreateUser, IsActive, IsDeleted,RowId,SpName)
+Values('Gate Entry','Gate_Inward', 53,'Konto.Reporting.XReport.XGate.GateEntryXRep',GETDATE(),'Admin',1,0,NEWID(),'dbo.dbo.gate_entry_rep')
+
 --SET IDENTITY_INSERT dbo.ReportType OFF 
 
 Go

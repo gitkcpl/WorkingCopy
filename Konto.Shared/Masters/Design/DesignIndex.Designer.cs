@@ -85,7 +85,6 @@
             this.layoutControlItem15 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem22 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem23 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem7 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem8 = new DevExpress.XtraLayout.LayoutControlItem();
@@ -114,6 +113,8 @@
             this.layoutControlItem36 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlGroup5 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem24 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.partyDesignNokontoTextBoxExt = new Konto.Core.Shared.Libs.KontoTextBoxExt();
+            this.layoutControlItem27 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)(this.tabControlAdv1)).BeginInit();
             this.tabControlAdv1.SuspendLayout();
             this.tabPageAdv1.SuspendLayout();
@@ -167,7 +168,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem15)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem22)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem23)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).BeginInit();
@@ -196,6 +196,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem36)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem24)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.partyDesignNokontoTextBoxExt)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem27)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControlAdv1
@@ -233,6 +235,7 @@
             // 
             // layoutControl1
             // 
+            this.layoutControl1.Controls.Add(this.partyDesignNokontoTextBoxExt);
             this.layoutControl1.Controls.Add(this.catelogLookup1);
             this.layoutControl1.Controls.Add(this.gridControl2);
             this.layoutControl1.Controls.Add(this.laborSpinEdit);
@@ -402,7 +405,7 @@
             // 
             // descTextBoxExt
             // 
-            this.descTextBoxExt.BeforeTouchSize = new System.Drawing.Size(154, 24);
+            this.descTextBoxExt.BeforeTouchSize = new System.Drawing.Size(151, 20);
             this.descTextBoxExt.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(211)))), ((int)(((byte)(212)))));
             this.descTextBoxExt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.descTextBoxExt.EnterMoveNextControl = true;
@@ -545,13 +548,13 @@
             // 
             // gridControl1
             // 
-            this.gridControl1.Location = new System.Drawing.Point(11, 112);
+            this.gridControl1.Location = new System.Drawing.Point(11, 110);
             this.gridControl1.MainView = this.gridView1;
             this.gridControl1.Name = "gridControl1";
             this.gridControl1.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryItemPictureEdit1,
             this.repositoryItemButtonEdit1});
-            this.gridControl1.Size = new System.Drawing.Size(794, 240);
+            this.gridControl1.Size = new System.Drawing.Size(794, 242);
             this.gridControl1.TabIndex = 1;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -613,31 +616,31 @@
             // 
             // colorLookup1
             // 
-            this.colorLookup1.Location = new System.Drawing.Point(488, 87);
+            this.colorLookup1.Location = new System.Drawing.Point(488, 86);
             this.colorLookup1.LookupTitle = null;
             this.colorLookup1.Name = "colorLookup1";
             this.colorLookup1.PrimaryKey = null;
             this.colorLookup1.RequiredField = false;
             this.colorLookup1.SelectedText = null;
             this.colorLookup1.SelectedValue = null;
-            this.colorLookup1.Size = new System.Drawing.Size(317, 21);
+            this.colorLookup1.Size = new System.Drawing.Size(317, 20);
             this.colorLookup1.TabIndex = 1;
             // 
             // sizeLookup1
             // 
-            this.sizeLookup1.Location = new System.Drawing.Point(124, 87);
+            this.sizeLookup1.Location = new System.Drawing.Point(124, 86);
             this.sizeLookup1.LookupTitle = null;
             this.sizeLookup1.Name = "sizeLookup1";
             this.sizeLookup1.PrimaryKey = null;
             this.sizeLookup1.RequiredField = false;
             this.sizeLookup1.SelectedText = null;
             this.sizeLookup1.SelectedValue = null;
-            this.sizeLookup1.Size = new System.Drawing.Size(247, 21);
+            this.sizeLookup1.Size = new System.Drawing.Size(247, 20);
             this.sizeLookup1.TabIndex = 1;
             // 
             // categoryLookup1
             // 
-            this.categoryLookup1.Location = new System.Drawing.Point(488, 63);
+            this.categoryLookup1.Location = new System.Drawing.Point(488, 62);
             this.categoryLookup1.LookupTitle = null;
             this.categoryLookup1.Name = "categoryLookup1";
             this.categoryLookup1.PrimaryKey = null;
@@ -649,7 +652,7 @@
             // 
             // brandLookup1
             // 
-            this.brandLookup1.Location = new System.Drawing.Point(124, 63);
+            this.brandLookup1.Location = new System.Drawing.Point(124, 62);
             this.brandLookup1.LookupTitle = null;
             this.brandLookup1.Name = "brandLookup1";
             this.brandLookup1.PrimaryKey = null;
@@ -668,7 +671,7 @@
             this.subGroupLookup1.RequiredField = false;
             this.subGroupLookup1.SelectedText = null;
             this.subGroupLookup1.SelectedValue = null;
-            this.subGroupLookup1.Size = new System.Drawing.Size(317, 21);
+            this.subGroupLookup1.Size = new System.Drawing.Size(317, 20);
             this.subGroupLookup1.TabIndex = 1;
             // 
             // toggleSwitch1
@@ -694,7 +697,7 @@
             this.groupLookup1.RequiredField = false;
             this.groupLookup1.SelectedText = null;
             this.groupLookup1.SelectedValue = null;
-            this.groupLookup1.Size = new System.Drawing.Size(247, 21);
+            this.groupLookup1.Size = new System.Drawing.Size(247, 20);
             this.groupLookup1.TabIndex = 1;
             // 
             // checkEdit1
@@ -872,7 +875,7 @@
             // 
             // hsnTextBoxExt
             // 
-            this.hsnTextBoxExt.BeforeTouchSize = new System.Drawing.Size(154, 24);
+            this.hsnTextBoxExt.BeforeTouchSize = new System.Drawing.Size(151, 20);
             this.hsnTextBoxExt.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(211)))), ((int)(((byte)(212)))));
             this.hsnTextBoxExt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.hsnTextBoxExt.EnterMoveNextControl = true;
@@ -887,7 +890,7 @@
             // 
             // nameTextBoxExt
             // 
-            this.nameTextBoxExt.BeforeTouchSize = new System.Drawing.Size(154, 24);
+            this.nameTextBoxExt.BeforeTouchSize = new System.Drawing.Size(151, 20);
             this.nameTextBoxExt.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(211)))), ((int)(((byte)(212)))));
             this.nameTextBoxExt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.nameTextBoxExt.EnterMoveNextControl = true;
@@ -902,7 +905,7 @@
             // 
             // noTextBoxExt
             // 
-            this.noTextBoxExt.BeforeTouchSize = new System.Drawing.Size(154, 24);
+            this.noTextBoxExt.BeforeTouchSize = new System.Drawing.Size(151, 20);
             this.noTextBoxExt.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(211)))), ((int)(((byte)(212)))));
             this.noTextBoxExt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.noTextBoxExt.EnterMoveNextControl = true;
@@ -1011,7 +1014,7 @@
             this.layoutControlItem15,
             this.layoutControlItem22,
             this.layoutControlItem23,
-            this.emptySpaceItem1});
+            this.layoutControlItem27});
             this.layoutControlGroup2.Location = new System.Drawing.Point(0, 84);
             this.layoutControlGroup2.Name = "layoutControlGroup2";
             this.layoutControlGroup2.Padding = new DevExpress.XtraLayout.Utils.Padding(3, 3, 3, 3);
@@ -1105,14 +1108,6 @@
             this.layoutControlItem23.Size = new System.Drawing.Size(259, 28);
             this.layoutControlItem23.Text = "Labor:";
             this.layoutControlItem23.TextSize = new System.Drawing.Size(110, 17);
-            // 
-            // emptySpaceItem1
-            // 
-            this.emptySpaceItem1.AllowHotTrack = false;
-            this.emptySpaceItem1.Location = new System.Drawing.Point(518, 56);
-            this.emptySpaceItem1.Name = "emptySpaceItem1";
-            this.emptySpaceItem1.Size = new System.Drawing.Size(268, 28);
-            this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
             // 
             // layoutControlItem6
             // 
@@ -1360,7 +1355,7 @@
             this.layoutControlItem25.Control = this.groupLookup1;
             this.layoutControlItem25.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem25.Name = "layoutControlItem25";
-            this.layoutControlItem25.Size = new System.Drawing.Size(364, 25);
+            this.layoutControlItem25.Size = new System.Drawing.Size(364, 24);
             this.layoutControlItem25.Text = "Group:";
             this.layoutControlItem25.TextSize = new System.Drawing.Size(110, 17);
             // 
@@ -1371,7 +1366,7 @@
             this.layoutControlItem31.Control = this.subGroupLookup1;
             this.layoutControlItem31.Location = new System.Drawing.Point(364, 0);
             this.layoutControlItem31.Name = "layoutControlItem31";
-            this.layoutControlItem31.Size = new System.Drawing.Size(434, 25);
+            this.layoutControlItem31.Size = new System.Drawing.Size(434, 24);
             this.layoutControlItem31.Text = "Sub Group:";
             this.layoutControlItem31.TextSize = new System.Drawing.Size(110, 17);
             // 
@@ -1380,7 +1375,7 @@
             this.layoutControlItem32.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.layoutControlItem32.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem32.Control = this.brandLookup1;
-            this.layoutControlItem32.Location = new System.Drawing.Point(0, 25);
+            this.layoutControlItem32.Location = new System.Drawing.Point(0, 24);
             this.layoutControlItem32.Name = "layoutControlItem32";
             this.layoutControlItem32.Size = new System.Drawing.Size(364, 24);
             this.layoutControlItem32.Text = "Brand:";
@@ -1391,7 +1386,7 @@
             this.layoutControlItem33.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.layoutControlItem33.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem33.Control = this.categoryLookup1;
-            this.layoutControlItem33.Location = new System.Drawing.Point(364, 25);
+            this.layoutControlItem33.Location = new System.Drawing.Point(364, 24);
             this.layoutControlItem33.Name = "layoutControlItem33";
             this.layoutControlItem33.Size = new System.Drawing.Size(434, 24);
             this.layoutControlItem33.Text = "Category:";
@@ -1402,9 +1397,9 @@
             this.layoutControlItem34.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.layoutControlItem34.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem34.Control = this.sizeLookup1;
-            this.layoutControlItem34.Location = new System.Drawing.Point(0, 49);
+            this.layoutControlItem34.Location = new System.Drawing.Point(0, 48);
             this.layoutControlItem34.Name = "layoutControlItem34";
-            this.layoutControlItem34.Size = new System.Drawing.Size(364, 25);
+            this.layoutControlItem34.Size = new System.Drawing.Size(364, 24);
             this.layoutControlItem34.Text = "Size:";
             this.layoutControlItem34.TextSize = new System.Drawing.Size(110, 17);
             // 
@@ -1413,18 +1408,18 @@
             this.layoutControlItem35.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.layoutControlItem35.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem35.Control = this.colorLookup1;
-            this.layoutControlItem35.Location = new System.Drawing.Point(364, 49);
+            this.layoutControlItem35.Location = new System.Drawing.Point(364, 48);
             this.layoutControlItem35.Name = "layoutControlItem35";
-            this.layoutControlItem35.Size = new System.Drawing.Size(434, 25);
+            this.layoutControlItem35.Size = new System.Drawing.Size(434, 24);
             this.layoutControlItem35.Text = "Color:";
             this.layoutControlItem35.TextSize = new System.Drawing.Size(110, 17);
             // 
             // layoutControlItem36
             // 
             this.layoutControlItem36.Control = this.gridControl1;
-            this.layoutControlItem36.Location = new System.Drawing.Point(0, 74);
+            this.layoutControlItem36.Location = new System.Drawing.Point(0, 72);
             this.layoutControlItem36.Name = "layoutControlItem36";
-            this.layoutControlItem36.Size = new System.Drawing.Size(798, 244);
+            this.layoutControlItem36.Size = new System.Drawing.Size(798, 246);
             this.layoutControlItem36.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem36.TextVisible = false;
             // 
@@ -1445,6 +1440,30 @@
             this.layoutControlItem24.Size = new System.Drawing.Size(798, 318);
             this.layoutControlItem24.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem24.TextVisible = false;
+            // 
+            // partyDesignNokontoTextBoxExt
+            // 
+            this.partyDesignNokontoTextBoxExt.BeforeTouchSize = new System.Drawing.Size(151, 20);
+            this.partyDesignNokontoTextBoxExt.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(211)))), ((int)(((byte)(212)))));
+            this.partyDesignNokontoTextBoxExt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.partyDesignNokontoTextBoxExt.EnterMoveNextControl = true;
+            this.partyDesignNokontoTextBoxExt.Location = new System.Drawing.Point(648, 205);
+            this.partyDesignNokontoTextBoxExt.MaxLength = 25;
+            this.partyDesignNokontoTextBoxExt.Name = "partyDesignNokontoTextBoxExt";
+            this.partyDesignNokontoTextBoxExt.Size = new System.Drawing.Size(151, 20);
+            this.partyDesignNokontoTextBoxExt.Style = Syncfusion.Windows.Forms.Tools.TextBoxExt.theme.Metro;
+            this.partyDesignNokontoTextBoxExt.TabIndex = 27;
+            this.partyDesignNokontoTextBoxExt.ThemeName = "Metro";
+            this.partyDesignNokontoTextBoxExt.UseBorderColorOnFocus = true;
+            // 
+            // layoutControlItem27
+            // 
+            this.layoutControlItem27.Control = this.partyDesignNokontoTextBoxExt;
+            this.layoutControlItem27.Location = new System.Drawing.Point(518, 56);
+            this.layoutControlItem27.Name = "layoutControlItem27";
+            this.layoutControlItem27.Size = new System.Drawing.Size(268, 28);
+            this.layoutControlItem27.Text = "Party Design No:";
+            this.layoutControlItem27.TextSize = new System.Drawing.Size(110, 13);
             // 
             // DesignIndex
             // 
@@ -1510,7 +1529,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem15)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem22)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem23)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).EndInit();
@@ -1539,6 +1557,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem36)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem24)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.partyDesignNokontoTextBoxExt)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem27)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1628,8 +1648,9 @@
         private DevExpress.XtraEditors.Repository.RepositoryItemComboBox prioRepositoryItemComboBox;
         private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup5;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem24;
-        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem1;
         private Catalog.CatelogLookup catelogLookup1;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem26;
+        private Core.Shared.Libs.KontoTextBoxExt partyDesignNokontoTextBoxExt;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem27;
     }
 }

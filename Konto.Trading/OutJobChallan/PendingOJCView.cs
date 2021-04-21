@@ -140,6 +140,8 @@ namespace Konto.Trading.OutJobChallan
                          (int)KontoGlobals.CompanyId, this.AccId, (int)VoucherTypeEnum.Inward).ToList();
                     }
                     this.pendingMillReceiptSpBindingSource.DataSource = list;
+
+                    KontoUtils.RestoreLayoutGrid(this.GridLayoutFileName, gridView1);
                 }
             }
             catch (Exception ex)

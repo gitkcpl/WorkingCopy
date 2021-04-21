@@ -184,10 +184,17 @@ namespace Konto.Shared.Reports
                             doc.Parameters["bill"].CurrentValue = "N";
                             doc.Parameters["id"].CurrentValue = this.EditKey;
                         }
-                       // rpt.ResourceLocator = new MySubreportLocator();
+                    // rpt.ResourceLocator = new MySubreportLocator();
+
+                    //if (doc.Parameters.Contains("todate"))
+                    //    doc.Parameters["todate"].CurrentValue = Convert.ToInt32(DateTime.Today.ToString("yyyyMMdd"));
+                    //if (doc.Parameters.Contains("compid"))
+                    //    doc.Parameters["compid"].CurrentValue = KontoGlobals.CompanyId;
+                    //if (doc.Parameters.Contains("accid"))
+                    //    doc.Parameters["accid"].CurrentValue = Convert.ToInt32(accLookup1.SelectedValue);
 
 
-                    }
+                }
                     else if (this.TableName == "MI" || this.TableName == "JIB" || this.TableName == "challan" ||
                         this.TableName == "JSC" || this.TableName=="GRN" || this.TableName == "JRB")
                     {

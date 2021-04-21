@@ -217,9 +217,9 @@ namespace Konto.Shared.Masters.Item
                             _imp.SizeId = 1;
 
                         if (item[19] != null)
-                            _imp.AccId = Convert.ToInt32(item[19].ToString()); //pcs per pack
+                            _imp.Cut = Convert.ToInt32(item[19].ToString()); //pcs per pack
                         else
-                            _imp.AccId = 0;
+                            _imp.Cut = 0;
 
                         _imp.StyleId = 1;
                         

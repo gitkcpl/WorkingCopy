@@ -1089,7 +1089,7 @@ namespace Konto.Shared.Account.Payment
                             item.Id = tranModel.Id;
                             Trans.Add(tranModel);
 
-                            UpdateBtob(db, _find, transid, item);
+                            UpdateBtob(db, _find, transid, tranModel);
                             
                             //DeleteDrCrIfExist(db, _find, item);
                         }
@@ -1116,25 +1116,24 @@ namespace Konto.Shared.Account.Payment
                                 db.BtoBs.RemoveRange(billDel);
                             }
 
-                            var drCr = db.BillTrans.Where(k => (k.RefId == _find.Id && k.RefTransId == item.Id && k.RefVoucherId == _find.VoucherId)).ToList();
+                            var drCr = db.BillTrans.FirstOrDefault(k => (k.RefId == _find.Id && k.RefTransId == item.Id
+                           && k.RefVoucherId == _find.VoucherId && !k.IsDeleted && k.IsActive));
+                            drCr.IsDeleted = true;
 
-                            db.BillTrans.RemoveRange(drCr);
-                            foreach (var drc in drCr)
-                            {
-                                var drCrM = db.Bills.FirstOrDefault(k => k.Id == drc.BillId);
-                                //Delete ledger from crder note
-                                var st = db.Ledgers.Where(k => k.RefId == drCrM.RowId && k.IsActive && k.IsDeleted == false).ToList();
-                                db.Ledgers.RemoveRange(st);
-                                if (drCrM != null)
-                                {
-                                    db.Bills.Remove(drCrM);
-                                }
-                            }
+                            var drCrM = db.Bills.FirstOrDefault(k => k.Id == drCr.BillId && !k.IsDeleted && k.IsActive);
+
+                            drCrM.IsDeleted = true;
+
+                            // delete from ledger
+                            var st = db.Ledgers.Where(k => k.RefId == drCrM.RowId && k.IsActive && k.IsDeleted == false).ToList();
+                            db.Ledgers.RemoveRange(st);
+
                         }
 
                         LedgerEff.BillRefEntrypayrec("Debit", _find, Trans, DelTrans, db);
                         //Insert or update in LedgerTrans table
-                        LedgerEff.LedgerTransEntryRecPay("Debit", _find, db, Trans, BillList);
+                        var bss = BillList.Where(x => x.Amount > 0).ToList();
+                        LedgerEff.LedgerTransEntryRecPay("Debit", _find, db, Trans,bss );
 
                         //if (this.PrimaryKey == 0)
                         //    DbUtils.UsedSerial(_find.VoucherId, _SerialValue, db);
@@ -1194,19 +1193,20 @@ namespace Konto.Shared.Account.Payment
 
             }
         }
-        private void UpdateBtob(KontoContext db,BillModel model,int transid,BankTransDto item)
+        private void UpdateBtob(KontoContext db,BillModel model,int transid,BillTransModel item)
         {
 
 
-            var bList = BillList.Where(k => (k.RefTransId == transid && k.VoucherId == model.VoucherId)).ToList();
-            if (transid > 0 && bList.Count > 0)
-            {
+            var bList = BillList.Where(k => (k.RefTransId == transid && k.Amount > 0)).ToList();
+            
+            //if (transid > 0 && bList.Count > 0)
+            //{
                 var billDel = db.BtoBs.Where(k => k.RefId == model.Id && k.RefVoucherId == model.VoucherId && k.RefTransId == item.Id && k.IsActive == true && k.IsDeleted == false).ToList();
                 if (billDel.Count > 0)
                 {
                     db.BtoBs.RemoveRange(billDel);
                 }
-            }
+            //}
 
             foreach (var p in bList)
             {
@@ -1243,9 +1243,8 @@ namespace Konto.Shared.Account.Payment
                 b.RefTransId = item.Id;
                 b.RefVoucherId = model.VoucherId;
                 db.BtoBs.Add(b);
-
-               // UpdateDrCrForAdjustAmount(db, model, item, b);
             }
+            UpdateDrCrForAdjustAmount(db, model, item, bList);
         }
         private bool UpdateBill(KontoContext db,BillModel model)
         {
@@ -1301,827 +1300,306 @@ namespace Konto.Shared.Account.Payment
             return true;
         }
 
-        private void UpdateDrCrForAdjustAmount(KontoContext _db,BillModel model,BankTransDto ord, BtoBModel p)
+        private void UpdateDrCrForAdjustAmount(KontoContext _db,BillModel model,BillTransModel ord, List<PendBillListDto> pbs)
         {
-            var acc = DbUtils.AccDetails(ord.ToAccId);
+            var p = pbs.FirstOrDefault();
+
+            string bills = "BNo: ";
+
+            bills.Remove(bills.Length - 1, 1);
+
+            //delete if row does not exist
+            if (pbs.Count == 0)
+            {
+                var bill = _db.Bills.Where(x => x.RefId == ord.Id && x.RefVoucherId == model.VoucherId &&
+                x.IsActive && !x.IsDeleted).ToList();
+
+                foreach (var item in bill)
+                {
+                    item.IsActive = false;
+                    var btrs = _db.BillTrans.Where(x => x.BillId == item.Id && x.IsActive && !x.IsDeleted).ToList();
+                    foreach (var bt in btrs)
+                    {
+                        bt.IsActive = false;
+                    }
+                    LedgerEff.DeleLedgEffect(item, _db);
+                }
+                return;
+
+            }
+
+            var sm = (from p1 in pbs
+                      group p1 by 1 into g
+                      select new
+                      {
+                          amt1 = g.Sum(x => x.Adla1),
+                          amt2 = g.Sum(x => x.Adla2),
+                          amt3 = g.Sum(x => x.Adla3),
+                          amt4 = g.Sum(x => x.Adla4),
+                          amt5 = g.Sum(x => x.Adla5),
+                          amt6 = g.Sum(x => x.Adla6),
+                          amt7 = g.Sum(x => x.Adla7),
+                          amt8 = g.Sum(x => x.Adla8),
+                          amt9 = g.Sum(x => x.Adla9),
+                          amt10 = g.Sum(x => x.Adla10),
+                      }).FirstOrDefault();
+
+            var summry = sm.amt1 + sm.amt2 + sm.amt3 + sm.amt3 + sm.amt4 + sm.amt5 + sm.amt6 + sm.amt7 + sm.amt8 + sm.amt8 + sm.amt9 + sm.amt10;
+
+            if (summry == 0)
+            {
+                // cancel all generates debit credit note
+
+                var bill = _db.Bills.Where(x => x.RefId == ord.Id && x.RefVoucherId == model.VoucherId
+                && x.IsActive && !x.IsDeleted).ToList();
+
+                foreach (var item in bill)
+                {
+                    item.IsActive = false;
+                    var btrs = _db.BillTrans.Where(x => x.BillId == item.Id && x.IsActive && !x.IsDeleted).ToList();
+                    foreach (var bt in btrs)
+                    {
+                        bt.IsActive = false;
+                    }
+                    LedgerEff.DeleLedgEffect(item, _db);
+                }
+                return;
+            }
+            foreach (var item in pbs)
+            {
+                bills = bills + item.BillNo + ",";
+            }
+
+            // main bill entry
+
+            bool drcr = false;
+
+            var acc = DbUtils.AccDetails((int)ord.ToAccId);
             if (acc == null) return;
 
-            if (p.Adla1 != 0)
+
+            if (sm.amt1 != 0)
             {
-                var adl1 = _db.RPSets.FirstOrDefault(k => k.Field == "Adl1" && k.RecPay == "R" && k.YearId == KontoGlobals.YearId && k.Drcr == "Y");
+                var adl1 = _db.RPSets.FirstOrDefault(k => k.Field == "Adl1" && k.RecPay == "p" &&
+                k.YearId == KontoGlobals.YearId && k.Drcr == "Y" && k.CompId == KontoGlobals.CompanyId
+                && !k.IsDeleted);
+
+
                 if (adl1 != null)
                 {
-                    BillModel dr = new BillModel();
 
-                    dr.CompId = KontoGlobals.CompanyId;
-                    dr.YearId = KontoGlobals.YearId;
-                    var type = "Debit";
-                    var amount = p.Adla1;
-                    if (amount > 0)
-                    {
-                        dr.BillType = "DEBIT NOTE";
-
-                    }
-                    else
-                    {
-                        dr.BillType = "CREDIT NOTE";
-                        type = "Credit";
-                        amount = -1 * amount;
-                    }
-                    dr.Extra1 = "PURCHASE";
-                    dr.AccId = (int)ord.ToAccId;
-                    dr.BookAcId = adl1.AccountId;
-                    dr.VoucherId = (int)adl1.VoucherId;
-                    dr.VoucherNo =  DbUtils.NextSerialNo(dr.VoucherId, _db);
-                    dr.CreateUser = KontoGlobals.UserName;
-                    dr.CreateDate = DateTime.Now;
-                    dr.AgentId = 1;
-                    dr.VDate = model.VDate;
-                    dr.VoucherDate = model.VoucherDate;
-                    dr.BillNo = p.BillNo;
-                    dr.RcdDate = model.VDate;
-                    var tax = _db.TaxMasters.FirstOrDefault(k => k.Id == adl1.TaxId && k.IsDeleted == false);
-                    dr.GrossAmount = decimal.Round(Convert.ToDecimal( amount) * 100 / (100 + tax.Cgst + tax.Sgst), 2);
-                    dr.TotalQty = 1;
-                    dr.TotalAmount = Convert.ToDecimal(amount);
-                    dr.SpecialNotes = "07-Others";
-                    _db.Bills.Add(dr);
-                    _db.SaveChanges();
-
-                    BillTransModel tr = new BillTransModel();
-
-                    tr.BillId = dr.Id;
-                    tr.Remark = adl1.Remark;
-                    tr.HsnCode = adl1.HsnCode;
-                    tr.UomId = 44;
-                    tr.Qty = 1;
-                    tr.BatchId = adl1.TaxId;
-                    tr.RefId = model.Id;
-                    tr.RefVoucherId = model.VoucherId;
-                    tr.RefTransId = ord.Id;
-
-                    //  var tax = _db.TaxMasters.FirstOrDefault(k => k.Id == adl1.TaxId && k.IsDeleted == false);
-                    
-
-                    if (acc.IsGst)
-                    {
-                        tr.CgstPer = tax.Cgst;
-                        tr.SgstPer = tax.Sgst;
-                        tr.Total = decimal.Round(Convert.ToDecimal(amount) * 100 / (100 + tax.Cgst + tax.Sgst), 2);
-                        tr.Rate = tr.Total;
-                        tr.Cgst = tr.Total * tr.CgstPer / 100;
-                        tr.Sgst = tr.Total * tr.SgstPer / 100;
-                    }
-                    else
-                    {
-                        tr.IgstPer = tax.Igst;
-                        tr.Total = decimal.Round(Convert.ToDecimal(amount) * 100 / (100 + tax.Igst), 2);
-                        tr.Rate = tr.Total;
-                        tr.Igst = tr.Total * tr.IgstPer / 100;
-                    }
-
-                    tr.NetTotal = Convert.ToDecimal( amount);
-                    //   tr.Total = p.Adla1;
-                    
-                    _db.BillTrans.Add(tr);
-                    _db.SaveChanges();
-                    var list = new List<BillTransModel>();
-                    list.Add(tr);
-                    //Insert or update in LedgerTrans table
-                    LedgerEff.LedgerTransEntry(type, dr, _db, list);
+                   drcr= CreateOrUdpateDrCr(_db, adl1, model, ord, p, sm.amt1, bills, acc);
 
                 }
             }
-            if (p.Adla2 != 0)
+
+            if (sm.amt2 != 0)
             {
-                var adl1 = _db.RPSets.FirstOrDefault(k => k.Field == "Adl2" && k.RecPay == "R" && k.YearId == KontoGlobals.YearId && k.Drcr == "Y");
+                var adl1 = _db.RPSets.FirstOrDefault(k => k.Field == "Adl2" && k.RecPay == "p"
+                && k.YearId == KontoGlobals.YearId && k.Drcr == "Y" && k.CompId == KontoGlobals.CompanyId
+                && !k.IsDeleted);
                 if (adl1 != null)
                 {
-                    BillModel dr = new BillModel();
 
-                    dr.CompId = KontoGlobals.CompanyId;
-                    dr.YearId = KontoGlobals.YearId;
-                    var type = "Debit";
-                    var amount = p.Adla2;
-                    if (amount > 0)
-                    {
-                        dr.BillType = "DEBIT NOTE";
-
-                    }
-                    else
-                    {
-                        dr.BillType = "CREDIT NOTE";
-                        type = "Credit";
-                        amount = -1 * amount;
-                    }
-                    dr.Extra1 = "PURCHASE";
-                    dr.AccId = ord.ToAccId;
-                    dr.BookAcId = adl1.AccountId;
-                    dr.VoucherId = (int)adl1.VoucherId;
-                    dr.VoucherNo =  DbUtils.NextSerialNo(dr.VoucherId, _db);
-                    dr.CreateUser = KontoGlobals.UserName;
-                    dr.CreateDate = DateTime.Now;
-                    dr.AgentId = 1;
-                    dr.VDate = model.VDate;
-                    dr.VoucherDate = model.VoucherDate;
-                    dr.BillNo = p.BillNo;
-                    dr.RcdDate = model.VDate;
-                    var tax = _db.TaxMasters.FirstOrDefault(k => k.Id == adl1.TaxId && k.IsDeleted == false);
-                    dr.GrossAmount = decimal.Round(Convert.ToDecimal(amount) * 100 / (100 + tax.Cgst + tax.Sgst), 2);
-                    dr.TotalQty = 1;
-                    dr.TotalAmount = Convert.ToDecimal( amount);
-                    dr.SpecialNotes = "07-Others";
-                    _db.Bills.Add(dr);
-                    _db.SaveChanges();
-
-                    BillTransModel tr = new BillTransModel();
-
-                    tr.BillId = dr.Id;
-                    tr.Remark = adl1.Remark;
-                    tr.HsnCode = adl1.HsnCode;
-                    tr.UomId = 44;
-                    tr.Qty = 1;
-                    tr.BatchId = adl1.TaxId;
-                    tr.RefId = model.Id;
-                    tr.RefVoucherId = model.VoucherId;
-                    tr.RefTransId = ord.Id;
-
-                 
-                    if (acc.IsGst)
-                    {
-                        tr.CgstPer = tax.Cgst;
-                        tr.SgstPer = tax.Sgst;
-                        tr.Total = decimal.Round(Convert.ToInt32(amount) * 100 / (100 + tax.Cgst + tax.Sgst), 2);
-                        tr.Rate = tr.Total;
-                        tr.Cgst = tr.Total * tr.CgstPer / 100;
-                        tr.Sgst = tr.Total * tr.SgstPer / 100;
-                    }
-                    else
-                    {
-                        tr.IgstPer = tax.Igst;
-                        tr.Total = decimal.Round(Convert.ToInt32(amount) * 100 / (100 + tax.Igst), 2);
-                        tr.Rate = tr.Total;
-                        tr.Igst = tr.Total * tr.IgstPer / 100;
-                    }
-
-                    tr.NetTotal = Convert.ToDecimal(amount);
-                    _db.BillTrans.Add(tr);
-                    _db.SaveChanges();
-                    var list = new List<BillTransModel>();
-                    list.Add(tr);
-                    //Insert or update in LedgerTrans table
-                    LedgerEff.LedgerTransEntry(type, dr, _db, list);
-
+                    drcr = CreateOrUdpateDrCr(_db, adl1, model, ord, p, sm.amt2, bills, acc);
                 }
             }
-            if (p.Adla3 != 0)
+            if (sm.amt3 != 0)
             {
-                var adl1 = _db.RPSets.FirstOrDefault(k => k.Field == "Adl3" && k.RecPay == "R" && k.YearId == KontoGlobals.YearId && k.Drcr == "Y");
+                var adl1 = _db.RPSets.FirstOrDefault(k => k.Field == "Adl3" && k.RecPay == "P" &&
+                k.YearId == KontoGlobals.YearId && k.Drcr == "Y" && k.CompId == KontoGlobals.CompanyId
+                && !k.IsDeleted);
                 if (adl1 != null)
-                {
-                    BillModel dr = new BillModel();
-
-                    dr.CompId = KontoGlobals.CompanyId;
-                    dr.YearId = KontoGlobals.YearId;
-                    var type = "Debit";
-                    var amount = p.Adla3;
-                    if (amount > 0)
-                    {
-                        dr.BillType = "DEBIT NOTE";
-
-                    }
-                    else
-                    {
-                        dr.BillType = "CREDIT NOTE";
-                        type = "Credit";
-                        amount = -1 * amount;
-                    }
-                    dr.Extra1 = "PURCHASE";
-                    dr.AccId = ord.ToAccId;
-                    dr.BookAcId = adl1.AccountId;
-                    dr.VoucherId = (int)adl1.VoucherId;
-                    dr.VoucherNo = DbUtils.NextSerialNo(dr.VoucherId, _db);
-                    dr.CreateUser = KontoGlobals.UserName;
-                    dr.CreateDate = DateTime.Now;
-                    dr.AgentId = 1;
-                    dr.VDate = model.VDate;
-                    dr.VoucherDate = model.VoucherDate;
-                    dr.BillNo = p.BillNo;
-                    dr.RcdDate = model.VDate;
-                    var tax = _db.TaxMasters.FirstOrDefault(k => k.Id == adl1.TaxId && k.IsDeleted == false);
-                    dr.GrossAmount = decimal.Round(Convert.ToDecimal(amount) * 100 / (100 + tax.Cgst + tax.Sgst), 2);
-                    dr.TotalQty = 1;
-                    dr.TotalAmount = Convert.ToDecimal(amount);
-                    dr.SpecialNotes = "07-Others";
-                    _db.Bills.Add(dr);
-                    _db.SaveChanges();
-
-                    BillTransModel tr = new BillTransModel();
-
-                    tr.BillId = dr.Id;
-                    tr.Remark = adl1.Remark;
-                    tr.HsnCode = adl1.HsnCode;
-                    tr.UomId = 44;
-                    tr.Qty = 1;
-                    tr.BatchId = adl1.TaxId;
-                    tr.RefId = model.Id;
-                    tr.RefVoucherId = model.VoucherId;
-                    tr.RefTransId = ord.Id;
-
-                    //     var tax = _db.TaxMasters.FirstOrDefault(k => k.Id == adl1.TaxId && k.IsDeleted == false);
-                    if (acc.IsGst)
-                    {
-                        tr.CgstPer = tax.Cgst;
-                        tr.SgstPer = tax.Sgst;
-                        tr.Total = decimal.Round(Convert.ToDecimal(amount) * 100 / (100 + tax.Cgst + tax.Sgst), 2);
-                        tr.Rate = tr.Total;
-                        tr.Cgst = tr.Total * tr.CgstPer / 100;
-                        tr.Sgst = tr.Total * tr.SgstPer / 100;
-                    }
-                    else
-                    {
-                        tr.IgstPer = tax.Igst;
-                        tr.Total = decimal.Round(Convert.ToDecimal(amount) * 100 / (100 + tax.Igst), 2);
-                        tr.Rate = tr.Total;
-                        tr.Igst = tr.Total * tr.IgstPer / 100;
-                    }
-
-                    tr.NetTotal = Convert.ToDecimal(amount);
-
-                    _db.BillTrans.Add(tr);
-                    _db.SaveChanges();
-                    var list = new List<BillTransModel>();
-                    list.Add(tr);
-                    //Insert or update in LedgerTrans table
-                    LedgerEff.LedgerTransEntry(type, dr, _db, list);
-
-                }
+                    drcr = CreateOrUdpateDrCr(_db, adl1, model, ord, p, sm.amt3, bills, acc);
             }
-            if (p.Adla4 != 0)
+            if (sm.amt4 != 0)
             {
-                var adl1 = _db.RPSets.FirstOrDefault(k => k.Field == "Adl4" && k.RecPay == "R" && k.YearId == KontoGlobals.YearId && k.Drcr == "Y");
+                var adl1 = _db.RPSets.FirstOrDefault(k => k.Field == "Adl4" && k.RecPay == "P" &&
+                k.YearId == KontoGlobals.YearId && k.Drcr == "Y" && k.CompId == KontoGlobals.CompanyId
+                && !k.IsDeleted);
                 if (adl1 != null)
-                {
-                    BillModel dr = new BillModel();
-
-                    dr.CompId = KontoGlobals.CompanyId;
-                    dr.YearId = KontoGlobals.YearId;
-                    var type = "Debit";
-                    var amount = p.Adla4;
-                    if (amount > 0)
-                    {
-                        dr.BillType = "DEBIT NOTE";
-
-                    }
-                    else
-                    {
-                        dr.BillType = "CREDIT NOTE";
-                        type = "Credit";
-                        amount = -1 * amount;
-                    }
-                    dr.Extra1 = "PURCHASE";
-                    dr.AccId = ord.ToAccId;
-                    dr.BookAcId = adl1.AccountId;
-                    dr.VoucherId = (int)adl1.VoucherId;
-                    dr.VoucherNo = DbUtils.NextSerialNo(dr.VoucherId, _db);
-                    dr.CreateUser = KontoGlobals.UserName;
-                    dr.CreateDate = DateTime.Now;
-                    dr.AgentId = 1;
-                    dr.VDate = model.VDate;
-                    dr.VoucherDate = model.VoucherDate;
-                    dr.BillNo = p.BillNo;
-                    dr.RcdDate = model.VDate;
-                    var tax = _db.TaxMasters.FirstOrDefault(k => k.Id == adl1.TaxId && k.IsDeleted == false);
-                    dr.GrossAmount = decimal.Round(Convert.ToDecimal(amount) * 100 / (100 + tax.Cgst + tax.Sgst), 2);
-                    dr.TotalQty = 1;
-                    dr.TotalAmount = Convert.ToDecimal(amount);
-                    dr.SpecialNotes = "07-Others";
-                    _db.Bills.Add(dr);
-                    _db.SaveChanges();
-
-                    BillTransModel tr = new BillTransModel();
-
-                    tr.BillId = dr.Id;
-                    tr.Remark = adl1.Remark;
-                    tr.HsnCode = adl1.HsnCode;
-                    tr.UomId = 44;
-                    tr.Qty = 1;
-                    tr.BatchId = adl1.TaxId;
-                    tr.RefId = model.Id;
-                    tr.RefVoucherId = model.VoucherId;
-                    tr.RefTransId = ord.Id;
-
-                    if (acc.IsGst)
-                    {
-                        tr.CgstPer = tax.Cgst;
-                        tr.SgstPer = tax.Sgst;
-                        tr.Total = decimal.Round(Convert.ToDecimal(amount) * 100 / (100 + tax.Cgst + tax.Sgst), 2);
-                        tr.Rate = tr.Total;
-                        tr.Cgst = tr.Total * tr.CgstPer / 100;
-                        tr.Sgst = tr.Total * tr.SgstPer / 100;
-                    }
-                    else
-                    {
-                        tr.IgstPer = tax.Igst;
-                        tr.Total = decimal.Round(Convert.ToDecimal(amount) * 100 / (100 + tax.Igst), 2);
-                        tr.Rate = tr.Total;
-                        tr.Igst = tr.Total * tr.IgstPer / 100;
-                    }
-
-                    tr.NetTotal = Convert.ToDecimal(amount);
-                    //   tr.Total = p.Adla1;
-                    _db.BillTrans.Add(tr);
-                    _db.SaveChanges();
-                    var list = new List<BillTransModel>();
-                    list.Add(tr);
-                    //Insert or update in LedgerTrans table
-                    LedgerEff.LedgerTransEntry(type, dr, _db, list);
-
-                }
+                    drcr = CreateOrUdpateDrCr(_db, adl1, model, ord, p, sm.amt4, bills, acc);
             }
-            if (p.Adla5 != 0)
+            if (sm.amt5 != 0)
             {
-                var adl1 = _db.RPSets.FirstOrDefault(k => k.Field == "Adl5" && k.RecPay == "R" && k.YearId == KontoGlobals.YearId && k.Drcr == "Y");
+                var adl1 = _db.RPSets.FirstOrDefault(k => k.Field == "Adl5" && k.RecPay == "P"
+                && k.YearId == KontoGlobals.YearId && k.Drcr == "Y" && k.CompId == KontoGlobals.CompanyId
+                && !k.IsDeleted);
                 if (adl1 != null)
-                {
-                    BillModel dr = new BillModel();
-
-                    dr.CompId = KontoGlobals.CompanyId;
-                    dr.YearId = KontoGlobals.YearId;
-                    var type = "Debit";
-                    var amount = p.Adla5;
-                    if (amount > 0)
-                    {
-                        dr.BillType = "DEBIT NOTE";
-
-                    }
-                    else
-                    {
-                        dr.BillType = "CREDIT NOTE";
-                        type = "Credit";
-                        amount = -1 * amount;
-                    }
-                    dr.Extra1 = "PURCHASE";
-                    dr.AccId = ord.ToAccId;
-                    dr.BookAcId = adl1.AccountId;
-                    dr.VoucherId = (int)adl1.VoucherId;
-                    dr.VoucherNo =  DbUtils.NextSerialNo(dr.VoucherId, _db);
-                    dr.CreateUser = KontoGlobals.UserName;
-                    dr.CreateDate = DateTime.Now;
-                    dr.AgentId = 1;
-                    dr.VDate = model.VDate;
-                    dr.VoucherDate = model.VoucherDate;
-                    dr.BillNo = p.BillNo;
-                    dr.RcdDate = model.VDate;
-                    var tax = _db.TaxMasters.FirstOrDefault(k => k.Id == adl1.TaxId && k.IsDeleted == false);
-                    dr.GrossAmount = decimal.Round( Convert.ToDecimal(amount) * 100 / (100 + tax.Cgst + tax.Sgst), 2);
-                    dr.TotalQty = 1;
-                    dr.TotalAmount = Convert.ToDecimal(amount);
-                    dr.SpecialNotes = "07-Others";
-                    _db.Bills.Add(dr);
-                    _db.SaveChanges();
-
-                    BillTransModel tr = new BillTransModel();
-
-                    tr.BillId = dr.Id;
-                    tr.Remark = adl1.Remark;
-                    tr.HsnCode = adl1.HsnCode;
-                    tr.UomId = 44;
-                    tr.Qty = 1;
-                    tr.BatchId = adl1.TaxId;
-                    tr.RefId = model.Id;
-                    tr.RefVoucherId = model.VoucherId;
-                    tr.RefTransId = ord.Id;
-
-                    if (acc.IsGst)
-                    {
-                        tr.CgstPer = tax.Cgst;
-                        tr.SgstPer = tax.Sgst;
-                        tr.Total = decimal.Round(Convert.ToDecimal(amount) * 100 / (100 + tax.Cgst + tax.Sgst), 2);
-                        tr.Rate = tr.Total;
-                        tr.Cgst = tr.Total * tr.CgstPer / 100;
-                        tr.Sgst = tr.Total * tr.SgstPer / 100;
-                    }
-                    else
-                    {
-                        tr.IgstPer = tax.Igst;
-                        tr.Total = decimal.Round(Convert.ToDecimal(amount) * 100 / (100 + tax.Igst), 2);
-                        tr.Rate = tr.Total;
-                        tr.Igst = tr.Total * tr.IgstPer / 100;
-                    }
-
-                    tr.NetTotal = Convert.ToDecimal(amount);
-                    _db.BillTrans.Add(tr);
-                    _db.SaveChanges();
-                    var list = new List<BillTransModel>();
-                    list.Add(tr);
-                    //Insert or update in LedgerTrans table
-                    LedgerEff.LedgerTransEntry(type, dr, _db, list);
-                }
+                    drcr = CreateOrUdpateDrCr(_db, adl1, model, ord, p, sm.amt5, bills, acc);
             }
-            if (p.Adla6 != 0)
+            if (sm.amt6 != 0)
             {
-                var adl1 = _db.RPSets.FirstOrDefault(k => k.Field == "Adl6" && k.RecPay == "R" && k.YearId == KontoGlobals.YearId && k.Drcr == "Y");
+                var adl1 = _db.RPSets.FirstOrDefault(k => k.Field == "Adl6" && k.RecPay == "P"
+                && k.YearId == KontoGlobals.YearId && k.Drcr == "Y" && k.CompId == KontoGlobals.CompanyId
+                && !k.IsDeleted);
                 if (adl1 != null)
-                {
-                    BillModel dr = new BillModel();
-
-                    dr.CompId = KontoGlobals.CompanyId;
-                    dr.YearId = KontoGlobals.YearId;
-                    var type = "Debit";
-                    var amount = p.Adla6;
-                    if (amount > 0)
-                    {
-                        dr.BillType = "DEBIT NOTE";
-
-                    }
-                    else
-                    {
-                        dr.BillType = "CREDIT NOTE";
-                        type = "Credit";
-                        amount = -1 * amount;
-                    }
-                    dr.Extra1 = "PURCHASE";
-                    dr.AccId = ord.ToAccId;
-                    dr.BookAcId = adl1.AccountId;
-                    dr.VoucherId = (int)adl1.VoucherId;
-                    dr.VoucherNo = DbUtils.NextSerialNo(dr.VoucherId, _db);
-                    dr.CreateUser = KontoGlobals.UserName;
-                    dr.CreateDate = DateTime.Now;
-                    dr.AgentId = 1;
-                    dr.VDate = model.VDate;
-                    dr.VoucherDate = model.VoucherDate;
-                    dr.BillNo = p.BillNo;
-                    dr.RcdDate = model.VDate;
-                    var tax = _db.TaxMasters.FirstOrDefault(k => k.Id == adl1.TaxId && k.IsDeleted == false);
-                    dr.GrossAmount = decimal.Round(Convert.ToDecimal(amount) * 100 / (100 + tax.Cgst + tax.Sgst), 2);
-                    dr.TotalQty = 1;
-                    dr.TotalAmount = Convert.ToDecimal(amount);
-                    dr.SpecialNotes = "07-Others";
-
-                    _db.Bills.Add(dr);
-                    _db.SaveChanges();
-
-                    BillTransModel tr = new BillTransModel();
-
-                    tr.BillId = dr.Id;
-                    tr.Remark = adl1.Remark;
-                    tr.HsnCode = adl1.HsnCode;
-                    tr.UomId = 44;
-                    tr.Qty = 1;
-                    tr.BatchId = adl1.TaxId;
-                    tr.RefId = model.Id;
-                    tr.RefVoucherId = model.VoucherId;
-                    tr.RefTransId = ord.Id;
-
-                    if (acc.IsGst)
-                    {
-                        tr.CgstPer = tax.Cgst;
-                        tr.SgstPer = tax.Sgst;
-                        tr.Total = decimal.Round(Convert.ToDecimal(amount) * 100 / (100 + tax.Cgst + tax.Sgst), 2);
-                        tr.Rate = tr.Total;
-                        tr.Cgst = tr.Total * tr.CgstPer / 100;
-                        tr.Sgst = tr.Total * tr.SgstPer / 100;
-                    }
-                    else
-                    {
-                        tr.IgstPer = tax.Igst;
-                        tr.Total = decimal.Round(Convert.ToDecimal(amount) * 100 / (100 + tax.Igst), 2);
-                        tr.Rate = tr.Total;
-                        tr.Igst = tr.Total * tr.IgstPer / 100;
-                    }
-
-                    tr.NetTotal = Convert.ToDecimal(amount);
-                    _db.BillTrans.Add(tr);
-                    _db.SaveChanges();
-                    var list = new List<BillTransModel>();
-                    list.Add(tr);
-                    //Insert or update in LedgerTrans table
-                    LedgerEff.LedgerTransEntry(type, dr, _db, list);
-                }
+                    drcr = CreateOrUdpateDrCr(_db, adl1, model, ord, p, sm.amt6, bills, acc);
             }
-            if (p.Adla7 != 0)
+            if (sm.amt7 != 0)
             {
-                var adl1 = _db.RPSets.FirstOrDefault(k => k.Field == "Adl7" && k.RecPay == "R" && k.YearId == KontoGlobals.YearId && k.Drcr == "Y");
+                var adl1 = _db.RPSets.FirstOrDefault(k => k.Field == "Adl7" && k.RecPay == "P"
+                && k.YearId == KontoGlobals.YearId && k.Drcr == "Y" && k.CompId == KontoGlobals.CompanyId
+                && !k.IsDeleted);
                 if (adl1 != null)
-                {
-                    BillModel dr = new BillModel();
-
-                    dr.CompId = KontoGlobals.CompanyId;
-                    dr.YearId = KontoGlobals.YearId;
-                    var type = "Debit";
-                    var amount = p.Adla7;
-                    if (amount > 0)
-                    {
-                        dr.BillType = "DEBIT NOTE";
-
-                    }
-                    else
-                    {
-                        dr.BillType = "CREDIT NOTE";
-                        type = "Credit";
-                        amount = -1 * amount;
-                    }
-                    dr.Extra1 = "PURCHASE";
-                    dr.AccId = ord.ToAccId;
-                    dr.BookAcId = adl1.AccountId;
-                    dr.VoucherId = (int)adl1.VoucherId;
-                    dr.VoucherNo =  DbUtils.NextSerialNo(dr.VoucherId, _db);
-                    dr.CreateUser = KontoGlobals.UserName;
-                    dr.CreateDate = DateTime.Now;
-                    dr.AgentId = 1;
-                    dr.VDate = model.VDate;
-                    dr.VoucherDate = model.VoucherDate;
-                    dr.BillNo = p.BillNo;
-                    dr.RcdDate = model.VDate;
-                    var tax = _db.TaxMasters.FirstOrDefault(k => k.Id == adl1.TaxId && k.IsDeleted == false);
-                    dr.GrossAmount = decimal.Round(Convert.ToDecimal(amount) * 100 / (100 + tax.Cgst + tax.Sgst), 2);
-                    dr.TotalQty = 1;
-                    dr.TotalAmount = Convert.ToDecimal(amount);
-                    dr.SpecialNotes = "07-Others";
-                    _db.Bills.Add(dr);
-                    _db.SaveChanges();
-
-                    BillTransModel tr = new BillTransModel();
-
-                    tr.BillId = dr.Id;
-                    tr.Remark = adl1.Remark;
-                    tr.HsnCode = adl1.HsnCode;
-                    tr.UomId = 44;
-                    tr.Qty = 1;
-                    tr.BatchId = adl1.TaxId;
-                    tr.RefId = model.Id;
-                    tr.RefVoucherId = model.VoucherId;
-                    tr.RefTransId = ord.Id;
-
-                    if (acc.IsGst)
-                    {
-                        tr.CgstPer = tax.Cgst;
-                        tr.SgstPer = tax.Sgst;
-                        tr.Total = decimal.Round(Convert.ToDecimal(amount) * 100 / (100 + tax.Cgst + tax.Sgst), 2);
-                        tr.Rate = tr.Total;
-                        tr.Cgst = tr.Total * tr.CgstPer / 100;
-                        tr.Sgst = tr.Total * tr.SgstPer / 100;
-                    }
-                    else
-                    {
-                        tr.IgstPer = tax.Igst;
-                        tr.Total = decimal.Round(Convert.ToDecimal(amount) * 100 / (100 + tax.Igst), 2);
-                        tr.Rate = tr.Total;
-                        tr.Igst = tr.Total * tr.IgstPer / 100;
-                    }
-
-                    tr.NetTotal = Convert.ToDecimal(amount);
-                    _db.BillTrans.Add(tr);
-                    _db.SaveChanges();
-                    var list = new List<BillTransModel>();
-                    list.Add(tr);
-                    //Insert or update in LedgerTrans table
-                    LedgerEff.LedgerTransEntry(type, dr, _db, list);
-                }
+                    drcr = CreateOrUdpateDrCr(_db, adl1, model, ord, p, sm.amt7, bills, acc);
             }
-            if (p.Adla8 != 0)
+            if (sm.amt8 != 0)
             {
-                var adl1 = _db.RPSets.FirstOrDefault(k => k.Field == "Adl8" && k.RecPay == "R" && k.YearId == KontoGlobals.YearId && k.Drcr == "Y");
+                var adl1 = _db.RPSets.FirstOrDefault(k => k.Field == "Adl8" && k.RecPay == "P"
+                && k.YearId == KontoGlobals.YearId && k.Drcr == "Y" && k.CompId == KontoGlobals.CompanyId
+                && !k.IsDeleted);
                 if (adl1 != null)
-                {
-                    BillModel dr = new BillModel();
-
-                    dr.CompId = KontoGlobals.CompanyId;
-                    dr.YearId = KontoGlobals.YearId;
-                    var type = "Debit";
-                    var amount = p.Adla8;
-                    if (amount > 0)
-                    {
-                        dr.BillType = "DEBIT NOTE";
-
-                    }
-                    else
-                    {
-                        dr.BillType = "CREDIT NOTE";
-                        type = "Credit";
-                        amount = -1 * amount;
-                    }
-                    dr.Extra1 = "PURCHASE";
-                    dr.AccId = ord.ToAccId;
-                    dr.BookAcId = adl1.AccountId;
-                    dr.VoucherId = (int)adl1.VoucherId;
-                    dr.VoucherNo = DbUtils.NextSerialNo(dr.VoucherId, _db);
-                    dr.CreateUser = KontoGlobals.UserName;
-                    dr.CreateDate = DateTime.Now;
-                    dr.AgentId = 1;
-                    dr.VDate = model.VDate;
-                    dr.VoucherDate = model.VoucherDate;
-                    dr.BillNo = p.BillNo;
-                    dr.RcdDate = model.VDate;
-                    var tax = _db.TaxMasters.FirstOrDefault(k => k.Id == adl1.TaxId && k.IsDeleted == false);
-                    dr.GrossAmount = decimal.Round(Convert.ToDecimal(amount) * 100 / (100 + tax.Cgst + tax.Sgst), 2);
-                    dr.TotalQty = 1;
-                    dr.TotalAmount = Convert.ToDecimal(amount);
-                    dr.SpecialNotes = "07-Others";
-                    _db.Bills.Add(dr);
-                    _db.SaveChanges();
-
-                    BillTransModel tr = new BillTransModel();
-
-                    tr.BillId = dr.Id;
-                    tr.Remark = adl1.Remark;
-                    tr.HsnCode = adl1.HsnCode;
-                    tr.UomId = 44;
-                    tr.Qty = 1;
-                    tr.BatchId = adl1.TaxId;
-                    tr.RefId = model.Id;
-                    tr.RefVoucherId = model.VoucherId;
-                    tr.RefTransId = ord.Id;
-
-                    if (acc.IsGst)
-                    {
-                        tr.CgstPer = tax.Cgst;
-                        tr.SgstPer = tax.Sgst;
-                        tr.Total = decimal.Round(Convert.ToDecimal(amount) * 100 / (100 + tax.Cgst + tax.Sgst), 2);
-                        tr.Rate = tr.Total;
-                        tr.Cgst = tr.Total * tr.CgstPer / 100;
-                        tr.Sgst = tr.Total * tr.SgstPer / 100;
-                    }
-                    else
-                    {
-                        tr.IgstPer = tax.Igst;
-                        tr.Total = decimal.Round(Convert.ToDecimal(amount) * 100 / (100 + tax.Igst), 2);
-                        tr.Rate = tr.Total;
-                        tr.Igst = tr.Total * tr.IgstPer / 100;
-                    }
-
-                    tr.NetTotal = Convert.ToDecimal(amount);
-                    _db.BillTrans.Add(tr);
-                    _db.SaveChanges();
-                    var list = new List<BillTransModel>();
-                    list.Add(tr);
-                    //Insert or update in LedgerTrans table
-                    LedgerEff.LedgerTransEntry(type, dr, _db, list);
-                }
+                    drcr = CreateOrUdpateDrCr(_db, adl1, model, ord, p, sm.amt8, bills, acc);
             }
-            if (p.Adla9 != 0)
+            if (sm.amt9 != 0)
             {
-                var adl1 = _db.RPSets.FirstOrDefault(k => k.Field == "Adl9" && k.RecPay == "R" && k.YearId == KontoGlobals.YearId && k.Drcr == "Y");
+                var adl1 = _db.RPSets.FirstOrDefault(k => k.Field == "Adl9" && k.RecPay == "P"
+                && k.YearId == KontoGlobals.YearId && k.Drcr == "Y" && k.CompId == KontoGlobals.CompanyId
+                && !k.IsDeleted);
                 if (adl1 != null)
-                {
-                    BillModel dr = new BillModel();
-
-                    dr.CompId = KontoGlobals.CompanyId;
-                    dr.YearId = KontoGlobals.YearId;
-                    var type = "Debit";
-                    var amount = p.Adla9;
-                    if (amount > 0)
-                    {
-                        dr.BillType = "DEBIT NOTE";
-
-                    }
-                    else
-                    {
-                        dr.BillType = "CREDIT NOTE";
-                        type = "Credit";
-                        amount = -1 * amount;
-                    }
-                    dr.Extra1 = "PURCHASE";
-                    dr.AccId = ord.ToAccId;
-                    dr.BookAcId = adl1.AccountId;
-                    dr.VoucherId = (int)adl1.VoucherId;
-                    dr.VoucherNo = DbUtils.NextSerialNo(dr.VoucherId, _db);
-                    dr.CreateUser = KontoGlobals.UserName;
-                    dr.CreateDate = DateTime.Now;
-                    dr.AgentId = 1;
-                    dr.VDate = model.VDate;
-                    dr.VoucherDate = model.VoucherDate;
-                    dr.BillNo = p.BillNo;
-                    dr.RcdDate = model.VDate;
-                    var tax = _db.TaxMasters.FirstOrDefault(k => k.Id == adl1.TaxId && k.IsDeleted == false);
-                    dr.GrossAmount = decimal.Round(Convert.ToDecimal(amount) * 100 / (100 + tax.Cgst + tax.Sgst), 2);
-                    dr.TotalQty = 1;
-                    dr.TotalAmount = Convert.ToDecimal(amount);
-                    dr.SpecialNotes = "07-Others";
-                    _db.Bills.Add(dr);
-                    _db.SaveChanges();
-
-                    BillTransModel tr = new BillTransModel();
-
-                    tr.BillId = dr.Id;
-                    tr.Remark = adl1.Remark;
-                    tr.HsnCode = adl1.HsnCode;
-                    tr.UomId = 44;
-                    tr.Qty = 1;
-                    tr.BatchId = adl1.TaxId;
-                    tr.RefId = model.Id;
-                    tr.RefVoucherId = model.VoucherId;
-                    tr.RefTransId = ord.Id;
-
-                    if (acc.IsGst)
-                    {
-                        tr.CgstPer = tax.Cgst;
-                        tr.SgstPer = tax.Sgst;
-                        tr.Total = decimal.Round(Convert.ToDecimal(amount) * 100 / (100 + tax.Cgst + tax.Sgst), 2);
-                        tr.Rate = tr.Total;
-                        tr.Cgst = tr.Total * tr.CgstPer / 100;
-                        tr.Sgst = tr.Total * tr.SgstPer / 100;
-                    }
-                    else
-                    {
-                        tr.IgstPer = tax.Igst;
-                        tr.Total = decimal.Round(Convert.ToDecimal(amount) * 100 / (100 + tax.Igst), 2);
-                        tr.Rate = tr.Total;
-                        tr.Igst = tr.Total * tr.IgstPer / 100;
-                    }
-
-                    tr.NetTotal = Convert.ToDecimal(amount);
-                    _db.BillTrans.Add(tr);
-                    _db.SaveChanges();
-                    var list = new List<BillTransModel>();
-                    list.Add(tr);
-                    //Insert or update in LedgerTrans table
-                    LedgerEff.LedgerTransEntry(type, dr, _db, list);
-                }
+                    drcr = CreateOrUdpateDrCr(_db, adl1, model, ord, p, sm.amt9, bills, acc);
             }
-            if (p.Adla10 != 0)
+            if (sm.amt10 != 0)
             {
-                var adl1 = _db.RPSets.FirstOrDefault(k => k.Field == "Adl10" && k.RecPay == "R" && k.YearId == KontoGlobals.YearId && k.Drcr == "Y");
+                var adl1 = _db.RPSets.FirstOrDefault(k => k.Field == "Adl10" && k.RecPay == "P"
+                && k.YearId == KontoGlobals.YearId && k.Drcr == "Y" && k.CompId == KontoGlobals.CompanyId
+                && !k.IsDeleted);
+
                 if (adl1 != null)
+                    drcr = CreateOrUdpateDrCr(_db, adl1, model, ord, p, sm.amt10, bills, acc);
+            }
+
+            if (!drcr) // delete old entries
+            {
+                var bill = _db.Bills.Where(x => x.RefId == ord.Id && x.RefVoucherId == model.VoucherId
+               && x.IsActive && !x.IsDeleted).ToList();
+
+                foreach (var item in bill)
                 {
-                    BillModel dr = new BillModel();
-
-                    dr.CompId = KontoGlobals.CompanyId;
-                    dr.YearId = KontoGlobals.YearId;
-                    var type = "Debit";
-                    var amount = p.Adla10;
-                    if (amount > 0)
+                    item.IsDeleted = false;
+                    var btrs = _db.BillTrans.Where(x => x.BillId == item.Id && x.IsActive && !x.IsDeleted).ToList();
+                    foreach (var bt in btrs)
                     {
-                        dr.BillType = "DEBIT NOTE";
-
+                        bt.IsDeleted = false;
                     }
-                    else
-                    {
-                        dr.BillType = "CREDIT NOTE";
-                        type = "Credit";
-                        amount = -1 * amount;
-                    }
-                    dr.Extra1 = "PURCHASE";
-                    dr.AccId = ord.ToAccId;
-                    dr.BookAcId = adl1.AccountId;
-                    dr.VoucherId = (int)adl1.VoucherId;
-                    dr.VoucherNo = DbUtils.NextSerialNo(dr.VoucherId, _db);
-                    dr.CreateUser = KontoGlobals.UserName;
-                    dr.CreateDate = DateTime.Now;
-                    dr.AgentId = 1;
-                    dr.VDate = model.VDate;
-                    dr.VoucherDate = model.VoucherDate;
-                    dr.BillNo = p.BillNo;
-                    dr.RcdDate = model.VDate;
-                    var tax = _db.TaxMasters.FirstOrDefault(k => k.Id == adl1.TaxId && k.IsDeleted == false);
-                    dr.GrossAmount = decimal.Round(Convert.ToDecimal(amount) * 100 / (100 + tax.Cgst + tax.Sgst), 2);
-                    dr.TotalQty = 1;
-                    dr.TotalAmount = Convert.ToDecimal(amount);
-                    dr.SpecialNotes = "07-Others";
-                    _db.Bills.Add(dr);
-                    _db.SaveChanges();
-
-                    BillTransModel tr = new BillTransModel();
-
-                    tr.BillId = dr.Id;
-                    tr.Remark = adl1.Remark;
-                    tr.HsnCode = adl1.HsnCode;
-                    tr.UomId = 44;
-                    tr.Qty = 1;
-                    tr.BatchId = adl1.TaxId;
-                    tr.RefId = model.Id;
-                    tr.RefVoucherId = model.VoucherId;
-                    tr.RefTransId = ord.Id;
-
-                    if (acc.IsGst)
-                    {
-                        tr.CgstPer = tax.Cgst;
-                        tr.SgstPer = tax.Sgst;
-                        tr.Total = decimal.Round(Convert.ToDecimal(amount) * 100 / (100 + tax.Cgst + tax.Sgst), 2);
-                        tr.Rate = tr.Total;
-                        tr.Cgst = tr.Total * tr.CgstPer / 100;
-                        tr.Sgst = tr.Total * tr.SgstPer / 100;
-                    }
-                    else
-                    {
-                        tr.IgstPer = tax.Igst;
-                        tr.Total = decimal.Round(Convert.ToDecimal(amount) * 100 / (100 + tax.Igst), 2);
-                        tr.Rate = tr.Total;
-                        tr.Igst = tr.Total * tr.IgstPer / 100;
-                    }
-
-                    tr.NetTotal = Convert.ToDecimal(amount);
-                    _db.BillTrans.Add(tr);
-                    _db.SaveChanges();
-                    var list = new List<BillTransModel>();
-                    list.Add(tr);
-                    //Insert or update in LedgerTrans table
-                    LedgerEff.LedgerTransEntry(type, dr, _db, list);
+                    LedgerEff.DeleLedgEffect(item, _db);
                 }
             }
         }
-      
+
+        private bool CreateOrUdpateDrCr(KontoContext _db, RPSetModel adl1, BillModel model, BillTransModel ord, PendBillListDto p,
+            decimal amt, string bills, AccLookupDto acc)
+        {
+            BillModel dr = new BillModel();
+            dr = _db.Bills.SingleOrDefault(x => x.RefId == ord.Id && x.RefVoucherId == model.VoucherId &&
+              x.BookAcId == adl1.AccountId && !x.IsDeleted && x.IsActive);
+
+            if (dr == null)
+                dr = new BillModel();
+
+            dr.CompId = KontoGlobals.CompanyId;
+            dr.YearId = KontoGlobals.YearId;
+
+            var type = "Debit";
+            var amount = p.Adla1;
+            if (amount > 0)
+            {
+                dr.BillType = "DEBIT NOTE";
+
+            }
+            else
+            {
+                dr.BillType = "CREDIT NOTE";
+                type = "Credit";
+                amount = -1 * amount;
+            }
+            dr.Extra1 = "PURCHASE";
+
+            dr.AccId = (int)ord.ToAccId;
+            dr.BookAcId = adl1.AccountId;
+            dr.VoucherId = (int)adl1.VoucherId;
+            dr.VoucherNo = DbUtils.NextSerialNo(dr.VoucherId, _db);
+            dr.CreateUser = KontoGlobals.UserName;
+            dr.CreateDate = DateTime.Now;
+            dr.AgentId = 1;
+            dr.VDate = model.VDate;
+            dr.VoucherDate = model.VoucherDate;
+            dr.BillNo = p.BillNo;
+            dr.RcdDate = model.VDate;
+            var tax = _db.TaxMasters.FirstOrDefault(k => k.Id == adl1.TaxId && k.IsDeleted == false);
+            dr.GrossAmount = decimal.Round(Convert.ToDecimal(amount) * 100 / (100 + tax.Cgst + tax.Sgst), 2, MidpointRounding.AwayFromZero);
+            dr.TotalQty = 1;
+            dr.TotalAmount = Convert.ToDecimal(amount);
+            dr.SpecialNotes = "07-Others";
+            dr.RefId = ord.Id;
+            dr.RefVoucherId = model.VoucherId;
+            dr.Remarks = bills;
+            dr.BranchId = KontoGlobals.BranchId;
+
+            if (dr.Id == 0)
+            {
+                _db.Bills.Add(dr);
+                _db.SaveChanges();
+            }
+
+
+
+            BillTransModel tr = null;
+
+            tr = _db.BillTrans.FirstOrDefault(x => x.BillId == dr.Id && x.IsActive && !x.IsDeleted);
+            if (tr == null)
+                tr = new BillTransModel();
+
+            tr.BillId = dr.Id;
+            tr.Remark = adl1.Remark;
+            tr.HsnCode = adl1.HsnCode;
+            tr.UomId = 44;
+            tr.Qty = 1;
+            tr.Pcs = 1;
+            tr.BatchId = adl1.TaxId;
+            tr.RefId = model.Id;
+            tr.RefVoucherId = model.VoucherId;
+            tr.RefTransId = ord.Id;
+
+            tr.UomId = 28;
+            //  var tax = _db.TaxMasters.FirstOrDefault(k => k.Id == adl1.TaxId && k.IsDeleted == false);
+
+
+            if (acc.IsGst)
+            {
+                tr.CgstPer = tax.Cgst;
+                tr.SgstPer = tax.Sgst;
+                tr.Total = decimal.Round(Convert.ToDecimal(amount) * 100 / (100 + tax.Cgst + tax.Sgst), 2);
+                tr.Rate = tr.Total;
+                tr.Cgst = decimal.Round(tr.Total * tr.CgstPer / 100, 2, MidpointRounding.AwayFromZero);
+                tr.Sgst = decimal.Round(tr.Total * tr.SgstPer / 100, 2, MidpointRounding.AwayFromZero);
+            }
+            else
+            {
+                tr.IgstPer = tax.Igst;
+                tr.Total = decimal.Round(Convert.ToDecimal(amount) * 100 / (100 + tax.Igst), 2);
+                tr.Rate = tr.Total;
+                tr.Igst = decimal.Round(tr.Total * tr.IgstPer / 100, 2, MidpointRounding.AwayFromZero);
+            }
+
+            tr.NetTotal = tr.Total + tr.Cgst + tr.Sgst + tr.Igst;
+
+            dr.RoundOff = dr.TotalAmount - tr.NetTotal;
+
+            //   tr.Total = p.Adla1;
+
+            if (tr.Id == 0)
+                _db.BillTrans.Add(tr);
+
+            _db.SaveChanges();
+            var list = new List<BillTransModel>();
+            list.Add(tr);
+            //Insert or update in LedgerTrans table
+            LedgerEff.LedgerTransEntry(type, dr, _db, list);
+            return true;
+        }
+
         #endregion
 
     }

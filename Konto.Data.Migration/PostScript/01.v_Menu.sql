@@ -3169,3 +3169,30 @@ insert into ErpModule ([Id],[ParentId],[ModuleDesc],[OrderIndex],[LinkButton],[S
 		   0,0,0,null,null,1,GETDATE())
 END
 update dbo.ErpModule set Extra2=',1,2,3,4,6,7,9,10,11,' where Id=712
+
+
+IF NOT exists (select 1 from ErpModule em where em.Id=860) --job work income register
+begin
+insert into ErpModule ([Id],[ParentId],[ModuleDesc],[OrderIndex],[LinkButton],[ShortCutKey],[PackageId]
+           ,[DefaultReport],[DefaultLayout],[TableName],[AssemblyName],[MainAssembly]
+           ,[ListAssembly],[MDI],[Title],[Visible],[IconPath],[CheckRight]
+           ,[VisibleOnDashBoard],[VisibleOnSideBar],[IsSeprator],[Extra1],[Extra2],[Offline],CreateDate)
+		   values(860,805,'Job Work Income Register',23,null,null,0,
+		   null,null,'Job Work Income Register','Konto.Reporting.JobInc.RepJobIncomeView','Konto.Reporting',
+		   null,null,'Job Work Income Register',1,'/Konto.Wpf;component/MenuIcon/tax.png',0,
+		   0,0,1,null,',1,2,3,4,6,7,9,10,11,',1,GETDATE())
+END
+
+
+IF NOT exists (select 1 from ErpModule em where em.Id=861) --job work income register
+begin
+insert into ErpModule ([Id],[ParentId],[ModuleDesc],[OrderIndex],[LinkButton],[ShortCutKey],[PackageId]
+           ,[DefaultReport],[DefaultLayout],[TableName],[AssemblyName],[MainAssembly]
+           ,[ListAssembly],[MDI],[Title],[Visible],[IconPath],[CheckRight]
+           ,[VisibleOnDashBoard],[VisibleOnSideBar],[IsSeprator],[Extra1],[Extra2],[Offline],CreateDate)
+		   values(861,805,'Gate Entry Register',23,null,null,0,
+		   null,null,'Job Work Income Register','Konto.Reporting.GE.RepGateEntryView','Konto.Reporting',
+		   null,null,'GateEntry Report',1,'/Konto.Wpf;component/MenuIcon/tax.png',0,
+		   0,0,0,null,',1,2,3,4,6,7,9,10,11,',1,GETDATE())
+END
+

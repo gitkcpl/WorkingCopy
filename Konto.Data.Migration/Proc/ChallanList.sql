@@ -42,7 +42,7 @@ BEGIN
 	LEFT OUTER JOIN Acc ac on c.AccId =ac.Id 
     LEFT OUTER JOIN Acc tr on c.TransId = tr.Id
 	LEFT OUTER JOIN Acc del on del.Id = c.DelvAccId
-    LEFT OUTER JOIN Acc Agent on ac.AgentId = Agent.Id
+    LEFT OUTER JOIN Acc Agent on C.AgentId = Agent.Id
     LEFT OUTER JOIN Voucher v on c.VoucherId =v.Id
     LEFT OUTER JOIN AccAddress adr on c.DelvAdrId =adr.Id 
     LEFT OUTER JOIN dbo.Division div ON div.Id = c.DivId

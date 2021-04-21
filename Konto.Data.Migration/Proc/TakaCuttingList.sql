@@ -22,7 +22,7 @@ BEGIN
     left outer join Product pro on pd.ProductId =pro.Id
     left outer join Color c on pd.ColorId =c.Id
     where v.VTypeId = @VTypeId
-	and pd.BranchId=@BranchId
+	--and pd.BranchId=@BranchId
 	
     and pd.IsActive=1 and pd.IsDeleted=0
 	and pout.IsActive=1 and pout.IsDeleted=@Deleted

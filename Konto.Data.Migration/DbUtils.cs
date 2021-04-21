@@ -333,5 +333,16 @@ namespace Konto.Data
                     SysParameter.Common_Stock = item.DefaultValue == "Y" ? true : false;
             }
         }
+
+        public static void Update_Account_Balance(KontoContext db = null)
+        {
+            if (db == null)
+                db = new KontoContext();
+
+
+            db.Database.ExecuteSqlCommand("dbo.update_account_balance @fromdate={0},@todate={1}," +
+                "@compid={2}, @yearid={3}", KontoGlobals.FromDate,
+                KontoGlobals.ToDate, KontoGlobals.CompanyId, KontoGlobals.YearId);
+        }
     }
 }

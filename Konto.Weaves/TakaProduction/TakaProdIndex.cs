@@ -36,6 +36,10 @@ namespace Konto.Weaves.TakaProduction
 
         TextEdit headerEdit = new TextEdit();
         GridColumn activeCol = null;
+        private int _div_Id = 0;
+        private DateTime _voucherdate = DateTime.Now;
+        private DateTime _startdate = DateTime.Now;
+        private DateTime _folddate = DateTime.Now;
         public TakaProdIndex()
         {
             InitializeComponent();
@@ -792,8 +796,12 @@ namespace Konto.Weaves.TakaProduction
             base.NewRec();
             this.FilterView = new List<ProdModel>();
             this.Text = "Taka Production [Add New]";
+            if (_div_Id > 0)
+                divLookUpEdit.EditValue = _div_Id;
+            else
+                    
+                divLookUpEdit.EditValue = 1;
 
-            divLookUpEdit.EditValue = 1;
             this.ActiveControl = voucherLookup1.buttonEdit1;
             voucherLookup1.SetDefault();
             voucherDateEdit.EditValue = DateTime.Now;
@@ -818,6 +826,9 @@ namespace Konto.Weaves.TakaProduction
             DelProdEmp = new List<Prod_EmpDto>();
 
             divLookUpEdit.Focus();
+            voucherDateEdit.DateTime = _voucherdate;
+            StartDateEdit.DateTime = _startdate;
+            FoldDateEdit.DateTime = _folddate;
 
             MachineNolookUpEdit_EditValueChanged(MachineNolookUpEdit, null);
         }
@@ -1228,6 +1239,11 @@ namespace Konto.Weaves.TakaProduction
 
                         db.SaveChanges();
                         _tran.Commit();
+                        _div_Id = Convert.ToInt32(_find.DivId);
+                        _voucherdate = voucherDateEdit.DateTime;
+                        _startdate = StartDateEdit.DateTime;
+                        _folddate = FoldDateEdit.DateTime;
+
                         IsSaved = true;
                     }
                     catch (Exception ex)

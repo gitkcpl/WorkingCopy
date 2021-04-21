@@ -220,7 +220,7 @@ namespace Konto.Data
                     st.Remarks = model.Remarks;
 
 
-                    db.Entry(st).CurrentValues.SetValues(st);
+                   // db.Entry(st).CurrentValues.SetValues(st);
                 }
                 else // Insert Billref table
                 {
@@ -603,19 +603,19 @@ namespace Konto.Data
 
             LedgerTransModel ledger;
 
-            decimal net = trans.Sum(k => k.NetTotal);
-            decimal cgst = trans.Sum(k => k.Cgst);
-            decimal sgst = trans.Sum(k => k.Sgst);
-            decimal igst = trans.Sum(k => k.Igst);
-            decimal custom = trans.Sum(k => k.CustomD);
+            decimal net = Math.Abs(trans.Sum(k => k.NetTotal));
+            decimal cgst = Math.Abs(trans.Sum(k => k.Cgst));
+            decimal sgst =Math.Abs(trans.Sum(k => k.Sgst));
+            decimal igst = Math.Abs(trans.Sum(k => k.Igst));
+            decimal custom = Math.Abs(trans.Sum(k => k.CustomD));
             decimal tds = model.TdsAmt;
             decimal tcs = trans.Sum(k => k.TcsAmt);
 
 
-            decimal freight = trans.Sum(k => k.Freight);
-            decimal cess = trans.Sum(k => k.Cess);
+            decimal freight = Math.Abs( trans.Sum(k => k.Freight));
+            decimal cess = Math.Abs(trans.Sum(k => k.Cess));
 
-            decimal taxable = net - cgst - sgst - igst - cess;
+            decimal taxable =  net - cgst - sgst - igst - cess;
 
             //taxable = taxable - tcs;
 
@@ -628,7 +628,16 @@ namespace Konto.Data
             //decimal roundoff = model.TotalAmount - total;
             decimal roundoff = model.RoundOff != null ? (decimal)model.RoundOff : 0;
 
-            decimal totalAmt = model.TotalAmount;
+            if(model.TotalAmount < 0)
+            {
+                if (roundoff < 0)
+                    roundoff = Math.Abs(roundoff);
+                else
+                    roundoff = -1* roundoff;
+            }
+
+
+            decimal totalAmt = Math.Abs(model.TotalAmount);
 
 
             bool sez = model.BillType == "SEZ Supplies with Payment" || model.BillType == "SEZ Supplies without Payment" ||
@@ -1505,13 +1514,14 @@ namespace Konto.Data
                     // If Any Charges in Bill Adjustment
                     if (billList != null)
                     {
-                        foreach (var p in billList)
+                        var bls = billList.Where(x => x.RefTransId == tr.Id).ToList();
+                        foreach (var p in bls)
                         {
                             if (p != null)
                             {
                                 var adl1 = db.RPSets.FirstOrDefault(k => k.Field == "Adl1" && k.RecPay == "P" 
                                                                     && k.YearId == KontoGlobals.YearId && k.Drcr != "Y"
-                                                                    && k.CompId == KontoGlobals.CompanyId);
+                                                                    && k.CompId == KontoGlobals.CompanyId && !k.IsDeleted);
                                 if (p.Adla1 != 0 && adl1 != null)
                                 {
                                     LedgerTransModel l = new LedgerTransModel();
@@ -1597,8 +1607,9 @@ namespace Konto.Data
                                     list.Add(m);
 
                                 }
-                                var adl2 = db.RPSets.FirstOrDefault(k => k.Field == "Adl2" && k.RecPay == "P" && k.YearId == KontoGlobals.YearId && k.Drcr != "Y"
-                                && k.CompId == KontoGlobals.CompanyId);
+                                var adl2 = db.RPSets.FirstOrDefault(k => k.Field == "Adl2" && k.RecPay == "P" &&
+                                k.YearId == KontoGlobals.YearId && k.Drcr != "Y"
+                                && k.CompId == KontoGlobals.CompanyId && !k.IsDeleted);
 
                                 if (p.Adla2 != 0 && adl2 != null)
                                 {
@@ -1683,7 +1694,7 @@ namespace Konto.Data
                                 }
 
                                 var adl3 = db.RPSets.FirstOrDefault(k => k.Field == "Adl3" && k.RecPay == "P" && k.YearId == KontoGlobals.YearId && k.Drcr != "Y"
-                                && k.CompId == KontoGlobals.CompanyId);
+                                && k.CompId == KontoGlobals.CompanyId && !k.IsDeleted);
 
                                 if (p.Adla3 != 0 && adl3 != null)
                                 {
@@ -1768,9 +1779,9 @@ namespace Konto.Data
                                     list.Add(m);
                                 }
                                 var adl4 = db.RPSets.FirstOrDefault(k => k.Field == "Adl4" && k.RecPay == "P" && k.YearId == KontoGlobals.YearId && k.Drcr != "Y"
-                                && k.CompId == KontoGlobals.CompanyId);
+                                && k.CompId == KontoGlobals.CompanyId && !k.IsDeleted);
 
-                                if (p.Adla4 != 0 && adl4 != null)
+                                if (p.Adla4 != 0 && adl4 != null )
                                 {
 
                                     LedgerTransModel l = new LedgerTransModel();
@@ -1853,7 +1864,7 @@ namespace Konto.Data
                                 }
 
                                 var adl5 = db.RPSets.FirstOrDefault(k => k.Field == "Adl5" && k.RecPay == "P" && k.YearId == KontoGlobals.YearId && k.Drcr != "Y"
-                                && k.CompId == KontoGlobals.CompanyId);
+                                && k.CompId == KontoGlobals.CompanyId && !k.IsDeleted);
 
                                 if (p.Adla5 != 0 && adl5 != null)
                                 {
@@ -1937,7 +1948,7 @@ namespace Konto.Data
                                     list.Add(m);
                                 }
                                 var adl6 = db.RPSets.FirstOrDefault(k => k.Field == "Adl6" && k.RecPay == "P" && k.YearId == KontoGlobals.YearId && k.Drcr != "Y"
-                                && k.CompId == KontoGlobals.CompanyId);
+                                && k.CompId == KontoGlobals.CompanyId && !k.IsDeleted);
 
                                 if (p.Adla6 != 0 && adl6 != null)
                                 {
@@ -2020,7 +2031,7 @@ namespace Konto.Data
                                     list.Add(m);
                                 }
                                 var adl7 = db.RPSets.FirstOrDefault(k => k.Field == "Adl7" && k.RecPay == "P" && k.YearId == KontoGlobals.YearId && k.Drcr != "Y"
-                                && k.CompId == KontoGlobals.CompanyId);
+                                && k.CompId == KontoGlobals.CompanyId && !k.IsDeleted);
 
                                 if (p.Adla7 != 0 && adl7 != null)
                                 {
@@ -2105,7 +2116,7 @@ namespace Konto.Data
                                     list.Add(m);
                                 }
                                 var adl8 = db.RPSets.FirstOrDefault(k => k.Field == "Adl8" && k.RecPay == "P" && k.YearId == KontoGlobals.YearId && k.Drcr != "Y"
-                                && k.CompId == KontoGlobals.CompanyId);
+                                && k.CompId == KontoGlobals.CompanyId && !k.IsDeleted);
 
                                 if (p.Adla8 != 0 && adl8 != null)
                                 {
@@ -2189,7 +2200,7 @@ namespace Konto.Data
                                     list.Add(m);
                                 }
                                 var adl9 = db.RPSets.FirstOrDefault(k => k.Field == "Adl9" && k.RecPay == "P" && k.YearId == KontoGlobals.YearId && k.Drcr != "Y"
-                                && k.CompId == KontoGlobals.CompanyId);
+                                && k.CompId == KontoGlobals.CompanyId && !k.IsDeleted);
 
                                 if (p.Adla9 != 0 && adl9 != null)
                                 {
@@ -2273,7 +2284,7 @@ namespace Konto.Data
                                     list.Add(m);
                                 }
                                 var adl10 = db.RPSets.FirstOrDefault(k => k.Field == "Adl10" && k.RecPay == "P" && k.YearId == KontoGlobals.YearId && k.Drcr != "Y"
-                                && k.CompId == KontoGlobals.CompanyId);
+                                && k.CompId == KontoGlobals.CompanyId && !k.IsDeleted);
 
                                 if (p.Adla10 != 0 && adl10 != null)
                                 {
@@ -2505,7 +2516,7 @@ namespace Konto.Data
                             LrNo = model.DocNo,
                             LrDate = model.DocDate,
 
-                            ChqNo = tr.ChequeNo,
+                           ChqNo = tr.ChequeNo,
                             ChqDate = tr.ChequeDate,
 
                             AccountId = 14,
@@ -2522,7 +2533,8 @@ namespace Konto.Data
                     // If Any Charges in Bill Adjustment
                     if (billList != null)
                     {
-                        foreach (var p in billList)
+                        var bls = billList.Where(x => x.RefTransId == tr.Id).ToList();
+                        foreach (var p in bls)
                         {
                             var adl1 = db.RPSets.FirstOrDefault(k => k.Field == "Adl1" && k.RecPay == "R" && k.YearId == KontoGlobals.YearId && k.Drcr != "Y"
                             && k.CompId == KontoGlobals.CompanyId);
@@ -4710,7 +4722,7 @@ namespace Konto.Data
                 list.Add(ledger);
             }
 
-            if (Convert.ToInt32(bp.Pay1Id) > 0 && bp.Pay1Amt > 0) // for cash
+            if (Convert.ToInt32(bp.Pay1Id) > 0 && bp.Pay1Amt != 0) // for cash
             {
                 var pay1 = db.Hastes.Find(bp.Pay1Id);
 
@@ -4730,8 +4742,8 @@ namespace Konto.Data
 
                     AccountId = model.AccId,
                     RefAccountId = pay1.AccId,
-                    Debit = 0,
-                    Credit = bp.Pay1Amt - bp.ChangeAmt,
+                    Debit = bp.Pay1Amt < 0 ? Math.Abs(bp.Pay1Amt) :  0,
+                    Credit = bp.Pay1Amt < 0 ? 0 : bp.Pay1Amt - bp.ChangeAmt,
                     BilllAmount = model.TotalAmount,
                     Amount = -1 * (bp.Pay1Amt - bp.ChangeAmt),
                     TransCode = model.RowId
@@ -4753,8 +4765,8 @@ namespace Konto.Data
 
                     RefAccountId = model.AccId,
                     AccountId = pay1.AccId,
-                    Credit = 0,
-                    Debit = bp.Pay1Amt - bp.ChangeAmt,
+                    Credit = bp.Pay1Amt < 0 ? Math.Abs(bp.Pay1Amt) : 0,
+                    Debit = bp.Pay1Amt < 0 ? 0 : bp.Pay1Amt - bp.ChangeAmt,
                     BilllAmount = model.TotalAmount,
                     Amount = (bp.Pay1Amt - bp.ChangeAmt),
                     TransCode = model.RowId
@@ -4782,8 +4794,8 @@ namespace Konto.Data
 
                     AccountId = model.AccId,
                     RefAccountId = pay2.AccId,
-                    Debit = 0,
-                    Credit = bp.Pay2Amt,
+                    Debit = bp.Pay2Amt < 0 ? Math.Abs(bp.Pay2Amt) : 0,
+                    Credit = bp.Pay2Amt < 0 ? 0 : bp.Pay2Amt,
                     BilllAmount = model.TotalAmount,
                     Amount = -1 * bp.Pay2Amt,
                     TransCode = model.RowId
@@ -4805,8 +4817,8 @@ namespace Konto.Data
 
                     RefAccountId = model.AccId,
                     AccountId = pay2.AccId,
-                    Credit = 0,
-                    Debit = bp.Pay2Amt,
+                    Credit = bp.Pay2Amt < 0 ? Math.Abs(bp.Pay2Amt) :0,
+                    Debit = bp.Pay2Amt <0 ? 0 : bp.Pay2Amt,
                     BilllAmount = model.TotalAmount,
                     Amount = bp.Pay2Amt,
                     TransCode = model.RowId
@@ -4834,8 +4846,8 @@ namespace Konto.Data
 
                     AccountId = model.AccId,
                     RefAccountId = pay3.AccId,
-                    Debit = 0,
-                    Credit = bp.Pay3Amt,
+                    Debit = bp.Pay3Amt < 0 ? Math.Abs(bp.Pay3Amt) : 0,
+                    Credit = bp.Pay3Amt < 0 ? 0 : bp.Pay3Amt,
                     BilllAmount = model.TotalAmount,
                     Amount = -1 * bp.Pay3Amt,
                     TransCode = model.RowId
@@ -4857,8 +4869,8 @@ namespace Konto.Data
 
                     RefAccountId = model.AccId,
                     AccountId = pay3.AccId,
-                    Credit = 0,
-                    Debit = bp.Pay3Amt,
+                    Credit = bp.Pay3Amt < 0 ? Math.Abs(bp.Pay3Amt) : 0,
+                    Debit = bp.Pay3Amt < 0 ? 0 : bp.Pay3Amt,
                     BilllAmount = model.TotalAmount,
                     Amount = bp.Pay3Amt,
                     TransCode = model.RowId

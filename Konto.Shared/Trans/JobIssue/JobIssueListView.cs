@@ -11,24 +11,130 @@ using Serilog;
 using System.Data.SqlClient;
 using Konto.Shared.Reports;
 using Konto.Data.Models.Transaction;
+using DevExpress.XtraGrid.Views.Base;
+using Konto.Data.Models.Transaction.TradingDto;
+using System.Collections.Generic;
 
 namespace Konto.Shared.Trans.JobIssue
 {
     public partial class JobIssueListView : ListBaseView
     {
         //private List<OpBillListDto> _modelList = new List<OpBillListDto>();
-
+        private string JobRcptAgainstGoDtoFile = KontoFileLayout.Job_Receipt_Against_Issue_Layout;
         public JobIssueListView()
 
         {
             InitializeComponent();
             this.listDateRange1.GetButtonClick += ListDateRange1_GetButtonClick;
             //  this.GridLayoutFileName = KontoFileLayout.Op_Bill_List;
-
+            this.customGridView1.FocusedRowChanged += CustomGridView1_FocusedRowChanged;
             this.ReportPrint = true;
             listAction1.EditDeleteDisabled(false);
+            this.rcptGridControl.DoubleClick += RcptGridControl_DoubleClick;
+            this.rcptGridControl.ProcessGridKey += RcptGridControl_ProcessGridKey;
         }
 
+        private void RcptGridControl_ProcessGridKey(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == (Keys.F2 | Keys.Shift))
+            {
+                var frm = new GridPropertView();
+                frm.gridControl1.DataSource = this.rcptGridControl.DataSource;
+                frm.gridView1.Assign(this.rcptGridView, false);
+                if (frm.ShowDialog() != DialogResult.OK) return;
+                this.rcptGridView.Assign(frm.gridView1, false);
+                KontoUtils.SaveLayoutGrid(this.JobRcptAgainstGoDtoFile, this.rcptGridView);
+            }
+        }
+
+        private void RcptGridControl_DoubleClick(object sender, EventArgs e)
+        {
+            if (rcptGridView.FocusedRowHandle < 0) return;
+            var id = Convert.ToInt32(rcptGridView.GetRowCellValue(rcptGridView.FocusedRowHandle, "Id"));
+            string objectToInstantiate = "Konto.Trading.JobReceipt.JrIndex,Konto.Trading";
+            var objectType = Type.GetType(objectToInstantiate);
+            var _frm = Activator.CreateInstance(objectType) as KontoMetroForm;
+            _frm.Tag = MenuId.Job_Receipt;
+            _frm.ViewOnlyMode = true;
+            _frm.EditKey = id;
+            _frm.ShowDialog();
+
+            
+        }
+
+        private void CustomGridView1_FocusedRowChanged(object sender, FocusedRowChangedEventArgs e)
+        {
+            if (customGridView1.FocusedRowHandle < 0) return;
+            var _id = Convert.ToInt32(this.customGridView1.GetRowCellValue(customGridView1.FocusedRowHandle, "Id"));
+            var _vid = Convert.ToInt32(this.customGridView1.GetRowCellValue(customGridView1.FocusedRowHandle, "VoucherId"));
+
+
+            using (var _context = new KontoContext())
+            {
+                int rcptId = 0;
+                var receipt = _context.JobReceipts.FirstOrDefault(x => x.RefId == _id);
+                
+                if (receipt != null)
+                    rcptId = (int) receipt.ChallanId;
+
+                
+                var rcptList = new List<JobReceiptAgainstIssue>();
+
+                if (rcptId == 0)
+                {
+                    rcptList = (
+                                   from oc in _context.Challans
+                                   join ot in _context.ChallanTranses on oc.Id equals ot.ChallanId
+                                   join rt in _context.ChallanTranses on
+                                   new { p1 = ot.Id, p2 = ot.ChallanId } equals new { p1 = (int)rt.RefId, p2 = rt.MiscId }
+                                   join rc in _context.Challans on rt.ChallanId equals rc.Id
+                                   join ac in _context.Accs on rc.AccId equals ac.Id
+                                   where rt.MiscId == _id && rt.RefVoucherId == _vid
+                                     && !oc.IsDeleted && oc.IsActive == true && !ot.IsDeleted
+                                     && !rt.IsDeleted && !rc.IsDeleted && !ac.IsDeleted
+                                   select new JobReceiptAgainstIssue()
+                                   {
+                                       ChlnDate = rc.VoucherDate,
+                                       ChallanNo = rc.BillNo,
+                                       VoucherNo = rc.VoucherNo,
+                                       Party = ac.AccName,
+                                       LotNo = rt.LotNo,
+                                       IssuePcs = (int)rt.IssuePcs,
+                                       IssueMtrs = rt.IssueQty,
+                                       FinPcs = rt.Pcs,
+                                       FinMtrs = rt.Qty,
+                                       Rate = rt.Rate,
+                                       Id = rc.Id,
+                                   }).ToList();
+                }
+                else
+                {
+                    rcptList = (
+                                   from oc in _context.Challans
+                                   join ot in _context.ChallanTranses on oc.Id equals ot.ChallanId
+                                   join ac in _context.Accs on oc.AccId equals ac.Id
+                                   where oc.Id == rcptId 
+                                     && !oc.IsDeleted && oc.IsActive == true && !ot.IsDeleted
+                                   select new JobReceiptAgainstIssue()
+                                   {
+                                       ChlnDate = oc.VoucherDate,
+                                       ChallanNo = oc.BillNo,
+                                       VoucherNo =oc.VoucherNo,
+                                       Party = ac.AccName,
+                                       LotNo = ot.LotNo,
+                                       IssuePcs = (int)ot.IssuePcs,
+                                       IssueMtrs = ot.IssueQty,
+                                       FinPcs = ot.Pcs,
+                                       FinMtrs = ot.Qty,
+                                       Rate = ot.Rate,
+                                       Id = oc.Id,
+                                   }).ToList();
+                }
+
+                rcptGridControl.DataSource = rcptList;
+                KontoUtils.RestoreLayoutGrid(this.JobRcptAgainstGoDtoFile, rcptGridView); 
+            }
+        }
         private void ListDateRange1_GetButtonClick(object sender, EventArgs e)
         {
             this.GridLayoutFileName = listDateRange1.SelectedItem.LayoutFile;

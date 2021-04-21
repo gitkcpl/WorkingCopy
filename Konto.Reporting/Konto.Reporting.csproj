@@ -84,27 +84,33 @@
       <HintPath>..\RefTools\C1.Win.FlexPivot.Slicer.4.5.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.Charts.v20.1.Core, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.CodeParser.v20.1, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Data.v20.1, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.DataAccess.v20.1, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.DataAccess.v20.1.UI, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Images.v20.1, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Office.v20.1.Core, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Pdf.v20.1.Core, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.PivotGrid.v20.1.Core, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Printing.v20.1.Core, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.RichEdit.v20.1.Core, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.RichEdit.v20.1.Export, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Sparkline.v20.1.Core, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Data.Desktop.v20.1, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Spreadsheet.v20.1.Core, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Utils.v20.1, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Utils.v20.1.UI, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpo.v20.1, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.XtraBars.v20.1, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraCharts.v20.1, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraEditors.v20.1, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraGauges.v20.1.Core, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraGrid.v20.1, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraLayout.v20.1, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraNavBar.v20.1, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraPivotGrid.v20.1, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraPrinting.v20.1, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraReports.v20.1, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraRichEdit.v20.1, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraSpreadsheet.v20.1, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraTreeList.v20.1, Version=20.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
@@ -252,6 +258,18 @@
       <DependentUpon>CustomeRepWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="CustomRep\ReportLayoutBuilder.cs" />
+    <Compile Include="GE\RepGateEntryView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GE\RepGateEntryView.Designer.cs">
+      <DependentUpon>RepGateEntryView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="JobInc\RepJobIncomeView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="JobInc\RepJobIncomeView.Designer.cs">
+      <DependentUpon>RepJobIncomeView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Para\BeamProdPara\BPParaMainView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -481,6 +499,36 @@
     <Compile Include="Wvs\UpdateJobRateView.Designer.cs">
       <DependentUpon>UpdateJobRateView.cs</DependentUpon>
     </Compile>
+    <Compile Include="XReport\XGate\GateEntryXRep.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="XReport\XGate\GateEntryXRep.Designer.cs">
+      <DependentUpon>GateEntryXRep.cs</DependentUpon>
+    </Compile>
+    <Compile Include="XReport\XJobInc\JobInwardVsOutwardXRep.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="XReport\XJobInc\JobInwardVsOutwardXRep.Designer.cs">
+      <DependentUpon>JobInwardVsOutwardXRep.cs</DependentUpon>
+    </Compile>
+    <Compile Include="XReport\XJobInc\JobIncomeDetailsXRep.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="XReport\XJobInc\JobIncomeDetailsXRep.Designer.cs">
+      <DependentUpon>JobIncomeDetailsXRep.cs</DependentUpon>
+    </Compile>
+    <Compile Include="XReport\XJobInc\JobIncomeSmryXRep.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="XReport\XJobInc\JobIncomeSmryXRep.Designer.cs">
+      <DependentUpon>JobIncomeSmryXRep.cs</DependentUpon>
+    </Compile>
+    <Compile Include="XReport\XJobInc\JobIncomeXRep.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="XReport\XJobInc\JobIncomeXRep.Designer.cs">
+      <DependentUpon>JobIncomeXRep.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -532,6 +580,12 @@
   <ItemGroup>
     <EmbeddedResource Include="CustomRep\CustomeRepWindow.resx">
       <DependentUpon>CustomeRepWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GE\RepGateEntryView.resx">
+      <DependentUpon>RepGateEntryView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="JobInc\RepJobIncomeView.resx">
+      <DependentUpon>RepJobIncomeView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Para\BeamProdPara\BPParaMainView.resx">
       <DependentUpon>BPParaMainView.cs</DependentUpon>
@@ -648,6 +702,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Wvs\UpdateJobRateView.resx">
       <DependentUpon>UpdateJobRateView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="XReport\XGate\GateEntryXRep.resx">
+      <DependentUpon>GateEntryXRep.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="XReport\XJobInc\JobInwardVsOutwardXRep.resx">
+      <DependentUpon>JobInwardVsOutwardXRep.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="XReport\XJobInc\JobIncomeDetailsXRep.resx">
+      <DependentUpon>JobIncomeDetailsXRep.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="XReport\XJobInc\JobIncomeSmryXRep.resx">
+      <DependentUpon>JobIncomeSmryXRep.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="XReport\XJobInc\JobIncomeXRep.resx">
+      <DependentUpon>JobIncomeXRep.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

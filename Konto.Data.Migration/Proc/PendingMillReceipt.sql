@@ -15,7 +15,7 @@ BEGIN
 	p.ProductName AS GreyQuality,
 	np.ProductName FinishQuality,
 	case when ct.NProductId is null or ct.NProductId=0 then ct.ProductId else ct.NProductId end ProductId,
-
+	c.ChallanNo,
 	ct.DesignId,
 	ct.ColorId,
 	CAST((ISNULL(ct.Qty,0))  AS numeric(18,2)) as IssueQty,

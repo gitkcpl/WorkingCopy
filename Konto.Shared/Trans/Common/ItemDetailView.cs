@@ -51,8 +51,9 @@ namespace Konto.Shared.Trans.Common
             this.gridView1.KeyDown += GridView1_KeyDown;
             this.gridControl1.ProcessGridKey += GridControl1_ProcessGridKey;
             this.gridControl1.Enter += GridControl1_Enter;
-        }
 
+        }
+       
         private void GridControl1_Enter(object sender, EventArgs e)
         {
             gridView1.FocusedColumn = gridView1.VisibleColumns[0];
@@ -248,6 +249,11 @@ namespace Konto.Shared.Trans.Common
                 if (frm.ShowDialog() != DialogResult.OK) return true;
                 this.gridView1.Assign(frm.gridView1, false);
                 KontoUtils.SaveLayoutGrid(this.GridLayoutFileName, this.gridView1);
+                return true;
+            }
+            else if (keyData == Keys.F10)
+            {
+                okSimpleButton.PerformClick();
                 return true;
             }
             return base.ProcessCmdKey(ref msg, keyData);

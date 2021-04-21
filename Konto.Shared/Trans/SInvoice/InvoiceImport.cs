@@ -183,6 +183,7 @@ namespace Konto.Shared.Trans.SInvoice
                                     bt1.Total = Convert.ToDecimal(item["Total"]);
                                     bt1.Disc = Convert.ToDecimal(item["DiscPer"]);
                                     bt1.DiscAmt = Convert.ToDecimal(item["DiscAmount"]);
+                                    bt1.Freight = Convert.ToDecimal(item["ServiceTaxAmount"]);
                                     bt1.CgstPer = Convert.ToDecimal(item["CgstPer"]);
                                     bt1.Cgst = Convert.ToDecimal(item["Cgst"]);
                                     bt1.SgstPer = Convert.ToDecimal(item["SgstPer"]);
@@ -195,6 +196,9 @@ namespace Konto.Shared.Trans.SInvoice
                                     fr++;
                                 }
                                 db.BillTrans.AddRange(btlist);
+
+                                bm.TotalPcs = btlist.Sum(x => x.Pcs);
+                                bm.TotalQty = btlist.Sum(x => x.Qty);
                                 db.SaveChanges();
 
                                 var Billr = new BillRefModel();
@@ -202,6 +206,33 @@ namespace Konto.Shared.Trans.SInvoice
                                 LedgerEff.BillRefEntry("Debit", bm,(int) btlist.FirstOrDefault().ProductId, db);
                                 //Insert or update in LedgerTrans table
                                 LedgerEff.LedgerTransEntry("Debit", bm, db,btlist);
+
+
+                                foreach (var item in btlist)
+                                {
+                                    bool IsIssue = true;
+                                    string TableName = "SaleInvoice";
+
+                                    var stockReq = db.Products.FirstOrDefault(k => k.Id == item.ProductId);
+
+                                    //update serial sotck
+                                    if (stockReq.SerialReq == "Yes" && stockReq.PTypeId == (int)ProductTypeEnum.FINISH)
+                                    {
+                                        if (string.IsNullOrEmpty(item.LotNo)) continue;
+                                        var sr = db.ItemSerials.SingleOrDefault(x => x.SerialNo == item.LotNo);
+                                        if (sr != null)
+                                        {
+                                            sr.IsActive = false; // remove stock of serials
+                                        }
+                                    }
+
+                                    if (stockReq.StockReq == "No")
+                                    {
+                                        continue;
+                                    }
+                                    StockEffect.StockTransBillEntry(bm, item, IsIssue, TableName, db);
+                                }
+
                             }
 
                             tran.Commit();
