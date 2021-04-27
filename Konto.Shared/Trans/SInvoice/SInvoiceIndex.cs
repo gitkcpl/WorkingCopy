@@ -281,6 +281,7 @@ namespace Konto.Shared.Trans.SInvoice
                     accLookup1.SelectedValue = row.AccId;
                     challanNotextEdit.Text = row.ChallanNo;
                     rcdDateEdit1.DateTime = row.ChallanDate;
+                    
                 }
             }
 
@@ -1219,9 +1220,14 @@ namespace Konto.Shared.Trans.SInvoice
                     foreach (var item in groupbyItem)
                     {
                         var checkforstock = db.Products.FirstOrDefault(k => k.Id == item.Key);
+
+                        if (!checkforstock.CheckNegative) continue;
+
                         var Qty = trans.Where(k => k.ProductId == checkforstock.Id).Sum(k => k.Qty);
-                        var stockBal = db.StockBals.Where(k => k.ProductId == checkforstock.Id && k.BranchId == KontoGlobals.BranchId).Sum(k => k.BalQty + k.OpQty);
-                        if (checkforstock.CheckNegative && Qty > stockBal)
+
+                        var stockBal = DbUtils.GetCurrentStock(checkforstock.Id, 0);
+
+                        if (Qty > stockBal)
                         {
                             MessageBox.Show("Stock not available of Item " + checkforstock.ProductName + " Available Stock Only " + stockBal);
                             //     IsSaveComplete = true;
@@ -1271,10 +1277,15 @@ namespace Konto.Shared.Trans.SInvoice
             challanNotextEdit.Text = model.BillNo;
             refNoTextEdit.Text = model.RefNo;
             delvLookup.SelectedValue = model.DelvAccId;
+            
             delvLookup.SetAcc(Convert.ToInt32(model.DelvAccId));
-            addressLookup1.SelectedValue = model.DelvAdrId;
-            addressLookup1.SetValue(Convert.ToInt32(model.DelvAdrId));
-           
+            
+            if (Convert.ToInt32(model.DelvAdrId) != 0)
+            {
+                addressLookup1.SelectedValue = model.DelvAdrId;
+                addressLookup1.SetValue(Convert.ToInt32(model.DelvAdrId));
+            }
+
             if (Convert.ToInt32(model.EmpId) != 0)
             {
                 empLookup1.SelectedValue = model.EmpId;
@@ -2174,7 +2185,7 @@ namespace Konto.Shared.Trans.SInvoice
                             _find = db.Bills.Find(this.PrimaryKey);
                         }
 
-                       if(!UpdateBill(db, _find))
+                        if(!UpdateBill(db, _find))
                         {
                             _tran.Rollback();
                             return;

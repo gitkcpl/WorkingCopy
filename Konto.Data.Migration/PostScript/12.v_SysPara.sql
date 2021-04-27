@@ -1256,6 +1256,10 @@ INSERT INTO dbo.SysPara(Id,Descr,DefaultValue,ValueDescr,Category)
 Values(302,'Lock If Move Next','Y','Y for Yes N for No','GRN')
 
 
+IF NOT EXISTS(SELECT 1 FROM dbo.SysPara WHERE Id=303)
+INSERT INTO dbo.SysPara(Id,Descr,DefaultValue,ValueDescr,Category)
+Values(303,'Repeat Product','N','Y for Yes N for No','Outward')
+
 
 -- for system level
 IF NOT EXISTS(SELECT 1 FROM dbo.SysPara WHERE Id=500) 
@@ -1287,6 +1291,10 @@ Values(505,'Common Order For All Company','N','Y For Yes/N For No','sys')
 IF NOT EXISTS(SELECT 1 FROM dbo.SysPara WHERE Id=506) 
 INSERT INTO dbo.SysPara(Id,Descr,DefaultValue,ValueDescr,Category)
 Values(506,'Common Stock For All Company','N','Y For Yes/N For No','sys')
+
+IF NOT EXISTS(SELECT 1 FROM dbo.SysPara WHERE Id=507) 
+INSERT INTO dbo.SysPara(Id,Descr,DefaultValue,ValueDescr,Category)
+Values(507,'Branch Wise Voucher Generation','Y','Y For Yes/N For No','sys')
 
 
 --IF NOT EXISTS(SELECT 1 FROM dbo.SysPara WHERE Id=505) 

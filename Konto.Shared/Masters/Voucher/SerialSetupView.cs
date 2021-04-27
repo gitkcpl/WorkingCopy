@@ -27,27 +27,34 @@ namespace Konto.Shared.Masters.Voucher
         private void OkSimpleButton_Click(object sender, EventArgs e)
         {
            using(var db = new KontoContext())
-            {
-                var seri = db.LastSerials.FirstOrDefault(x => x.CompId == KontoGlobals.CompanyId &&
-                        x.YearId == KontoGlobals.YearId && x.VoucherId == _Id && x.BranchId == KontoGlobals.BranchId);
-                if (seri != null)
-                {
-                    seri.Last_Serial = spinEdit1.Value.ToString("F0");
-                    db.SaveChanges();
-                    MessageBox.Show("Serial Updated..");
-                }
-                else
-                {
-                    var sr = new LastSerialModel();
-                    sr.BranchId = KontoGlobals.BranchId;
-                    sr.CompId = KontoGlobals.CompanyId;
-                    sr.YearId = KontoGlobals.YearId;
-                    sr.VoucherId = _Id;
-                    sr.Last_Serial= spinEdit1.Value.ToString("F0");
-                    db.LastSerials.Add(sr);
-                    db.SaveChanges();
-                    MessageBox.Show("Serial Updated..");
-                }
+           {
+
+               var brid = KontoGlobals.BranchId;
+               
+               if (!SysParameter.Branch_Wise_Voucher)
+                   brid = 0;
+
+               var seri = db.LastSerials.FirstOrDefault(x => x.CompId == KontoGlobals.CompanyId &&
+                                                             x.YearId == KontoGlobals.YearId && x.VoucherId == _Id && x.BranchId == brid);
+
+               if (seri != null)
+               {
+                   seri.Last_Serial = spinEdit1.Value.ToString("F0");
+                   db.SaveChanges();
+                   MessageBox.Show("Serial Updated..");
+               }
+               else
+               {
+                   var sr = new LastSerialModel();
+                   sr.BranchId = KontoGlobals.BranchId;
+                   sr.CompId = KontoGlobals.CompanyId;
+                   sr.YearId = KontoGlobals.YearId;
+                   sr.VoucherId = _Id;
+                   sr.Last_Serial= spinEdit1.Value.ToString("F0");
+                   db.LastSerials.Add(sr);
+                   db.SaveChanges();
+                   MessageBox.Show("Serial Updated..");
+               }
             }
         }
     }

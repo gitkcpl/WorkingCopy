@@ -15,6 +15,7 @@ namespace Konto.App.Shared
         public static string AspApiBaseUrl = "https://einvapi.charteredinfo.com";
         public static bool Common_Order = false;
         public static bool Common_Stock = false;
+        public static bool Branch_Wise_Voucher = true;
 
         #endregion
     }

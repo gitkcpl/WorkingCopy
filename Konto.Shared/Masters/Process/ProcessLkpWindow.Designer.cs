@@ -37,7 +37,7 @@
             // 
             // panelControl1
             // 
-            this.panelControl1.Size = new System.Drawing.Size(267, 33);
+            this.panelControl1.Size = new System.Drawing.Size(522, 33);
             // 
             // customGridControl1
             // 
@@ -47,7 +47,7 @@
             this.customGridControl1.LookAndFeel.UseDefaultLookAndFeel = false;
             this.customGridControl1.MainView = this.customGridView1;
             this.customGridControl1.Name = "customGridControl1";
-            this.customGridControl1.Size = new System.Drawing.Size(267, 250);
+            this.customGridControl1.Size = new System.Drawing.Size(522, 225);
             this.customGridControl1.TabIndex = 3;
             this.customGridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.customGridView1});
@@ -83,7 +83,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(285, 309);
+            this.ClientSize = new System.Drawing.Size(540, 284);
             this.Controls.Add(this.customGridControl1);
             this.KontoView = this.customGridView1;
             this.Name = "ProcessLkpWindow";

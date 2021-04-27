@@ -469,11 +469,19 @@ namespace Konto.Reporting.Para.BillPara
                                 .OrderBy(x => x.GroupName)
                                 .Select(x => new BaseLookupDto { DisplayText = x.GroupName, Id = x.Id })
                                 .ToList();
-              
-                var divList = db.Divisions.Where(x => !x.IsDeleted)
-                                .OrderBy(x => x.DivisionName)
-                                .Select(x => new BaseLookupDto { DisplayText = x.DivisionName, Id = x.Id })
-                                .ToList();
+
+                //var divList = db.Divisions.Where(x => !x.IsDeleted)
+                //                .OrderBy(x => x.DivisionName)
+                //                .Select(x => new BaseLookupDto { DisplayText = x.DivisionName, Id = x.Id })
+                //                .ToList();
+
+                var divList = (from p in db.CostHeads
+                    where p.IsActive && !p.IsDeleted
+                    select new BaseLookupDto()
+                    {
+                        DisplayText = p.HeadName,
+                        Id = p.Id
+                    }).ToList();
 
                 var branchList = db.Branches.Where(x => !x.IsDeleted)
                                     .OrderBy(x => x.BranchName)

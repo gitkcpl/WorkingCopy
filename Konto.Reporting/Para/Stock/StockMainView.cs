@@ -80,15 +80,44 @@ namespace Konto.Reporting.Para.Stock
                         ptype = "N";
                 var fdate = Convert.ToInt32(dateEdit1.DateTime.ToString("yyyyMMdd"));
                 var tdate = Convert.ToInt32(dateEdit2.DateTime.ToString("yyyyMMdd"));
+
+                int divid = 0;
+                int branchid = 0;
+
+                if (!string.IsNullOrEmpty(divisionLookUpEdit.Text))
+                {
+                    divid = Convert.ToInt32(divisionLookUpEdit.EditValue);
+                }
+
+                if (!string.IsNullOrEmpty(branchLookUpEdit.Text))
+                {
+                    branchid = Convert.ToInt32(branchLookUpEdit.EditValue);
+                }
+
+                if (fdate < KontoGlobals.FromDate || fdate > KontoGlobals.ToDate)
+                {
+                    MessageBox.Show("From date out of financial date");
+                    dateEdit1.Focus();
+                    return;
+                    
+                }
+
+                if (tdate > KontoGlobals.ToDate || tdate < KontoGlobals.FromDate)
+                {
+                    MessageBox.Show("To date out of financial date");
+                    dateEdit2.Focus();
+                    return;
+                }
+
                 using (var db = new KontoContext())
                 {
 
                   var  Trans = db.Database.SqlQuery<StockDto>(
                         "dbo.StockReport @CompanyId={0},@PTypeId={1},@DivId={2},@BranchId={3}," +
-                        "@FromDate={4},@ToDate={5},@ptype={6}", 
+                        "@FromDate={4},@ToDate={5},@ptype={6},@yearid={7}", 
                         Convert.ToInt32(KontoGlobals.CompanyId), Convert.ToInt32(pTypeLookup1.SelectedValue),
-                        Convert.ToInt32(divisionLookUpEdit.EditValue),Convert.ToInt32(branchLookUpEdit.EditValue),
-                        fdate, tdate, ptype).ToList();
+                        divid,branchid,
+                        fdate, tdate, ptype,KontoGlobals.YearId).ToList();
 
                     if(checkEdit1.CheckState != CheckState.Checked)
                     {
@@ -132,7 +161,7 @@ namespace Konto.Reporting.Para.Stock
             dateEdit2.DateTime = KontoGlobals.DToDate;
             this.ActiveControl = dateEdit1;
 
-            branchLookUpEdit.EditValue = KontoGlobals.BranchId;
+           // branchLookUpEdit.EditValue = KontoGlobals.BranchId;
 
         }
 

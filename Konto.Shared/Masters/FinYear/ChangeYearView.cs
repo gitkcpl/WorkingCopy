@@ -251,6 +251,8 @@ namespace Konto.Shared.Masters.FinYear
                                 rps.Add(_rp);
                             }
 
+                            
+                            
                         }
 
                         db.AccBals.AddRange(bals);

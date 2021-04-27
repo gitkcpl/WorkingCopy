@@ -27,5 +27,6 @@ namespace Konto.App.Shared.Para
         public static bool Taka_From_Stock = true;
         public static bool Jobcard_Required = true;
         public static string Default_Challan_Print = "SalesChallan.rdlx";
+        public static bool Repeat_Product = false;
     }
 }

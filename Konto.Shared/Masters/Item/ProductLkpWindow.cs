@@ -43,7 +43,20 @@ namespace Konto.Shared.Masters.Item
             {
                 _context.Database.CommandTimeout = 0;
                 _modelList = (from pd in _context.Products
-                              join bal in _context.StockBals on pd.Id equals bal.ProductId
+                              
+                            join bal in ( from sb in _context.StockBals
+                                          where sb.CompanyId == KontoGlobals.CompanyId
+                                              && sb.YearId == KontoGlobals.YearId
+                                              group sb by sb.ProductId into g
+                                          select new
+                                          {
+                                              ProductId = g.Key,
+                                              OpPcs = g.Sum(x=>x.OpNos),
+                                              OpQty = g.Sum(x=>x.OpQty)
+                                          }
+                                
+                                ) on pd.Id equals bal.ProductId
+
                               join pr in _context.Prices on pd.Id equals pr.ProductId
                               join cat in _context.CategroyModels on pd.CategoryId equals cat.Id into cat_join
                               from cat in cat_join.DefaultIfEmpty()
@@ -58,8 +71,20 @@ namespace Konto.Shared.Masters.Item
                               from sz1 in sz_join.DefaultIfEmpty()
                               join ac in _context.Accs on pd.VendorId equals ac.Id into ac_join
                               from ac in ac_join.DefaultIfEmpty()
+                              join st in (from stt in _context.StockTranses
+                                      where stt.CompanyId== KontoGlobals.CompanyId
+                                          && stt.YearId  == KontoGlobals.YearId && !stt.IsDeleted
+                                      group stt by stt.ItemId into  g
+                                      select new
+                                      {
+                                          ItemId =g.Key,
+                                          StockPcs = g.Sum(model =>model.Pcs ),
+                                          StockQty  = g.Sum(y=> y.Qty)
+                                      }
+                                          ) on pd.Id equals st.ItemId into st_join
+                              from st in st_join.DefaultIfEmpty()
                               orderby pd.ProductName
-                              where bal.CompanyId == KontoGlobals.CompanyId && bal.BranchId == KontoGlobals.BranchId && bal.YearId == KontoGlobals.YearId &&
+                              where 
                               !pd.IsDeleted && (this.PTypeId == 0 || pd.PTypeId == ptid)
                                 && pd.ItemType == "I"
                               select new ProductLookupDto()
@@ -72,13 +97,13 @@ namespace Konto.Shared.Masters.Item
                                   ProductName = pd.ProductName,
                                   HsnCode = pd.HsnCode,
                                   Id = pd.Id,
-                                  OpPcs = bal.OpNos,
+                                  OpPcs = bal.OpPcs,
                                   OpQty = bal.OpQty,
                                   ProductCode = pd.ProductCode,
                                   ProductType = pt.TypeName,
                                   SaleRate = pr.SaleRate,
-                                  StockPcs = bal.BalNos + bal.OpNos,
-                                  StockQty = bal.BalQty + bal.OpQty,
+                                  StockPcs = (st== null ? 0 : st.StockPcs ) + bal.OpPcs,
+                                  StockQty = (st== null ? 0 :st.StockQty) + bal.OpQty,
                                   SubName = sub.SubName,
                                   TaxName = tx.TaxName,
                                   UnitName = um.UnitName,

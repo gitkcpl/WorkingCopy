@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Konto.Core.Shared.Frms;
+using System;
 using System.ComponentModel;
 using System.Windows.Forms;
 
@@ -32,11 +33,30 @@ namespace Konto.Core.Shared.Libs
 
         public void EditDeleteDisabled(bool _mode)
         {
-            editSimpleButton.Enabled = _mode;
-            deleteBarButtonItem1.Enabled = _mode;
-            cancelInvoiceButtonItem.Enabled = _mode;
-            printSimpleButton.Enabled = _mode;
+            var frm = this.ParentForm as KontoMetroForm;
+
+            if (frm == null)
+            {
+                editSimpleButton.Enabled = _mode;
+                deleteBarButtonItem1.Enabled = _mode;
+                cancelInvoiceButtonItem.Enabled = _mode;
+                printSimpleButton.Enabled = _mode;
+                return;
+            }
+
+            if(frm.Modify_Permission)
+                editSimpleButton.Enabled = _mode;
+
+            if (frm.Delete_Permission)
+            {
+                deleteBarButtonItem1.Enabled = _mode;
+                cancelInvoiceButtonItem.Enabled = _mode;
+            }
+
+            if(frm.Print_Permission)
+                printSimpleButton.Enabled = _mode;
         }
+
         [Browsable(true)]
         [Category("Action")]
         [Description("Invoked when user clicks button")]

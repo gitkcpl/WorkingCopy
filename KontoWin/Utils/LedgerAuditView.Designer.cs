@@ -34,6 +34,7 @@
             this.okSimpleButton = new DevExpress.XtraEditors.SimpleButton();
             this.customGridControl1 = new Konto.Core.Shared.Libs.CustomGridControl();
             this.customGridView1 = new Konto.Core.Shared.Libs.CustomGridView();
+            this.simpleButton2 = new DevExpress.XtraEditors.SimpleButton();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.customGridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.customGridView1)).BeginInit();
@@ -41,10 +42,12 @@
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.ColumnCount = 3;
+            this.tableLayoutPanel1.ColumnCount = 4;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel1.Controls.Add(this.simpleButton2, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.simpleButton1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.cancelSimpleButton, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.okSimpleButton, 1, 0);
@@ -53,7 +56,6 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(765, 37);
             this.tableLayoutPanel1.TabIndex = 5;
             // 
@@ -139,6 +141,17 @@
             this.customGridView1.OptionsView.ShowFooter = true;
             this.customGridView1.OptionsView.ShowGroupPanel = false;
             // 
+            // simpleButton2
+            // 
+            this.simpleButton2.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.simpleButton2.Appearance.Options.UseFont = true;
+            this.simpleButton2.Location = new System.Drawing.Point(487, 3);
+            this.simpleButton2.Name = "simpleButton2";
+            this.simpleButton2.Size = new System.Drawing.Size(86, 31);
+            this.simpleButton2.TabIndex = 8;
+            this.simpleButton2.Text = "Update Stock";
+            this.simpleButton2.Click += new System.EventHandler(this.simpleButton2_Click);
+            // 
             // LedgerAuditView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -164,5 +177,6 @@
         public Konto.Core.Shared.Libs.CustomGridControl customGridControl1;
         public Konto.Core.Shared.Libs.CustomGridView customGridView1;
         public DevExpress.XtraEditors.SimpleButton simpleButton1;
+        public DevExpress.XtraEditors.SimpleButton simpleButton2;
     }
 }

@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Windows.Forms;
+using Konto.Core.Shared.Frms;
 
 namespace Konto.Reporting.GE
 {
@@ -249,10 +250,10 @@ namespace Konto.Reporting.GE
             //    xrep.Parameters["report_title"].Value = "Job Work Register For "
             //         + fDateEdit.DateTime.ToString("dd/MM/yyyy") + " To " + tDateEdit.DateTime.ToString("dd/MM/yyyy");
             //}
+            string _title= rw.ReportName + " Register For "
+                                         + fDateEdit.DateTime.ToString("dd/MM/yyyy") + " To " + tDateEdit.DateTime.ToString("dd/MM/yyyy");
 
-            xrep.Parameters["report_title"].Value = rw.ReportName  +" Register For "
-                     + fDateEdit.DateTime.ToString("dd/MM/yyyy") + " To " + tDateEdit.DateTime.ToString("dd/MM/yyyy");
-
+            xrep.Parameters["report_title"].Value = _title;
             //if (!string.IsNullOrEmpty(footerTextEdit.Text))
             //{
 
@@ -276,8 +277,11 @@ namespace Konto.Reporting.GE
 
             var sqlDataSource = (xrep.DataSource as SqlDataSource);
             sqlDataSource.ConnectionParameters = new CustomStringConnectionParameters(KontoGlobals.sqlConnectionString.ConnectionString);
-            
-            xrep.ShowRibbonPreview();
+
+            var frm = new RepXViewer();
+            frm.Text = _title;
+            frm.RepSource = xrep;
+            frm.Show();
         }
         private void LedgerParaView_Load(object sender, EventArgs e)
         {

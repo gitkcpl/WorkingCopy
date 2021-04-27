@@ -251,6 +251,12 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Chal\RepChallanView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Chal\RepChallanView.Designer.cs">
+      <DependentUpon>RepChallanView.cs</DependentUpon>
+    </Compile>
     <Compile Include="CustomRep\CustomeRepWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -499,6 +505,18 @@
     <Compile Include="Wvs\UpdateJobRateView.Designer.cs">
       <DependentUpon>UpdateJobRateView.cs</DependentUpon>
     </Compile>
+    <Compile Include="XReport\XChallan\ChallanDetailsXRep.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="XReport\XChallan\ChallanDetailsXRep.Designer.cs">
+      <DependentUpon>ChallanDetailsXRep.cs</DependentUpon>
+    </Compile>
+    <Compile Include="XReport\XChallan\ChallanXRep.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="XReport\XChallan\ChallanXRep.Designer.cs">
+      <DependentUpon>ChallanXRep.cs</DependentUpon>
+    </Compile>
     <Compile Include="XReport\XGate\GateEntryXRep.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -528,6 +546,18 @@
     </Compile>
     <Compile Include="XReport\XJobInc\JobIncomeXRep.Designer.cs">
       <DependentUpon>JobIncomeXRep.cs</DependentUpon>
+    </Compile>
+    <Compile Include="XReport\XStock\StockSmryXRep.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="XReport\XStock\StockSmryXRep.Designer.cs">
+      <DependentUpon>StockSmryXRep.cs</DependentUpon>
+    </Compile>
+    <Compile Include="XReport\XStock\StockXRep.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="XReport\XStock\StockXRep.Designer.cs">
+      <DependentUpon>StockXRep.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -578,6 +608,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Chal\RepChallanView.resx">
+      <DependentUpon>RepChallanView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CustomRep\CustomeRepWindow.resx">
       <DependentUpon>CustomeRepWindow.cs</DependentUpon>
     </EmbeddedResource>
@@ -703,6 +736,12 @@
     <EmbeddedResource Include="Wvs\UpdateJobRateView.resx">
       <DependentUpon>UpdateJobRateView.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="XReport\XChallan\ChallanDetailsXRep.resx">
+      <DependentUpon>ChallanDetailsXRep.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="XReport\XChallan\ChallanXRep.resx">
+      <DependentUpon>ChallanXRep.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="XReport\XGate\GateEntryXRep.resx">
       <DependentUpon>GateEntryXRep.cs</DependentUpon>
     </EmbeddedResource>
@@ -717,6 +756,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="XReport\XJobInc\JobIncomeXRep.resx">
       <DependentUpon>JobIncomeXRep.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="XReport\XStock\StockSmryXRep.resx">
+      <DependentUpon>StockSmryXRep.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="XReport\XStock\StockXRep.resx">
+      <DependentUpon>StockXRep.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

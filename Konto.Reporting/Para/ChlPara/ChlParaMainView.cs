@@ -585,5 +585,10 @@ namespace Konto.Reporting.Para.ChlPara
         {
             
         }
+
+        private void customGridControl2_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

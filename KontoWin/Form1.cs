@@ -23,6 +23,7 @@ using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using DevExpress.Data.WcfLinq.Helpers;
 
 namespace KontoWin
 {
@@ -691,8 +692,71 @@ namespace KontoWin
                     catch (Exception ex)
                     {
                         MessageBox.Show(ex.ToString());
+                        return;
                     }
                 }
+
+                //update next year balance
+
+                DbUtils.Update_Account_Balance(db,lastyear.FromDate ?? 0,lastyear.ToDate ?? 0,lastyear.Id);
+
+                //transfer stock balance;
+                var brs = db.Branches.Where(x=>x.CompId == KontoGlobals.CompanyId
+                && !x.IsDeleted).ToList();
+
+                foreach (var br in brs)
+                {
+                    var stlist = db.StockTranses
+                        .Where(x => x.CompanyId == KontoGlobals.CompanyId
+                                    && x.YearId == KontoGlobals.YearId && !x.IsDeleted
+                                    && x.BranchId==br.Id)
+                        .GroupBy(x => x.ItemId)
+                        .Select(g => new
+                        {
+                            Id = g.Key,
+                            StockPcs = g.Sum(x => x.Pcs),
+                            StockQty = g.Sum(x => x.Qty)
+                        }).ToList();
+
+                    var pbs = db.StockBals.Where(x => x.CompanyId == KontoGlobals.CompanyId
+                                                      && x.YearId == lastyear.Id && x.BranchId == br.Id).ToList();
+
+                    foreach (var pb in pbs)
+                    {
+                        //if (pb.ProductId == 65057)
+                        //    MessageBox.Show("ex");
+                        var st = stlist.FirstOrDefault(x => x.Id == pb.ProductId);
+
+                        var pdo = db.StockBals.FirstOrDefault(x => x.CompanyId == KontoGlobals.CompanyId
+                                                                   && x.YearId == KontoGlobals.YearId &&
+                                                                   x.BranchId == br.Id
+                                                                   && x.ProductId == pb.ProductId);
+
+                        if (st != null)
+                        {
+                            pb.OpQty = pdo == null ? 0 : pdo.OpQty + st.StockQty;
+                            pb.OpNos = pdo == null ? 0 : pdo.OpNos + st.StockPcs;
+                        }
+                        else
+                        {
+                            if (pdo != null)
+                            {
+                                pb.OpNos = pdo.OpNos;
+                                pb.OpQty = pdo.OpQty;
+                            }
+                            else
+                            {
+                                pb.OpNos = 0;
+                                pb.OpQty = 0;
+                            }
+                        }
+                    }
+                }
+               
+
+                   
+
+
                 db.SaveChanges();
                 MessageBox.Show("Balance Transfer Successfully");
             }

@@ -97,6 +97,7 @@ namespace Konto.Shared.Trans.SalesChallan
             // colIgst.OptionsColumn.AllowFocus = true;
             colIgst.OptionsColumn.AllowFocus = true;
             colIgst.OptionsColumn.AllowEdit = true;
+            gridView1.OptionsNavigation.EnterMoveNextColumn = true;
         }
 
         private void VoucherLookup1_SelectedValueChanged(object sender, EventArgs e)
@@ -158,7 +159,7 @@ namespace Konto.Shared.Trans.SalesChallan
       
         public void GridCalculation(GrnTransDto er)
         {
-            if (er.Pcs > 0 && er.Cops > 0 && KontoGlobals.PackageId==1)
+            if (er.Pcs > 0 && er.Cops > 0 && KontoGlobals.PackageId != (int) PackageType.ACCOUNTS )
                 er.Qty = er.Pcs * er.Cops;
 
             var dr = uomRepositoryItemLookUpEdit.GetDataSourceRowByKeyValue(er.UomId) as UomLookupDto;
@@ -268,6 +269,11 @@ namespace Konto.Shared.Trans.SalesChallan
                                 SCPara.Taka_From_Stock = (value == "Y") ? true : false;
                                 break;
                             }
+                        case 303:
+                        {
+                            SCPara.Repeat_Product = (value == "Y") ? true : false;
+                            break;
+                        }
                     }
                 }
             }
@@ -811,6 +817,20 @@ namespace Konto.Shared.Trans.SalesChallan
         {
             var rw = gridView1.GetRow(e.RowHandle) as GrnTransDto;
             rw.Id = -1 * gridView1.RowCount;
+
+            if (!SCPara.Repeat_Product || gridView1.RowCount <= 1) return;
+
+            var rw1 = gridView1.GetRow(gridView1.RowCount - 2) as GrnTransDto;
+            if (rw.ProductId != 0) return;
+            rw.ProductId = rw1.ProductId;
+            rw.ProductName = rw1.ProductName;
+            rw.UomId = rw1.UomId;
+            rw.Rate = rw1.Rate;
+            rw.CgstPer = rw1.CgstPer;
+            rw.SgstPer = rw1.SgstPer;
+            rw.IgstPer = rw1.IgstPer;
+
+
         }
 
         private void GridControl1_ProcessGridKey(object sender, KeyEventArgs e)

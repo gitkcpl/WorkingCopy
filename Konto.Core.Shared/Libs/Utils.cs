@@ -5,6 +5,7 @@ using DevExpress.XtraSplashScreen;
 using DevExpress.XtraVerticalGrid;
 using Konto.Data.Models.Masters;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
@@ -12,6 +13,8 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 using System.Windows.Forms;
+using DevExpress.XtraReports.UI;
+using Konto.Data;
 
 namespace Konto.Core.Shared.Libs
 {
@@ -326,6 +329,30 @@ namespace Konto.Core.Shared.Libs
             if (string.IsNullOrEmpty(str)) return str;
 
             return str.Substring(0, Math.Min(str.Length, maxLength));
+        }
+
+        public static List<ReportParaModel> SetReportParameter(XtraReport xrep, GridView vw, string rep_para, int _ReportId)
+        {
+            var _paraList = new List<ReportParaModel>();
+
+            if (vw.SelectedRowsCount > 0)
+            {
+                xrep.Parameters[rep_para].Value = "Y";
+
+                foreach (var item in vw.GetSelectedRows())
+                {
+                    var _acc = vw.GetRow(item) as BaseLookupDto;
+                    var ModelReport = new ReportParaModel
+                    {
+                        ReportId = _ReportId,
+                        ParameterName = rep_para,
+                        ParameterValue = _acc.Id
+                    };
+                    _paraList.Add(ModelReport);
+                }
+            }
+
+            return _paraList;
         }
     }
 }

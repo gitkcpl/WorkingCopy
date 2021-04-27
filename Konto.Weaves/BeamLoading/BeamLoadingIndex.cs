@@ -842,9 +842,9 @@ namespace Konto.Weaves.BeamLoading
             BeamLookup.SelectedValue = pdata.ProductId;
             BeamLookup.SetGroup((int)pdata.ProductId);
             YarnproductLookup.SelectedValue = pdata.CopsProductId;
-            YarnproductLookup.SetGroup((int)pdata.CopsProductId);
+            YarnproductLookup.SetGroup(Convert.ToInt32(pdata.CopsProductId));
             GreyproductLookup.SelectedValue = pdata.BoxProductId;
-            GreyproductLookup.SetGroup((int)pdata.BoxProductId);
+            GreyproductLookup.SetGroup(Convert.ToInt32(pdata.BoxProductId));
 
             BeamNotextEdit.Text = pdata.VoucherNo;
             MtrspinEdit.Value = pdata.CopsWt;

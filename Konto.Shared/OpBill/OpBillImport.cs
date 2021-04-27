@@ -95,7 +95,7 @@ namespace Konto.Shared.OpBill
                                     bill.BillNo = "NA";
                                 }
                                 
-                                 var vchr = db.Vouchers.FirstOrDefault(k => k.VTypeId == 26);
+                                var vchr = db.Vouchers.FirstOrDefault(k => k.VTypeId == 26);
 
                                 bill.VoucherId = vchr.Id;
                                 bill.VoucherNo = DbUtils.NextSerialNo(bill.VoucherId, db);

@@ -132,10 +132,11 @@ namespace Konto.Shared.Masters.Item
                                 _subgrp = new PSubGroupModel();
                                 _subgrp.IsActive = true;
                                 _subgrp.SubName = _subname;
+                                _subgrp.PGroupId = _imp.GroupId;
                                 db.PSubGroups.Add(_subgrp);
                                 db.SaveChanges();
                             }
-                                _imp.SubGroupId = _subgrp.Id;
+                            _imp.SubGroupId = _subgrp.Id;
                         }
                         
                         if(_imp.SubGroupId==0)

@@ -280,6 +280,12 @@
     <Compile Include="Frms\WaitForm1.Designer.cs">
       <DependentUpon>WaitForm1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Frms\RepXViewer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frms\RepXViewer.Designer.cs">
+      <DependentUpon>RepXViewer.cs</DependentUpon>
+    </Compile>
     <Compile Include="GstApi\frmAPISetting.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -420,6 +426,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Frms\WaitForm1.resx">
       <DependentUpon>WaitForm1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frms\RepXViewer.resx">
+      <DependentUpon>RepXViewer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GstApi\frmAPISetting.resx">
       <DependentUpon>frmAPISetting.cs</DependentUpon>

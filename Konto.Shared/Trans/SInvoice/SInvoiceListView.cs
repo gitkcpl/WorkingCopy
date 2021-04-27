@@ -238,11 +238,17 @@ namespace Konto.Shared.Trans.SInvoice
                     listAction1.EditDeleteDisabled(false);
                 else
                 {
+                    var pfrm = this.Parent.Parent.Parent as KontoMetroForm;
+                    if (pfrm == null)
+                        pfrm = this.Parent.Parent as KontoMetroForm;
+                    if (pfrm == null) return;
+                    
                     if (customGridView1.Columns.ColumnByFieldName("Id") != null && customGridView1.Columns.ColumnByFieldName("VoucherId") != null)
                         listAction1.EditDeleteDisabled(true);
-                    else
+                    else 
                         listAction1.EditDeleteDisabled(false);
                 }
+                
 
                 customGridView1.OptionsSelection.MultiSelect = true;
                 customGridView1.OptionsSelection.MultiSelectMode = GridMultiSelectMode.CheckBoxRowSelect;

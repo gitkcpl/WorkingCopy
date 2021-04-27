@@ -272,8 +272,9 @@ namespace Konto.Shared.Masters.Item
             {
                 using (var db = new KontoContext())
                 {
-                    this.ItemOpBalList = db.Database.SqlQuery<OpStockDto>("dbo.ProductOpBalSp  @companyid={0},@BranchId={1}"
-                        , KontoGlobals.CompanyId, KontoGlobals.BranchId).ToList();
+                    this.ItemOpBalList = db.Database.SqlQuery<OpStockDto>("dbo.ProductOpBalSp  @companyid={0}," +
+                                                                          "@BranchId={1},@yearid={2}"
+                        , KontoGlobals.CompanyId, KontoGlobals.BranchId , KontoGlobals.YearId).ToList();
                 }
                 this.customGridControl1.DataSource = this.ItemOpBalList;
 

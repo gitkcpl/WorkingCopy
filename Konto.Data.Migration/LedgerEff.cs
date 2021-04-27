@@ -4693,7 +4693,7 @@ namespace Konto.Data
                     Debit = 0,
                     Credit = bp.DiscAmt,
                     BilllAmount = model.TotalAmount,
-                    Amount = -1 * (bp.Pay1Amt - bp.ChangeAmt),
+                    Amount = -1*bp.DiscAmt,
                     TransCode = model.RowId
                 };
                 list.Add(ledger);
@@ -4716,7 +4716,7 @@ namespace Konto.Data
                     Credit = 0,
                     Debit = bp.DiscAmt,
                     BilllAmount = model.TotalAmount,
-                    Amount = (bp.Pay1Amt - bp.ChangeAmt),
+                    Amount = bp.DiscAmt,
                     TransCode = model.RowId
                 };
                 list.Add(ledger);

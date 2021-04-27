@@ -199,6 +199,22 @@ namespace Konto.Reporting.Para.Stock
         {
             var fdate = Convert.ToInt32(dateEdit1.DateTime.ToString("yyyyMMdd"));
             var tdate = Convert.ToInt32(dateEdit2.DateTime.ToString("yyyyMMdd"));
+
+            if (fdate < KontoGlobals.FromDate || fdate > KontoGlobals.ToDate)
+            {
+                MessageBox.Show("From date out of financial date");
+                dateEdit1.Focus();
+                return;
+
+            }
+
+            if (tdate > KontoGlobals.ToDate || tdate < KontoGlobals.FromDate)
+            {
+                MessageBox.Show("To date out of financial date");
+                dateEdit2.Focus();
+                return;
+            }
+
             using (var _db = new KontoContext())
             {
                 _db.Database.CommandTimeout = 0;

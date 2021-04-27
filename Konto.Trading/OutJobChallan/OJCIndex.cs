@@ -1206,7 +1206,8 @@ namespace Konto.Trading.OutJobChallan
 
                 rpt.Load(new FileInfo("reg\\doc\\TakaJobSalesChallan.rdlx"));
 
-                rpt.Report.DataSources[0].ConnectionProperties.ConnectString = KontoGlobals.Conn;
+                rpt.Report.DataSources[0].ConnectionProperties.ConnectString =
+                    KontoGlobals.sqlConnectionString.ConnectionString;
 
                 GrapeCity.ActiveReports.Document.PageDocument doc = new GrapeCity.ActiveReports.Document.PageDocument(rpt);
 

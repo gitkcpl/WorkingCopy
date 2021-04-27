@@ -44,7 +44,7 @@ namespace Konto.Core.Shared.Frms
                 this.KontoView.DoubleClick += KontoView_DoubleClick;
             }
 
-            var frm = this.Parent.Parent.Parent as KontoMetroForm;
+            var frm = this.ParentForm as KontoMetroForm;
             if(frm!=null)
             {
                 listAction1.SetPermission(frm.Delete_Permission, frm.Create_Permission, frm.Export_Permission,

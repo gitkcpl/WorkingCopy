@@ -3184,7 +3184,7 @@ insert into ErpModule ([Id],[ParentId],[ModuleDesc],[OrderIndex],[LinkButton],[S
 END
 
 
-IF NOT exists (select 1 from ErpModule em where em.Id=861) --job work income register
+IF NOT exists (select 1 from ErpModule em where em.Id=861) --Gate Entery
 begin
 insert into ErpModule ([Id],[ParentId],[ModuleDesc],[OrderIndex],[LinkButton],[ShortCutKey],[PackageId]
            ,[DefaultReport],[DefaultLayout],[TableName],[AssemblyName],[MainAssembly]

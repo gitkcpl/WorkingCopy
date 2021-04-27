@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Konto.App.Shared;
 
 namespace Konto.Data
 {
@@ -16,7 +17,8 @@ namespace Konto.Data
             using (var db = new KontoContext())
             {
                 var st = db.StockTranses
-                        .Where(x => x.ItemId == productId)
+                        .Where(x => x.ItemId == productId
+                        && x.CompanyId == KontoGlobals.CompanyId)
                         .Select(x => x.Qty)
                         .DefaultIfEmpty(0)
                         .Sum();

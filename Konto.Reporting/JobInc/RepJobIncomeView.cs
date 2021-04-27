@@ -295,9 +295,9 @@ namespace Konto.Reporting.JobInc
             //    xrep.Parameters["report_title"].Value = "Job Work Register For "
             //         + fDateEdit.DateTime.ToString("dd/MM/yyyy") + " To " + tDateEdit.DateTime.ToString("dd/MM/yyyy");
             //}
-
-            xrep.Parameters["report_title"].Value = rw.ReportName  +" Register For "
-                     + fDateEdit.DateTime.ToString("dd/MM/yyyy") + " To " + tDateEdit.DateTime.ToString("dd/MM/yyyy");
+            string _title = rw.ReportName + " Register For "
+                                          + fDateEdit.DateTime.ToString("dd/MM/yyyy") + " To " + tDateEdit.DateTime.ToString("dd/MM/yyyy");
+            xrep.Parameters["report_title"].Value = _title;
 
             //if (!string.IsNullOrEmpty(footerTextEdit.Text))
             //{
@@ -321,7 +321,10 @@ namespace Konto.Reporting.JobInc
 
             var sqlDataSource = (xrep.DataSource as SqlDataSource);
             sqlDataSource.ConnectionParameters = new CustomStringConnectionParameters(KontoGlobals.sqlConnectionString.ConnectionString);
-            xrep.ShowRibbonPreview();
+            var frm = new RepXViewer();
+            frm.Text = _title;
+            frm.RepSource = xrep;
+            frm.Show();
         }
         private void LedgerParaView_Load(object sender, EventArgs e)
         {

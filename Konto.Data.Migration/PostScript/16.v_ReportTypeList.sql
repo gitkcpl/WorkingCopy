@@ -82,7 +82,7 @@ IF NOT EXISTS(SELECT 1 FROM dbo.ReportType WHERE FileName='Reg\\Details.rdlx' AN
 INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, CreateUser, IsActive,
 IsDeleted,RowId,SpName,remarks)
 Values('Details','PURCHASE', 13,'Reg\\Details.rdlx',GETDATE(),'Admin',1,0,NEWID(),'dbo.sales_reg','None-Book-Party-Agent-Item')
-update dbo.ReportType set remarks='None-Book-Party-Agent-Item' where FileName='Reg\\Details.rdlx' AND ReportTypes='PURCHASE'
+update dbo.ReportType set remarks='None-Book-Party-Agent-Item-CostCenter' where FileName='Reg\\Details.rdlx' AND ReportTypes='PURCHASE'
 
 
 IF NOT EXISTS(SELECT 1 FROM dbo.ReportType WHERE FileName='Reg\\Summary.rdlx' AND ReportTypes='PURCHASE')
@@ -90,7 +90,7 @@ INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,Create
 IsActive, IsDeleted,RowId,SpName,Remarks)
 Values('Summary','PURCHASE', 13,'Reg\\Summary.rdlx',GETDATE(),'Admin',1,0,NEWID(),'dbo.sales_reg',
 'None-Book-Party-Agent-Item-Party+Item-Item+Party-Agent+Party-Book+Party')
-update dbo.ReportType set remarks='None-Book-Party-Agent-Item-Party+Item-Item+Party-Agent+Party-Book+Party' where FileName='Reg\\Summary.rdlx' AND ReportTypes='PURCHASE'
+update dbo.ReportType set remarks='None-Book-Party-Agent-Item-Party+Item-Item+Party-Agent+Party-Book+Party-CostCenter' where FileName='Reg\\Summary.rdlx' AND ReportTypes='PURCHASE'
 
 
 IF NOT EXISTS(SELECT 1 FROM dbo.ReportType WHERE FileName='Reg\\Summary_monthly.rdlx' AND ReportTypes='PURCHASE')
@@ -98,14 +98,14 @@ INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,Create
 	CreateUser, IsActive, IsDeleted,RowId,SpName,remarks)
 Values('Monthly Summary','PURCHASE', 13,'Reg\\Summary_monthly.rdlx',GETDATE(),'Admin',1,0,NEWID(),'dbo.sales_reg',
 'None-Book-Party-Agent-Item')
-update dbo.ReportType set remarks='None-Book-Party-Agent-Item' where FileName='Reg\\Summary_monthly.rdlx' AND ReportTypes='PURCHASE'
+update dbo.ReportType set remarks='None-Book-Party-Agent-Item-CostCenter' where FileName='Reg\\Summary_monthly.rdlx' AND ReportTypes='PURCHASE'
 
 
 IF NOT EXISTS(SELECT 1 FROM dbo.ReportType WHERE FileName='Reg\\BillWise.rdlx' AND ReportTypes='PURCHASE')
 INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, CreateUser, IsActive,
 IsDeleted,RowId,SpName,Remarks)
 Values('BillNo Wise','PURCHASE', 13,'Reg\\BillWise.rdlx',GETDATE(),'Admin',1,0,NEWID(),'dbo.sales_reg','None-Book-Party-Agent')
-update dbo.ReportType set remarks='None-Book-Party-Agent' where FileName='Reg\\BillWise.rdlx' AND ReportTypes='PURCHASE'
+update dbo.ReportType set remarks='None-Book-Party-Agent-CostCenter' where FileName='Reg\\BillWise.rdlx' AND ReportTypes='PURCHASE'
 
 
 IF NOT EXISTS(SELECT 1 FROM dbo.ReportType WHERE FileName='Reg\\Details.rdlx' AND ReportTypes='SRETURN')
@@ -503,6 +503,7 @@ IF NOT EXISTS(SELECT 1 FROM dbo.ReportType WHERE FileName='Reg\\ColorStock.rdlx'
 INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, CreateUser, IsActive, IsDeleted,RowId,SpName)
 Values('Color Wise Stock','Stock', 6,'Reg\\ColorStock.rdlx',GETDATE(),'Admin',1,0,NEWID(),'dbo.InwardOutwardStock')
 
+
 IF NOT EXISTS(SELECT 1 FROM dbo.ReportType WHERE FileName='Reg\\MillJobIssue\\JobIssueBeamStock.rdlx' AND ReportTypes='JobIssue')
 INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, CreateUser, IsActive, IsDeleted,RowId,SpName)
 Values('Issue Beam Stock','JobIssue', 38,'Reg\\MillJobIssue\\JobIssueBeamStock.rdlx',GETDATE(),'Admin',1,0,NEWID(),'dbo.JobIssuePending_Reg')
@@ -530,6 +531,10 @@ Values('Multi Yarn Challan','CHALLAN', 6,'reg\doc\YarnSalesChallanMulty.rdlx',GE
 IF NOT EXISTS(SELECT 1 FROM dbo.ReportType WHERE FileName='Reg\\MonthwiseStock.rdlx' AND ReportTypes='Stock')
 INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, CreateUser, IsActive, IsDeleted,RowId,SpName)
 Values('Month Wise Stock Report','Stock', 6,'Reg\\MonthwiseStock.rdlx',GETDATE(),'Admin',1,0,NEWID(),'dbo.MonthlyStockReportTextile')
+
+
+
+
 
 IF NOT EXISTS(SELECT 1 FROM dbo.ReportType WHERE FileName='Reg\\BeamProduction\\BeamWithTakaDetails.rdlx' AND ReportTypes='BP')
 INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, CreateUser, IsActive, IsDeleted,RowId,SpName)
@@ -730,5 +735,17 @@ INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,Create
 Values('Gate Entry','Gate_Inward', 53,'Konto.Reporting.XReport.XGate.GateEntryXRep',GETDATE(),'Admin',1,0,NEWID(),'dbo.dbo.gate_entry_rep')
 
 --SET IDENTITY_INSERT dbo.ReportType OFF 
+
+
+update dbo.reporttype set IsActive= 0 where FileName='Reg\\MonthwiseStock.rdlx' AND ReportTypes='Stock'
+update dbo.reporttype set IsActive= 0 where FileName='Reg\\ColorStock.rdlx' AND ReportTypes='Stock'
+
+
+update dbo.reporttype set ReportName='Stock Register', FileName='Konto.Reporting.XReport.XStock.StockXRep' where FileName='Reg\\QualitywiseStock.rdlx' AND ReportTypes='Stock'
+
+
+IF NOT EXISTS(SELECT 1 FROM dbo.ReportType WHERE FileName='Konto.Reporting.XReport.XStock.StockSmryXRep' AND ReportTypes='Stock')
+INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, CreateUser, IsActive, IsDeleted,RowId,SpName)
+Values('Stock Summary','Stock', 0,'Konto.Reporting.XReport.XStock.StockSmryXRep',GETDATE(),'Admin',1,0,NEWID(),'dbo.dbo.stock_summary_rep')
 
 Go

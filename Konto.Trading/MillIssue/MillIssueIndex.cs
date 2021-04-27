@@ -104,16 +104,16 @@ namespace Konto.Trading.MillIssue
         private void AccLookup1_SelectedValueChanged(object sender, EventArgs e)
         {
            if(this.PrimaryKey==0 && Convert.ToInt32(this.accLookup1.SelectedValue) >0 )
-            {
-                this.delvLookup.SelectedValue = this.accLookup1.SelectedValue;
-                this.delvLookup.buttonEdit1.Text = this.accLookup1.SelectedText;
-                this.delvLookup.SelectedText = this.accLookup1.SelectedText;
-                this.delvLookup.LookupDto = this.accLookup1.LookupDto;
-                addressLookup1.SelectedValue = this.delvLookup.LookupDto.AddressId;
-                addressLookup1.SelectedText = this.delvLookup.LookupDto.FullAddress;
-                addressLookup1.buttonEdit1.Text = this.delvLookup.LookupDto.FullAddress;
+           {
+               this.delvLookup.SelectedValue = this.accLookup1.SelectedValue;
+               this.delvLookup.buttonEdit1.Text = this.accLookup1.SelectedText;
+               this.delvLookup.SelectedText = this.accLookup1.SelectedText;
+               this.delvLookup.LookupDto = this.accLookup1.LookupDto;
+               addressLookup1.SelectedValue = this.delvLookup.LookupDto.AddressId;
+               addressLookup1.SelectedText = this.delvLookup.LookupDto.FullAddress;
+               addressLookup1.buttonEdit1.Text = this.delvLookup.LookupDto.FullAddress;
 
-            }
+           }
         }
 
 

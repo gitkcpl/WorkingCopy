@@ -3,6 +3,7 @@ using Konto.App.Shared.Para;
 using Konto.Data.Models.Masters.Dtos;
 using Konto.Data.Models.Transaction.Dtos;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace Konto.Data
 {
@@ -13,32 +14,47 @@ namespace Konto.Data
         {
             SerialDto serialno = null;
 
+            int bid = 0;
+            
+            if (SysParameter.Branch_Wise_Voucher)
+                bid = KontoGlobals.BranchId;
+
             serialno =  db.Database.SqlQuery<SerialDto>(
                "dbo.GenerateSerialNumberSp @voucherid={0},@Companyid={1},@FiscalYearId={2},@BranchId={3},@IsNew={4}",
-               vid, KontoGlobals.CompanyId, KontoGlobals.YearId, KontoGlobals.BranchId,isNew).FirstOrDefault();
+               vid, KontoGlobals.CompanyId, KontoGlobals.YearId, bid,isNew).FirstOrDefault();
 
             return serialno.SerialNumber;
         }
 
         public static string NextSerialNo(int vid, int isNew = 0)
         {
+            int bid = 0;
+
+            if (SysParameter.Branch_Wise_Voucher)
+                bid = KontoGlobals.BranchId;
+
             SerialDto serialno = null;
             using (var db = new KontoContext())
             {
                 serialno = db.Database.SqlQuery<SerialDto>(
                    "dbo.GenerateSerialNumberSp @voucherid={0},@Companyid={1},@FiscalYearId={2},@BranchId={3},@IsNew={4}",
-                   vid, KontoGlobals.CompanyId, KontoGlobals.YearId, KontoGlobals.BranchId, isNew).FirstOrDefault();
+                   vid, KontoGlobals.CompanyId, KontoGlobals.YearId, bid, isNew).FirstOrDefault();
             }
             return serialno.SerialNumber;
         }
 
         public static SerialDto NextSerialDto(int vid, KontoContext db)
         {
+            int bid = 0;
+
+            if (SysParameter.Branch_Wise_Voucher)
+                bid = KontoGlobals.BranchId;
+
             SerialDto serialno = null;
 
             serialno = db.Database.SqlQuery<SerialDto>(
                "dbo.GenerateSerialNumberSp @voucherid={0},@Companyid={1},@FiscalYearId={2},@BranchId={3}",
-               vid, KontoGlobals.CompanyId, KontoGlobals.YearId, KontoGlobals.BranchId).FirstOrDefault();
+               vid, KontoGlobals.CompanyId, KontoGlobals.YearId, bid).FirstOrDefault();
 
             return serialno;
         }
@@ -276,7 +292,7 @@ namespace Konto.Data
                                   SubGrupId = pd.SubGroupId,
                                   StyleNo = pr.BatchNo,
                                   Description = pd.ProductDesc,
-                                  ProfitPer = pd.Price1
+                                  ProfitPer = pd.Price1,RatePerQty = pd.Price2
                               }).FirstOrDefault();
 
                 return _model;
@@ -287,16 +303,24 @@ namespace Konto.Data
         {
             using (var db = new KontoContext())
             {
-                var st = db.StockBals.FirstOrDefault(x => x.CompanyId == KontoGlobals.CompanyId &&
-                                    x.YearId == KontoGlobals.YearId && x.BranchId == branchid && x.ProductId == productid);
+                var st = db.StockBals.Where(x => x.CompanyId == KontoGlobals.CompanyId &&
+                                                 x.YearId == KontoGlobals.YearId && x.ProductId == productid)
+                    .GroupBy(x => x.ProductId)
+                    .Select(x => new
+                    {
+                        OpPcs = x.Sum(y => y.OpNos),
+                        OpQty = x.Sum(y => y.OpQty)
+                    }).FirstOrDefault();
 
                 var stb = (from p in db.StockTranses
-                           where p.ItemId == productid && p.BranchId == branchid
-                           group p by 1 into g
+                           where p.ItemId == productid  && p.CompanyId== KontoGlobals.CompanyId
+                           group p by p.ItemId into  g
                            select new
                            {
-                               Stock = g.Sum(x => x.RcptQty) - g.Sum(x => x.IssueQty)
+                               Stock = g.Sum(x => x.RcptQty- x.IssueQty)
                            }).FirstOrDefault();
+
+
                 if (stb != null)
                 {
                     var stock = st.OpQty + stb.Stock;
@@ -309,6 +333,28 @@ namespace Konto.Data
                     return 0;
 
             }
+        }
+
+        public static void Update_Stock(int pid, KontoContext db)
+        {
+            var pd = db.StockBals.FirstOrDefault((x => x.CompanyId == KontoGlobals.CompanyId
+                                                       && x.YearId == KontoGlobals.YearId && x.ProductId == pid));
+            
+            if(pd== null) return;
+            var st = db.StockTranses.Where(x => x.CompanyId == KontoGlobals.CompanyId
+                                                && x.YearId == KontoGlobals.YearId && x.ItemId == pid)
+                .GroupBy(x => x.ItemId)
+                .Select(x => new
+                {
+                    Pcs = x.Sum(y => y.Pcs),
+                    Qty = x.Sum(y => y.Qty)
+                }).FirstOrDefault();
+
+            if(st== null) return;
+            
+            pd.BalQty = pd.OpQty + st.Qty;
+            pd.BalNos = pd.OpNos + st.Pcs;
+
         }
 
         public static void SetSysParameter()
@@ -331,18 +377,26 @@ namespace Konto.Data
                     SysParameter.Common_Order = item.DefaultValue == "Y" ? true : false;
                 else if (item.Id == 506)
                     SysParameter.Common_Stock = item.DefaultValue == "Y" ? true : false;
+                else if (item.Id == 507)
+                    SysParameter.Branch_Wise_Voucher = item.DefaultValue == "Y" ? true : false;
             }
         }
 
-        public static void Update_Account_Balance(KontoContext db = null)
+        public static void Update_Account_Balance(KontoContext db = null, int fromdate=0,int todate=0,
+            int yearid=0)
         {
             if (db == null)
                 db = new KontoContext();
-
+            if (fromdate == 0)
+                fromdate = KontoGlobals.FromDate;
+            if (todate == 0)
+                todate = KontoGlobals.ToDate;
+            if (yearid == 0)
+                yearid = KontoGlobals.YearId;
 
             db.Database.ExecuteSqlCommand("dbo.update_account_balance @fromdate={0},@todate={1}," +
-                "@compid={2}, @yearid={3}", KontoGlobals.FromDate,
-                KontoGlobals.ToDate, KontoGlobals.CompanyId, KontoGlobals.YearId);
+                "@compid={2}, @yearid={3}", fromdate,
+                todate, KontoGlobals.CompanyId, yearid);
         }
     }
 }

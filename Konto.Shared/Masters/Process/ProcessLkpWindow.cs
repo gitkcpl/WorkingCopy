@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using DevExpress.XtraGrid.Columns;
 
 namespace Konto.Shared.Masters.Process
 {
@@ -53,6 +54,11 @@ namespace Konto.Shared.Masters.Process
 
             this.ActiveControl = customGridControl1;
 
+            foreach (GridColumn col in customGridView1.Columns )
+            {
+                if (col.FieldName != "DisplayText")
+                    col.Visible = false;
+            }
 
         }
 

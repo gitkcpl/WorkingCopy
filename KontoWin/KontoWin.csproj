@@ -225,11 +225,11 @@
     <Compile Include="SplashScreen1.Designer.cs">
       <DependentUpon>SplashScreen1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Utils\BulkDeleteView.Designer.cs">
-      <DependentUpon>LedgerAuditView.cs</DependentUpon>
-    </Compile>
     <Compile Include="Utils\LedgerAuditView.cs">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Utils\LedgerAuditView.Designer.cs">
+      <DependentUpon>LedgerAuditView.cs</DependentUpon>
     </Compile>
     <Compile Include="WaitForm1.cs">
       <SubType>Form</SubType>
@@ -361,6 +361,7 @@
     <Content Include="Resources\ImgSelectAll.png" />
     <Content Include="Resources\ImgSelectNone.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

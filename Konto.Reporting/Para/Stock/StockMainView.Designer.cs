@@ -851,6 +851,7 @@
             this.divisionLookUpEdit.EnterMoveNextControl = true;
             this.divisionLookUpEdit.Location = new System.Drawing.Point(274, 6);
             this.divisionLookUpEdit.Name = "divisionLookUpEdit";
+            this.divisionLookUpEdit.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.True;
             this.divisionLookUpEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.divisionLookUpEdit.Properties.Appearance.Options.UseFont = true;
             this.divisionLookUpEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
@@ -872,6 +873,7 @@
             this.branchLookUpEdit.EnterMoveNextControl = true;
             this.branchLookUpEdit.Location = new System.Drawing.Point(56, 6);
             this.branchLookUpEdit.Name = "branchLookUpEdit";
+            this.branchLookUpEdit.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.True;
             this.branchLookUpEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.branchLookUpEdit.Properties.Appearance.Options.UseFont = true;
             this.branchLookUpEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {

@@ -26,6 +26,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DevExpress.Data.WcfLinq.Helpers;
 
 namespace KontoWin.Utils
 {
@@ -173,6 +174,49 @@ namespace KontoWin.Utils
             //frm.Parent = pg1;
             //frm.Location = new Point(pg1.Location.X + pg1.Width / 2 - frm.Width / 2, pg1.Location.Y + pg1.Height / 2 - frm.Height / 2);
             //frm.Show();// = true;
+        }
+
+        private void simpleButton2_Click(object sender, EventArgs e)
+        {
+            using (var db = new KontoContext())
+            {
+                using (var _tran = db.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        var sls = db.Bills
+                            .Where(x => x.TypeId == (int) VoucherTypeEnum.SaleInvoice
+                                                      && !x.IsDeleted && x.IsActive).ToList();
+                        foreach (var sl in sls)
+                        {
+                            var stk = db.StockTranses
+                                .Where(k => k.MasterRefId == sl.RowId).ToList();
+                          
+                                db.StockTranses.RemoveRange(stk);
+
+                            var trans = db.BillTrans
+                                .Where(x => x.BillId == sl.Id
+                            && !x.IsDeleted && x.IsActive).ToList();
+
+
+                            foreach (var item in trans)
+                            {
+                                StockEffect.StockTransBillEntry(sl, item, true, "SaleInvoice",db);
+                            }
+                        }
+
+                        db.SaveChanges();
+                        _tran.Commit();
+                        MessageBox.Show("Updated !!");
+                    }
+                    catch (Exception exception)
+                    {
+                        _tran.Rollback();
+                        MessageBox.Show(exception.ToString());
+                        
+                    }
+                }
+            }
         }
     }
 }

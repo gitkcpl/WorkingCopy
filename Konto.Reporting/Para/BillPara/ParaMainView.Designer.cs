@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ParaMainView));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.customSimpleButton = new DevExpress.XtraEditors.SimpleButton();
@@ -45,7 +46,7 @@
             this.groupOnLookUpEdit = new DevExpress.XtraEditors.LookUpEdit();
             this.checkEdit1 = new DevExpress.XtraEditors.CheckEdit();
             this.bookGridControl1 = new Konto.Core.Shared.Libs.CustomGridControl();
-            this.acGroupDtoBindingSource = new System.Windows.Forms.BindingSource();
+            this.acGroupDtoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.bookGridView1 = new Konto.Core.Shared.Libs.CustomGridView();
             this.customGridColumn5 = new Konto.Core.Shared.Libs.CustomGridColumn();
             this.customGridColumn6 = new Konto.Core.Shared.Libs.CustomGridColumn();
@@ -59,7 +60,7 @@
             this.customGridColumn2 = new Konto.Core.Shared.Libs.CustomGridColumn();
             this.typeLookUpEdit = new DevExpress.XtraEditors.LookUpEdit();
             this.repGridControl1 = new Konto.Core.Shared.Libs.CustomGridControl();
-            this.reportTypeModelBindingSource = new System.Windows.Forms.BindingSource();
+            this.reportTypeModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.repGridView1 = new Konto.Core.Shared.Libs.CustomGridView();
             this.colId2 = new Konto.Core.Shared.Libs.CustomGridColumn();
             this.colRowId = new Konto.Core.Shared.Libs.CustomGridColumn();
@@ -83,7 +84,7 @@
             this.tDateEdit = new DevExpress.XtraEditors.DateEdit();
             this.fDateEdit = new DevExpress.XtraEditors.DateEdit();
             this.ledgerGridControl = new Konto.Core.Shared.Libs.CustomGridControl();
-            this.accLookupDtoBindingSource = new System.Windows.Forms.BindingSource();
+            this.accLookupDtoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.ledgerGridView = new Konto.Core.Shared.Libs.CustomGridView();
             this.colId = new Konto.Core.Shared.Libs.CustomGridColumn();
             this.colAccName = new Konto.Core.Shared.Libs.CustomGridColumn();
@@ -299,6 +300,7 @@
             // 
             // groupOn2LookUpEdit
             // 
+            this.groupOn2LookUpEdit.Enabled = false;
             this.groupOn2LookUpEdit.EnterMoveNextControl = true;
             this.groupOn2LookUpEdit.Location = new System.Drawing.Point(668, 321);
             this.groupOn2LookUpEdit.Name = "groupOn2LookUpEdit";
@@ -378,11 +380,11 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.divLookUpEdit.Properties.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
             new DevExpress.XtraEditors.Controls.LookUpColumnInfo("_Key", "Name2")});
-            this.divLookUpEdit.Properties.DisplayMember = "_Key";
+            this.divLookUpEdit.Properties.DisplayMember = "DisplayText";
             this.divLookUpEdit.Properties.ImmediatePopup = true;
             this.divLookUpEdit.Properties.NullText = "";
             this.divLookUpEdit.Properties.ShowHeader = false;
-            this.divLookUpEdit.Properties.ValueMember = "_Value";
+            this.divLookUpEdit.Properties.ValueMember = "Id";
             this.divLookUpEdit.Size = new System.Drawing.Size(226, 24);
             this.divLookUpEdit.StyleController = this.layoutControl1;
             this.divLookUpEdit.TabIndex = 25;
@@ -421,11 +423,11 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.branchLookUpEdit1.Properties.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
             new DevExpress.XtraEditors.Controls.LookUpColumnInfo("_Key", "Name2")});
-            this.branchLookUpEdit1.Properties.DisplayMember = "_Key";
+            this.branchLookUpEdit1.Properties.DisplayMember = "DisplayText";
             this.branchLookUpEdit1.Properties.ImmediatePopup = true;
             this.branchLookUpEdit1.Properties.NullText = "";
             this.branchLookUpEdit1.Properties.ShowHeader = false;
-            this.branchLookUpEdit1.Properties.ValueMember = "_Value";
+            this.branchLookUpEdit1.Properties.ValueMember = "Id";
             this.branchLookUpEdit1.Size = new System.Drawing.Size(226, 24);
             this.branchLookUpEdit1.StyleController = this.layoutControl1;
             this.branchLookUpEdit1.TabIndex = 23;
@@ -1393,7 +1395,7 @@
             this.tabbedControlGroup2.Location = new System.Drawing.Point(335, 258);
             this.tabbedControlGroup2.Name = "tabbedControlGroup2";
             this.tabbedControlGroup2.Padding = new DevExpress.XtraLayout.Utils.Padding(3, 3, 3, 3);
-            this.tabbedControlGroup2.SelectedTabPage = this.layoutControlGroup2;
+            this.tabbedControlGroup2.SelectedTabPage = this.layoutControlGroup3;
             this.tabbedControlGroup2.Size = new System.Drawing.Size(446, 200);
             this.tabbedControlGroup2.TabPages.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlGroup2,
@@ -1545,7 +1547,7 @@
             this.layoutControlItem8.Location = new System.Drawing.Point(0, 370);
             this.layoutControlItem8.Name = "layoutControlItem8";
             this.layoutControlItem8.Size = new System.Drawing.Size(335, 28);
-            this.layoutControlItem8.Text = "Division:";
+            this.layoutControlItem8.Text = "Cost Center:";
             this.layoutControlItem8.TextSize = new System.Drawing.Size(102, 17);
             // 
             // layoutControlItem9

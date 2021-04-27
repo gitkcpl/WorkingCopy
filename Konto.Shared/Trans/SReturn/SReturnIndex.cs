@@ -390,7 +390,7 @@ namespace Konto.Shared.Trans.SReturn
                 er.UomId = model.UomId;
                 er.HsnCode = model.HsnCode;
                 er.Barcode = model.BarCode;
-
+                er.RatePerQty = model.RatePerQty;
                 if (accLookup1.LookupDto.RateType == "BLK")
                 {
                     er.SaleRate = model.Rate1;
@@ -567,17 +567,28 @@ namespace Konto.Shared.Trans.SReturn
             if (er.Cut > 0 && er.Pcs > 0)
                 er.Qty = decimal.Round(er.Pcs * er.Cut, 2, MidpointRounding.AwayFromZero);
 
-            er.Total = decimal.Round( er.Qty * er.Rate, 2);
+            if (er.RatePerQty > 0)
+
+                er.Total = decimal.Round(er.Qty * er.Rate / er.RatePerQty, 2);
+            else
+                er.Total = decimal.Round(er.Qty * er.Rate, 2);
+
 
             var uom = uomRepositoryItemLookUpEdit.GetDataSourceRowByKeyValue(er.UomId) as UomLookupDto;
 
             if (uom != null && uom.RateOn == "N" && er.Pcs > 0)
             {
-                er.Total = decimal.Round(er.Pcs * er.Rate, 2, MidpointRounding.AwayFromZero);
+                if (er.RatePerQty > 0)
+                    er.Total = decimal.Round(er.Pcs * er.Rate / er.RatePerQty, 2, MidpointRounding.AwayFromZero);
+                else
+                    er.Total = decimal.Round(er.Pcs * er.Rate, 2, MidpointRounding.AwayFromZero);
             }
             else
             {
-                er.Total = decimal.Round(er.Qty * er.Rate, 2, MidpointRounding.AwayFromZero);
+                if (er.RatePerQty > 0)
+                    er.Total = decimal.Round(er.Qty * er.Rate / er.RatePerQty, 2, MidpointRounding.AwayFromZero);
+                else
+                    er.Total = decimal.Round(er.Qty * er.Rate, 2, MidpointRounding.AwayFromZero);
             }
 
             if (er.Disc > 0)
@@ -589,7 +600,7 @@ namespace Konto.Shared.Trans.SReturn
 
             gross = gross + er.Freight + er.OtherAdd - er.OtherLess;
 
-            if (PurchaseRetPara.Tax_RoundOff)
+            if (SaleRetPara.Tax_RoundOff)
             {
                 if(fldName!="Sgst" && fldName!="Cgst")
                     er.Sgst = decimal.Round(gross * er.SgstPer / 100, 0, MidpointRounding.AwayFromZero);
@@ -1058,7 +1069,8 @@ namespace Konto.Shared.Trans.SReturn
                                 RefId = bt.RefId,
                                 RefTransId = bt.RefTransId,
                                 RefVoucherId = bt.RefVoucherId,
-                                SaleRate= bt.SaleRate,HsnCode= p.HsnCode,Barcode = p.BarCode
+                                RatePerQty = p.Price2,
+                                SaleRate = bt.SaleRate,HsnCode= p.HsnCode,Barcode = p.BarCode
                             }
                             ).ToList();
 
@@ -1211,7 +1223,7 @@ namespace Konto.Shared.Trans.SReturn
                 model.HsnCode = pos.HsnCode;
 
                 model.ProductName = pos.ProductName;
-
+                model.RatePerQty = pos.RatePerQty;
                 model.Stock = Convert.ToDecimal(pos.StockQty);
                 model.ColorId = pos.ColorId;
                 model.Cut = pos.Cut;

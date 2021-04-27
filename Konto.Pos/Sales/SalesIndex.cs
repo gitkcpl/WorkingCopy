@@ -2271,7 +2271,7 @@ namespace Konto.Pos.Sales
                             _find = db.Bills.Find(this.PrimaryKey);
                         }
 
-                       if(!UpdateBill(db, _find))
+                        if(!UpdateBill(db, _find))
                         {
                             _tran.Rollback();
                             return;

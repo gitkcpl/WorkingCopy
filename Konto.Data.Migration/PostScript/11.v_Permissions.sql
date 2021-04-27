@@ -3959,4 +3959,73 @@ BEGIN
 	values(625,'Apparel-Outward-Print',NEWID(),1105,'Transaction',6)
 END
 
+
+
+--BOM-------------
+IF NOT EXISTS (SELECT 1 FROM dbo.Permissions WHERE Id=626)
+BEGIN
+	INSERT INTO dbo.Permissions(Id,PermissionDescription,RowId,ModuleId,PermissionType,PermissionTypeId)
+	values(626,'BOM-Create',NEWID(),1101,'Transaction',1)
+END
+
+IF NOT EXISTS (SELECT 1 FROM dbo.Permissions WHERE Id=627)
+BEGIN
+	INSERT INTO dbo.Permissions(Id,PermissionDescription,RowId,ModuleId,PermissionType,PermissionTypeId)
+	values(627,'BOM-Modify',NEWID(),1101,'Transaction',2)
+END                       
+
+IF NOT EXISTS (SELECT 1 FROM dbo.Permissions WHERE Id=628)
+BEGIN
+	INSERT INTO dbo.Permissions(Id,PermissionDescription,RowId,ModuleId,PermissionType,PermissionTypeId)
+	values(628,'BOM-Delete',NEWID(),1101,'Transaction',3)
+END
+
+IF NOT EXISTS (SELECT 1 FROM dbo.Permissions WHERE Id=629)
+BEGIN
+	INSERT INTO dbo.Permissions(Id,PermissionDescription,RowId,ModuleId,PermissionType,PermissionTypeId)
+	values(629,'BOM-View',NEWID(),1101,'Transaction',4)
+END
+
+
+-- job work income register
+
+IF NOT EXISTS (SELECT 1 FROM dbo.Permissions WHERE Id=630)
+BEGIN
+	INSERT INTO dbo.Permissions(Id,PermissionDescription,RowId,ModuleId,PermissionType,PermissionTypeId)
+	values(630,'Job_Income_Register-View',NEWID(),860,'Report',4)
+END
+
+IF NOT EXISTS (SELECT 1 FROM dbo.Permissions WHERE Id=631)
+BEGIN
+	INSERT INTO dbo.Permissions(Id,PermissionDescription,RowId,ModuleId,PermissionType,PermissionTypeId)
+	values(631,'Job_Income_Register-Export',NEWID(),860,'Report',5)
+END
+
+IF NOT EXISTS (SELECT 1 FROM dbo.Permissions WHERE Id=632)
+BEGIN
+	INSERT INTO dbo.Permissions(Id,PermissionDescription,RowId,ModuleId,PermissionType,PermissionTypeId)
+	values(632,'Job_Income_Register-Print',NEWID(),860,'Report',6)
+END
+
+
+-- Gate Entry
+IF NOT EXISTS (SELECT 1 FROM dbo.Permissions WHERE Id=633)
+BEGIN
+	INSERT INTO dbo.Permissions(Id,PermissionDescription,RowId,ModuleId,PermissionType,PermissionTypeId)
+	values(633,'Gate_Inward_Register-View',NEWID(),861,'Report',4)
+END
+
+IF NOT EXISTS (SELECT 1 FROM dbo.Permissions WHERE Id=634)
+BEGIN
+	INSERT INTO dbo.Permissions(Id,PermissionDescription,RowId,ModuleId,PermissionType,PermissionTypeId)
+	values(634,'Gate_Inward_Register-Export',NEWID(),861,'Report',5)
+END
+
+IF NOT EXISTS (SELECT 1 FROM dbo.Permissions WHERE Id=635)
+BEGIN
+	INSERT INTO dbo.Permissions(Id,PermissionDescription,RowId,ModuleId,PermissionType,PermissionTypeId)
+	values(635,'Gate_Inward_Register-Print',NEWID(),861,'Report',6)
+END
+
+
 SET IDENTITY_INSERT dbo.Permissions OFF

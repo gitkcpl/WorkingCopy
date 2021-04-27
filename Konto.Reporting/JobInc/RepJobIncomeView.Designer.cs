@@ -267,7 +267,7 @@
             this.okSimpleButton.Name = "okSimpleButton";
             this.okSimpleButton.Size = new System.Drawing.Size(86, 31);
             this.okSimpleButton.TabIndex = 0;
-            this.okSimpleButton.Text = "Ok [F3]";
+            this.okSimpleButton.Text = "Ok";
             // 
             // layoutControl1
             // 

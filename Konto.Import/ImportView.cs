@@ -228,8 +228,7 @@ namespace Konto.Import
                     }
 
                     db.BillTrans.AddRange(bts);
-                    if (spur.BillNo == "C1-61")
-                        MessageBox.Show("ex");
+                   
 
                     if (flg)
                     {

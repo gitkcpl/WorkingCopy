@@ -29,8 +29,12 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.ServiceModel.Dispatcher;
 using System.Windows.Forms;
+using DevExpress.DataAccess.ConnectionParameters;
+using DevExpress.XtraReports.UI;
 using ExpressionBuilder = Konto.Core.Shared.Libs.ExpressionBuilder;
+using DevExpress.DataAccess.Sql;
 
 namespace Konto.Trading.JobReceipt
 {
@@ -706,6 +710,13 @@ namespace Konto.Trading.JobReceipt
         {
             var dt = Convert.ToInt32(voucherDateEdit.DateTime.ToString("yyyyMMdd"));
 
+            if (string.IsNullOrEmpty(divLookUpEdit.Text))
+            {
+                MessageBoxAdv.Show(this, "Invalid Division", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                divLookUpEdit.Focus();
+                return false;
+            }
+
             if (!JobRecPara.Challan_Required && string.IsNullOrEmpty(invTypeLookUpEdit.Text))
             {
                 MessageBoxAdv.Show(this, "Invalid Invoice Type", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -900,6 +911,8 @@ namespace Konto.Trading.JobReceipt
             }
             tdsPerTextEdit.Value = model.TdsPer;
             tdsAmtTextEdit.Value = model.TdsAmt;
+            
+            divLookUpEdit.EditValue = model.DivId != 0 ? model.DivId : 1;
 
             createdLabelControl.Text = "Created By: " + model.CreateUser + " [ " + model.CreateDate + " ]";
             modifyLabelControl.Text = "Modified By: " + model.ModifyUser + " [ " + model.ModifyDate ?? string.Empty + " ]";
@@ -1287,29 +1300,47 @@ namespace Konto.Trading.JobReceipt
 
                 if (JobRecPara.Generate_Barcode)
                 {
-                    PageReport rpt = new PageReport();
 
-                    rpt.Load(new FileInfo("reg\\doc\\GRNBarcode.rdlx"));
+                    var xrep = new XtraReport();
+                    xrep.LoadLayout("reg\\doc\\grn_barcode.repx");
 
-                    rpt.Report.DataSources[0].ConnectionProperties.ConnectString = KontoGlobals.sqlConnectionString.ConnectionString;
+                    var sqlDataSource = (xrep.DataSource as SqlDataSource);
+                    sqlDataSource.ConnectionParameters = new CustomStringConnectionParameters(KontoGlobals.sqlConnectionString.ConnectionString);
 
-                    GrapeCity.ActiveReports.Document.PageDocument doc = new GrapeCity.ActiveReports.Document.PageDocument(rpt);
 
-                    doc.Parameters["id"].CurrentValue = this.PrimaryKey;
-                    doc.Parameters["challan"].CurrentValue = "N";
-                    doc.Parameters["reportid"].CurrentValue = 0;
-                    var frm = new KontoRepViewer(doc);
-                    frm.Text = "Barcode";
-                    var _tab = this.Parent.Parent as TabControlAdv;
-                    if (_tab == null) return;
-                    var pg1 = new TabPageAdv();
-                    pg1.Text = "Barcode Print";
-                    _tab.TabPages.Add(pg1);
-                    _tab.SelectedTab = pg1;
-                    frm.TopLevel = false;
-                    frm.Parent = pg1;
-                    frm.Location = new Point(pg1.Location.X + pg1.Width / 2 - frm.Width / 2, pg1.Location.Y + pg1.Height / 2 - frm.Height / 2);
-                    frm.Show();// = true;
+                    xrep.Parameters["id"].Value = this.PrimaryKey;
+                    var frm = new RepXViewer()
+                    {
+                        Text = "Barcode Printing",
+                        RepSource = xrep
+                    };
+
+                    
+                    frm.Show();
+
+                    //PageReport rpt = new PageReport();
+
+                    //rpt.Load(new FileInfo("reg\\doc\\GRNBarcode.rdlx"));
+
+                    //rpt.Report.DataSources[0].ConnectionProperties.ConnectString = KontoGlobals.sqlConnectionString.ConnectionString;
+
+                    //GrapeCity.ActiveReports.Document.PageDocument doc = new GrapeCity.ActiveReports.Document.PageDocument(rpt);
+
+                    //doc.Parameters["id"].CurrentValue = this.PrimaryKey;
+                    //doc.Parameters["challan"].CurrentValue = "N";
+                    //doc.Parameters["reportid"].CurrentValue = 0;
+                    //var frm = new KontoRepViewer(doc);
+                    //frm.Text = "Barcode";
+                    //var _tab = this.Parent.Parent as TabControlAdv;
+                    //if (_tab == null) return;
+                    //var pg1 = new TabPageAdv();
+                    //pg1.Text = "Barcode Print";
+                    //_tab.TabPages.Add(pg1);
+                    //_tab.SelectedTab = pg1;
+                    //frm.TopLevel = false;
+                    //frm.Parent = pg1;
+                    //frm.Location = new Point(pg1.Location.X + pg1.Width / 2 - frm.Width / 2, pg1.Location.Y + pg1.Height / 2 - frm.Height / 2);
+                    //frm.Show();// = true;
                 }
                 PageReport rpt1 = new PageReport();
 
@@ -1360,6 +1391,7 @@ namespace Konto.Trading.JobReceipt
             createdLabelControl.Text = "Create By: " + KontoGlobals.UserName;
             modifyLabelControl.Text = string.Empty;
             this.ActiveControl = voucherLookup1.buttonEdit1;
+            divLookUpEdit.EditValue = 1;
             voucherLookup1.SetDefault();
             if (Convert.ToInt32(voucherLookup1.GroupDto.AccId) > 0)
             {
@@ -1784,6 +1816,7 @@ namespace Konto.Trading.JobReceipt
             model.TotalQty = _translist.Sum(x => x.Qty);
             model.TotalPcs = _translist.Sum(x => x.Pcs);
             model.IsActive = true;
+            model.DivId = Convert.ToInt32(divLookUpEdit.EditValue);
            
             if (model.Id == 0)
             {
@@ -1844,7 +1877,7 @@ namespace Konto.Trading.JobReceipt
             billModel.TdsAmt = model.TdsAmt;
             billModel.RefId = model.Id;
             billModel.RefVoucherId = model.VoucherId;
-
+            billModel.DivisionId = model.DivId;
             int vtypeid = (int)VoucherTypeEnum.JobReceiptVoucher;
             var vouchr = db.Vouchers.FirstOrDefault(k => k.VTypeId == vtypeid);
             billModel.VoucherId = vouchr.Id;

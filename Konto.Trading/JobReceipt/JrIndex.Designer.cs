@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
+            this.jobcardButtonEdit = new DevExpress.XtraEditors.ButtonEdit();
             this.processLookup1 = new Konto.Shared.Masters.Process.ProcessLookup();
             this.paybleTextEdit = new DevExpress.XtraEditors.TextEdit();
             this.tdsAccLookup = new Konto.Shared.Masters.Acc.AccLookup();
@@ -128,9 +129,10 @@
             this.layoutControlItem12 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem9 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.consumeSimpleButton = new DevExpress.XtraEditors.SimpleButton();
-            this.jobcardButtonEdit = new DevExpress.XtraEditors.ButtonEdit();
             this.layoutControlItem11 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.consumeSimpleButton = new DevExpress.XtraEditors.SimpleButton();
+            this.divLookUpEdit = new DevExpress.XtraEditors.LookUpEdit();
+            this.layoutControlItem13 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)(this.tabControlAdv1)).BeginInit();
             this.tabControlAdv1.SuspendLayout();
             this.tabPageAdv1.SuspendLayout();
@@ -138,6 +140,7 @@
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.jobcardButtonEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.paybleTextEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.billAmtSpinEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.roundoffSpinEdit.Properties)).BeginInit();
@@ -194,8 +197,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem12)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.jobcardButtonEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem11)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.divLookUpEdit.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem13)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControlAdv1
@@ -236,6 +240,7 @@
             // 
             // layoutControl1
             // 
+            this.layoutControl1.Controls.Add(this.divLookUpEdit);
             this.layoutControl1.Controls.Add(this.jobcardButtonEdit);
             this.layoutControl1.Controls.Add(this.processLookup1);
             this.layoutControl1.Controls.Add(this.paybleTextEdit);
@@ -276,9 +281,21 @@
             this.layoutControl1.TabStop = false;
             this.layoutControl1.Text = "layoutControl1";
             // 
+            // jobcardButtonEdit
+            // 
+            this.jobcardButtonEdit.Location = new System.Drawing.Point(670, 89);
+            this.jobcardButtonEdit.Name = "jobcardButtonEdit";
+            this.jobcardButtonEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.jobcardButtonEdit.Properties.Appearance.Options.UseFont = true;
+            this.jobcardButtonEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton()});
+            this.jobcardButtonEdit.Size = new System.Drawing.Size(88, 24);
+            this.jobcardButtonEdit.StyleController = this.layoutControl1;
+            this.jobcardButtonEdit.TabIndex = 13;
+            // 
             // processLookup1
             // 
-            this.processLookup1.Location = new System.Drawing.Point(94, 33);
+            this.processLookup1.Location = new System.Drawing.Point(299, 33);
             this.processLookup1.LookupDto = null;
             this.processLookup1.LookupTitle = null;
             this.processLookup1.Name = "processLookup1";
@@ -286,7 +303,7 @@
             this.processLookup1.RequiredField = true;
             this.processLookup1.SelectedText = null;
             this.processLookup1.SelectedValue = null;
-            this.processLookup1.Size = new System.Drawing.Size(318, 24);
+            this.processLookup1.Size = new System.Drawing.Size(113, 24);
             this.processLookup1.TabIndex = 5;
             // 
             // paybleTextEdit
@@ -1261,7 +1278,8 @@
             this.layoutControlItem12,
             this.layoutControlItem5,
             this.layoutControlItem9,
-            this.layoutControlItem11});
+            this.layoutControlItem11,
+            this.layoutControlItem13});
             this.Root.Name = "Root";
             this.Root.Padding = new DevExpress.XtraLayout.Utils.Padding(3, 3, 3, 3);
             this.Root.Size = new System.Drawing.Size(944, 419);
@@ -1481,9 +1499,9 @@
             this.layoutControlItem2.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.layoutControlItem2.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem2.Control = this.processLookup1;
-            this.layoutControlItem2.Location = new System.Drawing.Point(0, 28);
+            this.layoutControlItem2.Location = new System.Drawing.Point(205, 28);
             this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(411, 28);
+            this.layoutControlItem2.Size = new System.Drawing.Size(206, 28);
             this.layoutControlItem2.Text = "Process:";
             this.layoutControlItem2.TextSize = new System.Drawing.Size(86, 17);
             // 
@@ -1551,28 +1569,6 @@
             this.layoutControlItem9.Text = "Bill No:";
             this.layoutControlItem9.TextSize = new System.Drawing.Size(86, 17);
             // 
-            // consumeSimpleButton
-            // 
-            this.consumeSimpleButton.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.consumeSimpleButton.Appearance.Options.UseFont = true;
-            this.consumeSimpleButton.Location = new System.Drawing.Point(537, 2);
-            this.consumeSimpleButton.Name = "consumeSimpleButton";
-            this.consumeSimpleButton.Size = new System.Drawing.Size(93, 29);
-            this.consumeSimpleButton.TabIndex = 1;
-            this.consumeSimpleButton.Text = "Consume Qty";
-            // 
-            // jobcardButtonEdit
-            // 
-            this.jobcardButtonEdit.Location = new System.Drawing.Point(670, 89);
-            this.jobcardButtonEdit.Name = "jobcardButtonEdit";
-            this.jobcardButtonEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.jobcardButtonEdit.Properties.Appearance.Options.UseFont = true;
-            this.jobcardButtonEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.jobcardButtonEdit.Size = new System.Drawing.Size(88, 24);
-            this.jobcardButtonEdit.StyleController = this.layoutControl1;
-            this.jobcardButtonEdit.TabIndex = 13;
-            // 
             // layoutControlItem11
             // 
             this.layoutControlItem11.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1583,6 +1579,51 @@
             this.layoutControlItem11.Size = new System.Drawing.Size(181, 28);
             this.layoutControlItem11.Text = "Job Card No:";
             this.layoutControlItem11.TextSize = new System.Drawing.Size(86, 17);
+            // 
+            // consumeSimpleButton
+            // 
+            this.consumeSimpleButton.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.consumeSimpleButton.Appearance.Options.UseFont = true;
+            this.consumeSimpleButton.Location = new System.Drawing.Point(537, 2);
+            this.consumeSimpleButton.Name = "consumeSimpleButton";
+            this.consumeSimpleButton.Size = new System.Drawing.Size(93, 29);
+            this.consumeSimpleButton.TabIndex = 1;
+            this.consumeSimpleButton.Text = "Consume Qty";
+            // 
+            // divLookUpEdit
+            // 
+            this.divLookUpEdit.EnterMoveNextControl = true;
+            this.divLookUpEdit.Location = new System.Drawing.Point(94, 33);
+            this.divLookUpEdit.Name = "divLookUpEdit";
+            this.divLookUpEdit.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
+            this.divLookUpEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.divLookUpEdit.Properties.Appearance.Options.UseFont = true;
+            this.divLookUpEdit.Properties.AppearanceDropDown.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.divLookUpEdit.Properties.AppearanceDropDown.Options.UseFont = true;
+            this.divLookUpEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.divLookUpEdit.Properties.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("DisplayText", "Name3")});
+            this.divLookUpEdit.Properties.DisplayMember = "DisplayText";
+            this.divLookUpEdit.Properties.ImmediatePopup = true;
+            this.divLookUpEdit.Properties.NullText = "";
+            this.divLookUpEdit.Properties.ShowHeader = false;
+            this.divLookUpEdit.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
+            this.divLookUpEdit.Properties.ValueMember = "Id";
+            this.divLookUpEdit.Size = new System.Drawing.Size(112, 24);
+            this.divLookUpEdit.StyleController = this.layoutControl1;
+            this.divLookUpEdit.TabIndex = 23;
+            // 
+            // layoutControlItem13
+            // 
+            this.layoutControlItem13.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.layoutControlItem13.AppearanceItemCaption.Options.UseFont = true;
+            this.layoutControlItem13.Control = this.divLookUpEdit;
+            this.layoutControlItem13.Location = new System.Drawing.Point(0, 28);
+            this.layoutControlItem13.Name = "layoutControlItem13";
+            this.layoutControlItem13.Size = new System.Drawing.Size(205, 28);
+            this.layoutControlItem13.Text = "Division:";
+            this.layoutControlItem13.TextSize = new System.Drawing.Size(86, 17);
             // 
             // JrIndex
             // 
@@ -1604,6 +1645,7 @@
             this.panelControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.jobcardButtonEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.paybleTextEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.billAmtSpinEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.roundoffSpinEdit.Properties)).EndInit();
@@ -1660,8 +1702,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem12)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.jobcardButtonEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem11)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.divLookUpEdit.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem13)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1770,5 +1813,7 @@
         private DevExpress.XtraEditors.SimpleButton consumeSimpleButton;
         private DevExpress.XtraEditors.ButtonEdit jobcardButtonEdit;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem11;
+        private DevExpress.XtraEditors.LookUpEdit divLookUpEdit;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem13;
     }
 }

@@ -138,7 +138,7 @@ namespace Konto.Weaves.BeamLoading
                         cmd.Parameters.Add("@CompanyId", SqlDbType.Int).Value = KontoGlobals.CompanyId;
                         cmd.Parameters.Add("@BranchId", SqlDbType.Int).Value = KontoGlobals.BranchId;
                         cmd.Parameters.Add("@YearId", SqlDbType.Int).Value = KontoGlobals.YearId;
-                        cmd.Parameters.Add("@VTypeId", SqlDbType.Int).Value = (int)VoucherTypeEnum.BeamProd;
+                        cmd.Parameters.Add("@VTypeId", SqlDbType.Int).Value = 0;
                         cmd.Parameters.Add("@IsLoading", SqlDbType.Int).Value = 1;
                         if (listDateRange1.SelectedItem.Extra1 == "Deleted")
                         {

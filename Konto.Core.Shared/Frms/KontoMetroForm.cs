@@ -308,21 +308,16 @@ namespace Konto.Core.Shared.Frms
 
         private void tabControlAdv1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (tabControlAdv1.SelectedIndex == 0)
-                helpStatusBarAdvPanel.Text = KontoHelp.MainBarHelpMsg;
-            else
-                helpStatusBarAdvPanel.Text = KontoHelp.ListBarHelpMsg;
+            helpStatusBarAdvPanel.Text = tabControlAdv1.SelectedIndex == 0 ? KontoHelp.MainBarHelpMsg : KontoHelp.ListBarHelpMsg;
         }
 
         private void KontoMetroForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             var tabpage = this.Parent as TabPageAdv;
-            if (tabpage != null)
-            {
-                var tabcontrol = tabpage.Parent as TabControlAdv;
-                if (tabcontrol != null)
-                    tabcontrol.TabPages.Remove(tabpage);
-            }
+            if (tabpage == null) return;
+            var tabcontrol = tabpage.Parent as TabControlAdv;
+            if (tabcontrol != null)
+                tabcontrol.TabPages.Remove(tabpage);
 
         }
 
