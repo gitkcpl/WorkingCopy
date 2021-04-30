@@ -86,6 +86,7 @@ namespace Konto.Core.Shared.Frms
                 var _frm = Activator.CreateInstance(this.AsemblyName, this.FormClassName).Unwrap() as KontoMetroForm;
                
                 _frm.OpenForLookup = true;
+                _frm.Tag = this.Tag;
                 _frm.EditKey = Convert.ToInt32(KontoView.GetRowCellValue(
                     KontoView.FocusedRowHandle, "Id"));
                 _frm.ShowDialog(this);

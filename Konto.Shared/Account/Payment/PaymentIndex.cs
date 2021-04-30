@@ -316,7 +316,12 @@ namespace Konto.Shared.Account.Payment
                 var acc = frm.SelectedItem as AccLookupDto;
                 er.ToAccId = frm.SelectedValue;
                 er.Particular = frm.SelectedTex;
-                
+
+                if (acc.BToB == "Yes")
+                {
+                    er.RpType = "Bill";
+                }
+
                 if (acc != null)
                     er.Balance = acc.Balance;
 
@@ -1242,6 +1247,7 @@ namespace Konto.Shared.Account.Payment
                 b.RefId = model.Id;
                 b.RefTransId = item.Id;
                 b.RefVoucherId = model.VoucherId;
+                p.RefTransId = item.Id;
                 db.BtoBs.Add(b);
             }
             UpdateDrCrForAdjustAmount(db, model, item, bList);

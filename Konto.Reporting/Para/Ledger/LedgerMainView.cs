@@ -33,6 +33,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using Konto.Core.Shared.Libs;
 
 namespace Konto.Reporting.Para.Ledger
 {
@@ -63,6 +64,7 @@ namespace Konto.Reporting.Para.Ledger
             outsSimpleButton.Click += OutsSimpleButton_Click;
             gridView1.FocusedRowChanged += GridView1_FocusedRowChanged;
             this.FirstActiveControl = fDateEdit;
+            
             //using(var db = new KontoContext())
             //{
             //    var cmp = (from f in db.Companies
@@ -72,6 +74,16 @@ namespace Konto.Reporting.Para.Ledger
             //    lookUpEdit1.Properties.DataSource = cmp;
 
             //}
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == (Keys.F1 | Keys.Shift))
+            {
+                KontoUtils.SaveLayoutGrid(this.GridLayoutFileName,this.gridView1,false);
+                return true;
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
         }
 
         private void GridView1_FocusedRowChanged(object sender, DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventArgs e)
@@ -439,8 +451,12 @@ namespace Konto.Reporting.Para.Ledger
                        _party, reportid, KontoGlobals.YearId, _group, accid).ToList();
                 
             }
+
             this.ledgertransDtoBindingSource.DataSource = Trans;
-          
+            
+            KontoUtils.RestoreLayoutGrid(this.GridLayoutFileName,this.gridView1);
+
+
             gridView1.ExpandAllGroups();
             gridView1.Focus();
         }

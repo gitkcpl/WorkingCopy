@@ -23,6 +23,7 @@ namespace Konto.Shared.Masters.Voucher
             this.GridLayoutFileName = KontoFileLayout.Voucher_Lookup;
             this.FormClassName = "Konto.Shared.Masters.Voucher.VoucherIndex";
             this.AsemblyName = "Konto.Shared";
+            
         }
         public override void LoadData()
         {

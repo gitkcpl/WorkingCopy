@@ -287,11 +287,14 @@ namespace Konto.Core.Shared.Libs
 
         }
 
-        public static void SaveLayoutGrid(string _filename, object _gv)
+        public static void SaveLayoutGrid(string _filename, object _gv, bool cleagroup=true)
         {
                 string UserFileName = "userxml\\" + _filename;
                 var gv = (GridView)_gv;
-                gv.ClearGrouping();
+                
+                if(cleagroup)
+                    gv.ClearGrouping();
+
                 gv.ClearSorting();
                 gv.ActiveFilterString = string.Empty;
                 gv.SaveLayoutToXml(UserFileName);

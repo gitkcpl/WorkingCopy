@@ -190,13 +190,13 @@ namespace Konto.Shared.Trans.SInvoice
         private void DelvLookup_SelectedValueChanged(object sender, EventArgs e)
         {
             if (delvLookup.LookupDto == null) return;
-            if (this.PrimaryKey == 0)
-            {
+            //if (this.PrimaryKey == 0)
+           // {
                 //addressLookup1.sel
                 addressLookup1.SetValue(this.delvLookup.LookupDto.AddressId);
                 addressLookup1.SelectedValue = this.delvLookup.LookupDto.AddressId;
                 stateLookUpEdit.EditValue = delvLookup.LookupDto.StateId;
-            }
+           // }
            
         }
 
@@ -1043,6 +1043,17 @@ namespace Konto.Shared.Trans.SInvoice
                                 BillPara.Barcode_Required = (value == "Y") ? true : false;
                                 break;
                             }
+                        case 304:
+                        {
+                            BillPara.OtherAdd_Required = (value == "Y") ? true : false;
+                            break;
+                        }
+                        case 305:
+                        {
+                            BillPara.OtherLess_Required = (value == "Y") ? true : false;
+                            break;
+                        }
+
                     }
                 }
             }
@@ -1276,6 +1287,7 @@ namespace Konto.Shared.Trans.SInvoice
 
             challanNotextEdit.Text = model.BillNo;
             refNoTextEdit.Text = model.RefNo;
+
             delvLookup.SelectedValue = model.DelvAccId;
             
             delvLookup.SetAcc(Convert.ToInt32(model.DelvAccId));

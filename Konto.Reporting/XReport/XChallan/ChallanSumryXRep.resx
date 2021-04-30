@@ -128,8 +128,7 @@
 ?group_on1='Branch',[BranchName],?group_on1='PartyGroup', [PartyGroup],
 ?group_on1='Voucher',[Voucher], ?group_on1='Qtr',[Quarter],?group_on1='Month',[MonthName],
 ?group_on1='Date',FormatString('{0:dd/MM/yy}',[ScDate]),?group_on1='Item' ,[Item],?group_on1='Design',[Design],?group_on1='Process',[ProcessName],
-?group_on1='Color',[Color],?group_on1='Grade',[Grade], 'NA')
-</value>
+?group_on1='Color',[Color],?group_on1='Grade',[Grade], 'NA')</value>
   </data>
   <data name="GroupOn2.Expression" xml:space="preserve">
     <value>iif(?group_on2='Division',[DivisionName],?group_on2='Party',[Party],?group_on2='Agent',[Agent],

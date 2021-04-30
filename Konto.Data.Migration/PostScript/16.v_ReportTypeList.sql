@@ -232,6 +232,8 @@ Values('BillNo Wise Details','RCM', 23 ,'Reg\\BillWise.rdlx',GETDATE(),'Admin',1
 update dbo.ReportType set remarks='None-Book-Party-Agent-Item' where FileName='Reg\\GenExp_BillWise.rdlx' AND ReportTypes='RCM'
 
 
+
+
 IF NOT EXISTS(SELECT 1 FROM dbo.ReportType WHERE FileName='Reg\\Challan.rdlx' AND ReportTypes='SCHALLAN')
 INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, CreateUser, IsActive, IsDeleted,RowId,SpName)
 Values('ChallanNo Wise','SCHALLAN', 6,'Reg\\Challan.rdlx',GETDATE(),'Admin',1,0,NEWID(),'dbo.challan_reg')
@@ -244,17 +246,10 @@ IF NOT EXISTS(SELECT 1 FROM dbo.ReportType WHERE FileName='Reg\\Challan_Summary.
 INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, CreateUser, IsActive, IsDeleted,RowId,SpName)
 Values('Summary','SCHALLAN', 6,'Reg\\Challan_Summary.rdlx',GETDATE(),'Admin',1,0,NEWID(),'dbo.challan_reg')
 
-IF NOT EXISTS(SELECT 1 FROM dbo.ReportType WHERE FileName='Reg\\Challan.rdlx' AND ReportTypes='PCHALLAN')
-INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, CreateUser, IsActive, IsDeleted,RowId,SpName)
-Values('ChallanNo Wise','PCHALLAN', 5,'Reg\\Challan.rdlx',GETDATE(),'Admin',1,0,NEWID(),'dbo.challan_reg')
 
-IF NOT EXISTS(SELECT 1 FROM dbo.ReportType WHERE FileName='Reg\\Challan_Details.rdlx' AND ReportTypes='PCHALLAN')
-INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, CreateUser, IsActive, IsDeleted,RowId,SpName)
-Values('Details','PCHALLAN', 5,'Reg\\Challan_Details.rdlx',GETDATE(),'Admin',1,0,NEWID(),'dbo.challan_reg')
 
-IF NOT EXISTS(SELECT 1 FROM dbo.ReportType WHERE FileName='Reg\\Challan_Summary.rdlx' AND ReportTypes='PCHALLAN')
-INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, CreateUser, IsActive, IsDeleted,RowId,SpName)
-Values('Summary','PCHALLAN', 5,'Reg\\Challan_Summary.rdlx',GETDATE(),'Admin',1,0,NEWID(),'dbo.challan_reg')
+
+
 
 IF NOT EXISTS(SELECT 1 FROM dbo.ReportType WHERE FileName='Reg\\TakaProduction\\TakaProductionDetails.rdlx' AND ReportTypes='TP')
 INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, CreateUser, IsActive, IsDeleted,RowId,SpName)
@@ -462,9 +457,6 @@ IF NOT EXISTS(SELECT 1 FROM dbo.ReportType WHERE FileName='reg\doc\OutwardJobCha
 INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, CreateUser, IsActive, IsDeleted,RowId,SpName)
 Values('Outward Job Challan','JOBCHALLAN', 46,'reg\doc\OutwardJobChallan.rdlx',GETDATE(),'Admin',1,0,NEWID(),'dbo.ChallanPrint')
 
-IF NOT EXISTS(SELECT 1 FROM dbo.ReportType WHERE FileName='Reg\\InwardOutwardDetails.rdlx' AND ReportTypes='SCHALLAN')
-INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, CreateUser, IsActive, IsDeleted,RowId,SpName)
-Values('Party Wise Stock Ledger T Format','SCHALLAN', 6,'Reg\\InwardOutwardDetails.rdlx',GETDATE(),'Admin',1,0,NEWID(),'dbo.InwardOutwardStock')
 
 --Job Receipt 
 IF NOT EXISTS(SELECT 1 FROM dbo.ReportType WHERE FileName='Reg\\MillJobIssue\\RecDetails.rdlx' AND ReportTypes='JobRec')
@@ -495,13 +487,6 @@ Values('Return Details Summary','MillRet', 49,'Reg\\MillJobIssue\\RecSummary.rdl
 
 
 --Outward
-IF NOT EXISTS(SELECT 1 FROM dbo.ReportType WHERE FileName='Reg\\InwardOutwardDetailsnew.rdlx' AND ReportTypes='SCHALLAN')
-INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, CreateUser, IsActive, IsDeleted,RowId,SpName)
-Values('Party Wise Stock ledger Horizontal','SCHALLAN', 6,'Reg\\InwardOutwardDetailsnew.rdlx',GETDATE(),'Admin',1,0,NEWID(),'dbo.InwardOutwardStock')
-
-IF NOT EXISTS(SELECT 1 FROM dbo.ReportType WHERE FileName='Reg\\ColorStock.rdlx' AND ReportTypes='Stock')
-INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, CreateUser, IsActive, IsDeleted,RowId,SpName)
-Values('Color Wise Stock','Stock', 6,'Reg\\ColorStock.rdlx',GETDATE(),'Admin',1,0,NEWID(),'dbo.InwardOutwardStock')
 
 
 IF NOT EXISTS(SELECT 1 FROM dbo.ReportType WHERE FileName='Reg\\MillJobIssue\\JobIssueBeamStock.rdlx' AND ReportTypes='JobIssue')
@@ -516,21 +501,10 @@ IF NOT EXISTS(SELECT 1 FROM dbo.ReportType WHERE FileName='Reg\JobCardPrint.rdlx
 INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, CreateUser, IsActive, IsDeleted,RowId)
 Values('Job Card Print','JobCard', 33,'Reg\JobCardPrint.rdlx',GETDATE(),'Admin',1,0,NEWID())
 
-IF NOT EXISTS(SELECT 1 FROM dbo.ReportType WHERE FileName='Reg\\InwardOutwardSummary.rdlx' AND ReportTypes='SCHALLAN')
-INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, CreateUser, IsActive, IsDeleted,RowId,SpName)
-Values('In Out Summary','SCHALLAN', 6,'Reg\\InwardOutwardSummary.rdlx',GETDATE(),'Admin',1,0,NEWID(),'dbo.InwardOutwardStock')
 
 IF NOT EXISTS(SELECT 1 FROM dbo.ReportType WHERE FileName='reg\doc\YarnSalesChallanMulty.rdlx' AND ReportTypes='CHALLAN')
 INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, CreateUser, IsActive, IsDeleted,RowId,SpName)
 Values('Multi Yarn Challan','CHALLAN', 6,'reg\doc\YarnSalesChallanMulty.rdlx',GETDATE(),'Admin',1,0,NEWID(),'dbo.ChallanPrint')
-
---IF NOT EXISTS(SELECT 1 FROM dbo.ReportType WHERE FileName='reg\doc\GrayIssueToMillChallanTaka.rdlx' AND ReportTypes='CHALLAN')
---INSERT INTO dbo.ReportType(Id,ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, CreateUser, IsActive, IsDeleted,RowId,SpName)
---Values('Taka Wise Mill Issue','CHALLAN', 6,'reg\doc\GrayIssueToMillChallanTaka.rdlx',GETDATE(),'Admin',1,0,NEWID(),'dbo.ChallanPrint')
-
-IF NOT EXISTS(SELECT 1 FROM dbo.ReportType WHERE FileName='Reg\\MonthwiseStock.rdlx' AND ReportTypes='Stock')
-INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, CreateUser, IsActive, IsDeleted,RowId,SpName)
-Values('Month Wise Stock Report','Stock', 6,'Reg\\MonthwiseStock.rdlx',GETDATE(),'Admin',1,0,NEWID(),'dbo.MonthlyStockReportTextile')
 
 
 
@@ -540,9 +514,8 @@ IF NOT EXISTS(SELECT 1 FROM dbo.ReportType WHERE FileName='Reg\\BeamProduction\\
 INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, CreateUser, IsActive, IsDeleted,RowId,SpName)
 Values('Beam With Taka Details','BP', 11,'Reg\\BeamProduction\\BeamWithTakaDetails.rdlx',GETDATE(),'Admin',1,0,NEWID(),'dbo.BeamwithtakaReport')
 
-IF NOT EXISTS(SELECT 1 FROM dbo.ReportType WHERE FileName='Reg\\QualitywiseStock.rdlx' AND ReportTypes='Stock')
-INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, CreateUser, IsActive, IsDeleted,RowId,SpName)
-Values('Quality Wise Stock Report','Stock', 7,'Reg\\QualitywiseStock.rdlx',GETDATE(),'Admin',1,0,NEWID(),'dbo.MonthlyStockReportTextile')
+
+
 
 IF NOT EXISTS(SELECT 1 FROM dbo.ReportType WHERE FileName='reg\doc\TakaSalesChallanA5.rdlx' AND ReportTypes='CHALLAN')
 INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, CreateUser, IsActive, IsDeleted,RowId,SpName)
@@ -739,13 +712,56 @@ Values('Gate Entry','Gate_Inward', 53,'Konto.Reporting.XReport.XGate.GateEntryXR
 
 update dbo.reporttype set IsActive= 0 where FileName='Reg\\MonthwiseStock.rdlx' AND ReportTypes='Stock'
 update dbo.reporttype set IsActive= 0 where FileName='Reg\\ColorStock.rdlx' AND ReportTypes='Stock'
+update reportype set isactive=0 where FileName='Reg\\QualitywiseStock.rdlx' AND ReportTypes='Stock'
 
-
-update dbo.reporttype set ReportName='Stock Register', FileName='Konto.Reporting.XReport.XStock.StockXRep' where FileName='Reg\\QualitywiseStock.rdlx' AND ReportTypes='Stock'
+IF NOT EXISTS(SELECT 1 FROM dbo.ReportType WHERE FileName='Konto.Reporting.XReport.XStock.StockXRep' AND ReportTypes='Stock')
+INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, CreateUser, IsActive, IsDeleted,RowId,SpName)
+Values('Stock Register','Stock', 0,'Konto.Reporting.XReport.XStock.StockXRep',GETDATE(),'Admin',1,0,NEWID(),'dbo.dbo.stock_summary_rep')
 
 
 IF NOT EXISTS(SELECT 1 FROM dbo.ReportType WHERE FileName='Konto.Reporting.XReport.XStock.StockSmryXRep' AND ReportTypes='Stock')
 INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, CreateUser, IsActive, IsDeleted,RowId,SpName)
 Values('Stock Summary','Stock', 0,'Konto.Reporting.XReport.XStock.StockSmryXRep',GETDATE(),'Admin',1,0,NEWID(),'dbo.dbo.stock_summary_rep')
+
+
+update dbo.reporttype set IsActive= 0 where FileName='Reg\\Challan.rdlx' AND ReportTypes='SCHALLAN'
+update dbo.reporttype set IsActive= 0 where FileName='Reg\\Challan_Details.rdlx' AND ReportTypes='SCHALLAN'
+update dbo.reporttype set IsActive= 0 where FileName='Reg\\Challan_Summary.rdlx' AND ReportTypes='SCHALLAN'
+update dbo.reporttype set IsActive= 0 where FileName='Reg\\InwardOutwardDetails.rdlx' AND ReportTypes='SCHALLAN'
+update dbo.reporttype set IsActive= 0 where FileName='Reg\\InwardOutwardDetailsnew.rdlx' AND ReportTypes='SCHALLAN'
+update dbo.reporttype set IsActive= 0 where FileName='Reg\\InwardOutwardSummary.rdlx' AND ReportTypes='SCHALLAN'
+
+
+IF NOT EXISTS(SELECT 1 FROM dbo.ReportType WHERE FileName='Konto.Reporting.XReport.XChallan.ChallanXRep' AND ReportTypes='SCHALLAN')
+INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, CreateUser, IsActive, IsDeleted,RowId,SpName)
+Values('Outward Date Wise','SCHALLAN', 0,'Konto.Reporting.XReport.XChallan.ChallanXRep',GETDATE(),'Admin',1,0,NEWID(),'dbo.challan_Reg_Rep')
+
+IF NOT EXISTS(SELECT 1 FROM dbo.ReportType WHERE FileName='Konto.Reporting.XReport.XChallan.ChallanDetailsXRep' AND ReportTypes='SCHALLAN')
+INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, CreateUser, IsActive, IsDeleted,RowId,SpName)
+Values('Outward Details','SCHALLAN', 0,'Konto.Reporting.XReport.XChallan.ChallanDetailsXRep',GETDATE(),'Admin',1,0,NEWID(),'dbo.challan_Reg_Rep')
+
+IF NOT EXISTS(SELECT 1 FROM dbo.ReportType WHERE FileName='Konto.Reporting.XReport.XChallan.ChallanSumryXRep' AND ReportTypes='SCHALLAN')
+INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, CreateUser, IsActive, IsDeleted,RowId,SpName)
+Values('Outward Summary','SCHALLAN', 0,'Konto.Reporting.XReport.XChallan.ChallanSumryXRep',GETDATE(),'Admin',1,0,NEWID(),'dbo.challan_Reg_Rep')
+
+
+update dbo.reporttype set IsActive= 0 where FileName='Reg\\Challan.rdlx' AND ReportTypes='PCHALLAN'
+update dbo.reporttype set IsActive= 0 where FileName='Reg\\Challan_Details.rdlx' AND ReportTypes='PCHALLAN'
+update dbo.reporttype set IsActive= 0 where FileName='Reg\\Challan_Summary.rdlx' AND ReportTypes='PCHALLAN'
+
+IF NOT EXISTS(SELECT 1 FROM dbo.ReportType WHERE FileName='Konto.Reporting.XReport.XChallan.ChallanXRep' AND ReportTypes='PCHALLAN')
+INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, CreateUser, IsActive, IsDeleted,RowId,SpName)
+Values('Grn Date Wise','PCHALLAN', 0,'Konto.Reporting.XReport.XChallan.ChallanXRep',GETDATE(),'Admin',1,0,NEWID(),'dbo.challan_Reg_Rep')
+
+IF NOT EXISTS(SELECT 1 FROM dbo.ReportType WHERE FileName='Konto.Reporting.XReport.XChallan.ChallanDetailsXRep' AND ReportTypes='PCHALLAN')
+INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, CreateUser, IsActive, IsDeleted,RowId,SpName)
+Values('Grn Details','PCHALLAN', 0,'Konto.Reporting.XReport.XChallan.ChallanDetailsXRep',GETDATE(),'Admin',1,0,NEWID(),'dbo.challan_Reg_Rep')
+
+IF NOT EXISTS(SELECT 1 FROM dbo.ReportType WHERE FileName='Konto.Reporting.XReport.XChallan.ChallanSumryXRep' AND ReportTypes='PCHALLAN')
+INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, CreateUser, IsActive, IsDeleted,RowId,SpName)
+Values('Grn Summary','PCHALLAN', 0,'Konto.Reporting.XReport.XChallan.ChallanSumryXRep',GETDATE(),'Admin',1,0,NEWID(),'challan_Reg_Rep')
+
+
+
 
 Go

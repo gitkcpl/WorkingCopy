@@ -12,6 +12,7 @@ using System.Data.SqlClient;
 using Konto.Shared.Reports;
 using DevExpress.XtraSplashScreen;
 using Aspose.Cells;
+using DevExpress.Data.WcfLinq.Helpers;
 using Konto.Shared.Trans.Common;
 using DevExpress.Utils.Menu;
 using DevExpress.XtraGrid.Views.Grid;
@@ -227,11 +228,11 @@ namespace Konto.Pos.Sales
                             var _vid = Convert.ToInt32(row["VoucherId"]); //Convert.ToInt32(this.customGridView1.GetRowCellValue(customGridView1.FocusedRowHandle, "VoucherId"));
                             var _deleted = Convert.ToBoolean(row["IsDeleted"]);  //Convert.ToBoolean(this.customGridView1.GetRowCellValue(customGridView1.FocusedRowHandle, "IsDeleted"));
                             var _status = row["Status"].ToString(); //this.customGridView1.GetRowCellValue(customGridView1.FocusedRowHandle, "Status").ToString();
-                            if (_status != "UNPAID")
-                            {
-                                MessageBoxAdv.Show("Can Not Cancel Invoice,Payment Ref Exists", "Delete !!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                return;
-                            }
+                            //if (_status != "UNPAID")
+                            //{
+                            //    MessageBoxAdv.Show("Can Not Cancel Invoice,Payment Ref Exists", "Delete !!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            //    return;
+                            //}
                             if (_deleted)
                             {
                                 MessageBoxAdv.Show("Record Already in Deleted State", "Delete !!", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -254,6 +255,12 @@ namespace Konto.Pos.Sales
                             foreach (var item in trans)
                             {
                                 item.IsActive = false;
+                            }
+
+                            var pays = db.BillPays.Where(x => x.BillId == _id).ToList();
+                            foreach (var pay in pays)
+                            {
+                                pay.IsActive = true;
                             }
 
                             var stk = db.StockTranses.Where(k => k.MasterRefId == model.RowId).ToList();
@@ -303,11 +310,11 @@ namespace Konto.Pos.Sales
                             var _vid = Convert.ToInt32(row["VoucherId"]); //Convert.ToInt32(this.customGridView1.GetRowCellValue(customGridView1.FocusedRowHandle, "VoucherId"));
                             var _deleted = Convert.ToBoolean(row["IsDeleted"]);  //Convert.ToBoolean(this.customGridView1.GetRowCellValue(customGridView1.FocusedRowHandle, "IsDeleted"));
                             var _status = row["Status"].ToString(); //this.customGridView1.GetRowCellValue(customGridView1.FocusedRowHandle, "Status").ToString();
-                            if (_status != "UNPAID")
-                            {
-                                MessageBoxAdv.Show("Can Not Delete,Payment Ref Exists", "Delete !!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                return;
-                            }
+                            //if (_status != "UNPAID")
+                            //{
+                            //    MessageBoxAdv.Show("Can Not Delete,Payment Ref Exists", "Delete !!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            //    return;
+                            //}
                             if (_deleted)
                             {
                                 MessageBoxAdv.Show("Record Already in Deleted State", "Delete !!", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -330,6 +337,12 @@ namespace Konto.Pos.Sales
                             foreach (var item in trans)
                             {
                                 item.IsDeleted = true;
+                            }
+
+                            var pays = db.BillPays.Where(x => x.BillId == _id).ToList();
+                            foreach (var pay in pays)
+                            {
+                                pay.IsDeleted = true;
                             }
 
                             var stk = db.StockTranses.Where(k => k.MasterRefId == model.RowId).ToList();

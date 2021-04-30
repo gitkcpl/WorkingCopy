@@ -40,6 +40,7 @@ namespace Konto.Weaves.TakaProduction
         private DateTime _voucherdate = DateTime.Now;
         private DateTime _startdate = DateTime.Now;
         private DateTime _folddate = DateTime.Now;
+        private int _quality_id = 0;
         public TakaProdIndex()
         {
             InitializeComponent();
@@ -675,7 +676,7 @@ namespace Konto.Weaves.TakaProduction
         {
             MeterSpinEdit.Value = 0;
             WeightSpinEdit.Value = 0;
-            TotalPcsSpinEdit.Value = 0;
+           // TotalPcsSpinEdit.Value = 0;
             MendorSpinEdit.Value = 0;
         }
         private void TabControlAdv1_SelectedIndexChanged(object sender, EventArgs e)
@@ -812,7 +813,7 @@ namespace Konto.Weaves.TakaProduction
             productLookup1.SetGroup(0);
             designLookup.SetEmpty();
 
-           
+            TotalPcsSpinEdit.Value = 1;
 
             createdLabelControl.Text = "Create By: " + KontoGlobals.UserName;
             modifyLabelControl.Text = string.Empty;
@@ -825,12 +826,16 @@ namespace Konto.Weaves.TakaProduction
             DelWeft = new List<ProdWeftItemDTO>();
             DelProdEmp = new List<Prod_EmpDto>();
 
+            MachineNolookUpEdit_EditValueChanged(MachineNolookUpEdit, null);
+
             divLookUpEdit.Focus();
             voucherDateEdit.DateTime = _voucherdate;
             StartDateEdit.DateTime = _startdate;
             FoldDateEdit.DateTime = _folddate;
+            productLookup1.SelectedValue = _quality_id;
+            productLookup1.SetGroup(_quality_id);
 
-            MachineNolookUpEdit_EditValueChanged(MachineNolookUpEdit, null);
+            
         }
         public override void ResetPage()
         {
@@ -846,7 +851,7 @@ namespace Konto.Weaves.TakaProduction
 
             TakaNotextEdit.Text = "New";
             MeterSpinEdit.Value = 0;
-            TotalPcsSpinEdit.Value = 1;
+           
             MendorSpinEdit.Value = 0;
             WeightSpinEdit.Value = 0;
             stdWtspinEdit.Value = 0;
@@ -873,6 +878,7 @@ namespace Konto.Weaves.TakaProduction
             DelProdEmp = new List<Prod_EmpDto>();
 
             divLookUpEdit.Focus();
+            TotalPcsSpinEdit.Value = 1;
         }
         public override void EditPage(int _key)
         {
@@ -1243,6 +1249,7 @@ namespace Konto.Weaves.TakaProduction
                         _voucherdate = voucherDateEdit.DateTime;
                         _startdate = StartDateEdit.DateTime;
                         _folddate = FoldDateEdit.DateTime;
+                        _quality_id = Convert.ToInt32(_find.ProductId);
 
                         IsSaved = true;
                     }

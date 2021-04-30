@@ -1737,7 +1737,8 @@ insert into ErpModule ([Id],[ParentId],[ModuleDesc],[OrderIndex],[LinkButton],[S
 		   null,null,'Challan Register',1,'/Konto.Wpf;component/MenuIcon/reportview.png',0,
 		   0,0,0,null,null,1,GETDATE())
 end
- 	   update dbo.ErpModule set Extra2=',1,2,3,4,6,7,9,10,11,' where id=806
+
+update dbo.ErpModule set AssemblyName='Konto.Reporting.Chal.RepChallanView',  Extra2=',1,2,3,4,6,7,9,10,11,' where id=806
 
 if NOT exists (select 1 from ErpModule em where em.Id=807)
 begin
@@ -1830,7 +1831,9 @@ insert into ErpModule ([Id],[ParentId],[ModuleDesc],[OrderIndex],[LinkButton],[S
 		   null,null,null,1,'/Konto.Wpf;component/MenuIcon/reportview.png',0,
 		   0,0,0,null,null,1,GETDATE())
 end
- 	  update dbo.ErpModule set Extra2=',1,2,3,4,6,7,9,10,11,' where id=813
+
+update dbo.ErpModule set AssemblyName='Konto.Reporting.Chal.RepSalesChallanView', Extra2=',1,2,3,4,6,7,9,10,11,' where id=813
+
 
 if NOT exists (select 1 from ErpModule em where em.Id=814)
 begin

@@ -51,8 +51,9 @@ namespace Konto.Import
                       //  splashScreenManager1.ShowWaitForm();
                       //  splashScreenManager1.SetWaitFormCaption("Importing Sales..");
                         Purchase(db, sdb);
+                        PurchaseReturn(db, sdb);
                         Sales(db, sdb);
-
+                        
                         DbUtils.Update_Account_Balance(db);
 
                         _tran.Commit();
@@ -427,6 +428,182 @@ namespace Konto.Import
             db.SaveChanges();
 
            
+
+        }
+
+        private void PurchaseReturn(KontoContext db, ImpContext sdb)
+        {
+            var fdt = Convert.ToInt32(fDateEdit1.DateTime.ToString("yyyyMMdd"));
+            var tdt = Convert.ToInt32(tDateEdit2.DateTime.ToString("yyyyMMdd"));
+
+            var spurs = sdb.PurchaseRets.Include("PurchaseRetTrans")
+                            .Where(x => x.VoucherDate >= fdt && x.VoucherDate <= tdt).ToList();
+
+            foreach (var spur in spurs)
+            {
+                var bb = sdb.B2Bs.FirstOrDefault(x => x.RefCode == spur.RetCode && x.TransType =="rg");
+
+                var model = db.Bills.SingleOrDefault(x => x.RefId == spur.PurchaseRetID && x.RefVoucherId == spur.VoucherID && x.IsActive && !x.IsDeleted);
+
+                if (model != null) continue;
+
+                //check for exist account
+                var checkAcc = db.Accs.SingleOrDefault(x => x.CollById == spur.AccountID);
+                if (checkAcc == null)
+                    checkAcc = CreateAccount(db, (int)spur.AccountID, sdb); //create account if not exists
+
+                //check bok
+                var chkbk = db.Accs.SingleOrDefault(x => x.CollById == spur.PurchaseRetAcID);
+                if (chkbk == null)
+                    chkbk = CreateAccount(db, (int)spur.PurchaseRetAcID, sdb); //create account if not exists
+
+                if (model == null)
+                {
+                    model = new BillModel
+                    {
+                        AccId = checkAcc.Id,
+                        BillType = "Regular",
+                        VoucherId = db.Vouchers.FirstOrDefault(x => x.VTypeId == (int) VoucherTypeEnum.PurchaseReturn)
+                            .Id,
+                        VoucherDate = spur.VoucherDate,
+                        Rcm = "NO",
+                        Itc = "Inputs",
+                        BookAcId = chkbk.Id,
+                        RcdDate =  KontoUtils.IToD( Convert.ToInt32(spur.OrderDate)),
+                        VoucherNo = spur.VoucherNo,
+                        RefNo = spur.ChallanNo,
+                        BillNo = spur.BillNo,
+                        EmpId = 1,
+                        StoreId = 1,
+                        Remarks = spur.PurchaseRemark,
+                        DocNo = spur.LrNo,
+                        //DocDate = KontoUtils.IToD(spur.LrDate),
+                        TypeId = (int) VoucherTypeEnum.PurchaseReturn,
+                        CompId = KontoGlobals.CompanyId,
+                        YearId = KontoGlobals.YearId,
+                        BranchId = KontoGlobals.BranchId,
+                        RoundOff = spur.RoundOff,
+                        //  Duedays = spur.DueDays,
+                        // TdsAmt = spur.TdsAmount == null ? 0 : (int)spur.TdsAmount,
+                        // TdsPer = spur.TDSPer == null ? 0 : (int)spur.TDSPer,
+                        GrossAmount = spur.TotalGross,
+                        TotalAmount = spur.BillAmount,
+                        TotalQty = spur.TotalQty,
+                        TotalPcs = spur.TotalPcs,
+                        IsActive = true,
+                        RefId = (int) spur.PurchaseRetID,
+                        RefVoucherId = (int) spur.VoucherID,
+
+
+                    };
+
+                    db.Bills.Add(model);
+                    db.SaveChanges();
+
+                    //var strs = sdb.PurchaseTranses.Where(x => x.PurchaseID == spur.PurchaseID).ToList();
+                    List<BillTransModel> bts = new List<BillTransModel>();
+                    foreach (var str in spur.PurchaseRetTrans)
+                    {
+
+                        //check for item exist
+                        var chkitem = db.Products.SingleOrDefault(x => x.ParentItemId == str.ItemID);
+                        if (chkitem == null)
+                            chkitem = CreateProduct(db, (int) str.ItemID, sdb);
+
+                        var bt = new BillTransModel
+                        {
+                            Cgst = str.VatAmount,
+                            CgstPer = str.VatPer,
+                            Cut = str.Cut,
+                            ProductId = chkitem.Id,
+                            BillId = model.Id,
+                            Qty = str.Qty,
+                            Pcs = (int) str.Pcs,
+                            Rate = str.Rate,
+                            Total = str.Total,
+                            Disc = str.DiscPer,
+                            DiscAmt = str.DiscAmount,
+                            FreightRate = str.ExcisePer,
+                            Freight = str.ExciseAmount,
+                            Sgst = str.AdVatAmount,
+                            SgstPer = str.AdVatPer,
+                            Igst = str.CSTAmount,
+                            IgstPer = str.CSTPer,
+                            NetTotal = str.NetTotal,
+                            Remark = str.ItemRemark,
+                            UomId = GetUnitId(str.UnitID ?? 0)
+                        };
+                        bts.Add(bt);
+
+                    }
+
+                    db.BillTrans.AddRange(bts);
+
+                    if (bb != null)
+                    {
+
+                        var dpb = db.Bills.FirstOrDefault(x => x.RefId == bb.BillRefId
+                                                               && x.RefVoucherId == bb.BillRefVoucherId);
+
+                        if (dpb != null)
+                        {
+                            var br = db.BillRefs.FirstOrDefault(x => x.BillId == dpb.Id);
+                            if (br != null)
+                            {
+                                var btob = new BtoBModel();
+
+
+                                btob.Amount = bb.Amount;
+                                btob.BillId = dpb.Id;
+                                btob.RefId = model.Id;
+                                btob.RefVoucherId = model.VoucherId;
+                                btob.RefTransId = model.Id;
+                                btob.BillNo = dpb.BillNo;
+                                btob.BillTransId = dpb.Id;
+                                btob.BillVoucherId = dpb.VoucherId;
+                                btob.CompanyId = KontoGlobals.CompanyId;
+                                btob.TransType = "Return";
+                               
+                                btob.RefCode = br.RowId;
+                                db.BtoBs.Add(btob);
+                            }
+                        }
+                    }
+                
+
+
+
+
+
+                    db.SaveChanges();
+
+                    LedgerEff.BillRefEntry("Debit", model, 0, db);       //Insert or update in Billref table
+
+                    //Insert or update in LedgerTrans table
+                    LedgerEff.LedgerTransEntry("Debit", model, db, bts);
+
+                    // Insert in BtoB for BillAdjustment
+                    // LedgerEff.BtoBEntry("PInvoice", model.Id, model, db, null);
+
+                    //foreach (var item in bts)
+                    //{
+                    //    bool IsIssue = false;
+                    //    string TableName = "PurchaseInvoice";
+
+                    //    var stockReq = db.Products.FirstOrDefault(k => k.Id == item.ProductId).StockReq;
+                    //    if (stockReq == "No")
+                    //    {
+                    //        continue;
+                    //    }
+                    //    StockEffect.StockTransBillEntry(model, item, IsIssue, TableName, db);
+                    //}
+                }
+
+            }
+
+            db.SaveChanges();
+
+
 
         }
 

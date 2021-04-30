@@ -286,7 +286,7 @@ namespace Konto.Shared.Account
             }
 
 
-            decimal Bal = Convert.ToInt32(BillList.Sum(k => k.Amount));
+            decimal Bal = Convert.ToDecimal(BillList.Sum(k => k.Amount));
             // decimal? Sum = viewModel.Trans.Sum(k => k.NetTotal);
             decimal Sum = TotalAmount;
             Balance = Sum - Bal;
@@ -299,7 +299,7 @@ namespace Konto.Shared.Account
             var due = er.NetTotal - er.TdsAmt - er.PaidAmt - er.RetAmt;
             er.DueAmt = due - er.Amount - er.Adla1 - er.Adla2 - er.Adla3 - er.Adla4 - er.Adla5 - er.Adla6 - er.Adla7 - er.Adla8 - er.Adla9 - er.Adla10;
             gridView1.UpdateCurrentRow();
-            Bal = Convert.ToInt32(BillList.Sum(k => k.Amount));
+            Bal = Convert.ToDecimal(BillList.Sum(k => k.Amount));
             lblBalance.Text = "Pending : " + (this.TotalAmount - Bal).ToString("F");
         }
 
@@ -308,8 +308,21 @@ namespace Konto.Shared.Account
             if (e.KeyCode == Keys.F5)
             {
                 var dr = gridView1.GetRow(gridView1.FocusedRowHandle) as PendBillListDto;
-                dr.Amount = dr.DueAmt;
+                var Bal = Convert.ToDecimal(BillList
+                    .Where(x=>x.BillId != dr.BillId )
+                    .Sum(k => k.Amount));
+
+                if (this.TotalAmount - Bal > 0)
+                {
+                    if (dr.DueAmt < (this.TotalAmount - Bal))
+                        dr.Amount = dr.DueAmt;
+                    else
+                        dr.Amount = this.TotalAmount - Bal;
+                }
+
                 gridView1.UpdateCurrentRow();
+                Bal = Convert.ToDecimal(BillList.Sum(k => k.Amount));
+                lblBalance.Text = "Pending : " + (this.TotalAmount - Bal).ToString("F");
             }
         }
 

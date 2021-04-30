@@ -892,6 +892,16 @@ namespace Konto.Shared.Trans.PInvoice
                                 PurchasePara.Barcode_Required = (value == "Y") ? true : false;
                                 break;
                             }
+                        case 308:
+                        {
+                            PurchasePara.OtherAdd_Required = (value == "Y") ? true : false;
+                            break;
+                        }
+                        case 309:
+                        {
+                            PurchasePara.OtherLess_Required = (value == "Y") ? true : false;
+                            break;
+                        }
                     }
                 }
             }

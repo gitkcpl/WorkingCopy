@@ -27,11 +27,11 @@ using Konto.Core.Shared.Libs;
 
 namespace Konto.Reporting.Chal
 {
-    public partial class RepChallanView : KontoForm
+    public partial class RepSalesChallanView : KontoForm
     {
         public bool MultiView { get; set; }
         //public string ReportFilterType { get; set; }
-        public RepChallanView()
+        public RepSalesChallanView()
         {
             InitializeComponent();
             this.Load += LedgerParaView_Load;
@@ -45,8 +45,10 @@ namespace Konto.Reporting.Chal
             this.customSimpleButton.Click += CustomSimpleButton_Click;
 
             this.repGridView1.FocusedRowChanged += RepGridView1_FocusedRowChanged;
-          
 
+            this.FirstActiveControl = fDateEdit;
+
+            
         }
 
         private void RepGridView1_FocusedRowChanged(object sender, DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventArgs e)
@@ -56,7 +58,6 @@ namespace Konto.Reporting.Chal
             {
                 cols.Add(new BaseLookupDto(){DisplayText = "Date",Id=0});
                 cols.Add(new BaseLookupDto() { DisplayText = "VoucherNo", Id = 1 });
-                cols.Add(new BaseLookupDto() { DisplayText = "ChallanNo", Id = 2 });
                 cols.Add(new BaseLookupDto() { DisplayText = "OrderNo", Id = 3 });
                 cols.Add(new BaseLookupDto() { DisplayText = "OrderDate", Id = 4 });
                 cols.Add(new BaseLookupDto() { DisplayText = "Party", Id = 5 });
@@ -68,14 +69,13 @@ namespace Konto.Reporting.Chal
                 
                 colsGridControl.DataSource = cols;
 
-                colsGridView.SelectRows(0,2);
-                colsGridView.SelectRows(5, 7);
+                colsGridView.SelectRows(0,1);
+                colsGridView.SelectRows(4, 6);
             }
             else if (repGridView1.FocusedRowHandle == 1)
             {
                 cols.Add(new BaseLookupDto() { DisplayText = "Date", Id = 0 });
                 cols.Add(new BaseLookupDto() { DisplayText = "VoucherNo", Id = 1 });
-                cols.Add(new BaseLookupDto() { DisplayText = "ChallanNo", Id = 2 });
                 cols.Add(new BaseLookupDto() { DisplayText = "OrderNo", Id = 3 });
                 cols.Add(new BaseLookupDto() { DisplayText = "OrderDate", Id = 4 });
                 cols.Add(new BaseLookupDto() { DisplayText = "Party", Id = 5 });
@@ -93,9 +93,9 @@ namespace Konto.Reporting.Chal
                 cols.Add(new BaseLookupDto() { DisplayText = "Remark", Id = 17 });
                 colsGridControl.DataSource = cols;
 
-                colsGridView.SelectRows(0, 2);
-                colsGridView.SelectRows(5, 6);
-                colsGridView.SelectRows(12, 14);
+                colsGridView.SelectRows(0, 1);
+                colsGridView.SelectRows(4, 5);
+                colsGridView.SelectRows(11, 13);
             }
             else
             {
@@ -187,7 +187,10 @@ namespace Konto.Reporting.Chal
                 xrep.Parameters["challan_type"].Value = challanTypeLookUpEdit.EditValue;
             }
 
-            xrep.Parameters["vtype_id"].Value = VoucherTypeEnum.Inward;
+            if(radioGroup2.SelectedIndex==1)
+                xrep.Parameters["vtype_id"].Value = VoucherTypeEnum.SalesChallan;
+            else
+                xrep.Parameters["vtype_id"].Value = VoucherTypeEnum.OutJobChallan;
 
             if (Convert.ToInt32(voucherLookup1.SelectedValue) > 0)
                 xrep.Parameters["voucher_id"].Value = voucherLookup1.SelectedValue;
@@ -256,9 +259,10 @@ namespace Konto.Reporting.Chal
                 //party
                 _paraList.AddRange(KontoUtils.SetReportParameter(xrep, ledgerGridView, "party", _ReportId));
                 _paraList.AddRange(KontoUtils.SetReportParameter(xrep, pgGridView1, "party_group", _ReportId));
-                _paraList.AddRange(KontoUtils.SetReportParameter(xrep, agentGridView1, "Agent", _ReportId));
-                _paraList.AddRange(KontoUtils.SetReportParameter(xrep, designGridView1, "Design", _ReportId));
-                
+                _paraList.AddRange(KontoUtils.SetReportParameter(xrep, agentGridView1, "agent", _ReportId));
+                _paraList.AddRange(KontoUtils.SetReportParameter(xrep, designGridView1, "design", _ReportId));
+                _paraList.AddRange(KontoUtils.SetReportParameter(xrep, catGridView, "category", _ReportId));
+                _paraList.AddRange(KontoUtils.SetReportParameter(xrep, processGridView, "process", _ReportId));
 
                 _db.ReportParas.AddRange(_paraList);
                 _db.SaveChanges();
@@ -309,7 +313,8 @@ namespace Konto.Reporting.Chal
             }
         }
 
-    
+      
+
         private void LedgerGridView_RowCellStyle(object sender, RowCellStyleEventArgs e)
         {
             GridView gridView = (GridView)sender;
@@ -448,7 +453,7 @@ namespace Konto.Reporting.Chal
             {
 
                 var AccList = db.Database.SqlQuery<AccLookupDto>("dbo.acclookup @groupid={0},@companyid={1},@yearid={2},@taxtype={3},@nature={4},@fillparty={5},@vouchertypeid={6}"
-                    , 0, KontoGlobals.CompanyId, KontoGlobals.YearId, "N", "ALL", "Y", VoucherTypeEnum.Inward).ToList();
+                    , 0, KontoGlobals.CompanyId, KontoGlobals.YearId, "N", "ALL", "Y", VoucherTypeEnum.SalesChallan).ToList();
 
                 var agentlist = (from ac in db.Accs
                                  join pd in db.AccBals on ac.Id equals pd.AccId into join_pd
@@ -501,7 +506,7 @@ namespace Konto.Reporting.Chal
 
 
                 var reptype = db.ReportTypes
-               .Where(k => k.IsActive && !k.IsDeleted && k.ReportTypes =="PCHALLAN")
+               .Where(k => k.IsActive && !k.IsDeleted && k.ReportTypes =="SCHALLAN")
                .ToList();
 
                 
@@ -512,11 +517,19 @@ namespace Konto.Reporting.Chal
                 var TransTypeList = new List<TransType>();
                 
                     TransTypeList = db.transTypes.
-                    Where(k => k.IsActive && !k.IsDeleted && k.Category=="Inward"
+                    Where(k => k.IsActive && !k.IsDeleted && k.Category=="Outward"
                    )
                     .ToList();
 
-                
+                    var cats = db.CategroyModels.Where(x => !x.IsDeleted)
+                        .OrderBy(x => x.CatName)
+                        .Select(x => new BaseLookupDto { DisplayText = x.CatName, Id = x.Id })
+                        .ToList();
+
+                    var process = db.Process.Where(x => !x.IsDeleted)
+                        .OrderBy(x => x.ProcessName)
+                        .Select(x => new BaseLookupDto { DisplayText = x.ProcessName, Id = x.Id })
+                        .ToList();
 
                 challanTypeLookUpEdit.Properties.DataSource = TransTypeList;
 
@@ -533,17 +546,20 @@ namespace Konto.Reporting.Chal
                 colorGridControl.DataSource = colorList;
                 groupGridControl1.DataSource = groups;
                 typeGridControl.DataSource = types;
-                
+                catGridControl.DataSource = cats;
+                processGridControl.DataSource = process;
+
             }
             List<ComboBoxPairs> cbg = new List<ComboBoxPairs>
             {
                 new ComboBoxPairs("None", "None"),
+                new ComboBoxPairs("Division", "Division"),
+                new ComboBoxPairs("Branch", "Branch"),
+                new ComboBoxPairs("Process", "Process"),
                 new ComboBoxPairs("Party", "Party"),
                 new ComboBoxPairs("Agent", "Agent"),
                 new ComboBoxPairs("PartyGroup", "PartyGroup"),
                 new ComboBoxPairs("Voucher", "Voucher"),
-                new ComboBoxPairs("Division", "Division"),
-                new ComboBoxPairs("Branch", "Branch"),
                 new ComboBoxPairs("Item", "Item"),
                 new ComboBoxPairs("Color", "Color"),
                 new ComboBoxPairs("Design", "Design"),
@@ -558,10 +574,8 @@ namespace Konto.Reporting.Chal
             gp2lookUpEdit.Properties.DataSource = cbg;
             gp2lookUpEdit.EditValue = "None";
 
-
             fDateEdit.DateTime = KontoGlobals.DFromDate;
             tDateEdit.DateTime = KontoGlobals.DToDate;
-
         }
 
         private void acGroupGridControl_Click(object sender, EventArgs e)
@@ -572,6 +586,14 @@ namespace Konto.Reporting.Chal
         private void customGridControl2_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void radioGroup2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (radioGroup2.SelectedIndex == 0)
+                voucherLookup1.VTypeId =  VoucherTypeEnum.OutJobChallan;
+            else
+                voucherLookup1.VTypeId = VoucherTypeEnum.SalesChallan;
         }
     }
 }

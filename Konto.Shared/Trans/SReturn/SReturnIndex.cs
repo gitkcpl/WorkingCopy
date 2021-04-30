@@ -745,6 +745,16 @@ namespace Konto.Shared.Trans.SReturn
                                 SaleRetPara.Barcode_Required = (value == "Y") ? true : false;
                                 break;
                             }
+                        case 306:
+                        {
+                            SaleRetPara.OtherAdd_Required = (value == "Y") ? true : false;
+                            break;
+                        }
+                        case 307:
+                        {
+                            SaleRetPara.OtherLess_Required = (value == "Y") ? true : false;
+                            break;
+                        }
                     }
                 }
             }

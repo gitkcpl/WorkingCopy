@@ -3427,7 +3427,8 @@ END
 
 --UserMaster - 902
 
-IF NOT EXISTS (SELECT 1 FROM dbo.Permissions WHERE Id=374)
+IF NOT EXISTS (SELECT 1 FROM dbo.Permissions WHERE Id=
+)
 BEGIN
 	INSERT INTO dbo.Permissions(Id,PermissionDescription,RowId,ModuleId,PermissionType,PermissionTypeId)
 	values(374,'UserMaster-Create',NEWID(),902,'Setup',1)
@@ -4027,5 +4028,44 @@ BEGIN
 	values(635,'Gate_Inward_Register-Print',NEWID(),861,'Report',6)
 END
 
+
+-- store return
+
+--374
+IF NOT EXISTS (SELECT 1 FROM dbo.Permissions WHERE Id=636)
+BEGIN
+	INSERT INTO dbo.Permissions(Id,PermissionDescription,RowId,ModuleId,PermissionType,PermissionTypeId)
+	values(636,'Store-Return-Create',NEWID(),374,'Transaction',1)
+END
+
+IF NOT EXISTS (SELECT 1 FROM dbo.Permissions WHERE Id=637)
+BEGIN
+	INSERT INTO dbo.Permissions(Id,PermissionDescription,RowId,ModuleId,PermissionType,PermissionTypeId)
+	values(637,'Store-Return-Modify',NEWID(),374,'Transaction',2)
+END                       
+
+IF NOT EXISTS (SELECT 1 FROM dbo.Permissions WHERE Id=638)
+BEGIN
+	INSERT INTO dbo.Permissions(Id,PermissionDescription,RowId,ModuleId,PermissionType,PermissionTypeId)
+	values(638,'Store-Return-Delete',NEWID(),374,'Transaction',3)
+END
+
+IF NOT EXISTS (SELECT 1 FROM dbo.Permissions WHERE Id=639)
+BEGIN
+	INSERT INTO dbo.Permissions(Id,PermissionDescription,RowId,ModuleId,PermissionType,PermissionTypeId)
+	values(639,'Store-Return-View',NEWID(),374,'Transaction',4)
+END
+
+IF NOT EXISTS (SELECT 1 FROM dbo.Permissions WHERE Id=640)
+BEGIN
+	INSERT INTO dbo.Permissions(Id,PermissionDescription,RowId,ModuleId,PermissionType,PermissionTypeId)
+	values(640,'Store-Return-Export',NEWID(),374,'Transaction',5)
+END
+
+IF NOT EXISTS (SELECT 1 FROM dbo.Permissions WHERE Id=641)
+BEGIN
+	INSERT INTO dbo.Permissions(Id,PermissionDescription,RowId,ModuleId,PermissionType,PermissionTypeId)
+	values(641,'Store-Return-Print',NEWID(),374,'Transaction',6)
+END
 
 SET IDENTITY_INSERT dbo.Permissions OFF

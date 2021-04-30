@@ -653,6 +653,16 @@ namespace Konto.Shared.Trans.PReturn
                                 PurchaseRetPara.Barcode_Required = (value == "Y") ? true : false;
                                 break;
                             }
+                        case 310:
+                        {
+                            PurchaseRetPara.OtherAdd_Required = (value == "Y") ? true : false;
+                            break;
+                        }
+                        case 311:
+                        {
+                            PurchaseRetPara.OtherLess_Required = (value == "Y") ? true : false;
+                            break;
+                        }
                     }
                 }
             }
@@ -1636,7 +1646,7 @@ namespace Konto.Shared.Trans.PReturn
                             _find = db.Bills.Find(this.PrimaryKey);
                         }
 
-                       if(! UpdateBill(db, _find))
+                        if(! UpdateBill(db, _find))
                         {
                             _tran.Rollback();
                             return;

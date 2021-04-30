@@ -59,6 +59,7 @@ namespace Konto.Shared.Trans.SalesChallan
             gradeRepositoryItemButtonEdit.ButtonClick += GradeRepositoryItemButtonEdit_ButtonClick;
             designRepositoryItemButtonEdit.ButtonClick += DesignRepositoryItemButtonEdit_ButtonClick;
             accLookup1.SelectedValueChanged += AccLookup1_SelectedValueChanged;
+            delvLookup.SelectedValueChanged += DelvLookup_SelectedValueChanged;
             repositoryItemHyperLinkEdit1.OpenLink += RepositoryItemHyperLinkEdit1_OpenLink;
             gridView1.InitNewRow += GridView1_InitNewRow;
             gridView1.CellValueChanged += GridView1_CellValueChanged;
@@ -85,6 +86,18 @@ namespace Konto.Shared.Trans.SalesChallan
             voucherLookup1.SelectedValueChanged += VoucherLookup1_SelectedValueChanged;
 
             this.FirstActiveControl = voucherLookup1;
+        }
+
+        private void DelvLookup_SelectedValueChanged(object sender, EventArgs e)
+        {
+            if (delvLookup.LookupDto == null) return;
+            //if (this.PrimaryKey == 0)
+            // {
+            //addressLookup1.sel
+            addressLookup1.SetValue(this.delvLookup.LookupDto.AddressId);
+            addressLookup1.SelectedValue = this.delvLookup.LookupDto.AddressId;
+            
+            // }
         }
 
         private void ScIndex_Shown(object sender, EventArgs e)
@@ -499,7 +512,10 @@ namespace Konto.Shared.Trans.SalesChallan
                 addressLookup1.SelectedValue = model.DelvAdrId;
 
                 if (Convert.ToInt32(model.DelvAdrId) > 0)
-                    addressLookup1.SetValue((int)model.DelvAdrId);
+                {
+                    if (model.DelvAdrId != null)
+                        addressLookup1.SetValue((int) model.DelvAdrId);
+                }
 
                 driverTextEdit.Text = model.DName;
 

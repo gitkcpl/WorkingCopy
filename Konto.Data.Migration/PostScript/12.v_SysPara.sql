@@ -1261,6 +1261,40 @@ INSERT INTO dbo.SysPara(Id,Descr,DefaultValue,ValueDescr,Category)
 Values(303,'Repeat Product','N','Y for Yes N for No','Outward')
 
 
+
+IF NOT EXISTS(SELECT 1 FROM dbo.SysPara WHERE Id=304)
+INSERT INTO dbo.SysPara(Id,Descr,DefaultValue,ValueDescr,Category)
+Values(304,'Other Add Required','N','Y for Yes N for No','SaleInvoice')
+ 
+IF NOT EXISTS(SELECT 1 FROM dbo.SysPara WHERE Id=305)
+INSERT INTO dbo.SysPara(Id,Descr,DefaultValue,ValueDescr,Category)
+Values(305,'Other Less Detail','N','Y for Yes N for No','SaleInvoice')
+
+
+IF NOT EXISTS(SELECT 1 FROM dbo.SysPara WHERE Id=306)
+INSERT INTO dbo.SysPara(Id,Descr,DefaultValue,ValueDescr,Category)
+Values(306,'Other Add Required','N','Y for Yes N for No','SaleRet')
+ 
+IF NOT EXISTS(SELECT 1 FROM dbo.SysPara WHERE Id=307)
+INSERT INTO dbo.SysPara(Id,Descr,DefaultValue,ValueDescr,Category)
+Values(307,'Other Less Detail','N','Y for Yes N for No','SaleRet')
+
+IF NOT EXISTS(SELECT 1 FROM dbo.SysPara WHERE Id=308)
+INSERT INTO dbo.SysPara(Id,Descr,DefaultValue,ValueDescr,Category)
+Values(308,'Other Add Required','N','Y for Yes N for No','PurchaseBill')
+ 
+IF NOT EXISTS(SELECT 1 FROM dbo.SysPara WHERE Id=309)
+INSERT INTO dbo.SysPara(Id,Descr,DefaultValue,ValueDescr,Category)
+Values(309,'Other Less Detail','N','Y for Yes N for No','PurchaseBill')
+
+IF NOT EXISTS(SELECT 1 FROM dbo.SysPara WHERE Id=310)
+INSERT INTO dbo.SysPara(Id,Descr,DefaultValue,ValueDescr,Category)
+Values(310,'Other Add Required','N','Y for Yes N for No','PurchaseRet')
+ 
+IF NOT EXISTS(SELECT 1 FROM dbo.SysPara WHERE Id=311)
+INSERT INTO dbo.SysPara(Id,Descr,DefaultValue,ValueDescr,Category)
+Values(311,'Other Less Detail','N','Y for Yes N for No','PurchaseRet')
+
 -- for system level
 IF NOT EXISTS(SELECT 1 FROM dbo.SysPara WHERE Id=500) 
 INSERT INTO dbo.SysPara(Id,Descr,DefaultValue,ValueDescr,Category)
@@ -1281,7 +1315,7 @@ Values(503,'Gsp Name Production','TaxPro_Production','Gsp Name','sys')
 
 IF NOT EXISTS(SELECT 1 FROM dbo.SysPara WHERE Id=504) 
 INSERT INTO dbo.SysPara(Id,Descr,DefaultValue,ValueDescr,Category)
-Values(504,'Api Base Url','https://einvapi.charteredinfo.com','Api Base Url','sys')
+Values(504,'Api Base Url','https://api.taxprogsp.co.in/','Api Base Url','sys')
 
 
 IF NOT EXISTS(SELECT 1 FROM dbo.SysPara WHERE Id=505) 

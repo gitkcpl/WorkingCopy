@@ -672,13 +672,13 @@ namespace Konto.Trading.JobReceipt
             {
 
 
-                //var _divLists = (from p in db.Divisions
-                //                 where p.IsActive && !p.IsDeleted
-                //                 select new BaseLookupDto()
-                //                 {
-                //                     DisplayText = p.DivisionName,
-                //                     Id = p.Id
-                //                 }).ToList();
+                var _divLists = (from p in db.Divisions
+                                 where p.IsActive && !p.IsDeleted
+                                 select new BaseLookupDto()
+                                 {
+                                     DisplayText = p.DivisionName,
+                                     Id = p.Id
+                                 }).ToList();
 
                 var _storeLists = (from p in db.Stores
                                    where p.IsActive && !p.IsDeleted
@@ -700,6 +700,7 @@ namespace Konto.Trading.JobReceipt
 
 
                 uomRepositoryItemLookUpEdit.DataSource = _uomlist;
+                divLookUpEdit.Properties.DataSource = _divLists;
 
                 // invTypeLookUpEdit.Properties.DataSource = _divLists;
                 storeLookUpEdit.Properties.DataSource = _storeLists;

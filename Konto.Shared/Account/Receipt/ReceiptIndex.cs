@@ -299,7 +299,12 @@ namespace Konto.Shared.Account.Receipt
 
                 er.ToAccId = frm.SelectedValue;
                 er.Particular = frm.SelectedTex;
-                
+
+                if (acc.BToB == "Yes")
+                {
+                    er.RpType = "Bill";
+                }
+
                 if (acc != null)
                     er.Balance = acc.Balance;
 
@@ -1058,6 +1063,7 @@ namespace Konto.Shared.Account.Receipt
                 b.RefId = model.Id;
                 b.RefTransId = item.Id;
                 b.RefVoucherId = model.VoucherId;
+                p.RefTransId = item.Id;
                 db.BtoBs.Add(b);
 
                

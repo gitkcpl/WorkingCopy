@@ -221,6 +221,7 @@ namespace Konto.Pos.PR
         }
         private void BillNoTextEdit_ButtonClick(object sender, ButtonPressedEventArgs e)
         {
+            if (this.PrimaryKey != 0) return;
             if (string.IsNullOrEmpty(billNoTextEdit.Text.Trim())) return;
  
             using (var _context = new KontoContext())

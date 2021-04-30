@@ -193,7 +193,8 @@ namespace Konto.Shared.Trans.Common
 
             var shp = db.Accs.Find((int)BModel.DelvAccId);
 
-            var shpAdr = db.AccAddresses.Include("City").Include("State").SingleOrDefault(x => x.Id == BModel.DelvAdrId);
+            var shpAdr = db.AccAddresses.Include("City")
+                .Include("City.State").SingleOrDefault(x => x.Id == BModel.DelvAdrId);
 
             reqPlGenIRN.ShipDtls = new ReqPlGenIRN.ShippedDetails();
             reqPlGenIRN.ShipDtls.Gstin = shp.GstIn;
@@ -211,7 +212,7 @@ namespace Konto.Shared.Trans.Common
             {
                 ReqPlGenIRN.ItmList itm = new ReqPlGenIRN.ItmList();
 
-                var it = db.Products.Find(item.Id);
+                var it = db.Products.Find(item.ProductId);
                 var ut = db.Uoms.Find(item.UomId);
 
                 itm.SlNo = srno.ToString();
