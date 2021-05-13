@@ -22,6 +22,7 @@ namespace Konto.Shared.Masters.Acc
     {
         private List<AccModel> FilterView = new List<AccModel>();
         public int GroupId { get; set; }
+        private int? CollById = 0;
         public AccIndex()
         {
             InitializeComponent();
@@ -300,7 +301,7 @@ namespace Konto.Shared.Masters.Acc
             agentLookup1.SetAcc(1);
             transportLookup2.SelectedValue = 1;
             transportLookup2.SetAcc(1);
-
+            CollById = 0;
             createdLabelControl.Text = "Create By: " + KontoGlobals.UserName;
             modifyLabelControl.Text = string.Empty;
             if(this.GroupId > 0)
@@ -412,7 +413,7 @@ namespace Konto.Shared.Masters.Acc
             transportLookup2.SetAcc(model.TransportId);
             crLimitKontoTextBox.DoubleValue = (double) model.CrLimit;
             daysKontoTextBox.DoubleValue = (double)model.CrDays;
-       
+            CollById = model.CollById;
             toggleSwitch1.EditValue = model.IsActive;
             toggleSwitch1.Enabled = true;
 
@@ -513,7 +514,7 @@ namespace Konto.Shared.Masters.Acc
             model.AgentId = Convert.ToInt32(agentLookup1.SelectedValue);
             model.TransportId = Convert.ToInt32(transportLookup2.SelectedValue);
             model.DiscPer = (decimal) discPerKontoTextBox.DoubleValue;
-
+            model.CollById = CollById;
             if (rateTypeKontoComboBoxEx.SelectedValue != null)
                 model.Extra2 = rateTypeKontoComboBoxEx.SelectedValue.ToString();
             else
@@ -549,7 +550,8 @@ namespace Konto.Shared.Masters.Acc
             AddrModel.CityId = balmodel.CityId;
             AddrModel.Email = balmodel.Email;
             AddrModel.MobileNo = balmodel.MobileNo;
-
+            AddrModel.PinCode = balmodel.PinCode;
+            
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<AccDto, AccModel>().ForMember(x => x.Id, p => p.Ignore()

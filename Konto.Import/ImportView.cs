@@ -50,8 +50,8 @@ namespace Konto.Import
 
                       //  splashScreenManager1.ShowWaitForm();
                       //  splashScreenManager1.SetWaitFormCaption("Importing Sales..");
-                        Purchase(db, sdb);
-                        PurchaseReturn(db, sdb);
+                       //Purchase(db, sdb);
+                      //  PurchaseReturn(db, sdb);
                         Sales(db, sdb);
                         
                         DbUtils.Update_Account_Balance(db);
@@ -179,7 +179,9 @@ namespace Konto.Import
 
                         bt.Rate = rt > 0 ? rt : str.Rate ?? 0;
 
-                        var bankacid = spur.SalesPay.FirstOrDefault().BankAcID;
+                        long? bankacid = 0;
+                        if (spur.SalesPay.Count >0) 
+                          bankacid =  spur.SalesPay.FirstOrDefault().BankAcID;
 
                         //bt.SaleRate = str.RetailRate ?? 0;
                         if (rt > 0 && (bankacid ?? 0)  == 0 )
@@ -252,33 +254,34 @@ namespace Konto.Import
                     
 
                     var bp = new BillPay();
-
-                    foreach (var py in spur.SalesPay)
+                    if (spur.SalesPay != null)
                     {
-                        bp = new BillPay();
+                        foreach (var py in spur.SalesPay)
+                        {
+                            bp = new BillPay();
 
-                        bp.IsActive = true;
-                        bp.BillId = model.Id;
-                        
-                        if (py.CashAcID != null)
-                            bp.Pay1Id = 1;
-                        
-                        if (py.BankAcID != null)
-                            bp.Pay2Id = 2;
+                            bp.IsActive = true;
+                            bp.BillId = model.Id;
 
-                        if (flg)
-                            bp.Pay1Amt = model.TotalAmount;
-                        else
-                            bp.Pay1Amt = py.CashAmt ?? 0;
+                            if (py.CashAcID != null)
+                                bp.Pay1Id = 1;
 
-                        bp.Pay2Amt = py.CardAmt ?? 0;
-                        bp.PayDate = py.PaymentDate ?? 0;
-                        bp.DiscAmt = py.DiscAmt ?? 0;
+                            if (py.BankAcID != null)
+                                bp.Pay2Id = 2;
 
-                        bp.BillId = model.Id;
-                        db.BillPays.Add(bp);
+                            if (flg)
+                                bp.Pay1Amt = model.TotalAmount;
+                            else
+                                bp.Pay1Amt = py.CashAmt ?? 0;
+
+                            bp.Pay2Amt = py.CardAmt ?? 0;
+                            bp.PayDate = py.PaymentDate ?? 0;
+                            bp.DiscAmt = py.DiscAmt ?? 0;
+
+                            bp.BillId = model.Id;
+                            db.BillPays.Add(bp);
+                        }
                     }
-
                    // db.SaveChanges();
 
                    // LedgerEff.BillRefEntry("Debit", model, 0, db);       //Insert or update in Billref table

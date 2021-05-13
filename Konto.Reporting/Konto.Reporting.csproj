@@ -588,6 +588,7 @@
     <None Include="Properties\DataSources\Konto.Data.Models.Reports.Gstr1HsnDto.datasource" />
     <None Include="Properties\DataSources\Konto.Data.Models.Reports.gstr1_docDto.datasource" />
     <None Include="Properties\DataSources\Konto.Data.Models.Reports.Gstrb2csDto.datasource" />
+    <None Include="Properties\DataSources\Konto.Data.Models.Reports.GstrExempted.datasource" />
     <None Include="Properties\DataSources\Konto.Data.Models.Reports.GsttwoDto.datasource" />
     <None Include="Properties\DataSources\Konto.Data.Models.Reports.OutSummaryDTO.datasource" />
     <None Include="Properties\DataSources\Konto.Data.Models.Reports.PatiaRegDto.datasource" />

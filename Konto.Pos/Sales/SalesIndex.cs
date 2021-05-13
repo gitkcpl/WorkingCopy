@@ -1394,8 +1394,9 @@ namespace Konto.Pos.Sales
             voucherLookup1.SelectedValue = model.VoucherId;
             voucherLookup1.SetGroup(model.VoucherId);
 
-            bookLookup.SelectedValue = model.BookAcId;
             bookLookup.SetAcc(Convert.ToInt32(model.BookAcId));
+            bookLookup.SelectedValue = model.BookAcId;
+            
             voucherDateEdit.EditValue = KontoUtils.IToD(model.VoucherDate);
             voucherNoTextEdit.Text = model.VoucherNo;
 

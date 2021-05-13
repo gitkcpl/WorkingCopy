@@ -1291,9 +1291,17 @@ IF NOT EXISTS(SELECT 1 FROM dbo.SysPara WHERE Id=310)
 INSERT INTO dbo.SysPara(Id,Descr,DefaultValue,ValueDescr,Category)
 Values(310,'Other Add Required','N','Y for Yes N for No','PurchaseRet')
  
-IF NOT EXISTS(SELECT 1 FROM dbo.SysPara WHERE Id=311)
+
+ IF NOT EXISTS(SELECT 1 FROM dbo.SysPara WHERE Id=312)
 INSERT INTO dbo.SysPara(Id,Descr,DefaultValue,ValueDescr,Category)
-Values(311,'Other Less Detail','N','Y for Yes N for No','PurchaseRet')
+Values(312,'Freight Calculate On Qty','Y','Y for Yes N for No','SaleInvoice')
+
+IF NOT EXISTS(SELECT 1 FROM dbo.SysPara WHERE Id=313)
+INSERT INTO dbo.SysPara(Id,Descr,DefaultValue,ValueDescr,Category)
+Values(313,'Default Freight Rate','0','Default Rate For Freight','SaleInvoice')
+
+
+
 
 -- for system level
 IF NOT EXISTS(SELECT 1 FROM dbo.SysPara WHERE Id=500) 

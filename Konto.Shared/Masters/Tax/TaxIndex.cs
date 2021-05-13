@@ -30,6 +30,7 @@ namespace Konto.Shared.Masters.Tax
             cbp.Add(new ComboBoxPairs("GST", "GST"));
             cbp.Add(new ComboBoxPairs("Nil Rated", "Nil Rated"));
             cbp.Add(new ComboBoxPairs("Non GST", "Non GST"));
+            cbp.Add(new ComboBoxPairs("Exempted", "Exempted"));
             cbp.Add(new ComboBoxPairs("Other", "Other"));
             taxTypeComboBox.DisplayMember = "_Key";
             taxTypeComboBox.ValueMember = "_Value";

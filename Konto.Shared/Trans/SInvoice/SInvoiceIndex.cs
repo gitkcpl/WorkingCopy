@@ -632,6 +632,10 @@ namespace Konto.Shared.Trans.SInvoice
                 else
                     er.SaleRate =  model.SaleRate;
 
+                if((int)accLookup1.LookupDto.GroupId == (int) LedgerGroupEnum.SUNDRY_DEBTORS)
+                {
+                    er.FreightRate = BillPara.Default_Freight_Rate;
+                }
                 
 
                 if (model.SaleRateTaxInc)
@@ -841,10 +845,14 @@ namespace Konto.Shared.Trans.SInvoice
             
                gross= gross - er.DiscAmt;
 
-            
-            if (er.FreightRate > 0 && fldName!= "Freight")
-                er.Freight = decimal.Round(er.Qty * er.FreightRate / 100, 2, MidpointRounding.AwayFromZero);
 
+            if (er.FreightRate > 0 && fldName != "Freight")
+            {
+                if(BillPara.Freight_On_Qty)
+                    er.Freight = decimal.Round(er.Qty * er.FreightRate, 2, MidpointRounding.AwayFromZero);
+                else
+                    er.Freight = decimal.Round(er.Pcs * er.FreightRate, 2, MidpointRounding.AwayFromZero);
+            }
 
             if (!BillPara.Use_OtherLess_As_RateDiff)
                 gross = gross + er.Freight + er.OtherAdd - er.OtherLess;
@@ -937,7 +945,8 @@ namespace Konto.Shared.Trans.SInvoice
 
 
         }
-        private void SetParameter()
+        private void 
+            SetParameter()
         {
             using (var db = new KontoContext())
             {
@@ -1053,7 +1062,18 @@ namespace Konto.Shared.Trans.SInvoice
                             BillPara.OtherLess_Required = (value == "Y") ? true : false;
                             break;
                         }
+                        case 312:
+                            {
+                                BillPara.Freight_On_Qty = (value == "Y") ? true : false;
+                                break;
+                            }
 
+                        case 313:
+                            {
+                                if (!string.IsNullOrEmpty(value))
+                                    BillPara.Default_Freight_Rate = Convert.ToDecimal(value);
+                                break;
+                            }
                     }
                 }
             }
@@ -1608,6 +1628,10 @@ namespace Konto.Shared.Trans.SInvoice
                 model.Cut = pos.Cut;
                 model.ColorName = pos.ColorName;
 
+                if ((int)accLookup1.LookupDto.GroupId == (int)LedgerGroupEnum.SUNDRY_DEBTORS)
+                {
+                    model.FreightRate = BillPara.Default_Freight_Rate;
+                }
 
                 model.UomId = pos.PurUomId;
                 model.RatePerQty = pos.RatePerQty;

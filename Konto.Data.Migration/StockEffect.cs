@@ -584,7 +584,7 @@ namespace Konto.Data
             }
 
             stock.TransDateTime = DateTime.Now;
-            stock.Pcs = 0;
+          //  stock.Pcs = 0;
 
         
             

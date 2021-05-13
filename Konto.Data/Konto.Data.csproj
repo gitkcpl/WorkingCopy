@@ -231,6 +231,7 @@
     <Compile Include="Models\Reports\Gstr1HsnDto.cs" />
     <Compile Include="Models\Reports\gstr1_docDto.cs" />
     <Compile Include="Models\Reports\Gstrb2csDto.cs" />
+    <Compile Include="Models\Reports\GstrExempted.cs" />
     <Compile Include="Models\Reports\GstSummaryCross.cs" />
     <Compile Include="Models\Reports\GsttwoDto.cs" />
     <Compile Include="Models\Reports\LedgerItemDetailsDto.cs" />

@@ -389,7 +389,7 @@ namespace Konto.Reporting.Para.Gst
 
                 int row = 5;
 
-                var b2b = lst.Where(x => x.IsRevice == 0 && x.VTypeId == 12 && x.BillType =="Regular" && (x.Type == "REG" || x.Type == "CMP")).ToList();
+                var b2b = lst.Where(x => x.IsRevice == 0 && x.VTypeId == 12 && x.BillType =="Regular" && x.GSTRate > 0 && (x.Type == "REG")).ToList();
 
                 foreach (var t in b2b)
                 {
@@ -415,7 +415,7 @@ namespace Konto.Reporting.Para.Gst
                 //List = new ObservableCollection<GstDto>(_db.Database.SqlQuery<GstDto>(
                 //        "dbo.GstReportBtoc @CompanyId={0},@TransTypeId={1},@FromDate={2},@ToDate={3}", Convert.ToInt32(KontoGlobals.CompanyId), VoucherTypeEnum.SaleInvoice,fdate, tdate).ToList());
                 var b2cllist = lst.Where(x => x.IsRevice == 0 && x.BillAmount >= 250000 && x.IGSTAmt > 0
-                       && (x.Type != "REG" && x.Type != "CMP") && x.BillType=="Regular" && x.VTypeId == 12).ToList();
+                       && (x.Type != "REG") && x.BillType=="Regular" && x.VTypeId == 12).ToList();
                 w = wd.Workbook.Worksheets[3];
                 row = 5;
                 foreach (var t in b2cllist)
@@ -463,7 +463,7 @@ namespace Konto.Reporting.Para.Gst
                 ///   "dbo.GstReport @CompanyId={0},@TransTypeId={1},@TransTypeId1={2},@FromDate={3},@ToDate={4},@Billag={5},@TransTypeId2 ={6}", Convert.ToInt32(KontoGlobals.CompanyId), VoucherTypeEnum.DebitCreditNote, VoucherTypeEnum.SaleReturn, fdate, tdate, "SALE", VoucherTypeEnum.DebitCreditNote).ToList());
 
                 // var cdnr = List.Where(x => x.VTypeId != 12 && (x.Type == "REG" || x.Type == "CMP") && x.GstIn.Length == 15).ToList();
-                var cdnr = lst.Where(x => x.IsRevice == 0 && x.VTypeId != 12 && (x.Type == "REG" || x.Type == "CMP")).ToList();
+                var cdnr = lst.Where(x => x.IsRevice == 0 && x.VTypeId != 12 && x.GSTRate > 0 && (x.Type == "REG")).ToList();
                 w = wd.Workbook.Worksheets[7];
                 row = 5;
                 foreach (var t in cdnr)
@@ -495,8 +495,8 @@ namespace Konto.Reporting.Para.Gst
                 ///////////////////////////////////CDNUR///////////////////////////////////////////////////////////////////////////////////
                 //List = new ObservableCollection<GstDto>(_db.Database.SqlQuery<GstDto>(
                 //    "dbo.GstReport @CompanyId={0},@TransTypeId={1},@TransTypeId1={2},@FromDate={3},@ToDate={4}", Convert.ToInt32(KontoGlobals.CompanyId), VoucherTypeEnum.DebitCreditNote, VoucherTypeEnum.SaleReturn, fdate, tdate).ToList());
-                var cdnur = lst.Where(x => x.IsRevice == 0 && (x.Type != "REG" && x.Type != "CMP") && x.BillAmount >= 250000
-            && x.VTypeId != 12).ToList(); ;
+                var cdnur = lst.Where(x => x.IsRevice == 0 && (x.Type != "REG") && x.BillAmount >= 250000
+            && x.VTypeId != 12 && x.IGSTAmt > 0).ToList(); ;
                 w = wd.Workbook.Worksheets[9];
                 row = 5;
                 foreach (var t in cdnur)
@@ -579,7 +579,18 @@ namespace Konto.Reporting.Para.Gst
                     row += 1;
 
                 }
-
+                // Exempted
+                w = wd.Workbook.Worksheets[17];
+                var exms = exemptedGridControl.DataSource as List<GstrExempted>;
+                row = 5;
+                foreach (var exm in exms)
+                {
+                    w.Cells["A" + row].PutValue(exm.Descriptions);
+                    w.Cells["B" + row].PutValue(exm.NilRated);
+                    w.Cells["C" + row].PutValue(exm.Exempted);
+                    w.Cells["D" + row].PutValue(exm.NonGst);
+                    row += 1;
+                }
 
 
                 ///////////////////////////////////HsnSummary///////////////////////////////////////////////////////////////////////////////////
@@ -915,6 +926,7 @@ namespace Konto.Reporting.Para.Gst
             Export_Sheet();
             splashScreenManager1.SetWaitFormDescription("Generating ExportA Register...");
             ExpA_Sheet();
+            Exempted();
             splashScreenManager1.SetWaitFormDescription("Generating HSN Register...");
             HSN_Sheet();
             splashScreenManager1.SetWaitFormDescription("Generating DOC Register...");
@@ -1090,12 +1102,29 @@ namespace Konto.Reporting.Para.Gst
         private void Gen_B2B_Sheet()
         {
 
-
-            var b2b1 = Gstrs.Where(x => x.IsRevice == 0  && x.VTypeId == 12 && x.BillType == "Regular" && (x.Type=="REG" || x.Type=="CMP")).ToList();
-
+            var b2b1 = Gstrs.Where(x => x.IsRevice == 0  && x.VTypeId == 12 
+                        && x.BillType == "Regular" && x.GSTRate > 0 && (x.Type=="REG")).ToList();
             b2bGridControl.DataSource = b2b1;
             b2bGridControl.RefreshDataSource();
         }
+
+        private void Exempted()
+        {
+            var fdate = Convert.ToInt32(fromDateEdit.DateTime.ToString("yyyyMMdd"));
+            var tdate = Convert.ToInt32(toDateEdit.DateTime.ToString("yyyyMMdd"));
+
+            var exmps = new List<GstrExempted>();
+            using (var db = new KontoContext())
+            {
+                db.Database.CommandTimeout = 0;
+                exmps = db.Database.SqlQuery<GstrExempted>("dbo.gstr1_exempted @CompanyId={0},@FromDate={1},@ToDate={2},@yearid={3}",
+                    KontoGlobals.CompanyId, fdate, tdate, KontoGlobals.YearId).ToList();
+               
+            }
+            exemptedGridControl.DataSource = exmps.ToList();
+            exemptedGridControl.RefreshDataSource();
+        }
+
         private void B2BA()
         {
             
@@ -1111,7 +1140,7 @@ namespace Konto.Reporting.Para.Gst
         {
             
             var b2b1 = Gstrs.Where(x => x.IsRevice == 0  && x.BillAmount >= 250000 && x.IGSTAmt > 0
-                       && (x.Type != "REG" && x.Type !="CMP") &&  x.BillType == "Regular" && x.VTypeId == 12).ToList();
+                       && (x.Type != "REG" ) &&  x.BillType == "Regular" && x.VTypeId == 12).ToList();
 
             b2clGridControl.DataSource = b2b1;
             b2clGridControl.RefreshDataSource();
@@ -1155,7 +1184,7 @@ namespace Konto.Reporting.Para.Gst
         void CDNR_Sheet()
         {
 
-            var cdnrs = Gstrs.Where(x => x.IsRevice == 0 && x.VTypeId != 12 && (x.Type == "REG" || x.Type == "CMP")).ToList();
+            var cdnrs = Gstrs.Where(x => x.IsRevice == 0 && x.VTypeId != 12 && x.GSTRate > 0 && (x.Type == "REG")).ToList();
 
             cdnrGridControl.DataSource = cdnrs;
             cdnrGridControl.RefreshDataSource();
@@ -1176,7 +1205,7 @@ namespace Konto.Reporting.Para.Gst
         private void CDNUR_Sheet()
         {
             
-            var b2b1 = Gstrs.Where(x => x.IsRevice == 0 && (x.Type!="REG" && x.Type!="CMP") && x.BillAmount >= 250000 
+            var b2b1 = Gstrs.Where(x => x.IsRevice == 0 && (x.Type!="REG" ) && x.IGSTPer > 0 && x.BillAmount >= 250000 
             && x.VTypeId !=12).ToList();
 
 

@@ -142,7 +142,7 @@ namespace Konto.Shared.Trans.Common
             
             if (BModel.VoucherId == (int)VoucherTypeEnum.SaleInvoice)
                 reqPlGenIRN.DocDtls.Typ = "INV";
-            if (BModel.VoucherId == (int)VoucherTypeEnum.DebitCreditNote && BModel.BillType=="DEBIT NOTE")
+            else if (BModel.VoucherId == (int)VoucherTypeEnum.DebitCreditNote && BModel.BillType=="DEBIT NOTE")
                 reqPlGenIRN.DocDtls.Typ = "DBN";
             else
                 reqPlGenIRN.DocDtls.Typ = "CRN";
@@ -171,7 +171,7 @@ namespace Konto.Shared.Trans.Common
 
             var ac = DbUtils.AccDetails(BModel.AccId);
             reqPlGenIRN.BuyerDtls = new ReqPlGenIRN.BuyerDetails();
-            reqPlGenIRN.BuyerDtls.Gstin = ac.GSTCode;
+            reqPlGenIRN.BuyerDtls.Gstin = ac.GSTIN;
             reqPlGenIRN.BuyerDtls.LglNm = ac.AccName;
             reqPlGenIRN.BuyerDtls.TrdNm = null;
             reqPlGenIRN.BuyerDtls.Pos = ac.GSTCode;
@@ -240,6 +240,7 @@ namespace Konto.Shared.Trans.Common
                 itm.TotItemVal = Convert.ToDouble(item.NetTotal);
                 itm.AttribDtls = null;
                 reqPlGenIRN.ItemList.Add(itm);
+                srno++;
             }
 
             reqPlGenIRN.PayDtls = null;

@@ -676,7 +676,7 @@ namespace Konto.Trading.OutJobChallan
             ct.Pcs = 0;
             ct.Qty = 0;
             ct.LotNo = ord.LotNo;
-            ct.RefNo = ord.RefNo;
+            ct.RefNo = ord.ChallanNo;
             ct.Rate = ord.Rate != null ? (decimal)ord.Rate : 0;
 
             ct.Sgst = 0;

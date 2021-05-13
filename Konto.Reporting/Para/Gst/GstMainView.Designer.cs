@@ -347,6 +347,14 @@
             this.gridColumn191 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn192 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn193 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.tabPageAdv16 = new Syncfusion.Windows.Forms.Tools.TabPageAdv();
+            this.exemptedGridControl = new DevExpress.XtraGrid.GridControl();
+            this.gstrExemptedBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.exemptedGridView = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.colDescriptions = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colNilRated = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colExempted = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colNonGst = new DevExpress.XtraGrid.Columns.GridColumn();
             this.tabPageAdv14 = new Syncfusion.Windows.Forms.Tools.TabPageAdv();
             this.hsnGridControl = new DevExpress.XtraGrid.GridControl();
             this.gstr1HsnDtoBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -435,6 +443,10 @@
             this.tabPageAdv13.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.expaGridControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.expaGridView)).BeginInit();
+            this.tabPageAdv16.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.exemptedGridControl)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gstrExemptedBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.exemptedGridView)).BeginInit();
             this.tabPageAdv14.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.hsnGridControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gstr1HsnDtoBindingSource)).BeginInit();
@@ -2486,6 +2498,7 @@
             this.tabControlAdv1.Controls.Add(this.tabPageAdv11);
             this.tabControlAdv1.Controls.Add(this.tabPageAdv12);
             this.tabControlAdv1.Controls.Add(this.tabPageAdv13);
+            this.tabControlAdv1.Controls.Add(this.tabPageAdv16);
             this.tabControlAdv1.Controls.Add(this.tabPageAdv14);
             this.tabControlAdv1.Controls.Add(this.tabPageAdv15);
             this.tabControlAdv1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -3452,6 +3465,109 @@
             this.gridColumn193.VisibleIndex = 6;
             this.gridColumn193.Width = 80;
             // 
+            // tabPageAdv16
+            // 
+            this.tabPageAdv16.Controls.Add(this.exemptedGridControl);
+            this.tabPageAdv16.Image = null;
+            this.tabPageAdv16.ImageSize = new System.Drawing.Size(16, 16);
+            this.tabPageAdv16.Location = new System.Drawing.Point(3, 4);
+            this.tabPageAdv16.Name = "tabPageAdv16";
+            this.tabPageAdv16.ShowCloseButton = true;
+            this.tabPageAdv16.Size = new System.Drawing.Size(793, 386);
+            this.tabPageAdv16.TabIndex = 16;
+            this.tabPageAdv16.Text = "EXEMP";
+            this.tabPageAdv16.ThemesEnabled = true;
+            // 
+            // exemptedGridControl
+            // 
+            this.exemptedGridControl.DataSource = this.gstrExemptedBindingSource;
+            this.exemptedGridControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.exemptedGridControl.Location = new System.Drawing.Point(0, 0);
+            this.exemptedGridControl.LookAndFeel.SkinName = "Office 2019 Colorful";
+            this.exemptedGridControl.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.exemptedGridControl.MainView = this.exemptedGridView;
+            this.exemptedGridControl.Name = "exemptedGridControl";
+            this.exemptedGridControl.Size = new System.Drawing.Size(793, 386);
+            this.exemptedGridControl.TabIndex = 14;
+            this.exemptedGridControl.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.exemptedGridView});
+            // 
+            // gstrExemptedBindingSource
+            // 
+            this.gstrExemptedBindingSource.DataSource = typeof(Konto.Data.Models.Reports.GstrExempted);
+            // 
+            // exemptedGridView
+            // 
+            this.exemptedGridView.Appearance.FooterPanel.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
+            this.exemptedGridView.Appearance.FooterPanel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(22)))), ((int)(((byte)(91)))));
+            this.exemptedGridView.Appearance.FooterPanel.Options.UseFont = true;
+            this.exemptedGridView.Appearance.FooterPanel.Options.UseForeColor = true;
+            this.exemptedGridView.Appearance.HeaderPanel.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
+            this.exemptedGridView.Appearance.HeaderPanel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(165)))), ((int)(((byte)(220)))));
+            this.exemptedGridView.Appearance.HeaderPanel.Options.UseFont = true;
+            this.exemptedGridView.Appearance.HeaderPanel.Options.UseForeColor = true;
+            this.exemptedGridView.Appearance.HeaderPanel.Options.UseTextOptions = true;
+            this.exemptedGridView.Appearance.HeaderPanel.TextOptions.WordWrap = DevExpress.Utils.WordWrap.Wrap;
+            this.exemptedGridView.Appearance.Row.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            this.exemptedGridView.Appearance.Row.Options.UseFont = true;
+            this.exemptedGridView.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.colDescriptions,
+            this.colNilRated,
+            this.colExempted,
+            this.colNonGst});
+            this.exemptedGridView.GridControl = this.exemptedGridControl;
+            this.exemptedGridView.Name = "exemptedGridView";
+            this.exemptedGridView.OptionsBehavior.Editable = false;
+            this.exemptedGridView.OptionsBehavior.ReadOnly = true;
+            this.exemptedGridView.OptionsView.ColumnAutoWidth = false;
+            this.exemptedGridView.OptionsView.ColumnHeaderAutoHeight = DevExpress.Utils.DefaultBoolean.True;
+            this.exemptedGridView.OptionsView.ShowAutoFilterRow = true;
+            this.exemptedGridView.OptionsView.ShowFooter = true;
+            this.exemptedGridView.OptionsView.ShowGroupPanel = false;
+            // 
+            // colDescriptions
+            // 
+            this.colDescriptions.FieldName = "Descriptions";
+            this.colDescriptions.Name = "colDescriptions";
+            this.colDescriptions.Visible = true;
+            this.colDescriptions.VisibleIndex = 0;
+            // 
+            // colNilRated
+            // 
+            this.colNilRated.DisplayFormat.FormatString = "F";
+            this.colNilRated.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.colNilRated.FieldName = "NilRated";
+            this.colNilRated.Name = "colNilRated";
+            this.colNilRated.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
+            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "NilRated", "{0:0.##}")});
+            this.colNilRated.Visible = true;
+            this.colNilRated.VisibleIndex = 1;
+            this.colNilRated.Width = 150;
+            // 
+            // colExempted
+            // 
+            this.colExempted.DisplayFormat.FormatString = "F";
+            this.colExempted.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.colExempted.FieldName = "Exempted";
+            this.colExempted.Name = "colExempted";
+            this.colExempted.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
+            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Exempted", "{0:0.##}")});
+            this.colExempted.Visible = true;
+            this.colExempted.VisibleIndex = 2;
+            this.colExempted.Width = 143;
+            // 
+            // colNonGst
+            // 
+            this.colNonGst.DisplayFormat.FormatString = "F";
+            this.colNonGst.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.colNonGst.FieldName = "NonGst";
+            this.colNonGst.Name = "colNonGst";
+            this.colNonGst.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
+            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "NonGst", "{0:0.##}")});
+            this.colNonGst.Visible = true;
+            this.colNonGst.VisibleIndex = 3;
+            this.colNonGst.Width = 180;
+            // 
             // tabPageAdv14
             // 
             this.tabPageAdv14.Controls.Add(this.hsnGridControl);
@@ -3752,7 +3868,7 @@
             this.Controls.Add(this.tabControlAdv1);
             this.Controls.Add(this.layoutControl1);
             this.Name = "GstMainView";
-            this.Text = "Gstr-1 Test View";
+            this.Text = "Gstr-1";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
@@ -3814,6 +3930,10 @@
             this.tabPageAdv13.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.expaGridControl)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.expaGridView)).EndInit();
+            this.tabPageAdv16.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.exemptedGridControl)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gstrExemptedBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.exemptedGridView)).EndInit();
             this.tabPageAdv14.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.hsnGridControl)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gstr1HsnDtoBindingSource)).EndInit();
@@ -4173,5 +4293,13 @@
         private DevExpress.XtraGrid.Columns.GridColumn colTotalCancel;
         private DevExpress.XtraGrid.Columns.GridColumn colVoucherID;
         private DevExpress.XtraSpreadsheet.SpreadsheetControl spreadsheetControl1;
+        private Syncfusion.Windows.Forms.Tools.TabPageAdv tabPageAdv16;
+        private DevExpress.XtraGrid.GridControl exemptedGridControl;
+        private DevExpress.XtraGrid.Views.Grid.GridView exemptedGridView;
+        private System.Windows.Forms.BindingSource gstrExemptedBindingSource;
+        private DevExpress.XtraGrid.Columns.GridColumn colDescriptions;
+        private DevExpress.XtraGrid.Columns.GridColumn colNilRated;
+        private DevExpress.XtraGrid.Columns.GridColumn colExempted;
+        private DevExpress.XtraGrid.Columns.GridColumn colNonGst;
     }
 }
