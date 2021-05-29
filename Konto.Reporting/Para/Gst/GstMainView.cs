@@ -2,7 +2,6 @@
 using DevExpress.Spreadsheet;
 using DevExpress.XtraGrid;
 using DevExpress.XtraGrid.Views.Grid;
-using FarPoint.Win.Spread;
 using Konto.App.Shared;
 using Konto.Core.Shared;
 using Konto.Core.Shared.Frms;
@@ -17,17 +16,13 @@ using Konto.Shared.Trans.SReturn;
 using Serilog;
 using Syncfusion.GridExcelConverter;
 using Syncfusion.Windows.Forms.Tools;
-using Syncfusion.XlsIO;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 
