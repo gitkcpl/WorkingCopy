@@ -117,6 +117,12 @@
     <Compile Include="Purchase\PurchaseProductView.Designer.cs">
       <DependentUpon>PurchaseProductView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Sales\PosRateType.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Sales\PosRateType.Designer.cs">
+      <DependentUpon>PosRateType.cs</DependentUpon>
+    </Compile>
     <Compile Include="Sales\SalesIndex.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -174,6 +180,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Purchase\PurchaseProductView.resx">
       <DependentUpon>PurchaseProductView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Sales\PosRateType.resx">
+      <DependentUpon>PosRateType.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Sales\SalesIndex.resx">
       <DependentUpon>SalesIndex.cs</DependentUpon>

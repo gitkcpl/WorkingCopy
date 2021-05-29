@@ -37,6 +37,7 @@
             this.gridControl1 = new Konto.Core.Shared.Libs.CustomGridControl();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.gridView1 = new Konto.Core.Shared.Libs.CustomGridView();
+            this.colDivision = new Konto.Core.Shared.Libs.CustomGridColumn();
             this.colOrdDate = new Konto.Core.Shared.Libs.CustomGridColumn();
             this.colOrderDate = new Konto.Core.Shared.Libs.CustomGridColumn();
             this.colOrderNo = new Konto.Core.Shared.Libs.CustomGridColumn();
@@ -49,6 +50,11 @@
             this.colRate = new Konto.Core.Shared.Libs.CustomGridColumn();
             this.colTotal = new Konto.Core.Shared.Libs.CustomGridColumn();
             this.colNetTotal = new Konto.Core.Shared.Libs.CustomGridColumn();
+            this.colPriority = new Konto.Core.Shared.Libs.CustomGridColumn();
+            this.colRequireDate = new Konto.Core.Shared.Libs.CustomGridColumn();
+            this.colUsageAt = new Konto.Core.Shared.Libs.CustomGridColumn();
+            this.colRemark = new Konto.Core.Shared.Libs.CustomGridColumn();
+            this.colRequestBy = new Konto.Core.Shared.Libs.CustomGridColumn();
             this.getSimpleButton = new DevExpress.XtraEditors.SimpleButton();
             this.typeLookUpEdit = new DevExpress.XtraEditors.LookUpEdit();
             this.tDateEdit = new DevExpress.XtraEditors.DateEdit();
@@ -191,6 +197,7 @@
             this.gridView1.Appearance.Row.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.gridView1.Appearance.Row.Options.UseFont = true;
             this.gridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.colDivision,
             this.colOrdDate,
             this.colOrderDate,
             this.colOrderNo,
@@ -202,7 +209,12 @@
             this.colRcptQty,
             this.colRate,
             this.colTotal,
-            this.colNetTotal});
+            this.colNetTotal,
+            this.colPriority,
+            this.colRequireDate,
+            this.colUsageAt,
+            this.colRemark,
+            this.colRequestBy});
             this.gridView1.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFullFocus;
             this.gridView1.GridControl = this.gridControl1;
             this.gridView1.IndicatorWidth = 35;
@@ -226,6 +238,14 @@
             this.gridView1.OptionsView.ShowFooter = true;
             this.gridView1.OptionsView.ShowGroupPanel = false;
             // 
+            // colDivision
+            // 
+            this.colDivision.FieldName = "Division";
+            this.colDivision.Name = "colDivision";
+            this.colDivision.Visible = true;
+            this.colDivision.VisibleIndex = 1;
+            this.colDivision.Width = 92;
+            // 
             // colOrdDate
             // 
             this.colOrdDate.FieldName = "OrdDate";
@@ -237,7 +257,7 @@
             this.colOrderDate.Name = "colOrderDate";
             this.colOrderDate.OptionsColumn.ReadOnly = true;
             this.colOrderDate.Visible = true;
-            this.colOrderDate.VisibleIndex = 1;
+            this.colOrderDate.VisibleIndex = 2;
             this.colOrderDate.Width = 78;
             // 
             // colOrderNo
@@ -245,7 +265,7 @@
             this.colOrderNo.FieldName = "OrderNo";
             this.colOrderNo.Name = "colOrderNo";
             this.colOrderNo.Visible = true;
-            this.colOrderNo.VisibleIndex = 2;
+            this.colOrderNo.VisibleIndex = 3;
             // 
             // colSupplier
             // 
@@ -253,7 +273,7 @@
             this.colSupplier.FieldName = "Supplier";
             this.colSupplier.Name = "colSupplier";
             this.colSupplier.Visible = true;
-            this.colSupplier.VisibleIndex = 3;
+            this.colSupplier.VisibleIndex = 4;
             this.colSupplier.Width = 163;
             // 
             // colProduct
@@ -261,14 +281,15 @@
             this.colProduct.FieldName = "Product";
             this.colProduct.Name = "colProduct";
             this.colProduct.Visible = true;
-            this.colProduct.VisibleIndex = 4;
+            this.colProduct.VisibleIndex = 5;
+            this.colProduct.Width = 195;
             // 
             // colColor
             // 
             this.colColor.FieldName = "Color";
             this.colColor.Name = "colColor";
             this.colColor.Visible = true;
-            this.colColor.VisibleIndex = 5;
+            this.colColor.VisibleIndex = 6;
             // 
             // colQty
             // 
@@ -279,7 +300,7 @@
             this.colQty.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Qty", "{0:F}")});
             this.colQty.Visible = true;
-            this.colQty.VisibleIndex = 6;
+            this.colQty.VisibleIndex = 7;
             this.colQty.Width = 81;
             // 
             // colPendQty
@@ -291,7 +312,7 @@
             this.colPendQty.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "PendQty", "{0:F}")});
             this.colPendQty.Visible = true;
-            this.colPendQty.VisibleIndex = 7;
+            this.colPendQty.VisibleIndex = 8;
             // 
             // colRcptQty
             // 
@@ -302,7 +323,7 @@
             this.colRcptQty.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "RcptQty", "{0:F}")});
             this.colRcptQty.Visible = true;
-            this.colRcptQty.VisibleIndex = 8;
+            this.colRcptQty.VisibleIndex = 9;
             // 
             // colRate
             // 
@@ -311,7 +332,7 @@
             this.colRate.FieldName = "Rate";
             this.colRate.Name = "colRate";
             this.colRate.Visible = true;
-            this.colRate.VisibleIndex = 9;
+            this.colRate.VisibleIndex = 10;
             // 
             // colTotal
             // 
@@ -320,7 +341,7 @@
             this.colTotal.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Total", "{0:F}")});
             this.colTotal.Visible = true;
-            this.colTotal.VisibleIndex = 10;
+            this.colTotal.VisibleIndex = 11;
             // 
             // colNetTotal
             // 
@@ -329,7 +350,46 @@
             this.colNetTotal.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "NetTotal", "{0:F}")});
             this.colNetTotal.Visible = true;
-            this.colNetTotal.VisibleIndex = 11;
+            this.colNetTotal.VisibleIndex = 12;
+            // 
+            // colPriority
+            // 
+            this.colPriority.FieldName = "Priority";
+            this.colPriority.Name = "colPriority";
+            this.colPriority.Visible = true;
+            this.colPriority.VisibleIndex = 13;
+            // 
+            // colRequireDate
+            // 
+            this.colRequireDate.FieldName = "RequireDate";
+            this.colRequireDate.Name = "colRequireDate";
+            this.colRequireDate.Visible = true;
+            this.colRequireDate.VisibleIndex = 14;
+            this.colRequireDate.Width = 93;
+            // 
+            // colUsageAt
+            // 
+            this.colUsageAt.FieldName = "UsageAt";
+            this.colUsageAt.Name = "colUsageAt";
+            this.colUsageAt.Visible = true;
+            this.colUsageAt.VisibleIndex = 15;
+            // 
+            // colRemark
+            // 
+            this.colRemark.FieldName = "Remark";
+            this.colRemark.Name = "colRemark";
+            this.colRemark.Visible = true;
+            this.colRemark.VisibleIndex = 16;
+            this.colRemark.Width = 157;
+            // 
+            // colRequestBy
+            // 
+            this.colRequestBy.Caption = "Order By";
+            this.colRequestBy.FieldName = "RequestBy";
+            this.colRequestBy.Name = "colRequestBy";
+            this.colRequestBy.Visible = true;
+            this.colRequestBy.VisibleIndex = 17;
+            this.colRequestBy.Width = 125;
             // 
             // getSimpleButton
             // 
@@ -597,5 +657,11 @@
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem8;
         private Core.Shared.Libs.CustomGridColumn colTotal;
         private Core.Shared.Libs.CustomGridColumn colNetTotal;
+        private Core.Shared.Libs.CustomGridColumn colDivision;
+        private Core.Shared.Libs.CustomGridColumn colPriority;
+        private Core.Shared.Libs.CustomGridColumn colRequireDate;
+        private Core.Shared.Libs.CustomGridColumn colUsageAt;
+        private Core.Shared.Libs.CustomGridColumn colRemark;
+        private Core.Shared.Libs.CustomGridColumn colRequestBy;
     }
 }

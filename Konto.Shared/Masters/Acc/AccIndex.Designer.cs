@@ -81,7 +81,7 @@
             this.ioLayoutControlItem = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.layoutControlItem7 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.layoutControlItem11 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.rateTypeLayoutControlItem = new DevExpress.XtraLayout.LayoutControlItem();
             this.addressLayoutControlGroup = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
@@ -153,7 +153,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.ioLayoutControlItem)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem11)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rateTypeLayoutControlItem)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.addressLayoutControlGroup)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).BeginInit();
@@ -289,7 +289,7 @@
             // 
             // discPerKontoTextBox
             // 
-            this.discPerKontoTextBox.BeforeTouchSize = new System.Drawing.Size(114, 26);
+            this.discPerKontoTextBox.BeforeTouchSize = new System.Drawing.Size(109, 26);
             this.discPerKontoTextBox.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(211)))), ((int)(((byte)(212)))));
             this.discPerKontoTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.discPerKontoTextBox.DoubleValue = 0D;
@@ -366,7 +366,7 @@
             // 
             // crLimitKontoTextBox
             // 
-            this.crLimitKontoTextBox.BeforeTouchSize = new System.Drawing.Size(114, 26);
+            this.crLimitKontoTextBox.BeforeTouchSize = new System.Drawing.Size(109, 26);
             this.crLimitKontoTextBox.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(211)))), ((int)(((byte)(212)))));
             this.crLimitKontoTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.crLimitKontoTextBox.DoubleValue = 0D;
@@ -383,7 +383,7 @@
             // 
             // daysKontoTextBox
             // 
-            this.daysKontoTextBox.BeforeTouchSize = new System.Drawing.Size(114, 26);
+            this.daysKontoTextBox.BeforeTouchSize = new System.Drawing.Size(109, 26);
             this.daysKontoTextBox.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(211)))), ((int)(((byte)(212)))));
             this.daysKontoTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.daysKontoTextBox.DoubleValue = 0D;
@@ -424,7 +424,7 @@
             // 
             // emailTextBoxExt
             // 
-            this.emailTextBoxExt.BeforeTouchSize = new System.Drawing.Size(114, 26);
+            this.emailTextBoxExt.BeforeTouchSize = new System.Drawing.Size(109, 26);
             this.emailTextBoxExt.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(211)))), ((int)(((byte)(212)))));
             this.emailTextBoxExt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.emailTextBoxExt.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
@@ -442,7 +442,7 @@
             // 
             // mobileTextBoxExt
             // 
-            this.mobileTextBoxExt.BeforeTouchSize = new System.Drawing.Size(114, 26);
+            this.mobileTextBoxExt.BeforeTouchSize = new System.Drawing.Size(109, 26);
             this.mobileTextBoxExt.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(211)))), ((int)(((byte)(212)))));
             this.mobileTextBoxExt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.mobileTextBoxExt.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
@@ -460,7 +460,7 @@
             // 
             // pinCodeTextBoxExt
             // 
-            this.pinCodeTextBoxExt.BeforeTouchSize = new System.Drawing.Size(114, 26);
+            this.pinCodeTextBoxExt.BeforeTouchSize = new System.Drawing.Size(109, 26);
             this.pinCodeTextBoxExt.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(211)))), ((int)(((byte)(212)))));
             this.pinCodeTextBoxExt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pinCodeTextBoxExt.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
@@ -649,7 +649,7 @@
             // 
             // aadharTextBoxExt
             // 
-            this.aadharTextBoxExt.BeforeTouchSize = new System.Drawing.Size(114, 26);
+            this.aadharTextBoxExt.BeforeTouchSize = new System.Drawing.Size(109, 26);
             this.aadharTextBoxExt.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(211)))), ((int)(((byte)(212)))));
             this.aadharTextBoxExt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.aadharTextBoxExt.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
@@ -667,7 +667,7 @@
             // 
             // panTextBoxExt
             // 
-            this.panTextBoxExt.BeforeTouchSize = new System.Drawing.Size(114, 26);
+            this.panTextBoxExt.BeforeTouchSize = new System.Drawing.Size(109, 26);
             this.panTextBoxExt.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(211)))), ((int)(((byte)(212)))));
             this.panTextBoxExt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panTextBoxExt.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
@@ -685,7 +685,7 @@
             // 
             // printNameTextBoxExt
             // 
-            this.printNameTextBoxExt.BeforeTouchSize = new System.Drawing.Size(114, 26);
+            this.printNameTextBoxExt.BeforeTouchSize = new System.Drawing.Size(109, 26);
             this.printNameTextBoxExt.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(211)))), ((int)(((byte)(212)))));
             this.printNameTextBoxExt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.printNameTextBoxExt.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
@@ -720,7 +720,7 @@
             // 
             // gstInTextBoxExt
             // 
-            this.gstInTextBoxExt.BeforeTouchSize = new System.Drawing.Size(114, 26);
+            this.gstInTextBoxExt.BeforeTouchSize = new System.Drawing.Size(109, 26);
             this.gstInTextBoxExt.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(211)))), ((int)(((byte)(212)))));
             this.gstInTextBoxExt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.gstInTextBoxExt.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
@@ -753,7 +753,7 @@
             // 
             // nameTextBox
             // 
-            this.nameTextBox.BeforeTouchSize = new System.Drawing.Size(114, 26);
+            this.nameTextBox.BeforeTouchSize = new System.Drawing.Size(109, 26);
             this.nameTextBox.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(211)))), ((int)(((byte)(212)))));
             this.nameTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.nameTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
@@ -772,7 +772,7 @@
             // 
             // address1TextBoxExt
             // 
-            this.address1TextBoxExt.BeforeTouchSize = new System.Drawing.Size(114, 26);
+            this.address1TextBoxExt.BeforeTouchSize = new System.Drawing.Size(109, 26);
             this.address1TextBoxExt.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(211)))), ((int)(((byte)(212)))));
             this.address1TextBoxExt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.address1TextBoxExt.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
@@ -790,7 +790,7 @@
             // 
             // address2TextBoxExt
             // 
-            this.address2TextBoxExt.BeforeTouchSize = new System.Drawing.Size(114, 26);
+            this.address2TextBoxExt.BeforeTouchSize = new System.Drawing.Size(109, 26);
             this.address2TextBoxExt.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(211)))), ((int)(((byte)(212)))));
             this.address2TextBoxExt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.address2TextBoxExt.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
@@ -842,7 +842,7 @@
             this.ioLayoutControlItem,
             this.emptySpaceItem1,
             this.layoutControlItem7,
-            this.layoutControlItem11});
+            this.rateTypeLayoutControlItem});
             this.layoutControlGroup1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup1.Name = "layoutControlGroup1";
             this.layoutControlGroup1.Padding = new DevExpress.XtraLayout.Utils.Padding(4, 4, 4, 4);
@@ -1089,16 +1089,17 @@
             this.layoutControlItem7.Text = "Discout %:";
             this.layoutControlItem7.TextSize = new System.Drawing.Size(119, 17);
             // 
-            // layoutControlItem11
+            // rateTypeLayoutControlItem
             // 
-            this.layoutControlItem11.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.layoutControlItem11.AppearanceItemCaption.Options.UseFont = true;
-            this.layoutControlItem11.Control = this.rateTypeKontoComboBoxEx;
-            this.layoutControlItem11.Location = new System.Drawing.Point(252, 150);
-            this.layoutControlItem11.Name = "layoutControlItem11";
-            this.layoutControlItem11.Size = new System.Drawing.Size(229, 24);
-            this.layoutControlItem11.Text = "Rate Type:";
-            this.layoutControlItem11.TextSize = new System.Drawing.Size(119, 17);
+            this.rateTypeLayoutControlItem.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rateTypeLayoutControlItem.AppearanceItemCaption.Options.UseFont = true;
+            this.rateTypeLayoutControlItem.ContentVisible = false;
+            this.rateTypeLayoutControlItem.Control = this.rateTypeKontoComboBoxEx;
+            this.rateTypeLayoutControlItem.Location = new System.Drawing.Point(252, 150);
+            this.rateTypeLayoutControlItem.Name = "rateTypeLayoutControlItem";
+            this.rateTypeLayoutControlItem.Size = new System.Drawing.Size(229, 24);
+            this.rateTypeLayoutControlItem.Text = "Rate Type:";
+            this.rateTypeLayoutControlItem.TextSize = new System.Drawing.Size(119, 17);
             // 
             // addressLayoutControlGroup
             // 
@@ -1420,7 +1421,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.ioLayoutControlItem)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem11)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rateTypeLayoutControlItem)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.addressLayoutControlGroup)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).EndInit();
@@ -1515,6 +1516,6 @@
         private Core.Shared.Libs.DecimaKontoTextBox discPerKontoTextBox;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem7;
         private Core.Shared.Libs.KontoComboBoxEx rateTypeKontoComboBoxEx;
-        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem11;
+        private DevExpress.XtraLayout.LayoutControlItem rateTypeLayoutControlItem;
     }
 }

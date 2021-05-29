@@ -39,6 +39,7 @@ namespace Konto.App.Shared.Para
         public static bool Barcode_Required = false;
         public static bool Freight_On_Qty = true;
         public static decimal Default_Freight_Rate = 0;
+        public static bool Sale_Rate_Required = false;
     }
     public static class PosPara
     {
@@ -61,6 +62,8 @@ namespace Konto.App.Shared.Para
         public static bool Tax_Required = false;
         public static bool Tax_Editable = false;
         public static int Post_Sale_Discount_Account_Id = 0;
+        public static bool Rate_Editable = true;
+        public static bool Rate_Type_Required = false;
     }
 
     public class SaleRetPara

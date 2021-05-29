@@ -26,6 +26,7 @@ namespace Konto.Shared.Trans.Common
         {
             historyDtoBindingSource.DataSource = historyDtos;
             gridControl1.RefreshDataSource();
+            this.ActiveControl =gridControl1;
         }
 
         private void OkSimpleButton_Click(object sender, EventArgs e)

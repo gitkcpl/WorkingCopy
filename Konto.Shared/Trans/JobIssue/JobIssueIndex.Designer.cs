@@ -48,6 +48,7 @@
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
             this.grnTransDtoBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.colBarcode = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colId = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colChallanId = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colProductId = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -536,6 +537,7 @@
             this.gridView1.Appearance.Row.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.gridView1.Appearance.Row.Options.UseFont = true;
             this.gridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.colBarcode,
             this.colId,
             this.colChallanId,
             this.colProductId,
@@ -571,6 +573,14 @@
             this.gridView1.OptionsView.NewItemRowPosition = DevExpress.XtraGrid.Views.Grid.NewItemRowPosition.Bottom;
             this.gridView1.OptionsView.ShowFooter = true;
             this.gridView1.OptionsView.ShowGroupPanel = false;
+            // 
+            // colBarcode
+            // 
+            this.colBarcode.Caption = "BarcodeNo";
+            this.colBarcode.FieldName = "BarcodeNo";
+            this.colBarcode.Name = "colBarcode";
+            this.colBarcode.Visible = true;
+            this.colBarcode.VisibleIndex = 1;
             // 
             // colId
             // 
@@ -625,7 +635,7 @@
             this.colFinishQuality.Name = "colFinishQuality";
             this.colFinishQuality.OptionsColumn.ReadOnly = true;
             this.colFinishQuality.Visible = true;
-            this.colFinishQuality.VisibleIndex = 1;
+            this.colFinishQuality.VisibleIndex = 2;
             this.colFinishQuality.Width = 172;
             // 
             // colColorName
@@ -664,7 +674,7 @@
             this.colLotNo.FieldName = "LotNo";
             this.colLotNo.Name = "colLotNo";
             this.colLotNo.Visible = true;
-            this.colLotNo.VisibleIndex = 2;
+            this.colLotNo.VisibleIndex = 3;
             // 
             // lotNoRepositoryItemButtonEdit
             // 
@@ -684,7 +694,7 @@
             this.colCut.FieldName = "Cops";
             this.colCut.Name = "colCut";
             this.colCut.Visible = true;
-            this.colCut.VisibleIndex = 3;
+            this.colCut.VisibleIndex = 4;
             // 
             // colPcs
             // 
@@ -693,7 +703,7 @@
             this.colPcs.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Pcs", "{0:F}")});
             this.colPcs.Visible = true;
-            this.colPcs.VisibleIndex = 4;
+            this.colPcs.VisibleIndex = 5;
             // 
             // colQty
             // 
@@ -704,7 +714,7 @@
             this.colQty.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Qty", "{0:F}")});
             this.colQty.Visible = true;
-            this.colQty.VisibleIndex = 5;
+            this.colQty.VisibleIndex = 6;
             // 
             // colUomId
             // 
@@ -713,7 +723,7 @@
             this.colUomId.FieldName = "UomId";
             this.colUomId.Name = "colUomId";
             this.colUomId.Visible = true;
-            this.colUomId.VisibleIndex = 7;
+            this.colUomId.VisibleIndex = 8;
             // 
             // uomRepositoryItemLookUpEdit
             // 
@@ -737,7 +747,7 @@
             this.colRate.FieldName = "Rate";
             this.colRate.Name = "colRate";
             this.colRate.Visible = true;
-            this.colRate.VisibleIndex = 6;
+            this.colRate.VisibleIndex = 7;
             // 
             // colGross
             // 
@@ -750,7 +760,7 @@
             this.colGross.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Gross", "{0:0.##}")});
             this.colGross.Visible = true;
-            this.colGross.VisibleIndex = 8;
+            this.colGross.VisibleIndex = 9;
             this.colGross.Width = 101;
             // 
             // colRemark
@@ -758,7 +768,7 @@
             this.colRemark.FieldName = "Remark";
             this.colRemark.Name = "colRemark";
             this.colRemark.Visible = true;
-            this.colRemark.VisibleIndex = 9;
+            this.colRemark.VisibleIndex = 10;
             this.colRemark.Width = 233;
             // 
             // colNProductId
@@ -1400,5 +1410,6 @@
         private DevExpress.XtraEditors.ButtonEdit RefNobuttonEdit;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem22;
         private DevExpress.XtraGrid.Columns.GridColumn colCut;
+        private DevExpress.XtraGrid.Columns.GridColumn colBarcode;
     }
 }

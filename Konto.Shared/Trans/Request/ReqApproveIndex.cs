@@ -31,6 +31,7 @@ namespace Konto.Shared.Trans.Request
                 new ComboBoxPairs("PENDING","PENDING"),
                 new ComboBoxPairs("APPROVED", "APPROVED"),
                 new ComboBoxPairs("CANCELED","CANCELED"),
+                new ComboBoxPairs("REJECTED","REJECTED"),
             };
             typeLookUpEdit.Properties.DataSource = cbp;
             statusLookUpEdit.Properties.DataSource = cbp;

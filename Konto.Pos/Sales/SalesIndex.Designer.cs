@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
+            this.rateTypeLookUpEdit = new DevExpress.XtraEditors.LookUpEdit();
             this.addressTextEdit = new DevExpress.XtraEditors.TextEdit();
             this.gstInTextEdit = new DevExpress.XtraEditors.TextEdit();
             this.customerNameTextEdit = new DevExpress.XtraEditors.TextEdit();
@@ -157,6 +158,7 @@
             this.layoutControlItem27 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem28 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem19 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.rateTypeLayoutControlItem = new DevExpress.XtraLayout.LayoutControlItem();
             this.paidLabel = new System.Windows.Forms.Label();
             this.billAdjustSimpleButton = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.tabControlAdv1)).BeginInit();
@@ -166,6 +168,7 @@
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.rateTypeLookUpEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.addressTextEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gstInTextEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.customerNameTextEdit.Properties)).BeginInit();
@@ -236,6 +239,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem27)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem28)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem19)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rateTypeLayoutControlItem)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControlAdv1
@@ -278,6 +282,7 @@
             // 
             // layoutControl1
             // 
+            this.layoutControl1.Controls.Add(this.rateTypeLookUpEdit);
             this.layoutControl1.Controls.Add(this.addressTextEdit);
             this.layoutControl1.Controls.Add(this.gstInTextEdit);
             this.layoutControl1.Controls.Add(this.customerNameTextEdit);
@@ -339,6 +344,27 @@
             this.layoutControl1.TabStop = false;
             this.layoutControl1.Text = "layoutControl1";
             // 
+            // rateTypeLookUpEdit
+            // 
+            this.rateTypeLookUpEdit.EnterMoveNextControl = true;
+            this.rateTypeLookUpEdit.Location = new System.Drawing.Point(532, 61);
+            this.rateTypeLookUpEdit.Name = "rateTypeLookUpEdit";
+            this.rateTypeLookUpEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rateTypeLookUpEdit.Properties.Appearance.Options.UseFont = true;
+            this.rateTypeLookUpEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.rateTypeLookUpEdit.Properties.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("_Value", "Name1")});
+            this.rateTypeLookUpEdit.Properties.DisplayMember = "_Value";
+            this.rateTypeLookUpEdit.Properties.NullText = "";
+            this.rateTypeLookUpEdit.Properties.ShowFooter = false;
+            this.rateTypeLookUpEdit.Properties.ShowHeader = false;
+            this.rateTypeLookUpEdit.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
+            this.rateTypeLookUpEdit.Properties.ValueMember = "_Key";
+            this.rateTypeLookUpEdit.Size = new System.Drawing.Size(149, 24);
+            this.rateTypeLookUpEdit.StyleController = this.layoutControl1;
+            this.rateTypeLookUpEdit.TabIndex = 9;
+            // 
             // addressTextEdit
             // 
             this.addressTextEdit.EnterMoveNextControl = true;
@@ -349,7 +375,7 @@
             this.addressTextEdit.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.addressTextEdit.Properties.AppearanceFocused.Options.UseBorderColor = true;
             this.addressTextEdit.Properties.MaxLength = 50;
-            this.addressTextEdit.Size = new System.Drawing.Size(571, 24);
+            this.addressTextEdit.Size = new System.Drawing.Size(313, 24);
             this.addressTextEdit.StyleController = this.layoutControl1;
             this.addressTextEdit.TabIndex = 8;
             // 
@@ -774,7 +800,7 @@
             this.taxRepositoryItemLookUpEdit,
             this.repositoryItemCheckEdit1});
             this.gridControl1.Size = new System.Drawing.Size(934, 201);
-            this.gridControl1.TabIndex = 10;
+            this.gridControl1.TabIndex = 11;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
             // 
@@ -1335,7 +1361,7 @@
             this.empLookup1.SelectedText = null;
             this.empLookup1.SelectedValue = null;
             this.empLookup1.Size = new System.Drawing.Size(149, 24);
-            this.empLookup1.TabIndex = 9;
+            this.empLookup1.TabIndex = 10;
             // 
             // remarkTextEdit
             // 
@@ -1662,7 +1688,8 @@
             this.layoutControlItem26,
             this.layoutControlItem27,
             this.layoutControlItem28,
-            this.layoutControlItem19});
+            this.layoutControlItem19,
+            this.rateTypeLayoutControlItem});
             this.Root.Name = "Root";
             this.Root.Padding = new DevExpress.XtraLayout.Utils.Padding(3, 3, 3, 3);
             this.Root.Size = new System.Drawing.Size(944, 419);
@@ -1835,7 +1862,7 @@
             this.layoutControlItem28.Control = this.addressTextEdit;
             this.layoutControlItem28.Location = new System.Drawing.Point(0, 56);
             this.layoutControlItem28.Name = "layoutControlItem28";
-            this.layoutControlItem28.Size = new System.Drawing.Size(680, 28);
+            this.layoutControlItem28.Size = new System.Drawing.Size(422, 28);
             this.layoutControlItem28.Text = "Address:";
             this.layoutControlItem28.TextSize = new System.Drawing.Size(102, 17);
             // 
@@ -1849,6 +1876,17 @@
             this.layoutControlItem19.Size = new System.Drawing.Size(258, 28);
             this.layoutControlItem19.Text = "Salesman:";
             this.layoutControlItem19.TextSize = new System.Drawing.Size(102, 17);
+            // 
+            // rateTypeLayoutControlItem
+            // 
+            this.rateTypeLayoutControlItem.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rateTypeLayoutControlItem.AppearanceItemCaption.Options.UseFont = true;
+            this.rateTypeLayoutControlItem.Control = this.rateTypeLookUpEdit;
+            this.rateTypeLayoutControlItem.Location = new System.Drawing.Point(422, 56);
+            this.rateTypeLayoutControlItem.Name = "rateTypeLayoutControlItem";
+            this.rateTypeLayoutControlItem.Size = new System.Drawing.Size(258, 28);
+            this.rateTypeLayoutControlItem.Text = "Rate Type:";
+            this.rateTypeLayoutControlItem.TextSize = new System.Drawing.Size(102, 17);
             // 
             // paidLabel
             // 
@@ -1893,6 +1931,7 @@
             this.panelControl1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.rateTypeLookUpEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.addressTextEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gstInTextEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.customerNameTextEdit.Properties)).EndInit();
@@ -1963,6 +2002,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem27)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem28)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem19)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rateTypeLayoutControlItem)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -2099,5 +2139,7 @@
         private DevExpress.XtraGrid.Columns.GridColumn colRatePerQty;
         private DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit repositoryItemCheckEdit1;
         private DevExpress.XtraGrid.Columns.GridColumn colSalesman;
+        private DevExpress.XtraEditors.LookUpEdit rateTypeLookUpEdit;
+        private DevExpress.XtraLayout.LayoutControlItem rateTypeLayoutControlItem;
     }
 }

@@ -235,9 +235,10 @@
             this.agentLookup.GroupId = 31;
             this.agentLookup.Location = new System.Drawing.Point(95, 390);
             this.agentLookup.LookupDto = null;
+            this.agentLookup.LookupTitle = null;
             this.agentLookup.Name = "agentLookup";
             this.agentLookup.Nature = null;
-            this.agentLookup.NewGroupId = App.Shared.LedgerGroupEnum.CREDITORS_FOR_BROKERAGE;
+            this.agentLookup.NewGroupId = Konto.App.Shared.LedgerGroupEnum.CREDITORS_FOR_BROKERAGE;
             this.agentLookup.PrimaryKey = null;
             this.agentLookup.RequiredField = false;
             this.agentLookup.SelectedText = null;
@@ -253,6 +254,7 @@
             this.addressLookup1.DelvAccLookup = this.delvLookup;
             this.addressLookup1.Location = new System.Drawing.Point(564, 61);
             this.addressLookup1.LookupDto = null;
+            this.addressLookup1.LookupTitle = null;
             this.addressLookup1.Name = "addressLookup1";
             this.addressLookup1.PrimaryKey = null;
             this.addressLookup1.RequiredField = false;
@@ -268,9 +270,10 @@
             this.delvLookup.GroupId = 0;
             this.delvLookup.Location = new System.Drawing.Point(95, 61);
             this.delvLookup.LookupDto = null;
+            this.delvLookup.LookupTitle = null;
             this.delvLookup.Name = "delvLookup";
             this.delvLookup.Nature = null;
-            this.delvLookup.NewGroupId = App.Shared.LedgerGroupEnum.SUNDRY_DEBTORS;
+            this.delvLookup.NewGroupId = Konto.App.Shared.LedgerGroupEnum.SUNDRY_DEBTORS;
             this.delvLookup.PrimaryKey = null;
             this.delvLookup.RequiredField = true;
             this.delvLookup.SelectedText = null;
@@ -309,6 +312,7 @@
             // 
             this.processLookup1.Location = new System.Drawing.Point(440, 90);
             this.processLookup1.LookupDto = null;
+            this.processLookup1.LookupTitle = null;
             this.processLookup1.Name = "processLookup1";
             this.processLookup1.PrimaryKey = null;
             this.processLookup1.RequiredField = true;
@@ -316,7 +320,6 @@
             this.processLookup1.SelectedValue = null;
             this.processLookup1.Size = new System.Drawing.Size(235, 24);
             this.processLookup1.TabIndex = 10;
-
             // 
             // billAmtSpinEdit
             // 
@@ -405,9 +408,10 @@
             this.transportLookup.GroupId = 32;
             this.transportLookup.Location = new System.Drawing.Point(95, 362);
             this.transportLookup.LookupDto = null;
+            this.transportLookup.LookupTitle = null;
             this.transportLookup.Name = "transportLookup";
             this.transportLookup.Nature = null;
-            this.transportLookup.NewGroupId = App.Shared.LedgerGroupEnum.CREDITORS_FOR_TRANSPORTATION;
+            this.transportLookup.NewGroupId = Konto.App.Shared.LedgerGroupEnum.CREDITORS_FOR_TRANSPORTATION;
             this.transportLookup.PrimaryKey = null;
             this.transportLookup.RequiredField = false;
             this.transportLookup.SelectedText = null;
@@ -635,6 +639,7 @@
             // 
             // colGreyMtrs
             // 
+            this.colGreyMtrs.Caption = "GreyMtrs";
             this.colGreyMtrs.FieldName = "IssueQty";
             this.colGreyMtrs.Name = "colGreyMtrs";
             this.colGreyMtrs.Visible = true;
@@ -642,6 +647,7 @@
             // 
             // colGreyPcs
             // 
+            this.colGreyPcs.Caption = "GreyPcs";
             this.colGreyPcs.FieldName = "IssuePcs";
             this.colGreyPcs.Name = "colGreyPcs";
             this.colGreyPcs.Visible = true;
@@ -927,6 +933,7 @@
             // empLookup1
             // 
             this.empLookup1.Location = new System.Drawing.Point(798, 33);
+            this.empLookup1.LookupTitle = null;
             this.empLookup1.Name = "empLookup1";
             this.empLookup1.PrimaryKey = null;
             this.empLookup1.RequiredField = true;
@@ -988,9 +995,10 @@
             this.accLookup1.GroupId = 0;
             this.accLookup1.Location = new System.Drawing.Point(95, 33);
             this.accLookup1.LookupDto = null;
+            this.accLookup1.LookupTitle = null;
             this.accLookup1.Name = "accLookup1";
             this.accLookup1.Nature = null;
-            this.accLookup1.NewGroupId = App.Shared.LedgerGroupEnum.SUNDRY_CREDITORS;
+            this.accLookup1.NewGroupId = Konto.App.Shared.LedgerGroupEnum.SUNDRY_CREDITORS;
             this.accLookup1.PrimaryKey = null;
             this.accLookup1.RequiredField = true;
             this.accLookup1.SelectedText = null;
@@ -1020,6 +1028,7 @@
             // 
             this.voucherLookup1.GroupDto = null;
             this.voucherLookup1.Location = new System.Drawing.Point(564, 5);
+            this.voucherLookup1.LookupTitle = null;
             this.voucherLookup1.Name = "voucherLookup1";
             this.voucherLookup1.PrimaryKey = null;
             this.voucherLookup1.RequiredField = true;
@@ -1280,7 +1289,6 @@
             this.SettingCategroy = "Mrv";
             this.Text = "Job Sales Challan";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-
             ((System.ComponentModel.ISupportInitialize)(this.tabControlAdv1)).EndInit();
             this.tabControlAdv1.ResumeLayout(false);
             this.tabPageAdv1.ResumeLayout(false);

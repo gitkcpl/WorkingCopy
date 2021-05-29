@@ -12,7 +12,6 @@ using Syncfusion.Windows.Forms;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -54,7 +53,7 @@ namespace Konto.Shared.Masters.Item
             SetParameter();
             FillLookup();
 
-            if (KontoGlobals.PackageId != 3 || KontoGlobals.PackageId != 7)
+            if (KontoGlobals.PackageId !=  (int)PackageType.WEAVING && KontoGlobals.PackageId != (int) PackageType.CUSTOMIZED)
                 weavingSimpleButton.Visible = false;
 
             this.Shown += ProductIndex_Shown;
@@ -145,10 +144,14 @@ namespace Konto.Shared.Masters.Item
 
                         case 227:
                             {
-                                ProductPara.Cost_Rate_Inc_Gst = (value == "Y") ? true : false;
+                                ProductPara.Cost_Rate_Inc_Gst = (value == "Y");
                                 break;
                             }
-                        
+                        case 318:
+                        {
+                            ProductPara.Clear_Data_After_Save = (value == "Y");
+                            break;
+                        }
                     }
                 }
             }
@@ -374,9 +377,29 @@ namespace Konto.Shared.Masters.Item
                     if (find != null)
                     {
                         MessageBoxAdv.Show(this, "Product Name Already Exists", "Duplicate Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        nameTextBoxExt.Focus();
+                        return false;
+                    }
+
+                    
+                }
+            }
+            else
+            {
+                using (var db = new KontoContext())
+                {
+                    var find = db.Products.FirstOrDefault(
+                        x => x.BarCode == barcodeTextBoxExt.Text.Trim() && x.Id != this.PrimaryKey 
+                                                                        && !x.IsDeleted && x.ItemType == "I" 
+                                                                        && !string.IsNullOrEmpty(x.BarCode));
+
+                    if (find != null)
+                    {
+                        MessageBoxAdv.Show(this, "Barcode Already exist", "Duplicate Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         barcodeTextBoxExt.Focus();
                         return false;
                     }
+
                 }
             }
 
@@ -824,21 +847,21 @@ namespace Konto.Shared.Masters.Item
                             db.Prices.Add(pm);
                         }
 
-                            var complist = db.Companies.Where(p => p.IsActive && !p.IsDeleted).ToList();
-                            var yearlist = db.FinYears.Where(x => x.IsActive == true && x.IsDeleted == false).ToList();
-                           // var storelist = db.Stores.Where(x => x.IsActive && !x.IsDeleted).ToList();
-                            var branchlist = db.Branches.Where(x => x.IsActive && !x.IsDeleted).ToList();
-                            foreach (var comp in complist)
+                        var complist = db.Companies.Where(p => p.IsActive && !p.IsDeleted).ToList();
+                        var yearlist = db.FinYears.Where(x => x.IsActive == true && x.IsDeleted == false).ToList();
+                        // var storelist = db.Stores.Where(x => x.IsActive && !x.IsDeleted).ToList();
+                        var branchlist = db.Branches.Where(x => x.IsActive && !x.IsDeleted).ToList();
+                        foreach (var comp in complist)
+                        {
+                            foreach (var yr in yearlist)
                             {
-                                foreach (var yr in yearlist)
+                                foreach (var branch in branchlist)
                                 {
-                                    foreach (var branch in branchlist)
-                                    {
-                                       // foreach (var store in storelist)
-                                       // {
-                                            StockBalModel _model = new StockBalModel();
+                                    // foreach (var store in storelist)
+                                    // {
+                                    StockBalModel _model = new StockBalModel();
                                     _model = db.StockBals.FirstOrDefault(x => x.CompanyId == comp.Id && x.YearId == yr.Id && x.BranchId == branch.Id
-                                                && x.ProductId == model.Id);
+                                                                              && x.ProductId == model.Id);
 
                                     if (_model == null)
                                     {
@@ -863,10 +886,10 @@ namespace Konto.Shared.Masters.Item
                                         db.StockBals.Add(_model);
                                     }
                                         
-                                        //}
-                                    }
+                                    //}
                                 }
                             }
+                        }
                         
 
 
@@ -948,16 +971,16 @@ namespace Konto.Shared.Masters.Item
                             if(item.Id >0)
                                fm = db.PFormulas.Find(item.Id);
                             
-                                fm.RefProductId = item.RefProductId;
-                           // fm.ProductName = item.ProductName;
-                                fm.Qty = item.Qty;
-                                fm.Cut = item.Cut;
-                                fm.Rate = item.Rate;
-                                fm.Total = item.Total;
-                                fm.ColorId = item.ColorId;
-                                fm.Remark = item.Remark;
-                                fm.DescType = item.DescType;
-                                fm.UomId = item.UomId;
+                            fm.RefProductId = item.RefProductId;
+                            // fm.ProductName = item.ProductName;
+                            fm.Qty = item.Qty;
+                            fm.Cut = item.Cut;
+                            fm.Rate = item.Rate;
+                            fm.Total = item.Total;
+                            fm.ColorId = item.ColorId;
+                            fm.Remark = item.Remark;
+                            fm.DescType = item.DescType;
+                            fm.UomId = item.UomId;
 
                             if (item.Id == 0)
                             {
@@ -985,7 +1008,7 @@ namespace Konto.Shared.Masters.Item
                             }
                             string fpath = atc.ImagePath;
 
-                            int lst1 = fpath.LastIndexOf("\\");
+                            int lst1 = fpath.LastIndexOf("\\", StringComparison.Ordinal);
                             string xtn1 = fpath.Substring(lst1 + 1);
                             string path = (System.IO.Path.GetDirectoryName(System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName)) + "\\Pimagies\\Catalog\\";
                             if (!Directory.Exists(path))
@@ -1037,12 +1060,15 @@ namespace Konto.Shared.Masters.Item
             }
             if (IsSaved)
             {
-                NewRec();
+                if(ProductPara.Clear_Data_After_Save)
+                    NewRec();
                 base.SaveDataAsync(newmode);
                 MessageBoxAdv.Show(this, KontoGlobals.SaveMessage, "Saved !", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 if (!this.OpenForLookup && newmode)
                 {
-                    this.ResetPage();
+                    if(ProductPara.Clear_Data_After_Save)
+                        this.ResetPage();
+
                    barcodeTextBoxExt.Focus();
                 }
                 else

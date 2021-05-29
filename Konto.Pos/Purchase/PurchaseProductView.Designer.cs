@@ -37,6 +37,7 @@ namespace Konto.Pos.Purchase
             this.cancelSimpleButton = new DevExpress.XtraEditors.SimpleButton();
             this.okSimpleButton = new DevExpress.XtraEditors.SimpleButton();
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
+            this.updateSimpleButton = new DevExpress.XtraEditors.SimpleButton();
             this.pcsKontoSpinEdit = new Konto.Core.Shared.Libs.KontoSpinEdit(this.components);
             this.wtKontoSpinEdit1 = new Konto.Core.Shared.Libs.KontoSpinEdit(this.components);
             this.qtyKontoSpinEdit = new Konto.Core.Shared.Libs.KontoSpinEdit(this.components);
@@ -173,10 +174,11 @@ namespace Konto.Pos.Purchase
             this.layoutControlItem38 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem10 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem17 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem18 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem20 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem22 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem23 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
@@ -237,10 +239,11 @@ namespace Konto.Pos.Purchase
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem38)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem10)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem17)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem18)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem20)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem22)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem23)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -284,6 +287,7 @@ namespace Konto.Pos.Purchase
             // 
             // layoutControl1
             // 
+            this.layoutControl1.Controls.Add(this.updateSimpleButton);
             this.layoutControl1.Controls.Add(this.pcsKontoSpinEdit);
             this.layoutControl1.Controls.Add(this.wtKontoSpinEdit1);
             this.layoutControl1.Controls.Add(this.qtyKontoSpinEdit);
@@ -327,6 +331,20 @@ namespace Konto.Pos.Purchase
             this.layoutControl1.TabIndex = 9;
             this.layoutControl1.Text = "layoutControl1";
             // 
+            // updateSimpleButton
+            // 
+            this.updateSimpleButton.Appearance.BackColor = DevExpress.LookAndFeel.DXSkinColors.FillColors.Question;
+            this.updateSimpleButton.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.updateSimpleButton.Appearance.Options.UseBackColor = true;
+            this.updateSimpleButton.Appearance.Options.UseFont = true;
+            this.updateSimpleButton.Enabled = false;
+            this.updateSimpleButton.Location = new System.Drawing.Point(771, 229);
+            this.updateSimpleButton.Name = "updateSimpleButton";
+            this.updateSimpleButton.Size = new System.Drawing.Size(121, 22);
+            this.updateSimpleButton.StyleController = this.layoutControl1;
+            this.updateSimpleButton.TabIndex = 31;
+            this.updateSimpleButton.Text = "Update";
+            // 
             // pcsKontoSpinEdit
             // 
             this.pcsKontoSpinEdit.EditValue = new decimal(new int[] {
@@ -335,13 +353,13 @@ namespace Konto.Pos.Purchase
             0,
             0});
             this.pcsKontoSpinEdit.EnterMoveNextControl = true;
-            this.pcsKontoSpinEdit.Location = new System.Drawing.Point(786, 197);
+            this.pcsKontoSpinEdit.Location = new System.Drawing.Point(754, 201);
             this.pcsKontoSpinEdit.Name = "pcsKontoSpinEdit";
             this.pcsKontoSpinEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pcsKontoSpinEdit.Properties.Appearance.Options.UseFont = true;
             this.pcsKontoSpinEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.pcsKontoSpinEdit.Size = new System.Drawing.Size(106, 24);
+            this.pcsKontoSpinEdit.Size = new System.Drawing.Size(138, 24);
             this.pcsKontoSpinEdit.StyleController = this.layoutControl1;
             this.pcsKontoSpinEdit.TabIndex = 30;
             // 
@@ -353,13 +371,13 @@ namespace Konto.Pos.Purchase
             0,
             0});
             this.wtKontoSpinEdit1.EnterMoveNextControl = true;
-            this.wtKontoSpinEdit1.Location = new System.Drawing.Point(786, 169);
+            this.wtKontoSpinEdit1.Location = new System.Drawing.Point(754, 173);
             this.wtKontoSpinEdit1.Name = "wtKontoSpinEdit1";
             this.wtKontoSpinEdit1.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.wtKontoSpinEdit1.Properties.Appearance.Options.UseFont = true;
             this.wtKontoSpinEdit1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.wtKontoSpinEdit1.Size = new System.Drawing.Size(106, 24);
+            this.wtKontoSpinEdit1.Size = new System.Drawing.Size(138, 24);
             this.wtKontoSpinEdit1.StyleController = this.layoutControl1;
             this.wtKontoSpinEdit1.TabIndex = 29;
             // 
@@ -371,13 +389,13 @@ namespace Konto.Pos.Purchase
             0,
             0});
             this.qtyKontoSpinEdit.EnterMoveNextControl = true;
-            this.qtyKontoSpinEdit.Location = new System.Drawing.Point(586, 169);
+            this.qtyKontoSpinEdit.Location = new System.Drawing.Point(563, 173);
             this.qtyKontoSpinEdit.Name = "qtyKontoSpinEdit";
             this.qtyKontoSpinEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.qtyKontoSpinEdit.Properties.Appearance.Options.UseFont = true;
             this.qtyKontoSpinEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.qtyKontoSpinEdit.Size = new System.Drawing.Size(96, 24);
+            this.qtyKontoSpinEdit.Size = new System.Drawing.Size(87, 24);
             this.qtyKontoSpinEdit.StyleController = this.layoutControl1;
             this.qtyKontoSpinEdit.TabIndex = 21;
             // 
@@ -385,9 +403,9 @@ namespace Konto.Pos.Purchase
             // 
             this.genItemSimpleButton.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.genItemSimpleButton.Appearance.Options.UseFont = true;
-            this.genItemSimpleButton.Location = new System.Drawing.Point(760, 225);
+            this.genItemSimpleButton.Location = new System.Drawing.Point(647, 229);
             this.genItemSimpleButton.Name = "genItemSimpleButton";
-            this.genItemSimpleButton.Size = new System.Drawing.Size(132, 22);
+            this.genItemSimpleButton.Size = new System.Drawing.Size(120, 22);
             this.genItemSimpleButton.StyleController = this.layoutControl1;
             this.genItemSimpleButton.TabIndex = 28;
             this.genItemSimpleButton.Text = "Generate";
@@ -395,27 +413,27 @@ namespace Konto.Pos.Purchase
             // sizeCheckedComboBoxEdit
             // 
             this.sizeCheckedComboBoxEdit.EnterMoveNextControl = true;
-            this.sizeCheckedComboBoxEdit.Location = new System.Drawing.Point(379, 85);
+            this.sizeCheckedComboBoxEdit.Location = new System.Drawing.Point(366, 89);
             this.sizeCheckedComboBoxEdit.Name = "sizeCheckedComboBoxEdit";
             this.sizeCheckedComboBoxEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.sizeCheckedComboBoxEdit.Properties.Appearance.Options.UseFont = true;
             this.sizeCheckedComboBoxEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.sizeCheckedComboBoxEdit.Size = new System.Drawing.Size(184, 24);
+            this.sizeCheckedComboBoxEdit.Size = new System.Drawing.Size(170, 24);
             this.sizeCheckedComboBoxEdit.StyleController = this.layoutControl1;
             this.sizeCheckedComboBoxEdit.TabIndex = 9;
             // 
             // negativeCheckEdit
             // 
             this.negativeCheckEdit.EnterMoveNextControl = true;
-            this.negativeCheckEdit.Location = new System.Drawing.Point(294, 225);
+            this.negativeCheckEdit.Location = new System.Drawing.Point(280, 229);
             this.negativeCheckEdit.Name = "negativeCheckEdit";
             this.negativeCheckEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.negativeCheckEdit.Properties.Appearance.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.negativeCheckEdit.Properties.Appearance.Options.UseFont = true;
             this.negativeCheckEdit.Properties.Appearance.Options.UseForeColor = true;
             this.negativeCheckEdit.Properties.Caption = "Check Negative";
-            this.negativeCheckEdit.Size = new System.Drawing.Size(241, 21);
+            this.negativeCheckEdit.Size = new System.Drawing.Size(230, 21);
             this.negativeCheckEdit.StyleController = this.layoutControl1;
             this.negativeCheckEdit.TabIndex = 26;
             // 
@@ -424,10 +442,10 @@ namespace Konto.Pos.Purchase
             this.gridControl1.DataSource = this.posPurTransDtoBindingSource;
             this.gridControl1.EmbeddedNavigator.Buttons.Append.Enabled = false;
             this.gridControl1.EmbeddedNavigator.Buttons.Edit.Enabled = false;
-            this.gridControl1.Location = new System.Drawing.Point(5, 251);
+            this.gridControl1.Location = new System.Drawing.Point(5, 255);
             this.gridControl1.MainView = this.gridView1;
             this.gridControl1.Name = "gridControl1";
-            this.gridControl1.Size = new System.Drawing.Size(887, 180);
+            this.gridControl1.Size = new System.Drawing.Size(887, 176);
             this.gridControl1.TabIndex = 4;
             this.gridControl1.UseEmbeddedNavigator = true;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
@@ -1004,13 +1022,13 @@ namespace Konto.Pos.Purchase
             0,
             0});
             this.semBulkRateKontoSpinEdit.EnterMoveNextControl = true;
-            this.semBulkRateKontoSpinEdit.Location = new System.Drawing.Point(586, 197);
+            this.semBulkRateKontoSpinEdit.Location = new System.Drawing.Point(563, 201);
             this.semBulkRateKontoSpinEdit.Name = "semBulkRateKontoSpinEdit";
             this.semBulkRateKontoSpinEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.semBulkRateKontoSpinEdit.Properties.Appearance.Options.UseFont = true;
             this.semBulkRateKontoSpinEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.semBulkRateKontoSpinEdit.Size = new System.Drawing.Size(96, 24);
+            this.semBulkRateKontoSpinEdit.Size = new System.Drawing.Size(87, 24);
             this.semBulkRateKontoSpinEdit.StyleController = this.layoutControl1;
             this.semBulkRateKontoSpinEdit.TabIndex = 24;
             // 
@@ -1022,13 +1040,13 @@ namespace Konto.Pos.Purchase
             0,
             0});
             this.bulkQtyKontoSpinEdit.EnterMoveNextControl = true;
-            this.bulkQtyKontoSpinEdit.Location = new System.Drawing.Point(334, 197);
+            this.bulkQtyKontoSpinEdit.Location = new System.Drawing.Point(323, 201);
             this.bulkQtyKontoSpinEdit.Name = "bulkQtyKontoSpinEdit";
             this.bulkQtyKontoSpinEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bulkQtyKontoSpinEdit.Properties.Appearance.Options.UseFont = true;
             this.bulkQtyKontoSpinEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.bulkQtyKontoSpinEdit.Size = new System.Drawing.Size(148, 24);
+            this.bulkQtyKontoSpinEdit.Size = new System.Drawing.Size(136, 24);
             this.bulkQtyKontoSpinEdit.StyleController = this.layoutControl1;
             this.bulkQtyKontoSpinEdit.TabIndex = 23;
             // 
@@ -1040,76 +1058,76 @@ namespace Konto.Pos.Purchase
             0,
             0});
             this.bulkRateKontoSpinEdit.EnterMoveNextControl = true;
-            this.bulkRateKontoSpinEdit.Location = new System.Drawing.Point(105, 197);
+            this.bulkRateKontoSpinEdit.Location = new System.Drawing.Point(105, 201);
             this.bulkRateKontoSpinEdit.Name = "bulkRateKontoSpinEdit";
             this.bulkRateKontoSpinEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bulkRateKontoSpinEdit.Properties.Appearance.Options.UseFont = true;
             this.bulkRateKontoSpinEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.bulkRateKontoSpinEdit.Size = new System.Drawing.Size(125, 24);
+            this.bulkRateKontoSpinEdit.Size = new System.Drawing.Size(114, 24);
             this.bulkRateKontoSpinEdit.StyleController = this.layoutControl1;
             this.bulkRateKontoSpinEdit.TabIndex = 22;
             // 
             // taxIncCheckEdit
             // 
             this.taxIncCheckEdit.EnterMoveNextControl = true;
-            this.taxIncCheckEdit.Location = new System.Drawing.Point(5, 225);
+            this.taxIncCheckEdit.Location = new System.Drawing.Point(5, 229);
             this.taxIncCheckEdit.Name = "taxIncCheckEdit";
             this.taxIncCheckEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.taxIncCheckEdit.Properties.Appearance.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.taxIncCheckEdit.Properties.Appearance.Options.UseFont = true;
             this.taxIncCheckEdit.Properties.Appearance.Options.UseForeColor = true;
             this.taxIncCheckEdit.Properties.Caption = "Sale Rate Tax Inclusive";
-            this.taxIncCheckEdit.Size = new System.Drawing.Size(285, 21);
+            this.taxIncCheckEdit.Size = new System.Drawing.Size(271, 21);
             this.taxIncCheckEdit.StyleController = this.layoutControl1;
             this.taxIncCheckEdit.TabIndex = 25;
             // 
             // colorLookup1
             // 
-            this.colorLookup1.Location = new System.Drawing.Point(667, 85);
+            this.colorLookup1.Location = new System.Drawing.Point(640, 89);
             this.colorLookup1.LookupTitle = null;
             this.colorLookup1.Name = "colorLookup1";
             this.colorLookup1.PrimaryKey = null;
             this.colorLookup1.RequiredField = true;
             this.colorLookup1.SelectedText = null;
             this.colorLookup1.SelectedValue = null;
-            this.colorLookup1.Size = new System.Drawing.Size(225, 24);
+            this.colorLookup1.Size = new System.Drawing.Size(252, 24);
             this.colorLookup1.TabIndex = 10;
             // 
             // categoryLookup1
             // 
-            this.categoryLookup1.Location = new System.Drawing.Point(105, 85);
+            this.categoryLookup1.Location = new System.Drawing.Point(105, 89);
             this.categoryLookup1.LookupTitle = null;
             this.categoryLookup1.Name = "categoryLookup1";
             this.categoryLookup1.PrimaryKey = null;
             this.categoryLookup1.RequiredField = true;
             this.categoryLookup1.SelectedText = null;
             this.categoryLookup1.SelectedValue = null;
-            this.categoryLookup1.Size = new System.Drawing.Size(170, 24);
+            this.categoryLookup1.Size = new System.Drawing.Size(157, 24);
             this.categoryLookup1.TabIndex = 8;
             // 
             // brandLookup1
             // 
-            this.brandLookup1.Location = new System.Drawing.Point(667, 61);
+            this.brandLookup1.Location = new System.Drawing.Point(640, 61);
             this.brandLookup1.LookupTitle = null;
             this.brandLookup1.Name = "brandLookup1";
             this.brandLookup1.PrimaryKey = null;
             this.brandLookup1.RequiredField = true;
             this.brandLookup1.SelectedText = null;
             this.brandLookup1.SelectedValue = null;
-            this.brandLookup1.Size = new System.Drawing.Size(225, 20);
+            this.brandLookup1.Size = new System.Drawing.Size(252, 24);
             this.brandLookup1.TabIndex = 7;
             // 
             // subGroupLookup1
             // 
-            this.subGroupLookup1.Location = new System.Drawing.Point(379, 61);
+            this.subGroupLookup1.Location = new System.Drawing.Point(366, 61);
             this.subGroupLookup1.LookupTitle = null;
             this.subGroupLookup1.Name = "subGroupLookup1";
             this.subGroupLookup1.PrimaryKey = null;
             this.subGroupLookup1.RequiredField = true;
             this.subGroupLookup1.SelectedText = null;
             this.subGroupLookup1.SelectedValue = null;
-            this.subGroupLookup1.Size = new System.Drawing.Size(184, 20);
+            this.subGroupLookup1.Size = new System.Drawing.Size(170, 24);
             this.subGroupLookup1.TabIndex = 6;
             // 
             // groupLookup1
@@ -1121,7 +1139,7 @@ namespace Konto.Pos.Purchase
             this.groupLookup1.RequiredField = true;
             this.groupLookup1.SelectedText = null;
             this.groupLookup1.SelectedValue = null;
-            this.groupLookup1.Size = new System.Drawing.Size(170, 20);
+            this.groupLookup1.Size = new System.Drawing.Size(157, 24);
             this.groupLookup1.TabIndex = 5;
             // 
             // profitKontoSpinEdit
@@ -1132,27 +1150,27 @@ namespace Konto.Pos.Purchase
             0,
             0});
             this.profitKontoSpinEdit.EnterMoveNextControl = true;
-            this.profitKontoSpinEdit.Location = new System.Drawing.Point(786, 141);
+            this.profitKontoSpinEdit.Location = new System.Drawing.Point(754, 145);
             this.profitKontoSpinEdit.Name = "profitKontoSpinEdit";
             this.profitKontoSpinEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.profitKontoSpinEdit.Properties.Appearance.Options.UseFont = true;
             this.profitKontoSpinEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.profitKontoSpinEdit.Size = new System.Drawing.Size(106, 24);
+            this.profitKontoSpinEdit.Size = new System.Drawing.Size(138, 24);
             this.profitKontoSpinEdit.StyleController = this.layoutControl1;
             this.profitKontoSpinEdit.TabIndex = 18;
             // 
             // uniqueCheckEdit
             // 
             this.uniqueCheckEdit.EnterMoveNextControl = true;
-            this.uniqueCheckEdit.Location = new System.Drawing.Point(539, 225);
+            this.uniqueCheckEdit.Location = new System.Drawing.Point(514, 229);
             this.uniqueCheckEdit.Name = "uniqueCheckEdit";
             this.uniqueCheckEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.uniqueCheckEdit.Properties.Appearance.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.uniqueCheckEdit.Properties.Appearance.Options.UseFont = true;
             this.uniqueCheckEdit.Properties.Appearance.Options.UseForeColor = true;
             this.uniqueCheckEdit.Properties.Caption = "Unique Barcode ?";
-            this.uniqueCheckEdit.Size = new System.Drawing.Size(217, 21);
+            this.uniqueCheckEdit.Size = new System.Drawing.Size(129, 21);
             this.uniqueCheckEdit.StyleController = this.layoutControl1;
             this.uniqueCheckEdit.TabIndex = 27;
             // 
@@ -1164,13 +1182,13 @@ namespace Konto.Pos.Purchase
             0,
             0});
             this.saleDiscKontoSpinEdit.EnterMoveNextControl = true;
-            this.saleDiscKontoSpinEdit.Location = new System.Drawing.Point(586, 141);
+            this.saleDiscKontoSpinEdit.Location = new System.Drawing.Point(563, 145);
             this.saleDiscKontoSpinEdit.Name = "saleDiscKontoSpinEdit";
             this.saleDiscKontoSpinEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.saleDiscKontoSpinEdit.Properties.Appearance.Options.UseFont = true;
             this.saleDiscKontoSpinEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.saleDiscKontoSpinEdit.Size = new System.Drawing.Size(96, 24);
+            this.saleDiscKontoSpinEdit.Size = new System.Drawing.Size(87, 24);
             this.saleDiscKontoSpinEdit.StyleController = this.layoutControl1;
             this.saleDiscKontoSpinEdit.TabIndex = 17;
             // 
@@ -1182,13 +1200,13 @@ namespace Konto.Pos.Purchase
             0,
             0});
             this.mrpKontoSpinEdit.EnterMoveNextControl = true;
-            this.mrpKontoSpinEdit.Location = new System.Drawing.Point(334, 169);
+            this.mrpKontoSpinEdit.Location = new System.Drawing.Point(323, 173);
             this.mrpKontoSpinEdit.Name = "mrpKontoSpinEdit";
             this.mrpKontoSpinEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.mrpKontoSpinEdit.Properties.Appearance.Options.UseFont = true;
             this.mrpKontoSpinEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.mrpKontoSpinEdit.Size = new System.Drawing.Size(148, 24);
+            this.mrpKontoSpinEdit.Size = new System.Drawing.Size(136, 24);
             this.mrpKontoSpinEdit.StyleController = this.layoutControl1;
             this.mrpKontoSpinEdit.TabIndex = 20;
             // 
@@ -1200,13 +1218,13 @@ namespace Konto.Pos.Purchase
             0,
             0});
             this.saleRateKontoSpinEdit.EnterMoveNextControl = true;
-            this.saleRateKontoSpinEdit.Location = new System.Drawing.Point(105, 169);
+            this.saleRateKontoSpinEdit.Location = new System.Drawing.Point(105, 173);
             this.saleRateKontoSpinEdit.Name = "saleRateKontoSpinEdit";
             this.saleRateKontoSpinEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.saleRateKontoSpinEdit.Properties.Appearance.Options.UseFont = true;
             this.saleRateKontoSpinEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.saleRateKontoSpinEdit.Size = new System.Drawing.Size(125, 24);
+            this.saleRateKontoSpinEdit.Size = new System.Drawing.Size(114, 24);
             this.saleRateKontoSpinEdit.StyleController = this.layoutControl1;
             this.saleRateKontoSpinEdit.TabIndex = 19;
             // 
@@ -1218,13 +1236,13 @@ namespace Konto.Pos.Purchase
             0,
             0});
             this.purDiscKontoSpinEdit.EnterMoveNextControl = true;
-            this.purDiscKontoSpinEdit.Location = new System.Drawing.Point(334, 141);
+            this.purDiscKontoSpinEdit.Location = new System.Drawing.Point(323, 145);
             this.purDiscKontoSpinEdit.Name = "purDiscKontoSpinEdit";
             this.purDiscKontoSpinEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.purDiscKontoSpinEdit.Properties.Appearance.Options.UseFont = true;
             this.purDiscKontoSpinEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.purDiscKontoSpinEdit.Size = new System.Drawing.Size(148, 24);
+            this.purDiscKontoSpinEdit.Size = new System.Drawing.Size(136, 24);
             this.purDiscKontoSpinEdit.StyleController = this.layoutControl1;
             this.purDiscKontoSpinEdit.TabIndex = 16;
             // 
@@ -1236,20 +1254,20 @@ namespace Konto.Pos.Purchase
             0,
             0});
             this.purRateKontoSpinEdit.EnterMoveNextControl = true;
-            this.purRateKontoSpinEdit.Location = new System.Drawing.Point(105, 141);
+            this.purRateKontoSpinEdit.Location = new System.Drawing.Point(105, 145);
             this.purRateKontoSpinEdit.Name = "purRateKontoSpinEdit";
             this.purRateKontoSpinEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.purRateKontoSpinEdit.Properties.Appearance.Options.UseFont = true;
             this.purRateKontoSpinEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.purRateKontoSpinEdit.Size = new System.Drawing.Size(125, 24);
+            this.purRateKontoSpinEdit.Size = new System.Drawing.Size(114, 24);
             this.purRateKontoSpinEdit.StyleController = this.layoutControl1;
             this.purRateKontoSpinEdit.TabIndex = 15;
             // 
             // purUnitlookUpEdit
             // 
             this.purUnitlookUpEdit.EnterMoveNextControl = true;
-            this.purUnitlookUpEdit.Location = new System.Drawing.Point(631, 113);
+            this.purUnitlookUpEdit.Location = new System.Drawing.Point(604, 117);
             this.purUnitlookUpEdit.Name = "purUnitlookUpEdit";
             this.purUnitlookUpEdit.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
             this.purUnitlookUpEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1259,7 +1277,7 @@ namespace Konto.Pos.Purchase
             this.purUnitlookUpEdit.Properties.ImmediatePopup = true;
             this.purUnitlookUpEdit.Properties.NullText = "";
             this.purUnitlookUpEdit.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
-            this.purUnitlookUpEdit.Size = new System.Drawing.Size(91, 24);
+            this.purUnitlookUpEdit.Size = new System.Drawing.Size(84, 24);
             this.purUnitlookUpEdit.StyleController = this.layoutControl1;
             this.purUnitlookUpEdit.TabIndex = 13;
             this.purUnitlookUpEdit.EditValueChanged += new System.EventHandler(this.purUnitlookUpEdit_EditValueChanged);
@@ -1267,7 +1285,7 @@ namespace Konto.Pos.Purchase
             // unitLookUpEdit
             // 
             this.unitLookUpEdit.EnterMoveNextControl = true;
-            this.unitLookUpEdit.Location = new System.Drawing.Point(793, 113);
+            this.unitLookUpEdit.Location = new System.Drawing.Point(759, 117);
             this.unitLookUpEdit.Name = "unitLookUpEdit";
             this.unitLookUpEdit.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
             this.unitLookUpEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1277,14 +1295,14 @@ namespace Konto.Pos.Purchase
             this.unitLookUpEdit.Properties.ImmediatePopup = true;
             this.unitLookUpEdit.Properties.NullText = "";
             this.unitLookUpEdit.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
-            this.unitLookUpEdit.Size = new System.Drawing.Size(99, 24);
+            this.unitLookUpEdit.Size = new System.Drawing.Size(133, 24);
             this.unitLookUpEdit.StyleController = this.layoutControl1;
             this.unitLookUpEdit.TabIndex = 14;
             // 
             // taxTypelookUpEdit
             // 
             this.taxTypelookUpEdit.EnterMoveNextControl = true;
-            this.taxTypelookUpEdit.Location = new System.Drawing.Point(379, 113);
+            this.taxTypelookUpEdit.Location = new System.Drawing.Point(366, 117);
             this.taxTypelookUpEdit.Name = "taxTypelookUpEdit";
             this.taxTypelookUpEdit.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
             this.taxTypelookUpEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1298,20 +1316,20 @@ namespace Konto.Pos.Purchase
             this.taxTypelookUpEdit.Properties.ShowFooter = false;
             this.taxTypelookUpEdit.Properties.ShowHeader = false;
             this.taxTypelookUpEdit.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
-            this.taxTypelookUpEdit.Size = new System.Drawing.Size(184, 24);
+            this.taxTypelookUpEdit.Size = new System.Drawing.Size(170, 24);
             this.taxTypelookUpEdit.StyleController = this.layoutControl1;
             this.taxTypelookUpEdit.TabIndex = 12;
             // 
             // hsnTextBoxExt
             // 
-            this.hsnTextBoxExt.BeforeTouchSize = new System.Drawing.Size(358, 24);
+            this.hsnTextBoxExt.BeforeTouchSize = new System.Drawing.Size(378, 24);
             this.hsnTextBoxExt.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(211)))), ((int)(((byte)(212)))));
             this.hsnTextBoxExt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.hsnTextBoxExt.EnterMoveNextControl = true;
-            this.hsnTextBoxExt.Location = new System.Drawing.Point(105, 113);
+            this.hsnTextBoxExt.Location = new System.Drawing.Point(105, 117);
             this.hsnTextBoxExt.MaxLength = 15;
             this.hsnTextBoxExt.Name = "hsnTextBoxExt";
-            this.hsnTextBoxExt.Size = new System.Drawing.Size(170, 24);
+            this.hsnTextBoxExt.Size = new System.Drawing.Size(157, 24);
             this.hsnTextBoxExt.Style = Syncfusion.Windows.Forms.Tools.TextBoxExt.theme.Metro;
             this.hsnTextBoxExt.TabIndex = 11;
             this.hsnTextBoxExt.ThemeName = "Metro";
@@ -1319,15 +1337,15 @@ namespace Konto.Pos.Purchase
             // 
             // descTextBoxExt
             // 
-            this.descTextBoxExt.BeforeTouchSize = new System.Drawing.Size(358, 24);
+            this.descTextBoxExt.BeforeTouchSize = new System.Drawing.Size(378, 24);
             this.descTextBoxExt.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(211)))), ((int)(((byte)(212)))));
             this.descTextBoxExt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.descTextBoxExt.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.descTextBoxExt.EnterMoveNextControl = true;
-            this.descTextBoxExt.Location = new System.Drawing.Point(534, 33);
+            this.descTextBoxExt.Location = new System.Drawing.Point(514, 33);
             this.descTextBoxExt.MaxLength = 499;
             this.descTextBoxExt.Name = "descTextBoxExt";
-            this.descTextBoxExt.Size = new System.Drawing.Size(358, 24);
+            this.descTextBoxExt.Size = new System.Drawing.Size(378, 24);
             this.descTextBoxExt.Style = Syncfusion.Windows.Forms.Tools.TextBoxExt.theme.Metro;
             this.descTextBoxExt.TabIndex = 4;
             this.descTextBoxExt.ThemeName = "Metro";
@@ -1335,7 +1353,7 @@ namespace Konto.Pos.Purchase
             // 
             // nameTextBoxExt
             // 
-            this.nameTextBoxExt.BeforeTouchSize = new System.Drawing.Size(358, 24);
+            this.nameTextBoxExt.BeforeTouchSize = new System.Drawing.Size(378, 24);
             this.nameTextBoxExt.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(211)))), ((int)(((byte)(212)))));
             this.nameTextBoxExt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.nameTextBoxExt.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
@@ -1343,7 +1361,7 @@ namespace Konto.Pos.Purchase
             this.nameTextBoxExt.Location = new System.Drawing.Point(105, 33);
             this.nameTextBoxExt.MaxLength = 100;
             this.nameTextBoxExt.Name = "nameTextBoxExt";
-            this.nameTextBoxExt.Size = new System.Drawing.Size(325, 24);
+            this.nameTextBoxExt.Size = new System.Drawing.Size(305, 24);
             this.nameTextBoxExt.Style = Syncfusion.Windows.Forms.Tools.TextBoxExt.theme.Metro;
             this.nameTextBoxExt.TabIndex = 3;
             this.nameTextBoxExt.ThemeName = "Metro";
@@ -1351,14 +1369,14 @@ namespace Konto.Pos.Purchase
             // 
             // codeTextBoxExt
             // 
-            this.codeTextBoxExt.BeforeTouchSize = new System.Drawing.Size(358, 24);
+            this.codeTextBoxExt.BeforeTouchSize = new System.Drawing.Size(378, 24);
             this.codeTextBoxExt.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(211)))), ((int)(((byte)(212)))));
             this.codeTextBoxExt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.codeTextBoxExt.EnterMoveNextControl = true;
-            this.codeTextBoxExt.Location = new System.Drawing.Point(385, 5);
+            this.codeTextBoxExt.Location = new System.Drawing.Point(371, 5);
             this.codeTextBoxExt.MaxLength = 25;
             this.codeTextBoxExt.Name = "codeTextBoxExt";
-            this.codeTextBoxExt.Size = new System.Drawing.Size(156, 24);
+            this.codeTextBoxExt.Size = new System.Drawing.Size(144, 24);
             this.codeTextBoxExt.Style = Syncfusion.Windows.Forms.Tools.TextBoxExt.theme.Metro;
             this.codeTextBoxExt.TabIndex = 1;
             this.codeTextBoxExt.ThemeName = "Metro";
@@ -1366,14 +1384,14 @@ namespace Konto.Pos.Purchase
             // 
             // barcodeTextBoxExt
             // 
-            this.barcodeTextBoxExt.BeforeTouchSize = new System.Drawing.Size(358, 24);
+            this.barcodeTextBoxExt.BeforeTouchSize = new System.Drawing.Size(378, 24);
             this.barcodeTextBoxExt.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(211)))), ((int)(((byte)(212)))));
             this.barcodeTextBoxExt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.barcodeTextBoxExt.EnterMoveNextControl = true;
             this.barcodeTextBoxExt.Location = new System.Drawing.Point(105, 5);
             this.barcodeTextBoxExt.MaxLength = 25;
             this.barcodeTextBoxExt.Name = "barcodeTextBoxExt";
-            this.barcodeTextBoxExt.Size = new System.Drawing.Size(185, 24);
+            this.barcodeTextBoxExt.Size = new System.Drawing.Size(171, 24);
             this.barcodeTextBoxExt.Style = Syncfusion.Windows.Forms.Tools.TextBoxExt.theme.Metro;
             this.barcodeTextBoxExt.TabIndex = 0;
             this.barcodeTextBoxExt.ThemeName = "Metro";
@@ -1383,14 +1401,14 @@ namespace Konto.Pos.Purchase
             // 
             this.styleNoTextEdit.EditValue = "";
             this.styleNoTextEdit.EnterMoveNextControl = true;
-            this.styleNoTextEdit.Location = new System.Drawing.Point(645, 5);
+            this.styleNoTextEdit.Location = new System.Drawing.Point(619, 5);
             this.styleNoTextEdit.Name = "styleNoTextEdit";
             this.styleNoTextEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.styleNoTextEdit.Properties.Appearance.Options.UseFont = true;
             this.styleNoTextEdit.Properties.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.styleNoTextEdit.Properties.EditValueChangedFiringMode = DevExpress.XtraEditors.Controls.EditValueChangedFiringMode.Buffered;
             this.styleNoTextEdit.Properties.MaxLength = 25;
-            this.styleNoTextEdit.Size = new System.Drawing.Size(247, 24);
+            this.styleNoTextEdit.Size = new System.Drawing.Size(273, 24);
             this.styleNoTextEdit.StyleController = this.layoutControl1;
             this.styleNoTextEdit.TabIndex = 2;
             // 
@@ -1427,10 +1445,11 @@ namespace Konto.Pos.Purchase
             this.layoutControlItem38,
             this.layoutControlItem10,
             this.layoutControlItem17,
-            this.layoutControlItem3,
             this.layoutControlItem18,
             this.layoutControlItem20,
-            this.layoutControlItem22});
+            this.layoutControlItem22,
+            this.layoutControlItem3,
+            this.layoutControlItem23});
             this.Root.Name = "Root";
             this.Root.Padding = new DevExpress.XtraLayout.Utils.Padding(3, 3, 3, 3);
             this.Root.Size = new System.Drawing.Size(897, 436);
@@ -1445,7 +1464,7 @@ namespace Konto.Pos.Purchase
             this.layoutControlItem1.MaxSize = new System.Drawing.Size(0, 28);
             this.layoutControlItem1.MinSize = new System.Drawing.Size(129, 28);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(289, 28);
+            this.layoutControlItem1.Size = new System.Drawing.Size(275, 28);
             this.layoutControlItem1.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.layoutControlItem1.Text = "Barcode:";
             this.layoutControlItem1.TextSize = new System.Drawing.Size(97, 17);
@@ -1455,11 +1474,11 @@ namespace Konto.Pos.Purchase
             this.layoutControlItem2.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.layoutControlItem2.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem2.Control = this.codeTextBoxExt;
-            this.layoutControlItem2.Location = new System.Drawing.Point(289, 0);
+            this.layoutControlItem2.Location = new System.Drawing.Point(275, 0);
             this.layoutControlItem2.MaxSize = new System.Drawing.Size(0, 28);
             this.layoutControlItem2.MinSize = new System.Drawing.Size(115, 28);
             this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(251, 28);
+            this.layoutControlItem2.Size = new System.Drawing.Size(239, 28);
             this.layoutControlItem2.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.layoutControlItem2.Text = "Product Code:";
             this.layoutControlItem2.TextAlignMode = DevExpress.XtraLayout.TextAlignModeItem.AutoSize;
@@ -1476,7 +1495,7 @@ namespace Konto.Pos.Purchase
             this.layoutControlItem4.MaxSize = new System.Drawing.Size(0, 28);
             this.layoutControlItem4.MinSize = new System.Drawing.Size(129, 28);
             this.layoutControlItem4.Name = "layoutControlItem4";
-            this.layoutControlItem4.Size = new System.Drawing.Size(429, 28);
+            this.layoutControlItem4.Size = new System.Drawing.Size(409, 28);
             this.layoutControlItem4.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.layoutControlItem4.Text = "<color=255, 0, 0>*</color>Product Name:";
             this.layoutControlItem4.TextSize = new System.Drawing.Size(97, 17);
@@ -1487,11 +1506,11 @@ namespace Konto.Pos.Purchase
             this.layoutControlItem6.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.layoutControlItem6.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem6.Control = this.hsnTextBoxExt;
-            this.layoutControlItem6.Location = new System.Drawing.Point(0, 108);
+            this.layoutControlItem6.Location = new System.Drawing.Point(0, 112);
             this.layoutControlItem6.MaxSize = new System.Drawing.Size(0, 28);
             this.layoutControlItem6.MinSize = new System.Drawing.Size(129, 28);
             this.layoutControlItem6.Name = "layoutControlItem6";
-            this.layoutControlItem6.Size = new System.Drawing.Size(274, 28);
+            this.layoutControlItem6.Size = new System.Drawing.Size(261, 28);
             this.layoutControlItem6.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.layoutControlItem6.Text = "<color=255, 0, 0>*</color>Hsn Code:";
             this.layoutControlItem6.TextSize = new System.Drawing.Size(97, 17);
@@ -1502,9 +1521,9 @@ namespace Konto.Pos.Purchase
             this.layoutControlItem7.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.layoutControlItem7.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem7.Control = this.taxTypelookUpEdit;
-            this.layoutControlItem7.Location = new System.Drawing.Point(274, 108);
+            this.layoutControlItem7.Location = new System.Drawing.Point(261, 112);
             this.layoutControlItem7.Name = "layoutControlItem7";
-            this.layoutControlItem7.Size = new System.Drawing.Size(288, 28);
+            this.layoutControlItem7.Size = new System.Drawing.Size(274, 28);
             this.layoutControlItem7.Text = "<color=255, 0, 0>*</color>Gst Slab:";
             this.layoutControlItem7.TextSize = new System.Drawing.Size(97, 17);
             // 
@@ -1514,9 +1533,9 @@ namespace Konto.Pos.Purchase
             this.layoutControlItem8.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.layoutControlItem8.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem8.Control = this.unitLookUpEdit;
-            this.layoutControlItem8.Location = new System.Drawing.Point(721, 108);
+            this.layoutControlItem8.Location = new System.Drawing.Point(687, 112);
             this.layoutControlItem8.Name = "layoutControlItem8";
-            this.layoutControlItem8.Size = new System.Drawing.Size(170, 28);
+            this.layoutControlItem8.Size = new System.Drawing.Size(204, 28);
             this.layoutControlItem8.Text = "<color=255, 0, 0>*</color>Sale Unit:";
             this.layoutControlItem8.TextAlignMode = DevExpress.XtraLayout.TextAlignModeItem.AutoSize;
             this.layoutControlItem8.TextSize = new System.Drawing.Size(62, 17);
@@ -1528,9 +1547,9 @@ namespace Konto.Pos.Purchase
             this.layoutControlItem9.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.layoutControlItem9.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem9.Control = this.purUnitlookUpEdit;
-            this.layoutControlItem9.Location = new System.Drawing.Point(562, 108);
+            this.layoutControlItem9.Location = new System.Drawing.Point(535, 112);
             this.layoutControlItem9.Name = "layoutControlItem9";
-            this.layoutControlItem9.Size = new System.Drawing.Size(159, 28);
+            this.layoutControlItem9.Size = new System.Drawing.Size(152, 28);
             this.layoutControlItem9.Text = "<color=255, 0, 0>*</color>Pur Unit:";
             this.layoutControlItem9.TextAlignMode = DevExpress.XtraLayout.TextAlignModeItem.AutoSize;
             this.layoutControlItem9.TextSize = new System.Drawing.Size(59, 17);
@@ -1541,9 +1560,9 @@ namespace Konto.Pos.Purchase
             this.styleNoLayoutControlItem.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.styleNoLayoutControlItem.AppearanceItemCaption.Options.UseFont = true;
             this.styleNoLayoutControlItem.Control = this.styleNoTextEdit;
-            this.styleNoLayoutControlItem.Location = new System.Drawing.Point(540, 0);
+            this.styleNoLayoutControlItem.Location = new System.Drawing.Point(514, 0);
             this.styleNoLayoutControlItem.Name = "styleNoLayoutControlItem";
-            this.styleNoLayoutControlItem.Size = new System.Drawing.Size(351, 28);
+            this.styleNoLayoutControlItem.Size = new System.Drawing.Size(377, 28);
             this.styleNoLayoutControlItem.Text = "Style No:";
             this.styleNoLayoutControlItem.TextSize = new System.Drawing.Size(97, 17);
             // 
@@ -1553,11 +1572,11 @@ namespace Konto.Pos.Purchase
             this.layoutControlItem5.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.layoutControlItem5.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem5.Control = this.descTextBoxExt;
-            this.layoutControlItem5.Location = new System.Drawing.Point(429, 28);
+            this.layoutControlItem5.Location = new System.Drawing.Point(409, 28);
             this.layoutControlItem5.MaxSize = new System.Drawing.Size(0, 28);
             this.layoutControlItem5.MinSize = new System.Drawing.Size(129, 28);
             this.layoutControlItem5.Name = "layoutControlItem5";
-            this.layoutControlItem5.Size = new System.Drawing.Size(462, 28);
+            this.layoutControlItem5.Size = new System.Drawing.Size(482, 28);
             this.layoutControlItem5.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.layoutControlItem5.Text = "<color=255, 0, 0>*</color>Description:";
             this.layoutControlItem5.TextSize = new System.Drawing.Size(97, 17);
@@ -1569,7 +1588,7 @@ namespace Konto.Pos.Purchase
             this.layoutControlItem25.Control = this.groupLookup1;
             this.layoutControlItem25.Location = new System.Drawing.Point(0, 56);
             this.layoutControlItem25.Name = "layoutControlItem25";
-            this.layoutControlItem25.Size = new System.Drawing.Size(274, 24);
+            this.layoutControlItem25.Size = new System.Drawing.Size(261, 28);
             this.layoutControlItem25.Text = "Group:";
             this.layoutControlItem25.TextSize = new System.Drawing.Size(97, 17);
             // 
@@ -1578,10 +1597,10 @@ namespace Konto.Pos.Purchase
             this.layoutControlItem31.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.layoutControlItem31.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem31.Control = this.subGroupLookup1;
-            this.layoutControlItem31.Location = new System.Drawing.Point(274, 56);
+            this.layoutControlItem31.Location = new System.Drawing.Point(261, 56);
             this.layoutControlItem31.MinSize = new System.Drawing.Size(204, 24);
             this.layoutControlItem31.Name = "layoutControlItem31";
-            this.layoutControlItem31.Size = new System.Drawing.Size(288, 24);
+            this.layoutControlItem31.Size = new System.Drawing.Size(274, 28);
             this.layoutControlItem31.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.layoutControlItem31.Text = "Sub Group:";
             this.layoutControlItem31.TextSize = new System.Drawing.Size(97, 17);
@@ -1591,9 +1610,9 @@ namespace Konto.Pos.Purchase
             this.layoutControlItem32.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.layoutControlItem32.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem32.Control = this.brandLookup1;
-            this.layoutControlItem32.Location = new System.Drawing.Point(562, 56);
+            this.layoutControlItem32.Location = new System.Drawing.Point(535, 56);
             this.layoutControlItem32.Name = "layoutControlItem32";
-            this.layoutControlItem32.Size = new System.Drawing.Size(329, 24);
+            this.layoutControlItem32.Size = new System.Drawing.Size(356, 28);
             this.layoutControlItem32.Text = "Brand:";
             this.layoutControlItem32.TextSize = new System.Drawing.Size(97, 17);
             // 
@@ -1602,9 +1621,9 @@ namespace Konto.Pos.Purchase
             this.layoutControlItem33.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.layoutControlItem33.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem33.Control = this.categoryLookup1;
-            this.layoutControlItem33.Location = new System.Drawing.Point(0, 80);
+            this.layoutControlItem33.Location = new System.Drawing.Point(0, 84);
             this.layoutControlItem33.Name = "layoutControlItem33";
-            this.layoutControlItem33.Size = new System.Drawing.Size(274, 28);
+            this.layoutControlItem33.Size = new System.Drawing.Size(261, 28);
             this.layoutControlItem33.Text = "Category:";
             this.layoutControlItem33.TextSize = new System.Drawing.Size(97, 17);
             // 
@@ -1613,9 +1632,9 @@ namespace Konto.Pos.Purchase
             this.layoutControlItem35.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.layoutControlItem35.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem35.Control = this.colorLookup1;
-            this.layoutControlItem35.Location = new System.Drawing.Point(562, 80);
+            this.layoutControlItem35.Location = new System.Drawing.Point(535, 84);
             this.layoutControlItem35.Name = "layoutControlItem35";
-            this.layoutControlItem35.Size = new System.Drawing.Size(329, 28);
+            this.layoutControlItem35.Size = new System.Drawing.Size(356, 28);
             this.layoutControlItem35.Text = "Color:";
             this.layoutControlItem35.TextSize = new System.Drawing.Size(97, 17);
             // 
@@ -1624,9 +1643,9 @@ namespace Konto.Pos.Purchase
             this.layoutControlItem11.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.layoutControlItem11.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem11.Control = this.purRateKontoSpinEdit;
-            this.layoutControlItem11.Location = new System.Drawing.Point(0, 136);
+            this.layoutControlItem11.Location = new System.Drawing.Point(0, 140);
             this.layoutControlItem11.Name = "layoutControlItem11";
-            this.layoutControlItem11.Size = new System.Drawing.Size(229, 28);
+            this.layoutControlItem11.Size = new System.Drawing.Size(218, 28);
             this.layoutControlItem11.Text = "Pur. Rate:";
             this.layoutControlItem11.TextSize = new System.Drawing.Size(97, 17);
             // 
@@ -1635,9 +1654,9 @@ namespace Konto.Pos.Purchase
             this.layoutControlItem14.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.layoutControlItem14.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem14.Control = this.mrpKontoSpinEdit;
-            this.layoutControlItem14.Location = new System.Drawing.Point(229, 164);
+            this.layoutControlItem14.Location = new System.Drawing.Point(218, 168);
             this.layoutControlItem14.Name = "layoutControlItem14";
-            this.layoutControlItem14.Size = new System.Drawing.Size(252, 28);
+            this.layoutControlItem14.Size = new System.Drawing.Size(240, 28);
             this.layoutControlItem14.Text = "MRP:";
             this.layoutControlItem14.TextSize = new System.Drawing.Size(97, 17);
             // 
@@ -1646,9 +1665,9 @@ namespace Konto.Pos.Purchase
             this.semiBulkLayoutControlItem.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.semiBulkLayoutControlItem.AppearanceItemCaption.Options.UseFont = true;
             this.semiBulkLayoutControlItem.Control = this.semBulkRateKontoSpinEdit;
-            this.semiBulkLayoutControlItem.Location = new System.Drawing.Point(481, 192);
+            this.semiBulkLayoutControlItem.Location = new System.Drawing.Point(458, 196);
             this.semiBulkLayoutControlItem.Name = "semiBulkLayoutControlItem";
-            this.semiBulkLayoutControlItem.Size = new System.Drawing.Size(200, 28);
+            this.semiBulkLayoutControlItem.Size = new System.Drawing.Size(191, 28);
             this.semiBulkLayoutControlItem.Text = "Semi Bulk Rate:";
             this.semiBulkLayoutControlItem.TextSize = new System.Drawing.Size(97, 17);
             // 
@@ -1657,9 +1676,9 @@ namespace Konto.Pos.Purchase
             this.layoutControlItem15.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.layoutControlItem15.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem15.Control = this.saleDiscKontoSpinEdit;
-            this.layoutControlItem15.Location = new System.Drawing.Point(481, 136);
+            this.layoutControlItem15.Location = new System.Drawing.Point(458, 140);
             this.layoutControlItem15.Name = "layoutControlItem15";
-            this.layoutControlItem15.Size = new System.Drawing.Size(200, 28);
+            this.layoutControlItem15.Size = new System.Drawing.Size(191, 28);
             this.layoutControlItem15.Text = "Sale Disc %:";
             this.layoutControlItem15.TextSize = new System.Drawing.Size(97, 17);
             // 
@@ -1668,9 +1687,9 @@ namespace Konto.Pos.Purchase
             this.layoutControlItem12.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.layoutControlItem12.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem12.Control = this.purDiscKontoSpinEdit;
-            this.layoutControlItem12.Location = new System.Drawing.Point(229, 136);
+            this.layoutControlItem12.Location = new System.Drawing.Point(218, 140);
             this.layoutControlItem12.Name = "layoutControlItem12";
-            this.layoutControlItem12.Size = new System.Drawing.Size(252, 28);
+            this.layoutControlItem12.Size = new System.Drawing.Size(240, 28);
             this.layoutControlItem12.Text = "Pur. Disc %:";
             this.layoutControlItem12.TextSize = new System.Drawing.Size(97, 17);
             // 
@@ -1679,9 +1698,9 @@ namespace Konto.Pos.Purchase
             this.layoutControlItem13.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.layoutControlItem13.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem13.Control = this.saleRateKontoSpinEdit;
-            this.layoutControlItem13.Location = new System.Drawing.Point(0, 164);
+            this.layoutControlItem13.Location = new System.Drawing.Point(0, 168);
             this.layoutControlItem13.Name = "layoutControlItem13";
-            this.layoutControlItem13.Size = new System.Drawing.Size(229, 28);
+            this.layoutControlItem13.Size = new System.Drawing.Size(218, 28);
             this.layoutControlItem13.Text = "Sale Rate:";
             this.layoutControlItem13.TextSize = new System.Drawing.Size(97, 17);
             // 
@@ -1690,9 +1709,9 @@ namespace Konto.Pos.Purchase
             this.layoutControlItem21.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.layoutControlItem21.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem21.Control = this.profitKontoSpinEdit;
-            this.layoutControlItem21.Location = new System.Drawing.Point(681, 136);
+            this.layoutControlItem21.Location = new System.Drawing.Point(649, 140);
             this.layoutControlItem21.Name = "layoutControlItem21";
-            this.layoutControlItem21.Size = new System.Drawing.Size(210, 28);
+            this.layoutControlItem21.Size = new System.Drawing.Size(242, 28);
             this.layoutControlItem21.Text = "Profit %:";
             this.layoutControlItem21.TextSize = new System.Drawing.Size(97, 17);
             // 
@@ -1701,9 +1720,9 @@ namespace Konto.Pos.Purchase
             this.bulkRateLayoutControlItem.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bulkRateLayoutControlItem.AppearanceItemCaption.Options.UseFont = true;
             this.bulkRateLayoutControlItem.Control = this.bulkRateKontoSpinEdit;
-            this.bulkRateLayoutControlItem.Location = new System.Drawing.Point(0, 192);
+            this.bulkRateLayoutControlItem.Location = new System.Drawing.Point(0, 196);
             this.bulkRateLayoutControlItem.Name = "bulkRateLayoutControlItem";
-            this.bulkRateLayoutControlItem.Size = new System.Drawing.Size(229, 28);
+            this.bulkRateLayoutControlItem.Size = new System.Drawing.Size(218, 28);
             this.bulkRateLayoutControlItem.Text = "Bulk Rate:";
             this.bulkRateLayoutControlItem.TextSize = new System.Drawing.Size(97, 17);
             // 
@@ -1712,9 +1731,9 @@ namespace Konto.Pos.Purchase
             this.bulkQtyLayoutControlItem.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bulkQtyLayoutControlItem.AppearanceItemCaption.Options.UseFont = true;
             this.bulkQtyLayoutControlItem.Control = this.bulkQtyKontoSpinEdit;
-            this.bulkQtyLayoutControlItem.Location = new System.Drawing.Point(229, 192);
+            this.bulkQtyLayoutControlItem.Location = new System.Drawing.Point(218, 196);
             this.bulkQtyLayoutControlItem.Name = "bulkQtyLayoutControlItem";
-            this.bulkQtyLayoutControlItem.Size = new System.Drawing.Size(252, 28);
+            this.bulkQtyLayoutControlItem.Size = new System.Drawing.Size(240, 28);
             this.bulkQtyLayoutControlItem.Text = "Bulk Qty:";
             this.bulkQtyLayoutControlItem.TextSize = new System.Drawing.Size(97, 17);
             // 
@@ -1723,9 +1742,9 @@ namespace Konto.Pos.Purchase
             this.layoutControlItem16.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.layoutControlItem16.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem16.Control = this.sizeCheckedComboBoxEdit;
-            this.layoutControlItem16.Location = new System.Drawing.Point(274, 80);
+            this.layoutControlItem16.Location = new System.Drawing.Point(261, 84);
             this.layoutControlItem16.Name = "layoutControlItem16";
-            this.layoutControlItem16.Size = new System.Drawing.Size(288, 28);
+            this.layoutControlItem16.Size = new System.Drawing.Size(274, 28);
             this.layoutControlItem16.Text = "Size:";
             this.layoutControlItem16.TextSize = new System.Drawing.Size(97, 17);
             // 
@@ -1734,54 +1753,45 @@ namespace Konto.Pos.Purchase
             this.layoutControlItem19.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.layoutControlItem19.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem19.Control = this.qtyKontoSpinEdit;
-            this.layoutControlItem19.Location = new System.Drawing.Point(481, 164);
+            this.layoutControlItem19.Location = new System.Drawing.Point(458, 168);
             this.layoutControlItem19.Name = "layoutControlItem19";
-            this.layoutControlItem19.Size = new System.Drawing.Size(200, 28);
+            this.layoutControlItem19.Size = new System.Drawing.Size(191, 28);
             this.layoutControlItem19.Text = "Purchase Qty:";
             this.layoutControlItem19.TextSize = new System.Drawing.Size(97, 17);
             // 
             // layoutControlItem38
             // 
             this.layoutControlItem38.Control = this.taxIncCheckEdit;
-            this.layoutControlItem38.Location = new System.Drawing.Point(0, 220);
+            this.layoutControlItem38.Location = new System.Drawing.Point(0, 224);
             this.layoutControlItem38.Name = "layoutControlItem38";
-            this.layoutControlItem38.Size = new System.Drawing.Size(289, 26);
+            this.layoutControlItem38.Size = new System.Drawing.Size(275, 26);
             this.layoutControlItem38.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem38.TextVisible = false;
             // 
             // layoutControlItem10
             // 
             this.layoutControlItem10.Control = this.negativeCheckEdit;
-            this.layoutControlItem10.Location = new System.Drawing.Point(289, 220);
+            this.layoutControlItem10.Location = new System.Drawing.Point(275, 224);
             this.layoutControlItem10.Name = "layoutControlItem10";
-            this.layoutControlItem10.Size = new System.Drawing.Size(245, 26);
+            this.layoutControlItem10.Size = new System.Drawing.Size(234, 26);
             this.layoutControlItem10.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem10.TextVisible = false;
             // 
             // layoutControlItem17
             // 
             this.layoutControlItem17.Control = this.uniqueCheckEdit;
-            this.layoutControlItem17.Location = new System.Drawing.Point(534, 220);
+            this.layoutControlItem17.Location = new System.Drawing.Point(509, 224);
             this.layoutControlItem17.Name = "layoutControlItem17";
-            this.layoutControlItem17.Size = new System.Drawing.Size(221, 26);
+            this.layoutControlItem17.Size = new System.Drawing.Size(133, 26);
             this.layoutControlItem17.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem17.TextVisible = false;
-            // 
-            // layoutControlItem3
-            // 
-            this.layoutControlItem3.Control = this.gridControl1;
-            this.layoutControlItem3.Location = new System.Drawing.Point(0, 246);
-            this.layoutControlItem3.Name = "layoutControlItem3";
-            this.layoutControlItem3.Size = new System.Drawing.Size(891, 184);
-            this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
-            this.layoutControlItem3.TextVisible = false;
             // 
             // layoutControlItem18
             // 
             this.layoutControlItem18.Control = this.genItemSimpleButton;
-            this.layoutControlItem18.Location = new System.Drawing.Point(755, 220);
+            this.layoutControlItem18.Location = new System.Drawing.Point(642, 224);
             this.layoutControlItem18.Name = "layoutControlItem18";
-            this.layoutControlItem18.Size = new System.Drawing.Size(136, 26);
+            this.layoutControlItem18.Size = new System.Drawing.Size(124, 26);
             this.layoutControlItem18.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem18.TextVisible = false;
             // 
@@ -1790,9 +1800,9 @@ namespace Konto.Pos.Purchase
             this.layoutControlItem20.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.layoutControlItem20.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem20.Control = this.wtKontoSpinEdit1;
-            this.layoutControlItem20.Location = new System.Drawing.Point(681, 164);
+            this.layoutControlItem20.Location = new System.Drawing.Point(649, 168);
             this.layoutControlItem20.Name = "layoutControlItem20";
-            this.layoutControlItem20.Size = new System.Drawing.Size(210, 28);
+            this.layoutControlItem20.Size = new System.Drawing.Size(242, 28);
             this.layoutControlItem20.Text = "Weight:";
             this.layoutControlItem20.TextSize = new System.Drawing.Size(97, 17);
             // 
@@ -1801,11 +1811,29 @@ namespace Konto.Pos.Purchase
             this.layoutControlItem22.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.layoutControlItem22.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem22.Control = this.pcsKontoSpinEdit;
-            this.layoutControlItem22.Location = new System.Drawing.Point(681, 192);
+            this.layoutControlItem22.Location = new System.Drawing.Point(649, 196);
             this.layoutControlItem22.Name = "layoutControlItem22";
-            this.layoutControlItem22.Size = new System.Drawing.Size(210, 28);
+            this.layoutControlItem22.Size = new System.Drawing.Size(242, 28);
             this.layoutControlItem22.Text = "Barcode Pcs:";
             this.layoutControlItem22.TextSize = new System.Drawing.Size(97, 17);
+            // 
+            // layoutControlItem23
+            // 
+            this.layoutControlItem23.Control = this.updateSimpleButton;
+            this.layoutControlItem23.Location = new System.Drawing.Point(766, 224);
+            this.layoutControlItem23.Name = "layoutControlItem23";
+            this.layoutControlItem23.Size = new System.Drawing.Size(125, 26);
+            this.layoutControlItem23.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem23.TextVisible = false;
+            // 
+            // layoutControlItem3
+            // 
+            this.layoutControlItem3.Control = this.gridControl1;
+            this.layoutControlItem3.Location = new System.Drawing.Point(0, 250);
+            this.layoutControlItem3.Name = "layoutControlItem3";
+            this.layoutControlItem3.Size = new System.Drawing.Size(891, 180);
+            this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem3.TextVisible = false;
             // 
             // PurchaseProductView
             // 
@@ -1884,10 +1912,11 @@ namespace Konto.Pos.Purchase
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem38)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem10)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem17)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem18)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem20)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem22)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem23)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -2038,5 +2067,7 @@ namespace Konto.Pos.Purchase
         private Core.Shared.Libs.CustomGridColumn colAvgWt;
         private KontoSpinEdit pcsKontoSpinEdit;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem22;
+        private DevExpress.XtraEditors.SimpleButton updateSimpleButton;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem23;
     }
 }

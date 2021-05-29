@@ -28,7 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReceiptListView));
             this.listDateRange1 = new Konto.Core.Shared.Libs.ListDateRange();
+            this.customGridControl1 = new Konto.Core.Shared.Libs.CustomGridControl();
+            this.customGridView1 = new Konto.Core.Shared.Libs.CustomGridView();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.chqRetSimpleButton = new DevExpress.XtraEditors.SimpleButton();
             this.gridControl1 = new Konto.Core.Shared.Libs.CustomGridControl();
             this.gridView1 = new Konto.Core.Shared.Libs.CustomGridView();
             this.colChallanNo = new Konto.Core.Shared.Libs.CustomGridColumn();
@@ -103,16 +108,15 @@
             this.colAdla9 = new Konto.Core.Shared.Libs.CustomGridColumn();
             this.colAdlp10 = new Konto.Core.Shared.Libs.CustomGridColumn();
             this.colAdla10 = new Konto.Core.Shared.Libs.CustomGridColumn();
-            this.customGridControl1 = new Konto.Core.Shared.Libs.CustomGridControl();
-            this.customGridView1 = new Konto.Core.Shared.Libs.CustomGridView();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).BeginInit();
             this.panelControl2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.customGridControl1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.customGridView1)).BeginInit();
+            this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.customGridControl1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.customGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // panelControl2
@@ -127,11 +131,15 @@
             this.panelControl3.Location = new System.Drawing.Point(991, 35);
             this.panelControl3.Size = new System.Drawing.Size(49, 425);
             // 
+            // listAction1
+            // 
+            this.listAction1.Size = new System.Drawing.Size(479, 29);
+            // 
             // listDateRange1
             // 
             this.listDateRange1.FromDate = 0;
             this.listDateRange1.IsAnalysis = false;
-            this.listDateRange1.KontoGrid = null;
+            this.listDateRange1.KontoGrid = this.customGridControl1;
             this.listDateRange1.Location = new System.Drawing.Point(477, 4);
             this.listDateRange1.Name = "listDateRange1";
             this.listDateRange1.SelectedItem = null;
@@ -140,16 +148,79 @@
             this.listDateRange1.ToDate = 0;
             this.listDateRange1.VoucherType = Konto.App.Shared.VoucherTypeEnum.ReceiptVoucher;
             // 
+            // customGridControl1
+            // 
+            this.customGridControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.customGridControl1.Location = new System.Drawing.Point(0, 35);
+            this.customGridControl1.LookAndFeel.SkinName = "Office 2016 Colorful";
+            this.customGridControl1.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.customGridControl1.MainView = this.customGridView1;
+            this.customGridControl1.Name = "customGridControl1";
+            this.customGridControl1.Size = new System.Drawing.Size(991, 200);
+            this.customGridControl1.TabIndex = 22;
+            this.customGridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.customGridView1});
+            // 
+            // customGridView1
+            // 
+            this.customGridView1.Appearance.FooterPanel.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.customGridView1.Appearance.FooterPanel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(22)))), ((int)(((byte)(91)))));
+            this.customGridView1.Appearance.FooterPanel.Options.UseFont = true;
+            this.customGridView1.Appearance.FooterPanel.Options.UseForeColor = true;
+            this.customGridView1.Appearance.HeaderPanel.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.customGridView1.Appearance.HeaderPanel.Options.UseFont = true;
+            this.customGridView1.Appearance.Row.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.customGridView1.Appearance.Row.Options.UseFont = true;
+            this.customGridView1.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
+            this.customGridView1.GridControl = this.customGridControl1;
+            this.customGridView1.Name = "customGridView1";
+            this.customGridView1.OptionsBehavior.AllowIncrementalSearch = true;
+            this.customGridView1.OptionsBehavior.Editable = false;
+            this.customGridView1.OptionsCustomization.AllowRowSizing = true;
+            this.customGridView1.OptionsCustomization.QuickCustomizationIcons.Image = null;
+            this.customGridView1.OptionsCustomization.QuickCustomizationIcons.TransperentColor = System.Drawing.Color.Empty;
+            this.customGridView1.OptionsLayout.Columns.StoreAllOptions = true;
+            this.customGridView1.OptionsLayout.Columns.StoreAppearance = true;
+            this.customGridView1.OptionsLayout.StoreAllOptions = true;
+            this.customGridView1.OptionsLayout.StoreAppearance = true;
+            this.customGridView1.OptionsMenu.ShowAddNewSummaryItem = DevExpress.Utils.DefaultBoolean.True;
+            this.customGridView1.OptionsView.ColumnAutoWidth = false;
+            this.customGridView1.OptionsView.ShowFooter = true;
+            this.customGridView1.OptionsView.ShowGroupPanel = false;
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.chqRetSimpleButton);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel1.Location = new System.Drawing.Point(0, 430);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(991, 30);
+            this.panel1.TabIndex = 20;
+            // 
+            // chqRetSimpleButton
+            // 
+            this.chqRetSimpleButton.Appearance.BackColor = System.Drawing.Color.White;
+            this.chqRetSimpleButton.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chqRetSimpleButton.Appearance.Options.UseBackColor = true;
+            this.chqRetSimpleButton.Appearance.Options.UseFont = true;
+            this.chqRetSimpleButton.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("chqRetSimpleButton.ImageOptions.SvgImage")));
+            this.chqRetSimpleButton.Location = new System.Drawing.Point(3, 3);
+            this.chqRetSimpleButton.Name = "chqRetSimpleButton";
+            this.chqRetSimpleButton.Size = new System.Drawing.Size(142, 24);
+            this.chqRetSimpleButton.TabIndex = 7;
+            this.chqRetSimpleButton.TabStop = false;
+            this.chqRetSimpleButton.Text = "Cheque Return";
+            // 
             // gridControl1
             // 
             this.gridControl1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.gridControl1.Location = new System.Drawing.Point(0, 265);
+            this.gridControl1.Location = new System.Drawing.Point(0, 235);
             this.gridControl1.MainView = this.gridView1;
             this.gridControl1.Name = "gridControl1";
             this.gridControl1.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryItemTextEdit1});
             this.gridControl1.Size = new System.Drawing.Size(991, 195);
-            this.gridControl1.TabIndex = 18;
+            this.gridControl1.TabIndex = 21;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
             // 
@@ -811,52 +882,13 @@
             this.colAdla10.Visible = true;
             this.colAdla10.VisibleIndex = 29;
             // 
-            // customGridControl1
-            // 
-            this.customGridControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.customGridControl1.Location = new System.Drawing.Point(0, 35);
-            this.customGridControl1.LookAndFeel.SkinName = "Office 2016 Colorful";
-            this.customGridControl1.LookAndFeel.UseDefaultLookAndFeel = false;
-            this.customGridControl1.MainView = this.customGridView1;
-            this.customGridControl1.Name = "customGridControl1";
-            this.customGridControl1.Size = new System.Drawing.Size(991, 230);
-            this.customGridControl1.TabIndex = 19;
-            this.customGridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
-            this.customGridView1});
-            // 
-            // customGridView1
-            // 
-            this.customGridView1.Appearance.FooterPanel.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.customGridView1.Appearance.FooterPanel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(22)))), ((int)(((byte)(91)))));
-            this.customGridView1.Appearance.FooterPanel.Options.UseFont = true;
-            this.customGridView1.Appearance.FooterPanel.Options.UseForeColor = true;
-            this.customGridView1.Appearance.HeaderPanel.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.customGridView1.Appearance.HeaderPanel.Options.UseFont = true;
-            this.customGridView1.Appearance.Row.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.customGridView1.Appearance.Row.Options.UseFont = true;
-            this.customGridView1.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
-            this.customGridView1.GridControl = this.customGridControl1;
-            this.customGridView1.Name = "customGridView1";
-            this.customGridView1.OptionsBehavior.AllowIncrementalSearch = true;
-            this.customGridView1.OptionsBehavior.Editable = false;
-            this.customGridView1.OptionsCustomization.AllowRowSizing = true;
-            this.customGridView1.OptionsCustomization.QuickCustomizationIcons.Image = null;
-            this.customGridView1.OptionsCustomization.QuickCustomizationIcons.TransperentColor = System.Drawing.Color.Empty;
-            this.customGridView1.OptionsLayout.Columns.StoreAllOptions = true;
-            this.customGridView1.OptionsLayout.Columns.StoreAppearance = true;
-            this.customGridView1.OptionsLayout.StoreAllOptions = true;
-            this.customGridView1.OptionsLayout.StoreAppearance = true;
-            this.customGridView1.OptionsMenu.ShowAddNewSummaryItem = DevExpress.Utils.DefaultBoolean.True;
-            this.customGridView1.OptionsView.ColumnAutoWidth = false;
-            this.customGridView1.OptionsView.ShowFooter = true;
-            this.customGridView1.OptionsView.ShowGroupPanel = false;
-            // 
             // ReceiptListView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.customGridControl1);
             this.Controls.Add(this.gridControl1);
+            this.Controls.Add(this.panel1);
             this.KontoGrid = this.customGridControl1;
             this.KontoView = this.customGridView1;
             this.Name = "ReceiptListView";
@@ -864,22 +896,28 @@
             this.Load += new System.EventHandler(this.ReceiptListView_Load);
             this.Controls.SetChildIndex(this.panelControl2, 0);
             this.Controls.SetChildIndex(this.panelControl3, 0);
+            this.Controls.SetChildIndex(this.panel1, 0);
             this.Controls.SetChildIndex(this.gridControl1, 0);
             this.Controls.SetChildIndex(this.customGridControl1, 0);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).EndInit();
             this.panelControl2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.customGridControl1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.customGridView1)).EndInit();
+            this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.customGridControl1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.customGridView1)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
         private Core.Shared.Libs.ListDateRange listDateRange1;
+        private Core.Shared.Libs.CustomGridControl customGridControl1;
+        private Core.Shared.Libs.CustomGridView customGridView1;
+        private System.Windows.Forms.Panel panel1;
+        private DevExpress.XtraEditors.SimpleButton chqRetSimpleButton;
         public Core.Shared.Libs.CustomGridControl gridControl1;
         public Core.Shared.Libs.CustomGridView gridView1;
         private Core.Shared.Libs.CustomGridColumn colChallanNo;
@@ -954,7 +992,5 @@
         private Core.Shared.Libs.CustomGridColumn colAdla9;
         private Core.Shared.Libs.CustomGridColumn colAdlp10;
         private Core.Shared.Libs.CustomGridColumn colAdla10;
-        private Core.Shared.Libs.CustomGridControl customGridControl1;
-        private Core.Shared.Libs.CustomGridView customGridView1;
     }
 }

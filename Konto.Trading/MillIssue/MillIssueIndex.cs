@@ -90,6 +90,14 @@ namespace Konto.Trading.MillIssue
             {
                 voucherNoTextEdit.Text = "New-" + DbUtils.NextSerialNo(Convert.ToInt32(voucherLookup1.SelectedValue), 1);
             }
+            if (voucherLookup1.GroupDto != null && voucherLookup1.GroupDto.ManualSeries)
+            {
+                voucherNoTextEdit.Enabled = true;
+            }
+            else
+            {
+                voucherNoTextEdit.Enabled = false;
+            }
         }
 
         private void DelvLookup_SelectedValueChanged(object sender, EventArgs e)
@@ -581,6 +589,7 @@ namespace Konto.Trading.MillIssue
                 pro.RefId = this.PrimaryKey;
                 pro.TransId = er.Id;
                 pro.VoucherId = Convert.ToInt32(voucherLookup1.SelectedValue);
+                pro.ProductId = er.ProductId;
                 this.prodDtos.Add(pro);
             }
             foreach (var pro in frm.DelProd)
@@ -999,11 +1008,11 @@ namespace Konto.Trading.MillIssue
                 if (miTransDtos.Count > 0)
                 {
                     var mit = gridView1.GetRow(gridView1.FocusedRowHandle) as MiTransDto; //  miTransDtos.FirstOrDefault();
-                    
-                      
-                   // if(mit.ProductId == item.ProductId)
-                   // {
-                        int _pcs = 0;
+
+                   
+                    // if(mit.ProductId == item.ProductId)
+                    // {
+                    int _pcs = 0;
                         decimal _qty = 0;
                         foreach (var _taka in _takalist)
                         {
@@ -1012,7 +1021,10 @@ namespace Konto.Trading.MillIssue
 
                             var ptrans = new GrnProdDto();
                             ptrans.RefId = this.PrimaryKey;
-                            ptrans.TransId = mit.Id;
+                           
+                                ptrans.TransId = mit.Id;
+                            
+
                             ptrans.ProductId = _taka.ProductId;
                             ptrans.ColorId = _taka.ColorId;
                             ptrans.GradeId = _taka.GradeId;
@@ -1278,7 +1290,8 @@ namespace Konto.Trading.MillIssue
                         model.DName = driverTextEdit.Text.Trim();
                         if (model.Id==0)
                         {
-                            model.VoucherNo = DbUtils.NextSerialNo(model.VoucherId, db);
+                            if (!voucherLookup1.GroupDto.ManualSeries)
+                                model.VoucherNo = DbUtils.NextSerialNo(model.VoucherId, db);
 
                             if (DbUtils.CheckExistVoucherNo(model.VoucherId, model.VoucherNo, db, model.Id))
                             {
@@ -1318,9 +1331,8 @@ namespace Konto.Trading.MillIssue
                             {
                                 ProdOutModel Out = db.ProdOuts.Find(p.ProdOutId);
                                 ProdModel pm = new ProdModel();
-                                if (!MillIssPara.Taka_From_Stock)
-                                {
-                                    if(Out == null){
+                               
+                                    if(p.Id <=0){
                                         
                                         pm.ProductId = p.ProductId;
                                         
@@ -1362,7 +1374,7 @@ namespace Konto.Trading.MillIssue
                                         db.Prods.Add(pm);
                                         db.SaveChanges();
                                     }
-                                }
+                                
                                 else
                                 {
                                    pm = db.Prods.Find(p.Id);

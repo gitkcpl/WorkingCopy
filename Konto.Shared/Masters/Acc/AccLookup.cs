@@ -4,6 +4,7 @@ using System.Reflection;
 using System.Windows.Forms;
 using Konto.App.Shared;
 using Konto.Core.Shared;
+using Konto.Core.Shared.Frms;
 using Konto.Core.Shared.Libs;
 using Konto.Data;
 using Konto.Data.Models.Masters.Dtos;
@@ -131,7 +132,9 @@ namespace Konto.Shared.Masters.Acc
                     this.TransportLookup.buttonEdit1.Text = this.LookupDto.Transport;
                 }
             }
+         
             this.Parent.SelectNextControl(this, true, true, true, false);
+
             this.ShownPopup?.Invoke(this, new EventArgs());
         }
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -154,13 +157,20 @@ namespace Konto.Shared.Masters.Acc
                     _frm.ShowDialog();
                 }
             }
+            else if ((keyData == (Keys.O | Keys.Shift)) && Convert.ToInt32(this.SelectedValue) > 0)
+            {
+                Show_Outs();
+            }
             else if (keyData == Keys.Return)
             {
-                //if (Convert.ToInt32(this.SelectedValue) == 0)
-               // {
+                if (Convert.ToInt32(this.SelectedValue) == 0)
+                {
                     ShowList();
+                    if (Convert.ToInt32(this.SelectedValue) == 0)
+                        return false;
+
                     return true;
-               // }
+                }
             }
 
             return base.ProcessCmdKey(ref msg, keyData);
@@ -174,6 +184,42 @@ namespace Konto.Shared.Masters.Acc
         private void buttonEdit1_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
         {
             ShowList();
+            if (Convert.ToInt32(this.SelectedValue) == 0)
+                this.Focus();
+        }
+
+        private void Show_Outs()
+        {
+          if(this.LookupDto==null) return;
+            GrapeCity.ActiveReports.PageReport _pageReport = new GrapeCity.ActiveReports.PageReport();
+            _pageReport.Load(new System.IO.FileInfo("outs\\outs_ar.rdlx"));
+            _pageReport.Report.DataSources[0].ConnectionProperties.ConnectString = KontoGlobals.sqlConnectionString.ConnectionString;
+            GrapeCity.ActiveReports.Document.PageDocument doc = new GrapeCity.ActiveReports.Document.PageDocument(_pageReport);
+            doc.Parameters["partyid"].CurrentValue = this.LookupDto.Id;
+            doc.Parameters["paid"].CurrentValue = "UNPAID";
+            doc.Parameters["branchid"].CurrentValue = 0;
+            doc.Parameters["companyid"].CurrentValue = KontoGlobals.CompanyId;
+
+            doc.Parameters["yearid"].CurrentValue = KontoGlobals.YearId;
+            doc.Parameters["fromdate"].CurrentValue = 20000401;
+            doc.Parameters["todate"].CurrentValue = KontoGlobals.ToDate;
+            doc.Parameters["payfromdate"].CurrentValue = 20000401;
+            doc.Parameters["paytodate"].CurrentValue = KontoGlobals.ToDate;
+
+            using (var db = new KontoContext())
+            {
+                var grp = db.AcGroupModels.Find(this.LookupDto.GroupId);
+                if (grp != null && grp.Extra1 != null)
+                    doc.Parameters["nature"].CurrentValue = grp.Extra1;
+                else
+                    doc.Parameters["nature"].CurrentValue = "R";
+            }
+
+            doc.Parameters["report_title"].CurrentValue = "Oustanding Report";
+
+            var frm = new KontoRepViewer(doc);
+            frm.Text = "Oustanding Print Preview";
+            frm.ShowDialog();
         }
     }
 }

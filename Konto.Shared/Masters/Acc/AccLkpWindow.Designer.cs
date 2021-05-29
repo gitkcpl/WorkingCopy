@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AccLkpWindow));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.agentlabelControl = new DevExpress.XtraEditors.LabelControl();
             this.partyGrouplabel = new DevExpress.XtraEditors.LabelControl();
@@ -35,7 +36,10 @@
             this.gstinLabel = new DevExpress.XtraEditors.LabelControl();
             this.customGridControl1 = new Konto.Core.Shared.Libs.CustomGridControl();
             this.customGridView1 = new Konto.Core.Shared.Libs.CustomGridView();
+            this.ledgerSimpleButton = new DevExpress.XtraEditors.SimpleButton();
+            this.outsSimpleButton = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
+            this.panelControl1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.customGridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.customGridView1)).BeginInit();
@@ -43,7 +47,11 @@
             // 
             // panelControl1
             // 
+            this.panelControl1.Controls.Add(this.outsSimpleButton);
+            this.panelControl1.Controls.Add(this.ledgerSimpleButton);
             this.panelControl1.Size = new System.Drawing.Size(726, 33);
+            this.panelControl1.Controls.SetChildIndex(this.ledgerSimpleButton, 0);
+            this.panelControl1.Controls.SetChildIndex(this.outsSimpleButton, 0);
             // 
             // tableLayoutPanel1
             // 
@@ -158,6 +166,36 @@
             this.customGridView1.OptionsView.ShowIndicator = false;
             this.customGridView1.FocusedRowChanged += new DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventHandler(this.customGridView1_FocusedRowChanged);
             // 
+            // ledgerSimpleButton
+            // 
+            this.ledgerSimpleButton.Appearance.BackColor = DevExpress.LookAndFeel.DXSkinColors.FillColors.Primary;
+            this.ledgerSimpleButton.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ledgerSimpleButton.Appearance.Options.UseBackColor = true;
+            this.ledgerSimpleButton.Appearance.Options.UseFont = true;
+            this.ledgerSimpleButton.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("ledgerSimpleButton.ImageOptions.SvgImage")));
+            this.ledgerSimpleButton.ImageOptions.SvgImageSize = new System.Drawing.Size(24, 24);
+            this.ledgerSimpleButton.Location = new System.Drawing.Point(285, 2);
+            this.ledgerSimpleButton.Name = "ledgerSimpleButton";
+            this.ledgerSimpleButton.Size = new System.Drawing.Size(84, 27);
+            this.ledgerSimpleButton.TabIndex = 1;
+            this.ledgerSimpleButton.Text = "Ledger";
+            this.ledgerSimpleButton.ToolTip = "Shift + L";
+            // 
+            // outsSimpleButton
+            // 
+            this.outsSimpleButton.Appearance.BackColor = DevExpress.LookAndFeel.DXSkinColors.FillColors.Success;
+            this.outsSimpleButton.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.outsSimpleButton.Appearance.Options.UseBackColor = true;
+            this.outsSimpleButton.Appearance.Options.UseFont = true;
+            this.outsSimpleButton.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("outsSimpleButton.ImageOptions.SvgImage")));
+            this.outsSimpleButton.ImageOptions.SvgImageSize = new System.Drawing.Size(24, 24);
+            this.outsSimpleButton.Location = new System.Drawing.Point(385, 2);
+            this.outsSimpleButton.Name = "outsSimpleButton";
+            this.outsSimpleButton.Size = new System.Drawing.Size(115, 27);
+            this.outsSimpleButton.TabIndex = 2;
+            this.outsSimpleButton.Text = "Oustanding";
+            this.outsSimpleButton.ToolTip = "Shift + O";
+            // 
             // AccLkpWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -173,6 +211,7 @@
             this.Controls.SetChildIndex(this.tableLayoutPanel1, 0);
             this.Controls.SetChildIndex(this.customGridControl1, 0);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
+            this.panelControl1.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.customGridControl1)).EndInit();
@@ -190,5 +229,7 @@
         private DevExpress.XtraEditors.LabelControl partyGrouplabel;
         private DevExpress.XtraEditors.LabelControl grouplabelControl;
         private DevExpress.XtraEditors.LabelControl agentlabelControl;
+        private DevExpress.XtraEditors.SimpleButton ledgerSimpleButton;
+        private DevExpress.XtraEditors.SimpleButton outsSimpleButton;
     }
 }

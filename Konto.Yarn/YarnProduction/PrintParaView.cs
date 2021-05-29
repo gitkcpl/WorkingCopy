@@ -52,9 +52,21 @@ namespace Konto.Yarn.YarnProduction
                 rpt.Report.DataSources[0].ConnectionProperties.ConnectString = KontoGlobals.sqlConnectionString.ConnectionString;
                 
                 GrapeCity.ActiveReports.Document.PageDocument doc = new GrapeCity.ActiveReports.Document.PageDocument(rpt);
-                 
-                doc.Parameters["FrmBill"].CurrentValue = FromVoucherNo;
-                doc.Parameters["ToBill"].CurrentValue = ToVoucherNo;
+
+                var _db = new KontoContext();
+
+                var frmVouchers = _db.Prods.FirstOrDefault(k => k.VoucherNo == fromTextEdit.Text.Trim()
+                                                               && k.VoucherId == this.VoucherId
+                                                               && k.IsActive && !k.IsDeleted && k.YearId == KontoGlobals.YearId
+                                                               && k.CompId == KontoGlobals.CompanyId);
+
+                var Tovoucher = _db.Prods.FirstOrDefault(k => k.VoucherNo == toTextEdit.Text.Trim()
+                                                             && k.VoucherId == this.VoucherId
+                                                             && k.IsActive && !k.IsDeleted && k.YearId == KontoGlobals.YearId
+                                                             && k.CompId == KontoGlobals.CompanyId);
+
+                if (frmVouchers != null) doc.Parameters["FrmBill"].CurrentValue = frmVouchers.Id;
+                if (Tovoucher != null) doc.Parameters["ToBill"].CurrentValue = Tovoucher.Id;
                 doc.Parameters["VoucherID"].CurrentValue = VoucherId;
 
                 var frm = new KontoRepViewer(doc);

@@ -33,7 +33,10 @@ using System.Data.SqlClient;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Windows.Forms;
+using DevExpress.XtraGrid;
+using DevExpress.XtraGrid.Views.Base;
 using ExpressionBuilder = Konto.Core.Shared.Libs.ExpressionBuilder;
 
 namespace Konto.Shared.Trans.SInvoice
@@ -105,8 +108,32 @@ namespace Konto.Shared.Trans.SInvoice
 
             this.FirstActiveControl = voucherLookup1;
             this.voucherDateEdit.EditValueChanged += VoucherDateEdit_EditValueChanged;
+            //this.gridView1.ValidatingEditor += GridView1_ValidatingEditor;
+           // this.gridView1.InvalidValueException += GridView1_InvalidValueException;
+            //this.gridView1.ShownEditor += GridView1_ShownEditor;
 
         }
+
+        private void GridView1_ShownEditor(object sender, EventArgs e)
+        {
+            ColumnView view = sender as ColumnView;
+
+            if (view.ActiveEditor != null)
+                view.ActiveEditor.IsModified = true;
+        }
+
+        private void GridView1_InvalidValueException(object sender, InvalidValueExceptionEventArgs e)
+        {
+            ColumnView view = sender as ColumnView;
+            if (view == null) return;
+            e.ExceptionMode = ExceptionMode.DisplayError;
+            e.WindowCaption = "Input Error";
+            e.ErrorText = "Sale Rate Can No be Zero";
+            // Destroy the editor and discard the changes made within the edited cell.
+            view.HideEditor();
+        }
+
+        
 
         private void VoucherDateEdit_EditValueChanged(object sender, EventArgs e)
         {
@@ -279,9 +306,39 @@ namespace Konto.Shared.Trans.SInvoice
                 {
                     accLookup1.SetAcc(row.AccId);
                     accLookup1.SelectedValue = row.AccId;
+                    
+                    if (row.TransportId != null)
+                    {
+                        transportLookup.SelectedValue = row.TransportId;
+                        transportLookup.SetAcc((int)row.TransportId);
+                    }
+
+                    if (row.AgentId > 0)
+                    {
+                        agentLookup.SelectedValue = row.AgentId;
+                        agentLookup.SetAcc(row.AgentId);
+                    }
                     challanNotextEdit.Text = row.ChallanNo;
                     rcdDateEdit1.DateTime = row.ChallanDate;
                     
+                }
+            }
+            else if(selectedRowHandles.Length > 0)
+            {
+                var row = grnfrm.gridView1.GetRow(selectedRowHandles[0]) as PendingChallanOnInvoiceDto;
+                if (row != null)
+                {
+                    if (row.TransportId != null)
+                    {
+                        transportLookup.SelectedValue = row.TransportId;
+                        transportLookup.SetAcc((int) row.TransportId);
+                    }
+
+                    if (row.AgentId > 0)
+                    {
+                        agentLookup.SelectedValue = row.AgentId;
+                        agentLookup.SetAcc(row.AgentId);
+                    }
                 }
             }
 
@@ -513,7 +570,7 @@ namespace Konto.Shared.Trans.SInvoice
             int unit = Convert.ToInt32(view.GetRowCellValue(e.RowHandle, colUomId));
             decimal qty = Convert.ToDecimal(view.GetRowCellValue(e.RowHandle, colQty));
             decimal rate = Convert.ToDecimal(view.GetRowCellValue(e.RowHandle, colRate));
-
+            decimal salerate = Convert.ToDecimal(view.GetRowCellValue(e.RowHandle, colSaleRate));
             if (product == 0)
             {
                 e.Valid = false;
@@ -528,6 +585,12 @@ namespace Konto.Shared.Trans.SInvoice
             {
                 e.Valid = false;
                 view.SetColumnError(colQty, "Invalid Qty");
+            }
+
+            if (BillPara.Sale_Rate_Required && salerate == 0)
+            {
+                e.Valid = false; 
+                view.SetColumnError(colSaleRate, "Invalid Sale Rate");
             }
             //else if (rate == 0)
             //{
@@ -553,6 +616,38 @@ namespace Konto.Shared.Trans.SInvoice
 
 
         #region UDF
+
+        private void Show_History(BillTransDto  rw)
+        {
+            List<HistoryDto> histiries;
+            using (var db = new KontoContext())
+            {
+
+                histiries = (from p in db.Bills
+                    join ot in db.BillTrans on p.Id equals ot.BillId
+                    join ac in db.Accs on p.AccId equals ac.Id
+                    where ot.ProductId == rw.ProductId && p.Id != rw.OrdId &&
+                          p.TypeId == (int) VoucherTypeEnum.SaleInvoice
+                    orderby p.VoucherDate descending
+                    select new HistoryDto
+                    {
+                        VoucherNo = p.VoucherNo,
+                        Party = ac.AccName,
+                        Qty = ot.Qty,
+                        Rate = ot.SaleRate==0? ot.Rate : ot.SaleRate,
+                        VoucherDate = p.VoucherDate
+                    }).AsEnumerable().TakeLast(5).ToList();
+
+            }
+
+            if (histiries.Count <= 0) return;
+            var frm = new HistoryView
+            {
+                historyDtos = histiries
+            };
+            frm.ShowDialog();
+        }
+
         private void UpdateGst()
         {
             if (isGst && !isImortOrSez)
@@ -611,7 +706,9 @@ namespace Konto.Shared.Trans.SInvoice
             frm.SelectedValue = _selvalue;
             //frm.PTypeId = ProductTypeEnum.;
             frm.VoucherType = VoucherTypeEnum.SaleInvoice;
-
+            
+            //var dc = gridView1.FocusedValue;
+            frm.ProductToBeSearched = er.ProductName;
             frm.ShowDialog();
             if (frm.DialogResult == DialogResult.OK)
             {
@@ -750,7 +847,7 @@ namespace Konto.Shared.Trans.SInvoice
             colOtherLess.Visible = BillPara.OtherLess_Required;
             colCess.Visible = BillPara.Cess_Required;
             colCessPer.Visible = BillPara.Cess_Required;
-
+           
             if (BillPara.Barcode_Required)
             {
                 colProductName.VisibleIndex = -1;
@@ -777,7 +874,8 @@ namespace Konto.Shared.Trans.SInvoice
             colQty.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             colQty.DisplayFormat.FormatString = "n" + BillPara.Qty_Decimal.ToString();
 
-
+            //header fore color
+            gridView1.Appearance.HeaderPanel.ForeColor = Color.FromArgb(227, 22, 91);
         }
         private BillTransDto PreOpenLookup()
         {
@@ -1059,12 +1157,12 @@ namespace Konto.Shared.Trans.SInvoice
                         }
                         case 305:
                         {
-                            BillPara.OtherLess_Required = (value == "Y") ? true : false;
+                            BillPara.OtherLess_Required = (value == "Y");
                             break;
                         }
                         case 312:
                             {
-                                BillPara.Freight_On_Qty = (value == "Y") ? true : false;
+                                BillPara.Freight_On_Qty = (value == "Y");
                                 break;
                             }
 
@@ -1074,6 +1172,12 @@ namespace Konto.Shared.Trans.SInvoice
                                     BillPara.Default_Freight_Rate = Convert.ToDecimal(value);
                                 break;
                             }
+                        case 314:
+                        {
+                           
+                                BillPara.Sale_Rate_Required = (value == "Y");
+                                break;
+                        }
                     }
                 }
             }
@@ -1250,13 +1354,20 @@ namespace Konto.Shared.Trans.SInvoice
                     var groupbyItem = trans.GroupBy(k => k.ProductId).ToList();
                     foreach (var item in groupbyItem)
                     {
+                        decimal oldqty = 0;
                         var checkforstock = db.Products.FirstOrDefault(k => k.Id == item.Key);
 
                         if (!checkforstock.CheckNegative) continue;
 
+                        if (this.PrimaryKey > 0)
+                        {
+                            oldqty = db.BillTrans.Where(x => x.BillId == this.PrimaryKey && x.ProductId == item.Key)
+                                .Sum(x => x.Qty);
+                        }
+
                         var Qty = trans.Where(k => k.ProductId == checkforstock.Id).Sum(k => k.Qty);
 
-                        var stockBal = DbUtils.GetCurrentStock(checkforstock.Id, 0);
+                        var stockBal = DbUtils.GetCurrentStock(checkforstock.Id, 0) + oldqty;
 
                         if (Qty > stockBal)
                         {
@@ -1280,6 +1391,13 @@ namespace Konto.Shared.Trans.SInvoice
             }
 
 
+
+            if ( this.PrimaryKey==0 && this.accLookup1.LookupDto.TcsReq.ToUpper() == "YES" && tcsPerTextEdit.Value==0 
+                && DbUtils.Is_Tcs_Applicable(this.accLookup1.LookupDto.Id,billAmtSpinEdit.Value)) // check for limit reached or not
+            {
+                tcsPerTextEdit.Value = accLookup1.LookupDto.TcsPer;
+               // FinalTotal();
+            }
 
             //}
 
@@ -1508,7 +1626,9 @@ namespace Konto.Shared.Trans.SInvoice
         {
             var itm = gridView1.GetFocusedRow() as BillTransDto;
             if (itm == null) return;
-            if (!"ProductName,ColorName,GradeName,DesignName".Contains(gridView1.FocusedColumn.FieldName)) return;
+            ColumnView view = sender as ColumnView;
+            
+            if (!"ProductName,ColorName,GradeName,DesignName".Contains(view.FocusedColumn.FieldName)) return;
             if (Convert.ToInt32(itm.RefId) > 0)
                 e.Cancel = true;
         }
@@ -1735,6 +1855,23 @@ namespace Konto.Shared.Trans.SInvoice
                 if (dr == null) return;
                 if (gridView1.FocusedColumn.FieldName == "ProductName")
                 {
+                    if (dr.ProductId != 0 && e.Modifiers == Keys.Shift && e.KeyCode == Keys.S) //open stock ledger
+                    {
+                        var _frm = Activator.CreateInstance("Konto.Reporting", "Konto.Reporting.Para.Stock.StockDetailViewWindow").Unwrap() as KontoForm;
+                        if (_frm.GetType().GetProperty("ProductId") != null)
+                        {
+                            PropertyInfo groupid = _frm.GetType().GetProperty("ProductId");
+                            groupid.SetValue(_frm, dr.ProductId);
+                            _frm.GetType().GetProperty("_item").SetValue(_frm,"Y");
+                            _frm.ShowDialog();
+                        }
+                        return;
+                    }
+
+                    if (dr.ProductId != 0 && e.Modifiers == Keys.Shift && e.KeyCode == Keys.H) //open last 5 History{
+                    {
+                        Show_History(dr);
+                    }
 
                     if (e.KeyCode == Keys.Return)
                     {
@@ -1798,6 +1935,7 @@ namespace Konto.Shared.Trans.SInvoice
                         e.Handled = true;
                     }
                 }
+                
                 else if (e.KeyCode == Keys.Enter && gridView1.FocusedColumn.FieldName == "LotNo")
                 {
                     ProductModel prod;
@@ -1882,11 +2020,12 @@ namespace Konto.Shared.Trans.SInvoice
                // addressLookup1.SelectedValue = this.delvLookup.LookupDto.AddressId;
                 //addressLookup1.buttonEdit1.Text = this.delvLookup.LookupDto.FullAddress;
                 dueDaysTextEdit.Text = this.accLookup1.LookupDto.CrDays.ToString();
-                if (this.accLookup1.LookupDto.TcsReq.ToUpper() == "YES")
+                if (this.accLookup1.LookupDto.TcsReq.ToUpper() == "YES" && DbUtils.Is_Tcs_Applicable(this.accLookup1.LookupDto.Id, 0))
                     tcsPerTextEdit.Value = accLookup1.LookupDto.TcsPer;
 
             }
-            if (this.accLookup1.LookupDto.TcsReq.ToUpper() == "YES")
+            if (this.accLookup1.LookupDto.TcsReq.ToUpper() == "YES") 
+
             {
                 if(tcsPerlayoutControlItem.IsHidden)
                     tcsPerlayoutControlItem.RestoreFromCustomization();
@@ -1988,7 +2127,7 @@ namespace Konto.Shared.Trans.SInvoice
                 if (doc.Parameters.Contains("accid"))
                     doc.Parameters["accid"].CurrentValue = Convert.ToInt32(accLookup1.SelectedValue);
                 
-              //  rpt.ResourceLocator = new MySubreportLocator();
+                //  rpt.ResourceLocator = new MySubreportLocator();
                 //var subrep = rpt.Report.Body.ReportItems["Page1"] as GrapeCity.ActiveReports.PageReportModel.Container;
                 //if (subrep != null)
                 //{
@@ -2006,6 +2145,13 @@ namespace Konto.Shared.Trans.SInvoice
                 //    if (doc.Parameters["Challan"] != null)
                 //        doc.Parameters["Challan"].CurrentValue = "N";
                 //}
+
+                if (this.voucherLookup1.GroupDto.PrintAfterSave)
+                {
+                    doc.Print(false);
+                    return;
+                    
+                }
 
                 var frm = new KontoRepViewer(doc);
                 frm.ToMailId = accLookup1.LookupDto.Email;
@@ -2350,7 +2496,7 @@ namespace Konto.Shared.Trans.SInvoice
                 MessageBoxAdv.Show(this, KontoGlobals.SaveMessage +" Voucher No.: " + _find.VoucherNo, "Saved !", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 if (!this.OpenForLookup && newmode)
                 {
-                    if (this.voucherLookup1.GroupDto.PrintAfterSave && MessageBox.Show("Print Bill ?", "Print", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    if (MessageBox.Show("Print Bill ?", "Print", MessageBoxButtons.YesNo) == DialogResult.Yes)
                     {
                         this.PrimaryKey = _find.Id;
                         Print();

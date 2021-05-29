@@ -22,6 +22,7 @@ namespace Konto.Shared.Trans.Common
         public BillModel BModel { get; set; }
         public List<BillTransModel> TModel { get; set; }
         public int RefId { get; set; }
+        public EInv EinvoiceModel { get; set; }
         public int VoucherId { get; set; }
         public EinvView()
         {
@@ -140,9 +141,9 @@ namespace Konto.Shared.Trans.Common
             
             reqPlGenIRN.DocDtls = new ReqPlGenIRN.DocSetails();
             
-            if (BModel.VoucherId == (int)VoucherTypeEnum.SaleInvoice)
+            if (BModel.TypeId == (int)VoucherTypeEnum.SaleInvoice)
                 reqPlGenIRN.DocDtls.Typ = "INV";
-            else if (BModel.VoucherId == (int)VoucherTypeEnum.DebitCreditNote && BModel.BillType=="DEBIT NOTE")
+            else if (BModel.TypeId == (int)VoucherTypeEnum.DebitCreditNote && BModel.BillType=="DEBIT NOTE")
                 reqPlGenIRN.DocDtls.Typ = "DBN";
             else
                 reqPlGenIRN.DocDtls.Typ = "CRN";
@@ -207,7 +208,7 @@ namespace Konto.Shared.Trans.Common
             reqPlGenIRN.ShipDtls.Stcd = shpAdr.City.State.GstCode;
 
             reqPlGenIRN.ItemList = new List<ReqPlGenIRN.ItmList>();
-            int srno = 1;
+            var srno = 1;
             foreach (var item in TModel)
             {
                 ReqPlGenIRN.ItmList itm = new ReqPlGenIRN.ItmList();
@@ -217,14 +218,18 @@ namespace Konto.Shared.Trans.Common
 
                 itm.SlNo = srno.ToString();
                 itm.IsServc = "N";
-                itm.PrdDesc = it.ProductName;
-                itm.HsnCd = it.HsnCode;
+                if (it != null)
+                {
+                    itm.PrdDesc = it.ProductName;
+                    itm.HsnCd = it.HsnCode;
+                }
+
                 itm.BchDtls = null;
                 itm.Qty = Convert.ToDouble(item.Qty);
-                itm.Unit = ut.UnitCode;
+                if (ut != null) itm.Unit = ut.UnitCode;
                 itm.UnitPrice = Convert.ToDouble(item.Rate);
-                itm.TotAmt = Convert.ToDouble(item.Total);
-                itm.Discount = Convert.ToDouble(item.DiscAmt);
+                itm.TotAmt = Convert.ToDouble(item.Total) + Convert.ToDouble(item.OtherAdd) + Convert.ToDouble(item.Freight);
+                itm.Discount = Convert.ToDouble(item.DiscAmt) + Convert.ToDouble(item.OtherLess);
                 itm.AssAmt = Convert.ToDouble(item.NetTotal - item.Igst - item.Cgst - item.Sgst - item.Cess);
                 itm.GstRt = Convert.ToDouble(item.CgstPer + item.SgstPer + item.IgstPer);
                 itm.SgstAmt = Convert.ToDouble(item.Sgst); //sgst
@@ -248,16 +253,18 @@ namespace Konto.Shared.Trans.Common
             reqPlGenIRN.AddlDocDtls = null;
             reqPlGenIRN.ExpDtls = null;
 
-            reqPlGenIRN.ValDtls = new ReqPlGenIRN.ValDetails();
-            reqPlGenIRN.ValDtls.AssVal = Convert.ToDouble(TModel.Sum(x => x.NetTotal - x.Sgst - x.Cgst - x.Igst - x.Cess));
-            reqPlGenIRN.ValDtls.CgstVal = Convert.ToDouble(TModel.Sum(x => x.Cgst));
-            reqPlGenIRN.ValDtls.SgstVal = Convert.ToDouble(TModel.Sum(x => x.Sgst));
-            reqPlGenIRN.ValDtls.IgstVal = Convert.ToDouble(TModel.Sum(x => x.Igst)); // + itemlist.Sum(x => x.VatAmount) + itemlist.Sum(x => x.AdVatAmount)); 
-            reqPlGenIRN.ValDtls.CesVal = Convert.ToDouble(TModel.Sum(x => x.Cess));
-            reqPlGenIRN.ValDtls.StCesVal = 0.0;
-            reqPlGenIRN.ValDtls.OthChrg = Convert.ToDouble(BModel.TcsAmt);
-            reqPlGenIRN.ValDtls.RndOffAmt = Convert.ToDouble(BModel.RoundOff);
-            reqPlGenIRN.ValDtls.TotInvVal = Convert.ToDouble(BModel.TotalAmount);
+            reqPlGenIRN.ValDtls = new ReqPlGenIRN.ValDetails
+            {
+                AssVal = Convert.ToDouble(TModel.Sum(x => x.NetTotal - x.Sgst - x.Cgst - x.Igst - x.Cess)),
+                CgstVal = Convert.ToDouble(TModel.Sum(x => x.Cgst)),
+                SgstVal = Convert.ToDouble(TModel.Sum(x => x.Sgst)),
+                IgstVal = Convert.ToDouble(TModel.Sum(x => x.Igst)), // + itemlist.Sum(x => x.VatAmount) + itemlist.Sum(x => x.AdVatAmount)); 
+                CesVal = Convert.ToDouble(TModel.Sum(x => x.Cess)),
+                StCesVal = 0.0,
+                OthChrg = Convert.ToDouble(BModel.TcsAmt),
+                RndOffAmt = Convert.ToDouble(BModel.RoundOff),
+                TotInvVal = Convert.ToDouble(BModel.TotalAmount)
+            };
             try
             {
                 //var abc = JsonConvert.SerializeObject(reqPlGenIRN);
@@ -272,20 +279,22 @@ namespace Konto.Shared.Trans.Common
                     eInvBillkontoTextEdit.Text = respPlGenIRN.Irn;
                     pictureEdit1.EditValue = respPlGenIRN.QrCodeImage;
 
-                    var einv = new EInv();
+                    var einv = new EInv
+                    {
+                        RefId = this.RefId,
+                        RefVoucherId = this.VoucherId,
+                        Irn = respPlGenIRN.Irn,
+                        JwtIssuer = respPlGenIRN.JwtIssuer,
+                        QrCodeImage = ImageToByte(respPlGenIRN.QrCodeImage),
+                        SignedInvoice = respPlGenIRN.SignedInvoice,
+                        SignedQrCode = respPlGenIRN.SignedQRCode,
+                        Status = respPlGenIRN.Status,
+                        AckDt = respPlGenIRN.AckDt,
+                        AckNo = respPlGenIRN.AckNo,
+                        RefRowId = BModel.RowId,
+                        TransType = transCatLookUpEdit.EditValue.ToString()
+                    };
 
-                    
-                    einv.RefId = this.RefId;
-                    einv.RefVoucherId = this.VoucherId;
-                    einv.Irn = respPlGenIRN.Irn;
-                    einv.JwtIssuer = respPlGenIRN.JwtIssuer;
-                    einv.QrCodeImage = ImageToByte(respPlGenIRN.QrCodeImage);
-                    einv.SignedInvoice = respPlGenIRN.SignedInvoice;
-                    einv.SignedQrCode = respPlGenIRN.SignedQRCode;
-                    einv.Status = respPlGenIRN.Status;
-                    einv.AckDt = respPlGenIRN.AckDt;
-                    einv.AckNo = respPlGenIRN.AckNo;
-                    einv.RefRowId = BModel.RowId;
 
                     if (einv.Id == 0)
                         db.EInvs.Add(einv);
@@ -295,6 +304,7 @@ namespace Konto.Shared.Trans.Common
                 
                     db.SaveChanges();
 
+                    this.EinvoiceModel = einv;
                     errorMemoEdit.Text = "E-invoice Generated Successfully";
                     okSimpleButton.Enabled = false;
                     return true;

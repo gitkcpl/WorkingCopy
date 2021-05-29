@@ -9,6 +9,7 @@ using Konto.Data.Models.Transaction.Dtos;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using DevExpress.Data;
 
 namespace Konto.Trading.OutJobChallan
 {
@@ -30,6 +31,46 @@ namespace Konto.Trading.OutJobChallan
             this.okSimpleButton.Click += OkSimpleButton_Click;
             this.gridView1.ValidateRow += GridView1_ValidateRow;
             this.gridView1.InvalidRowException += GridView1_InvalidRowException;
+            this.gridView1.CustomSummaryCalculate += GridView1_CustomSummaryCalculate;
+        }
+
+        private decimal _GreyMtrs;
+        private int _GreyPcs, _finPcs;
+
+        private void GridView1_CustomSummaryCalculate(object sender, DevExpress.Data.CustomSummaryEventArgs e)
+        {
+            if (e.SummaryProcess == CustomSummaryProcess.Start)
+            {
+                _GreyMtrs = 0;
+                _GreyPcs = 0;
+                _finPcs = 0;
+            }
+
+            if (e.SummaryProcess == CustomSummaryProcess.Calculate)
+            {
+                var rw = e.Row as ProdOutDto;
+                if (rw.FinMrt > 0)
+                {
+                    _GreyPcs = _GreyPcs + 1;
+                    _GreyMtrs = _GreyMtrs + Convert.ToDecimal(rw.GrayMtr);
+                    if (rw.TP1 > 0)
+                        _finPcs = _finPcs + 1;
+                    if (rw.TP2 > 0)
+                        _finPcs = _finPcs + 1;
+                    if (rw.TP3 > 0)
+                        _finPcs = _finPcs + 1;
+                    if (rw.TP4 > 0)
+                        _finPcs = _finPcs + 1;
+                    if (rw.TP5 > 0)
+                        _finPcs = _finPcs + 1;
+                }
+            }
+
+            if (e.SummaryProcess == CustomSummaryProcess.Finalize)
+            {
+                autoLabel1.Text = "Grey Used: " + _GreyMtrs.ToString("F") + ", Pcs Used: " + _GreyPcs.ToString() +
+                                  ", Fin. Pcs: " + _finPcs.ToString();
+            }
         }
 
         private void GridView1_InvalidRowException(object sender, DevExpress.XtraGrid.Views.Base.InvalidRowExceptionEventArgs e)

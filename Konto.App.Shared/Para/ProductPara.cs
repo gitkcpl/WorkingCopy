@@ -34,6 +34,8 @@ namespace Konto.App.Shared.Para
         public static int Decimal_Point_Rate = 2;
         public static bool Color_Detail_Required = false;
         public static bool Cost_Rate_Inc_Gst = false;
+
+        public static bool Clear_Data_After_Save = true;
     }
      
 } 

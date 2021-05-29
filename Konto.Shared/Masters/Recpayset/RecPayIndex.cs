@@ -214,11 +214,11 @@ namespace Konto.Shared.Masters.Recpayset
             {
                 var find = db.RPSets.FirstOrDefault(
                    x => x.Field == fieldLookUpEdit1.EditValue.ToString() && x.Id != this.PrimaryKey && !x.IsDeleted
-                   && x.RecPay == typeLookUpEdit.EditValue.ToString());
+                   && x.RecPay == typeLookUpEdit.EditValue.ToString() && x.CompId== KontoGlobals.CompanyId && x.YearId == KontoGlobals.YearId);
 
                 if (find != null)
                 {
-                    MessageBoxAdv.Show(this, "Group Name Already Exists", "Duplicate Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBoxAdv.Show(this, "Setup Already Exists", "Duplicate Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     typeLookUpEdit.Focus();
                     return false;
                 }

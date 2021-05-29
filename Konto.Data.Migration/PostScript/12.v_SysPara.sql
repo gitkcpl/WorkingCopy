@@ -1301,7 +1301,37 @@ INSERT INTO dbo.SysPara(Id,Descr,DefaultValue,ValueDescr,Category)
 Values(313,'Default Freight Rate','0','Default Rate For Freight','SaleInvoice')
 
 
+IF NOT EXISTS(SELECT 1 FROM dbo.SysPara WHERE Id=314)
+INSERT INTO dbo.SysPara(Id,Descr,DefaultValue,ValueDescr,Category)
+Values(314,'Sale Rate Required','N','Y for Yes N for No','SaleInvoice')
 
+IF NOT EXISTS(SELECT 1 FROM dbo.SysPara WHERE Id=315)
+INSERT INTO dbo.SysPara(Id,Descr,DefaultValue,ValueDescr,Category)
+Values(315,'Cess Required','N','Y for Yes N for No','PurchaseBill')
+
+IF NOT EXISTS(SELECT 1 FROM dbo.SysPara WHERE Id=316)
+INSERT INTO dbo.SysPara(Id,Descr,DefaultValue,ValueDescr,Category)
+Values(316,'Cess Requires','N','Y for Yes N for No','PurchaseRet')
+
+IF NOT EXISTS(SELECT 1 FROM dbo.SysPara WHERE Id=317)
+INSERT INTO dbo.SysPara(Id,Descr,DefaultValue,ValueDescr,Category)
+Values(317,'Rate Editable','N','Y for Yes N for No','PosInvoice')
+
+IF NOT EXISTS(SELECT 1 FROM dbo.SysPara WHERE Id=318)
+INSERT INTO dbo.SysPara(Id,Descr,DefaultValue,ValueDescr,Category)
+Values(318,'Clear Data After Save','Y','Y for Yes N for No','Product Master')
+
+IF NOT EXISTS(SELECT 1 FROM dbo.SysPara WHERE Id=319)
+INSERT INTO dbo.SysPara(Id,Descr,DefaultValue,ValueDescr,Category)
+Values(319,'Barcode Required','N','Y for Yes N for No','JobIssue')
+
+IF NOT EXISTS(SELECT 1 FROM dbo.SysPara WHERE Id=320)
+INSERT INTO dbo.SysPara(Id,Descr,DefaultValue,ValueDescr,Category)
+Values(320,'Rate Type Required','N','Y for Yes N for No','PosInvoice')
+
+IF NOT EXISTS(SELECT 1 FROM dbo.SysPara WHERE Id=321)
+INSERT INTO dbo.SysPara(Id,Descr,DefaultValue,ValueDescr,Category)
+Values(321,'Gate Entry Required','N','Y for Yes N for No','GRN')
 
 -- for system level
 IF NOT EXISTS(SELECT 1 FROM dbo.SysPara WHERE Id=500) 

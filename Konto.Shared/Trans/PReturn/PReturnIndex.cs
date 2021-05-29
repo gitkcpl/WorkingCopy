@@ -663,6 +663,11 @@ namespace Konto.Shared.Trans.PReturn
                             PurchaseRetPara.OtherLess_Required = (value == "Y") ? true : false;
                             break;
                         }
+                        case 316:
+                        {
+                            PurchaseRetPara.Cess_Required = (value == "Y") ? true : false;
+                            break;
+                        }
                     }
                 }
             }
@@ -879,7 +884,7 @@ namespace Konto.Shared.Trans.PReturn
 
             accLookup1.SetAcc(model.AccId);
             accLookup1.SelectedValue = model.AccId;
-          
+            reassonLookUpEdit.EditValue = model.SpecialNotes;
             challanNotextEdit.Text = model.RefNo;
             billNoTextEdit.Text = model.BillNo;
             billDateEdit.EditValue = model.RcdDate;
@@ -1800,7 +1805,7 @@ namespace Konto.Shared.Trans.PReturn
             model.YearId = KontoGlobals.YearId;
             model.BranchId = KontoGlobals.BranchId;
             model.RoundOff = roundoffSpinEdit.Value;
-
+            model.SpecialNotes = reassonLookUpEdit.EditValue.ToString();
            
             var _translist = grnTransDtoBindingSource1.DataSource as List<BillTransDto>;
             model.GrossAmount = _translist.Sum(x => x.Total);

@@ -47,6 +47,6 @@ namespace Konto.Data.Models.Transaction.Dtos
         public int RefVoucherId { get; set; }
 
         public string Extra1 { get; set; }
-
+        public string Extra2 { get; set; } //width
     }
 }

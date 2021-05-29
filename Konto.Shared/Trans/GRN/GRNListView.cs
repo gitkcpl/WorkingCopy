@@ -9,6 +9,8 @@ using Konto.Core.Shared.Libs;
 using Syncfusion.Windows.Forms;
 using Serilog;
 using System.Data.SqlClient;
+using Konto.Core.Shared;
+using Konto.Data.Models.Transaction.TradingDto;
 using Konto.Shared.Reports;
 
 namespace Konto.Shared.Trans.GRN
@@ -16,7 +18,7 @@ namespace Konto.Shared.Trans.GRN
     public partial class GRNListView : ListBaseView
     {
         //private List<OpBillListDto> _modelList = new List<OpBillListDto>();
-
+        private  string JobChallanAgainstGrnLayoutFile = KontoFileLayout.Grn_Out_Job_Challan;
         public GRNListView()
 
         {
@@ -26,6 +28,89 @@ namespace Konto.Shared.Trans.GRN
 
             this.ReportPrint = true;
             listAction1.EditDeleteDisabled(false);
+            customGridView1.FocusedRowChanged += CustomGridView1_FocusedRowChanged;
+            rcptGridControl.ProcessGridKey += RcptGridControl_ProcessGridKey;
+            rcptGridControl.DoubleClick += RcptGridControl_DoubleClick;
+        }
+
+        private void RcptGridControl_DoubleClick(object sender, EventArgs e)
+        {
+            if (rcptGridView.FocusedRowHandle < 0) return;
+            var id = Convert.ToInt32(rcptGridView.GetRowCellValue(rcptGridView.FocusedRowHandle, "Id"));
+            var frm = Activator.CreateInstance("Konto.Trading", "Konto.Trading.OutJobChallan.OJCIndex").Unwrap() as KontoMetroForm;
+            if (frm == null) return;
+            frm.Tag = MenuId.Outward_Job_Challan;
+            frm.ViewOnlyMode = true;
+            frm.EditKey = id;
+            frm.ShowDialog();
+        }
+
+        private void RcptGridControl_ProcessGridKey(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == (Keys.F2 | Keys.Shift))
+            {
+                var frm = new GridPropertView();
+                frm.gridControl1.DataSource = this.rcptGridControl.DataSource;
+                frm.gridView1.Assign(this.rcptGridView, false);
+                if (frm.ShowDialog() != DialogResult.OK) return;
+                this.rcptGridView.Assign(frm.gridView1, false);
+                KontoUtils.SaveLayoutGrid(this.JobChallanAgainstGrnLayoutFile, this.rcptGridView);
+            }
+        }
+
+        private void CustomGridView1_FocusedRowChanged(object sender, DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventArgs e)
+        {
+            if (customGridView1.FocusedRowHandle < 0) return;
+
+            var row = customGridView1.GetFocusedDataRow();
+
+            var typename = row["ChallanType"].ToString();
+
+            rcptGridControl.Visible = typename == "Inward for Job";
+            if (typename != "Inward for Job")
+                return;
+
+            var _id = Convert.ToInt32(row["Id"]);
+            var _vid = Convert.ToInt32(row["VoucherId"]);
+
+            var dt = customGridView1.DataSource as DataTable;
+            int _transid = 0;
+            if (dt!=null &&  dt.Columns.Contains("TransId"))
+                _transid = Convert.ToInt32(row["TransId"]);
+
+            
+            using (var db = new KontoContext())
+            {
+                var rcptList = (from oc in db.Challans
+                    join ot in db.ChallanTranses on oc.Id equals ot.ChallanId
+                    join rt in db.ChallanTranses on new { p1 = (int)ot.RefId, p2 = ot.MiscId } equals new { p1 = rt.Id, p2 = rt.ChallanId }
+                    join rc in db.Challans on rt.ChallanId equals rc.Id
+                    join vc in db.Vouchers on oc.VoucherId equals vc.Id
+                    join pc in db.Process on oc.ProcessId equals pc.Id
+                    join ac in db.Accs on rc.AccId equals ac.Id
+                    join pd in db.Products on ot.ProductId equals pd.Id
+                     where ot.RefVoucherId == _vid && ot.IsActive && !ot.IsDeleted
+                        && oc.IsActive && !oc.IsDeleted && (rc.Id ==_id && (_transid==0 || rt.Id == _transid))
+                        && vc.VTypeId == (int)VoucherTypeEnum.OutJobChallan
+                    select new MillReceiptAgainstOrder()
+                    {
+                        ChlnDate = oc.VoucherDate,
+                        ChallanNo = oc.BillNo,
+                        VoucherNo = oc.VoucherNo,
+                        Party = ac.AccName,
+                        Quality =pd.ProductName,
+                        LotNo = ot.LotNo,
+                        GreyPcs = (int)ot.IssuePcs,
+                        GreyMtrs = ot.IssueQty,
+                        FinPcs = ot.Pcs,
+                        FinMtrs = ot.Qty,
+                        Rate = ot.Rate,
+                        JobType = pc.ProcessName,
+                        Id = oc.Id,
+                    }).ToList();
+                rcptGridControl.DataSource = rcptList;
+                KontoUtils.RestoreLayoutGrid(this.JobChallanAgainstGrnLayoutFile, rcptGridView);
+            }
         }
 
         private void ListDateRange1_GetButtonClick(object sender, EventArgs e)

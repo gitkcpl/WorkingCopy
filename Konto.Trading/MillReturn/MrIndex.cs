@@ -107,8 +107,8 @@ namespace Konto.Trading.MillReturn
            
 
             var dr = uomRepositoryItemLookUpEdit.GetDataSourceRowByKeyValue(er.UomId) as UomLookupDto;
-
-            if (dr.RateOn == "N")
+            
+            if (dr!=null && dr.RateOn == "N")
             {
                 er.Gross = decimal.Round(er.Pcs * er.Rate, 2);
             }

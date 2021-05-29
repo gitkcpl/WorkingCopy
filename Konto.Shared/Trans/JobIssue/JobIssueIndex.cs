@@ -100,6 +100,19 @@ namespace Konto.Shared.Trans.JobIssue
             colColorName.Visible = JobIssPara.Color_Required;
             colDesignNo.Visible = JobIssPara.Design_Required;
             colCut.Visible = JobIssPara.Cut_Required;
+            colBarcode.FieldName = "BarcodeNo";
+            if (JobIssPara.Barcode_Required)
+            {
+                colProductName.VisibleIndex = -1;
+
+                colBarcode.VisibleIndex = 0;
+                colBarcode.Fixed = FixedStyle.Left;
+                colProductName.VisibleIndex = 1;
+            }
+            else
+            {
+                colProductName.VisibleIndex = 0;
+            }
         }
         private MiTransDto PreOpenLookup()
         {
@@ -222,6 +235,11 @@ namespace Konto.Shared.Trans.JobIssue
                                 JobIssPara.Job_Issue_Against_Order = (value == "Y") ? true : false;
                                 break;
                             }
+                        case 319:
+                        {
+                            JobIssPara.Barcode_Required = (value == "Y") ? true : false;
+                            break;
+                        }
                     }
                 }
             }
@@ -246,6 +264,7 @@ namespace Konto.Shared.Trans.JobIssue
                 }
                 er.ProductId = frm.SelectedValue;
                 er.ProductName = frm.SelectedTex;
+                
                 if (string.IsNullOrEmpty(er.FinishQuality))
                 {
                     er.NProductId = frm.SelectedValue;
@@ -254,6 +273,8 @@ namespace Konto.Shared.Trans.JobIssue
                 var model = frm.SelectedItem as ProductLookupDto;
                 er.UomId = model.PurUomId;
                 er.Rate = model.DealerPrice;
+                er.BarcodeNo = model.BarCode;
+                
                 if (accLookup1.LookupDto.IsGst)
                 {
                     er.SgstPer = model.Sgst;
@@ -548,7 +569,8 @@ namespace Konto.Shared.Trans.JobIssue
                                  UomId = (int)ct.UomId,
                                  FinishQuality = np.ProductName,
                                  NProductId = (int)ct.NProductId,
-                                 RefNo = ct.RefNo,Cops = ct.Cops
+                                 RefNo = ct.RefNo,Cops = ct.Cops,
+                                 BarcodeNo = pd.BarCode
                                  
                              }).ToList();
 
@@ -775,7 +797,64 @@ namespace Konto.Shared.Trans.JobIssue
             if (e.Column == null) return;
             var er = gridView1.GetRow(e.RowHandle) as MiTransDto;
             if (er == null) return;
+
+            if (e.Column == colBarcode && e.Value != null && !string.IsNullOrEmpty(e.Value.ToString()))
+            {
+                var pos = DbUtils.GetProductDetails(e.Value.ToString());
+
+                if (pos == null)
+                {
+                    MessageBox.Show("Barcode Not Found..");
+
+                    if (gridView1.ActiveEditor.OldEditValue != null)
+                        er.BarcodeNo = gridView1.ActiveEditor.OldEditValue.ToString();
+                    else
+                        er.BarcodeNo = string.Empty;
+
+                    BeginInvoke(new MethodInvoker(() =>
+                    {
+                        gridView1.FocusedColumn = colBarcode;
+                    }));
+
+                    return;
+                }
+                er.ProductId = pos.Id;
+                er.BarcodeNo = pos.BarCode;
+                
+                er.ProductName = pos.ProductName;
+                er.UomId = pos.PurUomId;
+                er.Rate = pos.DealerPrice;
+                er.Cops = pos.Cut;
+                er.ColorId = pos.ColorId;
+                er.ColorName = pos.ColorName;
+                if (accLookup1.LookupDto.IsGst)
+                {
+                    er.SgstPer = pos.Sgst;
+                    er.CgstPer = pos.Cgst;
+                    er.IgstPer = 0;
+                    er.Igst = 0;
+                }
+                else
+                {
+                    er.SgstPer = 0;
+                    er.Sgst = 0;
+                    er.CgstPer = 0;
+                    er.Cgst = 0;
+                    er.IgstPer = pos.Igst;
+                }
+                er.CessPer = pos.Cess;
+                er.Qty = 1;
+                er.Pcs = 1;
+                GridFocus();
+            }
+
             GridCalculation(er);
+        }
+        private void GridFocus() // for focus setting in gridview
+        {
+           
+            gridView1.FocusedColumn = gridView1.GetVisibleColumn(colProductName.VisibleIndex);
+            
         }
         private void GridView1_KeyDown(object sender, KeyEventArgs e)
         {

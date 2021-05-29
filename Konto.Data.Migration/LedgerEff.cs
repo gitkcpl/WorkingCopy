@@ -155,7 +155,7 @@ namespace Konto.Data
                 billr.AgentId = modl.AgentId;
                 billr.AccountId = modl.AccId;
                 billr.GrossAmt = modl.GrossAmount;
-                billr.BillAmt = modl.TotalAmount + modl.TcsAmt;
+                billr.BillAmt = modl.TotalAmount;
                 billr.TdsAmt = modl.TdsAmt;
                 billr.TcsAmt = modl.TcsAmt;
                 billr.TotalQty = modl.TotalQty;
@@ -1844,7 +1844,7 @@ namespace Konto.Data
                                     //{
                                     //    m.AccountId = adl2.AccountId;
                                     //}
-                                    m.RefAccountId = adl4.AccountId;
+                                    m.AccountId = adl4.AccountId;
                                     if (p.Adla4 > 0)
                                     {
                                         m.Debit = 0;
@@ -3429,14 +3429,14 @@ namespace Konto.Data
 
                         foreach (var jv in jvss)
                         {
-                            remks = remks + jv.Particular + " " + jv.NetTotal.ToString("F") + " Dr" + ", ";
+                            remks = remks + jv.Particular + " " + jv.NetTotal.ToString("F") + " Dr" + ",";
                         }
 
                         jvss = jvs.Where(x => x.ToAccId != tr.ToAccId && x.Total > 0).ToList();
 
                         foreach (var jv in jvss)
                         {
-                            remks = remks + jv.Particular + " " + jv.Total.ToString("F") + " Cr" + ", ";
+                            remks = remks + jv.Particular + " " + jv.Total.ToString("F") + " Cr" + ",";
                         }
 
                     }

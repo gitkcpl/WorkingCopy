@@ -34,5 +34,6 @@ namespace Konto.Data.Models.Transaction.Dtos
         public string Division { get; set; }
         public string Priority { get; set; }
         public string RequestBy { get; set; }
+        public string Remark { get; set; }
     }
 }

@@ -398,5 +398,24 @@ namespace Konto.Data
                 "@compid={2}, @yearid={3}", fromdate,
                 todate, KontoGlobals.CompanyId, yearid);
         }
+
+        public static bool Is_Tcs_Applicable(int accid, decimal billamount)
+        {
+            using (var db = new KontoContext())
+            {
+                var ac = db.Accs.Find(accid);
+                if (ac == null) return false;
+                var tcs = db.TdsTcs.FirstOrDefault(x => x.DeducteeId == ac.DeducteeId);
+                
+                var amt = db.Bills.Where(x => x.AccId == accid &&
+                                              x.VoucherDate >= KontoGlobals.FromDate &&
+                                              x.VoucherDate <= KontoGlobals.ToDate)
+                    .Sum(x => x.TotalAmount);
+
+                if (tcs != null && amt + billamount > tcs.TaxLimit) return true;
+            }
+
+            return false;
+        }
     }
 }

@@ -96,5 +96,6 @@ namespace Konto.Data.Models.Transaction.Dtos
         public int? MiscId { get; set; }
         public int? RefVoucherId { get; set; }
         public decimal Cops { get; set; }
+        public string BarcodeNo { get; set; }
     }
 }

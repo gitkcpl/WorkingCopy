@@ -55,6 +55,7 @@
         public const int Pos_Sales_Invoice = 1223;
         public const int Pos_Purchase_Invoice = 1221;
 
+        public const int Outward_Job_Challan = 335;
 
     }
 }

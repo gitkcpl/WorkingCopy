@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
+            this.widthtextEdit1 = new DevExpress.XtraEditors.TextEdit();
             this.billNoTextEdit = new DevExpress.XtraEditors.TextEdit();
             this.lrDateEdit = new DevExpress.XtraEditors.DateEdit();
             this.vehicleTextEdit = new DevExpress.XtraEditors.TextEdit();
@@ -115,7 +116,8 @@
             this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem9 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.layoutControlItem15 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.gateLayoutControlItem = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem16 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)(this.tabControlAdv1)).BeginInit();
             this.tabControlAdv1.SuspendLayout();
             this.tabPageAdv1.SuspendLayout();
@@ -123,6 +125,7 @@
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.widthtextEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.billNoTextEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lrDateEdit.Properties.CalendarTimeProperties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lrDateEdit.Properties)).BeginInit();
@@ -168,7 +171,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem15)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gateLayoutControlItem)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem16)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControlAdv1
@@ -206,6 +210,7 @@
             // 
             // layoutControl1
             // 
+            this.layoutControl1.Controls.Add(this.widthtextEdit1);
             this.layoutControl1.Controls.Add(this.billNoTextEdit);
             this.layoutControl1.Controls.Add(this.lrDateEdit);
             this.layoutControl1.Controls.Add(this.vehicleTextEdit);
@@ -235,6 +240,20 @@
             this.layoutControl1.TabIndex = 8;
             this.layoutControl1.TabStop = false;
             this.layoutControl1.Text = "layoutControl1";
+            // 
+            // widthtextEdit1
+            // 
+            this.widthtextEdit1.EnterMoveNextControl = true;
+            this.widthtextEdit1.Location = new System.Drawing.Point(94, 390);
+            this.widthtextEdit1.Name = "widthtextEdit1";
+            this.widthtextEdit1.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.widthtextEdit1.Properties.Appearance.Options.UseFont = true;
+            this.widthtextEdit1.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.widthtextEdit1.Properties.AppearanceFocused.Options.UseBorderColor = true;
+            this.widthtextEdit1.Properties.MaxLength = 500;
+            this.widthtextEdit1.Size = new System.Drawing.Size(124, 24);
+            this.widthtextEdit1.StyleController = this.layoutControl1;
+            this.widthtextEdit1.TabIndex = 19;
             // 
             // billNoTextEdit
             // 
@@ -354,7 +373,7 @@
             this.agentLookup.LookupTitle = null;
             this.agentLookup.Name = "agentLookup";
             this.agentLookup.Nature = null;
-            this.agentLookup.NewGroupId = App.Shared.LedgerGroupEnum.CREDITORS_FOR_BROKERAGE;
+            this.agentLookup.NewGroupId = Konto.App.Shared.LedgerGroupEnum.CREDITORS_FOR_BROKERAGE;
             this.agentLookup.PrimaryKey = null;
             this.agentLookup.RequiredField = false;
             this.agentLookup.SelectedText = null;
@@ -375,7 +394,7 @@
             this.transportLookup.LookupTitle = null;
             this.transportLookup.Name = "transportLookup";
             this.transportLookup.Nature = null;
-            this.transportLookup.NewGroupId = App.Shared.LedgerGroupEnum.CREDITORS_FOR_TRANSPORTATION;
+            this.transportLookup.NewGroupId = Konto.App.Shared.LedgerGroupEnum.CREDITORS_FOR_TRANSPORTATION;
             this.transportLookup.PrimaryKey = null;
             this.transportLookup.RequiredField = false;
             this.transportLookup.SelectedText = null;
@@ -915,15 +934,15 @@
             // remarkTextEdit
             // 
             this.remarkTextEdit.EnterMoveNextControl = true;
-            this.remarkTextEdit.Location = new System.Drawing.Point(94, 390);
+            this.remarkTextEdit.Location = new System.Drawing.Point(311, 390);
             this.remarkTextEdit.Name = "remarkTextEdit";
             this.remarkTextEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.remarkTextEdit.Properties.Appearance.Options.UseFont = true;
             this.remarkTextEdit.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.remarkTextEdit.Properties.AppearanceFocused.Options.UseBorderColor = true;
-            this.remarkTextEdit.Size = new System.Drawing.Size(845, 24);
+            this.remarkTextEdit.Size = new System.Drawing.Size(628, 24);
             this.remarkTextEdit.StyleController = this.layoutControl1;
-            this.remarkTextEdit.TabIndex = 19;
+            this.remarkTextEdit.TabIndex = 20;
             // 
             // receiveDateEdit
             // 
@@ -986,7 +1005,7 @@
             this.accLookup1.LookupTitle = null;
             this.accLookup1.Name = "accLookup1";
             this.accLookup1.Nature = null;
-            this.accLookup1.NewGroupId = App.Shared.LedgerGroupEnum.SUNDRY_CREDITORS;
+            this.accLookup1.NewGroupId = Konto.App.Shared.LedgerGroupEnum.SUNDRY_CREDITORS;
             this.accLookup1.PrimaryKey = null;
             this.accLookup1.RequiredField = true;
             this.accLookup1.SelectedText = null;
@@ -1067,7 +1086,8 @@
             this.layoutControlItem2,
             this.layoutControlItem5,
             this.layoutControlItem9,
-            this.layoutControlItem15});
+            this.gateLayoutControlItem,
+            this.layoutControlItem16});
             this.Root.Name = "Root";
             this.Root.Padding = new DevExpress.XtraLayout.Utils.Padding(3, 3, 3, 3);
             this.Root.Size = new System.Drawing.Size(944, 419);
@@ -1106,9 +1126,9 @@
             this.layoutControlItem17.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.layoutControlItem17.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem17.Control = this.remarkTextEdit;
-            this.layoutControlItem17.Location = new System.Drawing.Point(0, 385);
+            this.layoutControlItem17.Location = new System.Drawing.Point(217, 385);
             this.layoutControlItem17.Name = "layoutControlItem17";
-            this.layoutControlItem17.Size = new System.Drawing.Size(938, 28);
+            this.layoutControlItem17.Size = new System.Drawing.Size(721, 28);
             this.layoutControlItem17.Text = "Remark:";
             this.layoutControlItem17.TextSize = new System.Drawing.Size(86, 17);
             // 
@@ -1289,16 +1309,27 @@
             this.layoutControlItem9.Text = "Bill No:";
             this.layoutControlItem9.TextSize = new System.Drawing.Size(86, 17);
             // 
-            // layoutControlItem15
+            // gateLayoutControlItem
             // 
-            this.layoutControlItem15.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.layoutControlItem15.AppearanceItemCaption.Options.UseFont = true;
-            this.layoutControlItem15.Control = this.gateSrNoTextEdit;
-            this.layoutControlItem15.Location = new System.Drawing.Point(711, 84);
-            this.layoutControlItem15.Name = "layoutControlItem15";
-            this.layoutControlItem15.Size = new System.Drawing.Size(227, 28);
-            this.layoutControlItem15.Text = "Gate Sr No:";
-            this.layoutControlItem15.TextSize = new System.Drawing.Size(86, 17);
+            this.gateLayoutControlItem.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gateLayoutControlItem.AppearanceItemCaption.Options.UseFont = true;
+            this.gateLayoutControlItem.Control = this.gateSrNoTextEdit;
+            this.gateLayoutControlItem.Location = new System.Drawing.Point(711, 84);
+            this.gateLayoutControlItem.Name = "gateLayoutControlItem";
+            this.gateLayoutControlItem.Size = new System.Drawing.Size(227, 28);
+            this.gateLayoutControlItem.Text = "Gate Sr No:";
+            this.gateLayoutControlItem.TextSize = new System.Drawing.Size(86, 17);
+            // 
+            // layoutControlItem16
+            // 
+            this.layoutControlItem16.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.layoutControlItem16.AppearanceItemCaption.Options.UseFont = true;
+            this.layoutControlItem16.Control = this.widthtextEdit1;
+            this.layoutControlItem16.Location = new System.Drawing.Point(0, 385);
+            this.layoutControlItem16.Name = "layoutControlItem16";
+            this.layoutControlItem16.Size = new System.Drawing.Size(217, 28);
+            this.layoutControlItem16.Text = "Width:";
+            this.layoutControlItem16.TextSize = new System.Drawing.Size(86, 17);
             // 
             // GRNIndex
             // 
@@ -1319,6 +1350,7 @@
             this.panelControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.widthtextEdit1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.billNoTextEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lrDateEdit.Properties.CalendarTimeProperties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lrDateEdit.Properties)).EndInit();
@@ -1364,7 +1396,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem15)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gateLayoutControlItem)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem16)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1456,7 +1489,9 @@
         private DevExpress.XtraGrid.Columns.GridColumn colOrdNo;
         private DevExpress.XtraEditors.Repository.RepositoryItemHyperLinkEdit repositoryItemHyperLinkEdit1;
         private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit lotNoRepositoryItemButtonEdit;
-        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem15;
+        private DevExpress.XtraLayout.LayoutControlItem gateLayoutControlItem;
         private DevExpress.XtraEditors.ButtonEdit gateSrNoTextEdit;
+        private DevExpress.XtraEditors.TextEdit widthtextEdit1;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem16;
     }
 }

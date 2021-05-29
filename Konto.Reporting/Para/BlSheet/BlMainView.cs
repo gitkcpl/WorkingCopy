@@ -20,6 +20,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Konto.Core.Shared.Libs;
+using Syncfusion.Windows.Forms;
 
 namespace Konto.Reporting.Para.BlSheet
 {
@@ -815,15 +817,76 @@ namespace Konto.Reporting.Para.BlSheet
 
         }
 
-        void ExecuteProcedure()
+        void ExecuteProcedure(string summary="N")
         {
+            
+
             var fdate = Convert.ToInt32(fDateEdit.DateTime.ToString("yyyyMMdd"));
             var tdate = Convert.ToInt32(tDateEdit.DateTime.ToString("yyyyMMdd"));
-            using (var _db = new KontoContext())
+            if (fdate < KontoGlobals.FromDate || fdate > KontoGlobals.ToDate)
             {
-                Trans = _db.Database.SqlQuery<BalDto>(
+                MessageBoxAdv.Show(this, "from date out of financial range", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                fDateEdit.Focus();
+                return;
+            }
+
+            if (tdate < KontoGlobals.FromDate || tdate > KontoGlobals.ToDate)
+            {
+                MessageBoxAdv.Show(this, "to date out of financial range", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                tDateEdit.Focus();
+                return;
+            }
+
+            using (var db = new KontoContext())
+            {
+                var accId = Convert.ToInt32(ConfigurationManager.AppSettings["PlId"]);
+
+                var ledger = db.Ledgers.Where(k => k.AccountId == accId && k.RefAccountId == null && k.YearId == KontoGlobals.YearId && k.CompanyId == KontoGlobals.CompanyId && k.IsActive && k.IsDeleted == false).ToList();
+                if (ledger.Count > 0)
+                {
+                    db.Ledgers.RemoveRange(ledger);
+                }
+                // get profit amount
+
+                decimal npl = db.Database.SqlQuery<decimal>(
+                    "dbo.get_net_pl @CompanyId={0},@FromDate={1},@ToDate={2},@YearId={3}",
+                    Convert.ToInt32(KontoGlobals.CompanyId), fdate, tdate, KontoGlobals.YearId).FirstOrDefault();
+
+                decimal amount = npl;
+                decimal billamt = npl;
+                if (npl > 0)
+                {
+                    amount = -1 * npl;
+                    billamt = npl;
+                }
+
+                //   var date = _db.FinYears.FirstOrDefault(k => k.Id == KontoGlobals.YearId);
+
+                LedgerTransModel ld = new LedgerTransModel();
+                {
+                    ld.CompanyId = KontoGlobals.CompanyId;
+                    ld.YearId = KontoGlobals.YearId;
+                    ld.VoucherDate = tdate;
+                    ld.TransDate = tDateEdit.DateTime;
+                    ld.VoucherNo = "None";
+                    ld.BillNo = "None";
+                    ld.AccountId = accId;
+                    ld.Debit = npl > 0 ? npl : 0;
+                    ld.Credit = npl < 0 ? -1 * npl : 0;
+                    ld.Amount = amount;
+                    ld.BilllAmount = billamt;
+                    ld.IsActive = true;
+                    ld.IsDeleted = false;
+                    ld.CreateDate = DateTime.Now;
+                    ld.CreateUser = KontoGlobals.UserName;
+
+                }
+                db.Ledgers.Add(ld);
+                db.SaveChanges();
+
+                Trans = db.Database.SqlQuery<BalDto>(
                    "dbo.Bal_sheet @CompanyId={0},@FromDate={1},@ToDate={2},@YearId={3},@Summary={4}",
-                   Convert.ToInt32(KontoGlobals.CompanyId), fdate, tdate, KontoGlobals.YearId, "N").ToList();
+                   Convert.ToInt32(KontoGlobals.CompanyId), fdate, tdate, KontoGlobals.YearId, summary).ToList();
             }
 
         }
@@ -1403,13 +1466,83 @@ namespace Konto.Reporting.Para.BlSheet
 
             var fdate = Convert.ToInt32(fDateEdit.DateTime.ToString("yyyyMMdd"));
             var tdate = Convert.ToInt32(tDateEdit.DateTime.ToString("yyyyMMdd"));
+            if (fdate < KontoGlobals.FromDate || fdate > KontoGlobals.ToDate)
+            {
+                MessageBoxAdv.Show(this, "from date out of financial range", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                fDateEdit.Focus();
+                return ;
+            }
+
+            if (tdate < KontoGlobals.FromDate || tdate > KontoGlobals.ToDate)
+            {
+                MessageBoxAdv.Show(this, "to date out of financial range", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                tDateEdit.Focus();
+                return;
+            }
+
             Print = "D";
             List<BalSumDto> Lst = new List<BalSumDto>();
             using (var db = new KontoContext())
             {
+
+                try
+                {
+                    var accId = Convert.ToInt32(ConfigurationManager.AppSettings["PlId"]);
+                   
+                        var ledger = db.Ledgers.Where(k => k.AccountId == accId && k.RefAccountId == null && k.YearId == KontoGlobals.YearId && k.CompanyId == KontoGlobals.CompanyId && k.IsActive && k.IsDeleted == false).ToList();
+                        if (ledger.Count > 0)
+                        {
+                            db.Ledgers.RemoveRange(ledger);
+                        }
+                        // get profit amount
+
+                        decimal npl = db.Database.SqlQuery<decimal> (
+                            "dbo.get_net_pl @CompanyId={0},@FromDate={1},@ToDate={2},@YearId={3}",
+                            Convert.ToInt32(KontoGlobals.CompanyId), fdate, tdate, KontoGlobals.YearId).FirstOrDefault();
+
+                        decimal amount = npl;
+                        decimal billamt =npl;
+                        if (npl > 0)
+                        {
+                            amount = -1 * npl;
+                            billamt = npl;
+                        }
+
+                        //   var date = _db.FinYears.FirstOrDefault(k => k.Id == KontoGlobals.YearId);
+
+                        LedgerTransModel ld = new LedgerTransModel();
+                        {
+                            ld.CompanyId = KontoGlobals.CompanyId;
+                            ld.YearId = KontoGlobals.YearId;
+                            ld.VoucherDate = tdate;
+                            ld.TransDate = tDateEdit.DateTime;
+                            ld.VoucherNo = "None";
+                            ld.BillNo = "None";
+                            ld.AccountId = accId;
+                            ld.Debit = npl >0 ? npl : 0;
+                            ld.Credit = npl < 0 ? -1* npl: 0;
+                            ld.Amount = amount;
+                            ld.BilllAmount = billamt;
+                            ld.IsActive = true;
+                            ld.IsDeleted = false;
+                            ld.CreateDate = DateTime.Now;
+                            ld.CreateUser = KontoGlobals.UserName;
+
+                        }
+                        db.Ledgers.Add(ld);
+                        db.SaveChanges();
+                    
+               
+
                 Lst = db.Database.SqlQuery<BalSumDto>(
                     "dbo.Bal_sheet @CompanyId={0},@FromDate={1},@ToDate={2},@YearId={3},@Summary={4}",
                     Convert.ToInt32(KontoGlobals.CompanyId), fdate, tdate, KontoGlobals.YearId, "Y").ToList();
+                }
+                catch (Exception ex)
+                {
+                    Log.Error(ex,"balancesheet");
+
+                }
             }
             var tr = Lst.Where(x => x.BalType == "TR").ToList();
             var pl = Lst.Where(x => x.BalType == "PL").ToList();
@@ -1754,54 +1887,7 @@ namespace Konto.Reporting.Para.BlSheet
             }
             //cellgrid.Model.FooterRows = 1;
 
-            try
-            {
-                var accId = Convert.ToInt32(ConfigurationManager.AppSettings["PlId"]);
-                using (var _db = new KontoContext())
-                {
-                    var ledger = _db.Ledgers.Where(k => k.AccountId == accId && k.RefAccountId == null && k.YearId == KontoGlobals.YearId && k.CompanyId == KontoGlobals.CompanyId && k.IsActive && k.IsDeleted == false).ToList();
-                    if (ledger.Count > 0)
-                    {
-                        _db.Ledgers.RemoveRange(ledger);
-                    }
-                    _db.SaveChanges();
-                    decimal amount = (decimal)nl;
-                    decimal billamt = (decimal)nl;
-                    if (np > 0)
-                    {
-                        amount = -1 * (decimal)np;
-                        billamt = (decimal)np;
-                    }
-                    var date = _db.FinYears.FirstOrDefault(k => k.Id == KontoGlobals.YearId);
-
-                    LedgerTransModel ld = new LedgerTransModel();
-                    {
-                        ld.CompanyId = KontoGlobals.CompanyId;
-                        ld.YearId = KontoGlobals.YearId;
-                        ld.VoucherDate = date.ToDate;
-                        ld.TransDate = date.TDate;
-                        ld.VoucherNo = "None";
-                        ld.BillNo = "None";
-                        ld.AccountId = accId;
-                        ld.Debit = (decimal)nl;
-                        ld.Credit = (decimal)np;
-                        ld.Amount = amount;
-                        ld.BilllAmount = billamt;
-                        ld.IsActive = true;
-                        ld.IsDeleted = false;
-                        ld.CreateDate = DateTime.Now;
-                        ld.CreateUser = KontoGlobals.UserName;
-
-                    }
-                    _db.Ledgers.Add(ld);
-                    _db.SaveChanges();
-                }
-            }
-            catch (Exception ex)
-            {
-
-                throw;
-            }
+           
             cellgrid.Focus();
             //if (r == 1)
             //{

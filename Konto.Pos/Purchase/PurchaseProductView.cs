@@ -17,6 +17,7 @@ namespace Konto.Pos.Purchase
     {
         public List<PosPurTransDto> ItemDetails = new List<PosPurTransDto>();
         public bool IsGst { get; set; }
+        private int _RowIndex = -1;
 
         public string GridLayoutFileName = "pos\\pur_barcode_grid.xml";
         public string MainLayoutFileName = "pos\\pur_barcode.xml";
@@ -46,10 +47,150 @@ namespace Konto.Pos.Purchase
             sizeCheckedComboBoxEdit.Properties.ValueMember = "Id";
 
             qtyKontoSpinEdit.EditValueChanged += QtyKontoSpinEdit_EditValueChanged;
-            
-           
+
+            gridView1.RowClick += GridView1_RowClick;
+
+            updateSimpleButton.Click += UpdateSimpleButton_Click;
 
         }
+
+        private void UpdateSimpleButton_Click(object sender, EventArgs e)
+        {
+            var model = gridView1.GetRow(_RowIndex) as PosPurTransDto;
+
+            if(model== null) return;
+            
+            var db = new KontoContext();
+
+            var tx = db.TaxMasters.Find(Convert.ToInt32(taxTypelookUpEdit.EditValue));
+            if (tx == null) return;
+
+            model.Barcode = barcodeTextBoxExt.Text;
+
+            if (this.IsGst)
+            {
+                model.CgstPer = tx.Cgst;
+                model.SgstPer = tx.Sgst;
+            }
+            else
+            {
+                model.IgstPer = tx.Igst;
+            }
+            model.ItemCode = codeTextBoxExt.Text.Trim();
+            model.ProductName = nameTextBoxExt.Text.Trim();
+            model.Description = descTextBoxExt.Text.Trim();
+            model.StyleNo = styleNoTextEdit.Text.Trim();
+
+            model.GroupId = Convert.ToInt32(groupLookup1.SelectedValue);
+            model.GroupName = groupLookup1.SelectedText;
+
+            model.SubGroupId = Convert.ToInt32(subGroupLookup1.SelectedValue);
+            model.SubGroupName = subGroupLookup1.SelectedText;
+
+            model.BrandId = Convert.ToInt32(brandLookup1.SelectedValue);
+            model.Brand = brandLookup1.SelectedText;
+
+            model.CategoryId = Convert.ToInt32(categoryLookup1.SelectedValue);
+            model.Category = categoryLookup1.SelectedText;
+
+            model.ColorId = Convert.ToInt32(colorLookup1.SelectedValue);
+            model.ColorName = colorLookup1.SelectedText;
+
+            model.SizeId = Convert.ToInt32(sizeCheckedComboBoxEdit.EditValue);
+            model.Size = db.SizeModels.Find(model.SizeId)?.SizeName;
+
+
+            model.HsnCode = hsnTextBoxExt.Text.Trim();
+            model.TaxId = Convert.ToInt32(taxTypelookUpEdit.EditValue);
+
+            model.PurUomId = Convert.ToInt32(purUnitlookUpEdit.EditValue);
+            model.UomId = Convert.ToInt32(unitLookUpEdit.EditValue);
+
+            model.ChkNegative = negativeCheckEdit.Checked;
+            model.SaleRateTaxInc = taxIncCheckEdit.Checked;
+
+            model.Rate = purRateKontoSpinEdit.Value;
+            model.Disc = purDiscKontoSpinEdit.Value;
+            model.SellingPrice = saleRateKontoSpinEdit.Value;
+            model.SaleDisc = saleDiscKontoSpinEdit.Value;
+            model.ProfitPer = profitKontoSpinEdit.Value;
+            model.Mrp = mrpKontoSpinEdit.Value;
+
+            model.BulkRate = bulkRateKontoSpinEdit.Value;
+            model.SemiBulkRate = semBulkRateKontoSpinEdit.Value;
+            model.BulkQty = bulkQtyKontoSpinEdit.Value;
+            model.Pcs = Convert.ToInt32(pcsKontoSpinEdit.Value);
+            model.AvgWt = wtKontoSpinEdit1.Value;
+                model.Qty = qtyKontoSpinEdit.Value;
+                gridControl1.RefreshDataSource();
+                _RowIndex = -1;
+                genItemSimpleButton.Enabled = true;
+                updateSimpleButton.Enabled = false;
+            styleNoTextEdit.Focus();
+        }
+
+        private void GridView1_RowClick(object sender, DevExpress.XtraGrid.Views.Grid.RowClickEventArgs e)
+        {
+            if(e.RowHandle<0) return;
+            _RowIndex = e.RowHandle;
+            var model = gridView1.GetRow(e.RowHandle) as PosPurTransDto;
+            if(model==null) return;
+
+            updateSimpleButton.Enabled = true;
+            genItemSimpleButton.Enabled = false;
+            barcodeTextBoxExt.Text = model.Barcode;
+
+            codeTextBoxExt.Text = model.ItemCode;
+            nameTextBoxExt.Text = model.ProductName;
+            descTextBoxExt.Text = model.Description;
+            styleNoTextEdit.Text = model.StyleNo;
+
+            groupLookup1.SelectedValue = model.GroupId;
+            groupLookup1.SetGroup();
+
+           subGroupLookup1.SelectedValue = model.SubGroupId;
+            subGroupLookup1.SetGroup();
+
+           brandLookup1.SelectedValue = model.BrandId;
+           brandLookup1.SetGroup();
+
+           categoryLookup1.SelectedValue = model.CategoryId;
+            categoryLookup1.SetGroup();
+
+            colorLookup1.SelectedValue = model.ColorId;
+            if(model.ColorId>0 )
+                colorLookup1.SetGroup();
+
+            sizeCheckedComboBoxEdit.EditValue = model.SizeId;
+            //model.Size = db.SizeModels.Find(model.SizeId).SizeName;
+
+
+            hsnTextBoxExt.Text = model.HsnCode;
+            taxTypelookUpEdit.EditValue = model.TaxId;
+
+            purUnitlookUpEdit.EditValue= model.PurUomId;
+            unitLookUpEdit.EditValue = model.UomId;
+
+            negativeCheckEdit.Checked = model.ChkNegative;
+            taxIncCheckEdit.Checked = model.SaleRateTaxInc;
+
+            purRateKontoSpinEdit.Value = model.Rate;
+            purDiscKontoSpinEdit.Value = model.Disc;
+            saleRateKontoSpinEdit.Value= model.SellingPrice;
+            saleDiscKontoSpinEdit.Value= model.SaleDisc;
+            profitKontoSpinEdit.Value= model.ProfitPer;
+            mrpKontoSpinEdit.Value= model.Mrp;
+
+            bulkRateKontoSpinEdit.Value = model.BulkRate;
+            semBulkRateKontoSpinEdit.Value= model.SemiBulkRate;
+            bulkQtyKontoSpinEdit.Value= model.BulkQty;
+            pcsKontoSpinEdit.Value = model.Pcs;
+            wtKontoSpinEdit1.Value = model.AvgWt;
+            qtyKontoSpinEdit.Value= model.Qty;
+
+          
+        }
+
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
             if (keyData == (Keys.F1 | Keys.Shift))

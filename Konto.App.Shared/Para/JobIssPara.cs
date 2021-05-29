@@ -23,6 +23,7 @@ namespace Konto.App.Shared.Para
         public static bool Finish_Product_Requred=true;
         public static bool Issue_By_Barcode = false;
         public static bool Job_Issue_Against_Order = false;
+        public static bool Barcode_Required = false;
 
     }
 }

@@ -75,6 +75,7 @@
     <Compile Include="Models\Admin\Roles.cs" />
     <Compile Include="Models\Admin\SPCollectionModel.cs" />
     <Compile Include="Models\Admin\SysParaModel.cs" />
+    <Compile Include="Models\Admin\TdsTcs.cs" />
     <Compile Include="Models\Admin\UserMaster.cs" />
     <Compile Include="Models\Apparel\BarcodeStock.cs" />
     <Compile Include="Models\Apparel\BarcodeTrans.cs" />

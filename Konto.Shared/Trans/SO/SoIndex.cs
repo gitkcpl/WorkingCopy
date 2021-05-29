@@ -19,7 +19,6 @@ using Syncfusion.Windows.Forms;
 using Syncfusion.Windows.Forms.Tools;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -115,7 +114,7 @@ namespace Konto.Shared.Trans.SO
 
             var dr = uomRepositoryItemLookUpEdit.GetDataSourceRowByKeyValue(er.UomId) as UomLookupDto;
 
-            if (dr != null && dr.RateOn == "N" && er.Qty > 0)
+            if (dr != null && dr.RateOn == "N" && er.LotPcs > 0)
             {
                 er.Total = decimal.Round(er.LotPcs * er.Rate, 2, MidpointRounding.AwayFromZero);
             }

@@ -43,5 +43,6 @@ namespace Konto.Data.Models.Transaction.Dtos
         public string Remark { get; set; } // varchar(max)
 
         public int AccId { get; set; }
+        public  int AgentId { get; set; }
     }
 }

@@ -681,6 +681,9 @@
   <ItemGroup>
     <EmbeddedResource Include="PostScript\20.v_PosMenu.sql" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="PostScript\071.v_TdsTcs.sql" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

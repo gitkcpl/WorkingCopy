@@ -40,7 +40,14 @@ namespace KontoWin
             treeList1.KeyDown += TreeList1_KeyDown;
             this.tabControlAdv1.ControlRemoved += TabControlAdv1_ControlRemoved;
             this.tabControlAdv1.SelectedIndexChanged += TabControlAdv1_SelectedIndexChanged;
+            this.FormClosing += Form1_FormClosing;
            
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (MessageBox.Show(@"Close Application ??", @"App Close", MessageBoxButtons.YesNo) == DialogResult.No)
+                e.Cancel = true;
         }
 
         private void TabControlAdv1_SelectedIndexChanged(object sender, EventArgs e)
@@ -187,7 +194,7 @@ namespace KontoWin
             
            
 
-            string constring = ConfigurationManager.ConnectionStrings["KontoContext"].ConnectionString;
+                string constring = ConfigurationManager.ConnectionStrings["KontoContext"].ConnectionString;
 
                var sqlconbuilder = new SqlConnectionStringBuilder(constring);
 

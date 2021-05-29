@@ -240,6 +240,8 @@ namespace Konto.Data
         public DbSet<Gstr2ADump> Gstr2ADumps { get; set; }
         public DbSet<Gstr2ATransDump> Gstr2ATransDumps { get; set; }
 
+        public DbSet<TdsTcs> TdsTcs { get; set; }
+
         #endregion
 
         #region "Masters"

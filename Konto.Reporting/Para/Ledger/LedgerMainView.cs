@@ -41,8 +41,8 @@ namespace Konto.Reporting.Para.Ledger
     {
         private string GridLayoutFileName { get; set; }
         public int AccId { get; set; }
-        public DateTime _fromDate { get; set; }
-        public DateTime _toDate { get; set; }
+        public DateTime? _fromDate { get; set; }
+        public DateTime? _toDate { get; set; }
 
         public LedgerMainView()
         {
@@ -324,7 +324,7 @@ namespace Konto.Reporting.Para.Ledger
             {
                 if (KontoGlobals.PackageId == (int)PackageType.POS)
                     vw = new PRIndex();
-                    else  
+                else  
                     vw = new PReturnIndex();
             }
             else if (err.VTypeId == (int)VoucherTypeEnum.GrayPurchaseInvoice)
@@ -379,8 +379,11 @@ namespace Konto.Reporting.Para.Ledger
         {
             if (this.AccId > 0)
             {
-                this.fDateEdit.DateTime = this._fromDate;
-                this.tDateEdit.DateTime = this._toDate;
+                
+                this.fDateEdit.DateTime = this._fromDate != null ? Convert.ToDateTime(this._fromDate) : KontoGlobals.DFromDate;
+                this.tDateEdit.DateTime = this._toDate == null ? KontoGlobals.DToDate : Convert.ToDateTime(this._toDate);
+
+
                 this.accLookup1.SelectedValue = this.AccId;
                 this.accLookup1.SetAcc(this.AccId);
                 okSimpleButton.PerformClick();

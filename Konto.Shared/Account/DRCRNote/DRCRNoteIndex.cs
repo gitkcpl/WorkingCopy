@@ -188,12 +188,12 @@ namespace Konto.Shared.Account.DRCRNote
 
         private void TdsAmtTextEdit_EditValueChanged(object sender, EventArgs e)
         {
-            FinalTotal();
+            if(!IsLoadingData) FinalTotal();
         }
 
         private void TdsPerTextEdit_EditValueChanged(object sender, EventArgs e)
         {
-            FinalTotal();
+            if (!IsLoadingData)  FinalTotal();
         }
 
         private void InvTypeLookUpEdit_EditValueChanged(object sender, EventArgs e)
@@ -532,11 +532,7 @@ namespace Konto.Shared.Account.DRCRNote
                 tdsAccLookup.SetAcc((int)model.HasteId);
             }
 
-            tdsPerTextEdit.Value = model.TdsPer;
-            tdsAmtTextEdit.Value = model.TdsAmt;
-            billAmtSpinEdit.Value = model.TotalAmount;
-            roundoffSpinEdit.Value = Convert.ToDecimal(model.RoundOff);
-            paybleTextEdit.EditValue = model.TotalAmount - model.TdsAmt;
+          
             createdLabelControl.Text = "Created By: " + model.CreateUser + " [ " + model.CreateDate + " ]";
             modifyLabelControl.Text = "Modified By: " + model.ModifyUser + " [ " + model.ModifyDate ?? string.Empty  + " ]";
 
@@ -582,6 +578,14 @@ namespace Konto.Shared.Account.DRCRNote
                 grnTransDtoBindingSource1.DataSource = _lst;
             }
 
+            tdsPerTextEdit.Value = model.TdsPer;
+           
+            billAmtSpinEdit.Value = model.TotalAmount;
+            roundoffSpinEdit.Value = Convert.ToDecimal(model.RoundOff);
+            paybleTextEdit.EditValue = model.TotalAmount - model.TdsAmt;
+            tdsAmtTextEdit.Value = model.TdsAmt;
+
+            IsLoadingData = false;
 
          //   FinalTotal();
             this.Text = "DrCr Note [View/Modify]";

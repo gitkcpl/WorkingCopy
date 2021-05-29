@@ -108,6 +108,8 @@ namespace Konto.App.Shared
         public const string Grey_Order_Issue_Layout = "go\\go_issue.xml";
         public const string Grey_Order_Mill_Receipt_Layout = "go\\go_mill_rcpt.xml";
 
+        public const string Grn_Out_Job_Challan = "grn\\grn_out_job_challan.xml";
+
         public const string GRN_Yarn_Item_Details = "grn\\grn_yarn_item_details.xml";
         public const string GRN_Beam_Item_Details = "grn\\grn_beam_item_details.xml";
         public const string GRN_Grey_Item_Details = "grn\\grn_Grey_item_details.xml";

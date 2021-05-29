@@ -92,5 +92,10 @@ namespace Konto.Data.Models.Transaction.Dtos
         public virtual string RefNo { get; set; }
 
         public virtual string Party { get; set; }
+
+        public virtual int AgentId {
+            get;
+            set;
+        }
     }
 }

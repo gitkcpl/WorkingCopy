@@ -11,7 +11,7 @@ ALTER PROCEDURE [dbo].[ChallanDetailList]
  @ToDate int
 AS
 BEGIN 
-	 SELECT dv.DivisionName ,tt.TypeName,
+	 SELECT dv.DivisionName ,tt.TypeName ChallanType,
 	 ISNULL(CONVERT(Date,Convert(varchar(8),c.VoucherDate),112),'')  as ChallanDate, 
 	 c.VoucherNo ChallanNo,
 	 c.ChallanNo RefNo,

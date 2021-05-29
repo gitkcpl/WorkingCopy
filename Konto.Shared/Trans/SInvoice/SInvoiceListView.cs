@@ -54,6 +54,7 @@ namespace Konto.Shared.Trans.SInvoice
                     var bt = db.BillTrans.Where(x => x.BillId == _id).ToList();
                     var frm = new EinvView() { RefId = _id, VoucherId = _vid, BModel = bm, TModel = bt };
                     frm.ShowDialog();
+                    
                 }
 
 
@@ -82,6 +83,11 @@ namespace Konto.Shared.Trans.SInvoice
                     var bt = db.BillTrans.Where(x => x.BillId == _id).ToList();
                     var frm = new EwayBillView() { RefId = _id, VoucherId = _vid,BModel=bm,TModel=bt };
                     frm.ShowDialog();
+                    //if (frm.EinvoiceModel != null && !string.IsNullOrEmpty(frm.EinvoiceModel.Irn))
+                    //{
+                    //    bm.EwayBillNo = frm.EinvoiceModel.EwbNo;
+                    //    db.SaveChanges();
+                    //}
                 }
 
 

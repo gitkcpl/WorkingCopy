@@ -35,6 +35,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using DevExpress.Data.WcfLinq.Helpers;
 using ExpressionBuilder = Konto.Core.Shared.Libs.ExpressionBuilder;
 
 namespace Konto.Pos.Sales
@@ -122,9 +123,19 @@ namespace Konto.Pos.Sales
 
         private void GridView1_ValidatingEditor(object sender, BaseContainerValidateEditorEventArgs e)
         {
-            var gv = sender as GridView;
-            var model = gv.GetRow(gv.FocusedRowHandle) as BillTransDto;
-            if (model == null) return;
+            //var gv = sender as GridView;
+            //var model = gv.GetRow(gv.FocusedRowHandle) as BillTransDto;
+            //if (model == null) return;
+            //GridColumn col = (e as EditFormValidateEditorEventArgs).Column;
+            //decimal oldValue = Convert.ToDecimal(gridView1.GetFocusedRowCellValue(col));
+            
+            //decimal newValue = Convert.ToDecimal(e.Value);
+
+            //if (col.FieldName == "Qty" && (model.Stock + oldValue) < newValue)
+            //{
+            //    e.Valid = false;
+            //    e.ErrorText = "Qty Sold Greater than Stock Qty";
+            //}
             //if (gv.FocusedColumn.FieldName == "Barcode" && e.Value != null && !string.IsNullOrEmpty(e.Value.ToString()))
             //{
             //    var pos = DbUtils.GetProductDetails(e.Value.ToString());
@@ -643,6 +654,7 @@ namespace Konto.Pos.Sales
             decimal qty = Convert.ToDecimal(view.GetRowCellValue(e.RowHandle, colQty));
             decimal rate = Convert.ToDecimal(view.GetRowCellValue(e.RowHandle, colRate));
             decimal stock = Convert.ToDecimal(view.GetRowCellValue(e.RowHandle, colStock));
+            
             if (product == 0)
             {
                 e.Valid = false;
@@ -663,10 +675,24 @@ namespace Konto.Pos.Sales
             //    e.Valid = false;
             //    view.SetColumnError(colRate, "Invalid Rate");
             //}
-            else if (rw.ChkNegative && stock < qty)
+            else if (rw.ChkNegative)
             {
-                e.Valid = false;
-                view.SetColumnError(colQty, "Qty Sold Greater Than Stock");
+                decimal _oldQty = 0;
+                if (rw.Id > 0)
+                {
+                    using (var db = new KontoContext())
+                    {
+                        _oldQty = db.BillTrans.Where(x => x.Id == rw.Id && x.ProductId == rw.ProductId).Sum(x => x.Qty);
+                    }
+                }
+
+                _oldQty += rw.Stock;
+                if (rw.Qty > _oldQty)
+                {
+                    e.Valid = false;
+                    e.ErrorText = "Stock Not Available";
+                    view.SetColumnError(colQty, "Qty Sold Greater Than Stock");
+                }
             }
         }
 
@@ -779,8 +805,19 @@ namespace Konto.Pos.Sales
                 er.UomId = model.UomId;
                 er.HsnCode = model.HsnCode;
                 if (model.SaleRateTaxInc)
-                {
-                    er.SaleRate = model.SaleRate;
+                { 
+                    
+                    if (rateTypeLookUpEdit.EditValue.ToString() == "BLK")
+                    {
+                        model.SaleRate = model.Rate1;
+                    }
+                    else if (rateTypeLookUpEdit.EditValue.ToString() == "SMBLK")
+                        model.SaleRate = model.Rate2;
+                    else if (rateTypeLookUpEdit.EditValue.ToString() == "ZERO")
+                        model.SaleRate = model.DealerPrice;
+                    else
+                        model.SaleRate = model.SaleRate;
+
                     var rt = decimal.Round((model.SaleRate * 100) / (100 + (model.Sgst + model.Cgst)), 2, MidpointRounding.AwayFromZero);
                     er.Rate = rt;
                 }
@@ -900,7 +937,10 @@ namespace Konto.Pos.Sales
             colOtherAdd.Visible = PosPara.OtherAdd_Required;
             colOtherLess.Visible = PosPara.OtherLess_Required;
             colRate.Visible = PosPara.Rate_Required;
-
+            colRate.OptionsColumn.AllowEdit = PosPara.Rate_Editable;
+            colSaleRate.OptionsColumn.AllowEdit = PosPara.Rate_Editable;
+            colRate.OptionsColumn.AllowFocus = PosPara.Rate_Editable;
+            colSaleRate.OptionsColumn.AllowFocus = PosPara.Rate_Editable;
 
             colCgst.Visible = PosPara.Tax_Required;
             colCgstPer.Visible = PosPara.Tax_Required;
@@ -920,7 +960,10 @@ namespace Konto.Pos.Sales
             colCess.OptionsColumn.AllowFocus = PosPara.Tax_Editable;
             colCessPer.OptionsColumn.AllowFocus = PosPara.Tax_Editable;
 
+            gridView1.OptionsFind.AllowFindPanel = false;
 
+            if(PosPara.Rate_Type_Required && rateTypeLayoutControlItem.IsHidden)
+                rateTypeLayoutControlItem.RestoreFromCustomization();
 
             //Rate Decimal Settings
             var repo1 = new RepositoryItemTextEdit();
@@ -1176,6 +1219,16 @@ namespace Konto.Pos.Sales
 
                                 break;
                             }
+                        case 317:
+                        {
+                            PosPara.Rate_Editable = (value == "Y");
+                            break;
+                        }
+                        case 320:
+                        {
+                            PosPara.Rate_Type_Required = (value == "Y");
+                            break;
+                        }
                     }
                 }
             }
@@ -1196,7 +1249,17 @@ namespace Konto.Pos.Sales
             };
 
             invTypeLookUpEdit.Properties.DataSource = cbp;
-          
+
+            List<ComboBoxPairs> _rate = new List<ComboBoxPairs>
+            {
+                
+                new ComboBoxPairs("BLK", "Bulk/WholeSale"),
+                new ComboBoxPairs("SMBLK", "SemiBulk/SemiWholeSale"),
+                new ComboBoxPairs("RTL", "Retail"),
+                new ComboBoxPairs("ZERO", "ZERO"),
+            };
+
+            rateTypeLookUpEdit.Properties.DataSource = _rate;
 
             using (var db = new KontoContext())
             {
@@ -1350,15 +1413,27 @@ namespace Konto.Pos.Sales
                 }
 
                 if (!trans.Any(x => x.RefId > 0)){
-                    var groupbyItem = trans.GroupBy(k => k.ProductId).ToList();
+                    var groupbyItem = trans.GroupBy(k=>new{k.ProductId,k.ChkNegative,k.ProductName}).ToList();
                     foreach (var item in groupbyItem)
                     {
-                        var checkforstock = db.Products.FirstOrDefault(k => k.Id == item.Key);
-                        var Qty = trans.Where(k => k.ProductId == checkforstock.Id).Sum(k => k.Qty);
-                        var stockBal = db.StockBals.Where(k => k.ProductId == checkforstock.Id && k.BranchId == KontoGlobals.BranchId).Sum(k => k.BalQty + k.OpQty);
-                        if (checkforstock.CheckNegative && Qty > stockBal)
+                        decimal oldqty = 0;
+                        
+                        
+                        if (!item.Key.ChkNegative) continue;
+                        if (this.PrimaryKey > 0)
                         {
-                            MessageBox.Show("Stock not available of Item " + checkforstock.ProductName + " Available Stock Only " + stockBal);
+                            oldqty = db.BillTrans
+                                .Where(x => x.BillId == this.PrimaryKey && x.ProductId == item.Key.ProductId)
+                                .Sum(x => x.Qty);
+                        }
+
+                        var Qty = trans.Where(k => k.ProductId == item.Key.ProductId).Sum(k => k.Qty);
+                        
+                        var stockBal = DbUtils.GetCurrentStock(item.Key.ProductId, KontoGlobals.BranchId) + oldqty;
+
+                        if (  Qty > stockBal)
+                        {
+                            MessageBox.Show("Stock not available of Item " + item.Key.ProductName + " Available Stock Only " + stockBal);
                             //     IsSaveComplete = true;
                             return false;
                         }
@@ -1539,6 +1614,13 @@ namespace Konto.Pos.Sales
                             }
                             ).ToList();
 
+               
+
+                foreach (var item in _lst)
+                {
+                    item.Stock = DbUtils.GetCurrentStock(item.ProductId, KontoGlobals.BranchId);
+                }
+                
                 this.grnTransDtoBindingSource1.DataSource = _lst;
 
                 var paid = _context.BtoBs.Where(x => x.BillId == model.Id && x.BillVoucherId == model.VoucherId
@@ -1719,7 +1801,7 @@ namespace Konto.Pos.Sales
 
                 model.Stock = Convert.ToDecimal( pos.StockQty);
                     model.ColorId = pos.ColorId;
-
+                   // model.Stock = DbUtils.GetCurrentStock(model.ProductId, KontoGlobals.BranchId);
 
                     model.ColorName = pos.ColorName;
 
@@ -1731,16 +1813,18 @@ namespace Konto.Pos.Sales
                 //  model.ProfitPer = pos.ProfitPer; // price profit %
 
 
-                if (accLookup1.LookupDto.RateType == "BLK")
+                if (rateTypeLookUpEdit.EditValue.ToString() == "BLK")
                 {
                     model.SaleRate = pos.Rate1;
                 }
-                else if (accLookup1.LookupDto.RateType == "SMBLK")
+                else if (rateTypeLookUpEdit.EditValue.ToString() == "SMBLK")
                     model.SaleRate = pos.Rate2;
+                else if (rateTypeLookUpEdit.EditValue.ToString() == "ZERO")
+                    model.SaleRate = pos.DealerPrice;
                 else
                     model.SaleRate = pos.SaleRate;
-                    
-                    if(model.SaleRate==0)
+
+                if (model.SaleRate==0)
                         model.SaleRate = pos.SaleRate;
 
                 if (accLookup1.LookupDto.IsGst && !isImortOrSez)
@@ -1785,6 +1869,7 @@ namespace Konto.Pos.Sales
             GridView view = sender as GridView;
             var row = view.GetRow(view.FocusedRowHandle) as BillTransDto;
 
+        
             if (e.KeyCode == Keys.Delete && e.Modifiers == Keys.Control)
             {
                 if (MessageBox.Show("Delete row?", "Confirmation", MessageBoxButtons.YesNo) !=
@@ -1824,10 +1909,40 @@ namespace Konto.Pos.Sales
         {
             try
             {
-                if (e.KeyCode != Keys.Enter && e.KeyCode != Keys.F1) return;
+                if (e.KeyCode != Keys.Enter && e.KeyCode != Keys.F1 && e.KeyCode!= Keys.F3) return;
                 if (Convert.ToInt32(accLookup1.SelectedValue) == 0) return;
                 var dr = PreOpenLookup();
                 if (dr == null) return;
+
+                if (e.KeyCode == Keys.F3)
+                {
+                    var frm = new PosRateType();
+                    if (frm.ShowDialog() == DialogResult.OK)
+                    {
+                        if (gridView1.GetRow(gridView1.FocusedRowHandle) is BillTransDto row)
+                        {
+                            var pos = DbUtils.GetProductDetails(row.ProductId);
+                            if (pos != null)
+                            {
+                                if (frm.SelectedRate == "BULK-SALE")
+                                {
+                                    row.SaleRate = pos.Rate1;
+                                }
+                                else if (frm.SelectedRate == "SEMI-BULK-SALE")
+                                    row.SaleRate = pos.Rate2;
+                                else if (frm.SelectedRate == "ZERO")
+                                    row.SaleRate = pos.DealerPrice;
+                                else
+                                    row.SaleRate = pos.SaleRate;
+
+                                if (row.SaleRate == 0)
+                                    row.SaleRate = pos.SaleRate;
+                                GridCalculation(row, "SaleRate");
+                            }
+                        }
+                    }
+                    return;
+                }
 
                 if (gridView1.FocusedColumn.FieldName == "ProductName")
                 {
@@ -1940,6 +2055,11 @@ namespace Konto.Pos.Sales
                     tcsPerTextEdit.Value = accLookup1.LookupDto.TcsPer;
 
             }
+
+            rateTypeLookUpEdit.EditValue = accLookup1.LookupDto.RateType;
+            if (string.IsNullOrEmpty(rateTypeLookUpEdit.Text))
+                rateTypeLookUpEdit.EditValue = "RTL";
+
             if (this.accLookup1.LookupDto.TcsReq.ToUpper() == "YES")
             {
                 if(tcsPerlayoutControlItem.IsHidden)

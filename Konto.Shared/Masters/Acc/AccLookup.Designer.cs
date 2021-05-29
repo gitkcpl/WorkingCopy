@@ -84,6 +84,7 @@
             this.buttonEdit1.Properties.UseReadOnlyAppearance = false;
             this.buttonEdit1.Size = new System.Drawing.Size(420, 24);
             this.buttonEdit1.TabIndex = 2;
+            this.buttonEdit1.ToolTip = "Ledger [Shift+ L],\r\n Oustanding [Shift + O]";
             this.buttonEdit1.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.buttonEdit1_ButtonClick);
             this.buttonEdit1.Enter += new System.EventHandler(this.buttonEdit1_Enter);
             // 

@@ -5,13 +5,7 @@ using Konto.Data.Models.Masters;
 using Serilog;
 using Syncfusion.Windows.Forms;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Konto.Shared.Masters.Acc
@@ -19,6 +13,8 @@ namespace Konto.Shared.Masters.Acc
     public partial class TcsView : KontoForm
     {
         public int AccId { get; set; }
+        public  int TcsAcId { get; set; }
+        public  decimal TcsPer { get; set; }
         public TcsView()
         {
             InitializeComponent();
@@ -44,23 +40,32 @@ namespace Konto.Shared.Masters.Acc
                     this.accLookup1.buttonEdit1.Focus();
                     return;
                 }
-                using(var db = new KontoContext())
-                {
-                    var model = db.AccOthers.FirstOrDefault(x => x.AccId == this.AccId);
-                    if (model == null)
-                        model = new AccOtherModel();
-                    model.TcsAccId = Convert.ToInt32(accLookup1.SelectedValue);
-                    model.TcsPer = perNumericUpDown.Value;
 
-                    if (model.Id == 0)
+                if (this.AccId != 0)
+                {
+                    using (var db = new KontoContext())
                     {
-                        model.AccId = this.AccId;
-                        model.RowId = Guid.NewGuid();
-                        db.AccOthers.Add(model);
+                        var model = db.AccOthers.FirstOrDefault(x => x.AccId == this.AccId);
+                        if (model == null)
+                            model = new AccOtherModel();
+                        model.TcsAccId = Convert.ToInt32(accLookup1.SelectedValue);
+                        model.TcsPer = perNumericUpDown.Value;
+
+                        if (model.Id == 0)
+                        {
+                            model.AccId = this.AccId;
+                            model.RowId = Guid.NewGuid();
+                            db.AccOthers.Add(model);
+                        }
+
+                        db.SaveChanges();
                     }
-                    db.SaveChanges();
+
+                    MessageBoxAdv.Show(this, KontoGlobals.SaveMessage, "Saved !", MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
                 }
-                MessageBoxAdv.Show(this, KontoGlobals.SaveMessage, "Saved !", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.TcsPer = perNumericUpDown.Value;
+                this.TcsAcId = Convert.ToInt32(accLookup1.SelectedValue);
                 this.Close();
                 this.Dispose();
             }
@@ -82,6 +87,12 @@ namespace Konto.Shared.Masters.Acc
                     accLookup1.SelectedValue = model.TcsAccId;
                     accLookup1.SetAcc(Convert.ToInt32(model.TcsAccId));
                     perNumericUpDown.Value = Convert.ToDecimal(model.TcsPer);
+                }
+                else if(TcsAcId > 0)
+                {
+                    accLookup1.SelectedValue = this.TcsAcId;
+                    accLookup1.SetAcc(this.TcsAcId);
+                    perNumericUpDown.Value = this.TcsPer;
                 }
             }
         }

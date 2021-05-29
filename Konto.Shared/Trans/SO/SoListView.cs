@@ -25,9 +25,68 @@ namespace Konto.Shared.Trans.SO
             InitializeComponent();
             this.listDateRange1.GetButtonClick += ListDateRange1_GetButtonClick;
             //  this.GridLayoutFileName = KontoFileLayout.Op_Bill_List;
-
+            this.customGridView1.FocusedRowChanged += CustomGridView1_FocusedRowChanged;
             this.ReportPrint = true;
             listAction1.EditDeleteDisabled(false);
+        }
+
+        private void CustomGridView1_FocusedRowChanged(object sender, DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventArgs e)
+        {
+            if (customGridView1.FocusedRowHandle < 0) return;
+            var _id = Convert.ToInt32(this.customGridView1.GetRowCellValue(customGridView1.FocusedRowHandle, "Id"));
+            var _vid = Convert.ToInt32(this.customGridView1.GetRowCellValue(customGridView1.FocusedRowHandle, "VoucherId"));
+
+
+            using (var db = new KontoContext())
+            {
+                var lsts = (from c in db.Challans
+                            join ct in db.ChallanTranses on c.Id equals ct.ChallanId
+                            join ac in db.Accs on c.AccId equals ac.Id
+                            join pd in db.Products on ct.ProductId equals pd.Id
+                            where !c.IsDeleted && !ct.IsDeleted
+                            && ct.MiscId == _id && ct.RefVoucherId == _vid
+                            select new GrnAgainstOrderDto
+                            {
+                                BillNo = c.BillNo,
+                                ChallanNo = c.ChallanNo,
+                                Id = c.Id,
+                                Pcs = ct.Pcs,
+                                ProductName = pd.ProductName,
+                                Qty = ct.Qty,
+                                Rate = ct.Rate,
+                                VoucherDate = c.VoucherDate,
+                                VoucherNo = c.VoucherNo,
+                                VTypeId = c.TypeId
+
+                            }).ToList();
+
+                if (lsts.Count == 0)
+                {
+                    lsts = (from c in db.Bills
+                            join ct in db.BillTrans on c.Id equals ct.BillId
+                            join ac in db.Accs on c.AccId equals ac.Id
+                            join pd in db.Products on ct.ProductId equals pd.Id
+                            where !c.IsDeleted && !ct.IsDeleted
+                            && ct.RefId == _id && ct.RefVoucherId == _vid
+                            select new GrnAgainstOrderDto
+                            {
+                                BillNo = c.BillNo,
+                                ChallanNo = c.RefNo,
+                                Id = c.Id,
+                                Pcs = ct.Pcs,
+                                ProductName = pd.ProductName,
+                                Qty = ct.Qty,
+                                Rate = ct.Rate,
+                                VoucherDate = c.VoucherDate,
+                                VoucherNo = c.VoucherNo,
+                                VTypeId = c.TypeId
+
+                            }).ToList();
+                }
+
+                gridControl1.DataSource = lsts;
+                gridControl1.RefreshDataSource();
+            }
         }
 
         private void ListDateRange1_GetButtonClick(object sender, EventArgs e)

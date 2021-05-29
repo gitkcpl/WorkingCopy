@@ -893,7 +893,7 @@ namespace Konto.Pos.PR
           
             voucherDateEdit.EditValue = KontoUtils.IToD(model.VoucherDate);
             voucherNoTextEdit.Text = model.VoucherNo;
-
+            reassonLookUpEdit.EditValue = model.SpecialNotes;
             accLookup1.SetAcc(model.AccId);
             accLookup1.SelectedValue = model.AccId;
           
@@ -1808,7 +1808,7 @@ namespace Konto.Pos.PR
             model.YearId = KontoGlobals.YearId;
             model.BranchId = KontoGlobals.BranchId;
             model.RoundOff = roundoffSpinEdit.Value;
-
+            model.SpecialNotes = reassonLookUpEdit.EditValue.ToString();
            
             var _translist = grnTransDtoBindingSource1.DataSource as List<BillTransDto>;
             model.GrossAmount = _translist.Sum(x => x.Total);

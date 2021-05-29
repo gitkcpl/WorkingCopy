@@ -27,6 +27,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Konto.Core.Shared.Libs;
 
 namespace Konto.Reporting.Para.Stock
 {
@@ -44,8 +45,30 @@ namespace Konto.Reporting.Para.Stock
             this.cancelSimpleButton.Click += CancelSimpleButton_Click;
             this.Load += StockDetailViewWindow_Load;
             this.gridControl1.ProcessGridKey += GridControl1_ProcessGridKey;
+            
         }
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == (Keys.F1 | Keys.Shift))
+            {
+                KontoUtils.SaveLayoutGrid("trans\\stock_ledger.xml", this.gridView1);
+                return true;
+            }
+            else if (keyData == (Keys.F2 | Keys.Shift))
+            {
 
+                var frm = new GridPropertView();
+                frm.gridControl1.DataSource = this.gridControl1.DataSource;
+                frm.gridView1.Assign(this.gridView1, false);
+                if (frm.ShowDialog() != DialogResult.OK) return true;
+                this.gridView1.Assign(frm.gridView1, false);
+                KontoUtils.SaveLayoutGrid("trans\\stock_ledger.xml", this.gridView1);
+                return true;
+            }
+
+
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
         private void GridControl1_ProcessGridKey(object sender, KeyEventArgs e)
         {
             if (e.KeyCode != Keys.Enter) return;
@@ -179,14 +202,24 @@ namespace Konto.Reporting.Para.Stock
         }
         private void StockDetailViewWindow_Load(object sender, EventArgs e)
         {
-            if (this._FromDate!= null)
+            if (this._FromDate != null)
             {
                 dateEdit1.EditValue = this._FromDate;
                 dateEdit2.EditValue = this._ToDate;
+            }
+            else
+            {
+                dateEdit1.EditValue = KontoGlobals.DFromDate;
+                dateEdit2.EditValue = KontoGlobals.DToDate;
+            }
+
+            if (this.ProductId != 0)
+            {
                 this.productLookup1.SelectedValue = this.ProductId;
                 this.productLookup1.SetGroup(this.ProductId);
                 okSimpleButton.PerformClick();
             }
+
         }
 
         private void CancelSimpleButton_Click(object sender, EventArgs e)
@@ -225,9 +258,23 @@ namespace Konto.Reporting.Para.Stock
                     KontoGlobals.CompanyId, Convert.ToInt32(productLookup1.SelectedValue),
                     KontoGlobals.YearId, fdate, tdate, this.BranchId,_item).ToList();
 
+                int pcs = 0;
+                decimal qty = 0;
+                foreach (var tr in Trans)
+                {
+                    pcs = pcs + Convert.ToInt32( tr.InwPcs) - Convert.ToInt32( tr.OutPcs);
+                    qty = qty + tr.InwQty - tr.OutQty;
+                    tr.StockPcs = pcs;
+                    tr.StockQty = qty;
+                }
+
                 gridControl1.DataSource = Trans;
+
+                KontoUtils.RestoreLayoutGrid(@"trans\\stock_ledger.xml",gridView1);
                 gridView1.Focus();
             }
+
+            
 
         }
     }

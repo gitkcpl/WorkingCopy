@@ -1,15 +1,14 @@
-﻿using AutoMapper;
-using AutoMapper.QueryableExtensions;
-using Konto.App.Shared;
+﻿using Konto.App.Shared;
 using Konto.Core.Shared.Frms;
 using Konto.Core.Shared.Libs;
 using Konto.Data;
-using Konto.Data.Models.Masters;
 using Konto.Data.Models.Masters.Dtos;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
+using System.Reflection;
+using System.Windows.Forms;
+using Konto.Core.Shared;
 
 namespace Konto.Shared.Masters.Item
 {
@@ -20,7 +19,7 @@ namespace Konto.Shared.Masters.Item
 
        // public ProductLookupDto SelectedProduct { get; set; }
         public ProductTypeEnum PTypeId { get; set; }
-
+        public  string ProductToBeSearched { get; set; }
         
         public ProductLkpWindow()
         {
@@ -28,8 +27,34 @@ namespace Konto.Shared.Masters.Item
             this.GridLayoutFileName = KontoFileLayout.Product_Lookup_Layout;
             this.FormClassName = "Konto.Shared.Masters.Item.ProductIndex";
             this.AsemblyName = "Konto.Shared";
-            
+            this.ledgerSimpleButton.Click += LedgerSimpleButton_Click;
+            this.customGridControl1.ProcessGridKey += CustomGridControl1_ProcessGridKey;
         }
+
+        private void CustomGridControl1_ProcessGridKey(object sender, System.Windows.Forms.KeyEventArgs e)
+        {
+            if (e.Modifiers == Keys.Shift && e.KeyCode == Keys.L)
+            {
+                customGridView1.OptionsBehavior.AllowIncrementalSearch = false;
+                ledgerSimpleButton.PerformClick();
+                customGridView1.OptionsBehavior.AllowIncrementalSearch = true;
+            }
+        }
+
+        private void LedgerSimpleButton_Click(object sender, EventArgs e)
+        {
+            var dr = customGridView1.GetFocusedRow() as ProductLookupDto;
+            if(dr== null) return;
+            var _frm = Activator.CreateInstance("Konto.Reporting", "Konto.Reporting.Para.Stock.StockDetailViewWindow").Unwrap() as KontoForm;
+            if (_frm.GetType().GetProperty("ProductId") != null)
+            {
+                PropertyInfo groupid = _frm.GetType().GetProperty("ProductId");
+                groupid.SetValue(_frm, dr.Id);
+                _frm.GetType().GetProperty("_item").SetValue(_frm, "Y");
+                _frm.ShowDialog();
+            }
+        }
+
         public override void LoadData()
         {
             base.LoadData();

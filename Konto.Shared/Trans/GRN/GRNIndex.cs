@@ -211,6 +211,8 @@ namespace Konto.Shared.Trans.GRN
             colLotNo.Visible = GRNPara.LotNo_Required;
             //colOtherAdd.Visible = GRNPara.OtherAdd_Required;
             //colOtherLess.Visible = GRNPara.OtherLess_Required;
+            if(GRNPara.Gate_Entry_Required && gateLayoutControlItem.IsHidden)
+                gateLayoutControlItem.RestoreFromCustomization();
 
             if (KontoGlobals.PackageId == 1)
             {
@@ -348,6 +350,12 @@ namespace Konto.Shared.Trans.GRN
                                 GRNPara.Lock_Move_Next = (value == "Y") ? true : false;
                                 break;
                             }
+
+                        case 321:
+                        {
+                            GRNPara.Gate_Entry_Required = (value == "Y");
+                            break;
+                        }
                     }
                 }
             }
@@ -561,6 +569,39 @@ namespace Konto.Shared.Trans.GRN
             }
 
 
+            if (GRNPara.Gate_Entry_Required && this.GateId == 0)
+            {
+                MessageBoxAdv.Show(this, "Invalid Gate Entry/Inward No.");
+                gateSrNoTextEdit.Focus();
+                return false;
+            }
+
+            using (var db = new KontoContext())
+            {
+
+                bool result = LedgerEff.DataFreezeStatus(dt, (int)VoucherTypeEnum.Inward, db);
+                if (result == false)
+                {
+                    MessageBox.Show(KontoGlobals.SaveFreezeWarning);
+                    return false;
+                }
+
+                var accid = Convert.ToInt32(accLookup1.SelectedValue);
+                var find1 = db.Challans.FirstOrDefault(
+                    x => x.AccId == accid && !x.IsDeleted && x.ChallanNo == challanNotextEdit.Text.Trim() && x.CompId == KontoGlobals.CompanyId
+                         && x.YearId == KontoGlobals.YearId && x.Id != this.PrimaryKey && !x.IsDeleted && x.IsActive
+                         && x.TypeId == (int)VoucherTypeEnum.Inward);
+
+                if (find1 != null)
+                {
+                    MessageBox.Show("Entered Challan No Already Exists for this Party");
+                    challanNotextEdit.Focus();
+                    return false;
+                }
+
+
+
+            }
             return true;
         }
 
@@ -605,6 +646,7 @@ namespace Konto.Shared.Trans.GRN
             gateSrNoTextEdit.Text = model.Extra1;
             this.GateId = model.RefId;
             this.GateVoucherId = model.RefVoucherId;
+            widthtextEdit1.Text = model.Extra2;
 
             createdLabelControl.Text = "Created By: " + model.CreateUser + " [ " + model.CreateDate + " ]";
             modifyLabelControl.Text = "Modified By: " + model.ModifyUser + " [ " + model.ModifyDate ?? string.Empty  + " ]";
@@ -1507,6 +1549,7 @@ namespace Konto.Shared.Trans.GRN
             model.RefId = this.GateId;
             model.RefVoucherId = this.GateVoucherId;
             model.Extra1 = gateSrNoTextEdit.Text.Trim();
+            model.Extra2 = widthtextEdit1.Text.Trim();
 
             var _find = new ChallanModel();
             var config = new MapperConfiguration(cfg =>

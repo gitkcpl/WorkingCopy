@@ -360,8 +360,6 @@
             // 
             this.colStockQty.FieldName = "StockQty";
             this.colStockQty.Name = "colStockQty";
-            this.colStockQty.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
-            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "StockQty", "{0:0.##}")});
             this.colStockQty.Visible = true;
             this.colStockQty.VisibleIndex = 9;
             this.colStockQty.Width = 89;
@@ -370,8 +368,6 @@
             // 
             this.colStockPcs.FieldName = "StockPcs";
             this.colStockPcs.Name = "colStockPcs";
-            this.colStockPcs.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
-            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "StockPcs", "{0:0.##}")});
             this.colStockPcs.Visible = true;
             this.colStockPcs.VisibleIndex = 10;
             // 

@@ -96,6 +96,14 @@ namespace Konto.Trading.MillReceipt
             {
                 voucherNoTextEdit.Text = "New-" + DbUtils.NextSerialNo(Convert.ToInt32(voucherLookup1.SelectedValue), 1);
             }
+            if (voucherLookup1.GroupDto != null && voucherLookup1.GroupDto.ManualSeries)
+            {
+                voucherNoTextEdit.Enabled = true;
+            }
+            else
+            {
+                voucherNoTextEdit.Enabled = false;
+            }
         }
 
         private void MrvIndex_Shown(object sender, EventArgs e)
@@ -1942,6 +1950,50 @@ namespace Konto.Trading.MillReceipt
 
             }
 
+            if (po.PlainQty > 0)
+            {
+                var pd = new ProdModel();
+                if (po.Id > 0)
+                    pd = db.Prods.FirstOrDefault(x => x.IssueRefId == po.Id && x.TwistType == "PLAIN");
+
+                if (pd == null)
+                    pd = new ProdModel();
+
+                pd.ProductId = bt.NProductId;
+                pd.ColorId = po.ColorId;
+                pd.PalletProductId = bt.DesignId;
+                pd.IssueRefId = po.Id;
+                pd.VoucherNo = po.VoucherNo + "-" + po.SrNo.ToString() + "/PL";
+                pd.NetWt = Convert.ToDecimal(po.PlainQty);
+                pd.CurrQty = Convert.ToDecimal(po.PlainQty);
+                pd.IsActive = true;
+                pd.ProdStatus = "MR";
+                pd.SrNo = po.SrNo;
+                pd.TransId = po.TransId;
+                pd.RefId = po.RefId;
+                pd.RefSCId = po.ProdId; //org prodprtaka id
+                pd.VoucherDate = Convert.ToInt32(Convert.ToDateTime(voucherDateEdit.EditValue).ToString("yyyyMMdd"));
+                pd.VoucherId = Convert.ToInt32(voucherLookup1.SelectedValue);
+                pd.CompId = KontoGlobals.CompanyId;
+                pd.YearId = KontoGlobals.YearId;
+                pd.TwistType = "PLAIN";
+                pd.Remark = po.VoucherNo;
+                pd.CProductId = pd.ProductId;
+                pd.BranchId = KontoGlobals.BranchId;
+
+                if (pd.Id == 0)
+                    db.Prods.Add(pd);
+            }
+            else
+            {
+                if (po.Id > 0)
+                {
+                    var pd = db.Prods.FirstOrDefault(x => x.IssueRefId == po.Id && x.TwistType == "PLAIN");
+                    if (pd != null) pd.IsDeleted = true;
+                }
+
+            }
+
         }
         
         private bool UpdateChallan(KontoContext db,ChallanModel model)
@@ -1990,7 +2042,8 @@ namespace Konto.Trading.MillReceipt
            
             if (model.Id == 0)
             {
-                model.VoucherNo = DbUtils.NextSerialNo(model.VoucherId, db);
+                if(!voucherLookup1.GroupDto.ManualSeries)
+                    model.VoucherNo = DbUtils.NextSerialNo(model.VoucherId, db);
                 if (DbUtils.CheckExistVoucherNo(model.VoucherId, model.VoucherNo, db, model.Id))
                 {
                     MessageBox.Show("Duplicate Voucher No Not Allowed");

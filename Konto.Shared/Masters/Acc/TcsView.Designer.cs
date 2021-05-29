@@ -31,24 +31,26 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TcsView));
             this.accLookup1 = new Konto.Shared.Masters.Acc.AccLookup();
             this.autoLabel1 = new Syncfusion.Windows.Forms.Tools.AutoLabel();
-            this.perNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.autoLabel2 = new Syncfusion.Windows.Forms.Tools.AutoLabel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.cancelSimpleButton = new DevExpress.XtraEditors.SimpleButton();
             this.okSimpleButton = new DevExpress.XtraEditors.SimpleButton();
-            ((System.ComponentModel.ISupportInitialize)(this.perNumericUpDown)).BeginInit();
+            this.perNumericUpDown = new DevExpress.XtraEditors.SpinEdit();
             this.tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.perNumericUpDown.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // accLookup1
             // 
+            this.accLookup1.AgentLookup = null;
             this.accLookup1.FillParty = true;
             this.accLookup1.GroupId = 0;
             this.accLookup1.Location = new System.Drawing.Point(95, 36);
             this.accLookup1.LookupDto = null;
+            this.accLookup1.LookupTitle = null;
             this.accLookup1.Name = "accLookup1";
             this.accLookup1.Nature = null;
-            this.accLookup1.NewGroupId = 0;
+            this.accLookup1.NewGroupId = Konto.App.Shared.LedgerGroupEnum.NONE;
             this.accLookup1.PrimaryKey = null;
             this.accLookup1.RequiredField = false;
             this.accLookup1.SelectedText = null;
@@ -56,6 +58,7 @@
             this.accLookup1.Size = new System.Drawing.Size(264, 24);
             this.accLookup1.TabIndex = 0;
             this.accLookup1.TaxType = "TCS";
+            this.accLookup1.TransportLookup = null;
             this.accLookup1.VoucherType = Konto.App.Shared.VoucherTypeEnum.None;
             // 
             // autoLabel1
@@ -76,23 +79,13 @@
             this.autoLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.autoLabel1.ThemeName = "Office2016Colorful";
             // 
-            // perNumericUpDown
-            // 
-            this.perNumericUpDown.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.perNumericUpDown.Location = new System.Drawing.Point(95, 82);
-            this.perNumericUpDown.Name = "perNumericUpDown";
-            this.perNumericUpDown.Size = new System.Drawing.Size(120, 25);
-            this.perNumericUpDown.TabIndex = 1;
-            // 
             // autoLabel2
             // 
             this.autoLabel2.AutoSize = false;
             this.autoLabel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.autoLabel2.DX = -86;
             this.autoLabel2.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.autoLabel2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
             this.autoLabel2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.autoLabel2.LabeledControl = this.perNumericUpDown;
             this.autoLabel2.Location = new System.Drawing.Point(9, 82);
             this.autoLabel2.Name = "autoLabel2";
             this.autoLabel2.Size = new System.Drawing.Size(82, 24);
@@ -139,7 +132,24 @@
             this.okSimpleButton.Name = "okSimpleButton";
             this.okSimpleButton.Size = new System.Drawing.Size(86, 31);
             this.okSimpleButton.TabIndex = 5;
-            this.okSimpleButton.Text = "Ok [F3]";
+            this.okSimpleButton.Text = "Ok";
+            // 
+            // perNumericUpDown
+            // 
+            this.perNumericUpDown.EditValue = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.perNumericUpDown.EnterMoveNextControl = true;
+            this.perNumericUpDown.Location = new System.Drawing.Point(98, 85);
+            this.perNumericUpDown.Name = "perNumericUpDown";
+            this.perNumericUpDown.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.perNumericUpDown.Properties.Appearance.Options.UseFont = true;
+            this.perNumericUpDown.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.perNumericUpDown.Size = new System.Drawing.Size(100, 24);
+            this.perNumericUpDown.TabIndex = 1;
             // 
             // TcsView
             // 
@@ -151,17 +161,17 @@
             this.CaptionFont = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CaptionForeColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(392, 202);
+            this.Controls.Add(this.perNumericUpDown);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.autoLabel2);
-            this.Controls.Add(this.perNumericUpDown);
             this.Controls.Add(this.autoLabel1);
             this.Controls.Add(this.accLookup1);
             this.MetroColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(150)))), ((int)(((byte)(205)))));
             this.Name = "TcsView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Tcs Settings";
-            ((System.ComponentModel.ISupportInitialize)(this.perNumericUpDown)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.perNumericUpDown.Properties)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -170,10 +180,10 @@
 
         private AccLookup accLookup1;
         private Syncfusion.Windows.Forms.Tools.AutoLabel autoLabel1;
-        private System.Windows.Forms.NumericUpDown perNumericUpDown;
         private Syncfusion.Windows.Forms.Tools.AutoLabel autoLabel2;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         public DevExpress.XtraEditors.SimpleButton cancelSimpleButton;
         public DevExpress.XtraEditors.SimpleButton okSimpleButton;
+        private DevExpress.XtraEditors.SpinEdit perNumericUpDown;
     }
 }

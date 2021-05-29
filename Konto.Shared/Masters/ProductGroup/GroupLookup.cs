@@ -73,7 +73,7 @@ namespace Konto.Shared.Masters.ProductGroup
             }
             else if (keyData == Keys.Return)
             {
-               // if (Convert.ToInt32(this.SelectedValue) == 0 && this.RequiredField)
+                //if (Convert.ToInt32(this.SelectedValue) == 0 && this.RequiredField)
                // {
                     ShowList();
                     return true;

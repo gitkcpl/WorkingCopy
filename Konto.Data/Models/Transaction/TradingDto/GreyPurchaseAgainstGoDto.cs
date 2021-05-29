@@ -92,6 +92,7 @@ namespace Konto.Data.Models.Transaction.TradingDto
         }
 
         public string Party { get; set; }
+        public  string Quality { get; set; }
         public string LotNo { get; set; }
         public int GreyPcs { get; set; }
         public decimal GreyMtrs { get; set; }
@@ -110,6 +111,7 @@ namespace Konto.Data.Models.Transaction.TradingDto
             } }
 
         public decimal Rate { get; set; }
+        public  string JobType { get; set; }
         public int Id { get; set; }
     }
 }

@@ -9,12 +9,7 @@ using Konto.Data.Models.Transaction;
 using Serilog;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Konto.Import
@@ -50,9 +45,9 @@ namespace Konto.Import
 
                       //  splashScreenManager1.ShowWaitForm();
                       //  splashScreenManager1.SetWaitFormCaption("Importing Sales..");
-                       //Purchase(db, sdb);
-                      //  PurchaseReturn(db, sdb);
-                        Sales(db, sdb);
+                       Purchase(db, sdb);
+                       PurchaseReturn(db, sdb);
+                       Sales(db, sdb);
                         
                         DbUtils.Update_Account_Balance(db);
 
@@ -89,7 +84,7 @@ namespace Konto.Import
             {
 
                // splashScreenManager1.SetWaitFormDescription("Importing " + i.ToString() + " of " + spurs.Count());
-                var model = db.Bills.SingleOrDefault(x => x.RefId == spur.SalesID && x.RefVoucherId == spur.SalesID && x.IsActive && !x.IsDeleted);
+                var model = db.Bills.SingleOrDefault(x => x.RefId == spur.SalesID && x.RefVoucherId == spur.VoucherID && x.IsActive && !x.IsDeleted);
 
                 if (model != null) continue;
 
@@ -363,6 +358,15 @@ namespace Konto.Import
                     };
 
                     db.Bills.Add(model);
+
+                    var padon = sdb.PurchaseAdonOn.FirstOrDefault(x => x.PurchaseID == spur.PurchaseID
+                                                                       && x.TaxType == 42);
+                    if (padon != null)
+                    {
+                        model.TcsPer = padon.DefaultPer;
+                        model.TcsAmt = Convert.ToDecimal(padon.Amount);
+                    }
+
                     db.SaveChanges();
 
                     //var strs = sdb.PurchaseTranses.Where(x => x.PurchaseID == spur.PurchaseID).ToList();
@@ -444,11 +448,12 @@ namespace Konto.Import
 
             foreach (var spur in spurs)
             {
-                var bb = sdb.B2Bs.FirstOrDefault(x => x.RefCode == spur.RetCode && x.TransType =="rg");
-
+                
                 var model = db.Bills.SingleOrDefault(x => x.RefId == spur.PurchaseRetID && x.RefVoucherId == spur.VoucherID && x.IsActive && !x.IsDeleted);
-
+                
                 if (model != null) continue;
+
+                var bb = sdb.B2Bs.FirstOrDefault(x => x.RefCode == spur.RetCode && x.TransType == "rg");
 
                 //check for exist account
                 var checkAcc = db.Accs.SingleOrDefault(x => x.CollById == spur.AccountID);
@@ -496,7 +501,7 @@ namespace Konto.Import
                         IsActive = true,
                         RefId = (int) spur.PurchaseRetID,
                         RefVoucherId = (int) spur.VoucherID,
-
+                        SpecialNotes = spur.Reason
 
                     };
 

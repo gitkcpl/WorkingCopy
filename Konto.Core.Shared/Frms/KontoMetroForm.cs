@@ -14,7 +14,7 @@ namespace Konto.Core.Shared.Frms
     public partial class KontoMetroForm : KontoForm
     {
        
-
+        public  bool IsLoadingData { get; set; }
         public bool ViewOnlyMode { get; set; }
         public int PrimaryKey { get; set; }
         public bool OpenForLookup { get; set; }
@@ -72,8 +72,11 @@ namespace Konto.Core.Shared.Frms
                 okSimpleButton.Enabled = false;
                 navAction1.SetPermission(false, false, false);
             }
+
             if (this.EditKey > 0)
+            {
                 this.EditPage(EditKey);
+            }
         }
 
         private void NavAction1_PrintButtonClick(object sender, EventArgs e)
@@ -95,7 +98,7 @@ namespace Konto.Core.Shared.Frms
             navAction1.TotalRecord = this.TotalRecord;
             navAction1.NavigationEnabled(false);
         }
-
+        
         public virtual void EditPage(int _key) {
             
             if(this.Modify_Permission)
@@ -109,25 +112,31 @@ namespace Konto.Core.Shared.Frms
                     navAction1.SetPermission(false, false, false);
                 }
 
+                IsLoadingData = true;
         }
         public virtual void FirstRec() {
+            IsLoadingData = true;
             this.RecordNo = 0;
         }
         public virtual void NextRec() {
+            IsLoadingData = true;
             this.RecordNo = this.RecordNo + 1;
 
             if (this.RecordNo >= this.TotalRecord)
                 this.RecordNo = this.TotalRecord - 1;
         }
         public virtual void PrevRec() {
+            IsLoadingData = true;
             this.RecordNo = this.RecordNo - 1;
             if (this.RecordNo == -1)
                 this.RecordNo = 0;
         }
         public virtual void LastRec() {
+            IsLoadingData = true;
             this.RecordNo = this.TotalRecord - 1;
         }
         public virtual void FindRec() {
+            IsLoadingData = true;
             if (this.TotalRecord > 0 && this.Modify_Permission)
                 okSimpleButton.Enabled = true;
         }
@@ -139,6 +148,7 @@ namespace Konto.Core.Shared.Frms
             this.TotalRecord = 0;
             navAction1.NavigationEnabled(false);
             this.PrimaryKey = 0;
+            IsLoadingData = false;
         }
 
       
@@ -357,6 +367,7 @@ namespace Konto.Core.Shared.Frms
 
         private void navAction1_SettingButtonClick(object sender, EventArgs e)
         {
+            if(!KontoGlobals.isSysAdm) return;
             var _frm = Activator.CreateInstance("Konto.Shared", "Konto.Shared.Setup.SettingWindow").Unwrap() as KontoForm;
             _frm.GetType().GetProperty("SettingCategroy").SetValue(_frm,this.SettingCategroy, null);
             _frm.ShowDialog();

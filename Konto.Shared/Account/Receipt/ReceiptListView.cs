@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Windows.Forms;
@@ -14,6 +15,7 @@ using DevExpress.XtraGrid.Views.Grid;
 using GrapeCity.ActiveReports;
 using System.IO;
 using Konto.Data.Models.Masters;
+using Konto.Data.Models.Transaction;
 using Konto.Data.Models.Transaction.Dtos;
 
 namespace Konto.Shared.Account.Receipt
@@ -27,10 +29,166 @@ namespace Konto.Shared.Account.Receipt
         {
             InitializeComponent();
             this.listDateRange1.GetButtonClick += ListDateRange1_GetButtonClick;
+            chqRetSimpleButton.Click += ChqRetSimpleButton_Click;
             //  this.GridLayoutFileName = KontoFileLayout.Op_Bill_List;
             this.customGridView1.FocusedRowChanged += CustomGridView1_FocusedRowChanged;
             this.ReportPrint = true;
             listAction1.EditDeleteDisabled(false);
+        }
+
+        private void ChqRetSimpleButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (customGridView1.SelectedRowsCount <= 0) return;
+                if (MessageBoxAdv.Show(this,"Are you sure?, all adjustment will be removed.. ?","Cheque Return", MessageBoxButtons.YesNo) == DialogResult.No) return;
+                using (var db = new KontoContext())
+                {
+                    var rw = customGridView1.GetFocusedDataRow();
+                    var _transid = Convert.ToInt32(rw["TransId"]);
+                    var _id = Convert.ToInt32(rw["Id"]);
+
+                    var rcpt = db.Bills.Find(_id);
+
+                    if (rcpt == null) return;
+                    // check for existing return entry
+
+                    if (db.Bills.Any(x =>
+                        x.RefId == rcpt.Id && x.RefVoucherId == rcpt.RefVoucherId &&
+                        !x.IsDeleted && x.IsActive))
+                    {
+                        MessageBox.Show(@"Cheque Return Entry Already Exists");
+                        return;
+                    }
+                    
+                    
+                    var rctrans = db.BillTrans.Find(_transid);
+                    if(rctrans== null) return;
+
+                    bool result = LedgerEff.DataFreezeStatus(rcpt.VoucherDate, rcpt.TypeId, db);
+                    if (result == false)
+                    {
+                        MessageBox.Show(KontoGlobals.DeleteFreezeWarning);
+                        return;
+                    }
+                    var billDel = db.BtoBs.Where(k => k.RefId == rcpt.Id && k.RefVoucherId == rcpt.VoucherId && k.IsActive && k.IsDeleted == false).ToList();
+                    using (var _tran = db.Database.BeginTransaction())
+                    {
+                        try
+                        {
+                            if (billDel.Count > 0)
+                            {
+                                db.BtoBs.RemoveRange(billDel);
+                            }
+
+                            var model = new BillModel();
+                            model.VoucherId = db.Vouchers
+                                .FirstOrDefault(x => x.VTypeId == (int) VoucherTypeEnum.PaymentVoucher).Id; 
+                            
+                            model.VoucherDate = Convert.ToInt32(DateTime.Now.ToString("yyyyMMdd"));
+
+
+                            model.AccId = rcpt.AccId;
+
+                            model.VoucherNo = DbUtils.NextSerialNo(model.VoucherId, db);
+
+
+                            model.RefNo = rcpt.RefNo;
+
+
+                            model.EmpId = rcpt.EmpId;
+                            model.StoreId = rcpt.StoreId;
+
+                            model.Remarks = rcpt.Remarks;
+
+                            model.TypeId = (int)VoucherTypeEnum.PaymentVoucher;
+                            model.CompId = KontoGlobals.CompanyId;
+                            model.YearId = KontoGlobals.YearId;
+                            model.BranchId = KontoGlobals.BranchId;
+                            model.TotalAmount = rctrans.NetTotal;
+                            model.GrossAmount = 0;
+                            model.TotalQty = 0;
+                            model.TotalPcs = 0;
+                            model.IsActive = true;
+                            model.RefId = rcpt.Id;
+                            model.RefVoucherId = rcpt.RefVoucherId;
+                            db.Bills.Add(model);
+                            db.SaveChanges();
+
+                            var tm = new BillTransModel();
+                            tm.BillId = model.Id;
+                            tm.NetTotal = rctrans.NetTotal;
+                            tm.Total = rctrans.Total;
+                            tm.ToAccId = rctrans.ToAccId;
+                            tm.RpType = "Bill";
+                            tm.ChequeNo = rctrans.ChequeNo;
+                            tm.ChequeDate = rctrans.ChequeDate;
+                            tm.Remark = "Cheque Return Voucher No: " + rcpt.VoucherNo;
+                            tm.IsActive = true;
+                            db.BillTrans.Add(tm);
+                            db.SaveChanges();
+
+                            var br = db.BillRefs.FirstOrDefault(x =>
+                                x.BillId == rctrans.BillId && x.BillTransId == rctrans.Id);
+
+                            var bs = new BtoBModel();
+                            bs.Amount = tm.NetTotal;
+                            
+                            bs.BillId = br.BillId;
+                            bs.BillTransId = br.BillTransId;
+                            bs.BillVoucherId = br.BillVoucherId;
+                            bs.RefVoucherId = model.VoucherId;
+                            bs.CompanyId = KontoGlobals.CompanyId;
+                            bs.RefTransId = tm.Id;
+                            bs.RefId = tm.BillId;
+                            bs.RefCode = br.RowId;
+                            bs.IsActive = true;
+                            bs.TransType = "Payment";
+                            bs.BillNo = rcpt.VoucherNo;
+                            db.BtoBs.Add(bs);
+
+                            var bss = new List<PendBillListDto>();
+
+                            var pbs =    new PendBillListDto
+                                {
+                                    Amount = bs.Amount, BillId = bs.BillId, BillTransId = bs.BillTransId,
+                                    BillVoucherId = bs.BillVoucherId, RefTransId = bs.RefTransId,
+                                    RefCode = bs.RefCode
+                                };
+                            bss.Add(pbs);
+
+                            var Trans = new List<BillTransModel>
+                            {
+                                tm
+                            };
+
+                            LedgerEff.BillRefEntrypayrec("Debit", model, Trans, new List<BankTransDto>(), db);
+
+                            LedgerEff.LedgerTransEntryRecPay("Debit", model, db, Trans, bss);
+
+                            rctrans.Remark = "ChqRet: " + rctrans.Remark;
+                            db.SaveChanges();
+                            _tran.Commit();
+                            MessageBox.Show("Cheque Return Saved Successfully");
+
+                        }
+                        catch (Exception ex)
+                        {
+                            _tran.Rollback();       
+                            Log.Error(ex,"cheque return");
+                            MessageBox.Show(ex.ToString());
+                        }
+                    }
+                   
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "cheq_return,receipt");
+                MessageBox.Show(ex.ToString());
+                
+            }
         }
 
         private void CustomGridView1_FocusedRowChanged(object sender, DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventArgs e)

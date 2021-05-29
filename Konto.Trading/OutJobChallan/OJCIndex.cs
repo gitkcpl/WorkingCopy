@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿
+using AutoMapper;
 using DevExpress.XtraEditors;
 using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Grid;
@@ -757,7 +758,7 @@ namespace Konto.Trading.OutJobChallan
                 ProdOutDto pm = new ProdOutDto();
 
                 pm.Id = 0;
-                pm.SrNo = (int)prod.SrNo;
+                pm.SrNo = prod.SrNo;
                 pm.ProdId = prod.ProdId;
                 pm.VoucherNo = prod.VoucherNo;
                 pm.ColorId = prod.ColorId;

@@ -902,6 +902,11 @@ namespace Konto.Shared.Trans.PInvoice
                             PurchasePara.OtherLess_Required = (value == "Y") ? true : false;
                             break;
                         }
+                        case 315:
+                        {
+                            PurchasePara.Cess_Required = (value == "Y") ? true : false;
+                            break;
+                        }
                     }
                 }
             }

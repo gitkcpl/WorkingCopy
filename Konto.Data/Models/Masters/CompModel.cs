@@ -170,7 +170,6 @@ namespace Konto.Data.Models.Masters
         [MaxLength(50)]
         public virtual string EwayBillPassword { get; set; }
 
-
         [MaxLength(50)]
         public string AppKey { get; set; }
 
@@ -181,6 +180,7 @@ namespace Konto.Data.Models.Masters
         public string SEK { get; set; }
 
         public DateTime? TokenExp { get; set; }
+
         public virtual ICollection<BranchModel> Branches { get; set; }
 
     }

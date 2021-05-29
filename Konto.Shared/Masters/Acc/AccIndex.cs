@@ -23,6 +23,8 @@ namespace Konto.Shared.Masters.Acc
         private List<AccModel> FilterView = new List<AccModel>();
         public int GroupId { get; set; }
         private int? CollById = 0;
+        private int TcsAccId = 0;
+        private decimal TcsPer = 0;
         public AccIndex()
         {
             InitializeComponent();
@@ -35,13 +37,67 @@ namespace Konto.Shared.Masters.Acc
             tabControlAdv1.SelectedIndexChanged += TabControlAdv1_SelectedIndexChanged;
             tdsComboBoxEx.SelectedIndexChanged += TdsComboBoxEx_SelectedIndexChanged;
             tcsComboBoxEx.SelectedIndexChanged += TcsComboBoxEx_SelectedIndexChanged;
-
+            taxTypeComboBox.SelectedIndexChanged += TaxTypeComboBox_SelectedIndexChanged;
+           
+            tcsComboBoxEx.KeyPress += TcsComboBoxEx_KeyPress;
             this.MainLayoutFile = KontoFileLayout.AccountMaster_Layout;
 
             this.FirstActiveControl = ledgerGroupLookup1;
 
             FillAllList();
         }
+
+        private void TcsComboBoxEx_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char) 13)
+            {
+                var frm = new TcsView() {TcsAcId = this.TcsAccId, TcsPer = this.TcsPer};
+
+                frm.ShowDialog();
+                TcsPer = frm.TcsPer;
+                TcsAccId = frm.TcsAcId;
+                dedComboBoxEx.Focus();
+            }
+        }
+
+        private void TaxTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (taxTypeComboBox.Text.ToUpper() == "TCS" ||
+                taxTypeComboBox.Text.ToUpper() == "TDS")
+            {
+                //noplayoutControlItem.Visibility = LayoutVisibility.Always;
+                noplayoutControlItem.ContentVisible = true;
+                //deducteelayoutControlItem.ContentVisible = false;
+                tcsComboBoxEx.SelectedIndex = 0;
+                tdsComboBoxEx.SelectedIndex = 0;
+            }
+            else
+            {
+               // noplayoutControlItem.Visibility = LayoutVisibility.Never;
+                noplayoutControlItem.ContentVisible = false;
+            }
+
+            using (var db= new KontoContext())
+            {
+                if (taxTypeComboBox.Text.ToUpper() == "TCS")
+                {
+                    var _nop = db.Nops.Where(x => x.Extra1 == "TCS").OrderBy(x => x.Descr).ToList();
+                    nopComboBoxEx.DataSource = _nop;
+
+                    if (this.PrimaryKey == 0)
+                        nopComboBoxEx.SelectedValue = 38;
+                }
+                else
+                {
+                    var _nop = db.Nops.Where(x => x.Extra1 == "TDS").OrderBy(x => x.Descr).ToList();
+                    nopComboBoxEx.DataSource = _nop;
+                }
+            }
+            
+        }
+
+      
+
         private void FillAllList()
         {
             dedComboBoxEx.DisplayMember = "Descr";
@@ -58,8 +114,7 @@ namespace Konto.Shared.Masters.Acc
             {
                 var _deductee = db.Deductees.OrderBy(x => x.Descr).ToList();
                 dedComboBoxEx.DataSource = _deductee;
-                var _nop = db.Nops.OrderBy(x => x.Descr).ToList();
-                nopComboBoxEx.DataSource = _nop;
+               
             }
             //grade
             List<string> grade = new List<string>();
@@ -121,14 +176,27 @@ namespace Konto.Shared.Masters.Acc
         {
             if (tcsComboBoxEx.SelectedIndex == 1 || tdsComboBoxEx.SelectedIndex == 1)
             {
-                deducteelayoutControlItem.Visibility = LayoutVisibility.Always;
-                noplayoutControlItem.Visibility = LayoutVisibility.Always;
+                deducteelayoutControlItem.ContentVisible = true;
+              //  noplayoutControlItem.Visibility = LayoutVisibility.Always;
+                //noplayoutControlItem.ContentVisible = true;
             }
             else
             {
-                deducteelayoutControlItem.Visibility = LayoutVisibility.Never;
-                noplayoutControlItem.Visibility = LayoutVisibility.Never;
+                deducteelayoutControlItem.ContentVisible = false;
+               // noplayoutControlItem.Visibility = LayoutVisibility.Always;
+                //noplayoutControlItem.ContentVisible = false;
             }
+            //if (tcsComboBoxEx.SelectedIndex == 1 || tdsComboBoxEx.SelectedIndex == 1)
+            //{
+            //    deducteelayoutControlItem.Visibility = LayoutVisibility.Always;
+            //    //noplayoutControlItem.Visibility = LayoutVisibility.Always;
+            //}
+            //else
+            //{
+            //    deducteelayoutControlItem.Visibility = LayoutVisibility.Never;
+            //   // noplayoutControlItem.Visibility = LayoutVisibility.Never;
+            //}
+
         }
 
         private void TdsComboBoxEx_SelectedIndexChanged(object sender, EventArgs e)
@@ -136,12 +204,12 @@ namespace Konto.Shared.Masters.Acc
             if (tcsComboBoxEx.SelectedIndex == 1 || tdsComboBoxEx.SelectedIndex == 1)
             {
                 deducteelayoutControlItem.ContentVisible = true;
-                noplayoutControlItem.ContentVisible = true;
+                //noplayoutControlItem.ContentVisible = true;
             }
             else
             {
                 deducteelayoutControlItem.ContentVisible = false;
-                noplayoutControlItem.ContentVisible = false;
+               // noplayoutControlItem.ContentVisible = false;
             }
         }
 
@@ -302,6 +370,8 @@ namespace Konto.Shared.Masters.Acc
             transportLookup2.SelectedValue = 1;
             transportLookup2.SetAcc(1);
             CollById = 0;
+            TcsPer = 0;
+            TcsAccId = 0;
             createdLabelControl.Text = "Create By: " + KontoGlobals.UserName;
             modifyLabelControl.Text = string.Empty;
             if(this.GroupId > 0)
@@ -358,11 +428,23 @@ namespace Konto.Shared.Masters.Acc
             this.PrimaryKey = model.Id;
 
             AccBalModel balmodel = null;
+            AccOtherModel _other = null;
             using (var db = new KontoContext())
             {
                 balmodel = db.AccBals.FirstOrDefault(x => x.AccId == model.Id &&
                     x.CompId == KontoGlobals.CompanyId && x.YearId == KontoGlobals.YearId);
+                _other = db.AccOthers.FirstOrDefault(x => x.AccId == model.Id && !x.IsDeleted);
+            }
 
+            if (_other != null)
+            {
+                TcsPer = Convert.ToDecimal(_other.TcsPer);
+                TcsAccId = Convert.ToInt32(_other.TcsAccId);
+            }
+            else
+            {
+                TcsPer = 0;
+                TcsAccId = 0;
             }
             if (balmodel != null)
             {
@@ -608,7 +690,12 @@ namespace Konto.Shared.Masters.Acc
                                     db.AccBals.Add(_model);
                                 }
                             }
+                            // tcs save if tcs
 
+                            if (tcsComboBoxEx.SelectedIndex == 1)
+                            {
+                                Update_Tcs(_acc.Id, db);
+                            }
                         }
                         else
                         {
@@ -634,9 +721,16 @@ namespace Konto.Shared.Masters.Acc
                             }
 
                             _existbalmodel.AccId = _accmodel.Id;
-                            
-                           
+
+                            // tcs save if tcs
+
+                            if (tcsComboBoxEx.SelectedIndex == 1)
+                            {
+                                Update_Tcs(_accmodel.Id,db);
+                            }
                         }
+
+                        
 
                         db.SaveChanges();
                         _tran.Commit();
@@ -671,6 +765,19 @@ namespace Konto.Shared.Masters.Acc
             }
         }
 
+        private void Update_Tcs(int acid, KontoContext db)
+        {
+            var aco = db.AccOthers.FirstOrDefault(x => x.AccId == acid) ?? new AccOtherModel();
+            aco.TcsAccId = this.TcsAccId;
+            aco.TcsPer = this.TcsPer;
+
+            if (aco.Id == 0)
+            {
+                aco.AccId = acid;
+                aco.RowId = Guid.NewGuid();
+                db.AccOthers.Add(aco);
+            }
+        }
         private void ledgerGroupLookup1_SelectedValueChanged(object sender, EventArgs e)
         {
             List<ComboBoxPairs> cbp1 = null;
@@ -732,7 +839,14 @@ namespace Konto.Shared.Masters.Acc
                     new ComboBoxPairs("Ecommerce-Op", "ECOM"),
                     new ComboBoxPairs("NA", "NA"),
                 };
+             
                 taxTypeComboBox.DataSource = cbp1;
+
+                rateTypeLayoutControlItem.ContentVisible = true;
+            }
+            else
+            {
+                rateTypeLayoutControlItem.ContentVisible = false;
             }
            
            

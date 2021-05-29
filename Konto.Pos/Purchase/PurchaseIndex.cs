@@ -907,11 +907,7 @@ namespace Konto.Pos.Purchase
             var gross = Trans.Sum(x => x.NetTotal) - Trans.Sum(x => x.Cgst) - Trans.Sum(x => x.Sgst) -
                 Trans.Sum(x => x.Igst) - Trans.Sum(x => x.Cess);
 
-
-          
-
-
-
+            
             if (tdsPerTextEdit.Value > 0)
             {
                 if(PurchasePara.TDS_RoundOff)
@@ -2545,7 +2541,7 @@ namespace Konto.Pos.Purchase
                 if (string.IsNullOrEmpty(barcodeNoToincrease) || barcodeNoToincrease == "NA")
                     barcodeNoToincrease = barcode;
 
-                barcode = (Convert.ToInt32(barcodeNoToincrease) + 1).ToString();
+                barcode = (Convert.ToInt64(barcodeNoToincrease) + 1).ToString();
 
             }
 
@@ -2683,7 +2679,7 @@ namespace Konto.Pos.Purchase
 
 
 
-                    barcode = (Convert.ToInt32(barcode) + 1).ToString();
+                    barcode = (Convert.ToInt64(barcode) + 1).ToString();
                 }
 
 
@@ -2724,7 +2720,7 @@ namespace Konto.Pos.Purchase
                 bch.DealerPrice = pos.Rate;
                 bch.SemiBulkRate = pos.SemiBulkRate;
                 bch.BulkRate = pos.BulkRate;
-                bch.SaleRate = pos.SaleRate;
+                bch.SaleRate = pos.SellingPrice;
                 bch.SerialNo = pos.Barcode;
                 bch.BatchNo = batchno;
 

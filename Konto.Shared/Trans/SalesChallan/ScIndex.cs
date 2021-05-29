@@ -177,7 +177,7 @@ namespace Konto.Shared.Trans.SalesChallan
 
             var dr = uomRepositoryItemLookUpEdit.GetDataSourceRowByKeyValue(er.UomId) as UomLookupDto;
              
-            if (dr != null && dr.RateOn == "N" && er.Qty > 0)
+            if (dr != null && dr.RateOn == "N" && er.Pcs > 0)
             {
                 er.Gross = decimal.Round(er.Pcs * er.Rate, 2, MidpointRounding.AwayFromZero);
             }
@@ -989,11 +989,25 @@ namespace Konto.Shared.Trans.SalesChallan
 
             Int32[] selectedRowHandles = ordfrm.SelectedRows;
             if (selectedRowHandles == null || selectedRowHandles.Count() == 0) return;
+            var ord = ordfrm.gridView1.GetRow(selectedRowHandles[0]) as PendingOrderDto;
+
+            if (ord != null && ord.AgentId > 0)
+            {
+                agentLookup.SelectedValue = ord.AgentId;
+                agentLookup.SetAcc(ord.AgentId);
+            }
+
+            if (ord != null && ord.TransportId > 0)
+            {
+                transportLookup.SelectedValue = ord.TransportId;
+                transportLookup.SetAcc(ord.TransportId);
+            }
+
             List<GrnTransDto> transDtos = new List<GrnTransDto>();
             int id = 0;
             foreach (var item in selectedRowHandles)
             {
-                var ord = ordfrm.gridView1.GetRow(item) as PendingOrderDto;
+                ord = ordfrm.gridView1.GetRow(item) as PendingOrderDto;
                 GrnTransDto ct = new GrnTransDto();
                 id--;
                 ct.ProductId = Convert.ToInt32(ord.ProductId);
