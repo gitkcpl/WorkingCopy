@@ -23,6 +23,7 @@ namespace Konto.Trading.GP
         private List<ProdModel> ProdList;
         public List<ChallanModel> IssueList { get; set; }
         private KontoContext db = new KontoContext();
+        public  bool IsOpenIssued { get; set; }
         public MiOptionView()
         {
             InitializeComponent();
@@ -30,6 +31,15 @@ namespace Konto.Trading.GP
             NewProdOutList = new List<ProdOutModel>();
             ProdList = new List<ProdModel>();
             IssueList = new List<ChallanModel>();
+            this.Load += MiOptionView_Load;
+        }
+
+        private void MiOptionView_Load(object sender, EventArgs e)
+        {
+            if (TranModel != null)
+            {
+                textEdit1.Value = TranModel.Pcs;
+            }
         }
 
         private void okSimpleButton_Click(object sender, System.EventArgs e)
@@ -41,8 +51,20 @@ namespace Konto.Trading.GP
             if (SaveDataMillIssueAsync())
             {
 
+                if (textEdit1.Value == TranModel.Pcs)
+                {
+                    if (MessageBox.Show("Open Issue ?", "Issue", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                    {
+                        var frm = new MillIssue.MillIssueIndex();
+                        frm.OpenForLookup = true;
+                        frm.EditKey = this.IssueList[0].Id;
+                        IsOpenIssued = true;
+                        frm.ShowDialog();
+                    }
+                }
                 this.DialogResult = System.Windows.Forms.DialogResult.OK;
                 this.Close();
+
             }
         }
 
@@ -264,7 +286,7 @@ namespace Konto.Trading.GP
                             trans.ChallanId = challan.Id;
                             trans.Qty = Convert.ToDecimal(item.TotalQty);
                             trans.Pcs = Convert.ToInt32(item.TotalPc);
-
+                            trans.NProductId = 0;
                             trans.BatchId = TranModel.BatchId;
                             trans.Cess = TranModel.Cess;
                             trans.CessPer = TranModel.CessPer;

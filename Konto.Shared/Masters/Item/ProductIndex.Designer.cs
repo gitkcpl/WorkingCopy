@@ -335,7 +335,7 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.ratePerQtySpinEdit.Size = new System.Drawing.Size(96, 24);
             this.ratePerQtySpinEdit.StyleController = this.layoutControl1;
-            this.ratePerQtySpinEdit.TabIndex = 36;
+            this.ratePerQtySpinEdit.TabIndex = 19;
             // 
             // semBulkRateSpinEdit
             // 
@@ -353,7 +353,7 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.semBulkRateSpinEdit.Size = new System.Drawing.Size(213, 24);
             this.semBulkRateSpinEdit.StyleController = this.layoutControl1;
-            this.semBulkRateSpinEdit.TabIndex = 21;
+            this.semBulkRateSpinEdit.TabIndex = 22;
             // 
             // bulkQtySpinEdit
             // 
@@ -371,7 +371,7 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.bulkQtySpinEdit.Size = new System.Drawing.Size(103, 24);
             this.bulkQtySpinEdit.StyleController = this.layoutControl1;
-            this.bulkQtySpinEdit.TabIndex = 20;
+            this.bulkQtySpinEdit.TabIndex = 21;
             // 
             // bulkRateSpinEdit
             // 
@@ -389,7 +389,7 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.bulkRateSpinEdit.Size = new System.Drawing.Size(126, 24);
             this.bulkRateSpinEdit.StyleController = this.layoutControl1;
-            this.bulkRateSpinEdit.TabIndex = 19;
+            this.bulkRateSpinEdit.TabIndex = 20;
             // 
             // taxIncCheckEdit
             // 
@@ -431,7 +431,7 @@
             this.serialComboBoxEx.Name = "serialComboBoxEx";
             this.serialComboBoxEx.Size = new System.Drawing.Size(97, 24);
             this.serialComboBoxEx.Style.TokenStyle.CloseButtonBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.serialComboBoxEx.TabIndex = 24;
+            this.serialComboBoxEx.TabIndex = 1;
             // 
             // batchComboBoxEx
             // 
@@ -441,7 +441,7 @@
             this.batchComboBoxEx.Name = "batchComboBoxEx";
             this.batchComboBoxEx.Size = new System.Drawing.Size(94, 24);
             this.batchComboBoxEx.Style.TokenStyle.CloseButtonBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.batchComboBoxEx.TabIndex = 25;
+            this.batchComboBoxEx.TabIndex = 1;
             // 
             // stockReqComboBoxEx
             // 
@@ -451,7 +451,7 @@
             this.stockReqComboBoxEx.Name = "stockReqComboBoxEx";
             this.stockReqComboBoxEx.Size = new System.Drawing.Size(100, 24);
             this.stockReqComboBoxEx.Style.TokenStyle.CloseButtonBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.stockReqComboBoxEx.TabIndex = 23;
+            this.stockReqComboBoxEx.TabIndex = 1;
             // 
             // gridControl1
             // 
@@ -533,7 +533,7 @@
             this.colorLookup1.SelectedText = null;
             this.colorLookup1.SelectedValue = null;
             this.colorLookup1.Size = new System.Drawing.Size(282, 20);
-            this.colorLookup1.TabIndex = 1;
+            this.colorLookup1.TabIndex = 6;
             // 
             // sizeLookup1
             // 
@@ -545,7 +545,7 @@
             this.sizeLookup1.SelectedText = null;
             this.sizeLookup1.SelectedValue = null;
             this.sizeLookup1.Size = new System.Drawing.Size(281, 20);
-            this.sizeLookup1.TabIndex = 1;
+            this.sizeLookup1.TabIndex = 5;
             // 
             // categoryLookup1
             // 
@@ -557,7 +557,7 @@
             this.categoryLookup1.SelectedText = null;
             this.categoryLookup1.SelectedValue = null;
             this.categoryLookup1.Size = new System.Drawing.Size(282, 20);
-            this.categoryLookup1.TabIndex = 1;
+            this.categoryLookup1.TabIndex = 4;
             // 
             // brandLookup1
             // 
@@ -569,7 +569,7 @@
             this.brandLookup1.SelectedText = null;
             this.brandLookup1.SelectedValue = null;
             this.brandLookup1.Size = new System.Drawing.Size(281, 20);
-            this.brandLookup1.TabIndex = 1;
+            this.brandLookup1.TabIndex = 3;
             // 
             // subGroupLookup1
             // 
@@ -581,7 +581,7 @@
             this.subGroupLookup1.SelectedText = null;
             this.subGroupLookup1.SelectedValue = null;
             this.subGroupLookup1.Size = new System.Drawing.Size(282, 20);
-            this.subGroupLookup1.TabIndex = 1;
+            this.subGroupLookup1.TabIndex = 2;
             // 
             // toggleSwitch1
             // 
@@ -607,7 +607,7 @@
             this.groupLookup1.SelectedText = null;
             this.groupLookup1.SelectedValue = null;
             this.groupLookup1.Size = new System.Drawing.Size(281, 20);
-            this.groupLookup1.TabIndex = 1;
+            this.groupLookup1.TabIndex = 0;
             // 
             // currStockNosSpinEdit
             // 
@@ -626,7 +626,7 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.currStockNosSpinEdit.Size = new System.Drawing.Size(171, 24);
             this.currStockNosSpinEdit.StyleController = this.layoutControl1;
-            this.currStockNosSpinEdit.TabIndex = 32;
+            this.currStockNosSpinEdit.TabIndex = 33;
             // 
             // currStockSpinEdit
             // 
@@ -645,7 +645,7 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.currStockSpinEdit.Size = new System.Drawing.Size(171, 24);
             this.currStockSpinEdit.StyleController = this.layoutControl1;
-            this.currStockSpinEdit.TabIndex = 29;
+            this.currStockSpinEdit.TabIndex = 30;
             // 
             // rolSpinEdit
             // 
@@ -663,7 +663,7 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.rolSpinEdit.Size = new System.Drawing.Size(100, 24);
             this.rolSpinEdit.StyleController = this.layoutControl1;
-            this.rolSpinEdit.TabIndex = 33;
+            this.rolSpinEdit.TabIndex = 34;
             // 
             // minStockSpinEdit
             // 
@@ -681,7 +681,7 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.minStockSpinEdit.Size = new System.Drawing.Size(100, 24);
             this.minStockSpinEdit.StyleController = this.layoutControl1;
-            this.minStockSpinEdit.TabIndex = 30;
+            this.minStockSpinEdit.TabIndex = 31;
             // 
             // maxStockSpinEdit
             // 
@@ -699,7 +699,7 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.maxStockSpinEdit.Size = new System.Drawing.Size(171, 24);
             this.maxStockSpinEdit.StyleController = this.layoutControl1;
-            this.maxStockSpinEdit.TabIndex = 31;
+            this.maxStockSpinEdit.TabIndex = 32;
             // 
             // maxOrdSpinEdit
             // 
@@ -717,7 +717,7 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.maxOrdSpinEdit.Size = new System.Drawing.Size(171, 24);
             this.maxOrdSpinEdit.StyleController = this.layoutControl1;
-            this.maxOrdSpinEdit.TabIndex = 35;
+            this.maxOrdSpinEdit.TabIndex = 36;
             // 
             // minOrdSpinEdit
             // 
@@ -735,7 +735,7 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.minOrdSpinEdit.Size = new System.Drawing.Size(171, 24);
             this.minOrdSpinEdit.StyleController = this.layoutControl1;
-            this.minOrdSpinEdit.TabIndex = 34;
+            this.minOrdSpinEdit.TabIndex = 35;
             // 
             // opStockNosSpinEdit
             // 
@@ -754,7 +754,7 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.opStockNosSpinEdit.Size = new System.Drawing.Size(171, 24);
             this.opStockNosSpinEdit.StyleController = this.layoutControl1;
-            this.opStockNosSpinEdit.TabIndex = 28;
+            this.opStockNosSpinEdit.TabIndex = 29;
             // 
             // opStockspinEdit
             // 
@@ -773,7 +773,7 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.opStockspinEdit.Size = new System.Drawing.Size(100, 24);
             this.opStockspinEdit.StyleController = this.layoutControl1;
-            this.opStockspinEdit.TabIndex = 27;
+            this.opStockspinEdit.TabIndex = 28;
             // 
             // checkEdit1
             // 
@@ -787,7 +787,7 @@
             this.checkEdit1.Properties.Caption = "Check Negative";
             this.checkEdit1.Size = new System.Drawing.Size(147, 21);
             this.checkEdit1.StyleController = this.layoutControl1;
-            this.checkEdit1.TabIndex = 26;
+            this.checkEdit1.TabIndex = 27;
             // 
             // saleDiscSpinEdit
             // 
@@ -963,7 +963,7 @@
             this.hsnTextBoxExt.Name = "hsnTextBoxExt";
             this.hsnTextBoxExt.Size = new System.Drawing.Size(129, 24);
             this.hsnTextBoxExt.Style = Syncfusion.Windows.Forms.Tools.TextBoxExt.theme.Metro;
-            this.hsnTextBoxExt.TabIndex = 8;
+            this.hsnTextBoxExt.TabIndex = 1;
             this.hsnTextBoxExt.ThemeName = "Metro";
             this.hsnTextBoxExt.UseBorderColorOnFocus = true;
             // 
@@ -978,7 +978,7 @@
             this.descTextBoxExt.Name = "descTextBoxExt";
             this.descTextBoxExt.Size = new System.Drawing.Size(512, 24);
             this.descTextBoxExt.Style = Syncfusion.Windows.Forms.Tools.TextBoxExt.theme.Metro;
-            this.descTextBoxExt.TabIndex = 6;
+            this.descTextBoxExt.TabIndex = 1;
             this.descTextBoxExt.ThemeName = "Metro";
             this.descTextBoxExt.UseBorderColorOnFocus = true;
             // 
@@ -994,7 +994,7 @@
             this.nameTextBoxExt.Name = "nameTextBoxExt";
             this.nameTextBoxExt.Size = new System.Drawing.Size(443, 24);
             this.nameTextBoxExt.Style = Syncfusion.Windows.Forms.Tools.TextBoxExt.theme.Metro;
-            this.nameTextBoxExt.TabIndex = 4;
+            this.nameTextBoxExt.TabIndex = 1;
             this.nameTextBoxExt.ThemeName = "Metro";
             this.nameTextBoxExt.UseBorderColorOnFocus = true;
             // 
@@ -1008,7 +1008,7 @@
             this.pTypeLookup1.SelectedText = null;
             this.pTypeLookup1.SelectedValue = null;
             this.pTypeLookup1.Size = new System.Drawing.Size(130, 24);
-            this.pTypeLookup1.TabIndex = 3;
+            this.pTypeLookup1.TabIndex = 1;
             // 
             // codeTextBoxExt
             // 
@@ -1021,7 +1021,7 @@
             this.codeTextBoxExt.Name = "codeTextBoxExt";
             this.codeTextBoxExt.Size = new System.Drawing.Size(151, 24);
             this.codeTextBoxExt.Style = Syncfusion.Windows.Forms.Tools.TextBoxExt.theme.Metro;
-            this.codeTextBoxExt.TabIndex = 2;
+            this.codeTextBoxExt.TabIndex = 1;
             this.codeTextBoxExt.ThemeName = "Metro";
             this.codeTextBoxExt.UseBorderColorOnFocus = true;
             // 
@@ -1036,7 +1036,7 @@
             this.barcodeTextBoxExt.Name = "barcodeTextBoxExt";
             this.barcodeTextBoxExt.Size = new System.Drawing.Size(197, 24);
             this.barcodeTextBoxExt.Style = Syncfusion.Windows.Forms.Tools.TextBoxExt.theme.Metro;
-            this.barcodeTextBoxExt.TabIndex = 0;
+            this.barcodeTextBoxExt.TabIndex = 1;
             this.barcodeTextBoxExt.ThemeName = "Metro";
             this.barcodeTextBoxExt.UseBorderColorOnFocus = true;
             // 
@@ -1056,7 +1056,7 @@
             this.styleNoTextEdit.Properties.MaxLength = 25;
             this.styleNoTextEdit.Size = new System.Drawing.Size(338, 24);
             this.styleNoTextEdit.StyleController = this.layoutControl1;
-            this.styleNoTextEdit.TabIndex = 22;
+            this.styleNoTextEdit.TabIndex = 23;
             // 
             // Root
             // 

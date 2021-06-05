@@ -756,9 +756,9 @@ namespace Konto.Weaves.ColorMatching
             var err = WarpgridView.GetRow(e.RowHandle) as WeftItemDto;
             if (err == null) return;
 
-            err.ItemId = Convert.ToInt32(ProductLookup.SelectedValue);
-            err.ProductId = Convert.ToInt32(ProductLookup.SelectedValue);
-            err.ProductName = ProductLookup.SelectedText;
+           // err.ItemId = Convert.ToInt32(ProductLookup.SelectedValue);
+           // err.ProductId = Convert.ToInt32(ProductLookup.SelectedValue);
+           // err.ProductName = ProductLookup.SelectedText;
             err.MColorId = Convert.ToInt32(colorLookup1.SelectedValue);
             err.ColorName = colorLookup1.SelectedText;
 
@@ -1236,7 +1236,7 @@ namespace Konto.Weaves.ColorMatching
                             //item.AvPick = _find.AvPick;
                             item.IType = "T";
                             item.ItemId = _find.ItemId;
-                            item.ProductId = _find.ProductId;
+                            //item.ProductId = _find.ProductId;
                             item.MColorId = _find.MColorId;
                             item.VoucherDate = _find.VoucherDate;
 

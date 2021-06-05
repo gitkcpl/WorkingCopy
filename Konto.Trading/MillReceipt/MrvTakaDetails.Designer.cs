@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MrvTakaDetails));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.autoLabel1 = new Syncfusion.Windows.Forms.Tools.AutoLabel();
             this.cancelSimpleButton = new DevExpress.XtraEditors.SimpleButton();
             this.okSimpleButton = new DevExpress.XtraEditors.SimpleButton();
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
@@ -56,6 +57,7 @@
             this.colTP3 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colTP4 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colTP5 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colPlainQty = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colShMtr = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colShPer = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colQty = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -77,7 +79,6 @@
             this.colIpAddress = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colorRepositoryItemButtonEdit = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
             this.gradeRepositoryItemButtonEdit = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
-            this.colPlainQty = new DevExpress.XtraGrid.Columns.GridColumn();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.prodOutModelBindingSource)).BeginInit();
@@ -93,6 +94,7 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel1.Controls.Add(this.autoLabel1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.cancelSimpleButton, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.okSimpleButton, 1, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -102,6 +104,16 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(818, 37);
             this.tableLayoutPanel1.TabIndex = 9;
+            // 
+            // autoLabel1
+            // 
+            this.autoLabel1.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.autoLabel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(22)))), ((int)(((byte)(91)))));
+            this.autoLabel1.Location = new System.Drawing.Point(3, 0);
+            this.autoLabel1.Name = "autoLabel1";
+            this.autoLabel1.Size = new System.Drawing.Size(88, 21);
+            this.autoLabel1.TabIndex = 3;
+            this.autoLabel1.Text = "autoLabel1";
             // 
             // cancelSimpleButton
             // 
@@ -125,7 +137,7 @@
             this.okSimpleButton.Name = "okSimpleButton";
             this.okSimpleButton.Size = new System.Drawing.Size(86, 31);
             this.okSimpleButton.TabIndex = 0;
-            this.okSimpleButton.Text = "Ok [F3]";
+            this.okSimpleButton.Text = "Ok";
             // 
             // gridControl1
             // 
@@ -275,6 +287,8 @@
             this.colVoucherNo.Name = "colVoucherNo";
             this.colVoucherNo.OptionsColumn.AllowEdit = false;
             this.colVoucherNo.OptionsColumn.AllowFocus = false;
+            this.colVoucherNo.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
+            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Custom)});
             this.colVoucherNo.Visible = true;
             this.colVoucherNo.VisibleIndex = 0;
             this.colVoucherNo.Width = 79;
@@ -371,6 +385,18 @@
             this.colTP5.Visible = true;
             this.colTP5.VisibleIndex = 6;
             this.colTP5.Width = 64;
+            // 
+            // colPlainQty
+            // 
+            this.colPlainQty.Caption = "Plain Mtrs";
+            this.colPlainQty.DisplayFormat.FormatString = "F";
+            this.colPlainQty.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.colPlainQty.FieldName = "PlainQty";
+            this.colPlainQty.Name = "colPlainQty";
+            this.colPlainQty.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
+            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "PlainQty", "{0:F}")});
+            this.colPlainQty.Visible = true;
+            this.colPlainQty.VisibleIndex = 8;
             // 
             // colShMtr
             // 
@@ -496,18 +522,6 @@
             new DevExpress.XtraEditors.Controls.EditorButton()});
             this.gradeRepositoryItemButtonEdit.Name = "gradeRepositoryItemButtonEdit";
             // 
-            // colPlainQty
-            // 
-            this.colPlainQty.Caption = "Plain Mtrs";
-            this.colPlainQty.DisplayFormat.FormatString = "F";
-            this.colPlainQty.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            this.colPlainQty.FieldName = "PlainQty";
-            this.colPlainQty.Name = "colPlainQty";
-            this.colPlainQty.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
-            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "PlainQty", "{0:F}")});
-            this.colPlainQty.Visible = true;
-            this.colPlainQty.VisibleIndex = 8;
-            // 
             // MrvTakaDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -520,6 +534,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Taka Details";
             this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.prodOutModelBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
@@ -580,5 +595,6 @@
         private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit repositoryItemTextEdit1;
         public System.Windows.Forms.BindingSource prodOutModelBindingSource;
         private DevExpress.XtraGrid.Columns.GridColumn colPlainQty;
+        private Syncfusion.Windows.Forms.Tools.AutoLabel autoLabel1;
     }
 }

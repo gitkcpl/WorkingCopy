@@ -829,6 +829,28 @@ namespace Konto.Trading.MillReceipt
                             KontoGlobals.CompanyId, Convert.ToInt32(accLookup1.SelectedValue), ord.Id, ord.TransId).ToList();
                 }
             }
+
+            //check for existing item already added
+            List<PendingMRProd> _tempdel = new List<PendingMRProd>();
+            foreach (var item in Prlist)
+            {
+                var _exist = this.prodDtos.FirstOrDefault(x => x.ProdId == item.ProdId && x.FinMrt > 0);
+                if (_exist != null)
+                    _tempdel.Add(item);
+            }
+
+
+            // remove if selected other challan on same level on Add Mode
+            var tobremoved = this.prodDtos.Where(x => x.TransId == ct.Id).ToList();
+
+            this.DelProd.AddRange(tobremoved);
+
+            this.prodDtos = this.prodDtos.Except(tobremoved).ToList();
+
+
+            Prlist = Prlist.Except(_tempdel).ToList();
+
+
             foreach (var prod in Prlist)
             {
                 ProdOutDto pm = new ProdOutDto();
@@ -1045,7 +1067,7 @@ namespace Konto.Trading.MillReceipt
                 if (Convert.ToInt32(accLookup1.SelectedValue) == 0) return;
                 var dr = PreOpenLookup();
                 if (dr == null) return;
-                if (gridView1.FocusedColumn.FieldName == "ChallanNo")
+                if (gridView1.FocusedColumn.FieldName == "ChallanNo" && dr.Id<=0)
                 {
 
                     if (e.KeyCode == Keys.Return)
@@ -1157,7 +1179,7 @@ namespace Konto.Trading.MillReceipt
         private void ChallanNoRrepositoryItemButtonEdit_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
         {
             var dr = PreOpenLookup();
-            if (dr != null)
+            if (dr != null && dr.Id<=0)
                 ShowPendingLot(dr);
         }
 
@@ -2044,11 +2066,13 @@ namespace Konto.Trading.MillReceipt
             {
                 if(!voucherLookup1.GroupDto.ManualSeries)
                     model.VoucherNo = DbUtils.NextSerialNo(model.VoucherId, db);
-                if (DbUtils.CheckExistVoucherNo(model.VoucherId, model.VoucherNo, db, model.Id))
+
+                if (DbUtils.CheckExistChllanVoucherNo(model.VoucherId, model.VoucherNo, db, model.Id))
                 {
                     MessageBox.Show("Duplicate Voucher No Not Allowed");
                     return false;
                 }
+
                 db.Challans.Add(model);
                 db.SaveChanges();
             }
@@ -2106,13 +2130,16 @@ namespace Konto.Trading.MillReceipt
                 int vtypeid = (int)VoucherTypeEnum.MillReceiptVoucher;
                 var vouchr = db.Vouchers.FirstOrDefault(k => k.VTypeId == vtypeid);
                 billModel.VoucherId = vouchr.Id;
-                billModel.VoucherNo = DbUtils.NextSerialNo((int)billModel.VoucherId, db);
+                //if (!voucherLookup1.GroupDto.ManualSeries)
+                //    billModel.VoucherNo = DbUtils.NextSerialNo((int) billModel.VoucherId, db);
+                //else
+                    billModel.VoucherNo = model.VoucherNo;
 
-                if (DbUtils.CheckExistVoucherNo(billModel.VoucherId, billModel.VoucherNo, db, billModel.Id))
-                {
-                    MessageBox.Show("Duplicate Voucher No Not Allowed");
-                    return false;
-                }
+                //if (DbUtils.CheckExistVoucherNo(billModel.VoucherId, billModel.VoucherNo, db, billModel.Id))
+                //{
+                //    MessageBox.Show("Duplicate Voucher No Not Allowed");
+                //    return false;
+                //}
 
                 db.Bills.Add(billModel);
                 db.SaveChanges();

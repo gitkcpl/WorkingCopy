@@ -12,6 +12,7 @@ namespace Konto.Data.Models.Op.Dto
 
         public int BalId { get; set; }
 
+        public  string Barcode { get; set; }
         public string ProductName { get; set; }
 
         public int? UomId { get; set; }

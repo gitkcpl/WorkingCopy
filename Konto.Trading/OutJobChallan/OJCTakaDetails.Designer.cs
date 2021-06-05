@@ -33,6 +33,7 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.cancelSimpleButton = new DevExpress.XtraEditors.SimpleButton();
             this.okSimpleButton = new DevExpress.XtraEditors.SimpleButton();
+            this.autoLabel1 = new Syncfusion.Windows.Forms.Tools.AutoLabel();
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
             this.prodOutModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
@@ -77,7 +78,6 @@
             this.colIpAddress = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colorRepositoryItemButtonEdit = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
             this.gradeRepositoryItemButtonEdit = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
-            this.autoLabel1 = new Syncfusion.Windows.Forms.Tools.AutoLabel();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.prodOutModelBindingSource)).BeginInit();
@@ -127,7 +127,17 @@
             this.okSimpleButton.Name = "okSimpleButton";
             this.okSimpleButton.Size = new System.Drawing.Size(86, 31);
             this.okSimpleButton.TabIndex = 0;
-            this.okSimpleButton.Text = "Ok [F3]";
+            this.okSimpleButton.Text = "Ok";
+            // 
+            // autoLabel1
+            // 
+            this.autoLabel1.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.autoLabel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(22)))), ((int)(((byte)(91)))));
+            this.autoLabel1.Location = new System.Drawing.Point(3, 0);
+            this.autoLabel1.Name = "autoLabel1";
+            this.autoLabel1.Size = new System.Drawing.Size(88, 21);
+            this.autoLabel1.TabIndex = 2;
+            this.autoLabel1.Text = "autoLabel1";
             // 
             // gridControl1
             // 
@@ -498,16 +508,6 @@
             this.gradeRepositoryItemButtonEdit.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
             this.gradeRepositoryItemButtonEdit.Name = "gradeRepositoryItemButtonEdit";
-            // 
-            // autoLabel1
-            // 
-            this.autoLabel1.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.autoLabel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(22)))), ((int)(((byte)(91)))));
-            this.autoLabel1.Location = new System.Drawing.Point(3, 0);
-            this.autoLabel1.Name = "autoLabel1";
-            this.autoLabel1.Size = new System.Drawing.Size(88, 21);
-            this.autoLabel1.TabIndex = 2;
-            this.autoLabel1.Text = "autoLabel1";
             // 
             // OJCTakaDetails
             // 

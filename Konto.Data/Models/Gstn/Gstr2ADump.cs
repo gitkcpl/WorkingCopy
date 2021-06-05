@@ -25,6 +25,7 @@ namespace Konto.Data.Models.Gstn
         [MaxLength(50)]
         public string Pos { get; set; }
         public DateTime InvoiceDate { get; set; }
+        
         public decimal InvoiceValue { get; set; }
 
         [MaxLength(50)]
@@ -43,6 +44,8 @@ namespace Konto.Data.Models.Gstn
         public int CompId { get; set; }
         public int YearId { get; set; }
         public DateTime CreateDate { get; set; }
+
+        public  bool Is2B { get; set; }
         public virtual ICollection<Gstr2ATransDump> Gstr2aTrans { get; set; }
     }
 }

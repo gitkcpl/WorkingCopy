@@ -89,6 +89,14 @@ namespace Konto.Trading.OutJobChallan
             {
                 voucherNoTextEdit.Text = "New-" + DbUtils.NextSerialNo(Convert.ToInt32(voucherLookup1.SelectedValue), 1);
             }
+            if (voucherLookup1.GroupDto != null && voucherLookup1.GroupDto.ManualSeries)
+            {
+                voucherNoTextEdit.Enabled = true;
+            }
+            else
+            {
+                voucherNoTextEdit.Enabled = false;
+            }
         }
 
         private void MrvIndex_Shown(object sender, EventArgs e)
@@ -751,6 +759,15 @@ namespace Konto.Trading.OutJobChallan
                     _tempdel.Add(item);
             }
 
+
+            // remove if selected other challan on same level on Add Mode
+            var tobremoved = this.prodDtos.Where(x => x.TransId == ct.Id).ToList();
+            
+            this.DelProd.AddRange(tobremoved);
+
+            this.prodDtos = this.prodDtos.Except(tobremoved).ToList();
+            
+
             Prlist = Prlist.Except(_tempdel).ToList();
 
             foreach (var prod in Prlist)
@@ -958,7 +975,7 @@ namespace Konto.Trading.OutJobChallan
                 if (Convert.ToInt32(accLookup1.SelectedValue) == 0) return;
                 var dr = PreOpenLookup();
                 if (dr == null) return;
-                if (gridView1.FocusedColumn.FieldName == "ChallanNo")
+                if (gridView1.FocusedColumn.FieldName == "ChallanNo" && dr.Id<=0)
                 {
 
                     if (e.KeyCode == Keys.Return)
@@ -1070,7 +1087,7 @@ namespace Konto.Trading.OutJobChallan
         private void ChallanNoRrepositoryItemButtonEdit_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
         {
             var dr = PreOpenLookup();
-            if (dr != null)
+            if (dr != null && dr.Id<=0)
                 ShowPendingLot(dr);
         }
 
@@ -1628,9 +1645,10 @@ namespace Konto.Trading.OutJobChallan
 
             if (model.Id == 0)
             {
-                model.VoucherNo = DbUtils.NextSerialNo(model.VoucherId, db);
+                if(!voucherLookup1.GroupDto.ManualSeries)
+                    model.VoucherNo = DbUtils.NextSerialNo(model.VoucherId, db);
 
-                if (DbUtils.CheckExistVoucherNo(model.VoucherId, model.VoucherNo, db, model.Id))
+                if (DbUtils.CheckExistChllanVoucherNo(model.VoucherId, model.VoucherNo, db, model.Id))
                 {
                     MessageBox.Show("Duplicate Voucher No Not Allowed");
                     return false;

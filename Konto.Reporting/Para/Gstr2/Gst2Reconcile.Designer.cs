@@ -35,6 +35,8 @@
             this.jvSimpleButton = new DevExpress.XtraEditors.SimpleButton();
             this.cancelSimpleButton = new DevExpress.XtraEditors.SimpleButton();
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
+            this.reco2BSimpleButton = new DevExpress.XtraEditors.SimpleButton();
+            this.gst2BSimpleButton = new DevExpress.XtraEditors.SimpleButton();
             this.umGridControl = new Konto.Core.Shared.Libs.CustomGridControl();
             this.recoGstr2aUnMatchBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.umGridView = new Konto.Core.Shared.Libs.CustomGridView();
@@ -131,14 +133,16 @@
             this.layoutControlItem7 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             this.tabbedControlGroup1 = new DevExpress.XtraLayout.TabbedControlGroup();
-            this.layoutControlGroup3 = new DevExpress.XtraLayout.LayoutControlGroup();
-            this.layoutControlItem8 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlGroup2 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlGroup3 = new DevExpress.XtraLayout.LayoutControlGroup();
+            this.layoutControlItem8 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlGroup4 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem9 = new DevExpress.XtraLayout.LayoutControlItem();
             this.splashScreenManager1 = new DevExpress.XtraSplashScreen.SplashScreenManager(this, typeof(global::Konto.Reporting.Para.Gst.WaitForm1), true, true);
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
@@ -161,14 +165,16 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabbedControlGroup1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -187,7 +193,7 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(800, 37);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(835, 37);
             this.tableLayoutPanel1.TabIndex = 10;
             // 
             // authSimpleButton
@@ -219,7 +225,7 @@
             this.cancelSimpleButton.Appearance.Options.UseFont = true;
             this.cancelSimpleButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cancelSimpleButton.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("cancelSimpleButton.ImageOptions.SvgImage")));
-            this.cancelSimpleButton.Location = new System.Drawing.Point(706, 3);
+            this.cancelSimpleButton.Location = new System.Drawing.Point(740, 3);
             this.cancelSimpleButton.Name = "cancelSimpleButton";
             this.cancelSimpleButton.Size = new System.Drawing.Size(91, 31);
             this.cancelSimpleButton.TabIndex = 1;
@@ -227,6 +233,8 @@
             // 
             // layoutControl1
             // 
+            this.layoutControl1.Controls.Add(this.reco2BSimpleButton);
+            this.layoutControl1.Controls.Add(this.gst2BSimpleButton);
             this.layoutControl1.Controls.Add(this.umGridControl);
             this.layoutControl1.Controls.Add(this.eGridControl);
             this.layoutControl1.Controls.Add(this.mGridControl);
@@ -238,9 +246,42 @@
             this.layoutControl1.Location = new System.Drawing.Point(0, 0);
             this.layoutControl1.Name = "layoutControl1";
             this.layoutControl1.Root = this.Root;
-            this.layoutControl1.Size = new System.Drawing.Size(800, 413);
+            this.layoutControl1.Size = new System.Drawing.Size(835, 413);
             this.layoutControl1.TabIndex = 0;
             this.layoutControl1.Text = "layoutControl1";
+            // 
+            // reco2BSimpleButton
+            // 
+            this.reco2BSimpleButton.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.reco2BSimpleButton.Appearance.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.reco2BSimpleButton.Appearance.Options.UseFont = true;
+            this.reco2BSimpleButton.Appearance.Options.UseForeColor = true;
+            this.reco2BSimpleButton.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("reco2BSimpleButton.ImageOptions.SvgImage")));
+            this.reco2BSimpleButton.ImageOptions.SvgImageSize = new System.Drawing.Size(24, 24);
+            this.reco2BSimpleButton.Location = new System.Drawing.Point(542, 5);
+            this.reco2BSimpleButton.Name = "reco2BSimpleButton";
+            this.reco2BSimpleButton.Size = new System.Drawing.Size(142, 28);
+            this.reco2BSimpleButton.StyleController = this.layoutControl1;
+            this.reco2BSimpleButton.TabIndex = 19;
+            this.reco2BSimpleButton.Text = "Reconcile 2B Data";
+            this.reco2BSimpleButton.Click += new System.EventHandler(this.reco2BSimpleButton_Click);
+            // 
+            // gst2BSimpleButton
+            // 
+            this.gst2BSimpleButton.Appearance.BackColor = DevExpress.LookAndFeel.DXSkinColors.FillColors.Warning;
+            this.gst2BSimpleButton.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gst2BSimpleButton.Appearance.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.gst2BSimpleButton.Appearance.Options.UseBackColor = true;
+            this.gst2BSimpleButton.Appearance.Options.UseFont = true;
+            this.gst2BSimpleButton.Appearance.Options.UseForeColor = true;
+            this.gst2BSimpleButton.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("gst2BSimpleButton.ImageOptions.SvgImage")));
+            this.gst2BSimpleButton.ImageOptions.SvgImageSize = new System.Drawing.Size(24, 24);
+            this.gst2BSimpleButton.Location = new System.Drawing.Point(370, 5);
+            this.gst2BSimpleButton.Name = "gst2BSimpleButton";
+            this.gst2BSimpleButton.Size = new System.Drawing.Size(158, 28);
+            this.gst2BSimpleButton.StyleController = this.layoutControl1;
+            this.gst2BSimpleButton.TabIndex = 18;
+            this.gst2BSimpleButton.Text = "Download GSTR-2B";
             // 
             // umGridControl
             // 
@@ -250,7 +291,7 @@
             this.umGridControl.LookAndFeel.UseDefaultLookAndFeel = false;
             this.umGridControl.MainView = this.umGridView;
             this.umGridControl.Name = "umGridControl";
-            this.umGridControl.Size = new System.Drawing.Size(766, 320);
+            this.umGridControl.Size = new System.Drawing.Size(801, 320);
             this.umGridControl.TabIndex = 17;
             this.umGridControl.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.umGridView});
@@ -417,7 +458,7 @@
             this.eGridControl.LookAndFeel.UseDefaultLookAndFeel = false;
             this.eGridControl.MainView = this.eGridView;
             this.eGridControl.Name = "eGridControl";
-            this.eGridControl.Size = new System.Drawing.Size(766, 320);
+            this.eGridControl.Size = new System.Drawing.Size(801, 320);
             this.eGridControl.TabIndex = 16;
             this.eGridControl.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.eGridView});
@@ -607,7 +648,7 @@
             this.mGridControl.LookAndFeel.UseDefaultLookAndFeel = false;
             this.mGridControl.MainView = this.mGridView;
             this.mGridControl.Name = "mGridControl";
-            this.mGridControl.Size = new System.Drawing.Size(766, 320);
+            this.mGridControl.Size = new System.Drawing.Size(801, 320);
             this.mGridControl.TabIndex = 15;
             this.mGridControl.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.mGridView});
@@ -891,7 +932,7 @@
             this.textEdit1.Properties.Mask.EditMask = "MMyyyy";
             this.textEdit1.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.DateTimeAdvancingCaret;
             this.textEdit1.Properties.Mask.UseMaskAsDisplayFormat = true;
-            this.textEdit1.Size = new System.Drawing.Size(74, 24);
+            this.textEdit1.Size = new System.Drawing.Size(61, 24);
             this.textEdit1.StyleController = this.layoutControl1;
             this.textEdit1.TabIndex = 0;
             // 
@@ -903,7 +944,7 @@
             this.gstr2SimpleButton.Appearance.Options.UseForeColor = true;
             this.gstr2SimpleButton.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("gstr2SimpleButton.ImageOptions.SvgImage")));
             this.gstr2SimpleButton.ImageOptions.SvgImageSize = new System.Drawing.Size(24, 24);
-            this.gstr2SimpleButton.Location = new System.Drawing.Point(193, 5);
+            this.gstr2SimpleButton.Location = new System.Drawing.Point(180, 5);
             this.gstr2SimpleButton.Name = "gstr2SimpleButton";
             this.gstr2SimpleButton.Size = new System.Drawing.Size(186, 28);
             this.gstr2SimpleButton.StyleController = this.layoutControl1;
@@ -918,7 +959,7 @@
             this.gridControl1.LookAndFeel.UseDefaultLookAndFeel = false;
             this.gridControl1.MainView = this.gridView1;
             this.gridControl1.Name = "gridControl1";
-            this.gridControl1.Size = new System.Drawing.Size(766, 320);
+            this.gridControl1.Size = new System.Drawing.Size(801, 320);
             this.gridControl1.TabIndex = 3;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -1104,12 +1145,12 @@
             this.okSimpleButton.Appearance.Options.UseForeColor = true;
             this.okSimpleButton.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("okSimpleButton.ImageOptions.SvgImage")));
             this.okSimpleButton.ImageOptions.SvgImageSize = new System.Drawing.Size(24, 24);
-            this.okSimpleButton.Location = new System.Drawing.Point(583, 5);
+            this.okSimpleButton.Location = new System.Drawing.Point(688, 5);
             this.okSimpleButton.Name = "okSimpleButton";
-            this.okSimpleButton.Size = new System.Drawing.Size(212, 28);
+            this.okSimpleButton.Size = new System.Drawing.Size(142, 28);
             this.okSimpleButton.StyleController = this.layoutControl1;
             this.okSimpleButton.TabIndex = 2;
-            this.okSimpleButton.Text = "Reconcile Downloaded Data";
+            this.okSimpleButton.Text = "Reconcile 2A Data";
             // 
             // Root
             // 
@@ -1120,33 +1161,35 @@
             this.emptySpaceItem1,
             this.layoutControlItem7,
             this.layoutControlItem1,
-            this.tabbedControlGroup1});
+            this.tabbedControlGroup1,
+            this.layoutControlItem5,
+            this.layoutControlItem9});
             this.Root.Name = "Root";
             this.Root.Padding = new DevExpress.XtraLayout.Utils.Padding(3, 3, 3, 3);
-            this.Root.Size = new System.Drawing.Size(800, 413);
+            this.Root.Size = new System.Drawing.Size(835, 413);
             this.Root.TextVisible = false;
             // 
             // layoutControlItem4
             // 
             this.layoutControlItem4.Control = this.okSimpleButton;
-            this.layoutControlItem4.Location = new System.Drawing.Point(578, 0);
+            this.layoutControlItem4.Location = new System.Drawing.Point(683, 0);
             this.layoutControlItem4.Name = "layoutControlItem4";
-            this.layoutControlItem4.Size = new System.Drawing.Size(216, 32);
+            this.layoutControlItem4.Size = new System.Drawing.Size(146, 32);
             this.layoutControlItem4.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem4.TextVisible = false;
             // 
             // emptySpaceItem1
             // 
             this.emptySpaceItem1.AllowHotTrack = false;
-            this.emptySpaceItem1.Location = new System.Drawing.Point(378, 0);
+            this.emptySpaceItem1.Location = new System.Drawing.Point(527, 0);
             this.emptySpaceItem1.Name = "emptySpaceItem1";
-            this.emptySpaceItem1.Size = new System.Drawing.Size(200, 32);
+            this.emptySpaceItem1.Size = new System.Drawing.Size(10, 32);
             this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
             // 
             // layoutControlItem7
             // 
             this.layoutControlItem7.Control = this.gstr2SimpleButton;
-            this.layoutControlItem7.Location = new System.Drawing.Point(188, 0);
+            this.layoutControlItem7.Location = new System.Drawing.Point(175, 0);
             this.layoutControlItem7.Name = "layoutControlItem7";
             this.layoutControlItem7.Size = new System.Drawing.Size(190, 32);
             this.layoutControlItem7.TextSize = new System.Drawing.Size(0, 0);
@@ -1159,7 +1202,7 @@
             this.layoutControlItem1.Control = this.textEdit1;
             this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(188, 32);
+            this.layoutControlItem1.Size = new System.Drawing.Size(175, 32);
             this.layoutControlItem1.Text = "Period (MMYYYY)";
             this.layoutControlItem1.TextSize = new System.Drawing.Size(107, 17);
             // 
@@ -1172,30 +1215,12 @@
             this.tabbedControlGroup1.Location = new System.Drawing.Point(0, 32);
             this.tabbedControlGroup1.Name = "tabbedControlGroup1";
             this.tabbedControlGroup1.SelectedTabPage = this.layoutControlGroup1;
-            this.tabbedControlGroup1.Size = new System.Drawing.Size(794, 375);
+            this.tabbedControlGroup1.Size = new System.Drawing.Size(829, 375);
             this.tabbedControlGroup1.TabPages.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlGroup1,
             this.layoutControlGroup2,
             this.layoutControlGroup3,
             this.layoutControlGroup4});
-            // 
-            // layoutControlGroup3
-            // 
-            this.layoutControlGroup3.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
-            this.layoutControlItem8});
-            this.layoutControlGroup3.Location = new System.Drawing.Point(0, 0);
-            this.layoutControlGroup3.Name = "layoutControlGroup3";
-            this.layoutControlGroup3.Size = new System.Drawing.Size(770, 324);
-            this.layoutControlGroup3.Text = "Extra In Books";
-            // 
-            // layoutControlItem8
-            // 
-            this.layoutControlItem8.Control = this.umGridControl;
-            this.layoutControlItem8.Location = new System.Drawing.Point(0, 0);
-            this.layoutControlItem8.Name = "layoutControlItem8";
-            this.layoutControlItem8.Size = new System.Drawing.Size(770, 324);
-            this.layoutControlItem8.TextSize = new System.Drawing.Size(0, 0);
-            this.layoutControlItem8.TextVisible = false;
             // 
             // layoutControlGroup1
             // 
@@ -1203,7 +1228,7 @@
             this.layoutControlItem6});
             this.layoutControlGroup1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup1.Name = "layoutControlGroup1";
-            this.layoutControlGroup1.Size = new System.Drawing.Size(770, 324);
+            this.layoutControlGroup1.Size = new System.Drawing.Size(805, 324);
             this.layoutControlGroup1.Text = "Gstr 2A Dump";
             // 
             // layoutControlItem6
@@ -1211,7 +1236,7 @@
             this.layoutControlItem6.Control = this.gridControl1;
             this.layoutControlItem6.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem6.Name = "layoutControlItem6";
-            this.layoutControlItem6.Size = new System.Drawing.Size(770, 324);
+            this.layoutControlItem6.Size = new System.Drawing.Size(805, 324);
             this.layoutControlItem6.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem6.TextVisible = false;
             // 
@@ -1221,7 +1246,7 @@
             this.layoutControlItem2});
             this.layoutControlGroup2.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup2.Name = "layoutControlGroup2";
-            this.layoutControlGroup2.Size = new System.Drawing.Size(770, 324);
+            this.layoutControlGroup2.Size = new System.Drawing.Size(805, 324);
             this.layoutControlGroup2.Text = "Matched Invoice";
             // 
             // layoutControlItem2
@@ -1229,9 +1254,27 @@
             this.layoutControlItem2.Control = this.mGridControl;
             this.layoutControlItem2.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(770, 324);
+            this.layoutControlItem2.Size = new System.Drawing.Size(805, 324);
             this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem2.TextVisible = false;
+            // 
+            // layoutControlGroup3
+            // 
+            this.layoutControlGroup3.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.layoutControlItem8});
+            this.layoutControlGroup3.Location = new System.Drawing.Point(0, 0);
+            this.layoutControlGroup3.Name = "layoutControlGroup3";
+            this.layoutControlGroup3.Size = new System.Drawing.Size(805, 324);
+            this.layoutControlGroup3.Text = "Extra In Books";
+            // 
+            // layoutControlItem8
+            // 
+            this.layoutControlItem8.Control = this.umGridControl;
+            this.layoutControlItem8.Location = new System.Drawing.Point(0, 0);
+            this.layoutControlItem8.Name = "layoutControlItem8";
+            this.layoutControlItem8.Size = new System.Drawing.Size(805, 324);
+            this.layoutControlItem8.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem8.TextVisible = false;
             // 
             // layoutControlGroup4
             // 
@@ -1239,7 +1282,7 @@
             this.layoutControlItem3});
             this.layoutControlGroup4.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup4.Name = "layoutControlGroup4";
-            this.layoutControlGroup4.Size = new System.Drawing.Size(770, 324);
+            this.layoutControlGroup4.Size = new System.Drawing.Size(805, 324);
             this.layoutControlGroup4.Text = "Extra In Portal";
             // 
             // layoutControlItem3
@@ -1247,9 +1290,27 @@
             this.layoutControlItem3.Control = this.eGridControl;
             this.layoutControlItem3.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem3.Name = "layoutControlItem3";
-            this.layoutControlItem3.Size = new System.Drawing.Size(770, 324);
+            this.layoutControlItem3.Size = new System.Drawing.Size(805, 324);
             this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem3.TextVisible = false;
+            // 
+            // layoutControlItem5
+            // 
+            this.layoutControlItem5.Control = this.gst2BSimpleButton;
+            this.layoutControlItem5.Location = new System.Drawing.Point(365, 0);
+            this.layoutControlItem5.Name = "layoutControlItem5";
+            this.layoutControlItem5.Size = new System.Drawing.Size(162, 32);
+            this.layoutControlItem5.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem5.TextVisible = false;
+            // 
+            // layoutControlItem9
+            // 
+            this.layoutControlItem9.Control = this.reco2BSimpleButton;
+            this.layoutControlItem9.Location = new System.Drawing.Point(537, 0);
+            this.layoutControlItem9.Name = "layoutControlItem9";
+            this.layoutControlItem9.Size = new System.Drawing.Size(146, 32);
+            this.layoutControlItem9.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem9.TextVisible = false;
             // 
             // splashScreenManager1
             // 
@@ -1260,11 +1321,11 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cancelSimpleButton;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(835, 450);
             this.Controls.Add(this.layoutControl1);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "Gst2Reconcile";
-            this.Text = "Gstr2A Reconcile";
+            this.Text = "Gstr2A/2B Reconcile";
             this.tableLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
@@ -1286,14 +1347,16 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabbedControlGroup1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1410,5 +1473,9 @@
         private Core.Shared.Libs.CustomGridColumn colTaxable2;
         private Core.Shared.Libs.CustomGridColumn colVoucherType1;
         private Core.Shared.Libs.CustomGridColumn colVTypeId1;
+        private DevExpress.XtraEditors.SimpleButton gst2BSimpleButton;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem5;
+        private DevExpress.XtraEditors.SimpleButton reco2BSimpleButton;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem9;
     }
 }

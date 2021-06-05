@@ -1821,8 +1821,9 @@ namespace Konto.Trading.JobReceipt
            
             if (model.Id == 0)
             {
-                model.VoucherNo = DbUtils.NextSerialNo(model.VoucherId, db);
-                if (DbUtils.CheckExistVoucherNo(model.VoucherId, model.VoucherNo, db, model.Id))
+                if(!voucherLookup1.GroupDto.ManualSeries)
+                    model.VoucherNo = DbUtils.NextSerialNo(model.VoucherId, db);
+                if (DbUtils.CheckExistChllanVoucherNo(model.VoucherId, model.VoucherNo, db, model.Id))
                 {
                     MessageBox.Show("Duplicate Voucher No Not Allowed");
                     return false;
@@ -1885,13 +1886,13 @@ namespace Konto.Trading.JobReceipt
             
             if (this.PrimaryKey == 0)
             {
-               
-                billModel.VoucherNo = DbUtils.NextSerialNo((int)billModel.VoucherId, db);
-                if (DbUtils.CheckExistVoucherNo(billModel.VoucherId, billModel.VoucherNo, db, billModel.Id))
-                {
-                    MessageBox.Show("Duplicate Voucher No Not Allowed");
-                    return false;
-                }
+
+                billModel.VoucherNo = model.VoucherNo;  //DbUtils.NextSerialNo((int)billModel.VoucherId, db);
+                //if (DbUtils.CheckExistVoucherNo(billModel.VoucherId, billModel.VoucherNo, db, billModel.Id))
+                //{
+                //    MessageBox.Show("Duplicate Voucher No Not Allowed");
+                //    return false;
+                //}
                 db.Bills.Add(billModel);
                 db.SaveChanges();
             }

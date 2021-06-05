@@ -236,7 +236,11 @@ namespace Konto.Core.Shared.Frms
                 this.KontoMainView.Assign(frm.gridView1, false);
                 KontoUtils.SaveLayoutGrid(this.GridLayoutFile, KontoMainView);
             }
-
+            else if (keyData == Keys.Escape && this.tabControlAdv1.SelectedIndex > 0)
+            {
+                this.Close();
+                return true;
+            }
             return base.ProcessCmdKey(ref msg, keyData);
         }
 

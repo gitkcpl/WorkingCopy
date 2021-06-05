@@ -131,7 +131,7 @@ namespace Konto.Trading.MillIssue
         {
             colColorName.Visible = GRNPara.Color_Required;
             colDesignNo.Visible = GRNPara.Design_Required;
-           
+            this.gridView1.OptionsNavigation.EnterMoveNextColumn = true;
         }
         private MiTransDto PreOpenLookup()
         {
@@ -660,7 +660,7 @@ namespace Konto.Trading.MillIssue
             if (itm == null) return;
             if ("Pcs,Qty".Contains(gridView1.FocusedColumn.FieldName)  && this.prodDtos.Any(x => x.TransId == itm.Id))
                 e.Cancel = true;
-            else if (Convert.ToInt32(itm.RefId) > 0) 
+            else if (Convert.ToInt32(itm.RefId) > 0)
                 e.Cancel = true;
         }
 
@@ -685,8 +685,17 @@ namespace Konto.Trading.MillIssue
         }
         private void GridView1_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode != Keys.Delete) return;
+          
 
+
+            CancelEventArgs args = new CancelEventArgs(false);
+            GridView1_ShowingEditor(sender, args);
+            if (e.KeyData == Keys.Enter && args.Cancel)
+            {
+                gridView1.FocusedColumn = gridView1.VisibleColumns[gridView1.FocusedColumn.VisibleIndex + 1];
+                return;
+            }
+            if (e.KeyCode != Keys.Delete) return;
             if (e.KeyCode == Keys.Delete && e.Modifiers == Keys.Control)
             {
                 if (MessageBox.Show("Delete row?", "Confirmation", MessageBoxButtons.YesNo) !=
@@ -1293,7 +1302,7 @@ namespace Konto.Trading.MillIssue
                             if (!voucherLookup1.GroupDto.ManualSeries)
                                 model.VoucherNo = DbUtils.NextSerialNo(model.VoucherId, db);
 
-                            if (DbUtils.CheckExistVoucherNo(model.VoucherId, model.VoucherNo, db, model.Id))
+                            if (DbUtils.CheckExistChllanVoucherNo(model.VoucherId, model.VoucherNo, db, model.Id))
                             {
                                 MessageBox.Show("Duplicate Challan/Voucher No Not Allowed");
                                 voucherNoTextEdit.Focus();

@@ -444,9 +444,23 @@ namespace Konto.Shared.Trans.ST
                 foreach (var item in groupbyItem)
                 {
                     var checkforstock = db.Products.FirstOrDefault(k => k.Id == item.Key);
+                    
+                    if(!checkforstock.CheckNegative) continue;
+                    
                     var Qty = trans.Where(k => k.ProductId == checkforstock.Id).Sum(k => k.Qty);
-                    var stockBal = db.StockBals.Where(k => k.ProductId == checkforstock.Id && k.BranchId == KontoGlobals.BranchId).Sum(k => k.BalQty + k.OpQty);
-                    if (checkforstock.CheckNegative && Qty > stockBal)
+
+                    decimal oldqty = 0;
+
+                    if (this.PrimaryKey > 0)
+                    {
+                        oldqty = (from p in db.ChallanTranses
+                            where p.ChallanId == this.PrimaryKey && p.ProductId == item.Key
+                            select (decimal?)p.Qty).Sum() ?? 0;
+                    }
+
+                    var stockBal = DbUtils.GetCurrentStock(item.Key, Convert.ToInt32(fromBranchLookUpEdit.EditValue) ) + oldqty;
+                    
+                    if (Qty > stockBal)
                     {
                         MessageBox.Show("Stock not available of Item " + checkforstock.ProductName + " Available Stock Only " + stockBal);
                         //     IsSaveComplete = true;
@@ -515,20 +529,12 @@ namespace Konto.Shared.Trans.ST
                     var _list = (from ct in _context.ChallanTranses
                                  join pd in _context.Products on ct.ProductId equals pd.Id into join_pd
                                  from pd in join_pd.DefaultIfEmpty()
-                                 join ot in _context.OrdTranses on ct.RefId equals ot.Id into join_ot
-                                 from ot in join_ot.DefaultIfEmpty()
-                                 join o in _context.Ords on ot.OrdId equals o.Id into join_o
-                                 from o in join_o.DefaultIfEmpty()
                                  join cl in _context.ColorModels on ct.ColorId equals cl.Id into join_cl
                                  from cl in join_cl.DefaultIfEmpty()
                                  join dm in _context.Products on ct.DesignId equals dm.Id into join_dm
                                  from dm in join_dm.DefaultIfEmpty()
-                                 join np in _context.Products on ct.NProductId equals np.Id into join_np
-                                 from np in join_np.DefaultIfEmpty()
                                  join grd in _context.Grades on ct.GradeId equals grd.Id into join_grd
                                  from grd in join_grd.DefaultIfEmpty()
-                                 join acc in _context.Accs on o.AccId equals acc.Id into join_acc
-                                 from acc in join_acc.DefaultIfEmpty()
                                  orderby ct.Id
                                  where ct.IsActive == true && ct.IsDeleted == false &&
                                  ct.ChallanId == model.Id
@@ -570,15 +576,14 @@ namespace Konto.Shared.Trans.ST
                                      SgstPer = ct.SgstPer,
                                      Total = ct.Total,
                                      UomId = (int)ct.UomId,
-                                     OrdNo = o.VoucherNo,
-                                     ODate = o.VoucherDate,BarcodeNo = pd.BarCode
+                                    BarcodeNo = pd.BarCode
                                  }).ToList();
 
                     foreach (var item in _list)
                     {
                         item.FromStock =
-                            DbUtils.GetCurrentStock(item.Id, Convert.ToInt32(fromBranchLookUpEdit.EditValue));
-                        item.ToStock = DbUtils.GetCurrentStock(item.Id, Convert.ToInt32(toBranchLookUpEdit.EditValue));
+                            DbUtils.GetCurrentStock(item.ProductId, Convert.ToInt32(fromBranchLookUpEdit.EditValue));
+                        item.ToStock = DbUtils.GetCurrentStock(item.ProductId, Convert.ToInt32(toBranchLookUpEdit.EditValue));
                     }
                     
                     this.grnTransDtoBindingSource1.DataSource = _list;
@@ -689,6 +694,10 @@ namespace Konto.Shared.Trans.ST
                     er.ProductName = pos.ProductName;
                     er.ProductId = pos.Id;
                     er.UomId = pos.PurUomId;
+                    er.ColorId = pos.ColorId;
+                    er.ColorName = pos.ColorName;
+                    er.Pcs = 1;
+                    er.Qty = er.FromStock;
                     er.Rate = pos.DealerPrice;
                     er.SgstPer = pos.Sgst;
                     er.CgstPer = pos.Cgst;
@@ -1113,7 +1122,7 @@ namespace Konto.Shared.Trans.ST
                         if (this.PrimaryKey == 0)
                         {
                             _find.VoucherNo = DbUtils.NextSerialNo(_find.VoucherId, db);
-                            if (DbUtils.CheckExistVoucherNo(_find.VoucherId, _find.VoucherNo, db, _find.Id))
+                            if (DbUtils.CheckExistChllanVoucherNo(_find.VoucherId, _find.VoucherNo, db, _find.Id))
                             {
                                 MessageBox.Show("Duplicate Voucher No Not Allowed");
                                

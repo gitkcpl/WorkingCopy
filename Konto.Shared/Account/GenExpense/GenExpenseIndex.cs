@@ -87,11 +87,19 @@ namespace Konto.Shared.Account.GenExpense
             this.Load += GenExpIndex_Load;
             tcsPerTextEdit.EditValueChanged += TcsPerTextEdit_EditValueChanged;
             tcsAmtTextEdit.EditValueChanged += TcsAmtTextEdit_EditValueChanged;
-
+            this.voucherDateEdit.EditValueChanged += VoucherDateEdit_EditValueChanged;
             this.FirstActiveControl = invTypeLookUpEdit;
 
             //this.accLookup1.ShownPopup += AccLookup1_ShownPopup;
         }
+
+        private void VoucherDateEdit_EditValueChanged(object sender, EventArgs e)
+        {
+            if (this.PrimaryKey != 0) return;
+            billDateEdit.EditValue = voucherDateEdit.EditValue;
+            lrDateEdit.EditValue = voucherDateEdit.EditValue;
+        }
+
         private void TcsAmtTextEdit_EditValueChanged(object sender, EventArgs e)
         {
             FinalTotal();
@@ -445,17 +453,34 @@ namespace Konto.Shared.Account.GenExpense
 
             if (dr != null && this.accLookup1.LookupDto!=null)
             {
-                if (this.accLookup1.LookupDto.IsGst)
+                if ((this.accLookup1.LookupDto.VatTds == "REG" || this.accLookup1.LookupDto.VatTds=="ECOM") || rcmLookUpEdit.Text.ToUpper() == "YES")
                 {
-                    er.SgstPer = dr.Sgst;
-                    er.CgstPer = dr.Cgst;
-                    er.IgstPer = 0;
+                    if (this.accLookup1.LookupDto.IsGst)
+                    {
+                        er.SgstPer = dr.Sgst;
+                        er.CgstPer = dr.Cgst;
+                        er.IgstPer = 0;
+                        er.Igst = 0;
+                    }
+                    else
+                    {
+                        er.IgstPer = dr.Igst;
+                        er.SgstPer = 0;
+                        er.CgstPer = 0;
+                        er.Cgst = 0;
+                        er.Sgst = 0;
+                    }
                 }
                 else
                 {
-                    er.IgstPer = dr.Igst;
                     er.SgstPer = 0;
+                    er.Sgst = 0;
                     er.CgstPer = 0;
+                    er.Cgst = 0;
+                    er.IgstPer = 0;
+                    er.Igst = 0;
+                    er.Cess = 0;
+                    er.CessPer = 0;
                 }
             }
             er.Total = decimal.Round( er.Qty * er.Rate, 2);
@@ -1111,6 +1136,7 @@ namespace Konto.Shared.Account.GenExpense
                 var row = view.GetRow(view.FocusedRowHandle) as ExpTransDto;
                 view.DeleteRow(view.FocusedRowHandle);
                 DelTrans.Add(row);
+                FinalTotal();
             }
             
         }

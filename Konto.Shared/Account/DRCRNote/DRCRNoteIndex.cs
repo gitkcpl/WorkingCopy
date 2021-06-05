@@ -670,6 +670,7 @@ namespace Konto.Shared.Account.DRCRNote
                 var row = view.GetRow(view.FocusedRowHandle) as ExpTransDto;
                 view.DeleteRow(view.FocusedRowHandle);
                 DelTrans.Add(row);
+                FinalTotal();
             }
             
         }

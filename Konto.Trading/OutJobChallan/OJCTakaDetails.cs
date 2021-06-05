@@ -10,6 +10,7 @@ using System;
 using System.Drawing;
 using System.Windows.Forms;
 using DevExpress.Data;
+using DevExpress.XtraGrid;
 
 namespace Konto.Trading.OutJobChallan
 {
@@ -32,7 +33,45 @@ namespace Konto.Trading.OutJobChallan
             this.gridView1.ValidateRow += GridView1_ValidateRow;
             this.gridView1.InvalidRowException += GridView1_InvalidRowException;
             this.gridView1.CustomSummaryCalculate += GridView1_CustomSummaryCalculate;
+            this.headerEdit.Leave += headerEdit_Leave;
+           
+            
+            this.gridView1.KeyDown += GridView1_KeyDown;
         }
+
+        private void GridView1_KeyDown(object sender, KeyEventArgs e)
+        {
+            var gv = sender as GridView;
+            if (e.KeyCode != Keys.Enter ||
+                gv.FocusedColumn.FieldName == "GrayMtr") return;
+
+
+            gridView1.PostEditor();
+            gridView1.UpdateCurrentRow();
+            if (gv.FocusedColumn.FieldName == "TP1" && Convert.ToDecimal(gridView1.GetFocusedValue()) == 0)
+            {
+            
+                e.Handled = true;
+                okSimpleButton.Focus();
+                return;
+            }
+            if (Convert.ToDecimal(gridView1.GetFocusedValue()) == 0)
+            {
+                if (gridView1.FocusedRowHandle == gridView1.RowCount - 2)
+                {
+                    e.Handled = true;
+                    okSimpleButton.Focus();
+                    return;
+                }
+                gv.FocusedColumn = colTP1;
+                gv.FocusedRowHandle = gridView1.FocusedRowHandle + 1;
+            }
+
+            
+        }
+
+        
+       
 
         private decimal _GreyMtrs;
         private int _GreyPcs, _finPcs;
@@ -109,6 +148,7 @@ namespace Konto.Trading.OutJobChallan
         {
             this.ActiveControl = gridControl1;
             this.gridView1.FocusedColumn = colTP1;
+            this.gridView1.OptionsNavigation.EnterMoveNextColumn = true;
         }
         private void GridView1_MouseUp(object sender, MouseEventArgs e)
         {

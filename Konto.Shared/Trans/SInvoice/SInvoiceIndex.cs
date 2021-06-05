@@ -1361,13 +1361,14 @@ namespace Konto.Shared.Trans.SInvoice
 
                         if (this.PrimaryKey > 0)
                         {
-                            oldqty = db.BillTrans.Where(x => x.BillId == this.PrimaryKey && x.ProductId == item.Key)
-                                .Sum(x => x.Qty);
+                            oldqty = (from p in db.BillTrans
+                              where p.BillId == this.PrimaryKey && p.ProductId == item.Key
+                              select (decimal?)p.Qty).Sum() ?? 0;
                         }
 
                         var Qty = trans.Where(k => k.ProductId == checkforstock.Id).Sum(k => k.Qty);
 
-                        var stockBal = DbUtils.GetCurrentStock(checkforstock.Id, 0) + oldqty;
+                        var stockBal = DbUtils.GetCurrentStock(checkforstock.Id, KontoGlobals.BranchId) + oldqty;
 
                         if (Qty > stockBal)
                         {

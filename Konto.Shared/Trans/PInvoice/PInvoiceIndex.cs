@@ -101,9 +101,17 @@ namespace Konto.Shared.Trans.PInvoice
 
             tcsPerTextEdit.EditValueChanged += TcsPerTextEdit_EditValueChanged;
             tcsAmtTextEdit.EditValueChanged += TcsAmtTextEdit_EditValueChanged;
-
+            voucherDateEdit.EditValueChanged += VoucherDateEdit_EditValueChanged;
             this.FirstActiveControl = invTypeLookUpEdit;
         }
+
+        private void VoucherDateEdit_EditValueChanged(object sender, EventArgs e)
+        {
+            if(this.PrimaryKey!=0) return;
+            billDateEdit.EditValue = voucherDateEdit.EditValue;
+            lrDateEdit.EditValue = voucherDateEdit.EditValue;
+        }
+
         private void TcsAmtTextEdit_EditValueChanged(object sender, EventArgs e)
         {
             FinalTotal();
@@ -526,12 +534,25 @@ namespace Konto.Shared.Trans.PInvoice
 
                 er.Cut = model.Cut;
 
-                if (accLookup1.LookupDto.IsGst && !isImortOrSez)
+                if ((this.accLookup1.LookupDto.VatTds == "REG" || this.accLookup1.LookupDto.VatTds == "ECOM") ||
+                    rcmLookUpEdit.Text.ToUpper() == "YES")
                 {
-                    er.SgstPer = model.Sgst;
-                    er.CgstPer = model.Cgst;
-                    er.IgstPer = 0;
-                    er.Igst = 0;
+                    if (accLookup1.LookupDto.IsGst && !isImortOrSez)
+                    {
+                        er.SgstPer = model.Sgst;
+                        er.CgstPer = model.Cgst;
+                        er.IgstPer = 0;
+                        er.Igst = 0;
+                    }
+                    else
+                    {
+                        er.SgstPer = 0;
+                        er.Sgst = 0;
+                        er.CgstPer = 0;
+                        er.Cgst = 0;
+                        er.IgstPer = model.Igst;
+                    }
+                    er.CessPer = model.Cess;
                 }
                 else
                 {
@@ -539,9 +560,13 @@ namespace Konto.Shared.Trans.PInvoice
                     er.Sgst = 0;
                     er.CgstPer = 0;
                     er.Cgst = 0;
-                    er.IgstPer = model.Igst;
+                    er.IgstPer =0;
+                    er.Igst = 0;
+                    er.Cess = 0;
+                    er.CessPer = 0;
                 }
-                er.CessPer = model.Cess;
+
+                
 
                 // Product serial implementaion
 

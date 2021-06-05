@@ -48,7 +48,8 @@
             // 
             // radioGroup1
             // 
-            this.radioGroup1.EditValue = "A";
+            this.radioGroup1.EditValue = "N";
+            this.radioGroup1.EnterMoveNextControl = true;
             this.radioGroup1.Location = new System.Drawing.Point(12, 12);
             this.radioGroup1.Name = "radioGroup1";
             this.radioGroup1.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -71,6 +72,7 @@
             // 
             // checkEdit1
             // 
+            this.checkEdit1.EnterMoveNextControl = true;
             this.checkEdit1.Location = new System.Drawing.Point(218, 81);
             this.checkEdit1.Name = "checkEdit1";
             this.checkEdit1.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -88,9 +90,10 @@
             this.accLookup1.GroupId = 0;
             this.accLookup1.Location = new System.Drawing.Point(90, 122);
             this.accLookup1.LookupDto = null;
+            this.accLookup1.LookupTitle = null;
             this.accLookup1.Name = "accLookup1";
             this.accLookup1.Nature = null;
-            this.accLookup1.NewGroupId = 0;
+            this.accLookup1.NewGroupId = Konto.App.Shared.LedgerGroupEnum.NONE;
             this.accLookup1.PrimaryKey = null;
             this.accLookup1.RequiredField = true;
             this.accLookup1.SelectedText = null;
@@ -150,7 +153,7 @@
             this.okSimpleButton.Name = "okSimpleButton";
             this.okSimpleButton.Size = new System.Drawing.Size(86, 31);
             this.okSimpleButton.TabIndex = 0;
-            this.okSimpleButton.Text = "Ok [F3]";
+            this.okSimpleButton.Text = "Ok";
             this.okSimpleButton.Click += new System.EventHandler(this.okSimpleButton_Click);
             // 
             // textEdit1
@@ -160,6 +163,7 @@
             0,
             0,
             0});
+            this.textEdit1.EnterMoveNextControl = true;
             this.textEdit1.Location = new System.Drawing.Point(90, 80);
             this.textEdit1.Name = "textEdit1";
             this.textEdit1.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -174,6 +178,7 @@
             // 
             // challanCheckEdit
             // 
+            this.challanCheckEdit.EnterMoveNextControl = true;
             this.challanCheckEdit.Location = new System.Drawing.Point(90, 157);
             this.challanCheckEdit.Name = "challanCheckEdit";
             this.challanCheckEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -182,7 +187,7 @@
             this.challanCheckEdit.Properties.Appearance.Options.UseForeColor = true;
             this.challanCheckEdit.Properties.Caption = "Seperate Challan For Each Lot";
             this.challanCheckEdit.Size = new System.Drawing.Size(243, 21);
-            this.challanCheckEdit.TabIndex = 8;
+            this.challanCheckEdit.TabIndex = 4;
             // 
             // MiOptionView
             // 

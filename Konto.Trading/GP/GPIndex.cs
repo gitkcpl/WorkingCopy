@@ -95,8 +95,18 @@ namespace Konto.Trading.GP
 
             tcsPerTextEdit.EditValueChanged += TcsPerTextEdit_EditValueChanged;
             tcsAmtTextEdit.EditValueChanged += TcsAmtTextEdit_EditValueChanged;
-
+            this.voucherDateEdit.EditValueChanged += VoucherDateEdit_EditValueChanged;
             this.FirstActiveControl = voucherLookup1;
+            
+        }
+
+        private void VoucherDateEdit_EditValueChanged(object sender, EventArgs e)
+        {
+            if (this.PrimaryKey == 0)
+            {
+                billDateEdit.EditValue = voucherDateEdit.EditValue;
+                lrDateEdit.EditValue = voucherDateEdit.EditValue;
+            }
         }
 
         private void TcsAmtTextEdit_EditValueChanged(object sender, EventArgs e)
@@ -126,6 +136,14 @@ namespace Konto.Trading.GP
             if (this.PrimaryKey == 0 && Convert.ToInt32(voucherLookup1.SelectedValue) > 0)
             {
                 voucherNoTextEdit.Text = "New-" + DbUtils.NextSerialNo(Convert.ToInt32(voucherLookup1.SelectedValue), 1);
+            }
+            if (voucherLookup1.GroupDto != null && voucherLookup1.GroupDto.ManualSeries)
+            {
+                voucherNoTextEdit.Enabled = true;
+            }
+            else
+            {
+                voucherNoTextEdit.Enabled = false;
             }
         }
 
@@ -1733,7 +1751,7 @@ namespace Konto.Trading.GP
                         win.Model = _find;
                         win.TranModel = Trans.FirstOrDefault();
                         win.MIProdList = ProdList.Where(x => x.TransId == win.TranModel.Id).ToList();
-                        if (win.ShowDialog() == DialogResult.OK)
+                        if (win.ShowDialog() == DialogResult.OK && !win.IsOpenIssued)
                         {
                             if (MessageBox.Show("Print Mill Issue?", "Confirmation !!", MessageBoxButtons.YesNo) == DialogResult.Yes)
                             {
@@ -1805,8 +1823,10 @@ namespace Konto.Trading.GP
 
             if (model.Id == 0)
             {
-                model.VoucherNo = DbUtils.NextSerialNo(model.VoucherId, db);
-                if (DbUtils.CheckExistVoucherNo(model.VoucherId, model.VoucherNo, db, model.Id))
+                if(!voucherLookup1.GroupDto.ManualSeries)
+                    model.VoucherNo = DbUtils.NextSerialNo(model.VoucherId, db);
+
+                if (DbUtils.CheckExistChllanVoucherNo(model.VoucherId, model.VoucherNo, db, model.Id))
                 {
                     MessageBox.Show("Duplicate Voucher No Not Allowed");
                     return false;
@@ -1868,13 +1888,13 @@ namespace Konto.Trading.GP
                 int vtypeid = (int)VoucherTypeEnum.GrayPurchaseInvoice;
                 var vouchr = db.Vouchers.FirstOrDefault(k => k.VTypeId == vtypeid);
                 billModel.VoucherId = vouchr.Id;
-                billModel.VoucherNo = DbUtils.NextSerialNo((int)billModel.VoucherId, db);
+                billModel.VoucherNo = model.VoucherNo;  //DbUtils.NextSerialNo((int)billModel.VoucherId, db);
 
-                if (DbUtils.CheckExistVoucherNo(billModel.VoucherId, billModel.VoucherNo, db, billModel.Id))
-                {
-                    MessageBox.Show("Duplicate Voucher No Not Allowed");
-                    return false;
-                }
+                //if (DbUtils.CheckExistVoucherNo(billModel.VoucherId, billModel.VoucherNo, db, billModel.Id))
+                //{
+                //    MessageBox.Show("Duplicate Voucher No Not Allowed");
+                //    return false;
+                //}
 
                 db.Bills.Add(billModel);
                 db.SaveChanges();
@@ -1918,18 +1938,18 @@ namespace Konto.Trading.GP
                 btModel.CessPer = ctrModel.CessPer != 0 ? (decimal)ctrModel.CessPer : 0;
                 btModel.Cess = ctrModel.Cess != 0 ? (decimal)ctrModel.Cess : 0;
 
-                btModel.Total = decimal.Round(btModel.Qty * btModel.Rate, 2, MidpointRounding.AwayFromZero);
+                btModel.Total = ctrModel.Gross;
                 btModel.DiscAmt = btModel.Total * btModel.Disc / 100;
                 if (btModel.DiscAmt == 0)
                     btModel.DiscAmt = ctrModel.Disc;
 
-                decimal gross = btModel.Total - btModel.DiscAmt + btModel.Freight + btModel.OtherAdd - btModel.OtherLess;
+                //  decimal gross = btModel.Total - btModel.DiscAmt + btModel.Freight + btModel.OtherAdd - btModel.OtherLess;
 
-                btModel.Sgst = decimal.Round(gross * btModel.SgstPer / 100, 2, MidpointRounding.AwayFromZero);
-                btModel.Cgst = decimal.Round(gross * btModel.CgstPer / 100, 2, MidpointRounding.AwayFromZero); //, MidpointRounding.AwayFromZero);
-                btModel.Igst = decimal.Round(gross * btModel.IgstPer / 100, 2, MidpointRounding.AwayFromZero); //, MidpointRounding.AwayFromZero);
+                //    btModel.Sgst = decimal.Round(gross * btModel.SgstPer / 100, 2, MidpointRounding.AwayFromZero);
+                //  btModel.Cgst = decimal.Round(gross * btModel.CgstPer / 100, 2, MidpointRounding.AwayFromZero); //, MidpointRounding.AwayFromZero);
+                // btModel.Igst = decimal.Round(gross * btModel.IgstPer / 100, 2, MidpointRounding.AwayFromZero); //, MidpointRounding.AwayFromZero);
 
-                btModel.NetTotal = decimal.Round(gross + btModel.Sgst + btModel.Cgst + btModel.Igst, 2, MidpointRounding.AwayFromZero);
+                btModel.NetTotal = ctrModel.Total;
                 btModel.BillId = billModel.Id;
                 db.BillTrans.Add(btModel);
                 billTrans.Add(btModel);

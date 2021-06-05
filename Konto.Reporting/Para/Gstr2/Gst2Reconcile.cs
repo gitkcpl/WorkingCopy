@@ -33,6 +33,157 @@ namespace Konto.Reporting.Para.Gstr2
             umGridControl.ProcessGridKey += UmGridControl_ProcessGridKey;
 
             this.FirstActiveControl = textEdit1;
+            this.gst2BSimpleButton.Click += Gst2BSimpleButton_ClickAsync;
+        }
+
+        private  async  void Gst2BSimpleButton_ClickAsync(object sender, EventArgs e)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(textEdit1.Text))
+                {
+                    MessageBox.Show("Enter Period In MMYYYY(122020) Format");
+                    textEdit1.Focus();
+                    return;
+                }
+
+                var intprd = textEdit1.Text;
+
+                using (var _db = new KontoContext())
+                {
+                    var _exist = _db.Gstr2ADumps.Any(x => x.FPrd == intprd && x.TransType == "B2B" && x.Is2B);
+                    if (_exist)
+                    {
+                        if (MessageBox.Show("Data Already Exist for Selected Period. Do you want to download Again..", "Download !", MessageBoxButtons.YesNo) == DialogResult.No)
+                            return;
+                    }
+
+                }
+
+
+                splashScreenManager1.ShowWaitForm();
+
+                var yr = Convert.ToInt32(textEdit1.Text.Substring(2));
+                var mon = Convert.ToInt32(textEdit1.Text.Substring(0, 2));
+                var lstday = DateTime.DaysInMonth(yr, mon);
+
+                var fdate = Convert.ToInt32(yr.ToString() + textEdit1.Text.Substring(0, 2) + "01");
+                var tdate = Convert.ToInt32(yr.ToString() + textEdit1.Text.Substring(0, 2) + lstday.ToString());
+
+
+                //txtAPIResponse.Text = "Please wait...";
+                await Task.Delay(200);
+
+                if (File.Exists("Response.json"))
+                    File.Delete("Response.json");
+
+                TxnRespWithObj<GSTR2BJson> txnResp = new TxnRespWithObj<GSTR2BJson>();
+                txnResp = await GSTR2BAPI.GetAllDetails(GstSession, "Get GSTR-2B Data", KontoGlobals.GstIn, textEdit1.Text, "", true, "Response.json");
+
+                if (txnResp.IsSuccess)
+                {
+                    var gstdumps = new List<Gstr2ADump>();
+
+                    using (var db = new KontoContext())
+                    {
+
+
+                        foreach (var item in txnResp.RespObj.data.docdata.b2b)
+                        {
+
+                            foreach (var inv in item.inv)
+                            {
+
+                                var bm = new Gstr2ADump();
+                                var bts = new List<Gstr2ATransDump>();
+                                bm.FileDate = Convert.ToDateTime(item.supfildt);
+                                bm.FilePeriod = item.supprd;
+                                bm.GstIn = item.ctin;
+                                bm.InvoiceDate = inv.dt;
+                                bm.InvoiceNo = inv.inum;
+                                bm.InvoiceValue = Convert.ToDecimal(inv.val);
+                                bm.Pos = inv.pos;
+                                bm.TransType = "B2B";
+                                bm.FPrd = textEdit1.Text.Trim();
+                                bm.CompId = KontoGlobals.CompanyId;
+                                bm.YearId = KontoGlobals.YearId;
+                                bm.CreateDate = DateTime.Now;
+                                bm.Is2B = true;
+                                foreach (var det in inv.items)
+                                {
+                                    var bs = new Gstr2ATransDump();
+                                    bs.Cess = Convert.ToDecimal(det.cess);
+                                    bs.Cgst = Convert.ToDecimal(det.cgst);
+                                    bs.Igst = Convert.ToDecimal(det.igst);
+                                    bs.Sgst = Convert.ToDecimal(det.sgst);
+                                    bs.Taxable = Convert.ToDecimal(det.txval);
+                                    bs.TaxRate = Convert.ToDecimal(det.rt);
+                                    bts.Add(bs);
+                                }
+
+                                bm.Cess = bts.Sum(x => x.Cess);
+                                bm.Cgst = bts.Sum(x => x.Cgst);
+                                bm.Igst = bts.Sum(x => x.Igst);
+                                bm.Sgst = bts.Sum(x => x.Sgst);
+                                bm.Taxable = bts.Sum(x => x.Taxable);
+                                bm.TaxRate = bts.FirstOrDefault().TaxRate;
+                                bm.Gstr2aTrans = bts;
+
+                                var bill = (from p in db.Bills
+                                            join ac in db.Accs on p.AccId equals ac.Id
+                                            where p.BillNo == bm.InvoiceNo && ac.GstIn == bm.GstIn
+                                            && (p.TotalAmount == bm.InvoiceValue || p.TotalAmount - bm.InvoiceValue <= (decimal)0.5)
+                                            && p.VoucherDate >= fdate && p.VoucherDate <= tdate
+                                            && p.CompId == KontoGlobals.CompanyId && !p.IsDeleted && p.IsActive
+                                            select p).FirstOrDefault();
+
+                                if (bill != null)
+                                    bm.Billid = bill.Id;
+
+                                gstdumps.Add(bm);
+                            }
+                        }
+
+                        //var dmp = gstdumps[0];
+                        if (gstdumps.Count > 0)
+                        {
+                            var prd = gstdumps[0].FilePeriod;
+                            var _exist = db.Gstr2ADumps.Where(x => x.FilePeriod == prd && x.Is2B).ToList();
+
+                            if (_exist.Count > 0)
+                            {
+                                db.Gstr2ADumps.RemoveRange(_exist);
+                            }
+
+
+                            db.Gstr2ADumps.AddRange(gstdumps);
+                            db.SaveChanges();
+
+                            gstr2ADumpBindingSource.DataSource = gstdumps;
+                            gridControl1.RefreshDataSource();
+
+                            GetMatchData(db, intprd,1);
+                        }
+
+
+                    }
+
+
+
+                }
+                else
+                    MessageBox.Show(txnResp.TxnOutcome);
+
+                splashScreenManager1.CloseWaitForm();
+
+            }
+            catch (Exception ex)
+            {
+                if (splashScreenManager1.IsSplashFormVisible) splashScreenManager1.CloseWaitForm();
+                MessageBox.Show(ex.Message);
+
+            }
+
         }
 
         private void UmGridControl_ProcessGridKey(object sender, KeyEventArgs e)
@@ -115,20 +266,22 @@ namespace Konto.Reporting.Para.Gstr2
         {
             try
             {
-                if (string.IsNullOrEmpty(textEdit1.Text))
-                {
-                    MessageBox.Show("Enter Period In MMYYYY(122020) Format");
-                    textEdit1.Focus();
-                    return;
-                }
+                //if (string.IsNullOrEmpty(textEdit1.Text))
+                //{
+                //    MessageBox.Show("Enter Period In MMYYYY(122020) Format");
+                //    textEdit1.Focus();
+                //    return;
+                //}
 
-                var intprd = textEdit1.Text;
+                //var intprd = textEdit1.Text;
 
                 splashScreenManager1.ShowWaitForm();
 
                 using (var db = new KontoContext())
                 {
-                    var gstrdumps = db.Gstr2ADumps.Where(x => x.FPrd == intprd && x.TransType=="B2B" && x.CompId== KontoGlobals.CompanyId).ToList();
+                    var gstrdumps = db.Gstr2ADumps.Where(x => (x.InvoiceDate >= KontoGlobals.DFromDate
+                        && x.InvoiceDate<=KontoGlobals.DToDate) && x.TransType=="B2B" && !x.Is2B && x.CompId== KontoGlobals.CompanyId).ToList();
+
                     foreach (var item in gstrdumps)
                     {
                         var bill = (from p in db.Bills
@@ -149,7 +302,7 @@ namespace Konto.Reporting.Para.Gstr2
                     gstr2ADumpBindingSource.DataSource = gstrdumps;
                     gridControl1.RefreshDataSource();
 
-                    GetMatchData(db, intprd);
+                    GetMatchData(db, "",0);
 
                     
                 }
@@ -180,7 +333,7 @@ namespace Konto.Reporting.Para.Gstr2
 
                 using (var _db = new KontoContext())
                 {
-                    var _exist = _db.Gstr2ADumps.Any(x => x.FPrd == intprd && x.TransType == "B2B");
+                    var _exist = _db.Gstr2ADumps.Any(x => x.FPrd == intprd && x.TransType == "B2B" && !x.Is2B);
                         if (_exist)
                     {
                         if (MessageBox.Show("Data Already Exist for Selected Period. Do you want to download Again..", "Download !", MessageBoxButtons.YesNo) == DialogResult.No)
@@ -205,6 +358,8 @@ namespace Konto.Reporting.Para.Gstr2
 
                 if (File.Exists("Response.json"))
                     File.Delete("Response.json");
+
+               
 
                 TxnRespWithObj<Gstr2Json> txnResp = new TxnRespWithObj<Gstr2Json>();
                 txnResp = await GSTR2API.GetGstr2ADataScheduleAsync(GstSession, "B2B", "Get " + "B2B" + " Data", KontoGlobals.GstIn , textEdit1.Text, "", "", "", true, "", "Response.json");
@@ -237,6 +392,7 @@ namespace Konto.Reporting.Para.Gstr2
                                 bm.CompId = KontoGlobals.CompanyId;
                                 bm.YearId = KontoGlobals.YearId;
                                 bm.CreateDate = DateTime.Now;
+                                bm.Is2B = false;
                                 foreach (var det in inv.itms)
                                 {
                                     var bs = new Gstr2ATransDump();
@@ -276,7 +432,7 @@ namespace Konto.Reporting.Para.Gstr2
                         if (gstdumps.Count > 0)
                         {
                             var prd = gstdumps[0].FilePeriod;
-                            var _exist = db.Gstr2ADumps.Where(x => x.FilePeriod == prd).ToList();
+                            var _exist = db.Gstr2ADumps.Where(x => x.FilePeriod == prd && !x.Is2B).ToList();
 
                             if (_exist.Count > 0)
                             {
@@ -290,7 +446,7 @@ namespace Konto.Reporting.Para.Gstr2
                             gstr2ADumpBindingSource.DataSource = gstdumps;
                             gridControl1.RefreshDataSource();
 
-                            GetMatchData(db,intprd);
+                            GetMatchData(db,intprd,0);
                         }
 
                        
@@ -312,22 +468,33 @@ namespace Konto.Reporting.Para.Gstr2
                 
             }
         }
-        private void GetMatchData(KontoContext _db, string prd)
+        private void GetMatchData(KontoContext _db, string prd, int is2B)
         {
-            var yr =Convert.ToInt32(textEdit1.Text.Substring(2));
-            var mon = Convert.ToInt32(textEdit1.Text.Substring(0, 2));
-            var lstday = DateTime.DaysInMonth(yr, mon);
+            var fdate = KontoGlobals.FromDate.ToString();
+            var tdate = KontoGlobals.ToDate.ToString();
 
-            var fdate = yr.ToString() + textEdit1.Text.Substring(0, 2) + "01";
-            var tdate = yr.ToString() + textEdit1.Text.Substring(0, 2) + lstday.ToString();
+            if (!string.IsNullOrEmpty(prd))
+            {
+                var yr = Convert.ToInt32(textEdit1.Text.Substring(2));
+                var mon = Convert.ToInt32(textEdit1.Text.Substring(0, 2));
+                var lstday = DateTime.DaysInMonth(yr, mon);
+
+                 fdate = yr.ToString() + textEdit1.Text.Substring(0, 2) + "01";
+                 tdate = yr.ToString() + textEdit1.Text.Substring(0, 2) + lstday.ToString();
+            }
+            else
+            {
+                prd = "0";
+            }
+            
 
             _db.Database.CommandTimeout = 0;
 
             var lst = _db.Database.SqlQuery<RecoGstr2BtoBDto>(
                    "dbo.gstr2a_reco @fromdate={0},@todate={1},@compid={2}," +
-                   "@match={3},@prd={4}",fdate,tdate,
+                   "@match={3},@prd={4},@is2b={5}", fdate,tdate,
                    Convert.ToInt32(KontoGlobals.CompanyId), 
-                   'Y',prd).ToList();
+                   'Y',prd,is2B).ToList();
 
             mGridControl.DataSource = lst;
 
@@ -368,6 +535,69 @@ namespace Konto.Reporting.Para.Gstr2
         {
             var frm = new frmAuthToken();
             frm.ShowDialog();
+        }
+
+        private void reco2BSimpleButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(textEdit1.Text))
+                {
+                    MessageBox.Show("Enter Period In MMYYYY(122020) Format");
+                    textEdit1.Focus();
+                    return;
+                }
+                var intprd = textEdit1.Text;
+               
+                    var yr = Convert.ToInt32(textEdit1.Text.Substring(2));
+                    var mon = Convert.ToInt32(textEdit1.Text.Substring(0, 2));
+                    var lstday = DateTime.DaysInMonth(yr, mon);
+
+                    var fdate = Convert.ToInt32(yr.ToString() + textEdit1.Text.Substring(0, 2) + "01");
+                    var tdate = Convert.ToInt32(yr.ToString() + textEdit1.Text.Substring(0, 2) + lstday.ToString());
+                
+
+               
+
+                splashScreenManager1.ShowWaitForm();
+
+                using (var db = new KontoContext())
+                {
+                    var gstrdumps = db.Gstr2ADumps.Where(x => x.FPrd==intprd &&  x.TransType == "B2B" && x.Is2B && x.CompId == KontoGlobals.CompanyId).ToList();
+
+                    foreach (var item in gstrdumps)
+                    {
+                        var bill = (from p in db.Bills
+                                    join ac in db.Accs on p.AccId equals ac.Id
+                                    where p.BillNo == item.InvoiceNo && ac.GstIn == item.GstIn
+                                    && (p.TotalAmount == item.InvoiceValue || p.TotalAmount - item.InvoiceValue <= (decimal)0.5)
+                                    && p.VoucherDate >= fdate && p.VoucherDate <= tdate
+                                    && p.CompId == KontoGlobals.CompanyId && !p.IsDeleted && p.IsActive
+                                    select p).FirstOrDefault();
+
+                        item.Billid = 0;
+                        if (bill != null)
+                            item.Billid = bill.Id;
+                    }
+
+                    db.SaveChanges();
+
+                    gstr2ADumpBindingSource.DataSource = gstrdumps;
+                    gridControl1.RefreshDataSource();
+
+                    GetMatchData(db, intprd, 1);
+
+
+                }
+                splashScreenManager1.CloseWaitForm();
+            }
+            catch (Exception ex)
+            {
+
+                if (splashScreenManager1.IsSplashFormVisible) splashScreenManager1.CloseWaitForm();
+                MessageBox.Show(ex.ToString());
+                Log.Error(ex, "Gstr2a_Reconicle");
+            }
         }
     }
 }

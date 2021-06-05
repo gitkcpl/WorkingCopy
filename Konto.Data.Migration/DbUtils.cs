@@ -91,6 +91,15 @@ namespace Konto.Data
 
             return _exist;
         }
+
+        public static bool CheckExistChllanVoucherNo(int vid, string _vno, KontoContext db, int _key)
+        {
+            var _exist = db.Challans.Any(x => x.VoucherNo == _vno && x.VoucherId == vid &&
+                                           x.VoucherDate >= KontoGlobals.FromDate && x.VoucherDate <= KontoGlobals.ToDate
+                                           && x.CompId == KontoGlobals.CompanyId && x.Id != _key && !x.IsDeleted && x.IsActive);
+
+            return _exist;
+        }
         public static AccLookupDto AccDetails(int id)
         {
             using (KontoContext ctx = new KontoContext())
@@ -410,10 +419,11 @@ namespace Konto.Data
                 if (ac == null) return false;
                 var tcs = db.TdsTcs.FirstOrDefault(x => x.DeducteeId == ac.DeducteeId);
                 
-                var amt = db.Bills.Where(x => x.AccId == accid &&
-                                              x.VoucherDate >= KontoGlobals.FromDate &&
-                                              x.VoucherDate <= KontoGlobals.ToDate)
-                    .Sum(x => x.TotalAmount);
+                var amt = (from y in  db.Bills 
+                                            where y.AccId == accid &&
+                                              y.VoucherDate >= KontoGlobals.FromDate &&
+                                              y.VoucherDate <= KontoGlobals.ToDate
+                                            select(decimal ?)y.TotalAmount).Sum() ?? 0;
 
                 if (tcs != null && amt + billamount > tcs.TaxLimit) return true;
             }
