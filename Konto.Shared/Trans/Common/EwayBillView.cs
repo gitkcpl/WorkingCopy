@@ -52,7 +52,7 @@ namespace Konto.Shared.Trans.Common
                 using (var db = new KontoContext())
                 {
 
-                    var _ewb = db.Ewbs.SingleOrDefault(x => x.RefId == this.RefId && x.RefVoucherId == x.RefVoucherId);
+                    var _ewb = db.Ewbs.SingleOrDefault(x => x.RefId == this.RefId && x.RefVoucherId == this.VoucherId);
                     if (_ewb == null)
                         _ewb = new Ewb();
 

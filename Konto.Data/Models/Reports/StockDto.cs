@@ -103,6 +103,9 @@ namespace Konto.Data.Models.Reports
         public virtual decimal Mrp { get; set; }
 
         public virtual decimal? StockValue { get; set; }
+
+        public  virtual string  Barcode { get; set; }
+        public  virtual string ProductCode { get; set; }
     }
 
 

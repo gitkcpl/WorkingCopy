@@ -379,7 +379,9 @@ namespace Konto.Shared.Trans.ST
         private bool ValidateData()
         {
             var dt = Convert.ToInt32(voucherDateEdit.DateTime.ToString("yyyyMMdd"));
-           
+            
+            var trans = grnTransDtoBindingSource1.DataSource as List<GrnTransDto>;
+
             if (string.IsNullOrEmpty(divLookUpEdit.Text))
             {
                 MessageBoxAdv.Show(this, "Invalid Division", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -427,6 +429,30 @@ namespace Konto.Shared.Trans.ST
                 MessageBoxAdv.Show(this, "At Least One Product Should be Entered", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 gridView1.Focus();
                 return false;
+            }
+
+            using (var db = new KontoContext())
+            {
+                db.Database.CommandTimeout = 0;
+                bool result = LedgerEff.DataFreezeStatus(dt, (int) VoucherTypeEnum.Stock_Transfer, db);
+                if (result == false)
+                {
+                    MessageBox.Show(KontoGlobals.SaveFreezeWarning);
+                    return false;
+                }
+                var groupbyItem = trans.GroupBy(k => k.ProductId).ToList();
+                foreach (var item in groupbyItem)
+                {
+                    var checkforstock = db.Products.FirstOrDefault(k => k.Id == item.Key);
+                    var Qty = trans.Where(k => k.ProductId == checkforstock.Id).Sum(k => k.Qty);
+                    var stockBal = db.StockBals.Where(k => k.ProductId == checkforstock.Id && k.BranchId == KontoGlobals.BranchId).Sum(k => k.BalQty + k.OpQty);
+                    if (checkforstock.CheckNegative && Qty > stockBal)
+                    {
+                        MessageBox.Show("Stock not available of Item " + checkforstock.ProductName + " Available Stock Only " + stockBal);
+                        //     IsSaveComplete = true;
+                        return false;
+                    }
+                }
             }
 
             return true;
@@ -548,6 +574,12 @@ namespace Konto.Shared.Trans.ST
                                      ODate = o.VoucherDate,BarcodeNo = pd.BarCode
                                  }).ToList();
 
+                    foreach (var item in _list)
+                    {
+                        item.FromStock =
+                            DbUtils.GetCurrentStock(item.Id, Convert.ToInt32(fromBranchLookUpEdit.EditValue));
+                        item.ToStock = DbUtils.GetCurrentStock(item.Id, Convert.ToInt32(toBranchLookUpEdit.EditValue));
+                    }
                     
                     this.grnTransDtoBindingSource1.DataSource = _list;
                 }

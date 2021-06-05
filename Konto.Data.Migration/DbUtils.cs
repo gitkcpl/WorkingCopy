@@ -304,7 +304,8 @@ namespace Konto.Data
             using (var db = new KontoContext())
             {
                 var st = db.StockBals.Where(x => x.CompanyId == KontoGlobals.CompanyId &&
-                                                 x.YearId == KontoGlobals.YearId && x.ProductId == productid)
+                                                 x.YearId == KontoGlobals.YearId && x.ProductId == productid
+                                                 && (branchid==0 || x.BranchId== branchid))
                     .GroupBy(x => x.ProductId)
                     .Select(x => new
                     {
@@ -314,6 +315,8 @@ namespace Konto.Data
 
                 var stb = (from p in db.StockTranses
                            where p.ItemId == productid  && p.CompanyId== KontoGlobals.CompanyId
+                           && (branchid==0 || p.BranchId== branchid)
+                           &&(p.VoucherDate>=KontoGlobals.FromDate && p.VoucherDate<= KontoGlobals.ToDate)
                            group p by p.ItemId into  g
                            select new
                            {

@@ -1337,6 +1337,12 @@
     <Compile Include="Trans\Common\EinvView.Designer.cs">
       <DependentUpon>EinvView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Trans\Common\EwbChallanView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Trans\Common\EwbChallanView.Designer.cs">
+      <DependentUpon>EwbChallanView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Trans\Common\EwayBillView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -2280,6 +2286,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Trans\Common\EinvView.resx">
       <DependentUpon>EinvView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Trans\Common\EwbChallanView.resx">
+      <DependentUpon>EwbChallanView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Trans\Common\EwayBillView.resx">
       <DependentUpon>EwayBillView.cs</DependentUpon>

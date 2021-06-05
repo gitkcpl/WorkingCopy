@@ -111,6 +111,7 @@
             this.layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem11 = new DevExpress.XtraLayout.LayoutControlItem();
             this.tabPageAdv2 = new Syncfusion.Windows.Forms.Tools.TabPageAdv();
+            this.colBarcode = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.stockDtoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabControlAdv1)).BeginInit();
             this.tabControlAdv1.SuspendLayout();
@@ -299,6 +300,7 @@
             this.gridBand5});
             this.bandedGridView1.Columns.AddRange(new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn[] {
             this.colItemId,
+            this.colBarcode,
             this.colProduct,
             this.colQty,
             this.colOpQty,
@@ -361,6 +363,7 @@
             // 
             this.gridBand11.Caption = "Description";
             this.gridBand11.Columns.Add(this.colItemId);
+            this.gridBand11.Columns.Add(this.colBarcode);
             this.gridBand11.Columns.Add(this.colProduct);
             this.gridBand11.Columns.Add(this.colQty);
             this.gridBand11.Columns.Add(this.colTransInQty);
@@ -382,7 +385,7 @@
             this.gridBand11.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left;
             this.gridBand11.Name = "gridBand11";
             this.gridBand11.VisibleIndex = 0;
-            this.gridBand11.Width = 180;
+            this.gridBand11.Width = 262;
             // 
             // colItemId
             // 
@@ -1044,6 +1047,13 @@
             this.tabPageAdv2.Text = "Report/Print View";
             this.tabPageAdv2.ThemesEnabled = false;
             // 
+            // colBarcode
+            // 
+            this.colBarcode.FieldName = "Barcode";
+            this.colBarcode.Name = "colBarcode";
+            this.colBarcode.Visible = true;
+            this.colBarcode.Width = 82;
+            // 
             // StockMainView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1169,5 +1179,6 @@
         private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBand5;
         private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colDealerPrice;
         private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colStockValue;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn colBarcode;
     }
 }

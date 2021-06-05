@@ -28,12 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StListView));
+            this.listDateRange1 = new Konto.Core.Shared.Libs.ListDateRange();
+            this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
             this.customGridControl1 = new Konto.Core.Shared.Libs.CustomGridControl();
             this.customGridView1 = new Konto.Core.Shared.Libs.CustomGridView();
-            this.listDateRange1 = new Konto.Core.Shared.Libs.ListDateRange();
+            this.ewbButton = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).BeginInit();
             this.panelControl2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
+            this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.customGridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.customGridView1)).BeginInit();
             this.SuspendLayout();
@@ -49,6 +54,32 @@
             // 
             this.panelControl3.Location = new System.Drawing.Point(991, 35);
             // 
+            // listAction1
+            // 
+            this.listAction1.Size = new System.Drawing.Size(474, 29);
+            // 
+            // listDateRange1
+            // 
+            this.listDateRange1.FromDate = 0;
+            this.listDateRange1.IsAnalysis = false;
+            this.listDateRange1.KontoGrid = null;
+            this.listDateRange1.Location = new System.Drawing.Point(477, 4);
+            this.listDateRange1.Name = "listDateRange1";
+            this.listDateRange1.SelectedItem = null;
+            this.listDateRange1.Size = new System.Drawing.Size(514, 25);
+            this.listDateRange1.TabIndex = 2;
+            this.listDateRange1.ToDate = 0;
+            this.listDateRange1.VoucherType = Konto.App.Shared.VoucherTypeEnum.Stock_Transfer;
+            // 
+            // panelControl1
+            // 
+            this.panelControl1.Controls.Add(this.ewbButton);
+            this.panelControl1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panelControl1.Location = new System.Drawing.Point(0, 279);
+            this.panelControl1.Name = "panelControl1";
+            this.panelControl1.Size = new System.Drawing.Size(991, 32);
+            this.panelControl1.TabIndex = 4;
+            // 
             // customGridControl1
             // 
             this.customGridControl1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -57,8 +88,8 @@
             this.customGridControl1.LookAndFeel.UseDefaultLookAndFeel = false;
             this.customGridControl1.MainView = this.customGridView1;
             this.customGridControl1.Name = "customGridControl1";
-            this.customGridControl1.Size = new System.Drawing.Size(991, 276);
-            this.customGridControl1.TabIndex = 11;
+            this.customGridControl1.Size = new System.Drawing.Size(991, 244);
+            this.customGridControl1.TabIndex = 12;
             this.customGridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.customGridView1});
             // 
@@ -85,34 +116,41 @@
             this.customGridView1.OptionsView.ShowFooter = true;
             this.customGridView1.OptionsView.ShowGroupPanel = false;
             // 
-            // listDateRange1
+            // ewbButton
             // 
-            this.listDateRange1.FromDate = 0;
-            this.listDateRange1.IsAnalysis = false;
-            this.listDateRange1.KontoGrid = null;
-            this.listDateRange1.Location = new System.Drawing.Point(477, 4);
-            this.listDateRange1.Name = "listDateRange1";
-            this.listDateRange1.SelectedItem = null;
-            this.listDateRange1.Size = new System.Drawing.Size(514, 25);
-            this.listDateRange1.TabIndex = 2;
-            this.listDateRange1.ToDate = 0;
-            this.listDateRange1.VoucherType = Konto.App.Shared.VoucherTypeEnum.Stock_Transfer;
+            this.ewbButton.AllowFocus = false;
+            this.ewbButton.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ewbButton.Appearance.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(22)))), ((int)(((byte)(91)))));
+            this.ewbButton.Appearance.Options.UseFont = true;
+            this.ewbButton.Appearance.Options.UseForeColor = true;
+            this.ewbButton.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("ewbButton.ImageOptions.SvgImage")));
+            this.ewbButton.ImageOptions.SvgImageSize = new System.Drawing.Size(16, 16);
+            this.ewbButton.Location = new System.Drawing.Point(5, 3);
+            this.ewbButton.Name = "ewbButton";
+            this.ewbButton.Size = new System.Drawing.Size(91, 24);
+            this.ewbButton.TabIndex = 9;
+            this.ewbButton.TabStop = false;
+            this.ewbButton.Text = "E-Way Bill";
             // 
             // StListView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.customGridControl1);
+            this.Controls.Add(this.panelControl1);
             this.KontoGrid = this.customGridControl1;
             this.KontoView = this.customGridView1;
             this.Name = "StListView";
             this.Size = new System.Drawing.Size(1040, 311);
             this.Controls.SetChildIndex(this.panelControl2, 0);
             this.Controls.SetChildIndex(this.panelControl3, 0);
+            this.Controls.SetChildIndex(this.panelControl1, 0);
             this.Controls.SetChildIndex(this.customGridControl1, 0);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).EndInit();
             this.panelControl2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
+            this.panelControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.customGridControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.customGridView1)).EndInit();
             this.ResumeLayout(false);
@@ -120,9 +158,10 @@
         }
 
         #endregion
-
+        private Core.Shared.Libs.ListDateRange listDateRange1;
+        private DevExpress.XtraEditors.PanelControl panelControl1;
         private Core.Shared.Libs.CustomGridControl customGridControl1;
         private Core.Shared.Libs.CustomGridView customGridView1;
-        private Core.Shared.Libs.ListDateRange listDateRange1;
+        private DevExpress.XtraEditors.SimpleButton ewbButton;
     }
 }

@@ -28,6 +28,35 @@ namespace Konto.Shared.Trans.ST
 
             this.ReportPrint = true;
             listAction1.EditDeleteDisabled(false);
+            ewbButton.Click += EwbButton_Click;
+        }
+
+        private void EwbButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (customGridView1.FocusedRowHandle < 0) return;
+                var row = customGridView1.GetDataRow(customGridView1.FocusedRowHandle);
+
+                var _id = Convert.ToInt32(row["Id"]);
+                var _vid = Convert.ToInt32(row["VoucherId"]);
+
+                using (var db = new KontoContext())
+                {
+                    var bm = db.Challans.Find(_id);
+                    var bt = db.ChallanTranses.Where(x => x.ChallanId == _id).ToList();
+                    var frm = new EwbChallanView() { RefId = _id, VoucherId = _vid, BModel = bm, TModel = bt };
+                    frm.ShowDialog();
+                }
+
+
+
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "sale eway bill");
+                MessageBox.Show(ex.ToString());
+            }
         }
 
         private void ListDateRange1_GetButtonClick(object sender, EventArgs e)
