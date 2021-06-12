@@ -86,15 +86,22 @@ namespace Konto.Trading.MillReceipt
             tdsAmtTextEdit.EditValueChanged += TdsAmtTextEdit_EditValueChanged;
             this.Shown += MrvIndex_Shown;
             voucherLookup1.SelectedValueChanged += VoucherLookup1_SelectedValueChanged;
-
+            voucherDateEdit.EditValueChanged += VoucherDateEdit_EditValueChanged;
             this.FirstActiveControl = voucherLookup1;
+        }
+
+        private void VoucherDateEdit_EditValueChanged(object sender, EventArgs e)
+        {
+            if (this.PrimaryKey != 0) return;
+            billDateEdit.EditValue = voucherDateEdit.EditValue;
+            lrDateEdit.EditValue = voucherDateEdit.EditValue;
         }
 
         private void VoucherLookup1_SelectedValueChanged(object sender, EventArgs e)
         {
             if (this.PrimaryKey == 0 && Convert.ToInt32(voucherLookup1.SelectedValue) > 0)
             {
-                voucherNoTextEdit.Text = "New-" + DbUtils.NextSerialNo(Convert.ToInt32(voucherLookup1.SelectedValue), 1);
+                voucherNoTextEdit.Text =  DbUtils.NextSerialNo(Convert.ToInt32(voucherLookup1.SelectedValue), 1);
             }
             if (voucherLookup1.GroupDto != null && voucherLookup1.GroupDto.ManualSeries)
             {
@@ -343,6 +350,11 @@ namespace Konto.Trading.MillReceipt
                                 MillRecPara.Generate_Barcode = (value == "Y") ? true : false;
                                 break;
                             }
+                        case 322:
+                        {
+                            MillRecPara.Accept_Zero_Value = (value == "Y");
+                            break;
+                        }
                     }
                 }
             }
@@ -593,7 +605,7 @@ namespace Konto.Trading.MillReceipt
                 gridView1.Focus();
                 return false;
             }
-            else if (!MillRecPara.Challan_Required && trans.Any(x => x.Rate == 0))
+            else if (!MillRecPara.Accept_Zero_Value && !MillRecPara.Challan_Required && trans.Any(x => x.Rate == 0))
             {
                 MessageBoxAdv.Show(this, "Invalid Rate", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 gridView1.FocusedColumn = colRate;
@@ -607,7 +619,8 @@ namespace Konto.Trading.MillReceipt
                 var accid = Convert.ToInt32(accLookup1.SelectedValue);
                 var find1 = db.Challans.FirstOrDefault(
                x => x.AccId == accid && !x.IsDeleted && x.BillNo == billNoTextEdit.Text.Trim() && x.CompId == KontoGlobals.CompanyId
-               && x.YearId == KontoGlobals.YearId && x.Id != this.PrimaryKey);
+               && x.YearId == KontoGlobals.YearId && x.Id != this.PrimaryKey
+               && x.VoucherId == (int)voucherLookup1.SelectedValue);
 
                 if (!MillRecPara.Challan_Required && find1 != null)
                 {

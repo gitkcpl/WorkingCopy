@@ -19,6 +19,7 @@ namespace Konto.Shared.Masters.Branch
     {
         private KontoContext db = new KontoContext();
         public BranchModel Branch { get; set; }
+        public  bool IsOpenFromMenu { get; set; }
         public SelectBranchWindow()
         {
             InitializeComponent();
@@ -60,6 +61,14 @@ namespace Konto.Shared.Masters.Branch
 
         private void SelectBranchWindow_Load(object sender, EventArgs e)
         {
+
+            if (KontoGlobals.BranchId != 0 && !IsOpenFromMenu)
+            {
+                this.DialogResult = DialogResult.OK;
+                this.Branch = db.Branches.Find(KontoGlobals.BranchId);
+                this.Close();
+            }
+
             var lst = db.Branches.Where(x => !x.IsDeleted)
                 .OrderBy(x => x.BranchName).ToList();
             if (lst.Count == 1)

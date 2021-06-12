@@ -18,6 +18,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Syncfusion.Windows.Forms;
 
 namespace Konto.Reporting.Para.Ledger
 {
@@ -157,6 +158,22 @@ namespace Konto.Reporting.Para.Ledger
             if(repGridView1.RowCount ==0)
             {
                 MessageBox.Show("No Report Exist from Preview..");
+                return;
+            }
+            var fdate = Convert.ToInt32(this.fDateEdit.DateTime.ToString("yyyyMMdd"));
+            var tdate = Convert.ToInt32(this.tDateEdit.DateTime.ToString("yyyyMMdd"));
+
+            if (fdate > KontoGlobals.ToDate || fdate < KontoGlobals.FromDate)
+            {
+                MessageBoxAdv.Show(this, "From date out of financial range", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                fDateEdit.Focus();
+                return;
+            }
+
+            if (tdate > KontoGlobals.ToDate || tdate < KontoGlobals.FromDate)
+            {
+                MessageBoxAdv.Show(this, "To date out of financial range", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                tDateEdit.Focus();
                 return;
             }
             try

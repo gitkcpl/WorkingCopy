@@ -61,24 +61,28 @@ namespace Konto.Shared.Masters.LogIn
                 
                     string enc = KontoUtils.Encrypt(passwordTextEdit.Text.Trim(), "sblw-3hn8-sqoy19");
               //  string enc1 = KontoUtils.Decrypt("rbCxG9xU4Gs=", "sblw-3hn8-sqoy19");
-                var Ulist = db.UserMasters.Include("Role").FirstOrDefault(k => k.UserName.ToUpper() == userNameTextEdit.Text.ToUpper()
-                      && k.UserPass == enc);
+                var usr = db.UserMasters.Include("BranchFk").Include("Role").FirstOrDefault(k => k.UserName.ToUpper() == userNameTextEdit.Text.ToUpper()
+                                                                             && k.UserPass == enc);
 
-                    if (Ulist != null)
+                    if (usr != null)
                     {
-                        KontoGlobals.UserId = Ulist.Id;
-                        KontoGlobals.UserName = Ulist.UserName;
-                        var usr = db.UserMasters.FirstOrDefault(k => k.Id == KontoGlobals.UserId);
+                        KontoGlobals.UserId = usr.Id;
+                        KontoGlobals.UserName = usr.UserName;
+                        //var usr = db.UserMasters.Include("BranchFk").FirstOrDefault(k => k.Id == KontoGlobals.UserId);
                         KontoGlobals.UserRoleId = usr.RoleId;
-                        
+
+                        KontoGlobals.BranchId = usr.BranchId ?? 0;
+                            
+
                         if(usr.Role!=null)
                             KontoGlobals.isSysAdm = usr.Role.IsSysAdmin;
 
-                        KontoGlobals.EmpId = usr.EmpId != null ? (int)usr.EmpId : 0;
-                        RBAC.UserRight = new RBACUser(Ulist.UserName);
+                        KontoGlobals.EmpId = usr.EmpId ?? 0;
+
+                        RBAC.UserRight = new RBACUser(usr.UserName);
                         //UserName save in registry
                         Microsoft.Win32.RegistryKey keysoftRegistryKey = Microsoft.Win32.Registry.CurrentUser.CreateSubKey("Keysoft");
-                        keysoftRegistryKey.SetValue("Name", Ulist.UserName);
+                        keysoftRegistryKey.SetValue("Name", usr.UserName);
                         keysoftRegistryKey.Close();
                         this.DialogResult = DialogResult.OK;
                         this.Close();

@@ -55,6 +55,7 @@
             this.colGradeName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gradeRepositoryItemButtonEdit = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
             this.colLotNo = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colBarcode = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colPcs = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colCut = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colQty = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -126,7 +127,8 @@
             this.layoutControlItem14 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem7 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem23 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.colBarcode = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.ewbNotextEdit = new DevExpress.XtraEditors.TextEdit();
+            this.layoutControlItem11 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)(this.tabControlAdv1)).BeginInit();
             this.tabControlAdv1.SuspendLayout();
             this.tabPageAdv1.SuspendLayout();
@@ -186,6 +188,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem14)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem23)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ewbNotextEdit.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem11)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControlAdv1
@@ -227,6 +231,7 @@
             // 
             // layoutControl1
             // 
+            this.layoutControl1.Controls.Add(this.ewbNotextEdit);
             this.layoutControl1.Controls.Add(this.reassonLookUpEdit);
             this.layoutControl1.Controls.Add(this.billAmtSpinEdit);
             this.layoutControl1.Controls.Add(this.roundoffSpinEdit);
@@ -481,7 +486,7 @@
             // gridControl1
             // 
             this.gridControl1.DataSource = this.grnTransDtoBindingSource1;
-            this.gridControl1.Location = new System.Drawing.Point(5, 87);
+            this.gridControl1.Location = new System.Drawing.Point(5, 85);
             this.gridControl1.LookAndFeel.SkinName = "Office 2016 Colorful";
             this.gridControl1.LookAndFeel.UseDefaultLookAndFeel = false;
             this.gridControl1.MainView = this.gridView1;
@@ -495,7 +500,7 @@
             this.repositoryItemTextEdit1,
             this.challanNoRrepositoryItemButtonEdit,
             this.taxRepositoryItemLookUpEdit});
-            this.gridControl1.Size = new System.Drawing.Size(934, 243);
+            this.gridControl1.Size = new System.Drawing.Size(934, 245);
             this.gridControl1.TabIndex = 9;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -667,6 +672,13 @@
             this.colLotNo.Name = "colLotNo";
             this.colLotNo.Visible = true;
             this.colLotNo.VisibleIndex = 4;
+            // 
+            // colBarcode
+            // 
+            this.colBarcode.FieldName = "Barcode";
+            this.colBarcode.Name = "colBarcode";
+            this.colBarcode.Visible = true;
+            this.colBarcode.VisibleIndex = 8;
             // 
             // colPcs
             // 
@@ -1040,13 +1052,13 @@
             // remarkTextEdit
             // 
             this.remarkTextEdit.EnterMoveNextControl = true;
-            this.remarkTextEdit.Location = new System.Drawing.Point(141, 390);
+            this.remarkTextEdit.Location = new System.Drawing.Point(454, 390);
             this.remarkTextEdit.Name = "remarkTextEdit";
             this.remarkTextEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.remarkTextEdit.Properties.Appearance.Options.UseFont = true;
             this.remarkTextEdit.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.remarkTextEdit.Properties.AppearanceFocused.Options.UseBorderColor = true;
-            this.remarkTextEdit.Size = new System.Drawing.Size(798, 24);
+            this.remarkTextEdit.Size = new System.Drawing.Size(485, 24);
             this.remarkTextEdit.StyleController = this.layoutControl1;
             this.remarkTextEdit.TabIndex = 16;
             // 
@@ -1116,7 +1128,7 @@
             this.accLookup1.RequiredField = true;
             this.accLookup1.SelectedText = null;
             this.accLookup1.SelectedValue = null;
-            this.accLookup1.Size = new System.Drawing.Size(290, 22);
+            this.accLookup1.Size = new System.Drawing.Size(290, 20);
             this.accLookup1.TabIndex = 8;
             this.accLookup1.TaxType = null;
             this.accLookup1.TransportLookup = null;
@@ -1227,7 +1239,8 @@
             this.layoutControlItem10,
             this.layoutControlItem14,
             this.layoutControlItem7,
-            this.layoutControlItem23});
+            this.layoutControlItem23,
+            this.layoutControlItem11});
             this.Root.Name = "Root";
             this.Root.Padding = new DevExpress.XtraLayout.Utils.Padding(3, 3, 3, 3);
             this.Root.Size = new System.Drawing.Size(944, 419);
@@ -1238,9 +1251,9 @@
             this.layoutControlItem17.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.layoutControlItem17.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem17.Control = this.remarkTextEdit;
-            this.layoutControlItem17.Location = new System.Drawing.Point(0, 385);
+            this.layoutControlItem17.Location = new System.Drawing.Point(313, 385);
             this.layoutControlItem17.Name = "layoutControlItem17";
-            this.layoutControlItem17.Size = new System.Drawing.Size(938, 28);
+            this.layoutControlItem17.Size = new System.Drawing.Size(625, 28);
             this.layoutControlItem17.Text = "Remark:";
             this.layoutControlItem17.TextSize = new System.Drawing.Size(133, 17);
             // 
@@ -1259,9 +1272,9 @@
             // layoutControlItem20
             // 
             this.layoutControlItem20.Control = this.gridControl1;
-            this.layoutControlItem20.Location = new System.Drawing.Point(0, 82);
+            this.layoutControlItem20.Location = new System.Drawing.Point(0, 80);
             this.layoutControlItem20.Name = "layoutControlItem20";
-            this.layoutControlItem20.Size = new System.Drawing.Size(938, 247);
+            this.layoutControlItem20.Size = new System.Drawing.Size(938, 249);
             this.layoutControlItem20.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem20.TextVisible = false;
             // 
@@ -1326,7 +1339,7 @@
             this.layoutControlItem4.Control = this.accLookup1;
             this.layoutControlItem4.Location = new System.Drawing.Point(0, 56);
             this.layoutControlItem4.Name = "layoutControlItem4";
-            this.layoutControlItem4.Size = new System.Drawing.Size(430, 26);
+            this.layoutControlItem4.Size = new System.Drawing.Size(430, 24);
             this.layoutControlItem4.Text = "<color=255, 0, 0>*</color>Party:";
             this.layoutControlItem4.TextSize = new System.Drawing.Size(133, 17);
             // 
@@ -1414,7 +1427,7 @@
             this.emptySpaceItem1.AllowHotTrack = false;
             this.emptySpaceItem1.Location = new System.Drawing.Point(430, 56);
             this.emptySpaceItem1.Name = "emptySpaceItem1";
-            this.emptySpaceItem1.Size = new System.Drawing.Size(508, 26);
+            this.emptySpaceItem1.Size = new System.Drawing.Size(508, 24);
             this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
             // 
             // layoutControlItem10
@@ -1461,12 +1474,30 @@
             this.layoutControlItem23.Text = "Bill Amount:";
             this.layoutControlItem23.TextSize = new System.Drawing.Size(133, 17);
             // 
-            // colBarcode
+            // ewbNotextEdit
             // 
-            this.colBarcode.FieldName = "Barcode";
-            this.colBarcode.Name = "colBarcode";
-            this.colBarcode.Visible = true;
-            this.colBarcode.VisibleIndex = 8;
+            this.ewbNotextEdit.EnterMoveNextControl = true;
+            this.ewbNotextEdit.Location = new System.Drawing.Point(141, 390);
+            this.ewbNotextEdit.Name = "ewbNotextEdit";
+            this.ewbNotextEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ewbNotextEdit.Properties.Appearance.Options.UseFont = true;
+            this.ewbNotextEdit.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.ewbNotextEdit.Properties.AppearanceFocused.Options.UseBorderColor = true;
+            this.ewbNotextEdit.Properties.MaxLength = 500;
+            this.ewbNotextEdit.Size = new System.Drawing.Size(173, 24);
+            this.ewbNotextEdit.StyleController = this.layoutControl1;
+            this.ewbNotextEdit.TabIndex = 17;
+            // 
+            // layoutControlItem11
+            // 
+            this.layoutControlItem11.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.layoutControlItem11.AppearanceItemCaption.Options.UseFont = true;
+            this.layoutControlItem11.Control = this.ewbNotextEdit;
+            this.layoutControlItem11.Location = new System.Drawing.Point(0, 385);
+            this.layoutControlItem11.Name = "layoutControlItem11";
+            this.layoutControlItem11.Size = new System.Drawing.Size(313, 28);
+            this.layoutControlItem11.Text = "EWB No.:";
+            this.layoutControlItem11.TextSize = new System.Drawing.Size(133, 17);
             // 
             // PReturnIndex
             // 
@@ -1540,6 +1571,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem14)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem23)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ewbNotextEdit.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem11)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1644,5 +1677,7 @@
         private DevExpress.XtraGrid.Columns.GridColumn colSaleRate;
         private DevExpress.XtraGrid.Columns.GridColumn colHsnCode;
         private DevExpress.XtraGrid.Columns.GridColumn colBarcode;
+        private DevExpress.XtraEditors.TextEdit ewbNotextEdit;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem11;
     }
 }

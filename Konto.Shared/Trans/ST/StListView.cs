@@ -12,6 +12,7 @@ using System.Data.SqlClient;
 using Konto.Shared.Reports;
 using Konto.Shared.Trans.Common;
 using DevExpress.XtraGrid.Views.Grid;
+using Konto.Data.Models.Transaction.Dtos;
 
 namespace Konto.Shared.Trans.ST
 {
@@ -41,11 +42,59 @@ namespace Konto.Shared.Trans.ST
                 var _id = Convert.ToInt32(row["Id"]);
                 var _vid = Convert.ToInt32(row["VoucherId"]);
 
-                using (var db = new KontoContext())
+                using (var _context = new KontoContext())
                 {
-                    var bm = db.Challans.Find(_id);
-                    var bt = db.ChallanTranses.Where(x => x.ChallanId == _id).ToList();
-                    var frm = new EwbChallanView() { RefId = _id, VoucherId = _vid, BModel = bm, TModel = bt };
+                    var bm = _context.Challans.Find(_id);
+                    // var bt = db.ChallanTranses.Where(x => x.ChallanId == _id).ToList();
+                    var _list = (from ct in _context.ChallanTranses
+                                 join pd in _context.Products on ct.ProductId equals pd.Id 
+                                 join um in _context.Uoms on ct.UomId equals  um.Id
+                                 orderby ct.Id
+                                 where ct.IsActive == true && ct.IsDeleted == false &&
+                                 ct.ChallanId == bm.Id    
+                                 select new GrnTransDto()
+                                 {
+                                     Id = ct.Id,
+                                     Cess = ct.Cess,
+                                     CessPer = ct.CessPer,
+                                     Cgst = ct.Cgst,
+                                     CgstPer = ct.CgstPer,
+                                     ChallanId = ct.ChallanId,
+                                     ColorId = ct.ColorId.HasValue ? (int)ct.ColorId : 1,
+                                     ColorName = pd.ProductDesc,
+                                     Cops = ct.Cops,
+                                     DesignId = ct.DesignId.HasValue ? (int)ct.DesignId : 1,
+                                     Disc = ct.Disc,
+                                     DiscPer = ct.DiscPer,
+                                     Freight = ct.Freight,
+                                     FreightRate = ct.FreightRate,
+                                     GradeId = ct.GradeId.HasValue ? (int)ct.GradeId : 1,
+                                     GradeName = pd.HsnCode,
+                                     DesignNo = um.UnitCode,
+                                     Gross = ct.Gross,
+                                     Igst = ct.Igst,
+                                     IgstPer = ct.IgstPer,
+                                     LotNo = ct.LotNo,
+                                     MiscId = ct.MiscId,
+                                     OtherAdd = ct.OtherAdd,
+                                     OtherLess = ct.OtherLess,
+                                     Pcs = ct.Pcs,
+                                     ProductId = (int)ct.ProductId,
+                                     ProductName = pd.ProductName,
+                                     Qty = ct.Qty,
+                                     Rate = ct.Rate,
+                                     RefId = ct.RefId,
+                                     RefVoucherId = ct.RefVoucherId,
+                                     Remark = ct.Remark,
+                                     Sgst = ct.Sgst,
+                                     SgstPer = ct.SgstPer,
+                                     Total = ct.Total,
+                                     UomId = (int)ct.UomId,
+                                     BarcodeNo = pd.BarCode,
+                                     IsReceived = ct.IsReceived,
+                                     ReceiveDateTime = ct.ReceiveDateTime ?? DateTime.Now
+                                 }).ToList();
+                    var frm = new EwbChallanView() { RefId = _id, VoucherId = _vid, BModel = bm, TModel = _list };
                     frm.ShowDialog();
                 }
 

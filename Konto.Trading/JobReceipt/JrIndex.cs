@@ -247,7 +247,15 @@ namespace Konto.Trading.JobReceipt
         {
             if (this.PrimaryKey == 0 && Convert.ToInt32(voucherLookup1.SelectedValue) > 0)
             {
-                voucherNoTextEdit.Text = "New-" + DbUtils.NextSerialNo(Convert.ToInt32(voucherLookup1.SelectedValue), 1);
+                voucherNoTextEdit.Text =  DbUtils.NextSerialNo(Convert.ToInt32(voucherLookup1.SelectedValue), 1);
+            }
+            if (voucherLookup1.GroupDto != null && voucherLookup1.GroupDto.ManualSeries)
+            {
+                voucherNoTextEdit.Enabled = true;
+            }
+            else
+            {
+                voucherNoTextEdit.Enabled = false;
             }
         }
 
@@ -836,7 +844,8 @@ namespace Konto.Trading.JobReceipt
                 var accid = Convert.ToInt32(accLookup1.SelectedValue);
                 var find1 = db.Challans.FirstOrDefault(
                x => x.AccId == accid && !x.IsDeleted && x.BillNo == billNoTextEdit.Text.Trim() && x.CompId == KontoGlobals.CompanyId
-               && x.YearId == KontoGlobals.YearId && x.Id != this.PrimaryKey);
+               && x.YearId == KontoGlobals.YearId && x.Id != this.PrimaryKey
+               && x.VoucherId == (int)voucherLookup1.SelectedValue);
 
                 if (!JobRecPara.Challan_Required && find1 != null)
                 {

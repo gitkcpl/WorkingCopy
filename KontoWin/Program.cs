@@ -50,7 +50,7 @@ namespace KontoWin
                 }
                 else
                 {
-                    KontoGlobals.IsDevelopment = true;
+                    KontoGlobals.IsDevelopment = ConfigurationManager.AppSettings["Env"]=="D";
                 }
 
                 KontoGlobals.Edition = Convert.ToInt32(ConfigurationManager.AppSettings["Edition"].ToString());

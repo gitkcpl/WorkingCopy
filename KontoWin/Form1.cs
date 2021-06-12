@@ -161,6 +161,7 @@ namespace KontoWin
             if (tabControlAdv1.TabPages.Count > 1)
                 this.tabControlAdv1.TabPages.RemoveRange(1, tabControlAdv1.TabPages.Count - 1);
             var frm = new SelectBranchWindow();
+            frm.IsOpenFromMenu = true;
             if(frm.ShowDialog() == DialogResult.OK)
             {
                 branchBarStaticItem.Caption = frm.Branch.BranchName;

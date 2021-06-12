@@ -83,7 +83,15 @@ namespace Konto.Trading.MillReturn
         {
             if (this.PrimaryKey == 0 && Convert.ToInt32(voucherLookup1.SelectedValue) > 0)
             {
-                voucherNoTextEdit.Text = "New-" + DbUtils.NextSerialNo(Convert.ToInt32(voucherLookup1.SelectedValue), 1);
+                voucherNoTextEdit.Text =  DbUtils.NextSerialNo(Convert.ToInt32(voucherLookup1.SelectedValue), 1);
+            }
+            if (voucherLookup1.GroupDto != null && voucherLookup1.GroupDto.ManualSeries)
+            {
+                voucherNoTextEdit.Enabled = true;
+            }
+            else
+            {
+                voucherNoTextEdit.Enabled = false;
             }
         }
 
@@ -1219,7 +1227,8 @@ namespace Konto.Trading.MillReturn
            
             if (model.Id == 0)
             {
-                model.VoucherNo = DbUtils.NextSerialNo(model.VoucherId, db);
+                if(!voucherLookup1.GroupDto.ManualSeries)
+                    model.VoucherNo = DbUtils.NextSerialNo(model.VoucherId, db);
                 
                 if (DbUtils.CheckExistVoucherNo(model.VoucherId, model.VoucherNo, db, model.Id))
                 {

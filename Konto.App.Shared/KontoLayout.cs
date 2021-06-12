@@ -182,6 +182,9 @@ namespace Konto.App.Shared
         public const string Stock_Transfer_Index = "sc\\st_index.xml";
         public const string Stock_Transfer_Trans = "sc\\st_trans.xml";
 
+        public const string Stock_Transfer_Received_Index = "sc\\st_recv_index.xml";
+        public const string Stock_Transfer_Received_Trans = "sc\\st_recv_trans.xml";
+
         public const string Purchase_Index = "PI\\purchase_index.xml";
         public const string Purchase_Trans = "PI\\purchase_trans.xml";
 

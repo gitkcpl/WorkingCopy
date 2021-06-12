@@ -38,6 +38,8 @@
             this.confirmTextBoxExt = new Konto.Core.Shared.Libs.KontoTextBoxExt();
             this.autoLabel5 = new Syncfusion.Windows.Forms.Tools.AutoLabel();
             this.roleLookUpEdit = new DevExpress.XtraEditors.LookUpEdit();
+            this.toBranchLookUpEdit = new DevExpress.XtraEditors.LookUpEdit();
+            this.autoLabel4 = new Syncfusion.Windows.Forms.Tools.AutoLabel();
             ((System.ComponentModel.ISupportInitialize)(this.tabControlAdv1)).BeginInit();
             this.tabControlAdv1.SuspendLayout();
             this.tabPageAdv1.SuspendLayout();
@@ -48,18 +50,23 @@
             ((System.ComponentModel.ISupportInitialize)(this.passwordTextBoxExt)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.confirmTextBoxExt)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.roleLookUpEdit.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.toBranchLookUpEdit.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControlAdv1
             // 
-            this.tabControlAdv1.BeforeTouchSize = new System.Drawing.Size(510, 287);
-            this.tabControlAdv1.Size = new System.Drawing.Size(510, 287);
+            this.tabControlAdv1.BeforeTouchSize = new System.Drawing.Size(510, 303);
+            this.tabControlAdv1.Size = new System.Drawing.Size(510, 303);
             this.tabControlAdv1.ThemeStyle.PrimitiveButtonStyle.DisabledNextPageImage = null;
+            this.tabControlAdv1.Controls.SetChildIndex(this.tabPageAdv4, 0);
+            this.tabControlAdv1.Controls.SetChildIndex(this.tabPageAdv3, 0);
             this.tabControlAdv1.Controls.SetChildIndex(this.tabPageAdv2, 0);
             this.tabControlAdv1.Controls.SetChildIndex(this.tabPageAdv1, 0);
             // 
             // tabPageAdv1
             // 
+            this.tabPageAdv1.Controls.Add(this.autoLabel4);
+            this.tabPageAdv1.Controls.Add(this.toBranchLookUpEdit);
             this.tabPageAdv1.Controls.Add(this.roleLookUpEdit);
             this.tabPageAdv1.Controls.Add(this.autoLabel5);
             this.tabPageAdv1.Controls.Add(this.autoLabel3);
@@ -69,7 +76,7 @@
             this.tabPageAdv1.Controls.Add(this.toggleSwitch1);
             this.tabPageAdv1.Controls.Add(this.autoLabel1);
             this.tabPageAdv1.Controls.Add(this.nameTextBox);
-            this.tabPageAdv1.Size = new System.Drawing.Size(485, 284);
+            this.tabPageAdv1.Size = new System.Drawing.Size(485, 300);
             this.tabPageAdv1.Controls.SetChildIndex(this.panelControl1, 0);
             this.tabPageAdv1.Controls.SetChildIndex(this.nameTextBox, 0);
             this.tabPageAdv1.Controls.SetChildIndex(this.autoLabel1, 0);
@@ -80,6 +87,8 @@
             this.tabPageAdv1.Controls.SetChildIndex(this.autoLabel3, 0);
             this.tabPageAdv1.Controls.SetChildIndex(this.autoLabel5, 0);
             this.tabPageAdv1.Controls.SetChildIndex(this.roleLookUpEdit, 0);
+            this.tabPageAdv1.Controls.SetChildIndex(this.toBranchLookUpEdit, 0);
+            this.tabPageAdv1.Controls.SetChildIndex(this.autoLabel4, 0);
             // 
             // panelControl1
             // 
@@ -87,13 +96,21 @@
             // 
             // tabPageAdv2
             // 
-            this.tabPageAdv2.Size = new System.Drawing.Size(485, 306);
+            this.tabPageAdv2.Size = new System.Drawing.Size(485, 300);
+            // 
+            // tabPageAdv3
+            // 
+            this.tabPageAdv3.Size = new System.Drawing.Size(485, 300);
+            // 
+            // tabPageAdv4
+            // 
+            this.tabPageAdv4.Size = new System.Drawing.Size(485, 300);
             // 
             // toggleSwitch1
             // 
             this.toggleSwitch1.EditValue = true;
             this.toggleSwitch1.EnterMoveNextControl = true;
-            this.toggleSwitch1.Location = new System.Drawing.Point(166, 212);
+            this.toggleSwitch1.Location = new System.Drawing.Point(166, 232);
             this.toggleSwitch1.Name = "toggleSwitch1";
             this.toggleSwitch1.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.toggleSwitch1.Properties.Appearance.Options.UseFont = true;
@@ -260,11 +277,51 @@
             this.roleLookUpEdit.Size = new System.Drawing.Size(267, 24);
             this.roleLookUpEdit.TabIndex = 3;
             // 
+            // toBranchLookUpEdit
+            // 
+            this.toBranchLookUpEdit.EnterMoveNextControl = true;
+            this.toBranchLookUpEdit.Location = new System.Drawing.Point(166, 202);
+            this.toBranchLookUpEdit.Name = "toBranchLookUpEdit";
+            this.toBranchLookUpEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toBranchLookUpEdit.Properties.Appearance.Options.UseFont = true;
+            this.toBranchLookUpEdit.Properties.AppearanceDropDown.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toBranchLookUpEdit.Properties.AppearanceDropDown.Options.UseFont = true;
+            this.toBranchLookUpEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.toBranchLookUpEdit.Properties.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("DisplayText", "Name3")});
+            this.toBranchLookUpEdit.Properties.DisplayMember = "DisplayText";
+            this.toBranchLookUpEdit.Properties.ImmediatePopup = true;
+            this.toBranchLookUpEdit.Properties.NullText = "";
+            this.toBranchLookUpEdit.Properties.ShowHeader = false;
+            this.toBranchLookUpEdit.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
+            this.toBranchLookUpEdit.Properties.ValueMember = "Id";
+            this.toBranchLookUpEdit.Size = new System.Drawing.Size(265, 24);
+            this.toBranchLookUpEdit.TabIndex = 49;
+            // 
+            // autoLabel4
+            // 
+            this.autoLabel4.AutoSize = false;
+            this.autoLabel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.autoLabel4.DX = -86;
+            this.autoLabel4.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.autoLabel4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+            this.autoLabel4.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.autoLabel4.LabeledControl = this.toBranchLookUpEdit;
+            this.autoLabel4.Location = new System.Drawing.Point(80, 202);
+            this.autoLabel4.Name = "autoLabel4";
+            this.autoLabel4.Size = new System.Drawing.Size(82, 24);
+            this.autoLabel4.Style = Syncfusion.Windows.Forms.Tools.AutoLabelStyle.Office2016Colorful;
+            this.autoLabel4.TabIndex = 50;
+            this.autoLabel4.Text = "Branch:";
+            this.autoLabel4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.autoLabel4.ThemeName = "Office2016Colorful";
+            // 
             // UserIndex
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(510, 313);
+            this.ClientSize = new System.Drawing.Size(510, 329);
             this.Name = "UserIndex";
             this.Text = "User Master";
             ((System.ComponentModel.ISupportInitialize)(this.tabControlAdv1)).EndInit();
@@ -278,6 +335,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.passwordTextBoxExt)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.confirmTextBoxExt)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.roleLookUpEdit.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.toBranchLookUpEdit.Properties)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -292,5 +350,7 @@
         private Core.Shared.Libs.KontoTextBoxExt confirmTextBoxExt;
         private Syncfusion.Windows.Forms.Tools.AutoLabel autoLabel5;
         private DevExpress.XtraEditors.LookUpEdit roleLookUpEdit;
+        private Syncfusion.Windows.Forms.Tools.AutoLabel autoLabel4;
+        private DevExpress.XtraEditors.LookUpEdit toBranchLookUpEdit;
     }
 }

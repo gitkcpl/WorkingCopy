@@ -1133,7 +1133,8 @@ namespace Konto.Shared.Trans.PInvoice
                 var accid = Convert.ToInt32(accLookup1.SelectedValue);
                 var find1 = db.Bills.FirstOrDefault(
                x => x.AccId == accid && !x.IsDeleted && x.BillNo == billNoTextEdit.Text.Trim() && x.CompId == KontoGlobals.CompanyId 
-               && x.YearId == KontoGlobals.YearId && x.Id!= this.PrimaryKey && !x.IsDeleted &&  x.IsActive);
+               && x.YearId == KontoGlobals.YearId && x.Id!= this.PrimaryKey && !x.IsDeleted &&  x.IsActive
+               && x.TypeId ==(int)VoucherTypeEnum.PurchaseInvoice);
 
                 if ( find1 != null)
                 {

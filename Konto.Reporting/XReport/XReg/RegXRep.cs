@@ -1,21 +1,37 @@
-﻿using DevExpress.DataAccess.ConnectionParameters;
-using DevExpress.XtraReports.UI;
-using Konto.App.Shared;
+﻿using DevExpress.XtraReports.UI;
 using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Drawing;
-using  System.Linq;
 
 
 namespace Konto.Reporting.XReport.XReg
 {
     public partial class RegXRep : DevExpress.XtraReports.UI.XtraReport
     {
+        private decimal tcsGp1, tcsGp2, tcsTotal, tdsGp1, tdsGp2, tdsTotal;
         public RegXRep()
         {
             InitializeComponent();
+            GroupFooter3.BeforePrint += GroupFooter3_BeforePrint;
+            ReportFooter.BeforePrint += ReportFooter_BeforePrint;
+        }
+
+        private void ReportFooter_BeforePrint(object sender, System.Drawing.Printing.PrintEventArgs e)
+        {
+            billAmtxrTableCell.Text = BillAmt.ToString("F");
+            tcsTotalXrTableCell.Text = tcsTotal.ToString("F");
+            tdsTotalxrTableCell.Text = tdsTotal.ToString("F");
+        }
+
+        private void GroupFooter3_BeforePrint(object sender, System.Drawing.Printing.PrintEventArgs e)
+        {
+            billAmtGp2xrTableCell.Text = BillAmtGp2.ToString("F");
+            BillAmtGp2 = 0;
+
+            tcsGp2XrTableCell.Text = tcsGp2.ToString("F");
+            tdsGp2xrTableCell.Text = tdsGp2.ToString("F");
+            
+            tcsGp2 = 0;
+            tdsGp2 = 0;
+
         }
 
         private void ChallanXRep_BeforePrint(object sender, System.Drawing.Printing.PrintEventArgs e)
@@ -73,6 +89,35 @@ namespace Konto.Reporting.XReport.XReg
                 var tcels = totalTableRow.Cells[column];
                 tcels.Visible = true;
             }
+        }
+
+        private decimal BillAmtGp1=0,BillAmtGp2 = 0,BillAmt=0;
+        private void GroupFooter1_BeforePrint(object sender, System.Drawing.Printing.PrintEventArgs e)
+        {
+            
+            BillAmtGp1 = BillAmtGp1 + Convert.ToDecimal(this.GetCurrentColumnValue("BillAmount"));
+            BillAmtGp2 = BillAmtGp2 + Convert.ToDecimal(this.GetCurrentColumnValue("BillAmount"));
+            BillAmt = BillAmt + Convert.ToDecimal(this.GetCurrentColumnValue("BillAmount"));
+
+            tcsGp1 = tcsGp1 + Convert.ToDecimal(this.GetCurrentColumnValue("TcsAmt"));
+            tcsGp2 = tcsGp2 + Convert.ToDecimal(this.GetCurrentColumnValue("TcsAmt"));
+            tcsTotal = tcsTotal + Convert.ToDecimal(this.GetCurrentColumnValue("TcsAmt"));
+
+            tdsGp1 = tdsGp1 + Convert.ToDecimal(this.GetCurrentColumnValue("TdsAmt"));
+            tdsGp2 = tdsGp2 + Convert.ToDecimal(this.GetCurrentColumnValue("TdsAmt"));
+            tdsTotal = tdsTotal + Convert.ToDecimal(this.GetCurrentColumnValue("TdsAmt"));
+        }
+
+        private void GroupFooter2_BeforePrint(object sender, System.Drawing.Printing.PrintEventArgs e)
+        {
+            //if (GroupFooter2.Visible)
+                billAmtGp1XrTableCell.Text = BillAmtGp1.ToString("F");
+            BillAmtGp1 = 0;
+
+            tcsGp1XrTableCell.Text = tcsGp1.ToString("F");
+            tdsGp1xrTableCell.Text = tdsGp1.ToString("F");
+            tcsGp1 = 0;
+            tdsGp1 = 0;
         }
     }
 }

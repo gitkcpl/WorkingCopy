@@ -182,7 +182,7 @@ namespace Konto.Shared.Trans.SInvoice
                 
                 using (var db = new KontoContext())
                 {
-                    voucherNoTextEdit.Text = "New-" +  DbUtils.NextSerialNo(Convert.ToInt32(voucherLookup1.SelectedValue), db,1);
+                    voucherNoTextEdit.Text =  DbUtils.NextSerialNo(Convert.ToInt32(voucherLookup1.SelectedValue), db,1);
                 }
                 if (voucherLookup1.GroupDto != null && Convert.ToInt32(voucherLookup1.GroupDto.AccId) > 0)
                 {
@@ -397,6 +397,7 @@ namespace Konto.Shared.Trans.SInvoice
                     ct.ChallanNo = ch.ChallanNo;
                     ct.ChallanDate = ch.ChallanDate;
                     ct.RefId = ch.Id;
+                    ct.Remark = ch.ItemRemark;
                     ct.RefTransId = ch.TransId;
                     ct.RefVoucherId = ch.VoucherId;
                     ct.OrderNo = ch.OrderNO;
@@ -433,11 +434,11 @@ namespace Konto.Shared.Trans.SInvoice
                     }
                     else
                     {
-                        ct.Sgst = decimal.Round(gross * ct.SgstPer / 100, 2);
-                        ct.Cgst = decimal.Round(gross * ct.CgstPer / 100, 2); //, MidpointRounding.AwayFromZero);
-                        ct.Igst = decimal.Round(gross * ct.IgstPer / 100, 2); //, MidpointRounding.AwayFromZero);
+                        ct.Sgst = decimal.Round(gross * ct.SgstPer / 100, 2, MidpointRounding.AwayFromZero);
+                        ct.Cgst = decimal.Round(gross * ct.CgstPer / 100, 2, MidpointRounding.AwayFromZero); //, MidpointRounding.AwayFromZero);
+                        ct.Igst = decimal.Round(gross * ct.IgstPer / 100, 2, MidpointRounding.AwayFromZero); //, MidpointRounding.AwayFromZero);
                     }
-                    ct.Cess = decimal.Round(ct.Qty * ct.CessPer, 2);
+                    ct.Cess = decimal.Round(ct.Qty * ct.CessPer, 2, MidpointRounding.AwayFromZero);
 
                     if (isImortOrSez)
                     {
@@ -1412,8 +1413,9 @@ namespace Konto.Shared.Trans.SInvoice
             this.PrimaryKey = model.Id;
             invTypeLookUpEdit.EditValue = model.BillType;
           
-            voucherLookup1.SelectedValue = model.VoucherId;
             voucherLookup1.SetGroup(model.VoucherId);
+            voucherLookup1.SelectedValue = model.VoucherId;
+           
 
             bookLookup.SelectedValue = model.BookAcId;
             bookLookup.SetAcc(Convert.ToInt32(model.BookAcId));
@@ -2540,8 +2542,8 @@ namespace Konto.Shared.Trans.SInvoice
             
             model.AgentId = Convert.ToInt32(agentLookup.SelectedValue);
             model.RefNo = refNoTextEdit.Text.Trim();
-            model.BillNo = challanNotextEdit.Text.Trim();
-          
+
+            model.BillNo = challanNotextEdit.Text.Length > 500 ? challanNotextEdit.Text.Substring(0, 498).Trim() : challanNotextEdit.Text.Trim();
 
             model.EmpId = Convert.ToInt32(empLookup1.SelectedValue);
             model.StoreId = Convert.ToInt32(storeLookUpEdit.EditValue);

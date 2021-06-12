@@ -7,10 +7,13 @@ using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Konto.App.Shared.Para;
+using Konto.Data.Models.Transaction.Dtos;
 using TaxProEWB.API;
 
 namespace Konto.Shared.Trans.Common
@@ -23,7 +26,7 @@ namespace Konto.Shared.Trans.Common
 
         
         public ChallanModel BModel { get; set; }
-        public List<ChallanTransModel> TModel { get; set; }
+        public List<GrnTransDto> TModel { get; set; }
 
         public EwbChallanView()
         {
@@ -43,7 +46,7 @@ namespace Konto.Shared.Trans.Common
         {
             try
             {
-                if (!ValidateEwb()) return;
+               // if (!ValidateEwb()) return;
 
                 var status = await GenerateEwbAsync();
 
@@ -80,6 +83,8 @@ namespace Konto.Shared.Trans.Common
                     if (_ewb.Id == 0)
                         db.Ewbs.Add(_ewb);
 
+                    var ch = db.Challans.Find(BModel.Id);
+                    
                     db.SaveChanges();
                     okSimpleButton.Enabled = false;
                 }
@@ -98,13 +103,13 @@ namespace Konto.Shared.Trans.Common
         {
             if(modeLookUpEdit.Text=="Road" && string.IsNullOrEmpty(vehicleNoKontoTextEdit.Text))
             {
-                if (Convert.ToInt32(accLookup1.SelectedValue)!=0)
+                if (Convert.ToInt32(accLookup1.SelectedValue)==0)
                 {
                     MessageBox.Show("Please Select Transport Name");
                     accLookup1.Focus();
                     return false;
                 }
-                if (accLookup1.LookupDto.GSTIN.Length != 15)
+                if (accLookup1.LookupDto.GSTIN== null ||  accLookup1.LookupDto.GSTIN.Length != 15)
                 {
                     MessageBox.Show("Please Select Transport Name");
                     accLookup1.Focus();
@@ -139,15 +144,18 @@ namespace Konto.Shared.Trans.Common
             var acc = DbUtils.AccDetails(BModel.AccId);
             var st =db.States.Find(acc.StateId);
 
-            if(BModel.TypeId == (int) VoucherTypeEnum.SaleInvoice)
+          //  if(BModel.TypeId == (int) VoucherTypeEnum.SaleInvoice)
                 ewbGen.supplyType = "O";
 
             ewbGen.subSupplyType = subTypeLookUpEdit.EditValue.ToString();
-            ewbGen.subSupplyDesc = "";
-            ewbGen.docType = docTypeLookUpEdit.EditValue.ToString(); ;
-            ewbGen.docNo = BModel.VoucherNo;
-            ewbGen.docDate =Convert.ToDateTime(BModel.CreateDate).ToString("dd/MM/yyyy");
+            
+            if(subTypeLookUpEdit.EditValue.ToString()=="8")
+                ewbGen.subSupplyDesc = "Branch Transfer";
 
+            ewbGen.docType = docTypeLookUpEdit.EditValue.ToString(); 
+            ewbGen.docNo = BModel.VoucherNo;
+            ewbGen.docDate= KontoUtils.IToD(BModel.VoucherDate).ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);            
+            
             
             ewbGen.fromGstin = KontoUtils.Company.GstIn; // "32AACCC1596Q002";//"07AACCC1596Q1Z4";
             ewbGen.fromTrdName = KontoUtils.Company.CompName; //  "welton";
@@ -163,8 +171,10 @@ namespace Konto.Shared.Trans.Common
 
             // despatch from state code
             ewbGen.actFromStateCode = Convert.ToInt32(despFromLookupEdit.GetColumnValue("GstCode"));
-            
-            if (BModel.TypeId == (int) VoucherTypeEnum.Stock_Transfer)
+
+            var vtype = db.Vouchers.Find(BModel.VoucherId);
+
+            if (vtype.VTypeId == (int) VoucherTypeEnum.Stock_Transfer)
             {
                 var tbr = db.Branches.Find(BModel.ToBranchId);
 
@@ -234,10 +244,15 @@ namespace Konto.Shared.Trans.Common
 
             ewbGen.cessNonAdvolValue = Convert.ToDouble(TModel.Sum(x => x.Cess));
 
-            if(modeLookUpEdit.Text=="Road" && string.IsNullOrEmpty(vehicleNoKontoTextEdit.Text))
+            //if(modeLookUpEdit.Text=="Road" && string.IsNullOrEmpty(vehicleNoKontoTextEdit.Text))
+            //    ewbGen.transporterId = accLookup1.LookupDto.GSTIN;
+            //else
+            //    ewbGen.transporterId = "";
+
+            if (Convert.ToInt32(accLookup1.SelectedValue) > 0 && ! string.IsNullOrEmpty(accLookup1.LookupDto.GSTIN))
+            {
                 ewbGen.transporterId = accLookup1.LookupDto.GSTIN;
-            else
-                ewbGen.transporterId = "";
+            }
 
             ewbGen.transporterName = accLookup1.SelectedText;
             
@@ -247,32 +262,50 @@ namespace Konto.Shared.Trans.Common
             ewbGen.totInvValue =Convert.ToDouble(BModel.TotalAmount);
             ewbGen.transMode = modeLookUpEdit.EditValue.ToString();//1
             ewbGen.transDistance = "0"; /*1200*/
-            ewbGen.transDocDate = docDateEdit.DateTime.ToString("dd/MM/yyyy");
+            ewbGen.transDocDate = docDateEdit.DateTime.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
 
 
-            if(modeLookUpEdit.EditValue.ToString()=="Road" && (accLookup1.LookupDto==null ||  accLookup1.LookupDto.GSTIN.Length!=15))
-                    ewbGen.vehicleNo = "PVC1234";//PVC1234
+            //if(modeLookUpEdit.EditValue.ToString()=="Road" && (accLookup1.LookupDto==null ||  accLookup1.LookupDto.GSTIN.Length!=15))
+            ewbGen.vehicleNo = "PVC1234";//vehicleNoKontoTextEdit.Text;
             
             ewbGen.vehicleType = vehicleTypelookUpEdit.EditValue.ToString();//R
 
-            foreach (var item in TModel)
+            var itms = TModel.GroupBy(
+                s => new
+                {
+                    s.ColorName, s.GradeName, s.SgstPer, s.CgstPer, s.IgstPer,s.DesignNo
+                }
+            ).Select(g => new
             {
-                var pd = db.Products.Find(item.ProductId);
-                var um = db.Uoms.Find(item.UomId);
+                ProductName = g.Key.ColorName,
+                HsnCode = g.Key.GradeName,
+                g.Key.SgstPer,
+                g.Key.CgstPer,
+                g.Key.IgstPer,
+                Uom = g.Key.DesignNo,
+                Qty = g.Sum(x => x.Qty),
+                Value = g.Sum(x => x.Total),
+                Cgst = g.Sum(x => x.Cgst),
+                Sgst = g.Sum(x => x.Sgst),
+                Igst = g.Sum(x => x.Igst)
+            }).ToList();
 
+            ewbGen.itemList = new List<ReqGenEwbPl.ItemListInReqEWBpl>();
+            foreach (var item in itms)
+            {
                 ewbGen.itemList.Add(new ReqGenEwbPl.ItemListInReqEWBpl
                 {
-                    productName = pd.ProductName,
-                    productDesc = pd.ProductName,
-                    hsnCode = Convert.ToInt32(pd.HsnCode),
+                    productName = item.ProductName,
+                    productDesc = item.ProductName,
+                    hsnCode = Convert.ToInt32(item.HsnCode),
                     quantity = Convert.ToDouble(item.Qty),
-                    qtyUnit = um.UnitCode,
+                    qtyUnit = item.Uom,
                     cgstRate = Convert.ToDouble(item.CgstPer),
                     sgstRate = Convert.ToDouble(item.SgstPer),
                     igstRate = Convert.ToDouble(item.IgstPer),
                     cessRate = 0,
-                    cessNonAdvol = Convert.ToDouble(item.Cess),
-                    taxableAmount = Convert.ToDouble(item.Total-item.Cess-item.Cgst-item.Sgst-item.Igst)
+                    cessNonAdvol = 0,
+                    taxableAmount = Convert.ToDouble(item.Value-item.Cgst-item.Sgst-item.Igst)
                 }
               );
             }
@@ -287,9 +320,8 @@ namespace Konto.Shared.Trans.Common
             }
             else
             {
-                errorkontoTextEdit.Text = TxnResp.TxnOutcome +"-" + TxnResp.RespObj.alert; ;
-            }
-            return false;
+                errorkontoTextEdit.Text = TxnResp.TxnOutcome;
+            } return false;
         }
 
         private void EwayBillView_Shown(object sender, EventArgs e)
@@ -311,7 +343,11 @@ namespace Konto.Shared.Trans.Common
                 subTypeLookUpEdit.EditValue = _ewb.SubType;
                 docTypeLookUpEdit.EditValue = _ewb.DocType;
                 if (_ewb.TransId != null)
+                {
                     accLookup1.SetAcc(Convert.ToInt32(_ewb.TransId));
+                    accLookup1.SelectedValue= _ewb.TransId;
+                }
+
                 distanceSpinEdit.Value = _ewb.Distance;
                 docDateEdit.EditValue = _ewb.DocDate;
                 docNokontoTextEdit.Text = _ewb.DocNo;
@@ -320,7 +356,7 @@ namespace Konto.Shared.Trans.Common
                 transTypelookUpEdit.EditValue = _ewb.TransactionType;
                 ewayBillkontoTextEdit.Text = _ewb.EwbNo;
 
-                okSimpleButton.Enabled = false;
+               // okSimpleButton.Enabled = false;
                 return;
             }
 
@@ -361,8 +397,8 @@ namespace Konto.Shared.Trans.Common
             EwbSession.EwbApiSetting.AspUserId = SysParameter.AspUserId;
             EwbSession.EwbApiSetting.AspPassword = SysParameter.AspUserPass;
             EwbSession.EwbApiSetting.GSPName = SysParameter.AspGspName;
-            EwbSession.EwbApiSetting.BaseUrl = SysParameter.AspApiBaseUrl + "/v1.03";
-
+            EwbSession.EwbApiSetting.BaseUrl = SysParameter.AspApiBaseUrl + "/v1.03"; 
+            
 
             using (var db = new KontoContext())
             {

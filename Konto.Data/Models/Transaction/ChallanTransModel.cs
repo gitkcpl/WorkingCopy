@@ -114,6 +114,11 @@ namespace Konto.Data.Models.Transaction
 
         public decimal PlainQty { get; set; }
 
+        public  DateTime? ReceiveDateTime { get; set; }
+        public  int ReceivedById { get; set; }
+        public  bool IsReceived { get; set; }
+        public int BranchId { get; set; }
+
         //[NotMapped]
         //public string ProductName { get; set; }
 

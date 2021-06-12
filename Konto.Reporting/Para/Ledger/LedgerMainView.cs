@@ -189,6 +189,13 @@ namespace Konto.Reporting.Para.Ledger
                     }
                 }
 
+                if (this.Parent == null)
+                {
+                    var frm1 = new KontoRepViewer(doc);
+                    frm1.Text = "Oustanding " + accLookup1.SelectedText;
+                    frm1.Show();
+                    return;
+                }
                 var _tab = this.Parent.Parent as TabControlAdv;
                 if (_tab == null) return;
                 var frm = new KontoRepViewer(doc);
@@ -252,9 +259,15 @@ namespace Konto.Reporting.Para.Ledger
                                                               this.tDateEdit.DateTime.ToShortDateString();
 
                 var frm = new KontoRepViewer(doc);
-               
-                    var _tab = this.Parent.Parent as TabControlAdv;
-                    if (_tab == null) return;
+
+                if (this.Parent == null)
+                {
+                    frm.Text = "Ledger " + accLookup1.SelectedText;
+                    frm.Show();
+                    return;
+                }
+                var _tab = this.Parent.Parent as TabControlAdv;
+                if (_tab == null) return;
 
                     var pg1 = new TabPageAdv();
                     pg1.Text = "Ledger Print";

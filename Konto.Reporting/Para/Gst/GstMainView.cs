@@ -376,7 +376,7 @@ namespace Konto.Reporting.Para.Gst
 
             var _db = new KontoContext();
 
-            if (File.Exists("Excel\\GSTR1_Excel_Workbook_Template_V1.7.xlsx"))
+            if (File.Exists("Excel\\GSTR1_Excel_Workbook_Template_V1.8.xlsx"))
             {
                 _db.Database.CommandTimeout = 0;
 
@@ -617,11 +617,12 @@ namespace Konto.Reporting.Para.Gst
 
                     w.Cells["D" + row].PutValue(t.TotalQty);
                     w.Cells["E" + row].PutValue(t.BillAmount);
-                    w.Cells["F" + row].PutValue(t.TaxableValue);
-                    w.Cells["G" + row].PutValue(t.IgstAmt);
-                    w.Cells["H" + row].PutValue(t.CgstAmt);
-                    w.Cells["I" + row].PutValue(t.SgstAmt);
-                    w.Cells["J" + row].PutValue(t.Cess);
+                    w.Cells["F" + row].PutValue(t.TaxPer);
+                    w.Cells["G" + row].PutValue(t.TaxableValue);
+                    w.Cells["H" + row].PutValue(t.IgstAmt);
+                    w.Cells["I" + row].PutValue(t.CgstAmt);
+                    w.Cells["J" + row].PutValue(t.SgstAmt);
+                    w.Cells["K" + row].PutValue(t.Cess);
 
                     row += 1;
 

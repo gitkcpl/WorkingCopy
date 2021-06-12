@@ -14,6 +14,7 @@ using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using Konto.Data.Models.Reports;
 
 namespace Konto.Data
 {
@@ -375,6 +376,8 @@ namespace Konto.Data
         public DbSet<Ewb> Ewbs { get; set; }
         public DbSet<ApiBal> ApiBals { get; set; }
         public DbSet<EInv> EInvs { get; set; }
+
+        public  DbSet<RepColumn> RepCols { get; set; }
 
         #endregion
     }

@@ -137,7 +137,8 @@ namespace Konto.Shared.Trans.ST
             //colFreight.Visible = SCPara.Freight_Required;
             //colFreightRate.Visible = SCPara.Freight_Required;
             //colLotNo.Visible = SCPara.LotNo_Required;
-            
+            colIsReceived.OptionsColumn.AllowFocus = false;
+            colReceiveDateTime.OptionsColumn.AllowFocus = false;
             if (KontoGlobals.PackageId == 1)
             {
                 colCops.Caption = "Cut";
@@ -576,7 +577,8 @@ namespace Konto.Shared.Trans.ST
                                      SgstPer = ct.SgstPer,
                                      Total = ct.Total,
                                      UomId = (int)ct.UomId,
-                                    BarcodeNo = pd.BarCode
+                                    BarcodeNo = pd.BarCode,IsReceived = ct.IsReceived,
+                                    ReceiveDateTime = ct.ReceiveDateTime ?? DateTime.Now   
                                  }).ToList();
 
                     foreach (var item in _list)
@@ -587,6 +589,10 @@ namespace Konto.Shared.Trans.ST
                     }
                     
                     this.grnTransDtoBindingSource1.DataSource = _list;
+                    if (_list.Any(x => x.IsReceived))
+                    {
+                        okSimpleButton.Enabled = false;
+                    }
                 }
 
 

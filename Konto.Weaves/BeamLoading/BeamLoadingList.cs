@@ -25,8 +25,51 @@ namespace Konto.Weaves.BeamLoading
             this.GridLayoutFileName = KontoFileLayout.BeamLoading_List; 
             BeamCLosesimpleButton.Click += BeamCLosesimpleButton_Click;
             listDateRange1.GetButtonClick += ListDateRange1_GetButtonClick;
+            unloadSimpleButton.Click += UnloadSimpleButton_Click;
         }
-         
+
+        private void UnloadSimpleButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (customGridView1.FocusedRowHandle < 0) return;
+
+                var _id = Convert.ToInt32(this.customGridView1.GetRowCellValue(customGridView1.FocusedRowHandle, "Id"));
+
+                var _beamNo = this.customGridView1.GetRowCellValue(customGridView1.FocusedRowHandle, "VoucherNo")
+                    .ToString();
+                using (var db = new KontoContext())
+                {
+                    using (var _trans = db.Database.BeginTransaction())
+                    {
+                        var prod = db.Prods.Find(_id);
+                        var emps = db.Prod_Emps.Where(x => x.ProdId == _id);
+                        foreach (var em in emps)
+                        {
+                            em.IsDeleted = true;
+                        }
+
+                        prod.ProdStatus = "STOCK";
+                        prod.TwistType = null;
+                        prod.LoadingDate = null;
+                        prod.MacId = null;
+
+                        var lt = db.loadingTranModels.FirstOrDefault(x => x.ProdId == prod.Id
+                                                                          && x.ProdStatus.ToUpper() == "LOADED");
+                        if (lt != null)
+                        {
+                            lt.ProdStatus = "UNLOAD";
+                        }
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
         private void BeamCLosesimpleButton_Click(object sender, EventArgs e)
 
         {
@@ -222,6 +265,11 @@ namespace Konto.Weaves.BeamLoading
                 Log.Error(ex, "beamlist delete");
                 MessageBoxAdv.Show(this, "Error While Delete !!", "Exception ", ex.ToString());
             }
+        }
+
+        private void BeamLoadingList_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

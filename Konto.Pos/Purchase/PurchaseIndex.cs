@@ -624,9 +624,36 @@ namespace Konto.Pos.Purchase
                 er.Category = md.CatName;
                 er.ColorId = md.ColorId;
                 er.ColorName = md.ColorName;
-                    
+                er.Description = md.Description;
+                er.PurUomId = md.UomId;
+                er.TaxId = md.TaxId;
 
-                
+                er.Disc = md.PurDisc;
+                er.SaleDisc = md.SaleDisc;
+                er.ProfitPer = md.ProfitPer; // price profit %
+
+
+                er.SaleRateTaxInc = md.SaleRateTaxInc;
+                er.ChkNegative = md.CheckNegative;
+
+                er.PurUomId = (int)md.UomId;
+                er.UomId = md.PurUomId;
+
+                er.Disc = md.PurDisc;
+                er.SaleDisc = md.SaleDisc;
+                er.ProfitPer = md.ProfitPer; // price profit %
+
+
+
+                er.StyleNo = md.StyleNo;
+                er.SellingPrice = md.SaleRate;
+                er.Rate = md.DealerPrice;
+                er.Qty = 1;
+                er.BulkRate = md.Rate1;
+                er.SemiBulkRate = md.Rate2;
+                er.Mrp = md.Mrp;
+                er.BulkQty = md.Qty;
+
 
                 if (accLookup1.LookupDto.IsGst && !isImortOrSez)
                 {
@@ -2572,7 +2599,11 @@ namespace Konto.Pos.Purchase
                 model.HsnCode = pos.HsnCode;
 
                 model.ProductName = pos.ProductName;
-                model.ProductDesc = pos.Description;
+                if (string.IsNullOrEmpty(pos.Description))
+                    model.ProductDesc = model.ProductName;
+                else
+                    model.ProductDesc = pos.Description;
+
                 model.VendorId = Convert.ToInt32(accLookup1.SelectedValue);
 
                 model.GroupId = pos.GroupId;

@@ -288,6 +288,12 @@
     <Compile Include="Para\BeamProdPara\BPParaMainView.Designer.cs">
       <DependentUpon>BPParaMainView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Para\BillPara\RepSalesRegView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Para\BillPara\RepSalesRegView.Designer.cs">
+      <DependentUpon>RepSalesRegView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Para\BillPara\ParaMainView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -644,6 +650,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Para\BeamProdPara\BPParaMainView.resx">
       <DependentUpon>BPParaMainView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Para\BillPara\RepSalesRegView.resx">
+      <DependentUpon>RepSalesRegView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Para\BillPara\ParaMainView.resx">
       <DependentUpon>ParaMainView.cs</DependentUpon>

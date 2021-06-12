@@ -11,6 +11,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using DevExpress.Data.WcfLinq.Helpers;
+using Keysoft.Erp.Data.Models;
 
 namespace Konto.Import
 {
@@ -21,6 +23,52 @@ namespace Konto.Import
             InitializeComponent();
             okSimpleButton.Click += OkSimpleButton_Click;
             this.Load += ImportView_Load;
+            this.prodImpSimpleButton.Click += ProdImpSimpleButton_Click;
+        }
+
+        private void ProdImpSimpleButton_Click(object sender, EventArgs e)
+        {
+            var sdb = new ImpContext();
+
+            using (var db = new KontoContext())
+            {
+                db.Configuration.AutoDetectChangesEnabled = false;
+                db.Configuration.ValidateOnSaveEnabled = false;
+                db.Database.CommandTimeout = 0;
+                using (var _tran = db.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        var itms = sdb.Items.ToList();
+                        progressBarControl1.Properties.Maximum = itms.Count;
+                        progressBarControl1.Properties.Minimum = 0;
+                        progressBarControl1.Properties.Step = 1;
+                        progressBarControl1.Properties.PercentView = true;
+                        
+                        foreach (var item in itms)
+                        {
+                            var pd = db.Products.FirstOrDefault(x => x.ParentItemId == item.item_id);
+                            if(pd==null)
+                                AddProduct(db,item,sdb);
+
+                            progressBarControl1.PerformStep();
+                            progressBarControl1.Update();
+                            
+                        }
+                        
+                        _tran.Commit();
+                        
+                        MessageBox.Show("Product Imported Successfully");
+                    }
+                    catch (Exception ex)
+                    {
+                        _tran.Rollback();
+                        // if (splashScreenManager1.IsSplashFormVisible) splashScreenManager1.CloseWaitForm();
+                        Log.Error(ex, "Import Error");
+                        MessageBox.Show(ex.ToString());
+                    }
+                }
+            }
         }
 
         private void ImportView_Load(object sender, EventArgs e)
@@ -75,6 +123,7 @@ namespace Konto.Import
                             .Where(x => x.VoucherDate >= fdt && x.VoucherDate <= tdt).ToList();
 
             
+            progressBarControl1.EditValue = 0;
             progressBarControl1.Properties.Maximum = spurs.Count;
             progressBarControl1.Properties.Minimum = 0;
             progressBarControl1.Properties.Step = 1;
@@ -100,11 +149,15 @@ namespace Konto.Import
 
                 if (model == null)
                 {
+                    var vch = db.Vouchers.FirstOrDefault(x => x.Extra2 == spur.VoucherID.ToString());
+                    if(vch==null) continue;
+                    
                     model = new BillModel
                     {
                         AccId = checkAcc.Id,
                         BillType = "Regular",
-                        VoucherId = db.Vouchers.FirstOrDefault(x => x.VTypeId == (int)VoucherTypeEnum.SaleInvoice).Id,
+                        
+                        VoucherId = vch.Id,
                         VoucherDate = (int) spur.VoucherDate,
                         Rcm = "NO",
                         Itc = "Inputs",
@@ -261,8 +314,10 @@ namespace Konto.Import
                             if (py.CashAcID != null)
                                 bp.Pay1Id = 1;
 
-                            if (py.BankAcID != null)
+                            if (py.BankAcID != null && py.BankAcID ==8)
                                 bp.Pay2Id = 2;
+                            else if(py.BankAcID != null)
+                                bp.Pay2Id = 3;
 
                             if (flg)
                                 bp.Pay1Amt = model.TotalAmount;
@@ -880,6 +935,105 @@ namespace Konto.Import
             db.SaveChanges();
 
             return ac;
+        }
+
+        private void AddProduct(KontoContext db, Item sitem, ImpContext sdb)
+        {
+
+            
+            string hsncode = "NA";
+            if (!string.IsNullOrEmpty(sitem.HsnCode))
+                hsncode = sitem.HsnCode;
+
+            var pd = new ProductModel
+            {
+                ProductName = sitem.item_name,
+                ProductDesc = sitem.print_name,
+                ProductCode = sitem.item_code,
+                BarCode = sitem.remark ?? sitem.item_code,
+                Cut = sitem.cut ?? 0,
+                BatchReq = "No",
+                CheckNegative = false,
+                HsnCode = hsncode,
+                PTypeId = (int)ProductTypeEnum.FINISH,
+                PurUomId = GetUnitId(sitem.unit_id ?? 0),
+                UomId = GetUnitId(sitem.unit_id ?? 0),
+                IsActive = true,
+                SerialReq = "No",
+                StockReq = "Yes",
+                ItemType = "I",
+                PurDisc = sitem.dp_disc_per ?? 0,
+                SaleDisc = sitem.Sale_Disc_Per ?? 0,
+                SaleRateTaxInc = sitem.sale_vat_inc == null ? false : Convert.ToBoolean(sitem.sale_vat_inc),
+                StyleId = 1,
+                GroupId = 1,
+                SubGroupId = 1,
+                CategoryId = 1,
+                SizeId = 1,
+                ColorId = 1,
+                TaxId = GetTaxId(sitem.VatClassID ?? 0),
+                ParentItemId = (int)sitem.item_id
+
+            };
+            db.Products.Add(pd);
+            db.SaveChanges();
+
+            var pp = new PriceModel
+            {
+                ProductId = pd.Id,
+                BatchNo = sitem.StyleNo,
+                Mrp = sitem.mrp ?? 0,
+                SaleRate = sitem.sale_rate ?? 0,
+                DealerPrice = sitem.dealer_price ?? 0,
+                BranchId = KontoGlobals.BranchId,
+                Rate1 = sitem.WholeSaleRate ?? 0,
+                Rate2 = sitem.SemiWholeSaleRate ?? 0
+            };
+            db.Prices.Add(pp);
+
+            var complist = db.Companies.Where(p => p.IsActive && !p.IsDeleted).ToList();
+            var yearlist = db.FinYears.Where(x => x.IsActive == true && x.IsDeleted == false).ToList();
+            // var storelist = db.Stores.Where(x => x.IsActive && !x.IsDeleted).ToList();
+            var branchlist = db.Branches.Where(x => x.IsActive && !x.IsDeleted).ToList();
+            foreach (var comp in complist)
+            {
+                foreach (var yr in yearlist)
+                {
+                    foreach (var branch in branchlist)
+                    {
+                        // foreach (var store in storelist)
+                        // {
+                        StockBalModel _model = new StockBalModel();
+
+                        _model = new StockBalModel();
+
+                        _model.ProductId = pd.Id;
+                        _model.ItemCode = pd.RowId;
+
+                        _model.CompanyId = comp.Id;
+                        _model.YearId = yr.Id;
+                        _model.BranchId = branch.Id;
+                        _model.GodownId = KontoGlobals.GodownId;
+
+
+                        _model.BalQty = 0;
+                        _model.RowId = Guid.NewGuid();
+                        _model.CreateUser = KontoGlobals.UserName;
+                        _model.CreateDate = DateTime.Now;
+                        _model.OpNos = 0;
+                        _model.OpQty = 0;
+
+                        db.StockBals.Add(_model);
+
+
+                        //}
+                    }
+                }
+            }
+            db.SaveChanges();
+
+
+            
         }
     }
 }

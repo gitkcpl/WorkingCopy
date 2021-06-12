@@ -1167,8 +1167,17 @@ namespace Konto.Shared.Trans.JobIssue
         {
             if (this.PrimaryKey == 0 && Convert.ToInt32(voucherLookup1.SelectedValue) > 0)
             {
-                voucherNoTextEdit.Text = "New-" + DbUtils.NextSerialNo(Convert.ToInt32(voucherLookup1.SelectedValue), 1);
+                voucherNoTextEdit.Text =  DbUtils.NextSerialNo(Convert.ToInt32(voucherLookup1.SelectedValue), 1);
             }
+            if (voucherLookup1.GroupDto != null && voucherLookup1.GroupDto.ManualSeries)
+            {
+                voucherNoTextEdit.Enabled = true;
+            }
+            else
+            {
+                voucherNoTextEdit.Enabled = false;
+            }
+
         }
 
         private void DelvLookup_SelectedValueChanged(object sender, EventArgs e)
@@ -1559,7 +1568,9 @@ namespace Konto.Shared.Trans.JobIssue
 
                         if (this.PrimaryKey == 0)
                         {
-                            model.VoucherNo = DbUtils.NextSerialNo(model.VoucherId, db, 0);
+                            if(!voucherLookup1.GroupDto.ManualSeries)
+                                model.VoucherNo = DbUtils.NextSerialNo(model.VoucherId, db, 0);
+
                             // this._SerialValue = _srno.SerialValue;
 
                             if (DbUtils.CheckExistVoucherNo(model.VoucherId, model.VoucherNo, db, model.Id))

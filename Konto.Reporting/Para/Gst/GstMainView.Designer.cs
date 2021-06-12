@@ -383,6 +383,7 @@
             this.colEndBill = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colTotalCancel = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colVoucherID = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colTaxPer = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.toDateEdit.Properties.CalendarTimeProperties)).BeginInit();
@@ -3618,6 +3619,7 @@
             this.colDescription,
             this.colUqc,
             this.colUomId,
+            this.colTaxPer,
             this.colTotalQty,
             this.colBillAmount2,
             this.colTaxableValue3,
@@ -3681,7 +3683,7 @@
             this.colBillAmount2.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "BillAmount", "{0:F}")});
             this.colBillAmount2.Visible = true;
-            this.colBillAmount2.VisibleIndex = 8;
+            this.colBillAmount2.VisibleIndex = 9;
             this.colBillAmount2.Width = 100;
             // 
             // colTaxableValue3
@@ -3691,7 +3693,7 @@
             this.colTaxableValue3.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TaxableValue", "{0:F}")});
             this.colTaxableValue3.Visible = true;
-            this.colTaxableValue3.VisibleIndex = 4;
+            this.colTaxableValue3.VisibleIndex = 5;
             this.colTaxableValue3.Width = 105;
             // 
             // colIgstAmt1
@@ -3701,7 +3703,7 @@
             this.colIgstAmt1.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "IgstAmt", "{0:F}")});
             this.colIgstAmt1.Visible = true;
-            this.colIgstAmt1.VisibleIndex = 5;
+            this.colIgstAmt1.VisibleIndex = 6;
             // 
             // colCgstAmt1
             // 
@@ -3710,7 +3712,7 @@
             this.colCgstAmt1.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "CgstAmt", "{0:F}")});
             this.colCgstAmt1.Visible = true;
-            this.colCgstAmt1.VisibleIndex = 6;
+            this.colCgstAmt1.VisibleIndex = 7;
             this.colCgstAmt1.Width = 90;
             // 
             // colSgstAmt1
@@ -3720,7 +3722,7 @@
             this.colSgstAmt1.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "SgstAmt", "{0:F}")});
             this.colSgstAmt1.Visible = true;
-            this.colSgstAmt1.VisibleIndex = 7;
+            this.colSgstAmt1.VisibleIndex = 8;
             this.colSgstAmt1.Width = 87;
             // 
             // colCess3
@@ -3730,7 +3732,7 @@
             this.colCess3.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Cess", "{0:F}")});
             this.colCess3.Visible = true;
-            this.colCess3.VisibleIndex = 9;
+            this.colCess3.VisibleIndex = 10;
             this.colCess3.Width = 83;
             // 
             // colGroupId
@@ -3857,6 +3859,14 @@
             // 
             this.colVoucherID.FieldName = "VoucherID";
             this.colVoucherID.Name = "colVoucherID";
+            // 
+            // colTaxPer
+            // 
+            this.colTaxPer.Caption = "Tax Rate";
+            this.colTaxPer.FieldName = "TaxPer";
+            this.colTaxPer.Name = "colTaxPer";
+            this.colTaxPer.Visible = true;
+            this.colTaxPer.VisibleIndex = 4;
             // 
             // GstMainView
             // 
@@ -4301,5 +4311,6 @@
         private DevExpress.XtraGrid.Columns.GridColumn colNilRated;
         private DevExpress.XtraGrid.Columns.GridColumn colExempted;
         private DevExpress.XtraGrid.Columns.GridColumn colNonGst;
+        private DevExpress.XtraGrid.Columns.GridColumn colTaxPer;
     }
 }

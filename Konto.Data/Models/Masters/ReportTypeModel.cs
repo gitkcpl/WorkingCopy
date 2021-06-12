@@ -35,18 +35,18 @@ namespace Konto.Data.Models.Masters
         [Display(Name = "Is Deleted")]
         public bool IsDeleted { get; set; }
 
-        [MaxLength(500)]
-        [Display(Name = "Remarks")]
+      
         public string Remarks { get; set; }
 
-        [MaxLength(500)]
+        [MaxLength(100)]
         [Display(Name = "FileName")]
         public string FileName { get; set; }
 
         [Display(Name = "Create User")]
+        [MaxLength(50)]
         public string CreateUser { get; set; }
 
-        [Display(Name = "Modify User")]
+        [MaxLength(50)]
         public string ModifyUser { get; set; }
 
         [Display(Name = "CreateDate")]
@@ -54,9 +54,15 @@ namespace Konto.Data.Models.Masters
 
         [Display(Name = "ModifyDate")]
         public DateTime? ModifyDate { get; set; }
-
-        [Display(Name = "SpName")]
+        
+        [MaxLength(50)]
         public string SpName { get; set; }
+
+        [MaxLength(50)]
+        public  string LastGroup1 { get; set; }
+
+        [MaxLength(50)]
+        public string LastGroup2 { get; set; }
 
         [NotMapped]
         public string VoucherTypeName { get; set; }

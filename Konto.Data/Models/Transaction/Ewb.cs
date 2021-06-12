@@ -38,7 +38,7 @@ namespace Konto.Data.Models.Transaction
         [MaxLength(10)]
         public string VehicleNo { get; set; }
 
-        [MaxLength(3)]
+        [MaxLength(15)]
         public string VehicleType { get; set; }
 
         [MaxLength(50)]

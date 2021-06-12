@@ -115,6 +115,8 @@
             this.layoutControlItem10 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem15 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem9 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.colIsReceived = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colReceiveDateTime = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.tabControlAdv1)).BeginInit();
             this.tabControlAdv1.SuspendLayout();
             this.tabPageAdv1.SuspendLayout();
@@ -496,6 +498,8 @@
             this.colOrdDate,
             this.colOrdNo,
             this.colRefId,
+            this.colIsReceived,
+            this.colReceiveDateTime,
             this.colMiscId});
             this.gridView1.GridControl = this.gridControl1;
             this.gridView1.Name = "gridView1";
@@ -889,7 +893,7 @@
             this.colNetTotal.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Total", "{0:F}")});
             this.colNetTotal.Visible = true;
-            this.colNetTotal.VisibleIndex = 23;
+            this.colNetTotal.VisibleIndex = 25;
             this.colNetTotal.Width = 110;
             // 
             // colRemark
@@ -1246,6 +1250,22 @@
             this.layoutControlItem9.Text = "Eway Bill No:";
             this.layoutControlItem9.TextSize = new System.Drawing.Size(119, 17);
             // 
+            // colIsReceived
+            // 
+            this.colIsReceived.FieldName = "IsReceived";
+            this.colIsReceived.Name = "colIsReceived";
+            this.colIsReceived.Visible = true;
+            this.colIsReceived.VisibleIndex = 23;
+            // 
+            // colReceiveDateTime
+            // 
+            this.colReceiveDateTime.Caption = "Received Date";
+            this.colReceiveDateTime.FieldName = "ReceiveDateTime";
+            this.colReceiveDateTime.Name = "colReceiveDateTime";
+            this.colReceiveDateTime.Visible = true;
+            this.colReceiveDateTime.VisibleIndex = 24;
+            this.colReceiveDateTime.Width = 98;
+            // 
             // StIndex
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1400,5 +1420,7 @@
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem8;
         private DevExpress.XtraEditors.TextEdit ewayBillNoTextEdit;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem9;
+        private DevExpress.XtraGrid.Columns.GridColumn colIsReceived;
+        private DevExpress.XtraGrid.Columns.GridColumn colReceiveDateTime;
     }
 }

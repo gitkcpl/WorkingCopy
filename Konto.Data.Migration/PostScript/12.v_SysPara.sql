@@ -1333,6 +1333,12 @@ IF NOT EXISTS(SELECT 1 FROM dbo.SysPara WHERE Id=321)
 INSERT INTO dbo.SysPara(Id,Descr,DefaultValue,ValueDescr,Category)
 Values(321,'Gate Entry Required','N','Y for Yes N for No','GRN')
 
+
+IF NOT EXISTS(SELECT 1 FROM dbo.SysPara WHERE Id=322)
+INSERT INTO dbo.SysPara(Id,Descr,DefaultValue,ValueDescr,Category)
+Values(322,'Accept Zero Value','N','Y for Yes N for No','Mrv')
+
+
 -- for system level
 IF NOT EXISTS(SELECT 1 FROM dbo.SysPara WHERE Id=500) 
 INSERT INTO dbo.SysPara(Id,Descr,DefaultValue,ValueDescr,Category)

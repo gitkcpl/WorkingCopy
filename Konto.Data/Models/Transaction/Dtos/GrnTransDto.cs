@@ -119,5 +119,9 @@ namespace Konto.Data.Models.Transaction.Dtos
         public decimal FromStock { get; set; }
         public decimal ToStock { get; set; }
 
+        public DateTime ReceiveDateTime { get; set; }
+        public int ReceivedById { get; set; }
+        public bool IsReceived { get; set; }
+
     }
 }

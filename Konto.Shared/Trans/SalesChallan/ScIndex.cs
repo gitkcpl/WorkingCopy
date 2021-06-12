@@ -117,7 +117,15 @@ namespace Konto.Shared.Trans.SalesChallan
         {
             if (this.PrimaryKey == 0 && Convert.ToInt32(voucherLookup1.SelectedValue) > 0)
             {
-                voucherNoTextEdit.Text = "New-" + DbUtils.NextSerialNo(Convert.ToInt32(voucherLookup1.SelectedValue), 1);
+                voucherNoTextEdit.Text = DbUtils.NextSerialNo(Convert.ToInt32(voucherLookup1.SelectedValue), 1);
+            }
+            if (voucherLookup1.GroupDto != null && voucherLookup1.GroupDto.ManualSeries)
+            {
+                voucherNoTextEdit.Enabled = true;
+            }
+            else
+            {
+                voucherNoTextEdit.Enabled = false;
             }
         }
 
@@ -1356,7 +1364,9 @@ namespace Konto.Shared.Trans.SalesChallan
                         _find.TypeId = (int)VoucherTypeEnum.SalesChallan;
                         if (this.PrimaryKey == 0)
                         {
-                            _find.VoucherNo = DbUtils.NextSerialNo(_find.VoucherId, db);
+                            if(!voucherLookup1.GroupDto.ManualSeries)
+                                _find.VoucherNo = DbUtils.NextSerialNo(_find.VoucherId, db);
+
                             if (DbUtils.CheckExistVoucherNo(_find.VoucherId, _find.VoucherNo, db, _find.Id))
                             {
                                 MessageBox.Show("Duplicate Voucher No Not Allowed");

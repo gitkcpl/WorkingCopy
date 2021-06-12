@@ -193,7 +193,7 @@ namespace Konto.Reporting.Chal
                 xrep.Parameters["voucher_id"].Value = voucherLookup1.SelectedValue;
 
             if (Convert.ToInt32(gradeLookup1.SelectedValue) > 0)
-                xrep.Parameters["voucher_id"].Value = gradeLookup1.SelectedValue;
+                xrep.Parameters["grade_id"].Value = gradeLookup1.SelectedValue;
 
 
             

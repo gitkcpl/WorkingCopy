@@ -27,5 +27,6 @@ namespace Konto.App.Shared.Para
         public static bool Taka_Detail_Required = true;
         public static bool FinishMeter_more_than_GreyMeter = false;
         public static bool Generate_Barcode = false;
+        public static bool Accept_Zero_Value = false;
     }
 }

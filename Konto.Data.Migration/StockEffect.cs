@@ -847,5 +847,65 @@ namespace Konto.Data
             return true;
         }
 
+
+
+        // stock received after stock transfer
+        public static bool StockReceivedAgainstTransfer(ChallanModel Model, ChallanTransModel item,
+              string tableName, KontoContext _db)
+
+        {
+
+
+            StockTransModel stock = new StockTransModel();
+
+            stock.CompanyId = Convert.ToInt16(Model.CompId);
+            stock.YearId = (int)Model.YearId;
+
+            stock.BranchId = item.BranchId;
+            stock.GodownId = Model.StoreId != null ? (int)(Model.StoreId) : 0;
+            
+            stock.ChallanType = (int) ChallanTypeEnum.TRANSFER_IN;
+            stock.Cut = item.Cops;
+
+            stock.LotNo = item.LotNo;
+            stock.RefId = item.RowId;
+            stock.MasterRefId = Model.RowId;
+            stock.VoucherDate = Convert.ToInt32(Convert.ToDateTime(item.ReceiveDateTime).ToString("yyyyMMdd"));
+            stock.TransDate = item.ReceiveDateTime;
+            stock.DivId = Model.DivId;
+            stock.AccountId = Model.AccId;
+
+            //stock.TransDate = DateTime.ParseExact(Model.VoucherDate.ToString(), "yyyyMMdd",
+            //     System.Globalization.CultureInfo.CurrentCulture);
+
+            stock.VoucherId = Model.VoucherId;
+            stock.BillNo = Model.ChallanNo;
+            stock.VoucherNo = Model.VoucherNo;
+            
+            stock.ItemId = item.ProductId != null ? Convert.ToInt32(item.ProductId) : 0;
+           
+            stock.Rate = item.Rate;
+            stock.Amount = item.Total;
+            stock.AgentId = Model.AgentId != null ? Convert.ToInt32(Model.AgentId) : 0;
+
+            stock.TableName = tableName;
+            stock.KeyFldValue = Model.Id;
+            stock.Narration = item.Remark;
+
+            stock.IsActive = item.IsActive;
+            stock.IsDeleted = item.IsDeleted; 
+            stock.RcptQty = item.Qty;
+            stock.Qty =  item.Qty;
+            stock.RcptNos = item.Pcs;
+            stock.Pcs =  item.Pcs;
+            stock.TransDateTime = DateTime.Now;
+            stock.CreateDate = DateTime.Now;
+            stock.CreateUser = KontoGlobals.UserName;
+            stock.UomId = item.UomId;
+            _db.StockTranses.Add(stock);
+
+            return true;
+
+        }
     }
 }

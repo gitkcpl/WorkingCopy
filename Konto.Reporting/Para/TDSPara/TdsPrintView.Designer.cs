@@ -35,6 +35,7 @@
             this.cancelSimpleButton = new DevExpress.XtraEditors.SimpleButton();
             this.okSimpleButton = new DevExpress.XtraEditors.SimpleButton();
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
+            this.gpOn1LookUpEdit = new DevExpress.XtraEditors.LookUpEdit();
             this.ledgerGroupLookup1 = new Konto.Shared.Masters.LedgerGroup.LedgerGroupLookup();
             this.footerTextEdit = new DevExpress.XtraEditors.TextEdit();
             this.titleTextEdit = new DevExpress.XtraEditors.TextEdit();
@@ -126,17 +127,17 @@
             this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlGroup3 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
-            this.layoutControlItem13 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem15 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem16 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem13 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
-            this.gpOn1LookUpEdit = new DevExpress.XtraEditors.LookUpEdit();
-            this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gpOn1LookUpEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.footerTextEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.titleTextEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.branchLookUpEdit1.Properties)).BeginInit();
@@ -168,14 +169,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem13)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem15)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem16)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem13)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gpOn1LookUpEdit.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -253,10 +253,33 @@
             this.layoutControl1.TabIndex = 10;
             this.layoutControl1.Text = "layoutControl1";
             // 
+            // gpOn1LookUpEdit
+            // 
+            this.gpOn1LookUpEdit.EnterMoveNextControl = true;
+            this.gpOn1LookUpEdit.Location = new System.Drawing.Point(397, 274);
+            this.gpOn1LookUpEdit.Name = "gpOn1LookUpEdit";
+            this.gpOn1LookUpEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gpOn1LookUpEdit.Properties.Appearance.Options.UseFont = true;
+            this.gpOn1LookUpEdit.Properties.AppearanceDropDown.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gpOn1LookUpEdit.Properties.AppearanceDropDown.Options.UseFont = true;
+            this.gpOn1LookUpEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.gpOn1LookUpEdit.Properties.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("_Key", "Name2")});
+            this.gpOn1LookUpEdit.Properties.DisplayMember = "_Key";
+            this.gpOn1LookUpEdit.Properties.ImmediatePopup = true;
+            this.gpOn1LookUpEdit.Properties.NullText = "";
+            this.gpOn1LookUpEdit.Properties.ShowHeader = false;
+            this.gpOn1LookUpEdit.Properties.ValueMember = "_Value";
+            this.gpOn1LookUpEdit.Size = new System.Drawing.Size(291, 24);
+            this.gpOn1LookUpEdit.StyleController = this.layoutControl1;
+            this.gpOn1LookUpEdit.TabIndex = 32;
+            // 
             // ledgerGroupLookup1
             // 
             this.ledgerGroupLookup1.GroupDto = null;
             this.ledgerGroupLookup1.Location = new System.Drawing.Point(94, 325);
+            this.ledgerGroupLookup1.LookupTitle = null;
             this.ledgerGroupLookup1.Name = "ledgerGroupLookup1";
             this.ledgerGroupLookup1.PrimaryKey = null;
             this.ledgerGroupLookup1.RequiredField = false;
@@ -445,7 +468,7 @@
             // 
             // customGridColumn3
             // 
-            this.customGridColumn3.Caption = "Party Group";
+            this.customGridColumn3.Caption = "Ledger Group";
             this.customGridColumn3.FieldName = "DisplayText";
             this.customGridColumn3.Name = "customGridColumn3";
             this.customGridColumn3.Visible = true;
@@ -1039,7 +1062,7 @@
             this.layoutControlGroup9.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup9.Name = "layoutControlGroup9";
             this.layoutControlGroup9.Size = new System.Drawing.Size(681, 197);
-            this.layoutControlGroup9.Text = "Party Group && Tds";
+            this.layoutControlGroup9.Text = "Group && Tds";
             // 
             // layoutControlItem10
             // 
@@ -1113,17 +1136,6 @@
             this.emptySpaceItem1.Size = new System.Drawing.Size(384, 10);
             this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
             // 
-            // layoutControlItem13
-            // 
-            this.layoutControlItem13.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.layoutControlItem13.AppearanceItemCaption.Options.UseFont = true;
-            this.layoutControlItem13.Control = this.gpOn2LookUpEdit;
-            this.layoutControlItem13.Location = new System.Drawing.Point(0, 28);
-            this.layoutControlItem13.Name = "layoutControlItem13";
-            this.layoutControlItem13.Size = new System.Drawing.Size(384, 28);
-            this.layoutControlItem13.Text = "Group On 2:";
-            this.layoutControlItem13.TextSize = new System.Drawing.Size(86, 17);
-            // 
             // layoutControlItem15
             // 
             this.layoutControlItem15.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1145,6 +1157,28 @@
             this.layoutControlItem16.Size = new System.Drawing.Size(384, 28);
             this.layoutControlItem16.Text = "Footer:";
             this.layoutControlItem16.TextSize = new System.Drawing.Size(86, 17);
+            // 
+            // layoutControlItem4
+            // 
+            this.layoutControlItem4.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.layoutControlItem4.AppearanceItemCaption.Options.UseFont = true;
+            this.layoutControlItem4.Control = this.gpOn1LookUpEdit;
+            this.layoutControlItem4.Location = new System.Drawing.Point(0, 0);
+            this.layoutControlItem4.Name = "layoutControlItem4";
+            this.layoutControlItem4.Size = new System.Drawing.Size(384, 28);
+            this.layoutControlItem4.Text = "Group On 1:";
+            this.layoutControlItem4.TextSize = new System.Drawing.Size(86, 17);
+            // 
+            // layoutControlItem13
+            // 
+            this.layoutControlItem13.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.layoutControlItem13.AppearanceItemCaption.Options.UseFont = true;
+            this.layoutControlItem13.Control = this.gpOn2LookUpEdit;
+            this.layoutControlItem13.Location = new System.Drawing.Point(0, 28);
+            this.layoutControlItem13.Name = "layoutControlItem13";
+            this.layoutControlItem13.Size = new System.Drawing.Size(384, 28);
+            this.layoutControlItem13.Text = "Group On 2:";
+            this.layoutControlItem13.TextSize = new System.Drawing.Size(86, 17);
             // 
             // layoutControlItem5
             // 
@@ -1176,39 +1210,6 @@
             this.emptySpaceItem2.Size = new System.Drawing.Size(297, 49);
             this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
             // 
-            // gpOn1LookUpEdit
-            // 
-            this.gpOn1LookUpEdit.EnterMoveNextControl = true;
-            this.gpOn1LookUpEdit.Location = new System.Drawing.Point(397, 274);
-            this.gpOn1LookUpEdit.Name = "gpOn1LookUpEdit";
-            this.gpOn1LookUpEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gpOn1LookUpEdit.Properties.Appearance.Options.UseFont = true;
-            this.gpOn1LookUpEdit.Properties.AppearanceDropDown.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gpOn1LookUpEdit.Properties.AppearanceDropDown.Options.UseFont = true;
-            this.gpOn1LookUpEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.gpOn1LookUpEdit.Properties.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
-            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("_Key", "Name2")});
-            this.gpOn1LookUpEdit.Properties.DisplayMember = "_Key";
-            this.gpOn1LookUpEdit.Properties.ImmediatePopup = true;
-            this.gpOn1LookUpEdit.Properties.NullText = "";
-            this.gpOn1LookUpEdit.Properties.ShowHeader = false;
-            this.gpOn1LookUpEdit.Properties.ValueMember = "_Value";
-            this.gpOn1LookUpEdit.Size = new System.Drawing.Size(291, 24);
-            this.gpOn1LookUpEdit.StyleController = this.layoutControl1;
-            this.gpOn1LookUpEdit.TabIndex = 32;
-            // 
-            // layoutControlItem4
-            // 
-            this.layoutControlItem4.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.layoutControlItem4.AppearanceItemCaption.Options.UseFont = true;
-            this.layoutControlItem4.Control = this.gpOn1LookUpEdit;
-            this.layoutControlItem4.Location = new System.Drawing.Point(0, 0);
-            this.layoutControlItem4.Name = "layoutControlItem4";
-            this.layoutControlItem4.Size = new System.Drawing.Size(384, 28);
-            this.layoutControlItem4.Text = "Group On 1:";
-            this.layoutControlItem4.TextSize = new System.Drawing.Size(86, 17);
-            // 
             // TdsPrintView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1221,6 +1222,7 @@
             this.tableLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.gpOn1LookUpEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.footerTextEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.titleTextEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.branchLookUpEdit1.Properties)).EndInit();
@@ -1252,14 +1254,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem13)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem15)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem16)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem13)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gpOn1LookUpEdit.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).EndInit();
             this.ResumeLayout(false);
 
         }

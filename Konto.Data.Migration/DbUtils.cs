@@ -4,6 +4,7 @@ using Konto.Data.Models.Masters.Dtos;
 using Konto.Data.Models.Transaction.Dtos;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Security.AccessControl;
 
 namespace Konto.Data
 {
@@ -429,6 +430,37 @@ namespace Konto.Data
             }
 
             return false;
+        }
+
+        public static GrnTransDto GetPendingStockTransfer(string barcodeno)
+        {
+            using (var db = new KontoContext())
+            {
+                var modle = (from c in db.Challans
+                        join ct in db.ChallanTranses on c.Id equals ct.ChallanId
+                        join p in db.Products on ct.ProductId equals p.Id
+                        join cl in db.ColorModels on p.ColorId equals cl.Id into cl_j
+                        from cl in cl_j.DefaultIfEmpty()
+                        join v in db.Vouchers on c.VoucherId equals  v.Id
+                        where v.VTypeId ==(int)VoucherTypeEnum.Stock_Transfer && p.BarCode == barcodeno && !ct.IsReceived
+                        && c.ToBranchId == KontoGlobals.BranchId
+                        select new GrnTransDto()
+                        {
+                            BarcodeNo = p.BarCode,
+                            ProductId = p.Id,
+                            ProductName = p.ProductName,
+                            ColorId = ct.ColorId ?? 0,
+                            ColorName = cl.ColorName,
+                            Qty = ct.Qty,Pcs = ct.Pcs,
+                            Rate = ct.Rate,
+                            Remark = ct.Remark,
+                            Id = ct.Id,ChallanId = ct.ChallanId,
+                            UomId = ct.UomId ??0
+                        }
+                    ).FirstOrDefault();
+
+                return modle;
+            }
         }
     }
 }

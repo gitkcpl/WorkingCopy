@@ -847,7 +847,8 @@ namespace Konto.Shared.Account.GenExpense
                 var accid = Convert.ToInt32(accLookup1.SelectedValue);
                 var find1 = db.Bills.FirstOrDefault(
                x => x.AccId == accid && !x.IsDeleted && x.BillNo == billNoTextEdit.Text.Trim() && x.CompId == KontoGlobals.CompanyId 
-               && x.YearId == KontoGlobals.YearId && x.Id!= this.PrimaryKey);
+               && x.YearId == KontoGlobals.YearId && x.Id!= this.PrimaryKey
+               && x.TypeId ==(int) VoucherTypeEnum.GenExpense);
 
                 if ( find1 != null)
                 {

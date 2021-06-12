@@ -62,24 +62,35 @@ namespace Konto.Shared.Masters.Emp
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
              if (keyData == Keys.Delete && !this.RequiredField)
-            {
-                this.SelectedValue = null;
-                this.buttonEdit1.Text = string.Empty;
-                return true;
+             {
+                 this.SelectedValue = null;
+                 this.buttonEdit1.Text = string.Empty;
+                 return true;
 
-            }
-            return base.ProcessCmdKey(ref msg, keyData);
+             }
+             else if (keyData == Keys.Return)
+             {
+                if (Convert.ToInt32(this.SelectedValue) == 0)
+                {
+                    ShowList();
+                    if (Convert.ToInt32(this.SelectedValue) == 0)
+                        return false;
+
+                    return true;
+                }
+             }
+             return base.ProcessCmdKey(ref msg, keyData);
         }
 
        
         private void buttonEdit1_Enter(object sender, EventArgs e)
         {
-            //if (Convert.ToInt32(this.SelectedValue) != 0)
-           // {
-               // this.buttonEdit1.SelectAll();
-               // return;
-           // }
-            ShowList();
+            if (Convert.ToInt32(this.SelectedValue) != 0)
+            {
+                this.buttonEdit1.SelectAll();
+               
+            }
+            // ShowList();
         }
 
         private void buttonEdit1_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)

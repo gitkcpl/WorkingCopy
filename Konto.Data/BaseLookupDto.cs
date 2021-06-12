@@ -12,5 +12,6 @@ namespace Konto.Data
         [Key]
         public int Id { get; set; }
         public string DisplayText { get; set; }
+        public  string Barcode { get; set; }
     }
 }

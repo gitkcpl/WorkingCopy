@@ -18,7 +18,10 @@ namespace Konto.Core.Shared.Libs
         public VoucherTypeEnum VoucherType { get; set; }
         public ListPageModel SelectedItem { get; set; }
         public GridControl KontoGrid { get; set; }
+        public DateTime DfDate { get; set; }
+        public  DateTime TfDate { get; set; }
 
+        public  bool ReportTypeNotRequired { get; set; }
         public bool IsAnalysis { get; set; }
 
         [Browsable(true)]
@@ -59,13 +62,16 @@ namespace Konto.Core.Shared.Libs
 
         private void getSimpleButton_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(this.lookUpEdit1.Text))
+            this.FromDate = Convert.ToInt32(FdateEdit1.DateTime.ToString("yyyyMMdd"));
+            this.ToDate = Convert.ToInt32(TdateEdit2.DateTime.ToString("yyyyMMdd"));
+            this.DfDate = FdateEdit1.DateTime;
+            this.TfDate = TdateEdit2.DateTime;
+            if (string.IsNullOrEmpty(this.lookUpEdit1.Text) && !ReportTypeNotRequired)
             {
                 MessageBox.Show("Plese select a View Type");
                 lookUpEdit1.Focus();
+                return;
             }
-            this.FromDate = Convert.ToInt32(FdateEdit1.DateTime.ToString("yyyyMMdd"));
-            this.ToDate = Convert.ToInt32(TdateEdit2.DateTime.ToString("yyyyMMdd"));
             this.SelectedItem = lookUpEdit1.Properties.GetDataSourceRowByKeyValue(lookUpEdit1.EditValue) as ListPageModel;
             this.GetButtonClick?.Invoke(this, e);
         }

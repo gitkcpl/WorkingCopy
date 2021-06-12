@@ -51,7 +51,7 @@ namespace Konto.App.Shared
             public static string GstIn = "NA";
             public static int YearId = 1;
             public static int MenuId = 1;
-            public static int BranchId = 1;
+            public static int BranchId = 0;
             public static int GodownId = 1;
             public static int ModuleId = 1;
             public static int FromDate = 20190401;

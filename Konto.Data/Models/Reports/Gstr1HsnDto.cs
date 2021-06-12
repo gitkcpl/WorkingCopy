@@ -15,6 +15,7 @@ namespace Konto.Data.Models.Reports
         public decimal TotalQty { get; set; }
         public decimal BillAmount { get; set; }
         public decimal TaxableValue { get; set; }
+        public decimal TaxPer { get; set; }
         public decimal IgstAmt { get; set; }
         public decimal CgstAmt { get; set; }
         public decimal SgstAmt { get; set; }

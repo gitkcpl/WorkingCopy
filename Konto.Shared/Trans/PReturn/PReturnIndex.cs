@@ -904,7 +904,7 @@ namespace Konto.Shared.Trans.PReturn
             lrNotextEdit.Text = model.DocNo;
             lrDateEdit.EditValue = model.DocDate;
             remarkTextEdit.Text = model.Remarks;
-
+            ewbNotextEdit.Text = model.EwayBillNo;
            
             
             createdLabelControl.Text = "Created By: " + model.CreateUser + " [ " + model.CreateDate + " ]";
@@ -1814,7 +1814,7 @@ namespace Konto.Shared.Trans.PReturn
             model.TotalPcs = 0;
             model.RoundOff = roundoffSpinEdit.Value;
             model.IsActive = true;
-           
+            model.EwayBillNo = ewbNotextEdit.Text.Trim();
           
 
             if (model.Id == 0)

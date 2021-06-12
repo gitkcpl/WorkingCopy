@@ -40,6 +40,7 @@ namespace Konto.Import
             this.progressBarControl1 = new DevExpress.XtraEditors.ProgressBarControl();
             this.autoLabel3 = new Syncfusion.Windows.Forms.Tools.AutoLabel();
             this.splashScreenManager1 = new DevExpress.XtraSplashScreen.SplashScreenManager(this, typeof(global::Konto.Import.WaitForm1), true, true, true);
+            this.prodImpSimpleButton = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.fDateEdit1.Properties.CalendarTimeProperties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.fDateEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tDateEdit2.Properties.CalendarTimeProperties)).BeginInit();
@@ -112,6 +113,7 @@ namespace Konto.Import
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel1.Controls.Add(this.prodImpSimpleButton, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.cancelSimpleButton, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.okSimpleButton, 1, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -166,6 +168,17 @@ namespace Konto.Import
             // 
             this.splashScreenManager1.ClosingDelay = 500;
             // 
+            // prodImpSimpleButton
+            // 
+            this.prodImpSimpleButton.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.prodImpSimpleButton.Appearance.Options.UseFont = true;
+            this.prodImpSimpleButton.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("simpleButton1.ImageOptions.SvgImage")));
+            this.prodImpSimpleButton.Location = new System.Drawing.Point(3, 3);
+            this.prodImpSimpleButton.Name = "prodImpSimpleButton";
+            this.prodImpSimpleButton.Size = new System.Drawing.Size(103, 31);
+            this.prodImpSimpleButton.TabIndex = 7;
+            this.prodImpSimpleButton.Text = "Product";
+            // 
             // ImportView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -204,5 +217,6 @@ namespace Konto.Import
         private DevExpress.XtraEditors.ProgressBarControl progressBarControl1;
         private Syncfusion.Windows.Forms.Tools.AutoLabel autoLabel3;
         private DevExpress.XtraSplashScreen.SplashScreenManager splashScreenManager1;
+        public DevExpress.XtraEditors.SimpleButton prodImpSimpleButton;
     }
 }

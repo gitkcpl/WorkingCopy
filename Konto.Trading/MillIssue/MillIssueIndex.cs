@@ -88,7 +88,7 @@ namespace Konto.Trading.MillIssue
         {
             if (this.PrimaryKey == 0 && Convert.ToInt32(voucherLookup1.SelectedValue) > 0)
             {
-                voucherNoTextEdit.Text = "New-" + DbUtils.NextSerialNo(Convert.ToInt32(voucherLookup1.SelectedValue), 1);
+                voucherNoTextEdit.Text = DbUtils.NextSerialNo(Convert.ToInt32(voucherLookup1.SelectedValue), 1);
             }
             if (voucherLookup1.GroupDto != null && voucherLookup1.GroupDto.ManualSeries)
             {

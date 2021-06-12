@@ -1388,12 +1388,12 @@ namespace Konto.Pos.Sales
                 gridView1.Focus();
                 return false;
             }
-            else if (trans.Sum(x => x.Pcs) == 0 && trans.Sum(x => x.Qty) == 0)
-            {
-                MessageBoxAdv.Show(this, "At least one pcs or qty should be entered", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                gridView1.Focus();
-                return false;
-            }
+            //else if (trans.Sum(x => x.Pcs) == 0 && trans.Sum(x => x.Qty) == 0)
+            //{
+            //    MessageBoxAdv.Show(this, "At least one pcs or qty should be entered", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //    gridView1.Focus();
+            //    return false;
+            //}
             //check for duplicate bill no
             using(var db = new KontoContext())
             {

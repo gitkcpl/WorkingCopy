@@ -31,6 +31,16 @@ namespace Konto.Shared.Security
             {
                 var models = db.Roles.OrderBy(x => x.RoleName).ToList();
                 roleLookUpEdit.Properties.DataSource = models;
+
+                var _branch = (from p in db.Branches
+                    where p.IsActive && !p.IsDeleted && p.CompId == KontoGlobals.CompanyId
+                    select new BaseLookupDto()
+                    {
+                        DisplayText = p.BranchName,
+                        Id = p.Id
+                    }).ToList();
+
+                toBranchLookUpEdit.Properties.DataSource = _branch;
             }
         }
         private void TabControlAdv1_SelectedIndexChanged(object sender, EventArgs e)
@@ -173,7 +183,7 @@ namespace Konto.Shared.Security
             nameTextBox.Text = model.UserName;
             passwordTextBoxExt.Text = KontoUtils.Decrypt(model.UserPass, "sblw-3hn8-sqoy19"); 
             roleLookUpEdit.EditValue = model.RoleId;
-            
+            toBranchLookUpEdit.EditValue = model.BranchId;
             toggleSwitch1.EditValue = model.IsActive;
             toggleSwitch1.Enabled = true;
             nameTextBox.Focus();
@@ -250,6 +260,11 @@ namespace Konto.Shared.Security
                 model.UserPass = KontoUtils.Encrypt(passwordTextBoxExt.Text.Trim(), "sblw-3hn8-sqoy19"); 
                 model.RoleId = Convert.ToInt32(roleLookUpEdit.EditValue);
                 model.IsActive = Convert.ToBoolean(toggleSwitch1.EditValue);
+
+                if (!string.IsNullOrEmpty(toBranchLookUpEdit.Text))
+                    model.BranchId = Convert.ToInt32(toBranchLookUpEdit.EditValue);
+                else
+                    model.BranchId = null;
 
                 if (this.PrimaryKey == 0)
                 {

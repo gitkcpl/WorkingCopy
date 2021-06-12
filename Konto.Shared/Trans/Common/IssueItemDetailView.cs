@@ -60,7 +60,8 @@ namespace Konto.Shared.Trans.Common
         private void GridView1_InitNewRow(object sender, InitNewRowEventArgs e)
         {
             var row = gridView1.GetRow(e.RowHandle) as GrnProdDto;
-            row.SrNo = gridView1.RowCount + 1;
+            row.SrNo = gridView1.RowCount;
+            row.VoucherNo = row.SrNo.ToString();
         }
 
         private void PendSimpleButton_Click(object sender, EventArgs e)
@@ -196,15 +197,17 @@ namespace Konto.Shared.Trans.Common
 
             foreach (GridColumn item in gridView1.Columns)
             {
-                if (this.IsEditableQty && item.FieldName == "NetWt")
-                    item.OptionsColumn.ReadOnly = false;
-                else
-                    item.OptionsColumn.ReadOnly = true;
+                item.OptionsColumn.ReadOnly = true;
             }
-
+            gridView1.OptionsView.NewItemRowPosition = NewItemRowPosition.Bottom;
+            if (this.IsEditableQty)
+            {
+                gridView1.Columns["NetWt"].OptionsColumn.ReadOnly = false;
+                gridView1.Columns["Tops"].OptionsColumn.ReadOnly = false;
+            }
             if (!SCPara.Taka_From_Stock)
             {
-                gridView1.OptionsView.NewItemRowPosition = NewItemRowPosition.Bottom;
+              
                 gridView1.Columns["VoucherNo"].OptionsColumn.ReadOnly = false;
                 gridView1.Columns["GrossWt"].OptionsColumn.ReadOnly = false;
             }

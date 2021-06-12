@@ -96,7 +96,17 @@ namespace TaxProGSTApiWinFormsDemo
                     GstSession.ApiLoginDetails.GSTIN = txtGSTIN.Text;
                     GstSession.ApiLoginDetails.GstPortalUserID = txtGSTUserID.Text;
                 }
-                TxnRespWithObj<APISession> AuthResp = await AuthAPI.GetAuthTokenAsync(GstSession, txtOTP.Text);
+
+                TxnRespWithObj<APISession> AuthResp;
+
+                if (GstSession.ApiLoginDetails.TokenExp <= DateTime.Now)
+                {
+                    AuthResp = await AuthAPI.RefreshAuthTokenAsync(GstSession);
+                }
+                else
+                 AuthResp = await AuthAPI.GetAuthTokenAsync(GstSession, txtOTP.Text);
+
+
                 lblOutCome.Text = AuthResp.TxnOutcome + "\nAuth Token (Please Store): " + GstSession.ApiLoginDetails.AuthToken +
                     "\nSession EK: " + GstSession.ApiLoginDetails.SessionEK +
                     "\nExpiary: " + GstSession.ApiLoginDetails.TokenExp;

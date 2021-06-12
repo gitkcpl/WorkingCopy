@@ -244,6 +244,7 @@
     <Compile Include="Models\Reports\OutSummaryDTO.cs" />
     <Compile Include="Models\Reports\PatiaRegDto.cs" />
     <Compile Include="Models\Reports\ReconcileDTO.cs" />
+    <Compile Include="Models\Reports\RepCols.cs" />
     <Compile Include="Models\Reports\StockDetDto.cs" />
     <Compile Include="Models\Reports\StockDto.cs" />
     <Compile Include="Models\Reports\TDsSummaryDto.cs" />
@@ -309,6 +310,7 @@
     <Compile Include="Models\Transaction\Dtos\SJDto.cs" />
     <Compile Include="Models\Transaction\Dtos\SJModelDto.cs" />
     <Compile Include="Models\Transaction\Dtos\TakaCuttingListDto.cs" />
+    <Compile Include="Models\Transaction\Dtos\TransferReceive.cs" />
     <Compile Include="Models\Transaction\Dtos\VoucherNoDto.cs" />
     <Compile Include="Models\Transaction\EInv.cs" />
     <Compile Include="Models\Transaction\EmailSmsLogModel.cs" />
