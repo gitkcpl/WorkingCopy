@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SalesListView));
             this.listDateRange1 = new Konto.Core.Shared.Libs.ListDateRange();
             this.panel1 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -37,9 +38,11 @@
             this.customGridView2 = new Konto.Core.Shared.Libs.CustomGridView();
             this.customGridControl1 = new Konto.Core.Shared.Libs.CustomGridControl();
             this.customGridView1 = new Konto.Core.Shared.Libs.CustomGridView();
+            this.receiptSimpleButton = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).BeginInit();
             this.panelControl2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).BeginInit();
+            this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.customGridControl3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.customGridView3)).BeginInit();
@@ -66,18 +69,23 @@
             // 
             // listDateRange1
             // 
+            this.listDateRange1.DfDate = new System.DateTime(((long)(0)));
             this.listDateRange1.FromDate = 0;
             this.listDateRange1.IsAnalysis = false;
+            this.listDateRange1.KontoGrid = null;
             this.listDateRange1.Location = new System.Drawing.Point(477, 4);
             this.listDateRange1.Name = "listDateRange1";
+            this.listDateRange1.ReportTypeNotRequired = false;
             this.listDateRange1.SelectedItem = null;
             this.listDateRange1.Size = new System.Drawing.Size(514, 25);
             this.listDateRange1.TabIndex = 2;
+            this.listDateRange1.TfDate = new System.DateTime(((long)(0)));
             this.listDateRange1.ToDate = 0;
             this.listDateRange1.VoucherType = Konto.App.Shared.VoucherTypeEnum.SaleInvoice;
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.receiptSimpleButton);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel1.Location = new System.Drawing.Point(0, 281);
             this.panel1.Name = "panel1";
@@ -218,7 +226,23 @@
             this.customGridView1.OptionsView.ShowFooter = true;
             this.customGridView1.OptionsView.ShowGroupPanel = false;
             // 
-            // SInvoiceListView
+            // receiptSimpleButton
+            // 
+            this.receiptSimpleButton.AllowFocus = false;
+            this.receiptSimpleButton.Appearance.BackColor = DevExpress.LookAndFeel.DXSkinColors.FillColors.Warning;
+            this.receiptSimpleButton.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.receiptSimpleButton.Appearance.Options.UseBackColor = true;
+            this.receiptSimpleButton.Appearance.Options.UseFont = true;
+            this.receiptSimpleButton.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("simpleButton1.ImageOptions.SvgImage")));
+            this.receiptSimpleButton.Location = new System.Drawing.Point(3, 3);
+            this.receiptSimpleButton.Name = "receiptSimpleButton";
+            this.receiptSimpleButton.Size = new System.Drawing.Size(90, 23);
+            this.receiptSimpleButton.TabIndex = 0;
+            this.receiptSimpleButton.TabStop = false;
+            this.receiptSimpleButton.Text = "Receipt";
+            this.receiptSimpleButton.Click += new System.EventHandler(this.receiptSimpleButton_Click);
+            // 
+            // SalesListView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -227,7 +251,7 @@
             this.Controls.Add(this.panel1);
             this.KontoGrid = this.customGridControl1;
             this.KontoView = this.customGridView1;
-            this.Name = "SInvoiceListView";
+            this.Name = "SalesListView";
             this.Size = new System.Drawing.Size(1040, 311);
             this.Controls.SetChildIndex(this.panelControl2, 0);
             this.Controls.SetChildIndex(this.panelControl3, 0);
@@ -237,6 +261,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).EndInit();
             this.panelControl2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).EndInit();
+            this.panel1.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.customGridControl3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.customGridView3)).EndInit();
@@ -258,5 +283,6 @@
         private Core.Shared.Libs.CustomGridView customGridView2;
         private Core.Shared.Libs.CustomGridControl customGridControl1;
         private Core.Shared.Libs.CustomGridView customGridView1;
+        private DevExpress.XtraEditors.SimpleButton receiptSimpleButton;
     }
 }

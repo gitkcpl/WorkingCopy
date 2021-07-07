@@ -58,6 +58,7 @@
             this.colGradeName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gradeRepositoryItemButtonEdit = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
             this.colLotNo = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colBarcode = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colPcs = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colCut = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colQty = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -129,7 +130,6 @@
             this.layoutControlItem13 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem15 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem16 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.colBarcode = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.tabControlAdv1)).BeginInit();
             this.tabControlAdv1.SuspendLayout();
             this.tabPageAdv1.SuspendLayout();
@@ -404,11 +404,11 @@
             this.roundoffSpinEdit.Properties.Appearance.Options.UseFont = true;
             this.roundoffSpinEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.roundoffSpinEdit.Properties.ReadOnly = true;
             this.roundoffSpinEdit.Size = new System.Drawing.Size(93, 24);
             this.roundoffSpinEdit.StyleController = this.layoutControl1;
             this.roundoffSpinEdit.TabIndex = 1;
             this.roundoffSpinEdit.TabStop = false;
+            this.roundoffSpinEdit.EditValueChanged += new System.EventHandler(this.roundoffSpinEdit_EditValueChanged);
             // 
             // bookLookup
             // 
@@ -722,6 +722,13 @@
             this.colLotNo.Name = "colLotNo";
             this.colLotNo.Visible = true;
             this.colLotNo.VisibleIndex = 4;
+            // 
+            // colBarcode
+            // 
+            this.colBarcode.FieldName = "Barcode";
+            this.colBarcode.Name = "colBarcode";
+            this.colBarcode.Visible = true;
+            this.colBarcode.VisibleIndex = 8;
             // 
             // colPcs
             // 
@@ -1505,13 +1512,6 @@
             this.layoutControlItem16.Size = new System.Drawing.Size(190, 28);
             this.layoutControlItem16.Text = "Others Ref:";
             this.layoutControlItem16.TextSize = new System.Drawing.Size(108, 17);
-            // 
-            // colBarcode
-            // 
-            this.colBarcode.FieldName = "Barcode";
-            this.colBarcode.Name = "colBarcode";
-            this.colBarcode.Visible = true;
-            this.colBarcode.VisibleIndex = 8;
             // 
             // SReturnIndex
             // 

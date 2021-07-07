@@ -92,25 +92,28 @@
             // 
             // listDateRange1
             // 
+            this.listDateRange1.DfDate = new System.DateTime(((long)(0)));
             this.listDateRange1.FromDate = 0;
             this.listDateRange1.IsAnalysis = false;
             this.listDateRange1.KontoGrid = this.customGridControl1;
             this.listDateRange1.Location = new System.Drawing.Point(475, 4);
             this.listDateRange1.Name = "listDateRange1";
+            this.listDateRange1.ReportTypeNotRequired = true;
             this.listDateRange1.SelectedItem = null;
             this.listDateRange1.Size = new System.Drawing.Size(514, 25);
             this.listDateRange1.TabIndex = 4;
+            this.listDateRange1.TfDate = new System.DateTime(((long)(0)));
             this.listDateRange1.ToDate = 0;
             this.listDateRange1.VoucherType = Konto.App.Shared.VoucherTypeEnum.StoreIssue;
             // 
-            // StoreIssueList
+            // IssueList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.customGridControl1);
             this.KontoGrid = this.customGridControl1;
             this.KontoView = this.customGridView1;
-            this.Name = "StoreIssueList";
+            this.Name = "IssueList";
             this.Size = new System.Drawing.Size(1050, 557);
             this.Controls.SetChildIndex(this.panelControl2, 0);
             this.Controls.SetChildIndex(this.panelControl3, 0);

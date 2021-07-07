@@ -32,9 +32,9 @@ namespace Konto.Shared.Masters.Haste
             {
                 nameTextBox.Focus();
                 if (this.PrimaryKey == 0)
-                    this.Text = "Misc. Master [Add]";
+                    this.Text = "Screen Master [Add]";
                 else
-                    this.Text = "Misc. Master [Modify/View]";
+                    this.Text = "Screen Master [Modify/View]";
                 return;
             }
             if (tabPageAdv2.Controls.Count > 0)
@@ -45,10 +45,10 @@ namespace Konto.Shared.Masters.Haste
             }
             if (tabControlAdv1.SelectedIndex == 1)
             {
-                var _ListView = new HasteListView();
+                var _ListView = new ScreenListView();
                 _ListView.Dock = DockStyle.Fill;
                 tabPageAdv2.Controls.Add(_ListView);
-                this.Text = "Misc. Master [Modify/View]";
+                this.Text = "Screen Master [Modify/View]";
             }
         }
 

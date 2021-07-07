@@ -1,19 +1,15 @@
 ﻿using Konto.App.Shared;
 using Konto.Core.Shared;
-using Konto.Core.Shared.Libs;
 using Konto.Data;
 using Konto.Data.Models.Reports;
 using Serilog;
 using Syncfusion.Windows.Forms.Tools;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Konto.Reporting.Para.Stock
@@ -49,8 +45,17 @@ namespace Konto.Reporting.Para.Stock
         private void GridControl1_ProcessGridKey(object sender, KeyEventArgs e)
         {
             if (e.KeyCode != Keys.Enter) return;
+            
             var dr = bandedGridView1.GetRow(bandedGridView1.FocusedRowHandle) as StockDto;
             if (dr == null) return;
+            if(e.Modifiers == Keys.Control && e.KeyCode== Keys.Enter)
+            {
+                var frms = new Konto.Shared.Trans.Common.PendingStockView();
+                frms.ItemId = dr.ItemId;
+                frms.StockType = "Stock";
+                frms.ShowDialog();
+                return;
+            }
             var frm = new StockDetailViewWindow();
             frm._FromDate = this.dateEdit1.DateTime;
             frm._ToDate = this.dateEdit2.DateTime;
@@ -160,9 +165,14 @@ namespace Konto.Reporting.Para.Stock
             dateEdit1.DateTime = KontoGlobals.DFromDate;
             dateEdit2.DateTime = KontoGlobals.DToDate;
             this.ActiveControl = dateEdit1;
+            
+            if(KontoGlobals.PackageId ==(int)PackageType.POS)
+                branchLookUpEdit.EditValue = KontoGlobals.BranchId;
 
-           // branchLookUpEdit.EditValue = KontoGlobals.BranchId;
-
+            if (!KontoGlobals.isSysAdm && KontoGlobals.PackageId == (int)PackageType.POS)
+            {
+                branchLookUpEdit.Enabled = false;
+            }
         }
 
         private void TabControlAdv1_SelectedIndexChanged(object sender, EventArgs e)

@@ -62,9 +62,11 @@
             // 
             // tabControlAdv1
             // 
-            this.tabControlAdv1.BeforeTouchSize = new System.Drawing.Size(573, 321);
-            this.tabControlAdv1.Size = new System.Drawing.Size(573, 321);
+            this.tabControlAdv1.BeforeTouchSize = new System.Drawing.Size(639, 321);
+            this.tabControlAdv1.Size = new System.Drawing.Size(639, 321);
             this.tabControlAdv1.ThemeStyle.PrimitiveButtonStyle.DisabledNextPageImage = null;
+            this.tabControlAdv1.Controls.SetChildIndex(this.tabPageAdv4, 0);
+            this.tabControlAdv1.Controls.SetChildIndex(this.tabPageAdv3, 0);
             this.tabControlAdv1.Controls.SetChildIndex(this.tabPageAdv2, 0);
             this.tabControlAdv1.Controls.SetChildIndex(this.tabPageAdv1, 0);
             // 
@@ -87,7 +89,7 @@
             this.tabPageAdv1.Controls.Add(this.codeTextBoxExt);
             this.tabPageAdv1.Controls.Add(this.autoLabel1);
             this.tabPageAdv1.Controls.Add(this.branchNameTextBox);
-            this.tabPageAdv1.Size = new System.Drawing.Size(570, 297);
+            this.tabPageAdv1.Size = new System.Drawing.Size(614, 318);
             this.tabPageAdv1.Controls.SetChildIndex(this.panelControl1, 0);
             this.tabPageAdv1.Controls.SetChildIndex(this.branchNameTextBox, 0);
             this.tabPageAdv1.Controls.SetChildIndex(this.autoLabel1, 0);
@@ -109,15 +111,19 @@
             // 
             // panelControl1
             // 
-            this.panelControl1.Size = new System.Drawing.Size(570, 35);
+            this.panelControl1.Size = new System.Drawing.Size(614, 35);
             // 
             // tabPageAdv2
             // 
-            this.tabPageAdv2.Size = new System.Drawing.Size(570, 297);
+            this.tabPageAdv2.Size = new System.Drawing.Size(548, 318);
             // 
-            // navAction1
+            // tabPageAdv3
             // 
-            this.navAction1.TabStop = false;
+            this.tabPageAdv3.Size = new System.Drawing.Size(548, 318);
+            // 
+            // tabPageAdv4
+            // 
+            this.tabPageAdv4.Size = new System.Drawing.Size(548, 318);
             // 
             // autoLabel1
             // 
@@ -141,7 +147,7 @@
             // 
             // branchNameTextBox
             // 
-            this.branchNameTextBox.BeforeTouchSize = new System.Drawing.Size(423, 15);
+            this.branchNameTextBox.BeforeTouchSize = new System.Drawing.Size(161, 27);
             this.branchNameTextBox.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(211)))), ((int)(((byte)(212)))));
             this.branchNameTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.branchNameTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
@@ -179,7 +185,7 @@
             // 
             // codeTextBoxExt
             // 
-            this.codeTextBoxExt.BeforeTouchSize = new System.Drawing.Size(423, 15);
+            this.codeTextBoxExt.BeforeTouchSize = new System.Drawing.Size(161, 27);
             this.codeTextBoxExt.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(211)))), ((int)(((byte)(212)))));
             this.codeTextBoxExt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.codeTextBoxExt.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
@@ -217,7 +223,7 @@
             // 
             // address1TextBoxExt
             // 
-            this.address1TextBoxExt.BeforeTouchSize = new System.Drawing.Size(423, 15);
+            this.address1TextBoxExt.BeforeTouchSize = new System.Drawing.Size(161, 27);
             this.address1TextBoxExt.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(211)))), ((int)(((byte)(212)))));
             this.address1TextBoxExt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.address1TextBoxExt.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
@@ -255,7 +261,7 @@
             // 
             // address2TextBoxExt
             // 
-            this.address2TextBoxExt.BeforeTouchSize = new System.Drawing.Size(423, 15);
+            this.address2TextBoxExt.BeforeTouchSize = new System.Drawing.Size(161, 27);
             this.address2TextBoxExt.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(211)))), ((int)(((byte)(212)))));
             this.address2TextBoxExt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.address2TextBoxExt.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
@@ -293,7 +299,7 @@
             // 
             // pinCodeTextBox
             // 
-            this.pinCodeTextBox.BeforeTouchSize = new System.Drawing.Size(423, 15);
+            this.pinCodeTextBox.BeforeTouchSize = new System.Drawing.Size(161, 27);
             this.pinCodeTextBox.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(211)))), ((int)(((byte)(212)))));
             this.pinCodeTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pinCodeTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
@@ -331,7 +337,7 @@
             // 
             // gstinTextBox
             // 
-            this.gstinTextBox.BeforeTouchSize = new System.Drawing.Size(423, 15);
+            this.gstinTextBox.BeforeTouchSize = new System.Drawing.Size(161, 27);
             this.gstinTextBox.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(211)))), ((int)(((byte)(212)))));
             this.gstinTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.gstinTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
@@ -383,6 +389,7 @@
             // areaLookup1
             // 
             this.areaLookup1.Location = new System.Drawing.Point(372, 149);
+            this.areaLookup1.LookupTitle = null;
             this.areaLookup1.Name = "areaLookup1";
             this.areaLookup1.PrimaryKey = null;
             this.areaLookup1.RequiredField = false;
@@ -394,6 +401,7 @@
             // cityLookup1
             // 
             this.cityLookup1.Location = new System.Drawing.Point(120, 149);
+            this.cityLookup1.LookupTitle = null;
             this.cityLookup1.Name = "cityLookup1";
             this.cityLookup1.PrimaryKey = 0;
             this.cityLookup1.RequiredField = false;
@@ -425,7 +433,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(573, 347);
+            this.ClientSize = new System.Drawing.Size(639, 347);
             this.Name = "BranchIndex";
             this.Text = "BranchIndex";
             this.Load += new System.EventHandler(this.BranchIndex_Load);

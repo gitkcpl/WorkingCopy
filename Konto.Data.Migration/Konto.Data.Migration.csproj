@@ -684,6 +684,9 @@
   <ItemGroup>
     <EmbeddedResource Include="PostScript\071.v_TdsTcs.sql" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="PostScript\21.v_RepCols.sql" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

@@ -879,6 +879,7 @@ namespace Konto.Trading.MillReceipt
                 pm.ProductId = prod.ProductId;
                 pm.GrayMtr = prod.GrayMtr;
                 pm.FinMrt = prod.FinMrt;
+                pm.Tops = prod.Tops;
                 pm.TP1 = 0;
                 pm.TP2 = 0;
                 pm.TP3 = 0;
@@ -1422,20 +1423,21 @@ namespace Konto.Trading.MillReceipt
             base.EditPage(_key);
             this.PrimaryKey = _key;
 
-          
+
             using (var db = new KontoContext())
             {
-                var bill = db.Challans.Find(_key);
-                if(bill == null)
+                ChallanModel bill = null;
+                if (this.IsOpenFromLedger)
                 {
-                    var ch = db.Bills.Find( _key);
+                    var ch = db.Bills.Find(_key);
                     if (ch != null)
                         bill = db.Challans.Find(ch.RefId);
                 }
-                if (bill != null)
+                else
                 {
-                    LoadData(bill);
+                    bill = db.Challans.Find(_key);
                 }
+                LoadData(bill);
             }
 
         }
@@ -1617,7 +1619,7 @@ namespace Konto.Trading.MillReceipt
                                 pOut.Qty = p.FinMrt;
                                 
                                 pOut.TakaStatus = "NMRC";
-
+                                pOut.GrayPcs = p.Tops;
                                 var prod = new ProdModel();
 
                                  string _tp = "TP1";
@@ -1768,10 +1770,9 @@ namespace Konto.Trading.MillReceipt
         {
 
             var pd1 = db.Prods.Find(po.ProdId);
-            if (pd1 != null)
-            {
-                pd1.CProductId = pd1.ProductId;
-            }
+            
+            //pd1.CProductId = pd1.ProductId;
+            
 
             if(po.TP1 > 0)
             {
@@ -1787,7 +1788,7 @@ namespace Konto.Trading.MillReceipt
                 pd.ColorId = po.ColorId;
                 pd.PalletProductId = bt.DesignId;
                 pd.IssueRefId = po.Id;
-                pd.VoucherNo = po.VoucherNo + "-" + po.SrNo.ToString();
+                pd.VoucherNo = voucherNoTextEdit.Text + "-" + po.SrNo.ToString() + "/1";
                 pd.NetWt = Convert.ToDecimal(po.TP1);
                 pd.CurrQty = Convert.ToDecimal(po.TP1);
                 pd.IsActive = true;
@@ -1804,6 +1805,9 @@ namespace Konto.Trading.MillReceipt
                 pd.Remark = po.VoucherNo;
                 pd.CProductId = pd.ProductId;
                 pd.BranchId = KontoGlobals.BranchId;
+
+                pd.IssueRefId = pd1.IssueRefId;
+                pd.IssueRefVoucherId = pd1.IssueRefVoucherId;
 
                 if (pd.Id == 0)
                     db.Prods.Add(pd);
@@ -1822,7 +1826,7 @@ namespace Konto.Trading.MillReceipt
                 pd.ColorId = po.ColorId;
                 pd.PalletProductId = bt.DesignId;
                 pd.IssueRefId = po.Id;
-                pd.VoucherNo =  po.VoucherNo + "-" + po.SrNo.ToString() + "/1";
+                pd.VoucherNo =  voucherNoTextEdit.Text + "-" + po.SrNo.ToString() + "/1";
                 pd.Remark = po.VoucherNo;
                 pd.NetWt = Convert.ToDecimal(po.TP2);
                 pd.CurrQty = Convert.ToDecimal(po.TP2);
@@ -1839,7 +1843,8 @@ namespace Konto.Trading.MillReceipt
                 pd.TwistType = "TP2";
                 pd.CProductId = pd.ProductId;
                 pd.BranchId = KontoGlobals.BranchId;
-
+                pd.IssueRefId = pd1.IssueRefId;
+                pd.IssueRefVoucherId = pd1.IssueRefVoucherId;
                 if (pd.Id == 0)
                     db.Prods.Add(pd);
             }
@@ -1866,7 +1871,7 @@ namespace Konto.Trading.MillReceipt
                 pd.ColorId = po.ColorId;
                 pd.PalletProductId = bt.DesignId;
                 pd.IssueRefId = po.Id;
-                pd.VoucherNo = po.VoucherNo + "-" + po.SrNo.ToString() + "/2";
+                pd.VoucherNo = voucherNoTextEdit.Text + "-" + po.SrNo.ToString() + "/2";
                 pd.NetWt = Convert.ToDecimal(po.TP3);
                 pd.CurrQty = Convert.ToDecimal(po.TP3);
                 pd.IsActive = true;
@@ -1883,6 +1888,8 @@ namespace Konto.Trading.MillReceipt
                 pd.Remark = po.VoucherNo;
                 pd.CProductId = pd.ProductId;
                 pd.BranchId = KontoGlobals.BranchId;
+                pd.IssueRefId = pd1.IssueRefId;
+                pd.IssueRefVoucherId = pd1.IssueRefVoucherId;
 
                 if (pd.Id == 0)
                     db.Prods.Add(pd);
@@ -1910,7 +1917,7 @@ namespace Konto.Trading.MillReceipt
                 pd.ColorId = po.ColorId;
                 pd.PalletProductId = bt.DesignId;
                 pd.IssueRefId = po.Id;
-                pd.VoucherNo = po.VoucherNo + "-" + po.SrNo.ToString() + "/3";
+                pd.VoucherNo = voucherNoTextEdit.Text + "-" + po.SrNo.ToString() + "/3";
                 pd.NetWt = Convert.ToDecimal(po.TP4);
                 pd.CurrQty = Convert.ToDecimal(po.TP4);
                 pd.IsActive = true;
@@ -1927,6 +1934,8 @@ namespace Konto.Trading.MillReceipt
                 pd.Remark = po.VoucherNo;
                 pd.CProductId = pd.ProductId;
                 pd.BranchId = KontoGlobals.BranchId;
+                pd.IssueRefId = pd1.IssueRefId;
+                pd.IssueRefVoucherId = pd1.IssueRefVoucherId;
 
                 if (pd.Id == 0)
                     db.Prods.Add(pd);
@@ -1954,7 +1963,7 @@ namespace Konto.Trading.MillReceipt
                 pd.ColorId = po.ColorId;
                 pd.PalletProductId = bt.DesignId;
                 pd.IssueRefId = po.Id;
-                pd.VoucherNo = po.VoucherNo + "-" + po.SrNo.ToString() + "/4";
+                pd.VoucherNo = voucherNoTextEdit.Text + "-" + po.SrNo.ToString() + "/4";
                 pd.NetWt = Convert.ToDecimal(po.TP5);
                 pd.CurrQty = Convert.ToDecimal(po.TP5);
                 pd.IsActive = true;
@@ -1971,7 +1980,8 @@ namespace Konto.Trading.MillReceipt
                 pd.Remark = po.VoucherNo;
                 pd.CProductId = pd.ProductId;
                 pd.BranchId = KontoGlobals.BranchId;
-
+                pd.IssueRefId = pd1.IssueRefId;
+                pd.IssueRefVoucherId = pd1.IssueRefVoucherId;
                 if (pd.Id == 0)
                     db.Prods.Add(pd);
             }
@@ -1998,7 +2008,7 @@ namespace Konto.Trading.MillReceipt
                 pd.ColorId = po.ColorId;
                 pd.PalletProductId = bt.DesignId;
                 pd.IssueRefId = po.Id;
-                pd.VoucherNo = po.VoucherNo + "-" + po.SrNo.ToString() + "/PL";
+                pd.VoucherNo = voucherNoTextEdit.Text + "-" + po.SrNo.ToString() + "/PL";
                 pd.NetWt = Convert.ToDecimal(po.PlainQty);
                 pd.CurrQty = Convert.ToDecimal(po.PlainQty);
                 pd.IsActive = true;
@@ -2015,6 +2025,9 @@ namespace Konto.Trading.MillReceipt
                 pd.Remark = po.VoucherNo;
                 pd.CProductId = pd.ProductId;
                 pd.BranchId = KontoGlobals.BranchId;
+
+                pd.IssueRefId = pd1.IssueRefId;
+                pd.IssueRefVoucherId = pd1.IssueRefVoucherId;
 
                 if (pd.Id == 0)
                     db.Prods.Add(pd);

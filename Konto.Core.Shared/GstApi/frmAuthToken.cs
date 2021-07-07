@@ -99,7 +99,7 @@ namespace TaxProGSTApiWinFormsDemo
 
                 TxnRespWithObj<APISession> AuthResp;
 
-                if (GstSession.ApiLoginDetails.TokenExp <= DateTime.Now)
+                if (GstSession.ApiLoginDetails.TokenExp <= DateTime.Now && string.IsNullOrEmpty(txtOTP.Text))
                 {
                     AuthResp = await AuthAPI.RefreshAuthTokenAsync(GstSession);
                 }

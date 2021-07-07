@@ -1057,6 +1057,11 @@ namespace Konto.Pos.Purchase
                                     PurchasePara.Qty_Decimal = Convert.ToInt32(value);
                                 break;
                             }
+                        case 232:
+                            {
+                                PurchasePara.Tcs_Round_Off = (value == "Y") ? true : false;
+                                break;
+                            }
                         case 237:
                             {
                                 PurchasePara.Order_Required = (value == "Y") ? true : false;
@@ -1600,7 +1605,7 @@ namespace Konto.Pos.Purchase
             if (e.Column == null) return;
             if (!(gridView1.GetRow(e.RowHandle) is PosPurTransDto model)) return;
 
-            if (e.Column.FieldName == "Barcode" && e.Value!= null && !string.IsNullOrEmpty(e.Value.ToString()))
+            if ((e.Column.FieldName == "Barcode" || e.Column.FieldName=="ItemCode")  && e.Value!= null && !string.IsNullOrEmpty(e.Value.ToString()))
             {
                 var pos = DbUtils.GetProductDetails(e.Value.ToString());
 
@@ -1613,7 +1618,7 @@ namespace Konto.Pos.Purchase
                 model.ItemCode = pos.ProductCode;
                 model.ProductId = pos.Id;
 
-               // model.Barcode = pos.BarCode;
+                model.Barcode = pos.BarCode;
 
                 model.HsnCode = pos.HsnCode;
 
@@ -2559,7 +2564,7 @@ namespace Konto.Pos.Purchase
         {
             string barcode = "100000";
 
-            var lastItem = db.Products.OrderByDescending(x => x.Id).FirstOrDefault();
+            var lastItem = db.Products.Where(x => !x.IsDeleted && !string.IsNullOrEmpty(x.BarCode)).OrderByDescending(x => x.Id).FirstOrDefault();
 
             if (lastItem != null)
             {
@@ -2758,6 +2763,7 @@ namespace Konto.Pos.Purchase
 
                 if (bch.Id == 0)
                     db.ItemBatches.Add(bch);
+                db.SaveChanges();
             }
 
             return true;

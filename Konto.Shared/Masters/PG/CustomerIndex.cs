@@ -40,13 +40,13 @@ namespace Konto.Shared.Masters.PG
             }
             if (tabPageAdv2.Controls.Count > 0)
             {
-                var _list = tabPageAdv2.Controls[0] as PgListView;
+                var _list = tabPageAdv2.Controls[0] as CustomerListView;
                 _list.ActiveControl = _list.KontoGrid;
                 return;
             }
             if (tabControlAdv1.SelectedIndex == 1)
             {
-                var _ListView = new PgListView();
+                var _ListView = new CustomerListView();
                 _ListView.Dock = DockStyle.Fill;
                 tabPageAdv2.Controls.Add(_ListView);
 

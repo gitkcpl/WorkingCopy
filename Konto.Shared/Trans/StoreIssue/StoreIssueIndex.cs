@@ -1084,7 +1084,48 @@ namespace Konto.Shared.Trans.StoreIssue
                 gridView1.Focus();
                 return false;
             }
-            return true;
+
+            using (var db = new KontoContext())
+            {
+                db.Database.CommandTimeout = 0;
+                bool result = LedgerEff.DataFreezeStatus(dt, (int)VoucherTypeEnum.SaleInvoice, db);
+                if (result == false)
+                {
+                    MessageBox.Show(KontoGlobals.SaveFreezeWarning);
+                    return false;
+                }
+                
+                    var groupbyItem = trans.GroupBy(k => k.ProductId).ToList();
+                    foreach (var item in groupbyItem)
+                    {
+                        decimal oldqty = 0;
+                        var checkforstock = db.Products.FirstOrDefault(k => k.Id == item.Key);
+
+                        if (!checkforstock.CheckNegative) continue;
+
+                        if (this.PrimaryKey > 0)
+                        {
+                            oldqty = (from p in db.ChallanTranses
+                                      where p.ChallanId == this.PrimaryKey && p.ProductId == item.Key
+                                      select (decimal?)p.Qty).Sum() ?? 0;
+                        }
+
+                        var Qty = trans.Where(k => k.ProductId == checkforstock.Id).Sum(k => k.Qty);
+
+                        var stockBal = DbUtils.GetCurrentStock(checkforstock.Id, KontoGlobals.BranchId) + oldqty;
+
+                        if (Qty > stockBal)
+                        {
+                            MessageBox.Show("Stock not available of Item " + checkforstock.ProductName + " Available Stock Only " + stockBal);
+                            //     IsSaveComplete = true;
+                            return false;
+                        }
+                    }
+                }
+
+
+
+                return true;
         }
 
         public override void SaveDataAsync(bool newmode)

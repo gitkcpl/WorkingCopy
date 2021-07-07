@@ -39,6 +39,7 @@ namespace Konto.Pos.Sales
             this.pendkontoTextEdit2 = new Konto.Core.Shared.Libs.KontoTextEdit(this.components);
             this.autoLabel2 = new Syncfusion.Windows.Forms.Tools.AutoLabel();
             this.autoLabel3 = new Syncfusion.Windows.Forms.Tools.AutoLabel();
+            this.mode1lookUpEdit = new DevExpress.XtraEditors.LookUpEdit();
             this.pay1kontoSpinEdit = new Konto.Core.Shared.Libs.KontoSpinEdit(this.components);
             this.autoLabel4 = new Syncfusion.Windows.Forms.Tools.AutoLabel();
             this.autoLabel5 = new Syncfusion.Windows.Forms.Tools.AutoLabel();
@@ -51,12 +52,12 @@ namespace Konto.Pos.Sales
             this.pay3kontoSpinEdit = new Konto.Core.Shared.Libs.KontoSpinEdit(this.components);
             this.ref1kontoTextBoxExt = new Konto.Core.Shared.Libs.KontoTextBoxExt();
             this.ref2kontoTextBoxExt = new Konto.Core.Shared.Libs.KontoTextBoxExt();
-            this.mode1lookUpEdit = new DevExpress.XtraEditors.LookUpEdit();
             this.mode2lookUpEdit = new DevExpress.XtraEditors.LookUpEdit();
             this.mode3lookUpEdit = new DevExpress.XtraEditors.LookUpEdit();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.billAmtkontoTextEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pendkontoTextEdit2.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mode1lookUpEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pay1kontoSpinEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.partkontoSpinEdit2.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.disckontoSpinEdit3.Properties)).BeginInit();
@@ -65,7 +66,6 @@ namespace Konto.Pos.Sales
             ((System.ComponentModel.ISupportInitialize)(this.pay3kontoSpinEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ref1kontoTextBoxExt)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ref2kontoTextBoxExt)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.mode1lookUpEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mode2lookUpEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mode3lookUpEdit.Properties)).BeginInit();
             this.SuspendLayout();
@@ -180,6 +180,31 @@ namespace Konto.Pos.Sales
             this.autoLabel3.Size = new System.Drawing.Size(69, 17);
             this.autoLabel3.TabIndex = 16;
             this.autoLabel3.Text = "Pay Mode";
+            // 
+            // mode1lookUpEdit
+            // 
+            this.mode1lookUpEdit.EnterMoveNextControl = true;
+            this.mode1lookUpEdit.Location = new System.Drawing.Point(13, 99);
+            this.mode1lookUpEdit.Name = "mode1lookUpEdit";
+            this.mode1lookUpEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.mode1lookUpEdit.Properties.Appearance.Options.UseFont = true;
+            this.mode1lookUpEdit.Properties.AppearanceReadOnly.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.mode1lookUpEdit.Properties.AppearanceReadOnly.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(22)))), ((int)(((byte)(91)))));
+            this.mode1lookUpEdit.Properties.AppearanceReadOnly.Options.UseFont = true;
+            this.mode1lookUpEdit.Properties.AppearanceReadOnly.Options.UseForeColor = true;
+            this.mode1lookUpEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.mode1lookUpEdit.Properties.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("HasteName", "")});
+            this.mode1lookUpEdit.Properties.DisplayMember = "HasteName";
+            this.mode1lookUpEdit.Properties.ImmediatePopup = true;
+            this.mode1lookUpEdit.Properties.NullText = "";
+            this.mode1lookUpEdit.Properties.ShowFooter = false;
+            this.mode1lookUpEdit.Properties.ShowHeader = false;
+            this.mode1lookUpEdit.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
+            this.mode1lookUpEdit.Properties.ValueMember = "Id";
+            this.mode1lookUpEdit.Size = new System.Drawing.Size(166, 32);
+            this.mode1lookUpEdit.TabIndex = 5;
             // 
             // pay1kontoSpinEdit
             // 
@@ -339,7 +364,7 @@ namespace Konto.Pos.Sales
             // 
             // ref1kontoTextBoxExt
             // 
-            this.ref1kontoTextBoxExt.BeforeTouchSize = new System.Drawing.Size(113, 25);
+            this.ref1kontoTextBoxExt.BeforeTouchSize = new System.Drawing.Size(178, 35);
             this.ref1kontoTextBoxExt.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(211)))), ((int)(((byte)(212)))));
             this.ref1kontoTextBoxExt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.ref1kontoTextBoxExt.EnterMoveNextControl = true;
@@ -354,7 +379,7 @@ namespace Konto.Pos.Sales
             // 
             // ref2kontoTextBoxExt
             // 
-            this.ref2kontoTextBoxExt.BeforeTouchSize = new System.Drawing.Size(113, 25);
+            this.ref2kontoTextBoxExt.BeforeTouchSize = new System.Drawing.Size(178, 35);
             this.ref2kontoTextBoxExt.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(211)))), ((int)(((byte)(212)))));
             this.ref2kontoTextBoxExt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.ref2kontoTextBoxExt.EnterMoveNextControl = true;
@@ -366,31 +391,6 @@ namespace Konto.Pos.Sales
             this.ref2kontoTextBoxExt.TabIndex = 13;
             this.ref2kontoTextBoxExt.ThemeName = "Metro";
             this.ref2kontoTextBoxExt.UseBorderColorOnFocus = true;
-            // 
-            // mode1lookUpEdit
-            // 
-            this.mode1lookUpEdit.EnterMoveNextControl = true;
-            this.mode1lookUpEdit.Location = new System.Drawing.Point(13, 99);
-            this.mode1lookUpEdit.Name = "mode1lookUpEdit";
-            this.mode1lookUpEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.mode1lookUpEdit.Properties.Appearance.Options.UseFont = true;
-            this.mode1lookUpEdit.Properties.AppearanceReadOnly.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.mode1lookUpEdit.Properties.AppearanceReadOnly.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(22)))), ((int)(((byte)(91)))));
-            this.mode1lookUpEdit.Properties.AppearanceReadOnly.Options.UseFont = true;
-            this.mode1lookUpEdit.Properties.AppearanceReadOnly.Options.UseForeColor = true;
-            this.mode1lookUpEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.mode1lookUpEdit.Properties.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
-            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("HasteName", "")});
-            this.mode1lookUpEdit.Properties.DisplayMember = "HasteName";
-            this.mode1lookUpEdit.Properties.ImmediatePopup = true;
-            this.mode1lookUpEdit.Properties.NullText = "";
-            this.mode1lookUpEdit.Properties.ShowFooter = false;
-            this.mode1lookUpEdit.Properties.ShowHeader = false;
-            this.mode1lookUpEdit.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
-            this.mode1lookUpEdit.Properties.ValueMember = "Id";
-            this.mode1lookUpEdit.Size = new System.Drawing.Size(166, 32);
-            this.mode1lookUpEdit.TabIndex = 5;
             // 
             // mode2lookUpEdit
             // 
@@ -446,6 +446,7 @@ namespace Konto.Pos.Sales
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.cancelSimpleButton;
             this.CaptionBarColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(150)))), ((int)(((byte)(205)))));
             this.CaptionButtonColor = System.Drawing.Color.White;
             this.CaptionForeColor = System.Drawing.Color.White;
@@ -478,6 +479,7 @@ namespace Konto.Pos.Sales
             this.tableLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.billAmtkontoTextEdit1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pendkontoTextEdit2.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mode1lookUpEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pay1kontoSpinEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.partkontoSpinEdit2.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.disckontoSpinEdit3.Properties)).EndInit();
@@ -486,7 +488,6 @@ namespace Konto.Pos.Sales
             ((System.ComponentModel.ISupportInitialize)(this.pay3kontoSpinEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ref1kontoTextBoxExt)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ref2kontoTextBoxExt)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.mode1lookUpEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.mode2lookUpEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.mode3lookUpEdit.Properties)).EndInit();
             this.ResumeLayout(false);

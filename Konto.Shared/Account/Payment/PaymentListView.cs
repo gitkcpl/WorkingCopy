@@ -80,6 +80,10 @@ namespace Konto.Shared.Account.Payment
             var DtCriterias = new DataTable();
             try
             {
+                var branchid = KontoGlobals.BranchId;
+
+                if (KontoGlobals.isSysAdm)
+                    branchid = 0;
                 var db = new KontoContext();
                 using (var con = new SqlConnection(db.Database.Connection.ConnectionString))
                 {
@@ -90,7 +94,7 @@ namespace Konto.Shared.Account.Payment
                         cmd.Parameters.Add("@fromDate", SqlDbType.Int).Value = listDateRange1.FromDate;
                         cmd.Parameters.Add("@ToDate", SqlDbType.Int).Value = listDateRange1.ToDate;
                         cmd.Parameters.Add("@CompanyId", SqlDbType.Int).Value = KontoGlobals.CompanyId;
-                        cmd.Parameters.Add("@BranchId", SqlDbType.Int).Value = KontoGlobals.BranchId;
+                        cmd.Parameters.Add("@BranchId", SqlDbType.Int).Value = branchid;
                         cmd.Parameters.Add("@YearId", SqlDbType.Int).Value = KontoGlobals.YearId;
                         cmd.Parameters.Add("@VTypeId", SqlDbType.Int).Value = (int)VoucherTypeEnum.PaymentVoucher;
                         if (listDateRange1.SelectedItem.Extra1 == "Deleted")

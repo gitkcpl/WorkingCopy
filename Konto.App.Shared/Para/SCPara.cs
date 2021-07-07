@@ -28,5 +28,6 @@ namespace Konto.App.Shared.Para
         public static bool Jobcard_Required = true;
         public static string Default_Challan_Print = "SalesChallan.rdlx";
         public static bool Repeat_Product = false;
+        public static bool Screen_Required = false;
     }
 }

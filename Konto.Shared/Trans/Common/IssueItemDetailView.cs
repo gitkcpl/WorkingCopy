@@ -92,6 +92,7 @@ namespace Konto.Shared.Trans.Common
                 ptrans.Weaver = _taka.Weaver;
                 ptrans.ChallanNo = _taka.InwardNo;
                 ptrans.VoucherDate = Convert.ToInt32(_taka.VoucherDate);
+                ptrans.ColorName = _taka.ColorName;
                 if (Convert.ToInt32(_taka.Tops) == 0)
                     ptrans.Tops = 1;
                 else
@@ -204,13 +205,12 @@ namespace Konto.Shared.Trans.Common
             {
                 gridView1.Columns["NetWt"].OptionsColumn.ReadOnly = false;
                 gridView1.Columns["Tops"].OptionsColumn.ReadOnly = false;
-            }
-            if (!SCPara.Taka_From_Stock)
-            {
-              
-                gridView1.Columns["VoucherNo"].OptionsColumn.ReadOnly = false;
+                gridView1.Columns["Cops"].OptionsColumn.ReadOnly = false;
                 gridView1.Columns["GrossWt"].OptionsColumn.ReadOnly = false;
+                gridView1.Columns["TareWt"].OptionsColumn.ReadOnly = false;
+                
             }
+           
         }
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {

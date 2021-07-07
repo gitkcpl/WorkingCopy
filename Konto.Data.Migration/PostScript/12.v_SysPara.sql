@@ -1338,6 +1338,13 @@ IF NOT EXISTS(SELECT 1 FROM dbo.SysPara WHERE Id=322)
 INSERT INTO dbo.SysPara(Id,Descr,DefaultValue,ValueDescr,Category)
 Values(322,'Accept Zero Value','N','Y for Yes N for No','Mrv')
 
+IF NOT EXISTS(SELECT 1 FROM dbo.SysPara WHERE Id=323)
+INSERT INTO dbo.SysPara(Id,Descr,DefaultValue,ValueDescr,Category)
+Values(323,'Screen Required','N','Y for Yes N for No','Outward')
+
+IF NOT EXISTS(SELECT 1 FROM dbo.SysPara WHERE Id=324)
+INSERT INTO dbo.SysPara(Id,Descr,DefaultValue,ValueDescr,Category)
+Values(324,'Screen Required','N','Y for Yes N for No','SaleInvoice')
 
 -- for system level
 IF NOT EXISTS(SELECT 1 FROM dbo.SysPara WHERE Id=500) 

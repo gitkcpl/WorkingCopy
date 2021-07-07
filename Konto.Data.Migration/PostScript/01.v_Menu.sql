@@ -314,6 +314,21 @@ insert into ErpModule ([Id],[ParentId],[ModuleDesc],[OrderIndex],[LinkButton],[S
 end
 update dbo.ErpModule set Extra2=',1,2,3,4,5,6,7,9,10,11,' where id=117		   
 
+
+IF NOT exists (select 1 from ErpModule em where em.Id=156)
+begin
+insert into ErpModule ([Id],[ParentId],[ModuleDesc],[OrderIndex],[LinkButton],[ShortCutKey],[PackageId]
+           ,[DefaultReport],[DefaultLayout],[TableName],[AssemblyName],[MainAssembly]
+           ,[ListAssembly],[MDI],[Title],[Visible],[IconPath],[CheckRight]
+           ,[VisibleOnDashBoard],[VisibleOnSideBar],[IsSeprator],[Extra1],[Extra2],[Offline],
+		   [CreateDate],[ModifyDate],ImageIndex,IsActive,IsDeleted,RowId)
+		   values(156,106,'Hsn/Commodity Master',9,null,null,0,
+		   null,null,'Hsn/Commodity Master','Konto.Shared.Masters.Tax.HsnIndex','Konto.Shared',
+		   null,null,'Hsn/Commodity Master',1,'/Konto.Wpf;component/MenuIcon/product.png',0,
+		   0,0,0,null,',1,2,3,4,5,6,7,9,10,11,',1,GETDATE(),GETDATE(),10,1,0,NEWID())
+end
+
+
 IF NOT exists (select 1 from ErpModule em where em.Id=118)
 begin
 insert into ErpModule ([Id],[ParentId],[ModuleDesc],[OrderIndex],[LinkButton],[ShortCutKey],[PackageId]

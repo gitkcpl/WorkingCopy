@@ -97,5 +97,7 @@ namespace Konto.Data.Models.Transaction.Dtos
         public virtual string RefNo { get; set; }
 
         public virtual string Extra1 { get; set; }
+        public virtual string LastVoucher { get; set; }
+        public virtual string LastParty { get; set; }
     }
 }

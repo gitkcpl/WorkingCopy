@@ -1198,3 +1198,20 @@ INSERT INTO dbo.cost_heads(Id,RowId,HeadName,BranchId,CreateDate,CreateUser,
 IsActive,IsDeleted,IpAddress) Values(1,NEWID(),'NA',1,GETDATE(),'Admin',
 1,0,'NA')
 SET IDENTITY_INSERT dbo.cost_heads OFF
+
+Go
+
+---update hsn code from hsn master
+
+IF NOT EXISTS(SELECT 1 FROM hsn_master hm)
+BEGIN
+  INSERT INTO hsn_master (HsnCode, HsnDescr)
+  SELECT DISTINCT p.HsnCode,'NA' FROM Product p WHERE p.HsnCode IS NOT NULL
+
+  INSERT INTO hsn_trans (HsnMasterId, ApplyDate, TaxMasterId)
+    SELECT td.Id,'01-APR-2019',td.TaxId FROM (
+  SELECT ROW_NUMBER() OVER(PARTITION BY hm.Id ORDER BY p.TaxId) SrNo,
+    hm.Id,p.TaxId FROM hsn_master hm INNER JOIN Product p ON HM.HsnCode = P.HsnCode)td WHERE  td.srno=1
+  
+END
+Go

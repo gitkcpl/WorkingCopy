@@ -38,7 +38,7 @@ namespace Konto.Shared.Trans.ST
 
         TextEdit headerEdit = new TextEdit();
         GridColumn activeCol = null;
-
+        int DefaultBranchVoucherId = 0;
         public StIndex()
         {
             InitializeComponent();
@@ -58,7 +58,7 @@ namespace Konto.Shared.Trans.ST
             gridView1.KeyDown += GridView1_KeyDown;
             gridControl1.Enter += GridControl1_Enter;
             gridView1.CustomDrawRowIndicator += GridView1_CustomDrawRowIndicator;
-            gridView1.ShowingEditor += GridView1_ShowingEditor;
+          //  gridView1.ShowingEditor += GridView1_ShowingEditor;
             gridView1.MouseUp += GridView1_MouseUp;
             gridView1.ValidatingEditor += GridView1_ValidatingEditor;
             gridView1.InvalidValueException += GridView1_InvalidValueException;
@@ -281,7 +281,8 @@ namespace Konto.Shared.Trans.ST
                     er.CgstPer = model.Cgst;
                     er.IgstPer = 0;
                     er.Igst = 0;
-               
+                er.FromStock = DbUtils.GetCurrentStock(er.ProductId, Convert.ToInt32(fromBranchLookUpEdit.EditValue));
+                er.ToStock = DbUtils.GetCurrentStock(er.ProductId, Convert.ToInt32(toBranchLookUpEdit.EditValue));
                 er.CessPer = model.Cess;
                 gridView1.FocusedColumn = gridView1.GetNearestCanFocusedColumn(gridView1.FocusedColumn);
             }
@@ -374,6 +375,10 @@ namespace Konto.Shared.Trans.ST
                 divLookUpEdit.Properties.DataSource = _divLists;
                 fromBranchLookUpEdit.Properties.DataSource = _storeLists;
                 toBranchLookUpEdit.Properties.DataSource = _storeLists;
+
+                var bv = db.BranchVouchers.FirstOrDefault(x => x.BranchId == KontoGlobals.BranchId);
+                if (bv != null)
+                    DefaultBranchVoucherId = bv.StockTransferVoucherId;
             }
         }
 
@@ -653,15 +658,7 @@ namespace Konto.Shared.Trans.ST
                 activeCol = hi.Column;
             }
         }
-        private void GridView1_ShowingEditor(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            if (!"Pcs,Qty,ProductName".Contains(gridView1.FocusedColumn.FieldName)) return;
-            var itm = gridView1.GetFocusedRow() as GrnTransDto;
-            if (itm == null) return;
-            
-             if (gridView1.FocusedColumn.FieldName == "ProductName" && Convert.ToInt32(itm.RefId) > 0) 
-                e.Cancel = true;
-        }
+        
 
         private void GridView1_CustomDrawRowIndicator(object sender, RowIndicatorCustomDrawEventArgs e)
         {
@@ -724,7 +721,12 @@ namespace Konto.Shared.Trans.ST
         }
         private void GridView1_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode != Keys.Delete) return;
+            if (e.KeyCode != Keys.Delete)
+            {
+                //e.Handled = true;
+                return;
+                    
+            }
 
             if (e.KeyCode == Keys.Delete && e.Modifiers == Keys.Control)
             {
@@ -832,6 +834,7 @@ namespace Konto.Shared.Trans.ST
                 }
                
             }
+            
             catch (Exception ex)
             {
                 Log.Error(ex, "GRN GridControl KeyDown");
@@ -990,7 +993,17 @@ namespace Konto.Shared.Trans.ST
             createdLabelControl.Text = "Create By: " + KontoGlobals.UserName;
             modifyLabelControl.Text = string.Empty;
             this.ActiveControl = voucherLookup1.buttonEdit1;
-            voucherLookup1.SetDefault();
+            
+            if (DefaultBranchVoucherId != 0)
+            {
+                voucherLookup1.SetGroup(DefaultBranchVoucherId);
+                voucherLookup1.SelectedValue = DefaultBranchVoucherId;
+            }
+            else
+            {
+                voucherLookup1.SetDefault();
+            }
+
             challanNotextEdit.Text = "NA";
             this.grnTransDtoBindingSource1.DataSource = new List<GrnTransDto>();
             
@@ -1167,11 +1180,10 @@ namespace Konto.Shared.Trans.ST
                         //delete item fro trans table entry
                         foreach (var item in DelTrans)
                         {
-                            if (item.Id == 0) continue;
+                            if (item.Id <=0) continue;
                             var _model = db.ChallanTranses.Find(item.Id);
                             _model.IsDeleted = true;
 
-                           
                         }
 
                         

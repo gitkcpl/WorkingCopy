@@ -15,6 +15,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Konto.Data.Models.Apparel.Dtos;
 using Konto.Data.Models.Apparel;
+using System.Drawing;
 
 namespace Konto.Apparel.Qc
 {
@@ -372,6 +373,13 @@ namespace Konto.Apparel.Qc
                     return;
                 }
 
+                var imgs = db.PImagies.Where(x => x.ProductId == barcode.ProductId).ToList();
+                imageSlider1.Images.Clear();
+
+                foreach (var item in imgs)
+                {
+                    imageSlider1.Images.Add(Image.FromFile(item.ImagePath));
+                }
 
                 divLookUpEdit.Enabled = false;
                 productNameLabel.Text = barcode.Product.ProductName;

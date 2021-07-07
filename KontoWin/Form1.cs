@@ -731,8 +731,8 @@ namespace KontoWin
 
                     foreach (var pb in pbs)
                     {
-                        //if (pb.ProductId == 65057)
-                        //    MessageBox.Show("ex");
+                       // if (pb.ProductId == 97)
+                           //MessageBox.Show("ex");
                         var st = stlist.FirstOrDefault(x => x.Id == pb.ProductId);
 
                         var pdo = db.StockBals.FirstOrDefault(x => x.CompanyId == KontoGlobals.CompanyId

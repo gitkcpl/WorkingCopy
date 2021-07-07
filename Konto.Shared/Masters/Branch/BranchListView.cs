@@ -24,6 +24,13 @@ namespace Konto.Shared.Masters.Branch
             InitializeComponent();
             this.GridLayoutFileName = KontoFileLayout.BranchMaster_List_Layout;
             this.Load += BranchListView_Load;
+            this.voucherSimpleButton.Click += VoucherSimpleButton_Click;
+        }
+
+        private void VoucherSimpleButton_Click(object sender, EventArgs e)
+        {
+            var frm = new BranchVoucherIndex();
+            frm.ShowDialog();
         }
 
         private void BranchListView_Load(object sender, EventArgs e)

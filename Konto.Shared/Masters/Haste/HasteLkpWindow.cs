@@ -12,6 +12,7 @@ namespace Konto.Shared.Masters.Haste
 {
     public partial class HasteLkpWindow : LookupForm
     {
+        public string MType { get; set; }
         List<HasteLookupDto> _modelList = new List<HasteLookupDto>();
         public HasteLkpWindow()
         {

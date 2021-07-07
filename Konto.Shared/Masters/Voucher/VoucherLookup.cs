@@ -38,6 +38,8 @@ namespace Konto.Shared.Masters.Voucher
         {
             using (var db = new KontoContext())
             {
+                
+
                 var _vmodel = db.Vouchers.FirstOrDefault(x => x.VTypeId == (int)this.VTypeId);
                 if (_vmodel != null)
                 {
@@ -56,7 +58,7 @@ namespace Konto.Shared.Masters.Voucher
 
                 GroupDto = (from vc in _context.Vouchers
                              join st in _context.VchSetups on vc.Id equals st.VoucherId
-                             where vc.Id == id
+                             where vc.Id == id & st.CompId== KontoGlobals.CompanyId
                              orderby vc.VoucherName
                              select new VoucherLookupDto()
                              {

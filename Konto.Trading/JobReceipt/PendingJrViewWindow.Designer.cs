@@ -72,6 +72,7 @@
             this.colIsClear = new Konto.Core.Shared.Libs.CustomGridColumn();
             this.colJobcardno = new Konto.Core.Shared.Libs.CustomGridColumn();
             this.colJobId = new Konto.Core.Shared.Libs.CustomGridColumn();
+            this.colBarcode = new Konto.Core.Shared.Libs.CustomGridColumn();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pendingMillReceiptSpBindingSource)).BeginInit();
@@ -149,6 +150,7 @@
             this.colId,
             this.colChallanId,
             this.colTransId,
+            this.colBarcode,
             this.colRefId,
             this.colVoucherId,
             this.colChlnDate,
@@ -264,7 +266,7 @@
             this.colIssueQty.Name = "colIssueQty";
             this.colIssueQty.OptionsColumn.AllowEdit = false;
             this.colIssueQty.Visible = true;
-            this.colIssueQty.VisibleIndex = 3;
+            this.colIssueQty.VisibleIndex = 8;
             // 
             // colIssuePcs
             // 
@@ -272,7 +274,7 @@
             this.colIssuePcs.Name = "colIssuePcs";
             this.colIssuePcs.OptionsColumn.AllowEdit = false;
             this.colIssuePcs.Visible = true;
-            this.colIssuePcs.VisibleIndex = 4;
+            this.colIssuePcs.VisibleIndex = 9;
             // 
             // colPendingQty
             // 
@@ -281,7 +283,7 @@
             this.colPendingQty.Name = "colPendingQty";
             this.colPendingQty.OptionsColumn.AllowEdit = false;
             this.colPendingQty.Visible = true;
-            this.colPendingQty.VisibleIndex = 5;
+            this.colPendingQty.VisibleIndex = 6;
             this.colPendingQty.Width = 81;
             // 
             // colPendingPcs
@@ -290,7 +292,7 @@
             this.colPendingPcs.Name = "colPendingPcs";
             this.colPendingPcs.OptionsColumn.AllowEdit = false;
             this.colPendingPcs.Visible = true;
-            this.colPendingPcs.VisibleIndex = 6;
+            this.colPendingPcs.VisibleIndex = 7;
             this.colPendingPcs.Width = 90;
             // 
             // colCurrPendingQty
@@ -299,7 +301,7 @@
             this.colCurrPendingQty.FieldName = "CurrPendingQty";
             this.colCurrPendingQty.Name = "colCurrPendingQty";
             this.colCurrPendingQty.Visible = true;
-            this.colCurrPendingQty.VisibleIndex = 9;
+            this.colCurrPendingQty.VisibleIndex = 10;
             this.colCurrPendingQty.Width = 122;
             // 
             // colCurrPendingPcs
@@ -308,7 +310,7 @@
             this.colCurrPendingPcs.Name = "colCurrPendingPcs";
             this.colCurrPendingPcs.OptionsColumn.AllowEdit = false;
             this.colCurrPendingPcs.Visible = true;
-            this.colCurrPendingPcs.VisibleIndex = 10;
+            this.colCurrPendingPcs.VisibleIndex = 11;
             this.colCurrPendingPcs.Width = 117;
             // 
             // colQty
@@ -317,7 +319,7 @@
             this.colQty.FieldName = "Qty";
             this.colQty.Name = "colQty";
             this.colQty.Visible = true;
-            this.colQty.VisibleIndex = 8;
+            this.colQty.VisibleIndex = 5;
             // 
             // colPcs
             // 
@@ -325,7 +327,7 @@
             this.colPcs.FieldName = "Pcs";
             this.colPcs.Name = "colPcs";
             this.colPcs.Visible = true;
-            this.colPcs.VisibleIndex = 7;
+            this.colPcs.VisibleIndex = 4;
             // 
             // colProduct
             // 
@@ -333,7 +335,7 @@
             this.colProduct.Name = "colProduct";
             this.colProduct.OptionsColumn.AllowEdit = false;
             this.colProduct.Visible = true;
-            this.colProduct.VisibleIndex = 2;
+            this.colProduct.VisibleIndex = 3;
             this.colProduct.Width = 137;
             // 
             // colProductId
@@ -366,7 +368,7 @@
             this.colDesign.Name = "colDesign";
             this.colDesign.OptionsColumn.AllowEdit = false;
             this.colDesign.Visible = true;
-            this.colDesign.VisibleIndex = 11;
+            this.colDesign.VisibleIndex = 12;
             // 
             // colRate
             // 
@@ -422,7 +424,7 @@
             this.colUnitName.Name = "colUnitName";
             this.colUnitName.OptionsColumn.AllowEdit = false;
             this.colUnitName.Visible = true;
-            this.colUnitName.VisibleIndex = 12;
+            this.colUnitName.VisibleIndex = 13;
             // 
             // colIsActive
             // 
@@ -441,7 +443,7 @@
             this.colIsClear.FieldName = "IsClear";
             this.colIsClear.Name = "colIsClear";
             this.colIsClear.Visible = true;
-            this.colIsClear.VisibleIndex = 13;
+            this.colIsClear.VisibleIndex = 14;
             // 
             // colJobcardno
             // 
@@ -452,6 +454,13 @@
             // 
             this.colJobId.FieldName = "JobId";
             this.colJobId.Name = "colJobId";
+            // 
+            // colBarcode
+            // 
+            this.colBarcode.FieldName = "Barcode";
+            this.colBarcode.Name = "colBarcode";
+            this.colBarcode.Visible = true;
+            this.colBarcode.VisibleIndex = 2;
             // 
             // PendingJrViewWindow
             // 
@@ -515,5 +524,6 @@
         private Core.Shared.Libs.CustomGridColumn colJobcardno;
         private Core.Shared.Libs.CustomGridColumn colJobId;
         public System.Windows.Forms.BindingSource pendingMillReceiptSpBindingSource;
+        private Core.Shared.Libs.CustomGridColumn colBarcode;
     }
 }

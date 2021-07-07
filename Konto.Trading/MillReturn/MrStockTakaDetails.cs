@@ -47,6 +47,7 @@ namespace Konto.Trading.MillReturn
             {
                 var spcol1 = _db.SpCollections.FirstOrDefault(k => k.Id ==
                             (int)SpCollectionEnum.PendingMRProd);
+
                 if (spcol1 == null)
                 {
                     Prlist = _db.Database.SqlQuery<PendingMRProd>("dbo.PendingMRProd @CompanyId={0}," +

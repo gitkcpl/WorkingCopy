@@ -1,4 +1,5 @@
-﻿using DevExpress.XtraEditors;
+﻿using DevExpress.Data;
+using DevExpress.XtraEditors;
 using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Grid;
 using DevExpress.XtraGrid.Views.Grid.ViewInfo;
@@ -31,8 +32,79 @@ namespace Konto.Trading.TakaWiseJobReceipt
             this.okSimpleButton.Click += OkSimpleButton_Click;
             this.gridView1.ValidateRow += GridView1_ValidateRow;
             this.gridView1.InvalidRowException += GridView1_InvalidRowException;
+            this.gridView1.CustomSummaryCalculate += GridView1_CustomSummaryCalculate;
+            this.gridView1.KeyDown += GridView1_KeyDown;
         }
 
+        private void GridView1_KeyDown(object sender, KeyEventArgs e)
+        {
+            var gv = sender as GridView;
+            if (e.KeyCode != Keys.Enter ||
+                gv.FocusedColumn.FieldName == "GrayMtr") return;
+
+
+            gridView1.PostEditor();
+            gridView1.UpdateCurrentRow();
+            if (gv.FocusedColumn.FieldName == "TP1" && Convert.ToDecimal(gridView1.GetFocusedValue()) == 0)
+            {
+
+                e.Handled = true;
+                okSimpleButton.Focus();
+                return;
+            }
+            if (Convert.ToDecimal(gridView1.GetFocusedValue()) == 0)
+            {
+                if (gridView1.FocusedRowHandle == gridView1.RowCount - 2)
+                {
+                    e.Handled = true;
+                    okSimpleButton.Focus();
+                    return;
+                }
+                gv.FocusedColumn = colTP1;
+                gv.FocusedRowHandle = gridView1.FocusedRowHandle + 1;
+            }
+
+        }
+
+        private decimal _GreyMtrs;
+        private int _GreyPcs, _finPcs;
+        private void GridView1_CustomSummaryCalculate(object sender, DevExpress.Data.CustomSummaryEventArgs e)
+        {
+            if (e.SummaryProcess == CustomSummaryProcess.Start)
+            {
+                _GreyMtrs = 0;
+                _GreyPcs = 0;
+                _finPcs = 0;
+            }
+
+            if (e.SummaryProcess == CustomSummaryProcess.Calculate)
+            {
+                var rw = e.Row as ProdOutDto;
+                if (rw.FinMrt > 0)
+                {
+                    _GreyPcs = _GreyPcs + 1;
+                    _GreyMtrs = _GreyMtrs + Convert.ToDecimal(rw.GrayMtr);
+                    if (rw.TP1 > 0)
+                        _finPcs = _finPcs + 1;
+                    if (rw.TP2 > 0)
+                        _finPcs = _finPcs + 1;
+                    if (rw.TP3 > 0)
+                        _finPcs = _finPcs + 1;
+                    if (rw.TP4 > 0)
+                        _finPcs = _finPcs + 1;
+                    if (rw.TP5 > 0)
+                        _finPcs = _finPcs + 1;
+                }
+            }
+
+            if (e.SummaryProcess == CustomSummaryProcess.Finalize)
+            {
+                autoLabel1.Text = "Grey Used: " + _GreyMtrs.ToString("F") + ", Pcs Used: " + _GreyPcs.ToString() +
+                                  ", Fin. Pcs: " + _finPcs.ToString();
+            }
+
+
+        }
         private void GridView1_InvalidRowException(object sender, DevExpress.XtraGrid.Views.Base.InvalidRowExceptionEventArgs e)
         {
             e.ExceptionMode = DevExpress.XtraEditors.Controls.ExceptionMode.DisplayError;
@@ -69,6 +141,7 @@ namespace Konto.Trading.TakaWiseJobReceipt
         {
             this.ActiveControl = gridControl1;
             this.gridView1.FocusedColumn = colTP1;
+            this.gridView1.OptionsNavigation.EnterMoveNextColumn = true;
         }
         private void GridView1_MouseUp(object sender, MouseEventArgs e)
         {
@@ -128,8 +201,8 @@ namespace Konto.Trading.TakaWiseJobReceipt
             var er = gridView1.GetRow(e.RowHandle) as ProdOutDto;
             if (er == null) return;
             er.FinMrt = er.TP1 + er.TP2 + er.TP3 + er.TP4 + er.TP5;
-            er.ShMtr = er.GrayMtr - er.FinMrt;
-            er.ShPer = decimal.Round(Convert.ToInt32(er.ShMtr) * 100 / Convert.ToDecimal( er.GrayMtr), 2, System.MidpointRounding.AwayFromZero);
+            er.ShMtr = er.GrayMtr - (er.FinMrt + er.PlainQty);
+            er.ShPer = decimal.Round(Convert.ToInt32(er.ShMtr) * 100 / Convert.ToDecimal(er.GrayMtr), 2, System.MidpointRounding.AwayFromZero);
         }
         void headerEdit_Leave(object sender, EventArgs e)
         {

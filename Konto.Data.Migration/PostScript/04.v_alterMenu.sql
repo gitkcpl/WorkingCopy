@@ -4,7 +4,7 @@ update dbo.ErpModule set moduledesc= 'Mill Receipt Challan',Visible=0 where id=3
 
 update dbo.ErpModule set moduledesc= 'Job Receipt Challan',Visible=0 where id=319 -- job receipt challan
 
-update dbo.ErpModule set Title = 'Mill Return', AssemblyName ='Konto.Trading.MillReturn.MrIndex', MainAssembly='Konto.Trading' where id=361
+update dbo.ErpModule set Title = 'Job Return',Extra2=',1,3,7,11,', AssemblyName ='Konto.Trading.MillReturn.MrIndex', MainAssembly='Konto.Trading' where id=361
 
 update dbo.ErpModule set Title = 'Ledger Report', AssemblyName ='Konto.Reporting.Para.Ledger.LedgerMainView',MainAssembly='Konto.Reporting' where id=801
 
@@ -23,9 +23,9 @@ update ErpModule set Title='Balance Sheet', AssemblyName='Konto.Reporting.Para.B
 
 update ErpModule set Title='Order Register',AssemblyName ='Konto.Reporting.Para.OrdPara.OrdParaMainView', MainAssembly='Konto.Reporting' where id=828
 update ErpModule set Title='Outward Register',AssemblyName ='Konto.Reporting.Para.ChlPara.ChlParaMainView', MainAssembly='Konto.Reporting' where id=813
-update ErpModule set Title='Gray Issue Register',AssemblyName ='Konto.Reporting.Para.ChlPara.ChlParaMainView', MainAssembly='Konto.Reporting' where id=818
+
 update ErpModule set Title='Mill Receipt Register', AssemblyName ='Konto.Reporting.Para.ChlPara.ChlParaMainView', MainAssembly='Konto.Reporting' where id=819
-update ErpModule set Title='Job Issue Register', AssemblyName ='Konto.Reporting.Para.ChlPara.ChlParaMainView', MainAssembly='Konto.Reporting' where id=823 
+
 update ErpModule set Title='Purchase Return Register',  AssemblyName ='Konto.Reporting.Para.BillPara.ParaMainView', MainAssembly='Konto.Reporting' where id=811
 update ErpModule set Title='Sales Register',  AssemblyName ='Konto.Reporting.Para.BillPara.ParaMainView', MainAssembly='Konto.Reporting' where id=814
 update ErpModule set Title='Sales Return Register',  AssemblyName ='Konto.Reporting.Para.BillPara.ParaMainView', MainAssembly='Konto.Reporting' where id=816
@@ -55,6 +55,11 @@ update ErpModule set AssemblyName ='Konto.Shared.Security.ChangePasswordIndex', 
 UPDATE dbo.ErpModule SET [ModuleDesc]='Ledger Audit', AssemblyName='KontoWin.Utils.LedgerAuditView',MainAssembly='Konto.2020.1' WHERE id=711
 
 update ErpModule set  AssemblyName ='Konto.Reporting.Para.Gst.PaymentAssist', MainAssembly='Konto.Reporting' where id=1073
+
+
+update ErpModule set Title='Job Issue Register', AssemblyName ='Konto.Reporting.Para.JobInc.RepJobExpView', MainAssembly='Konto.Reporting' where id=823 
+
+update ErpModule set Title='Gray Issue Register',AssemblyName ='Konto.Reporting.Para.JobInc.RepJobExpView', MainAssembly='Konto.Reporting' where id=818
 
 ----Update prodout
 --UPDATE dbo.ProdOut SET GrayMtr = Qty WHERE Qty < 0

@@ -53,6 +53,7 @@ namespace Konto.Reporting.XReport.XChallan
             DevExpress.DataAccess.Sql.QueryParameter queryParameter20 = new DevExpress.DataAccess.Sql.QueryParameter();
             DevExpress.DataAccess.Sql.QueryParameter queryParameter21 = new DevExpress.DataAccess.Sql.QueryParameter();
             DevExpress.DataAccess.Sql.QueryParameter queryParameter22 = new DevExpress.DataAccess.Sql.QueryParameter();
+            DevExpress.DataAccess.Sql.QueryParameter queryParameter23 = new DevExpress.DataAccess.Sql.QueryParameter();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ChallanDetailsXRep));
             DevExpress.XtraReports.UI.XRSummary xrSummary1 = new DevExpress.XtraReports.UI.XRSummary();
             DevExpress.XtraReports.UI.XRSummary xrSummary2 = new DevExpress.XtraReports.UI.XRSummary();
@@ -234,6 +235,7 @@ namespace Konto.Reporting.XReport.XChallan
             this.report_cols = new DevExpress.XtraReports.Parameters.Parameter();
             this.Quarter = new DevExpress.XtraReports.UI.CalculatedField();
             this.category = new DevExpress.XtraReports.Parameters.Parameter();
+            this.vtype = new DevExpress.XtraReports.Parameters.Parameter();
             ((System.ComponentModel.ISupportInitialize)(this.dataXrTable)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.headXrTable)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.xrTable1)).BeginInit();
@@ -313,6 +315,9 @@ namespace Konto.Reporting.XReport.XChallan
             queryParameter22.Name = "@category";
             queryParameter22.Type = typeof(DevExpress.DataAccess.Expression);
             queryParameter22.Value = new DevExpress.DataAccess.Expression("?category", typeof(string));
+            queryParameter23.Name = "@vtype";
+            queryParameter23.Type = typeof(DevExpress.DataAccess.Expression);
+            queryParameter23.Value = new DevExpress.DataAccess.Expression("?vtype", typeof(int));
             storedProcQuery1.Parameters.Add(queryParameter1);
             storedProcQuery1.Parameters.Add(queryParameter2);
             storedProcQuery1.Parameters.Add(queryParameter3);
@@ -335,6 +340,7 @@ namespace Konto.Reporting.XReport.XChallan
             storedProcQuery1.Parameters.Add(queryParameter20);
             storedProcQuery1.Parameters.Add(queryParameter21);
             storedProcQuery1.Parameters.Add(queryParameter22);
+            storedProcQuery1.Parameters.Add(queryParameter23);
             storedProcQuery1.StoredProcName = "challan_reg_rep";
             this.sqlDataSource1.Queries.AddRange(new DevExpress.DataAccess.Sql.SqlQuery[] {
             storedProcQuery1});
@@ -2030,6 +2036,13 @@ namespace Konto.Reporting.XReport.XChallan
             this.category.ValueInfo = "N";
             this.category.Visible = false;
             // 
+            // vtype
+            // 
+            this.vtype.Name = "vtype";
+            this.vtype.Type = typeof(int);
+            this.vtype.ValueInfo = "0";
+            this.vtype.Visible = false;
+            // 
             // ChallanDetailsXRep
             // 
             this.Bands.AddRange(new DevExpress.XtraReports.UI.Band[] {
@@ -2084,7 +2097,8 @@ namespace Konto.Reporting.XReport.XChallan
             this.grade_id,
             this.challan_type,
             this.report_cols,
-            this.category});
+            this.category,
+            this.vtype});
             this.Scripts.OnBeforePrint = "JobIncomeXRep2_BeforePrint";
             this.ScriptsSource = "\r\n\r\n\r\n";
             this.StyleSheet.AddRange(new DevExpress.XtraReports.UI.XRControlStyle[] {
@@ -2278,5 +2292,6 @@ namespace Konto.Reporting.XReport.XChallan
         private DevExpress.XtraReports.UI.XRTableCell xrTableCell96;
         private DevExpress.XtraReports.UI.CalculatedField Quarter;
         private DevExpress.XtraReports.Parameters.Parameter category;
+        private DevExpress.XtraReports.Parameters.Parameter vtype;
     }
 }

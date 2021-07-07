@@ -51,6 +51,8 @@ namespace Konto.Pos.SR
         private int compStateId = 24;
         private bool isGst = true;
         private decimal _DiscPer = 0;
+
+        private int DefaultBranchVoucherId = 0;
         public SRIndex()
         {
             InitializeComponent();
@@ -130,8 +132,8 @@ namespace Konto.Pos.SR
                             //join chln in _context.ChallanTranses on bt.RefTransId equals chln.Id into joinChln
                             //from chln in joinChln.DefaultIfEmpty()
                             //join chl in _context.Challans on chln.ChallanId equals chl.Id into joinChl
-                            //from chl in joinChl.DefaultIfEmpty()
-                            //join ort in _context.OrdTranses on chln.RefId equals ort.Id into joinOrt
+                            //from chl in joinChl.DefaultIfEmp-1ty()
+                            //join ort in _context.OrdTranse+ s on chln.RefId equals ort.Id into joinOrt
                             //from ort in joinOrt.DefaultIfEmpty()
                             //join or in _context.Ords on ort.OrdId equals or.Id into joinOr
                             //from or in joinOr.DefaultIfEmpty()
@@ -478,32 +480,32 @@ namespace Konto.Pos.SR
         }
         private void BillNoTextEdit_ButtonClick(object sender, ButtonPressedEventArgs e)
         {
-            //string type ="DEBIT";
-            //if (this.billAmtSpinEdit.Value == 0) return;
-            //var frm = new PendingBillViewWindow("SR", Convert.ToInt32(accLookup1.SelectedValue),
-            //    (int)VoucherTypeEnum.DebitCreditNote, type, this.PrimaryKey, this.PrimaryKey,
-            //    (int)voucherLookup1.SelectedValue);
+            string type = "DEBIT";
+            if (this.billAmtSpinEdit.Value == 0) return;
+            var frm = new PendingBillViewWindow("SR", Convert.ToInt32(accLookup1.SelectedValue),
+                (int)VoucherTypeEnum.SaleReturn, type, this.PrimaryKey, this.PrimaryKey,
+                (int)voucherLookup1.SelectedValue);
 
-            //frm.AllBill.AddRange(this.AllBill);
-            //frm.TotalAmount = this.billAmtSpinEdit.Value;
+            frm.AllBill.AddRange(this.AllBill);
+            frm.TotalAmount = this.billAmtSpinEdit.Value;
 
-            //if (frm.ShowDialog() == DialogResult.OK)
-            //{
-            //    this.AllBill = frm.AllBill;
+            if (frm.ShowDialog() == DialogResult.OK)
+            {
+                this.AllBill = frm.AllBill;
 
-            //    this.DelBill.AddRange(frm.DelBillList);
+                this.DelBill.AddRange(frm.DelBillList);
 
-            //    var plist = frm.BillList.Where(k => k.Amount > 0).ToList();
-            //    this.BillList = new List<PendBillListDto>();
-            //    this.BillList.AddRange(plist);
+                var plist = frm.BillList.Where(k => k.Amount > 0).ToList();
+                this.BillList = new List<PendBillListDto>();
+                this.BillList.AddRange(plist);
 
-            //    if (plist.Count > 0)
-            //    {
-            //        billNoTextEdit.Text = plist[0].BillNo;
-            //        billDateEdit.EditValue = plist[0].ChallanDate;
-            //    }
+                if (plist.Count > 0)
+                {
+                    billNoTextEdit.Text = plist[0].BillNo;
+                    billDateEdit.EditValue = plist[0].ChallanDate;
+                }
 
-            //}
+            }
         }
 
         private void GridView1_InvalidRowException(object sender, DevExpress.XtraGrid.Views.Base.InvalidRowExceptionEventArgs e)
@@ -1018,6 +1020,10 @@ namespace Konto.Pos.SR
                 stateLookUpEdit.Properties.DataSource = _statelist;
                // taxRepositoryItemLookUpEdit.DataSource = gstList;
                 storeLookUpEdit.Properties.DataSource = _storeLists;
+
+                var bv = db.BranchVouchers.FirstOrDefault(x => x.BranchId == KontoGlobals.BranchId);
+                if (bv != null)
+                    DefaultBranchVoucherId = bv.SaleReturnVoucherId;
             }
         }
 
@@ -1388,7 +1394,7 @@ namespace Konto.Pos.SR
                     var frm = (from p in db.Bills
                                join pt in db.BillTrans on p.Id equals pt.BillId
                                join pd in db.Products on pt.ProductId equals pd.Id
-                               where p.VoucherNo== billNoTextEdit.Text.Trim() && pd.BarCode == e.Value.ToString()
+                               where  pd.BarCode == e.Value.ToString()
                                && p.Extra2 == extra2TextEdit.Text.Trim()
                                select p
                                ).FirstOrDefault();
@@ -1886,10 +1892,23 @@ namespace Konto.Pos.SR
             modifyLabelControl.Text = string.Empty;
             this.ActiveControl = voucherLookup1.buttonEdit1;
 
-            if (!SaleRetPara.Ask_For_Voucher_Selection)
-                voucherLookup1.SetDefault();
+            if (!PosRetPara.Ask_For_Voucher_Selection)
+            {
+                if (DefaultBranchVoucherId != 0)
+                {
+                    voucherLookup1.SetGroup(DefaultBranchVoucherId);
+                    voucherLookup1.SelectedValue = DefaultBranchVoucherId;
+                }
+                else
+                {
+                    voucherLookup1.SetDefault();
+                }
+            }
             else
+            {
+
                 voucherLookup1.SetEmpty();
+            }
 
             if (voucherLookup1.GroupDto!= null && Convert.ToInt32(voucherLookup1.GroupDto.AccId) > 0)
             {

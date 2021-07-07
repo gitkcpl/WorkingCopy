@@ -83,9 +83,11 @@
             this.colMiscId = new DevExpress.XtraGrid.Columns.GridColumn();
             this.empLookup1 = new Konto.Shared.Masters.Emp.EmpLookup();
             this.barcodetextEdit = new DevExpress.XtraEditors.TextEdit();
+            this.challanNoTextEdit = new DevExpress.XtraEditors.ButtonEdit();
             this.Root = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem20 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem19 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)(this.tabControlAdv1)).BeginInit();
             this.tabControlAdv1.SuspendLayout();
@@ -105,9 +107,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.uomRepositoryItemLookUpEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemHyperLinkEdit1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.barcodetextEdit.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.challanNoTextEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Root)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem20)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem19)).BeginInit();
             this.SuspendLayout();
             // 
@@ -149,6 +153,7 @@
             this.layoutControl1.Controls.Add(this.gridControl1);
             this.layoutControl1.Controls.Add(this.empLookup1);
             this.layoutControl1.Controls.Add(this.barcodetextEdit);
+            this.layoutControl1.Controls.Add(this.challanNoTextEdit);
             this.layoutControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.layoutControl1.Location = new System.Drawing.Point(0, 35);
             this.layoutControl1.Name = "layoutControl1";
@@ -178,7 +183,7 @@
             this.repositoryItemHyperLinkEdit1,
             this.lotNoRepositoryItemButtonEdit});
             this.gridControl1.Size = new System.Drawing.Size(934, 381);
-            this.gridControl1.TabIndex = 3;
+            this.gridControl1.TabIndex = 4;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
             // 
@@ -382,6 +387,7 @@
             // 
             // colFromStock
             // 
+            this.colFromStock.Caption = "Stock";
             this.colFromStock.FieldName = "FromStock";
             this.colFromStock.Name = "colFromStock";
             this.colFromStock.OptionsColumn.AllowEdit = false;
@@ -653,21 +659,36 @@
             this.empLookup1.RequiredField = true;
             this.empLookup1.SelectedText = null;
             this.empLookup1.SelectedValue = null;
-            this.empLookup1.Size = new System.Drawing.Size(382, 24);
-            this.empLookup1.TabIndex = 2;
+            this.empLookup1.Size = new System.Drawing.Size(207, 24);
+            this.empLookup1.TabIndex = 0;
             // 
             // barcodetextEdit
             // 
-            this.barcodetextEdit.Location = new System.Drawing.Point(541, 5);
+            this.barcodetextEdit.Location = new System.Drawing.Point(639, 5);
             this.barcodetextEdit.Name = "barcodetextEdit";
             this.barcodetextEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.barcodetextEdit.Properties.Appearance.Options.UseFont = true;
             this.barcodetextEdit.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.barcodetextEdit.Properties.AppearanceFocused.Options.UseBorderColor = true;
             this.barcodetextEdit.Properties.MaxLength = 25;
-            this.barcodetextEdit.Size = new System.Drawing.Size(398, 24);
+            this.barcodetextEdit.Size = new System.Drawing.Size(300, 24);
             this.barcodetextEdit.StyleController = this.layoutControl1;
-            this.barcodetextEdit.TabIndex = 0;
+            this.barcodetextEdit.TabIndex = 3;
+            // 
+            // challanNoTextEdit
+            // 
+            this.challanNoTextEdit.Location = new System.Drawing.Point(366, 5);
+            this.challanNoTextEdit.Name = "challanNoTextEdit";
+            this.challanNoTextEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.challanNoTextEdit.Properties.Appearance.Options.UseFont = true;
+            this.challanNoTextEdit.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.challanNoTextEdit.Properties.AppearanceFocused.Options.UseBorderColor = true;
+            this.challanNoTextEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton()});
+            this.challanNoTextEdit.Properties.MaxLength = 25;
+            this.challanNoTextEdit.Size = new System.Drawing.Size(194, 24);
+            this.challanNoTextEdit.StyleController = this.layoutControl1;
+            this.challanNoTextEdit.TabIndex = 2;
             // 
             // Root
             // 
@@ -676,6 +697,7 @@
             this.Root.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlItem20,
             this.layoutControlItem5,
+            this.layoutControlItem1,
             this.layoutControlItem19});
             this.Root.Name = "Root";
             this.Root.Padding = new DevExpress.XtraLayout.Utils.Padding(3, 3, 3, 3);
@@ -699,11 +721,22 @@
             this.layoutControlItem5.AppearanceItemCaption.Options.UseFont = true;
             this.layoutControlItem5.AppearanceItemCaption.Options.UseForeColor = true;
             this.layoutControlItem5.Control = this.barcodetextEdit;
-            this.layoutControlItem5.Location = new System.Drawing.Point(461, 0);
+            this.layoutControlItem5.Location = new System.Drawing.Point(559, 0);
             this.layoutControlItem5.Name = "layoutControlItem5";
-            this.layoutControlItem5.Size = new System.Drawing.Size(477, 28);
+            this.layoutControlItem5.Size = new System.Drawing.Size(379, 28);
             this.layoutControlItem5.Text = "Barcode:";
             this.layoutControlItem5.TextSize = new System.Drawing.Size(72, 17);
+            // 
+            // layoutControlItem1
+            // 
+            this.layoutControlItem1.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.layoutControlItem1.AppearanceItemCaption.Options.UseFont = true;
+            this.layoutControlItem1.Control = this.challanNoTextEdit;
+            this.layoutControlItem1.Location = new System.Drawing.Point(286, 0);
+            this.layoutControlItem1.Name = "layoutControlItem1";
+            this.layoutControlItem1.Size = new System.Drawing.Size(273, 28);
+            this.layoutControlItem1.Text = "Challan No:";
+            this.layoutControlItem1.TextSize = new System.Drawing.Size(72, 17);
             // 
             // layoutControlItem19
             // 
@@ -712,7 +745,7 @@
             this.layoutControlItem19.Control = this.empLookup1;
             this.layoutControlItem19.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem19.Name = "layoutControlItem19";
-            this.layoutControlItem19.Size = new System.Drawing.Size(461, 28);
+            this.layoutControlItem19.Size = new System.Drawing.Size(286, 28);
             this.layoutControlItem19.Text = "Received By";
             this.layoutControlItem19.TextSize = new System.Drawing.Size(72, 17);
             // 
@@ -746,9 +779,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.uomRepositoryItemLookUpEdit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemHyperLinkEdit1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.barcodetextEdit.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.challanNoTextEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Root)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem20)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem19)).EndInit();
             this.ResumeLayout(false);
 
@@ -814,5 +849,7 @@
         private DevExpress.XtraGrid.Columns.GridColumn colBarcodeNo;
         private DevExpress.XtraGrid.Columns.GridColumn colFromStock;
         private DevExpress.XtraGrid.Columns.GridColumn colToStock;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
+        private DevExpress.XtraEditors.ButtonEdit challanNoTextEdit;
     }
 }

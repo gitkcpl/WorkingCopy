@@ -20,7 +20,7 @@ namespace Konto.Shared.Masters.PG
 {
     public partial class CustomerListView : ListBaseView
     {
-        private List<PartyGroupListDto> _modelList = new List<PartyGroupListDto>();
+        private List<CustomerListDto> _modelList = new List<CustomerListDto>();
         public CustomerListView()
         {
             InitializeComponent();
@@ -45,7 +45,17 @@ namespace Konto.Shared.Masters.PG
                 {
                     _modelList = _db.Customers.Where(x => !x.IsDeleted)
                                 .OrderBy(x => x.CustomerName)
-                                .ProjectTo<PartyGroupListDto>(configuration).ToList();
+                                 .Select(x => new CustomerListDto
+                                 {
+                                     Address = x.Address,
+                                     AnniDate = x.AnniDate,
+                                     CustomerName = x.CustomerName,
+                                     Dob = x.Dob,
+                                     GstNo = x.GstNo,
+                                     MemberDate = x.MemberDate,
+                                     MemberNo = x.MemberNo,
+                                     MobileNo = x.MobileNo,Id= x.Id
+                                 }).ToList();
 
                 }
 

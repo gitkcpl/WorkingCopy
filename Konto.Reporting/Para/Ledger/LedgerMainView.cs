@@ -34,6 +34,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Konto.Core.Shared.Libs;
+using Konto.Trading.TakaWiseJobReceipt;
 
 namespace Konto.Reporting.Para.Ledger
 {
@@ -372,9 +373,14 @@ namespace Konto.Reporting.Para.Ledger
             {
                 vw = new JrIndex();
             }
-           
+            else if (err.VTypeId == (int)VoucherTypeEnum.TakaWiseJobReceipt)
+            {
+                vw = new TakaWiseJobReceiptIndex();
+            }
+
             vw.OpenForLookup = true;
             vw.EditKey = bll.Id;
+            vw.IsOpenFromLedger = true;
             vw.ShowDialog();
             okSimpleButton.PerformClick();
             gridView1.FocusedRowHandle = rowno;

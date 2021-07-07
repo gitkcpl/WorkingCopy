@@ -254,7 +254,7 @@ namespace Konto.Data
                               from bc in bc_join.DefaultIfEmpty()
 
                               where bal.CompanyId == KontoGlobals.CompanyId && bal.BranchId == KontoGlobals.BranchId && bal.YearId == KontoGlobals.YearId &&
-                              !pd.IsDeleted && pd.BarCode == barcode
+                              !pd.IsDeleted && (pd.BarCode == barcode || pd.ProductCode == barcode)
                               select new ProductDetailsDto()
                               {
                                   CheckNegative = pd.CheckNegative,
@@ -443,7 +443,7 @@ namespace Konto.Data
                         from cl in cl_j.DefaultIfEmpty()
                         join v in db.Vouchers on c.VoucherId equals  v.Id
                         where v.VTypeId ==(int)VoucherTypeEnum.Stock_Transfer && p.BarCode == barcodeno && !ct.IsReceived
-                        && c.ToBranchId == KontoGlobals.BranchId
+                        && c.ToBranchId == KontoGlobals.BranchId && !ct.IsDeleted && !c.IsDeleted
                         select new GrnTransDto()
                         {
                             BarcodeNo = p.BarCode,

@@ -10,7 +10,7 @@ namespace Konto.Data.Models.Transaction.Dtos
         public string ColorName { get; set; }
         public string DesignName { get; set; }
         public string GradeName { get; set; }
-       
+        public string Screen { get; set; }
         public string LotNo { get; set; }
         public decimal Qty { get; set; }
         public decimal Cut { get; set; }
@@ -135,5 +135,7 @@ namespace Konto.Data.Models.Transaction.Dtos
 
         public decimal AvgWt { get; set; }
         public bool ChkNegative { get; set; }
+
+        public int ScreenId { get; set; }
     }
 }

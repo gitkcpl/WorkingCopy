@@ -449,6 +449,9 @@ namespace Konto.Reporting.Chal
 
         private void LedgerParaView_Load(object sender, EventArgs e)
         {
+
+           
+
             using (var db = new KontoContext())
             {
 

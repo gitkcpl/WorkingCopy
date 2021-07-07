@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
+            this.divLookUpEdit = new DevExpress.XtraEditors.LookUpEdit();
             this.ratePerQtySpinEdit = new DevExpress.XtraEditors.SpinEdit();
             this.semBulkRateSpinEdit = new DevExpress.XtraEditors.SpinEdit();
             this.bulkQtySpinEdit = new DevExpress.XtraEditors.SpinEdit();
@@ -98,6 +99,7 @@
             this.semiBulkLayoutControlItem = new DevExpress.XtraLayout.LayoutControlItem();
             this.styleNoLayoutControlItem = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem37 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem39 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem7 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem8 = new DevExpress.XtraLayout.LayoutControlItem();
@@ -135,6 +137,7 @@
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.divLookUpEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ratePerQtySpinEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.semBulkRateSpinEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bulkQtySpinEdit.Properties)).BeginInit();
@@ -195,6 +198,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.semiBulkLayoutControlItem)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.styleNoLayoutControlItem)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem37)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem39)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).BeginInit();
@@ -265,6 +269,7 @@
             // 
             // layoutControl1
             // 
+            this.layoutControl1.Controls.Add(this.divLookUpEdit);
             this.layoutControl1.Controls.Add(this.ratePerQtySpinEdit);
             this.layoutControl1.Controls.Add(this.semBulkRateSpinEdit);
             this.layoutControl1.Controls.Add(this.bulkQtySpinEdit);
@@ -318,6 +323,30 @@
             this.layoutControl1.Size = new System.Drawing.Size(816, 437);
             this.layoutControl1.TabIndex = 8;
             this.layoutControl1.Text = "layoutControl1";
+            // 
+            // divLookUpEdit
+            // 
+            this.divLookUpEdit.EnterMoveNextControl = true;
+            this.divLookUpEdit.Location = new System.Drawing.Point(679, 261);
+            this.divLookUpEdit.Name = "divLookUpEdit";
+            this.divLookUpEdit.Properties.AllowNullInput = DevExpress.Utils.DefaultBoolean.False;
+            this.divLookUpEdit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.divLookUpEdit.Properties.Appearance.Options.UseFont = true;
+            this.divLookUpEdit.Properties.AppearanceDropDown.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.divLookUpEdit.Properties.AppearanceDropDown.Options.UseFont = true;
+            this.divLookUpEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.divLookUpEdit.Properties.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("DisplayText", "Name3")});
+            this.divLookUpEdit.Properties.DisplayMember = "DisplayText";
+            this.divLookUpEdit.Properties.ImmediatePopup = true;
+            this.divLookUpEdit.Properties.NullText = "";
+            this.divLookUpEdit.Properties.ShowHeader = false;
+            this.divLookUpEdit.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
+            this.divLookUpEdit.Properties.ValueMember = "Id";
+            this.divLookUpEdit.Size = new System.Drawing.Size(103, 24);
+            this.divLookUpEdit.StyleController = this.layoutControl1;
+            this.divLookUpEdit.TabIndex = 24;
             // 
             // ratePerQtySpinEdit
             // 
@@ -431,7 +460,7 @@
             this.serialComboBoxEx.Name = "serialComboBoxEx";
             this.serialComboBoxEx.Size = new System.Drawing.Size(97, 24);
             this.serialComboBoxEx.Style.TokenStyle.CloseButtonBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.serialComboBoxEx.TabIndex = 1;
+            this.serialComboBoxEx.TabIndex = 26;
             // 
             // batchComboBoxEx
             // 
@@ -441,7 +470,7 @@
             this.batchComboBoxEx.Name = "batchComboBoxEx";
             this.batchComboBoxEx.Size = new System.Drawing.Size(94, 24);
             this.batchComboBoxEx.Style.TokenStyle.CloseButtonBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.batchComboBoxEx.TabIndex = 1;
+            this.batchComboBoxEx.TabIndex = 27;
             // 
             // stockReqComboBoxEx
             // 
@@ -451,7 +480,7 @@
             this.stockReqComboBoxEx.Name = "stockReqComboBoxEx";
             this.stockReqComboBoxEx.Size = new System.Drawing.Size(100, 24);
             this.stockReqComboBoxEx.Style.TokenStyle.CloseButtonBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.stockReqComboBoxEx.TabIndex = 1;
+            this.stockReqComboBoxEx.TabIndex = 25;
             // 
             // gridControl1
             // 
@@ -533,7 +562,7 @@
             this.colorLookup1.SelectedText = null;
             this.colorLookup1.SelectedValue = null;
             this.colorLookup1.Size = new System.Drawing.Size(282, 20);
-            this.colorLookup1.TabIndex = 6;
+            this.colorLookup1.TabIndex = 1;
             // 
             // sizeLookup1
             // 
@@ -545,7 +574,7 @@
             this.sizeLookup1.SelectedText = null;
             this.sizeLookup1.SelectedValue = null;
             this.sizeLookup1.Size = new System.Drawing.Size(281, 20);
-            this.sizeLookup1.TabIndex = 5;
+            this.sizeLookup1.TabIndex = 1;
             // 
             // categoryLookup1
             // 
@@ -557,7 +586,7 @@
             this.categoryLookup1.SelectedText = null;
             this.categoryLookup1.SelectedValue = null;
             this.categoryLookup1.Size = new System.Drawing.Size(282, 20);
-            this.categoryLookup1.TabIndex = 4;
+            this.categoryLookup1.TabIndex = 1;
             // 
             // brandLookup1
             // 
@@ -569,7 +598,7 @@
             this.brandLookup1.SelectedText = null;
             this.brandLookup1.SelectedValue = null;
             this.brandLookup1.Size = new System.Drawing.Size(281, 20);
-            this.brandLookup1.TabIndex = 3;
+            this.brandLookup1.TabIndex = 1;
             // 
             // subGroupLookup1
             // 
@@ -581,7 +610,7 @@
             this.subGroupLookup1.SelectedText = null;
             this.subGroupLookup1.SelectedValue = null;
             this.subGroupLookup1.Size = new System.Drawing.Size(282, 20);
-            this.subGroupLookup1.TabIndex = 2;
+            this.subGroupLookup1.TabIndex = 1;
             // 
             // toggleSwitch1
             // 
@@ -607,7 +636,7 @@
             this.groupLookup1.SelectedText = null;
             this.groupLookup1.SelectedValue = null;
             this.groupLookup1.Size = new System.Drawing.Size(281, 20);
-            this.groupLookup1.TabIndex = 0;
+            this.groupLookup1.TabIndex = 1;
             // 
             // currStockNosSpinEdit
             // 
@@ -626,7 +655,7 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.currStockNosSpinEdit.Size = new System.Drawing.Size(171, 24);
             this.currStockNosSpinEdit.StyleController = this.layoutControl1;
-            this.currStockNosSpinEdit.TabIndex = 33;
+            this.currStockNosSpinEdit.TabIndex = 34;
             // 
             // currStockSpinEdit
             // 
@@ -645,7 +674,7 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.currStockSpinEdit.Size = new System.Drawing.Size(171, 24);
             this.currStockSpinEdit.StyleController = this.layoutControl1;
-            this.currStockSpinEdit.TabIndex = 30;
+            this.currStockSpinEdit.TabIndex = 31;
             // 
             // rolSpinEdit
             // 
@@ -663,7 +692,7 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.rolSpinEdit.Size = new System.Drawing.Size(100, 24);
             this.rolSpinEdit.StyleController = this.layoutControl1;
-            this.rolSpinEdit.TabIndex = 34;
+            this.rolSpinEdit.TabIndex = 35;
             // 
             // minStockSpinEdit
             // 
@@ -681,7 +710,7 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.minStockSpinEdit.Size = new System.Drawing.Size(100, 24);
             this.minStockSpinEdit.StyleController = this.layoutControl1;
-            this.minStockSpinEdit.TabIndex = 31;
+            this.minStockSpinEdit.TabIndex = 32;
             // 
             // maxStockSpinEdit
             // 
@@ -699,7 +728,7 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.maxStockSpinEdit.Size = new System.Drawing.Size(171, 24);
             this.maxStockSpinEdit.StyleController = this.layoutControl1;
-            this.maxStockSpinEdit.TabIndex = 32;
+            this.maxStockSpinEdit.TabIndex = 33;
             // 
             // maxOrdSpinEdit
             // 
@@ -717,7 +746,7 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.maxOrdSpinEdit.Size = new System.Drawing.Size(171, 24);
             this.maxOrdSpinEdit.StyleController = this.layoutControl1;
-            this.maxOrdSpinEdit.TabIndex = 36;
+            this.maxOrdSpinEdit.TabIndex = 37;
             // 
             // minOrdSpinEdit
             // 
@@ -735,7 +764,7 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.minOrdSpinEdit.Size = new System.Drawing.Size(171, 24);
             this.minOrdSpinEdit.StyleController = this.layoutControl1;
-            this.minOrdSpinEdit.TabIndex = 35;
+            this.minOrdSpinEdit.TabIndex = 36;
             // 
             // opStockNosSpinEdit
             // 
@@ -754,7 +783,7 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.opStockNosSpinEdit.Size = new System.Drawing.Size(171, 24);
             this.opStockNosSpinEdit.StyleController = this.layoutControl1;
-            this.opStockNosSpinEdit.TabIndex = 29;
+            this.opStockNosSpinEdit.TabIndex = 30;
             // 
             // opStockspinEdit
             // 
@@ -773,7 +802,7 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.opStockspinEdit.Size = new System.Drawing.Size(100, 24);
             this.opStockspinEdit.StyleController = this.layoutControl1;
-            this.opStockspinEdit.TabIndex = 28;
+            this.opStockspinEdit.TabIndex = 29;
             // 
             // checkEdit1
             // 
@@ -787,7 +816,7 @@
             this.checkEdit1.Properties.Caption = "Check Negative";
             this.checkEdit1.Size = new System.Drawing.Size(147, 21);
             this.checkEdit1.StyleController = this.layoutControl1;
-            this.checkEdit1.TabIndex = 27;
+            this.checkEdit1.TabIndex = 28;
             // 
             // saleDiscSpinEdit
             // 
@@ -963,7 +992,7 @@
             this.hsnTextBoxExt.Name = "hsnTextBoxExt";
             this.hsnTextBoxExt.Size = new System.Drawing.Size(129, 24);
             this.hsnTextBoxExt.Style = Syncfusion.Windows.Forms.Tools.TextBoxExt.theme.Metro;
-            this.hsnTextBoxExt.TabIndex = 1;
+            this.hsnTextBoxExt.TabIndex = 8;
             this.hsnTextBoxExt.ThemeName = "Metro";
             this.hsnTextBoxExt.UseBorderColorOnFocus = true;
             // 
@@ -978,7 +1007,7 @@
             this.descTextBoxExt.Name = "descTextBoxExt";
             this.descTextBoxExt.Size = new System.Drawing.Size(512, 24);
             this.descTextBoxExt.Style = Syncfusion.Windows.Forms.Tools.TextBoxExt.theme.Metro;
-            this.descTextBoxExt.TabIndex = 1;
+            this.descTextBoxExt.TabIndex = 6;
             this.descTextBoxExt.ThemeName = "Metro";
             this.descTextBoxExt.UseBorderColorOnFocus = true;
             // 
@@ -994,7 +1023,7 @@
             this.nameTextBoxExt.Name = "nameTextBoxExt";
             this.nameTextBoxExt.Size = new System.Drawing.Size(443, 24);
             this.nameTextBoxExt.Style = Syncfusion.Windows.Forms.Tools.TextBoxExt.theme.Metro;
-            this.nameTextBoxExt.TabIndex = 1;
+            this.nameTextBoxExt.TabIndex = 4;
             this.nameTextBoxExt.ThemeName = "Metro";
             this.nameTextBoxExt.UseBorderColorOnFocus = true;
             // 
@@ -1008,7 +1037,7 @@
             this.pTypeLookup1.SelectedText = null;
             this.pTypeLookup1.SelectedValue = null;
             this.pTypeLookup1.Size = new System.Drawing.Size(130, 24);
-            this.pTypeLookup1.TabIndex = 1;
+            this.pTypeLookup1.TabIndex = 3;
             // 
             // codeTextBoxExt
             // 
@@ -1021,7 +1050,7 @@
             this.codeTextBoxExt.Name = "codeTextBoxExt";
             this.codeTextBoxExt.Size = new System.Drawing.Size(151, 24);
             this.codeTextBoxExt.Style = Syncfusion.Windows.Forms.Tools.TextBoxExt.theme.Metro;
-            this.codeTextBoxExt.TabIndex = 1;
+            this.codeTextBoxExt.TabIndex = 2;
             this.codeTextBoxExt.ThemeName = "Metro";
             this.codeTextBoxExt.UseBorderColorOnFocus = true;
             // 
@@ -1036,7 +1065,7 @@
             this.barcodeTextBoxExt.Name = "barcodeTextBoxExt";
             this.barcodeTextBoxExt.Size = new System.Drawing.Size(197, 24);
             this.barcodeTextBoxExt.Style = Syncfusion.Windows.Forms.Tools.TextBoxExt.theme.Metro;
-            this.barcodeTextBoxExt.TabIndex = 1;
+            this.barcodeTextBoxExt.TabIndex = 0;
             this.barcodeTextBoxExt.ThemeName = "Metro";
             this.barcodeTextBoxExt.UseBorderColorOnFocus = true;
             // 
@@ -1054,7 +1083,7 @@
             this.styleNoTextEdit.Properties.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.styleNoTextEdit.Properties.EditValueChangedFiringMode = DevExpress.XtraEditors.Controls.EditValueChangedFiringMode.Buffered;
             this.styleNoTextEdit.Properties.MaxLength = 25;
-            this.styleNoTextEdit.Size = new System.Drawing.Size(338, 24);
+            this.styleNoTextEdit.Size = new System.Drawing.Size(126, 24);
             this.styleNoTextEdit.StyleController = this.layoutControl1;
             this.styleNoTextEdit.TabIndex = 23;
             // 
@@ -1195,7 +1224,8 @@
             this.bulkQtyLayoutControlItem,
             this.semiBulkLayoutControlItem,
             this.styleNoLayoutControlItem,
-            this.layoutControlItem37});
+            this.layoutControlItem37,
+            this.layoutControlItem39});
             this.layoutControlGroup2.Location = new System.Drawing.Point(0, 112);
             this.layoutControlGroup2.Name = "layoutControlGroup2";
             this.layoutControlGroup2.Padding = new DevExpress.XtraLayout.Utils.Padding(3, 3, 3, 3);
@@ -1317,7 +1347,7 @@
             this.styleNoLayoutControlItem.Control = this.styleNoTextEdit;
             this.styleNoLayoutControlItem.Location = new System.Drawing.Point(322, 84);
             this.styleNoLayoutControlItem.Name = "styleNoLayoutControlItem";
-            this.styleNoLayoutControlItem.Size = new System.Drawing.Size(447, 28);
+            this.styleNoLayoutControlItem.Size = new System.Drawing.Size(235, 28);
             this.styleNoLayoutControlItem.Text = "Style No:";
             this.styleNoLayoutControlItem.TextSize = new System.Drawing.Size(102, 17);
             // 
@@ -1333,6 +1363,17 @@
             this.layoutControlItem37.TextAlignMode = DevExpress.XtraLayout.TextAlignModeItem.AutoSize;
             this.layoutControlItem37.TextSize = new System.Drawing.Size(54, 17);
             this.layoutControlItem37.TextToControlDistance = 5;
+            // 
+            // layoutControlItem39
+            // 
+            this.layoutControlItem39.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.layoutControlItem39.AppearanceItemCaption.Options.UseFont = true;
+            this.layoutControlItem39.Control = this.divLookUpEdit;
+            this.layoutControlItem39.Location = new System.Drawing.Point(557, 84);
+            this.layoutControlItem39.Name = "layoutControlItem39";
+            this.layoutControlItem39.Size = new System.Drawing.Size(212, 28);
+            this.layoutControlItem39.Text = "Division:";
+            this.layoutControlItem39.TextSize = new System.Drawing.Size(102, 17);
             // 
             // layoutControlItem6
             // 
@@ -1718,6 +1759,7 @@
             this.panelControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.divLookUpEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ratePerQtySpinEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.semBulkRateSpinEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bulkQtySpinEdit.Properties)).EndInit();
@@ -1778,6 +1820,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.semiBulkLayoutControlItem)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.styleNoLayoutControlItem)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem37)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem39)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).EndInit();
@@ -1912,5 +1955,7 @@
         private DevExpress.XtraLayout.LayoutControlItem styleNoLayoutControlItem;
         private DevExpress.XtraEditors.SpinEdit ratePerQtySpinEdit;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem37;
+        private DevExpress.XtraEditors.LookUpEdit divLookUpEdit;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem39;
     }
 }

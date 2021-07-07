@@ -64,6 +64,8 @@ namespace Konto.Data.Models.Masters
         [MaxLength(50)]
         public string LastGroup2 { get; set; }
 
+        public int PackageId { get; set; }
+
         [NotMapped]
         public string VoucherTypeName { get; set; }
     }

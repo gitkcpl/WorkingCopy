@@ -615,7 +615,6 @@
             this.challanTypeLookUpEdit.Properties.ShowHeader = false;
             this.challanTypeLookUpEdit.Properties.ValueMember = "Id";
             this.challanTypeLookUpEdit.Size = new System.Drawing.Size(242, 24);
-            this.challanTypeLookUpEdit.StyleController = this.layoutControl1;
             this.challanTypeLookUpEdit.TabIndex = 33;
             // 
             // colorGridControl
@@ -1623,7 +1622,7 @@
             this.tabbedControlGroup2.Location = new System.Drawing.Point(335, 237);
             this.tabbedControlGroup2.Name = "tabbedControlGroup2";
             this.tabbedControlGroup2.Padding = new DevExpress.XtraLayout.Utils.Padding(3, 3, 3, 3);
-            this.tabbedControlGroup2.SelectedTabPage = this.layoutControlGroup3;
+            this.tabbedControlGroup2.SelectedTabPage = this.layoutControlGroup2;
             this.tabbedControlGroup2.Size = new System.Drawing.Size(446, 221);
             this.tabbedControlGroup2.TabPages.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlGroup2,

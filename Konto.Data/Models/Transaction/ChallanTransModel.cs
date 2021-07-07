@@ -119,6 +119,8 @@ namespace Konto.Data.Models.Transaction
         public  bool IsReceived { get; set; }
         public int BranchId { get; set; }
 
+        public int? ScreenId { get; set; }
+
         //[NotMapped]
         //public string ProductName { get; set; }
 

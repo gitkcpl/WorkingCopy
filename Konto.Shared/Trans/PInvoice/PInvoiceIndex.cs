@@ -776,8 +776,9 @@ namespace Konto.Shared.Trans.PInvoice
                 Trans.Sum(x => x.Igst) - Trans.Sum(x => x.Cess);
 
 
-          
 
+            if (rcmLookUpEdit.EditValue.ToString() == "YES")
+                gross = Trans.Sum(x => x.NetTotal);
 
 
             if (tdsPerTextEdit.Value > 0)
@@ -900,6 +901,11 @@ namespace Konto.Shared.Trans.PInvoice
 
                                 if (!string.IsNullOrEmpty(value) && Convert.ToInt32(value) >= 2 && Convert.ToInt32(value) <= 3)
                                     PurchasePara.Qty_Decimal = Convert.ToInt32(value);
+                                break;
+                            }
+                        case 232:
+                            {
+                                PurchasePara.Tcs_Round_Off = (value == "Y") ? true : false;
                                 break;
                             }
                         case 237:
@@ -1350,7 +1356,7 @@ namespace Konto.Shared.Trans.PInvoice
         {
             var itm = gridView1.GetFocusedRow() as BillTransDto;
             if (itm == null) return;
-            if (!"Pcs,Qty,ProductName,ColorName,GradeName,DesignName,LotNo,UomId".Contains(gridView1.FocusedColumn.FieldName)) return;
+            if (!"ProductName,ColorName,GradeName,DesignName,LotNo".Contains(gridView1.FocusedColumn.FieldName)) return;
             if (Convert.ToInt32(itm.RefId) > 0)
                 e.Cancel = true;
         }
@@ -1667,7 +1673,7 @@ namespace Konto.Shared.Trans.PInvoice
                         prod = db.Products.Find(dr.ProductId);
 
                     }
-                    if (prod.SerialReq == "Yes" && prod.PTypeId == (int)ProductTypeEnum.FINISH)
+                    if (prod.BatchReq == "Yes" && prod.PTypeId == (int)ProductTypeEnum.FINISH)
                     {
                         var frms = new SerialNoView();
                         var lst = this.Serials.Where(x => x.RefTransId == dr.Id).ToList();

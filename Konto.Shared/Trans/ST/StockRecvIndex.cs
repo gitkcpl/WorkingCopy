@@ -40,7 +40,7 @@ namespace Konto.Shared.Trans.ST
             gridView1.DoubleClick += GridView1_DoubleClick;
             this.MainLayoutFile = KontoFileLayout.Stock_Transfer_Received_Index;
             this.GridLayoutFile = KontoFileLayout.Stock_Transfer_Received_Trans;
-            okSimpleButton.Visible = false;
+            okSimpleButton.Enabled = false;
             FillLookup();
           //  SetParameter();
            
@@ -53,9 +53,96 @@ namespace Konto.Shared.Trans.ST
             gridView1.MouseUp += GridView1_MouseUp;
             gridView1.DoubleClick += GridView1_DoubleClick;
             gridView1.CustomDrawRowIndicator += GridView1_CustomDrawRowIndicator;
+            challanNoTextEdit.ButtonClick += ChallanNoTextEdit_ButtonClick;
             //voucherLookup1.SelectedValueChanged += VoucherLookup1_SelectedValueChanged;
-
+            okSimpleButton.Click += OkSimpleButton_Click;
             //this.FirstActiveControl = voucherLookup1;
+        }
+
+        private void OkSimpleButton_Click(object sender, EventArgs e)
+        {
+            var trans = grnTransDtoBindingSource1.DataSource as List<GrnTransDto>;
+            using (var db = new KontoContext())
+            {
+                foreach (var item in trans)
+                {
+                    var cm = db.Challans.Find(item.ChallanId);
+                    var ct = db.ChallanTranses.Find(item.Id);
+                    ct.IsReceived = true;
+                    ct.ReceiveDateTime = DateTime.Now;
+                    ct.ReceivedById = Convert.ToInt32(empLookup1.SelectedValue);
+                    ct.BranchId = KontoGlobals.BranchId;
+                    StockEffect.StockReceivedAgainstTransfer(cm, ct, "transfer", db);
+                   
+                }
+                db.SaveChanges();
+            }
+            MessageBox.Show("Stock received Sucessfully");
+            grnTransDtoBindingSource1.DataSource = new List<GrnDto>();
+            gridControl1.RefreshDataSource();
+            challanNoTextEdit.Text = string.Empty;
+            challanNoTextEdit.Focus();
+
+        }
+
+        private void ChallanNoTextEdit_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(challanNoTextEdit.Text)) return;
+                if (Convert.ToInt32(empLookup1.SelectedValue) == 0)
+                {
+                    MessageBox.Show("Invalid Received By Employee");
+                    empLookup1.Focus();
+                   
+                    return;
+                }
+                using (var db = new KontoContext())
+                {
+                    var _tran = (from c in db.Challans
+                                 join ct in db.ChallanTranses on c.Id equals ct.ChallanId
+                                 join p in db.Products on ct.ProductId equals p.Id
+                                 join cl in db.ColorModels on p.ColorId equals cl.Id into cl_j
+                                 from cl in cl_j.DefaultIfEmpty()
+                                 join v in db.Vouchers on c.VoucherId equals v.Id
+                                 where c.VoucherNo == challanNoTextEdit.Text.Trim()
+                                 & v.VTypeId == (int)VoucherTypeEnum.Stock_Transfer
+                                 && !ct.IsReceived && c.ToBranchId == KontoGlobals.BranchId
+                                 && !ct.IsDeleted && !c.IsDeleted
+                                 select new GrnTransDto
+                                 {
+                                     BarcodeNo = p.BarCode,
+                                     ProductId = p.Id,
+                                     ProductName = p.ProductName,
+                                     ColorId = ct.ColorId ?? 0,
+                                     ColorName = cl.ColorName,
+                                     Qty = ct.Qty,
+                                     Pcs = ct.Pcs,
+                                     Rate = ct.Rate,
+                                     Remark = ct.Remark,
+                                     Id = ct.Id,
+                                     ChallanId = ct.ChallanId,
+                                     UomId = ct.UomId ?? 0,
+                                     
+                }).ToList();
+
+                    foreach (var item in _tran)
+                    {
+                        item.FromStock = DbUtils.GetCurrentStock(item.ProductId, KontoGlobals.BranchId);
+                    }
+                    
+                    if (_tran.Count > 0)
+                        okSimpleButton.Enabled = true;
+
+                    grnTransDtoBindingSource1.DataSource = _tran;
+                    gridControl1.RefreshDataSource();
+                }
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.ToString());
+            }
         }
 
         private void BarcodetextEdit_KeyDown(object sender, KeyEventArgs e)
@@ -92,7 +179,7 @@ namespace Konto.Shared.Trans.ST
                 model.FromStock = DbUtils.GetCurrentStock(model.ProductId, KontoGlobals.BranchId);
                 trans.Insert(0,model);
                 gridControl1.RefreshDataSource();
-
+                okSimpleButton.Enabled = false;
                 using (var db = new KontoContext())
                 {
                     var cm = db.Challans.Find(model.ChallanId);

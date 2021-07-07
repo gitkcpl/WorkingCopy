@@ -43,7 +43,7 @@ namespace Konto.Shared.Account.Payment
         private int LastBookId;
         private int LastVoucherId;
         private DateTime LastVoucherDate = DateTime.Now;
-       
+       int DefaultBranchVoucherId=0;
         public PaymentIndex()
         {
             InitializeComponent();
@@ -348,7 +348,12 @@ namespace Konto.Shared.Account.Payment
                 new ComboBoxPairs("Against Bill", "Bill")
                 };
                payTypeRepositoryItemLookUpEdit.DataSource = cbp;
-            
+            using(var db = new KontoContext())
+            {
+                var bv = db.BranchVouchers.FirstOrDefault(x => x.BranchId == KontoGlobals.BranchId);
+                if (bv != null)
+                    DefaultBranchVoucherId = bv.PaymentVoucherId;
+            }
         }
 
         private bool ValidateData()
@@ -901,8 +906,16 @@ namespace Konto.Shared.Account.Payment
             createdLabelControl.Text = "Create By: " + KontoGlobals.UserName;
             modifyLabelControl.Text = string.Empty;
             this.ActiveControl = voucherLookup1.buttonEdit1;
-            
-            voucherLookup1.SetDefault();
+
+            if (DefaultBranchVoucherId != 0)
+            {
+                voucherLookup1.SetGroup(DefaultBranchVoucherId);
+                voucherLookup1.SelectedValue = DefaultBranchVoucherId;
+            }
+            else
+            {
+                voucherLookup1.SetDefault();
+            }
 
             if (Convert.ToInt32(voucherLookup1.GroupDto.AccId) > 0)
             {

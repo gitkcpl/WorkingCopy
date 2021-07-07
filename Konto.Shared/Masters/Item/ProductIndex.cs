@@ -77,6 +77,13 @@ namespace Konto.Shared.Masters.Item
                 bulkRateLayoutControlItem.ContentVisible = false;
                 styleNoLayoutControlItem.ContentVisible = false;
             }
+           else
+            {
+                bulkQtyLayoutControlItem.ContentVisible = true;
+                semiBulkLayoutControlItem.ContentVisible = true;
+                bulkRateLayoutControlItem.ContentVisible = true;
+                styleNoLayoutControlItem.ContentVisible = true;
+            }
 
             if (KontoGlobals.PackageId == 1 || KontoGlobals.PackageId == 3 || KontoGlobals.PackageId == 7)
                 cutLayoutControlItem.Text = "Cut:";
@@ -251,6 +258,15 @@ namespace Konto.Shared.Masters.Item
                            }).ToList();
                 purUnitlookUpEdit.Properties.DataSource = uom;
                 unitLookUpEdit.Properties.DataSource = uom;
+               
+                var _divLists = (from p in db.Divisions
+                                 where p.IsActive && !p.IsDeleted
+                                 select new BaseLookupDto()
+                                 {
+                                     DisplayText = p.DivisionName,
+                                     Id = p.Id
+                                 }).ToList();
+                divLookUpEdit.Properties.DataSource = _divLists;
             }
 
 
@@ -659,7 +675,7 @@ namespace Konto.Shared.Masters.Item
                                     ColorName= co.ColorName,
                                     Cut= p.Cut,DescType=p.DescType,
                                     ProductId=p.ProductId,ProductName=pd.ProductName,
-                                    Qty=p.Qty,Rate=p.Rate,Remark=p.Remark,Total=p.Total
+                                    Qty=p.Qty,Rate=p.Rate,Remark=p.Remark,Total=p.Total,UomId= p.UomId
 
                                  }).ToList();
 
@@ -675,7 +691,7 @@ namespace Konto.Shared.Masters.Item
             purRatespinEdit.Value = pm.DealerPrice;
             saleRatespinEdit.Value = pm.SaleRate;
             mrpSpinEdit.Value = pm.Mrp;
-
+            divLookUpEdit.EditValue = pm.BranchId;
             styleNoTextEdit.Text = pm.BatchNo;
             bulkRateSpinEdit.Value = pm.Rate1;
             bulkQtySpinEdit.Value = pm.Qty;
@@ -802,6 +818,25 @@ namespace Konto.Shared.Masters.Item
                         model.Cut = cutSpinEdit.Value;
                         model.Price2 = ratePerQtySpinEdit.Value;
                        
+                        if(string.IsNullOrEmpty(barcodeTextBoxExt.Text) && this.PrimaryKey == 0)
+                        {
+                            string barcode = "100000";
+
+                            var lastItem = db.Products.Where(x => !x.IsDeleted && !string.IsNullOrEmpty(x.BarCode)).OrderByDescending(x => x.Id).FirstOrDefault();
+
+                            if (lastItem != null)
+                            {
+                                var barcodeNoToincrease = lastItem.BarCode;
+
+                                if (string.IsNullOrEmpty(barcodeNoToincrease) || barcodeNoToincrease == "NA")
+                                    barcodeNoToincrease = barcode;
+
+                                if(barcodeNoToincrease.All(char.IsNumber))
+                                    model.BarCode = (Convert.ToInt64(barcodeNoToincrease) + 1).ToString();
+
+                            }
+                        }
+
 
                         if (Convert.ToInt32(groupLookup1.SelectedValue) == 0)
                             model.GroupId = 1;
@@ -837,6 +872,10 @@ namespace Konto.Shared.Masters.Item
                         pm.Rate1 = bulkRateSpinEdit.Value; //bulk rate
                         pm.Rate2 = semBulkRateSpinEdit.Value; //semi bulk rate
 
+                        if (!string.IsNullOrEmpty(divLookUpEdit.Text))
+                            pm.BranchId = Convert.ToInt32(divLookUpEdit.EditValue);
+                        else
+                            pm.BranchId = 1;
 
                         if (this.PrimaryKey == 0)
                         {
@@ -1020,7 +1059,7 @@ namespace Konto.Shared.Masters.Item
                             {
                                 System.IO.File.Copy(fpath, targetPath, true);
                             }
-                            atc.ImagePath = targetPath;
+                            atc.ImagePath = "Pimagies\\Catalog\\" + pimageid + "_" + model.Id + xtn1; 
                             atc.ProductId = model.Id;
                             atc.Category = "P";
 
@@ -1042,6 +1081,35 @@ namespace Konto.Shared.Masters.Item
                             }
                         }
 
+                        //batch
+
+                        if (KontoGlobals.PackageId == (int) PackageType.POS)
+                        {
+                            string batchno = "NA";
+
+
+
+                            var bch = db.ItemBatches.SingleOrDefault(x => x.ProductId == model.Id);
+
+
+                            if (bch == null)
+                                bch = new ItemBatch();
+
+
+                            bch.Mrp = pm.Mrp;
+                            bch.DealerPrice = pm.DealerPrice;
+                            bch.SemiBulkRate = pm.Rate2;
+                            bch.BulkRate = pm.Rate1;
+                            bch.SaleRate = pm.SaleRate;
+                            bch.SerialNo = model.BarCode;
+                            if (bch.Id == 0)
+                            {
+                                bch.ProductId = model.Id;
+                                bch.Qty = pm.Qty;
+                                bch.BatchNo = batchno;
+                                db.ItemBatches.Add(bch);
+                            }
+                        }
                         db.SaveChanges();
 
                         _tran.Commit();

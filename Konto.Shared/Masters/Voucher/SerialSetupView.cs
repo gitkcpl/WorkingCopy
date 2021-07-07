@@ -46,7 +46,7 @@ namespace Konto.Shared.Masters.Voucher
                else
                {
                    var sr = new LastSerialModel();
-                   sr.BranchId = KontoGlobals.BranchId;
+                    sr.BranchId = brid;
                    sr.CompId = KontoGlobals.CompanyId;
                    sr.YearId = KontoGlobals.YearId;
                    sr.VoucherId = _Id;

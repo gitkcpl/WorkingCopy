@@ -135,7 +135,7 @@ namespace Konto.Trading.GP
         {
             if (this.PrimaryKey == 0 && Convert.ToInt32(voucherLookup1.SelectedValue) > 0)
             {
-                voucherNoTextEdit.Text = "New-" + DbUtils.NextSerialNo(Convert.ToInt32(voucherLookup1.SelectedValue), 1);
+                voucherNoTextEdit.Text =  DbUtils.NextSerialNo(Convert.ToInt32(voucherLookup1.SelectedValue), 1);
             }
             if (voucherLookup1.GroupDto != null && voucherLookup1.GroupDto.ManualSeries)
             {
@@ -595,16 +595,16 @@ namespace Konto.Trading.GP
             {
 
                 // check for mill issue
-                if (this.PrimaryKey != 0)
-                {
-                    var _vid = Convert.ToInt32(voucherLookup1.SelectedValue);
-                    var exist = db.ChallanTranses.Any(x => x.MiscId == this.PrimaryKey && x.RefVoucherId == _vid  && x.IsDeleted == false && x.IsActive == true);
-                    if (exist)
-                    {
-                        MessageBoxAdv.Show("Can not Modify, Already Issued To Next level", "Acess Denied !!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        return false;
-                    }
-                }
+                //if (this.PrimaryKey != 0)
+                //{
+                //    var _vid = Convert.ToInt32(voucherLookup1.SelectedValue);
+                //    var exist = db.ChallanTranses.Any(x => x.MiscId == this.PrimaryKey && x.RefVoucherId == _vid  && x.IsDeleted == false && x.IsActive == true);
+                //    if (exist)
+                //    {
+                //        MessageBoxAdv.Show("Can not Modify, Already Issued To Next level", "Acess Denied !!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //        return false;
+                //    }
+                //}
 
                 var accid = Convert.ToInt32(accLookup1.SelectedValue);
                 var find1 = db.Challans.FirstOrDefault(
@@ -621,7 +621,8 @@ namespace Konto.Trading.GP
 
                 find1 = db.Challans.FirstOrDefault(
               x => x.AccId == accid && !x.IsDeleted && x.ChallanNo == challanNotextEdit.Text.Trim() && x.CompId == KontoGlobals.CompanyId
-              && x.YearId == KontoGlobals.YearId && x.Id != this.PrimaryKey);
+              && x.YearId == KontoGlobals.YearId && x.Id != this.PrimaryKey
+              && x.VoucherId == (int)voucherLookup1.SelectedValue);
 
                 if (find1 != null)
                 {
@@ -1017,6 +1018,7 @@ namespace Konto.Trading.GP
         {
             var rw = gridView1.GetRow(e.RowHandle) as GrnTransDto;
             rw.Id = -1 * gridView1.RowCount;
+            rw.LotNo = voucherNoTextEdit.Text;
         }
 
         private void GridControl1_ProcessGridKey(object sender, KeyEventArgs e)
@@ -1633,6 +1635,13 @@ namespace Konto.Trading.GP
                                 p.BranchId = KontoGlobals.BranchId;
                                 p.ProductId = tranModel.ProductId;
                                 p.VoucherDate = _find.VoucherDate;
+                                p.IssueRefVoucherId = tranModel.Id;
+
+                                if (string.IsNullOrEmpty(tranModel.LotNo))
+                                    p.LotNo = voucherNoTextEdit.Text;
+                                else
+                                    p.LotNo = tranModel.LotNo;
+
                                 
                                 if (tranModel.ColorId != null && tranModel.ColorId != 0)
                                     p.ColorId = tranModel.ColorId;

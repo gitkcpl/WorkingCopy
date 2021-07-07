@@ -86,6 +86,8 @@
     <Compile Include="Models\Apparel\Dtos\BomTransDto.cs" />
     <Compile Include="Models\Gstn\Gstr2ADump.cs" />
     <Compile Include="Models\Gstn\Gstr2ATransDump.cs" />
+    <Compile Include="Models\Gstn\HsnMaster.cs" />
+    <Compile Include="Models\Gstn\HsnTransDto.cs" />
     <Compile Include="Models\Gstn\RecoGstr2BtoBDto.cs" />
     <Compile Include="Models\Masters\AccAddressModel.cs" />
     <Compile Include="Models\Masters\AccBalModel.cs" />
@@ -95,6 +97,7 @@
     <Compile Include="Models\Masters\AcGroupModel.cs" />
     <Compile Include="Models\Masters\AreaModel.cs" />
     <Compile Include="Models\Masters\BranchModel.cs" />
+    <Compile Include="Models\Masters\BranchVoucher.cs" />
     <Compile Include="Models\Masters\BrandModel.cs" />
     <Compile Include="Models\Masters\CatalogModel.cs" />
     <Compile Include="Models\Masters\CityModel.cs" />
@@ -116,6 +119,7 @@
     <Compile Include="Models\Masters\Dtos\AreaListDto.cs" />
     <Compile Include="Models\Masters\Dtos\AreaLookupDto.cs" />
     <Compile Include="Models\Masters\Dtos\BranchListDto.cs" />
+    <Compile Include="Models\Masters\Dtos\BranchVoucherDto.cs" />
     <Compile Include="Models\Masters\Dtos\BrandListDto.cs" />
     <Compile Include="Models\Masters\Dtos\BrandLookupDto.cs" />
     <Compile Include="Models\Masters\Dtos\CatalogListDto.cs" />

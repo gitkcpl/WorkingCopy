@@ -128,6 +128,8 @@
             this.tdsAmtLayoutControlItem = new DevExpress.XtraLayout.LayoutControlItem();
             this.paybleLayoutControlItem = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.colPlainPcs = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colPlainQty = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.tabControlAdv1)).BeginInit();
             this.tabControlAdv1.SuspendLayout();
             this.tabPageAdv1.SuspendLayout();
@@ -271,6 +273,7 @@
             // 
             this.processLookup1.Location = new System.Drawing.Point(768, 89);
             this.processLookup1.LookupDto = null;
+            this.processLookup1.LookupTitle = null;
             this.processLookup1.Name = "processLookup1";
             this.processLookup1.PrimaryKey = null;
             this.processLookup1.RequiredField = true;
@@ -307,9 +310,10 @@
             this.tdsAccLookup.GroupId = 0;
             this.tdsAccLookup.Location = new System.Drawing.Point(94, 362);
             this.tdsAccLookup.LookupDto = null;
+            this.tdsAccLookup.LookupTitle = null;
             this.tdsAccLookup.Name = "tdsAccLookup";
             this.tdsAccLookup.Nature = "";
-            this.tdsAccLookup.NewGroupId = 0;
+            this.tdsAccLookup.NewGroupId = Konto.App.Shared.LedgerGroupEnum.NONE;
             this.tdsAccLookup.PrimaryKey = null;
             this.tdsAccLookup.RequiredField = false;
             this.tdsAccLookup.SelectedText = null;
@@ -358,11 +362,11 @@
             this.roundoffSpinEdit.Properties.Appearance.Options.UseFont = true;
             this.roundoffSpinEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.roundoffSpinEdit.Properties.ReadOnly = true;
             this.roundoffSpinEdit.Size = new System.Drawing.Size(120, 24);
             this.roundoffSpinEdit.StyleController = this.layoutControl1;
             this.roundoffSpinEdit.TabIndex = 1;
             this.roundoffSpinEdit.TabStop = false;
+            this.roundoffSpinEdit.EditValueChanged += new System.EventHandler(this.roundoffSpinEdit_EditValueChanged);
             // 
             // bookLookup
             // 
@@ -371,9 +375,10 @@
             this.bookLookup.GroupId = 0;
             this.bookLookup.Location = new System.Drawing.Point(94, 33);
             this.bookLookup.LookupDto = null;
+            this.bookLookup.LookupTitle = null;
             this.bookLookup.Name = "bookLookup";
             this.bookLookup.Nature = "";
-            this.bookLookup.NewGroupId = App.Shared.LedgerGroupEnum.PURCHASE_ACCOUNTS;
+            this.bookLookup.NewGroupId = Konto.App.Shared.LedgerGroupEnum.PURCHASE_ACCOUNTS;
             this.bookLookup.PrimaryKey = null;
             this.bookLookup.RequiredField = true;
             this.bookLookup.SelectedText = null;
@@ -509,9 +514,10 @@
             this.transportLookup.GroupId = 32;
             this.transportLookup.Location = new System.Drawing.Point(94, 334);
             this.transportLookup.LookupDto = null;
+            this.transportLookup.LookupTitle = null;
             this.transportLookup.Name = "transportLookup";
             this.transportLookup.Nature = null;
-            this.transportLookup.NewGroupId = App.Shared.LedgerGroupEnum.CREDITORS_FOR_TRANSPORTATION;
+            this.transportLookup.NewGroupId = Konto.App.Shared.LedgerGroupEnum.CREDITORS_FOR_TRANSPORTATION;
             this.transportLookup.PrimaryKey = null;
             this.transportLookup.RequiredField = false;
             this.transportLookup.SelectedText = null;
@@ -576,6 +582,8 @@
             this.colGreyPcs,
             this.colPcs,
             this.colQty,
+            this.colPlainPcs,
+            this.colPlainQty,
             this.colShPer,
             this.colShQty,
             this.colUomId,
@@ -659,6 +667,7 @@
             // 
             // colGreyQuality
             // 
+            this.colGreyQuality.Caption = "Issue Quality";
             this.colGreyQuality.FieldName = "GreyQuality";
             this.colGreyQuality.Name = "colGreyQuality";
             this.colGreyQuality.OptionsColumn.AllowEdit = false;
@@ -884,7 +893,7 @@
             this.colFreightRate.FieldName = "FreightRate";
             this.colFreightRate.Name = "colFreightRate";
             this.colFreightRate.Visible = true;
-            this.colFreightRate.VisibleIndex = 16;
+            this.colFreightRate.VisibleIndex = 18;
             this.colFreightRate.Width = 91;
             // 
             // colFreight
@@ -920,7 +929,7 @@
             this.colSgst.OptionsColumn.AllowEdit = false;
             this.colSgst.OptionsColumn.AllowFocus = false;
             this.colSgst.Visible = true;
-            this.colSgst.VisibleIndex = 17;
+            this.colSgst.VisibleIndex = 19;
             this.colSgst.Width = 61;
             // 
             // colSgstAmt
@@ -934,7 +943,7 @@
             this.colSgstAmt.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Sgst", "{0:F}")});
             this.colSgstAmt.Visible = true;
-            this.colSgstAmt.VisibleIndex = 18;
+            this.colSgstAmt.VisibleIndex = 20;
             this.colSgstAmt.Width = 88;
             // 
             // colCgst
@@ -945,7 +954,7 @@
             this.colCgst.OptionsColumn.AllowEdit = false;
             this.colCgst.OptionsColumn.AllowFocus = false;
             this.colCgst.Visible = true;
-            this.colCgst.VisibleIndex = 19;
+            this.colCgst.VisibleIndex = 21;
             this.colCgst.Width = 60;
             // 
             // colCgstAmt
@@ -959,7 +968,7 @@
             this.colCgstAmt.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Cgst", "{0:F}")});
             this.colCgstAmt.Visible = true;
-            this.colCgstAmt.VisibleIndex = 20;
+            this.colCgstAmt.VisibleIndex = 22;
             this.colCgstAmt.Width = 91;
             // 
             // colIgst
@@ -972,7 +981,7 @@
             this.colIgst.OptionsColumn.AllowEdit = false;
             this.colIgst.OptionsColumn.AllowFocus = false;
             this.colIgst.Visible = true;
-            this.colIgst.VisibleIndex = 21;
+            this.colIgst.VisibleIndex = 23;
             this.colIgst.Width = 61;
             // 
             // colIgstAmt
@@ -986,7 +995,7 @@
             this.colIgstAmt.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Igst", "{0:F}")});
             this.colIgstAmt.Visible = true;
-            this.colIgstAmt.VisibleIndex = 22;
+            this.colIgstAmt.VisibleIndex = 24;
             this.colIgstAmt.Width = 92;
             // 
             // colNetTotal
@@ -1001,7 +1010,7 @@
             this.colNetTotal.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Total", "{0:F}")});
             this.colNetTotal.Visible = true;
-            this.colNetTotal.VisibleIndex = 24;
+            this.colNetTotal.VisibleIndex = 26;
             this.colNetTotal.Width = 110;
             // 
             // colRemark
@@ -1009,7 +1018,7 @@
             this.colRemark.FieldName = "Remark";
             this.colRemark.Name = "colRemark";
             this.colRemark.Visible = true;
-            this.colRemark.VisibleIndex = 23;
+            this.colRemark.VisibleIndex = 25;
             this.colRemark.Width = 233;
             // 
             // colRefVoucherId
@@ -1031,6 +1040,7 @@
             // empLookup1
             // 
             this.empLookup1.Location = new System.Drawing.Point(306, 89);
+            this.empLookup1.LookupTitle = null;
             this.empLookup1.Name = "empLookup1";
             this.empLookup1.PrimaryKey = null;
             this.empLookup1.RequiredField = true;
@@ -1134,9 +1144,10 @@
             this.accLookup1.GroupId = 0;
             this.accLookup1.Location = new System.Drawing.Point(94, 61);
             this.accLookup1.LookupDto = null;
+            this.accLookup1.LookupTitle = null;
             this.accLookup1.Name = "accLookup1";
             this.accLookup1.Nature = null;
-            this.accLookup1.NewGroupId = App.Shared.LedgerGroupEnum.SUNDRY_CREDITORS;
+            this.accLookup1.NewGroupId = Konto.App.Shared.LedgerGroupEnum.SUNDRY_CREDITORS;
             this.accLookup1.PrimaryKey = null;
             this.accLookup1.RequiredField = true;
             this.accLookup1.SelectedText = null;
@@ -1166,6 +1177,7 @@
             // 
             this.voucherLookup1.GroupDto = null;
             this.voucherLookup1.Location = new System.Drawing.Point(768, 5);
+            this.voucherLookup1.LookupTitle = null;
             this.voucherLookup1.Name = "voucherLookup1";
             this.voucherLookup1.PrimaryKey = null;
             this.voucherLookup1.RequiredField = true;
@@ -1551,6 +1563,24 @@
             this.layoutControlItem2.Text = "Job Type:";
             this.layoutControlItem2.TextSize = new System.Drawing.Size(86, 17);
             // 
+            // colPlainPcs
+            // 
+            this.colPlainPcs.FieldName = "PlainPcs";
+            this.colPlainPcs.Name = "colPlainPcs";
+            this.colPlainPcs.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
+            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "PlainPcs", "{0:0.##}")});
+            this.colPlainPcs.Visible = true;
+            this.colPlainPcs.VisibleIndex = 16;
+            // 
+            // colPlainQty
+            // 
+            this.colPlainQty.FieldName = "PlainQty";
+            this.colPlainQty.Name = "colPlainQty";
+            this.colPlainQty.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
+            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "PlainQty", "{0:0.##}")});
+            this.colPlainQty.Visible = true;
+            this.colPlainQty.VisibleIndex = 17;
+            // 
             // TakaWiseJobReceiptIndex
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1559,7 +1589,7 @@
             this.KontoLayout = this.layoutControl1;
             this.KontoMainView = this.gridView1;
             this.Name = "TakaWiseJobReceiptIndex";
-            this.SettingCategroy = "Mrv";
+            this.SettingCategroy = "TakaJr";
             this.Text = "Taka Wise Job Receipt";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.MrvIndex_Load);
@@ -1732,5 +1762,7 @@
         private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit challanNoRrepositoryItemButtonEdit;
         private Shared.Masters.Process.ProcessLookup processLookup1;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem2;
+        private DevExpress.XtraGrid.Columns.GridColumn colPlainPcs;
+        private DevExpress.XtraGrid.Columns.GridColumn colPlainQty;
     }
 }

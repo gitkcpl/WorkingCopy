@@ -100,7 +100,8 @@ namespace Konto.Data.Models.Transaction.Dtos
         public virtual string ColorName { get; set; }
 
         public virtual int? DesignId { get; set; }
-
+        public virtual int? ScreenId { get; set; }
+        public virtual string Screen { get; set; }
         public DateTime? ChallanDate
         {
             get

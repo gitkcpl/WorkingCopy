@@ -42,7 +42,11 @@ namespace Konto.Pos.Sales
 
         private void OkSimpleButton_Click(object sender, EventArgs e)
         {
-            var bp = new BillPay();
+            
+            var bp = db.BillPays.FirstOrDefault(x => x.BillId == this.BillId);
+            if (bp == null)
+                bp = new BillPay();
+
             bp.IsActive = true;
             bp.BillId = this.BillId;
             bp.DiscAmt = disckontoSpinEdit3.Value;
@@ -64,7 +68,8 @@ namespace Konto.Pos.Sales
             bp.RefNo2 = ref2kontoTextBoxExt.Text.Trim();
             bp.PayDate = Convert.ToInt32(DateTime.Now.ToString("yyyyMMdd"));
 
-            db.BillPays.Add(bp);
+            if(bp.Id==0)
+                db.BillPays.Add(bp);
 
             this.BP = bp;
             this.DialogResult = DialogResult.OK;
@@ -121,7 +126,23 @@ namespace Konto.Pos.Sales
                 mode1lookUpEdit.TabStop = false;
                 this.ActiveControl = pay1kontoSpinEdit;
             }
-            
+
+            var bp = db.BillPays.FirstOrDefault(x => x.BillId == this.BillId);
+            if (bp == null) return;
+            mode1lookUpEdit.EditValue = bp.Pay1Id;
+            pay1kontoSpinEdit.Value = bp.Pay1Amt;
+
+            mode2lookUpEdit.EditValue = bp.Pay2Id;
+            pay2kontoSpinEdit.Value = bp.Pay2Amt;
+
+            mode3lookUpEdit.EditValue = bp.Pay3Id;
+            pay3kontoSpinEdit.Value = bp.Pay3Amt;
+            ref1kontoTextBoxExt.Text = bp.RefNo1;
+            ref2kontoTextBoxExt.Text = bp.RefNo2;
+            changekontoSpinEdit.Value = bp.ChangeAmt;
+
+            Calc();
+
         }
     }
 }

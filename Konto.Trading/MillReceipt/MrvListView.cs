@@ -177,6 +177,12 @@ namespace Konto.Trading.MillReceipt
                         {
                             pd.IsDeleted = true;
                         }
+
+                        var prods = db.Prods.Where(x => x.TransId == item.Id && x.RefId == item.ChallanId).ToList();
+                        foreach (var pd in prods)
+                        {
+                            pd.IsDeleted = true;
+                        }
                     }
 
                     

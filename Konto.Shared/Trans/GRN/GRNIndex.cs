@@ -219,6 +219,7 @@ namespace Konto.Shared.Trans.GRN
                 colCops.Caption = "Cut";
                 colQty.Caption = "Meters";
             }
+            gridView1.OptionsNavigation.EnterMoveNextColumn = true;
         }
         private GrnTransDto PreOpenLookup()
         {
@@ -693,7 +694,7 @@ namespace Konto.Shared.Trans.GRN
                                   IgstPer=ct.IgstPer,LotNo=ct.LotNo,MiscId=ct.MiscId,OtherAdd=ct.OtherAdd,OtherLess=ct.OtherLess,
                                   Pcs=ct.Pcs,ProductId=(int)ct.ProductId,ProductName=pd.ProductName,Qty=ct.Qty,Rate=ct.Rate,RefId=ct.RefId,
                                   RefVoucherId=ct.RefVoucherId,Remark=ct.Remark,Sgst=ct.Sgst,SgstPer=ct.SgstPer,Total=ct.Total,UomId=(int)ct.UomId,
-                                  OrdNo = o.VoucherNo,ODate= o.VoucherDate
+                                  OrdNo = o.VoucherNo,ODate= o.VoucherDate,IssueQty= ct.IssueQty
                               }).ToList();
 
                 prodDtos = _context.Prods.Where(x => x.RefId == model.Id && !x.IsDeleted)
@@ -839,11 +840,11 @@ namespace Konto.Shared.Trans.GRN
         }
         private void GridView1_ShowingEditor(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (!"Pcs,Qty,ProductName".Contains(gridView1.FocusedColumn.FieldName)) return;
-            var itm = gridView1.GetFocusedRow() as GrnTransDto;
-            if (itm == null) return;
-            if ("Pcs,Qty".Contains(gridView1.FocusedColumn.FieldName)  && this.prodDtos.Any(x => x.TransId == itm.Id))
-                e.Cancel = true;
+            //if (!"Pcs,Qty,ProductName".Contains(gridView1.FocusedColumn.FieldName)) return;
+            //var itm = gridView1.GetFocusedRow() as GrnTransDto;
+            //if (itm == null) return;
+            //if ("Pcs,Qty".Contains(gridView1.FocusedColumn.FieldName)  && this.prodDtos.Any(x => x.TransId == itm.Id))
+            //    e.Cancel = true;
             //else if (Convert.ToInt32(itm.RefId) >0 && gridView1.FocusedColumn.FieldName=="ProductName") 
             //    e.Cancel = true;
         }
@@ -865,6 +866,11 @@ namespace Konto.Shared.Trans.GRN
             if (e.Column == null) return;
             var er = gridView1.GetRow(e.RowHandle) as GrnTransDto;
             if (er == null) return;
+
+            if(e.Column == colQty)
+            {
+                er.IssueQty = er.Qty;
+            }
             GridCalculation(er);
         }
         private void GridView1_KeyDown(object sender, KeyEventArgs e)
@@ -1057,10 +1063,12 @@ namespace Konto.Shared.Trans.GRN
             if( Convert.ToInt32(grnTypeLookUpEdit.EditValue) == (int)ChallanTypeEnum.RETURNABLE_ITEM)
             {
                 GetReturnablePending();
+                return;
             }
 
-            if (grnTypeLookUpEdit.Text.ToUpper() != "PURCHASE") return;
+            //if (grnTypeLookUpEdit.Text.ToUpper() != "PURCHASE") return;
             var ordfrm = new PendingOrderView();
+            ordfrm.ChallanType = (ChallanTypeEnum) Convert.ToInt32(grnTypeLookUpEdit.EditValue);
             ordfrm.VoucherType = VoucherTypeEnum.PurchaseOrder;
             ordfrm.AccId = Convert.ToInt32(accLookup1.SelectedValue);
             if (ordfrm.ShowDialog() != DialogResult.OK) return;
@@ -1275,6 +1283,7 @@ namespace Konto.Shared.Trans.GRN
             {
                 this.ResetPage();
                 NewRec();
+
             }
             catch (Exception ex)
             {
@@ -1649,7 +1658,7 @@ namespace Konto.Shared.Trans.GRN
                                 p.BranchId = KontoGlobals.BranchId;
                                 p.ProductId = tranModel.ProductId;
                                 p.VoucherDate = _find.VoucherDate;
-
+                                p.IssueRefVoucherId = tranModel.Id;
                                 if (tranModel.ColorId != null && tranModel.ColorId != 0)
                                     p.ColorId = tranModel.ColorId;
                                 else if (p.ColorId == 0)

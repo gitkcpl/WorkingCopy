@@ -196,6 +196,23 @@ BEGIN
             ON hst.Id = bm.HasteId
 		LEFT OUTER JOIN dbo.[Challan] ch
 			 on ch.Id=bt.RefId
+
+             LEFT OUTER JOIN(SELECT bp.BillId,
+	 SUM(bp.Pay1Amt-bp.ChangeAmt) AS CashAmt,
+	 SUM(bp.DiscAmt) PostDisc,
+	SUM(CASE WHEN ISNULL(h2.PanNo,'X')='CARD' THEN bp.Pay2Amt
+	 WHEN ISNULL(h3.PanNo,'X')='CARD' THEN bp.Pay3Amt END) CardAmt,
+	 SUM(CASE WHEN ISNULL(h2.PanNo,'X')='WALLET' THEN bp.Pay2Amt
+	 WHEN ISNULL(h3.PanNo,'X')='WALLET' THEN bp.Pay3Amt END) WalletAmt,
+	 SUM(CASE WHEN ISNULL(h2.PanNo,'X')='OTHERS' THEN bp.Pay2Amt
+	 WHEN ISNULL(h3.PanNo,'X')='OTHERS' THEN bp.Pay3Amt END) OthersAmt
+	  FROM bill_pays AS bp
+	  LEFT OUTER JOIN Haste AS h2 ON bp.Pay2Id = h2.id 
+	  LEFT OUTER JOIN Haste AS h3 ON bp.Pay3Id = h3.id
+	  where bp.isdeleted=0 and bp.isactive=1
+		GROUP BY bp.BillId
+	  )bp1 ON bp1.BillId = bm.id
+
         LEFT OUTER JOIN ( SELECT ct.ChallanId,o.RefNo as PONo FROM ChallanTrans ct
 								LEFT OUTER JOIN ( SELECT so.RefNo, ot.Id FROM  dbo.OrdTrans ot 
 													LEFT outer join ord so on so.Id=ot.OrdId 

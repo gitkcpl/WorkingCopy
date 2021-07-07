@@ -15,6 +15,7 @@ using System.Text;
 using System.Windows.Forms;
 using DevExpress.XtraReports.UI;
 using Konto.Data;
+using Konto.Data.Models.Masters.Dtos;
 
 namespace Konto.Core.Shared.Libs
 {
@@ -344,14 +345,30 @@ namespace Konto.Core.Shared.Libs
 
                 foreach (var item in vw.GetSelectedRows())
                 {
-                    var _acc = vw.GetRow(item) as BaseLookupDto;
-                    var ModelReport = new ReportParaModel
+                    if (rep_para == "party")
                     {
-                        ReportId = _ReportId,
-                        ParameterName = rep_para,
-                        ParameterValue = _acc.Id
-                    };
-                    _paraList.Add(ModelReport);
+                        var _acc = vw.GetRow(item) as AccLookupDto;
+                        var ModelReport = new ReportParaModel
+                        {
+                            ReportId = _ReportId,
+                            ParameterName = rep_para,
+                            ParameterValue = _acc.Id
+                        };
+                        _paraList.Add(ModelReport);
+                    }
+                    else
+                    {
+                        var _acc = vw.GetRow(item) as BaseLookupDto;
+                        var ModelReport = new ReportParaModel
+                        {
+                            ReportId = _ReportId,
+                            ParameterName = rep_para,
+                            ParameterValue = _acc.Id
+                        };
+                        _paraList.Add(ModelReport);
+                    }
+                    
+                    
                 }
             }
 

@@ -439,6 +439,12 @@
     <Compile Include="Masters\Branch\BranchListView.Designer.cs">
       <DependentUpon>BranchListView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Masters\Branch\BranchVoucherIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\Branch\BranchVoucherIndex.Designer.cs">
+      <DependentUpon>BranchVoucherIndex.cs</DependentUpon>
+    </Compile>
     <Compile Include="Masters\Branch\SelectBranchWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -720,6 +726,24 @@
     </Compile>
     <Compile Include="Masters\Grade\GradeListView.Designer.cs">
       <DependentUpon>GradeListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Haste\ScreenLkpWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\Haste\ScreenLkpWindow.Designer.cs">
+      <DependentUpon>ScreenLkpWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Haste\ScreenIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\Haste\ScreenIndex.Designer.cs">
+      <DependentUpon>ScreenIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Haste\ScreenListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Masters\Haste\ScreenListView.Designer.cs">
+      <DependentUpon>ScreenListView.cs</DependentUpon>
     </Compile>
     <Compile Include="Masters\Haste\HasteLkpWindow.cs">
       <SubType>Form</SubType>
@@ -1149,6 +1173,12 @@
     </Compile>
     <Compile Include="Masters\SubGroup\SubGroupIndex.Designer.cs">
       <DependentUpon>SubGroupIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Tax\HsnIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Masters\Tax\HsnIndex.Designer.cs">
+      <DependentUpon>HsnIndex.cs</DependentUpon>
     </Compile>
     <Compile Include="Masters\Tax\TaxIndex.cs">
       <SubType>Form</SubType>
@@ -1850,6 +1880,9 @@
     <EmbeddedResource Include="Masters\Branch\BranchListView.resx">
       <DependentUpon>BranchListView.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Branch\BranchVoucherIndex.resx">
+      <DependentUpon>BranchVoucherIndex.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Masters\Branch\SelectBranchWindow.resx">
       <DependentUpon>SelectBranchWindow.cs</DependentUpon>
     </EmbeddedResource>
@@ -1990,6 +2023,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Masters\Grade\GradeListView.resx">
       <DependentUpon>GradeListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Haste\ScreenLkpWindow.resx">
+      <DependentUpon>ScreenLkpWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Haste\ScreenIndex.resx">
+      <DependentUpon>ScreenIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Haste\ScreenListView.resx">
+      <DependentUpon>ScreenListView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Masters\Haste\HasteLkpWindow.resx">
       <DependentUpon>HasteLkpWindow.cs</DependentUpon>
@@ -2203,6 +2245,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Masters\SubGroup\SubGroupIndex.resx">
       <DependentUpon>SubGroupIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Masters\Tax\HsnIndex.resx">
+      <DependentUpon>HsnIndex.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Masters\Tax\TaxIndex.resx">
       <DependentUpon>TaxIndex.cs</DependentUpon>
@@ -2495,8 +2540,10 @@
     <None Include="Properties\DataSources\Konto.Data.Models.Admin.Dtos.DBGroupDTO.datasource" />
     <None Include="Properties\DataSources\Konto.Data.Models.Admin.ErpModule.datasource" />
     <None Include="Properties\DataSources\Konto.Data.Models.Apparel.Dtos.PendingBomDto.datasource" />
+    <None Include="Properties\DataSources\Konto.Data.Models.Gstn.HsnTransDto.datasource" />
     <None Include="Properties\DataSources\Konto.Data.Models.Masters.BranchModel.datasource" />
     <None Include="Properties\DataSources\Konto.Data.Models.Masters.CompModel.datasource" />
+    <None Include="Properties\DataSources\Konto.Data.Models.Masters.Dtos.BranchVoucherDto.datasource" />
     <None Include="Properties\DataSources\Konto.Data.Models.Masters.Dtos.EmpRateDto.datasource" />
     <None Include="Properties\DataSources\Konto.Data.Models.Masters.Dtos.PosBarcodeListDto.datasource" />
     <None Include="Properties\DataSources\Konto.Data.Models.Masters.Dtos.RateChangeDto.datasource" />

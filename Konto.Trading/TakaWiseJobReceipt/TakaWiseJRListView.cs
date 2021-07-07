@@ -48,7 +48,9 @@ namespace Konto.Trading.TakaWiseJobReceipt
                         cmd.Parameters.Add("@CompanyId", SqlDbType.Int).Value = KontoGlobals.CompanyId;
                         cmd.Parameters.Add("@BranchId", SqlDbType.Int).Value = KontoGlobals.BranchId;
                         cmd.Parameters.Add("@YearId", SqlDbType.Int).Value = KontoGlobals.YearId;
+
                         cmd.Parameters.Add("@VTypeId", SqlDbType.Int).Value = (int)VoucherTypeEnum.TakaWiseJobReceipt;
+
                         if (listDateRange1.SelectedItem.Extra1 == "Deleted")
                         {
                             cmd.Parameters.Add("@Deleted", SqlDbType.Int).Value = 1;

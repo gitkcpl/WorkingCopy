@@ -397,8 +397,9 @@ namespace Konto.Apparel.BOM
                             bm.DivisionId = divLookUpEdit.EditValue != null ? Convert.ToInt32(divLookUpEdit.EditValue) : 0;
                             bm.ProductId = QualityLookup.Properties.SelectedValue != null ? Convert.ToInt32(QualityLookup.Properties.SelectedValue) : 0;
                             bm.VoucherId = voucherLookup1.SelectedValue != null ? Convert.ToInt32(voucherLookup1.SelectedValue) : 0;
-                            bm.VoucherNo = voucherNoTextEdit.Text != null ? Convert.ToString(voucherNoTextEdit.Text) : "";
-                            bm.Remark = remarkTextEdit.Text != string.Empty ? remarkTextEdit.Text : "";
+                        // bm.VoucherNo = voucherNoTextEdit.Text != null ? Convert.ToString(voucherNoTextEdit.Text) : "";
+                        bm.VoucherNo = DbUtils.NextSerialNo(bm.VoucherId, db);
+                        bm.Remark = remarkTextEdit.Text != string.Empty ? remarkTextEdit.Text : "";
                             bm.IsDeleted = false;
                             bm.IsActive = true;
                             bm.Description = Convert.ToString(ordertypeLookUpEdit1.EditValue);
@@ -873,10 +874,9 @@ namespace Konto.Apparel.BOM
 
             voucherDateEdit.EditValue = DateTime.Now;
 
-            if (!BillPara.Ask_For_Voucher_Selection)
+            
                 voucherLookup1.SetDefault();
-            else
-                voucherLookup1.SetEmpty();
+            
 
             createdLabelControl.Text = "Create By: " + KontoGlobals.UserName;
             modifyLabelControl.Text = string.Empty;

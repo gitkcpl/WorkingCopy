@@ -321,14 +321,16 @@ namespace Konto.Trading.JobReceipt
             foreach (var item in JrList)
             {
 
-                if ( item.Qty > 0)
-                {
+                
                     MrvTransDto ch = new MrvTransDto();
                     ch.Id = id;
                     ch.MiscId = item.RefId;
                     ch.RefId = item.TransId;
+                    ch.RefVoucherId = item.VoucherId;
                     ch.ProductId = Convert.ToInt32(item.ProductId);
                     ch.ProductName = item.Product;
+                   
+                    ch.LotNo = item.Barcode;
                     ch.ColorId = Convert.ToInt32(item.ColorId);
                     ch.ColorName = item.Color;
                     ch.ColorId = Convert.ToInt32(item.ColorId);
@@ -354,11 +356,13 @@ namespace Konto.Trading.JobReceipt
                         ch.SgstPer = 0;
                         ch.CgstPer = 0;
                     }
-
+                ch.SaleRate = item.SaleRate;
+                ch.BulkRate = item.BulkRate;
+                ch.SemiBulkRate = item.SemiBulkRate;
                     JobTrans.Add(ch);
                     id--;
                 }
-            }
+            
             this.grnTransDtoBindingSource1.DataSource = JobTrans;
 
         }
@@ -384,6 +388,13 @@ namespace Konto.Trading.JobReceipt
                 paybleLayoutControlItem.ContentVisible = false;
             }
 
+            if(KontoGlobals.PackageId!=(int)PackageType.POS)
+            {
+                colBarcode.Visible = false;
+                colSaleRate.Visible = false;
+                colSemiBulkRate.Visible = false;
+                colBarcode.Visible = false;
+            }
 
         }
         private MrvTransDto PreOpenLookup()
@@ -941,7 +952,7 @@ namespace Konto.Trading.JobReceipt
                              from cl in join_cl.DefaultIfEmpty()
                              join dm in _context.Products on ct.DesignId equals dm.Id into join_dm
                              from dm in join_dm.DefaultIfEmpty()
-
+                             join pr in _context.Prices on pd.Id equals pr.ProductId
                              orderby ct.Id
                              where ct.IsActive == true && ct.IsDeleted == false &&
                              ct.ChallanId == model.Id
@@ -955,7 +966,7 @@ namespace Konto.Trading.JobReceipt
                                  IgstPer = ct.IgstPer, LotNo = ct.LotNo, MiscId = ct.MiscId, OtherAdd = ct.OtherAdd, OtherLess = ct.OtherLess,
                                  Pcs = ct.Pcs, ProductId = (int)ct.ProductId, ProductName = pd.ProductName, Qty = ct.Qty, Rate = ct.Rate, RefId = ct.RefId,
                                  RefVoucherId = ct.RefVoucherId, Remark = ct.Remark, Sgst = ct.Sgst, SgstPer = ct.SgstPer, Total = ct.Total, UomId = (int)ct.UomId,
-
+                                 Barcode = pd.BarCode,SaleRate= pr.SaleRate,BulkRate = pr.Rate1,SemiBulkRate= pr.Rate2
                              }).ToList();
 
                 //prodDtos = _context.ProdOuts.Where(x => x.RefId == model.Id && !x.IsDeleted).ToList();
@@ -1042,10 +1053,48 @@ namespace Konto.Trading.JobReceipt
             if (e.Column == null) return;
             if (!(gridView1.GetRow(e.RowHandle) is MrvTransDto er)) return;
 
+            if (e.Column == colBarcode && e.Value != null && !string.IsNullOrEmpty(e.Value.ToString()))
+            {
+                var pos = DbUtils.GetProductDetails(e.Value.ToString());
+
+                if (pos == null)
+                {
+                    MessageBox.Show("Barcode Not Found..");
+
+                    if (gridView1.ActiveEditor.OldEditValue != null)
+                        er.Barcode = gridView1.ActiveEditor.OldEditValue.ToString();
+                    else
+                        er.Barcode = string.Empty;
+
+                    BeginInvoke(new MethodInvoker(() =>
+                    {
+                        gridView1.FocusedColumn = colBarcode;
+                    }));
+
+                    return;
+                }
+                er.ProductId = pos.Id;
+                er.Barcode = pos.BarCode;
+                er.ColorId = pos.ColorId;
+                er.ColorName = pos.ColorName;
+                er.ProductName = pos.ProductName;
+                er.UomId = pos.PurUomId;
+                er.SaleRate = pos.SaleRate;
+                er.BulkRate = pos.Rate1;
+                er.SemiBulkRate = pos.Rate2;
+                GridFocus();
+            }
+
             if (e.Column == colSgstAmt || e.Column == colCgstAmt || e.Column == colIgstAmt)
                 GridCalculation(er, true);
             else
                 GridCalculation(er, false);
+        }
+        private void GridFocus() // for focus setting in gridview
+        {
+
+            gridView1.FocusedColumn = gridView1.GetVisibleColumn(colProductName.VisibleIndex);
+
         }
         private void GridView1_KeyDown(object sender, KeyEventArgs e)
         {
@@ -1453,22 +1502,21 @@ namespace Konto.Trading.JobReceipt
             base.EditPage(_key);
             this.PrimaryKey = _key;
 
-          
+
             using (var db = new KontoContext())
             {
-                var bill = db.Challans.Find(_key);
-
-                if (bill == null)
+                ChallanModel bill = null;
+                if (this.IsOpenFromLedger)
                 {
-                    var ch = db.Bills.Find( _key);
+                    var ch = db.Bills.Find(_key);
                     if (ch != null)
                         bill = db.Challans.Find(ch.RefId);
                 }
-
-                if (bill != null)
+                else
                 {
-                    LoadData(bill);
+                    bill = db.Challans.Find(_key);
                 }
+                LoadData(bill);
             }
 
         }
@@ -1564,6 +1612,7 @@ namespace Konto.Trading.JobReceipt
             var _translist = grnTransDtoBindingSource1.DataSource as List<MrvTransDto>;
             List<ChallanTransModel> Trans = new List<ChallanTransModel>();
             List<ProdModel> ProdList = new List<ProdModel>();
+
             using (var db = new KontoContext())
             {
                 using (var _tran = db.Database.BeginTransaction())
@@ -1634,6 +1683,7 @@ namespace Konto.Trading.JobReceipt
                                 p.BranchId = KontoGlobals.BranchId;
                                 p.ProductId = tranModel.ProductId;
                                 p.VoucherDate = _find.VoucherDate;
+                                p.IssueRefVoucherId = tranModel.Id;
 
                                 if (tranModel.ColorId != null && tranModel.ColorId != 0)
                                     p.ColorId = tranModel.ColorId;
@@ -1700,6 +1750,31 @@ namespace Konto.Trading.JobReceipt
 
                         UpdateJobReceipt(db, _find);
 
+                        if(KontoGlobals.PackageId == (int)PackageType.POS)
+                        {
+                            foreach (var item in _translist)
+                            {
+                                var itm = db.Products.Find(item.ProductId);
+                                if(itm!=null && item.ColorId!=0)
+                                {
+                                    itm.ColorId = item.ColorId;
+                                }
+                                var pm = db.Prices.SingleOrDefault(x => x.ProductId == item.ProductId);
+                                if (pm != null)
+                                {
+                                    pm.SaleRate = item.SaleRate;
+                                    pm.Rate1 = item.BulkRate;
+                                    pm.Rate2 = item.SemiBulkRate;
+                                }
+                                var btc = db.ItemBatches.SingleOrDefault(x => x.ProductId == item.ProductId);
+                                if (btc != null)
+                                {
+                                    btc.SaleRate = item.SaleRate;
+                                    btc.BulkRate = item.BulkRate;
+                                    btc.SemiBulkRate = item.SemiBulkRate;
+                                }
+                            }
+                        }
 
                         if (!JobRecPara.Challan_Required)
                         {
@@ -1976,6 +2051,18 @@ namespace Konto.Trading.JobReceipt
         private void gridControl1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void roundoffSpinEdit_EditValueChanged(object sender, EventArgs e)
+        {
+            if (!roundoffSpinEdit.ContainsFocus) return;
+            gridView1.UpdateTotalSummary();
+            var ntotal = Convert.ToDecimal(colNetTotal.SummaryItem.SummaryValue);
+
+            ntotal = ntotal + roundoffSpinEdit.Value;
+
+            billAmtSpinEdit.Value = ntotal;
+            paybleTextEdit.Text = (ntotal - tdsAmtTextEdit.Value).ToString("F");
         }
     }
 }

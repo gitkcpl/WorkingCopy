@@ -62,6 +62,7 @@ namespace Konto.Trading.MillReturn
         }
         private void PendSimpleButton_Click(object sender, EventArgs e)
         {
+            if (this.ChallanTransId == 0) return;
             var frm = new MrStockTakaDetails();
             frm.AccId = this.AccId;
             frm.ChallanId = this.ChallanId;

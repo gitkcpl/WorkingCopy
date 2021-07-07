@@ -65,8 +65,8 @@ namespace Konto.Trading.MillReturn
             lotNoRepositoryItemButtonEdit.ButtonClick += LotNoRepositoryItemButtonEdit_ButtonClick;
             challanNoRrepositoryItemButtonEdit.ButtonClick += ChallanNoRrepositoryItemButtonEdit_ButtonClick;
             gridView1.DoubleClick += GridView1_DoubleClick;
-            this.MainLayoutFile = KontoFileLayout.Mrv_Index;
-            this.GridLayoutFile = KontoFileLayout.Mrv_Trans;
+            this.MainLayoutFile = KontoFileLayout.Mr_Index;
+            this.GridLayoutFile = KontoFileLayout.Mr_Trans;
             
             FillLookup();
           
@@ -182,8 +182,8 @@ namespace Konto.Trading.MillReturn
             var frm = new ProductLkpWindow();
             frm.Tag = MenuId.Product_Master;
             frm.SelectedValue = _selvalue;
-            frm.PTypeId = ProductTypeEnum.GREY;
-            frm.VoucherType = VoucherTypeEnum.GreyOrder;
+           // frm.PTypeId = ProductTypeEnum.GREY;
+            //frm.VoucherType = VoucherTypeEnum.GreyOrder;
 
             frm.ShowDialog();
             if (frm.DialogResult == DialogResult.OK)
@@ -269,7 +269,7 @@ namespace Konto.Trading.MillReturn
                                     DisplayText = p.UnitName,
                                     Id = p.Id,RateOn = p.RateOn
                                 }).ToList();
-
+                
                
                
                 uomRepositoryItemLookUpEdit.DataSource = _uomlist;
@@ -436,12 +436,18 @@ namespace Konto.Trading.MillReturn
             var ord = frm.SelectedRow;
             if (ord == null) return;
             cid--;
-            ct.Id = cid;
-            ct.ProductId = Convert.ToInt32(ord.ProductId);
+
+            if(ct.Id<=0)
+                ct.Id = cid;
+            ct.ProductId = Convert.ToInt32(ord.OrgProductId);
             ct.ProductName = ord.GreyQuality;
             ct.FinishQuality = ord.GreyQuality;
-            ct.Pcs = Convert.ToInt32(ord.PendingPcs);
-            ct.Qty = ord.PendingQty != 0 ? (decimal)ord.PendingQty : 0;
+
+            if (ct.Id <= 0)
+            {
+                ct.Pcs = Convert.ToInt32(ord.PendingPcs);
+                ct.Qty = ord.PendingQty != 0 ? (decimal)ord.PendingQty : 0;
+            }
             ct.LotNo = ord.LotNo;
             ct.RefNo = ord.RefNo;
             ct.Rate = ord.Rate != null ? (decimal)ord.Rate : 0;
@@ -470,8 +476,10 @@ namespace Konto.Trading.MillReturn
         private void ShowItemDetail(MiTransDto er)
         {
             
+            
             var frm = new MrTakaDetails();
             frm.AccId = Convert.ToInt32(this.accLookup1.SelectedValue);
+
             frm.ChallanId = Convert.ToInt32( er.MiscId);
             frm.ChallanTransId = Convert.ToInt32( er.RefId);
             frm.ItemId = er.ProductId;
@@ -828,21 +836,20 @@ namespace Konto.Trading.MillReturn
 
                 PageReport rpt = new PageReport();
 
-                rpt.Load(new FileInfo("reg\\doc\\grn.rdlx"));
+                rpt.Load(new FileInfo("reg\\doc\\job_return.rdlx"));
 
                 rpt.Report.DataSources[0].ConnectionProperties.ConnectString = KontoGlobals.Conn;
 
                 GrapeCity.ActiveReports.Document.PageDocument doc = new GrapeCity.ActiveReports.Document.PageDocument(rpt);
-
                 doc.Parameters["id"].CurrentValue = this.PrimaryKey;
-                doc.Parameters["Ord"].CurrentValue = "N";
+                doc.Parameters["challan"].CurrentValue = "N";
                 doc.Parameters["reportid"].CurrentValue = 0;
                 var frm = new KontoRepViewer(doc);
-                frm.Text = "Purchase Order";
+                frm.Text = "Job Return";
                 var _tab = this.Parent.Parent as TabControlAdv;
                 if (_tab == null) return;
                 var pg1 = new TabPageAdv();
-                pg1.Text = "Order Print";
+                pg1.Text = "Job Return Print";
                 _tab.TabPages.Add(pg1);
                 _tab.SelectedTab = pg1;
                 frm.TopLevel = false;

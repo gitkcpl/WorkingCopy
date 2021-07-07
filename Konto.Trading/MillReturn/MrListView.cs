@@ -163,23 +163,23 @@ namespace Konto.Trading.MillReturn
         public override void Print()
         {
             base.Print();
-            if (this.customGridView1.FocusedRowHandle <= 0) return;
-            if (KontoView.Columns.ColumnByFieldName("Id") != null)
-            {
-                if (KontoView.Columns.ColumnByFieldName("IsDeleted") != null)
-                {
-                    if (Convert.ToBoolean(this.KontoView.GetRowCellValue(this.KontoView.FocusedRowHandle, "IsDeleted")))
-                    {
-                        return;
-                    }
-                }
-                var id = this.KontoView.GetRowCellValue(this.KontoView.FocusedRowHandle, "VoucherNo").ToString();
+            //if (this.customGridView1.FocusedRowHandle <= 0) return;
+            //if (KontoView.Columns.ColumnByFieldName("Id") != null)
+            //{
+            //    if (KontoView.Columns.ColumnByFieldName("IsDeleted") != null)
+            //    {
+            //        if (Convert.ToBoolean(this.KontoView.GetRowCellValue(this.KontoView.FocusedRowHandle, "IsDeleted")))
+            //        {
+            //            return;
+            //        }
+            //    }
+            //    var id = this.KontoView.GetRowCellValue(this.KontoView.FocusedRowHandle, "VoucherNo").ToString();
 
-                var frm = new DocPrintParaView(VoucherTypeEnum.Inward, "Grn Print",id,id, "ORD", "OrdId");
-                frm.ShowDialog();
+            //    var frm = new DocPrintParaView(VoucherTypeEnum.Inward, "Grn Print",id,id, "ORD", "OrdId");
+            //    frm.ShowDialog();
 
 
-            }
+            //}
 
            
           

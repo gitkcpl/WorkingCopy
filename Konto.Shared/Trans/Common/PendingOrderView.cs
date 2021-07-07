@@ -14,6 +14,7 @@ namespace Konto.Shared.Trans.Common
     public partial class PendingOrderView : KontoForm
     {
         public VoucherTypeEnum VoucherType { get; set; }
+        public ChallanTypeEnum ChallanType { get; set; }
         public int AccId { get; set; }
         private string GridLayoutFileName = "trans\\pending_order.xml";
         public int[] SelectedRows { get; set; }
@@ -60,20 +61,45 @@ namespace Konto.Shared.Trans.Common
 
                 using (var db = new KontoContext())
                 {
-                    var spcol = db.SpCollections.FirstOrDefault(k => k.Id ==
-                      (int)SpCollectionEnum.PendingOrderonChallan);
                     List<PendingOrderDto> listDtos = new List<PendingOrderDto>();
-                    if (spcol == null)
+                    if (ChallanType == ChallanTypeEnum.PURCHASE)
                     {
-                        listDtos = db.Database.SqlQuery<PendingOrderDto>(
-                            "dbo.PendingOrderonChallan @CompanyId={0},@AccountId={1},@VoucherTypeID={2}",
-                      compid, this.AccId,this.VoucherType).ToList();
+                        var spcol = db.SpCollections.FirstOrDefault(k => k.Id ==
+                          (int)SpCollectionEnum.PendingOrderonChallan);
+
+                        if (spcol == null)
+                        {
+                            listDtos = db.Database.SqlQuery<PendingOrderDto>(
+                                "dbo.PendingOrderonChallan @CompanyId={0},@AccountId={1},@VoucherTypeID={2}",
+                          compid, this.AccId, this.VoucherType).ToList();
+                        }
+                        else
+                        {
+                            listDtos = db.Database.SqlQuery<PendingOrderDto>(
+                             spcol.Name + " @CompanyId={0},@AccountId={1},@VoucherTypeID={2}",
+                             compid, this.AccId, this.VoucherType).ToList();
+                        }
                     }
-                    else
+                    else if(ChallanType == ChallanTypeEnum.TRANSFER_IN)
                     {
-                        listDtos = db.Database.SqlQuery<PendingOrderDto>(
-                         spcol.Name + " @CompanyId={0},@AccountId={1},@VoucherTypeID={2}",
-                         compid, this.AccId, this.VoucherType).ToList();
+                        var spcol = db.SpCollections.FirstOrDefault(k => k.Id ==
+                          (int)SpCollectionEnum.PendingTransferOut);
+
+                        if (spcol == null)
+                        {
+                            listDtos = db.Database.SqlQuery<PendingOrderDto>(
+                                "dbo.PendingTransferOut @CompanyId={0},@AccountId={1},@VoucherTypeID={2}," +
+                                "@ChallanType={3},@BranchId={4}",
+                          compid, this.AccId, (int)VoucherTypeEnum.SalesChallan,(int)ChallanTypeEnum.TRANSFER_OUT,
+                          KontoGlobals.BranchId).ToList();
+                        }
+                        else
+                        {
+                            listDtos = db.Database.SqlQuery<PendingOrderDto>(
+                             spcol.Name + " @CompanyId={0},@AccountId={1},@VoucherTypeID={2},@ChallanType={3},@BranchId={4}",
+                             compid, this.AccId, (int)VoucherTypeEnum.SalesChallan, 
+                             (int)ChallanTypeEnum.TRANSFER_OUT,KontoGlobals.BranchId).ToList();
+                        }
                     }
                     if(listDtos.Count == 0)
                     {

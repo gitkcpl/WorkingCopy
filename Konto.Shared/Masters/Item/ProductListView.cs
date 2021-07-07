@@ -58,6 +58,9 @@ namespace Konto.Shared.Masters.Item
                               join um in _context.Uoms on pd.UomId equals um.Id
                               join ac in _context.Accs on pd.VendorId equals ac.Id into ac_join
                               from ac in ac_join.DefaultIfEmpty()
+
+                              join dv in _context.Divisions on pr.BranchId equals dv.Id into dv_join
+                              from dv in dv_join.DefaultIfEmpty()
                               orderby pd.ProductName
                               where bal.CompanyId == KontoGlobals.CompanyId && bal.BranchId == KontoGlobals.BranchId && bal.YearId == KontoGlobals.YearId &&
                               !pd.IsDeleted
@@ -96,7 +99,7 @@ namespace Konto.Shared.Masters.Item
                                   SerialReq = pd.SerialReq, SaleRateTaxInc= pd.SaleRateTaxInc,
                                   CostPrice= pd.ActualCost,Mrp= pr.Mrp,Rate1= pr.Rate1,Rate2=pr.Rate2,
                                   ColorName= cl1.ColorName,PcsPerPack = pd.AccId != null ? (int)pd.AccId : 0,
-                                  StyleNo = pr.BatchNo
+                                  StyleNo = pr.BatchNo,Division=dv.DivisionName
                               }
                 ).ToList();
 

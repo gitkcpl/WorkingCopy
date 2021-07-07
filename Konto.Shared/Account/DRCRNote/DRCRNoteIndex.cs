@@ -276,13 +276,15 @@ namespace Konto.Shared.Account.DRCRNote
                 er.Igst = decimal.Round(gross * er.IgstPer / 100, 2, MidpointRounding.AwayFromZero);
             }
 
-            //  er.Cess = decimal.Round(er.Qty * er.CessPer, 2, MidpointRounding.AwayFromZero);
+            if (er.CessPer > 0)
+                er.Cess = decimal.Round(er.Qty * er.CessPer, 2, MidpointRounding.AwayFromZero);
+
             if (isImortOrSez)
             {
                 er.NetTotal = gross;
             }
             else
-                er.NetTotal = gross + er.Sgst + er.Cgst + er.Igst;
+                er.NetTotal = gross + er.Sgst + er.Cgst + er.Igst+er.Cess;
 
             gridView1.UpdateCurrentRow();
 

@@ -588,32 +588,36 @@ namespace Konto.Trading.TakaWiseJobReceipt
                 gridView1.Focus();
                 return false;
             }
-            else if (trans.Any(x => x.Rate == 0))
-            {
-                MessageBoxAdv.Show(this, "Invalid Rate", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                gridView1.FocusedColumn = colRate;
-                gridView1.Focus();
-                return false;
-            }
+            //else if (trans.Any(x => x.Rate == 0))
+            //{
+            //    MessageBoxAdv.Show(this, "Invalid Rate", "Invalid Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //    gridView1.FocusedColumn = colRate;
+            //    gridView1.Focus();
+            //    return false;
+            //}
 
             //check for duplicate bill no
             using (var db = new KontoContext())
             {
                 var accid = Convert.ToInt32(accLookup1.SelectedValue);
-                var find1 = db.Challans.FirstOrDefault(
-               x => x.AccId == accid && !x.IsDeleted && x.BillNo == billNoTextEdit.Text.Trim() && x.CompId == KontoGlobals.CompanyId
-               && x.YearId == KontoGlobals.YearId && x.Id != this.PrimaryKey);
 
-                if (!TakaJobRecPara.Challan_Required && find1 != null)
+                if (!TakaJobRecPara.Challan_Required)
                 {
-                    MessageBox.Show("Entered Bill No Already Exists for this Party");
-                    billNoTextEdit.Focus();
-                    return false;
+                    var find2 = db.Challans.FirstOrDefault(
+                   x => x.AccId == accid && !x.IsDeleted && x.BillNo == billNoTextEdit.Text.Trim() && x.CompId == KontoGlobals.CompanyId
+                   && x.YearId == KontoGlobals.YearId && x.Id != this.PrimaryKey && x.VoucherId == (int)voucherLookup1.SelectedValue);
+
+                    if (find2 != null)
+                    {
+                        MessageBox.Show("Entered Bill No Already Exists for this Party");
+                        billNoTextEdit.Focus();
+                        return false;
+                    }
                 }
 
-                find1 = db.Challans.FirstOrDefault(
+                var find1 = db.Challans.FirstOrDefault(
               x => x.AccId == accid && !x.IsDeleted && x.ChallanNo == challanNotextEdit.Text.Trim() && x.CompId == KontoGlobals.CompanyId
-              && x.YearId == KontoGlobals.YearId && x.Id != this.PrimaryKey);
+              && x.YearId == KontoGlobals.YearId && x.Id != this.PrimaryKey && x.VoucherId == (int)voucherLookup1.SelectedValue);
 
                 if (find1 != null)
                 {
@@ -843,6 +847,28 @@ namespace Konto.Trading.TakaWiseJobReceipt
                             KontoGlobals.CompanyId, Convert.ToInt32(accLookup1.SelectedValue), ord.Id, ord.TransId).ToList();
                 }
             }
+
+            //check for existing item already added
+            List<PendingMRProd> _tempdel = new List<PendingMRProd>();
+            foreach (var item in Prlist)
+            {
+                var _exist = this.prodDtos.FirstOrDefault(x => x.ProdId == item.ProdId && x.FinMrt > 0);
+                if (_exist != null)
+                    _tempdel.Add(item);
+            }
+
+
+            // remove if selected other challan on same level on Add Mode
+            var tobremoved = this.prodDtos.Where(x => x.TransId == ct.Id).ToList();
+
+            this.DelProd.AddRange(tobremoved);
+
+            this.prodDtos = this.prodDtos.Except(tobremoved).ToList();
+
+
+            Prlist = Prlist.Except(_tempdel).ToList();
+
+
             foreach (var prod in Prlist)
             {
                 ProdOutDto pm = new ProdOutDto();
@@ -926,7 +952,9 @@ namespace Konto.Trading.TakaWiseJobReceipt
             er.Pcs = FinPcs;
             er.IssuePcs = GryPcs;
             er.IssueQty = GrayMtr;
-            er.ShQty = GrayMtr - FinMtr;
+            er.PlainPcs = tempprod.Where(x => x.PlainQty > 0).Count();
+            er.PlainQty = tempprod.Sum(x => x.PlainQty);
+            er.ShQty = GrayMtr - (FinMtr + er.PlainQty);
             er.ShPer = decimal.Round(er.ShQty * 100 / GrayMtr, 2, MidpointRounding.AwayFromZero);
 
 
@@ -1357,11 +1385,18 @@ namespace Konto.Trading.TakaWiseJobReceipt
 
             using (var db = new KontoContext())
             {
-                var bill = db.Challans.Find(_key);
-                if (bill != null)
+                ChallanModel bill= null;
+                if (this.IsOpenFromLedger)
                 {
-                    LoadData(bill);
+                    var ch = db.Bills.Find(_key);
+                    if (ch != null)
+                        bill = db.Challans.Find(ch.RefId);
                 }
+                else
+                {
+                     bill = db.Challans.Find(_key);
+                }
+                LoadData(bill);
             }
         }
         public override void FirstRec()
@@ -1543,10 +1578,12 @@ namespace Konto.Trading.TakaWiseJobReceipt
                                     pOut.VoucherNo = _find.VoucherNo;
                                     pOut.TransId = tranModel.Id;
                                     pOut.VoucherId = _find.VoucherId;
-                                    pOut.TakaStatus = "JobRec";
+                                    pOut.TakaStatus = "NMRC";
                                     pOut.RefId = _find.Id;
                                     db.ProdOuts.Add(pOut);
                                 }
+
+                                UpdateProd(pOut, db, tranModel);
                             }
 
                         }
@@ -1641,7 +1678,283 @@ namespace Konto.Trading.TakaWiseJobReceipt
                 }
             }
         }
+        private void UpdateProd(ProdOutModel po, KontoContext db, ChallanTransModel bt)
+        {
 
+            var pd1 = db.Prods.Find(po.ProdId);
+
+            //pd1.CProductId = pd1.ProductId;
+
+
+            if (po.TP1 > 0)
+            {
+                var pd = new ProdModel();
+
+                if (po.Id > 0)
+                    pd = db.Prods.FirstOrDefault(x => x.IssueRefId == po.Id && x.TwistType == "TP1");
+
+                if (pd == null)
+                    pd = new ProdModel();
+
+                pd.ProductId = bt.ProductId;
+                pd.ColorId = po.ColorId;
+                pd.PalletProductId = bt.DesignId;
+                pd.IssueRefId = po.Id;
+                pd.VoucherNo = voucherNoTextEdit.Text + "-" + po.SrNo.ToString();
+                pd.NetWt = Convert.ToDecimal(po.TP1);
+                pd.CurrQty = Convert.ToDecimal(po.TP1);
+                pd.IsActive = true;
+                pd.ProdStatus = "JR";
+                pd.SrNo = po.SrNo;
+                pd.VoucherDate = Convert.ToInt32(Convert.ToDateTime(voucherDateEdit.EditValue).ToString("yyyyMMdd"));
+                pd.VoucherId = Convert.ToInt32(voucherLookup1.SelectedValue);
+                pd.CompId = KontoGlobals.CompanyId;
+                pd.YearId = KontoGlobals.YearId;
+                pd.TwistType = "TP1";
+                pd.TransId = po.TransId;
+                pd.RefId = po.RefId;
+                pd.RefSCId = po.ProdId; //org prodprtaka id
+                pd.Remark = po.VoucherNo;
+                pd.CProductId = pd.ProductId;
+                pd.BranchId = KontoGlobals.BranchId;
+
+                pd.IssueRefId = pd1.IssueRefId;
+                pd.IssueRefVoucherId = pd1.IssueRefVoucherId;
+
+                if (pd.Id == 0)
+                    db.Prods.Add(pd);
+            }
+            if (po.TP2 > 0)
+            {
+                var pd = new ProdModel();
+                if (po.Id > 0)
+                    pd = db.Prods.FirstOrDefault(x => x.IssueRefId == po.Id && x.TwistType == "TP2");
+
+                if (pd == null)
+                    pd = new ProdModel();
+
+                pd.ProductId = bt.ProductId;
+                pd.IssueRefId = po.Id;
+                pd.ColorId = po.ColorId;
+                pd.PalletProductId = bt.DesignId;
+                pd.IssueRefId = po.Id;
+                pd.VoucherNo = voucherNoTextEdit.Text + "-" + po.SrNo.ToString() + "/1";
+                pd.Remark = po.VoucherNo;
+                pd.NetWt = Convert.ToDecimal(po.TP2);
+                pd.CurrQty = Convert.ToDecimal(po.TP2);
+                pd.IsActive = true;
+                pd.ProdStatus = "JR";
+                pd.SrNo = po.SrNo;
+                pd.TransId = po.TransId;
+                pd.RefId = po.RefId;
+                pd.RefSCId = po.ProdId; //org prodprtaka id
+                pd.VoucherDate = Convert.ToInt32(Convert.ToDateTime(voucherDateEdit.EditValue).ToString("yyyyMMdd"));
+                pd.VoucherId = Convert.ToInt32(voucherLookup1.SelectedValue);
+                pd.CompId = KontoGlobals.CompanyId;
+                pd.YearId = KontoGlobals.YearId;
+                pd.TwistType = "TP2";
+                pd.CProductId = pd.ProductId;
+                pd.BranchId = KontoGlobals.BranchId;
+                pd.IssueRefId = pd1.IssueRefId;
+                pd.IssueRefVoucherId = pd1.IssueRefVoucherId;
+                if (pd.Id == 0)
+                    db.Prods.Add(pd);
+            }
+            else
+            {
+                if (po.Id > 0)
+                {
+                    var pd = db.Prods.FirstOrDefault(x => x.IssueRefId == po.Id && x.TwistType == "TP2");
+                    if (pd != null) pd.IsDeleted = true;
+                }
+
+            }
+
+            if (po.TP3 > 0)
+            {
+                var pd = new ProdModel();
+                if (po.Id > 0)
+                    pd = db.Prods.FirstOrDefault(x => x.IssueRefId == po.Id && x.TwistType == "TP3");
+
+                if (pd == null)
+                    pd = new ProdModel();
+
+                pd.ProductId = bt.ProductId;
+                pd.ColorId = po.ColorId;
+                pd.PalletProductId = bt.DesignId;
+                pd.IssueRefId = po.Id;
+                pd.VoucherNo = voucherNoTextEdit.Text + "-" + po.SrNo.ToString() + "/2";
+                pd.NetWt = Convert.ToDecimal(po.TP3);
+                pd.CurrQty = Convert.ToDecimal(po.TP3);
+                pd.IsActive = true;
+                pd.ProdStatus = "JR";
+                pd.SrNo = po.SrNo;
+                pd.TransId = po.TransId;
+                pd.RefId = po.RefId;
+                pd.RefSCId = po.ProdId; //org prodprtaka id
+                pd.VoucherDate = Convert.ToInt32(Convert.ToDateTime(voucherDateEdit.EditValue).ToString("yyyyMMdd"));
+                pd.VoucherId = Convert.ToInt32(voucherLookup1.SelectedValue);
+                pd.CompId = KontoGlobals.CompanyId;
+                pd.YearId = KontoGlobals.YearId;
+                pd.TwistType = "TP3";
+                pd.Remark = po.VoucherNo;
+                pd.CProductId = pd.ProductId;
+                pd.BranchId = KontoGlobals.BranchId;
+                pd.IssueRefId = pd1.IssueRefId;
+                pd.IssueRefVoucherId = pd1.IssueRefVoucherId;
+
+                if (pd.Id == 0)
+                    db.Prods.Add(pd);
+            }
+            else
+            {
+                if (po.Id > 0)
+                {
+                    var pd = db.Prods.FirstOrDefault(x => x.IssueRefId == po.Id && x.TwistType == "TP3");
+                    if (pd != null) pd.IsDeleted = true;
+                }
+
+            }
+
+            if (po.TP4 > 0)
+            {
+                var pd = new ProdModel();
+                if (po.Id > 0)
+                    pd = db.Prods.FirstOrDefault(x => x.IssueRefId == po.Id && x.TwistType == "TP4");
+
+                if (pd == null)
+                    pd = new ProdModel();
+
+                pd.ProductId = bt.ProductId;
+                pd.ColorId = po.ColorId;
+                pd.PalletProductId = bt.DesignId;
+                pd.IssueRefId = po.Id;
+                pd.VoucherNo = voucherNoTextEdit.Text + "-" + po.SrNo.ToString() + "/3";
+                pd.NetWt = Convert.ToDecimal(po.TP4);
+                pd.CurrQty = Convert.ToDecimal(po.TP4);
+                pd.IsActive = true;
+                pd.ProdStatus = "JR";
+                pd.SrNo = po.SrNo;
+                pd.TransId = po.TransId;
+                pd.RefId = po.RefId;
+                pd.RefSCId = po.ProdId; //org prodprtaka id
+                pd.VoucherDate = Convert.ToInt32(Convert.ToDateTime(voucherDateEdit.EditValue).ToString("yyyyMMdd"));
+                pd.VoucherId = Convert.ToInt32(voucherLookup1.SelectedValue);
+                pd.CompId = KontoGlobals.CompanyId;
+                pd.YearId = KontoGlobals.YearId;
+                pd.TwistType = "TP4";
+                pd.Remark = po.VoucherNo;
+                pd.CProductId = pd.ProductId;
+                pd.BranchId = KontoGlobals.BranchId;
+                pd.IssueRefId = pd1.IssueRefId;
+                pd.IssueRefVoucherId = pd1.IssueRefVoucherId;
+
+                if (pd.Id == 0)
+                    db.Prods.Add(pd);
+            }
+            else
+            {
+                if (po.Id > 0)
+                {
+                    var pd = db.Prods.FirstOrDefault(x => x.IssueRefId == po.Id && x.TwistType == "TP4");
+                    if (pd != null) pd.IsDeleted = true;
+                }
+
+            }
+
+            if (po.TP5 > 0)
+            {
+                var pd = new ProdModel();
+                if (po.Id > 0)
+                    pd = db.Prods.FirstOrDefault(x => x.IssueRefId == po.Id && x.TwistType == "TP5");
+
+                if (pd == null)
+                    pd = new ProdModel();
+
+                pd.ProductId = bt.ProductId;
+                pd.ColorId = po.ColorId;
+                pd.PalletProductId = bt.DesignId;
+                pd.IssueRefId = po.Id;
+                pd.VoucherNo = voucherNoTextEdit.Text + "-" + po.SrNo.ToString() + "/4";
+                pd.NetWt = Convert.ToDecimal(po.TP5);
+                pd.CurrQty = Convert.ToDecimal(po.TP5);
+                pd.IsActive = true;
+                pd.ProdStatus = "JR";
+                pd.SrNo = po.SrNo;
+                pd.TransId = po.TransId;
+                pd.RefId = po.RefId;
+                pd.RefSCId = po.ProdId; //org prodprtaka id
+                pd.VoucherDate = Convert.ToInt32(Convert.ToDateTime(voucherDateEdit.EditValue).ToString("yyyyMMdd"));
+                pd.VoucherId = Convert.ToInt32(voucherLookup1.SelectedValue);
+                pd.CompId = KontoGlobals.CompanyId;
+                pd.YearId = KontoGlobals.YearId;
+                pd.TwistType = "TP5";
+                pd.Remark = po.VoucherNo;
+                pd.CProductId = pd.ProductId;
+                pd.BranchId = KontoGlobals.BranchId;
+                pd.IssueRefId = pd1.IssueRefId;
+                pd.IssueRefVoucherId = pd1.IssueRefVoucherId;
+                if (pd.Id == 0)
+                    db.Prods.Add(pd);
+            }
+            else
+            {
+                if (po.Id > 0)
+                {
+                    var pd = db.Prods.FirstOrDefault(x => x.IssueRefId == po.Id && x.TwistType == "TP5");
+                    if (pd != null) pd.IsDeleted = true;
+                }
+
+            }
+
+            if (po.PlainQty > 0)
+            {
+                var pd = new ProdModel();
+                if (po.Id > 0)
+                    pd = db.Prods.FirstOrDefault(x => x.IssueRefId == po.Id && x.TwistType == "PLAIN");
+
+                if (pd == null)
+                    pd = new ProdModel();
+
+                pd.ProductId = bt.NProductId;
+                pd.ColorId = po.ColorId;
+                pd.PalletProductId = bt.DesignId;
+                pd.IssueRefId = po.Id;
+                pd.VoucherNo = voucherNoTextEdit.Text + "-" + po.SrNo.ToString() + "/PL";
+                pd.NetWt = Convert.ToDecimal(po.PlainQty);
+                pd.CurrQty = Convert.ToDecimal(po.PlainQty);
+                pd.IsActive = true;
+                pd.ProdStatus = "JR";
+                pd.SrNo = po.SrNo;
+                pd.TransId = po.TransId;
+                pd.RefId = po.RefId;
+                pd.RefSCId = po.ProdId; //org prodprtaka id
+                pd.VoucherDate = Convert.ToInt32(Convert.ToDateTime(voucherDateEdit.EditValue).ToString("yyyyMMdd"));
+                pd.VoucherId = Convert.ToInt32(voucherLookup1.SelectedValue);
+                pd.CompId = KontoGlobals.CompanyId;
+                pd.YearId = KontoGlobals.YearId;
+                pd.TwistType = "PLAIN";
+                pd.Remark = po.VoucherNo;
+                pd.CProductId = pd.ProductId;
+                pd.BranchId = KontoGlobals.BranchId;
+
+                pd.IssueRefId = pd1.IssueRefId;
+                pd.IssueRefVoucherId = pd1.IssueRefVoucherId;
+
+                if (pd.Id == 0)
+                    db.Prods.Add(pd);
+            }
+            else
+            {
+                if (po.Id > 0)
+                {
+                    var pd = db.Prods.FirstOrDefault(x => x.IssueRefId == po.Id && x.TwistType == "PLAIN");
+                    if (pd != null) pd.IsDeleted = true;
+                }
+
+            }
+
+        }
         private bool UpdateChallan(KontoContext db, ChallanModel model)
         {
 
@@ -1715,6 +2028,8 @@ namespace Konto.Trading.TakaWiseJobReceipt
                 billModel = db.Bills.FirstOrDefault(x => x.RefId == model.Id && x.RefVoucherId == model.VoucherId);
 
             }
+            if (billModel == null)
+                billModel = new BillModel();
             billModel.CompId = KontoGlobals.CompanyId;
             billModel.YearId = KontoGlobals.YearId;
             billModel.BranchId = KontoGlobals.BranchId;
@@ -1749,18 +2064,12 @@ namespace Konto.Trading.TakaWiseJobReceipt
             billModel.RefId = model.Id;
             billModel.RefVoucherId = model.VoucherId;
 
-            if (this.PrimaryKey == 0)
+            if (billModel.Id == 0)
             {
-                int vtypeid = (int)VoucherTypeEnum.TakaWiseJobReceipt;
-                var vouchr = db.Vouchers.FirstOrDefault(k => k.VTypeId == vtypeid);
-                billModel.VoucherId = vouchr.Id;
-                billModel.VoucherNo = DbUtils.NextSerialNo((int)billModel.VoucherId, db);
-                
-                if (DbUtils.CheckExistVoucherNo(billModel.VoucherId, billModel.VoucherNo, db, billModel.Id))
-                {
-                    MessageBox.Show("Duplicate Voucher No Not Allowed");
-                    return false;
-                }
+                 //int vtypeid = (int)VoucherTypeEnum.TakaWiseJobReceipt;
+                // var vouchr = db.Vouchers.FirstOrDefault(k => k.VTypeId == vtypeid);
+                billModel.VoucherId = model.VoucherId;
+                billModel.VoucherNo = model.VoucherNo;
 
                 db.Bills.Add(billModel);
                 db.SaveChanges();
@@ -1835,6 +2144,18 @@ namespace Konto.Trading.TakaWiseJobReceipt
         private void MrvIndex_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void roundoffSpinEdit_EditValueChanged(object sender, EventArgs e)
+        {
+            if (!roundoffSpinEdit.ContainsFocus) return;
+            gridView1.UpdateTotalSummary();
+            var ntotal = Convert.ToDecimal(colNetTotal.SummaryItem.SummaryValue);
+
+            ntotal = ntotal + roundoffSpinEdit.Value;
+
+            billAmtSpinEdit.Value = ntotal;
+            paybleTextEdit.Text = (ntotal - tdsAmtTextEdit.Value).ToString("F");
         }
     }
 }

@@ -138,6 +138,13 @@ namespace Konto.Reporting.Chal
             if (rw == null)
                 rw = repGridView1.GetRow(0) as ReportTypeModel;
             dr = rw.FileName;
+
+            if (dr.Substring(dr.Length - 4, 4) == "rdlx")
+            {
+                ShowReport(dr);
+                return;
+            }
+
             string objectToInstantiate = dr + ",Konto.Reporting";
             var objectType = Type.GetType(objectToInstantiate);
 
@@ -187,7 +194,8 @@ namespace Konto.Reporting.Chal
                 xrep.Parameters["challan_type"].Value = challanTypeLookUpEdit.EditValue;
             }
 
-            xrep.Parameters["vtype_id"].Value = VoucherTypeEnum.Inward;
+            xrep.Parameters["vtype_id"].Value = (int) VoucherTypeEnum.Inward;
+            xrep.Parameters["vtype"].Value = (int) VoucherTypeEnum.GrayPurchaseChallan;
 
             if (Convert.ToInt32(voucherLookup1.SelectedValue) > 0)
                 xrep.Parameters["voucher_id"].Value = voucherLookup1.SelectedValue;
@@ -348,6 +356,66 @@ namespace Konto.Reporting.Chal
 
         }
 
+       private void ShowReport(string _filename)
+        {
+            GrapeCity.ActiveReports.PageReport _pageReport = new GrapeCity.ActiveReports.PageReport();
+
+
+            _pageReport.Load(new System.IO.FileInfo(_filename));
+
+            GrapeCity.ActiveReports.Document.PageDocument doc = new GrapeCity.ActiveReports.Document.PageDocument(_pageReport);
+            //doc.LocateDataSource += Doc_LocateDataSource;
+            _pageReport.Report.DataSources[0].ConnectionProperties.ConnectString = KontoGlobals.sqlConnectionString.ConnectionString;
+
+            int _ReportId = 0;
+
+            _ReportId = SetCheckedParameters(doc, null);
+
+            if (doc.Parameters["companyid"] != null)
+                doc.Parameters["companyid"].CurrentValue = KontoGlobals.CompanyId;
+
+            if (doc.Parameters["yearid"] != null)
+                doc.Parameters["yearid"].CurrentValue = KontoGlobals.YearId;
+
+            if (doc.Parameters["fromdate"] != null)
+                doc.Parameters["fromdate"].CurrentValue = Convert.ToInt32(fDateEdit.DateTime.ToString("yyyyMMdd"));
+
+            if (doc.Parameters["todate"] != null)
+                doc.Parameters["todate"].CurrentValue = Convert.ToInt32(tDateEdit.DateTime.ToString("yyyyMMdd"));
+
+            if (doc.Parameters["reportid"] != null)
+                doc.Parameters["reportid"].CurrentValue = _ReportId;
+
+            if (doc.Parameters["report_title"] != null)
+                doc.Parameters["report_title"].CurrentValue = "Purchase Vs Job From " + fDateEdit.DateTime.ToString("dd/MM/yyy") + " To " +
+                    tDateEdit.DateTime.ToString("dd/MM/yyyy");
+            var frm = new KontoRepViewer(doc);
+            frm.Text = "Purchase Vs Job";
+            if (this.ParentForm.Parent == null || this.ParentForm.Parent.Parent == null)
+            {
+
+                frm.WindowState = FormWindowState.Maximized;
+                frm.MinimizeBox = true;
+                frm.MaximizeBox = true;
+                frm.Show();
+
+            }
+            else
+            {
+                var _tab = this.ParentForm.Parent.Parent as TabControlAdv;
+                if (_tab == null) return;
+
+                var pg1 = new TabPageAdv();
+                pg1.Text = "Challan Register";
+                _tab.TabPages.Add(pg1);
+
+                frm.TopLevel = false;
+                frm.Parent = pg1;
+                _tab.SelectedTab = pg1;
+                //frm.Location = new Point(pg1.Location.X + pg1.Width / 2 - frm.Width / 2, pg1.Location.Y + pg1.Height / 2 - frm.Height / 2);
+                frm.Show();// = true;
+            }
+        }
       
 
         private int SetCheckedParameters(GrapeCity.ActiveReports.Document.PageDocument doc,
@@ -397,41 +465,6 @@ namespace Konto.Reporting.Chal
                     }
                 }
 
-                if (designGridView1.SelectedRowsCount > 0)
-                {
-                    if (doc != null)
-                        doc.Parameters["design"].CurrentValue = "Y";
-                    else
-                        _rep["design"] = "Y";
-
-                    foreach (var item in designGridView1.GetSelectedRows())
-                    {
-                        var _acc = designGridView1.GetRow(item) as BaseLookupDto;
-                        ModelReport = new ReportParaModel();
-                        ModelReport.ReportId = _ReportId;
-                        ModelReport.ParameterName = "design";
-                        ModelReport.ParameterValue = _acc.Id;
-                        _paraList.Add(ModelReport);
-                    }
-                }
-                if (colorGridView.SelectedRowsCount > 0)
-                {
-                    if (doc != null)
-                        doc.Parameters["color"].CurrentValue = "Y";
-                    else
-                        _rep["color"] = "Y";
-
-                    foreach (var item in colorGridView.GetSelectedRows())
-                    {
-                        var _acc = colorGridView.GetRow(item) as BaseLookupDto;
-                        ModelReport = new ReportParaModel();
-                        ModelReport.ReportId = _ReportId;
-                        ModelReport.ParameterName = "color";
-                        ModelReport.ParameterValue = _acc.Id;
-                        _paraList.Add(ModelReport);
-                    }
-                }
-
                 _db.ReportParas.AddRange(_paraList);
                 _db.SaveChanges();
             }
@@ -444,11 +477,18 @@ namespace Konto.Reporting.Chal
 
         private void LedgerParaView_Load(object sender, EventArgs e)
         {
+
+            if (this.Tag.ToString() == "808") // for gray purchase
+            {
+                this.voucherLookup1.VTypeId = VoucherTypeEnum.GrayPurchaseChallan;
+                this.Text = "Gray Inward Register";
+            }
+
             using (var db = new KontoContext())
             {
 
                 var AccList = db.Database.SqlQuery<AccLookupDto>("dbo.acclookup @groupid={0},@companyid={1},@yearid={2},@taxtype={3},@nature={4},@fillparty={5},@vouchertypeid={6}"
-                    , 0, KontoGlobals.CompanyId, KontoGlobals.YearId, "N", "ALL", "Y", VoucherTypeEnum.Inward).ToList();
+                    , 0, KontoGlobals.CompanyId, KontoGlobals.YearId, "N", "ALL", "Y", this.voucherLookup1.VTypeId).ToList();
 
                 var agentlist = (from ac in db.Accs
                                  join pd in db.AccBals on ac.Id equals pd.AccId into join_pd

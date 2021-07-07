@@ -37,6 +37,7 @@ using System.Linq;
 using System.Windows.Forms;
 using DevExpress.Data.WcfLinq.Helpers;
 using ExpressionBuilder = Konto.Core.Shared.Libs.ExpressionBuilder;
+using Konto.Shared.Account;
 
 namespace Konto.Pos.Sales
 {
@@ -55,6 +56,7 @@ namespace Konto.Pos.Sales
         private List<PendBillListDto> BillList = new List<PendBillListDto>();
         private List<PendBillListDto> AllBill = new List<PendBillListDto>();
         private bool IsLoadData = false;
+        private int DefaultBranchVoucherId = 0;
         public SalesIndex()
         {
             InitializeComponent();
@@ -317,7 +319,7 @@ namespace Konto.Pos.Sales
                 
                 using (var db = new KontoContext())
                 {
-                    voucherNoTextEdit.Text = "New-" +  DbUtils.NextSerialNo(Convert.ToInt32(voucherLookup1.SelectedValue), db,1);
+                    voucherNoTextEdit.Text =   DbUtils.NextSerialNo(Convert.ToInt32(voucherLookup1.SelectedValue), db,1);
                 }
                 if (voucherLookup1.GroupDto != null && Convert.ToInt32(voucherLookup1.GroupDto.AccId) > 0)
                 {
@@ -364,28 +366,27 @@ namespace Konto.Pos.Sales
 
         private void BillAdjustSimpleButton_Click(object sender, EventArgs e)
         {
-            var frm = new SalesPayView();
-            frm.ShowDialog();
-            //string type = "CREDIT";
-            //if (this.billAmtSpinEdit.Value == 0) return;
-            //var frm = new PendingBillViewWindow("SALE", Convert.ToInt32(accLookup1.SelectedValue),
-            //    (int)VoucherTypeEnum.SaleInvoice, type, this.PrimaryKey, this.PrimaryKey,
-            //    (int)voucherLookup1.SelectedValue);
 
-            //frm.AllBill.AddRange(this.AllBill);
-            //frm.TotalAmount = this.billAmtSpinEdit.Value;
+            string type = "CREDIT";
+            if (this.billAmtSpinEdit.Value == 0) return;
+            var frm = new PendingBillViewWindow("SALE", Convert.ToInt32(accLookup1.SelectedValue),
+                (int)VoucherTypeEnum.SaleInvoice, type, this.PrimaryKey, this.PrimaryKey,
+                (int)voucherLookup1.SelectedValue);
 
-            //if (frm.ShowDialog() == DialogResult.OK)
-            //{
-            //    this.AllBill = frm.AllBill;
+            frm.AllBill.AddRange(this.AllBill);
+            frm.TotalAmount = this.billAmtSpinEdit.Value;
 
-            //    this.DelBill.AddRange(frm.DelBillList);
+            if (frm.ShowDialog() == DialogResult.OK)
+            {
+                this.AllBill = frm.AllBill;
 
-            //    var plist = frm.BillList.Where(k => k.Amount > 0).ToList();
+                this.DelBill.AddRange(frm.DelBillList);
 
-            //    this.BillList.AddRange(plist);
+                var plist = frm.BillList.Where(k => k.Amount > 0).ToList();
 
-            //}
+                this.BillList.AddRange(plist);
+
+            }
         }
 
         private void AccLookup1_ShownPopup(object sender, EventArgs e)
@@ -394,7 +395,7 @@ namespace Konto.Pos.Sales
             {
                 if (Convert.ToInt32(accLookup1.SelectedValue) == 0 || this.PrimaryKey != 0) return;
                 
-                if (BillPara.Order_Required)
+                if (PosPara.Order_Required)
                 {
                     GetOrderPending(accLookup1.LookupDto);
                     return;
@@ -498,7 +499,7 @@ namespace Konto.Pos.Sales
                             ct.IgstPer = ch.Igst;
                         }
                         var gross = ct.Total - ct.DiscAmt + ct.Freight + ct.OtherAdd - ct.OtherLess;
-                        if (BillPara.Tax_RoundOff)
+                        if (PosPara.Tax_RoundOff)
                         {
                             ct.Sgst = decimal.Round(gross * ct.SgstPer / 100, 0);
                             ct.Cgst = decimal.Round(gross * ct.CgstPer / 100, 0); //, MidpointRounding.AwayFromZero);
@@ -610,7 +611,7 @@ namespace Konto.Pos.Sales
                 
                 var gross = ct.Total - ct.DiscAmt + ct.Freight + ct.OtherAdd - ct.OtherLess;
 
-                if (BillPara.Tax_RoundOff)
+                if (PosPara.Tax_RoundOff)
                 {
                     ct.Sgst = decimal.Round(gross * ct.SgstPer / 100, 0);
                     ct.Cgst = decimal.Round(gross * ct.CgstPer / 100, 0); //, MidpointRounding.AwayFromZero);
@@ -854,9 +855,9 @@ namespace Konto.Pos.Sales
                 er.Barcode = model.BarCode;
                 er.CostRate = model.DealerPrice;
                 er.ChkNegative = model.CheckNegative;
-                er.Stock = Convert.ToDecimal( model.StockQty);
+                er.Stock = DbUtils.GetCurrentStock(er.ProductId, KontoGlobals.BranchId);
 
-                
+
 
                 gridView1.FocusedColumn = gridView1.GetNearestCanFocusedColumn(gridView1.FocusedColumn);
             }
@@ -937,10 +938,10 @@ namespace Konto.Pos.Sales
             colOtherAdd.Visible = PosPara.OtherAdd_Required;
             colOtherLess.Visible = PosPara.OtherLess_Required;
             colRate.Visible = PosPara.Rate_Required;
-            colRate.OptionsColumn.AllowEdit = PosPara.Rate_Editable;
-            colSaleRate.OptionsColumn.AllowEdit = PosPara.Rate_Editable;
-            colRate.OptionsColumn.AllowFocus = PosPara.Rate_Editable;
-            colSaleRate.OptionsColumn.AllowFocus = PosPara.Rate_Editable;
+           // colRate.OptionsColumn.AllowEdit = PosPara.Rate_Editable;
+           // colSaleRate.OptionsColumn.AllowEdit = PosPara.Rate_Editable;
+           // colRate.OptionsColumn.AllowFocus = PosPara.Rate_Editable;
+            //colSaleRate.OptionsColumn.AllowFocus = PosPara.Rate_Editable;
 
             colCgst.Visible = PosPara.Tax_Required;
             colCgstPer.Visible = PosPara.Tax_Required;
@@ -961,22 +962,22 @@ namespace Konto.Pos.Sales
             colCessPer.OptionsColumn.AllowFocus = PosPara.Tax_Editable;
 
             gridView1.OptionsFind.AllowFindPanel = false;
-
+            gridView1.OptionsNavigation.EnterMoveNextColumn = true;
             if(PosPara.Rate_Type_Required && rateTypeLayoutControlItem.IsHidden)
                 rateTypeLayoutControlItem.RestoreFromCustomization();
 
             //Rate Decimal Settings
             var repo1 = new RepositoryItemTextEdit();
             repo1.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
-            repo1.Mask.EditMask = "n" + BillPara.Rate_Decimal.ToString();
+            repo1.Mask.EditMask = "n" + PosPara.Rate_Decimal.ToString();
             colRate.ColumnEdit = repo1;
             colRate.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            colRate.DisplayFormat.FormatString = "n" + BillPara.Rate_Decimal.ToString();
+            colRate.DisplayFormat.FormatString = "n" + PosPara.Rate_Decimal.ToString();
 
             //Qty Decimal Settings
-            repositoryItemTextEdit1.Mask.EditMask = "n" + BillPara.Qty_Decimal.ToString();
+            repositoryItemTextEdit1.Mask.EditMask = "n" + PosPara.Qty_Decimal.ToString();
             colQty.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            colQty.DisplayFormat.FormatString = "n" + BillPara.Qty_Decimal.ToString();
+            colQty.DisplayFormat.FormatString = "n" + PosPara.Qty_Decimal.ToString();
 
 
         }
@@ -1030,7 +1031,7 @@ namespace Konto.Pos.Sales
 
             gross = gross + er.Freight + er.OtherAdd - er.OtherLess;
 
-            if (BillPara.Tax_RoundOff)
+            if (PosPara.Tax_RoundOff)
             {
                 if(fldName!="Sgst" && fldName!="Cgst")
                     er.Sgst = decimal.Round(gross * er.SgstPer / 100, 0, MidpointRounding.AwayFromZero);
@@ -1079,7 +1080,7 @@ namespace Konto.Pos.Sales
 
             if(tcsPerTextEdit.Value > 0) // tcs applicable
             {
-                if (BillPara.Tcs_Round_Off)
+                if (PosPara.Tax_RoundOff)
                     tcsAmtTextEdit.Value = decimal.Round((ntotal * tcsPerTextEdit.Value / 100) + (decimal)0.01);
                 else
                     tcsAmtTextEdit.Value = decimal.Round(ntotal * tcsPerTextEdit.Value / 100, 2);
@@ -1145,7 +1146,18 @@ namespace Konto.Pos.Sales
                                 PosPara.Default_Invoice_Print = value;
                                 break;
                             }
-                        
+                        case 252:
+                            {
+                                PosPara.OtherAdd_Required = (value == "Y") ? true : false;
+                                break;
+                            }
+
+                        case 253:
+                            {
+                                PosPara.OtherLess_Required = (value == "Y") ? true : false;
+                                break;
+                            }
+
                         case 256:
                             {
                                 PosPara.Ask_For_Voucher_Selection = (value == "Y") ? true : false;
@@ -1250,16 +1262,30 @@ namespace Konto.Pos.Sales
 
             invTypeLookUpEdit.Properties.DataSource = cbp;
 
-            List<ComboBoxPairs> _rate = new List<ComboBoxPairs>
+            if (KontoGlobals.isSysAdm)
             {
-                
+                List<ComboBoxPairs> _rate = new List<ComboBoxPairs>
+            {
+
                 new ComboBoxPairs("BLK", "Bulk/WholeSale"),
                 new ComboBoxPairs("SMBLK", "SemiBulk/SemiWholeSale"),
                 new ComboBoxPairs("RTL", "Retail"),
                 new ComboBoxPairs("ZERO", "ZERO"),
             };
+                rateTypeLookUpEdit.Properties.DataSource = _rate;
+            }
+            else
+            {
+                List<ComboBoxPairs> _rate = new List<ComboBoxPairs>
+                {
 
+                new ComboBoxPairs("SMBLK", "SemiBulk/SemiWholeSale"),
+                new ComboBoxPairs("RTL", "Retail"),
+                };
             rateTypeLookUpEdit.Properties.DataSource = _rate;
+            
+            }
+
 
             using (var db = new KontoContext())
             {
@@ -1309,6 +1335,10 @@ namespace Konto.Pos.Sales
                // taxRepositoryItemLookUpEdit.DataSource = gstList;
                 storeLookUpEdit.Properties.DataSource = _storeLists;
                 stateLookUpEdit.Properties.DataSource = _statelist;
+
+                var bv = db.BranchVouchers.FirstOrDefault(x => x.BranchId == KontoGlobals.BranchId);
+                if (bv != null)
+                    DefaultBranchVoucherId = bv.SaleVoucherId;
             }
         }
 
@@ -1422,9 +1452,9 @@ namespace Konto.Pos.Sales
                         if (!item.Key.ChkNegative) continue;
                         if (this.PrimaryKey > 0)
                         {
-                            oldqty = db.BillTrans
-                                .Where(x => x.BillId == this.PrimaryKey && x.ProductId == item.Key.ProductId)
-                                .Sum(x => x.Qty);
+                            oldqty = (from p in db.BillTrans
+                                      where p.BillId == this.PrimaryKey && p.ProductId == item.Key.ProductId
+                                      select (decimal?)p.Qty).Sum() ?? 0;
                         }
 
                         var Qty = trans.Where(k => k.ProductId == item.Key.ProductId).Sum(k => k.Qty);
@@ -1465,9 +1495,10 @@ namespace Konto.Pos.Sales
             IsLoadData = true;
             this.PrimaryKey = model.Id;
             invTypeLookUpEdit.EditValue = model.BillType;
-          
-            voucherLookup1.SelectedValue = model.VoucherId;
+
             voucherLookup1.SetGroup(model.VoucherId);
+            voucherLookup1.SelectedValue = model.VoucherId;
+           
 
             bookLookup.SetAcc(Convert.ToInt32(model.BookAcId));
             bookLookup.SelectedValue = model.BookAcId;
@@ -1625,12 +1656,20 @@ namespace Konto.Pos.Sales
 
                 var paid = _context.BtoBs.Where(x => x.BillId == model.Id && x.BillVoucherId == model.VoucherId
                                           && !x.IsDeleted)
-                                        .Sum(x => x.Amount);
-                if (paid > 0)
+                    .Select(x=>x.Amount)
+                    .DefaultIfEmpty(0)
+                    .Sum();
+
+                var rcpt = _context.BillPays.Where(x => x.BillId == model.Id)
+                            .Select(x => x.Pay1Amt + x.Pay2Amt + x.Pay3Amt - x.ChangeAmt)
+                            .DefaultIfEmpty(0)
+                            .Sum();
+
+                if (paid + rcpt > 0)
                 {
                     if(KontoGlobals.UserRoleId!=1)
                         okSimpleButton.Enabled = false;
-                    if (model.TotalAmount - paid - model.TdsAmt == 0)
+                    if (model.TotalAmount - (paid + rcpt) - model.TdsAmt == 0)
                         paidLabel.Text = "PAID";
                     else
                         paidLabel.Text = "PARTAIL-PAID";
@@ -1683,6 +1722,12 @@ namespace Konto.Pos.Sales
         {
             var itm = gridView1.GetFocusedRow() as BillTransDto;
             if (itm == null) return;
+
+            if (!PosPara.Rate_Editable && itm.Rate != 0 && (gridView1.FocusedColumn.FieldName == "Rate" ||
+                gridView1.FocusedColumn.FieldName == "SaleRate"))
+                e.Cancel = true;
+
+
             if (!"ProductName,ColorName,GradeName,DesignName,LotNo,UomId".Contains(gridView1.FocusedColumn.FieldName)) return;
             if (Convert.ToInt32(itm.RefId) > 0)
                 e.Cancel = true;
@@ -1799,9 +1844,9 @@ namespace Konto.Pos.Sales
 
                     model.ProductName = pos.ProductName;
 
-                model.Stock = Convert.ToDecimal( pos.StockQty);
+                //model.Stock = Convert.ToDecimal( pos.StockQty);
                     model.ColorId = pos.ColorId;
-                   // model.Stock = DbUtils.GetCurrentStock(model.ProductId, KontoGlobals.BranchId);
+                    model.Stock = DbUtils.GetCurrentStock(model.ProductId, KontoGlobals.BranchId);
 
                     model.ColorName = pos.ColorName;
 
@@ -2109,7 +2154,7 @@ namespace Konto.Pos.Sales
             {
                 if (tabPageAdv4.Controls.Count > 0) return;
                 this.Text = "Sales Register";
-                var _frm = Activator.CreateInstance("Konto.Reporting", "Konto.Reporting.Para.BillPara.ParaMainView").Unwrap() as KontoForm;
+                var _frm = Activator.CreateInstance("Konto.Reporting", "Konto.Reporting.Para.PosPara.ParaMainView").Unwrap() as KontoForm;
 
                 _frm.TopLevel = false;
                 _frm.Parent = tabPageAdv4;
@@ -2146,7 +2191,7 @@ namespace Konto.Pos.Sales
 
                 PageReport rpt = new PageReport();
 
-                rpt.Load(new FileInfo("reg\\doc\\" + BillPara.Default_Invoice_Print + ""));
+                rpt.Load(new FileInfo("reg\\doc\\" + PosPara.Default_Invoice_Print + ""));
 
                 rpt.Report.DataSources[0].ConnectionProperties.ConnectString = KontoGlobals.sqlConnectionString.ConnectionString;
                 
@@ -2223,10 +2268,24 @@ namespace Konto.Pos.Sales
             modifyLabelControl.Text = string.Empty;
             this.ActiveControl = voucherLookup1.buttonEdit1;
 
-            if (!BillPara.Ask_For_Voucher_Selection)
-                voucherLookup1.SetDefault();
+
+            if (!PosPara.Ask_For_Voucher_Selection) {
+                if (DefaultBranchVoucherId != 0)
+                {
+                    voucherLookup1.SetGroup(DefaultBranchVoucherId);
+                    voucherLookup1.SelectedValue = DefaultBranchVoucherId;
+                }
+                else
+                {
+                    voucherLookup1.SetDefault();
+                }
+            }
             else
+            {
+
                 voucherLookup1.SetEmpty();
+            }
+            
 
             if (voucherLookup1.GroupDto != null && Convert.ToInt32(voucherLookup1.GroupDto.AccId) > 0)
             {
@@ -2438,12 +2497,13 @@ namespace Konto.Pos.Sales
                         //if (!string.IsNullOrEmpty(ordr))
                         //    _find.RefNo = ordr;
 
-                        //Bill Reference Update
-                        //LedgerEff.BillRefEntry("Debit",_find,0,db);       //Insert or update in Billref table
+                          //Insert or update in Billref table
 
                         BillPay _bp = null;
 
-                        if (this.PrimaryKey == 0)
+                        // if (this.PrimaryKey == 0)
+                        //{
+                        if (paidLabel.Text != "PAID")
                         {
                             var frm = new SalesPayView();
                             frm.db = db;
@@ -2456,7 +2516,10 @@ namespace Konto.Pos.Sales
 
                             }
                         }
+                       // }
 
+                        //Bill Reference Update
+                        LedgerEff.BillRefEntry("Debit",_find,_translist.FirstOrDefault().ProductId,db);     
 
                         //Insert or update in LedgerTrans table
                         if (this.PrimaryKey==0)
@@ -2472,7 +2535,7 @@ namespace Konto.Pos.Sales
                             db.StockTranses.RemoveRange(stk);
 
                         //stock effect
-                        if (!Trans.Any(x => x.RefId > 0) || BillPara.Order_Required)
+                        if (!Trans.Any(x => x.RefId > 0) || PosPara.Order_Required)
                         {
                             foreach (var item in Trans)
                             {
@@ -2589,9 +2652,8 @@ namespace Konto.Pos.Sales
                 model.DocDate = Convert.ToDateTime(lrDateEdit.EditValue);
             
             model.TypeId = (int)VoucherTypeEnum.SaleInvoice;
-            model.CompId = KontoGlobals.CompanyId;
-            model.YearId = KontoGlobals.YearId;
-            model.BranchId = KontoGlobals.BranchId;
+        
+           
             model.RoundOff = roundoffSpinEdit.Value;
             model.EwayBillNo = ewayBillTextEdit.Text;
             model.RcdDate = rcdDateEdit1.DateTime;
@@ -2615,8 +2677,11 @@ namespace Konto.Pos.Sales
 
             if (model.Id == 0)
             {
-                
-                if(!voucherLookup1.GroupDto.ManualSeries)
+                model.BranchId = KontoGlobals.BranchId;
+                model.CompId = KontoGlobals.CompanyId;
+                model.YearId = KontoGlobals.YearId;
+
+                if (!voucherLookup1.GroupDto.ManualSeries)
                     model.VoucherNo = DbUtils.NextSerialNo(model.VoucherId, db,0);
 
                 if (DbUtils.CheckExistVoucherNo(model.VoucherId, model.VoucherNo, db, model.Id))

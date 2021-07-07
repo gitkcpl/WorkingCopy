@@ -99,6 +99,7 @@ namespace Konto.Data.Models.Transaction.Dtos
        
         public string OrdNo { get; set; }
 
+        public decimal IssueQty { get; set; }
        
        
         public DateTime? OrdDate
@@ -122,6 +123,9 @@ namespace Konto.Data.Models.Transaction.Dtos
         public DateTime ReceiveDateTime { get; set; }
         public int ReceivedById { get; set; }
         public bool IsReceived { get; set; }
+
+        public int ScreenId { get; set; }
+        public string Screen { get; set; }
 
     }
 }

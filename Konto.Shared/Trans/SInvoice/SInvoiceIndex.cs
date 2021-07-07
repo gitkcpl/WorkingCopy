@@ -38,6 +38,7 @@ using System.Windows.Forms;
 using DevExpress.XtraGrid;
 using DevExpress.XtraGrid.Views.Base;
 using ExpressionBuilder = Konto.Core.Shared.Libs.ExpressionBuilder;
+using Konto.Shared.Masters.Haste;
 
 namespace Konto.Shared.Trans.SInvoice
 {
@@ -108,10 +109,40 @@ namespace Konto.Shared.Trans.SInvoice
 
             this.FirstActiveControl = voucherLookup1;
             this.voucherDateEdit.EditValueChanged += VoucherDateEdit_EditValueChanged;
+            this.addChallanSimpleButton.Click += AddChallanSimpleButton_Click;
+            screenRepositoryItemButtonEdit.ButtonClick += ScreenRepositoryItemButtonEdit_ButtonClick;
             //this.gridView1.ValidatingEditor += GridView1_ValidatingEditor;
            // this.gridView1.InvalidValueException += GridView1_InvalidValueException;
             //this.gridView1.ShownEditor += GridView1_ShownEditor;
 
+        }
+
+        private void ScreenRepositoryItemButtonEdit_ButtonClick(object sender, ButtonPressedEventArgs e)
+        {
+            var dr = PreOpenLookup();
+            if (dr != null)
+                OpenScreenLookup(dr.ScreenId, dr);
+        }
+        private void OpenScreenLookup(int _selvalue, BillTransDto er)
+        {
+            var frm = new ScreenLkpWindow();
+            //frm.Tag = MenuId.S;
+            frm.SelectedValue = _selvalue;
+            frm.ShowDialog();
+            if (frm.DialogResult == DialogResult.OK)
+            {
+                gridView1.BeginDataUpdate();
+                er.ScreenId = frm.SelectedValue;
+                er.Screen = frm.SelectedTex;
+                gridView1.EndDataUpdate();
+                gridView1.FocusedColumn = gridView1.GetVisibleColumn(colScreen.VisibleIndex + 1);
+            }
+
+        }
+        private void AddChallanSimpleButton_Click(object sender, EventArgs e)
+        {
+            if (Convert.ToInt32(accLookup1.SelectedValue) == 0) return;
+            GetPendingChallan(Convert.ToInt32(accLookup1.SelectedValue),false);
         }
 
         private void GridView1_ShownEditor(object sender, EventArgs e)
@@ -280,7 +311,7 @@ namespace Konto.Shared.Trans.SInvoice
             
         }
 
-        private void GetPendingChallan(int accid)
+        private void GetPendingChallan(int accid, bool replaceChallanNo=true)
         {
             var grnfrm = new PendingGrnForPurchase();
             grnfrm.VoucherType = VoucherTypeEnum.SalesChallan;
@@ -292,8 +323,10 @@ namespace Konto.Shared.Trans.SInvoice
 
             Int32[] selectedRowHandles = grnfrm.SelectedRows;
             if (selectedRowHandles == null || selectedRowHandles.Count() == 0) return;
-
+            
             List<BillTransDto> transDtos = new List<BillTransDto>();
+            if (this.PrimaryKey != 0)
+                transDtos = grnTransDtoBindingSource1.DataSource as List<BillTransDto>;
 
             var db = new KontoContext();
             string bill = string.Empty, ordr = string.Empty;
@@ -373,13 +406,17 @@ namespace Konto.Shared.Trans.SInvoice
                     ct.Disc = ch.Disc;
                     ct.DiscAmt = ch.DiscAmt;
                     ct.UomId = ch.UomId;
-                    ct.LotNo = ch.LotNo;
+
+                    ct.LotNo = string.IsNullOrEmpty(ch.LotNo) ? ch.ChallanNo : ch.LotNo;
+
                     ct.DesignId = Convert.ToInt32(ch.DesignId);
                     ct.ColorId = Convert.ToInt32(ch.ColorId);
                     ct.GradeId = Convert.ToInt32(ch.GradeId);
                     ct.DesignName = ch.DesignNo;
                     ct.ColorName = ch.ColorName;
                     ct.GradeName = ch.GradeName;
+                    ct.Screen = ch.Screen;
+                    ct.ScreenId = ch.ScreenId.HasValue ? (int)ch.ScreenId : 0;
                     if (ch.ChallanNo != null && !bill.Contains(ch.ChallanNo))
                     {
                         if (string.IsNullOrEmpty(bill))
@@ -452,9 +489,21 @@ namespace Konto.Shared.Trans.SInvoice
                 }
 
             }
-            refNoTextEdit.Text = ordr;
-            challanNotextEdit.Text = bill;
+
+            if (replaceChallanNo)
+            {
+                if (!string.IsNullOrEmpty(ordr) && ordr.Length > 25)
+                    ordr = ordr.Substring(0, 24);
+                refNoTextEdit.Text = ordr;
+
+                if (bill.Length > 500)
+                    bill = bill.Substring(0, 499);
+
+                challanNotextEdit.Text = bill;
+            }
+
             grnTransDtoBindingSource1.DataSource = transDtos;
+            gridControl1.RefreshDataSource();
             FinalTotal();
         }
         private void GetOrderPending(AccLookupDto dto )
@@ -848,7 +897,8 @@ namespace Konto.Shared.Trans.SInvoice
             colOtherLess.Visible = BillPara.OtherLess_Required;
             colCess.Visible = BillPara.Cess_Required;
             colCessPer.Visible = BillPara.Cess_Required;
-           
+            colScreen.Visible = BillPara.Screen_Required;
+
             if (BillPara.Barcode_Required)
             {
                 colProductName.VisibleIndex = -1;
@@ -1179,6 +1229,12 @@ namespace Konto.Shared.Trans.SInvoice
                                 BillPara.Sale_Rate_Required = (value == "Y");
                                 break;
                         }
+                        case 324:
+                            {
+
+                                BillPara.Screen_Required = (value == "Y");
+                                break;
+                            }
                     }
                 }
             }
@@ -1499,6 +1555,8 @@ namespace Konto.Shared.Trans.SInvoice
                             from ort in joinOrt.DefaultIfEmpty()
                             join or in _context.Ords on ort.OrdId equals or.Id into joinOr
                             from or in joinOr.DefaultIfEmpty()
+                            join hst in _context.Hastes on bt.ScreenId equals hst.Id into join_hst
+                            from hst in join_hst.DefaultIfEmpty()
                             orderby bt.Id
                             where bt.BillId == model.Id && !bt.IsDeleted && bt.IsActive
                             select new BillTransDto
@@ -1546,7 +1604,8 @@ namespace Konto.Shared.Trans.SInvoice
                                 RefTransId = bt.RefTransId,
                                 RefVoucherId = bt.RefVoucherId,
                                 SaleRate=bt.SaleRate,HsnCode = p.HsnCode,RatePerQty= p.Price2,
-                                Barcode = p.BarCode
+                                Barcode = p.BarCode,
+                                Screen = hst.HasteName,ScreenId= bt.ScreenId.HasValue ? (int)bt.ScreenId : 0
                             }
                             ).ToList();
 
@@ -1902,7 +1961,23 @@ namespace Konto.Shared.Trans.SInvoice
                     }
                     else if (e.KeyCode == Keys.F1)
                     {
-                        OpenColorLookup(dr.ProductId, dr);
+                        OpenColorLookup(dr.ColorId, dr);
+                        e.Handled = true;
+                    }
+                }
+                else if (gridView1.FocusedColumn.FieldName == "Screen")
+                {
+                    if (e.KeyCode == Keys.Return)
+                    {
+                        if (dr.ScreenId == 0)
+                        {
+                            OpenScreenLookup(dr.ScreenId, dr);
+                            // e.Handled = true;
+                        }
+                    }
+                    else if (e.KeyCode == Keys.F1)
+                    {
+                        OpenScreenLookup(dr.ScreenId, dr);
                         e.Handled = true;
                     }
                 }
@@ -2541,7 +2616,7 @@ namespace Konto.Shared.Trans.SInvoice
             model.VoucherNo = voucherNoTextEdit.Text.Trim();
             
             model.AgentId = Convert.ToInt32(agentLookup.SelectedValue);
-            model.RefNo = refNoTextEdit.Text.Trim();
+            model.RefNo = refNoTextEdit.Text.Trim().Length>25?refNoTextEdit.Text.Substring(0,24): refNoTextEdit.Text.Trim();
 
             model.BillNo = challanNotextEdit.Text.Length > 500 ? challanNotextEdit.Text.Substring(0, 498).Trim() : challanNotextEdit.Text.Trim();
 

@@ -43,5 +43,7 @@ namespace Konto.Data.Models.Transaction.Dtos
         public decimal TP5 { get; set; }
 
         public decimal Qty { get; set; }
+
+        public int? Tops { get; set; }
     }
 }

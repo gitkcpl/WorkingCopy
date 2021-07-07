@@ -251,17 +251,17 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Chal\RepSalesChallanView.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Chal\RepSalesChallanView.Designer.cs">
-      <DependentUpon>RepSalesChallanView.cs</DependentUpon>
-    </Compile>
     <Compile Include="Chal\RepChallanView.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Chal\RepChallanView.Designer.cs">
       <DependentUpon>RepChallanView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Chal\RepSalesChallanView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Chal\RepSalesChallanView.Designer.cs">
+      <DependentUpon>RepSalesChallanView.cs</DependentUpon>
     </Compile>
     <Compile Include="CustomRep\CustomeRepWindow.cs">
       <SubType>Form</SubType>
@@ -275,6 +275,12 @@
     </Compile>
     <Compile Include="GE\RepGateEntryView.Designer.cs">
       <DependentUpon>RepGateEntryView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="JobInc\RepJobExpView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="JobInc\RepJobExpView.Designer.cs">
+      <DependentUpon>RepJobExpView.cs</DependentUpon>
     </Compile>
     <Compile Include="JobInc\RepJobIncomeView.cs">
       <SubType>Form</SubType>
@@ -409,6 +415,12 @@
     <Compile Include="Para\Ledger\LedgerParaView.Designer.cs">
       <DependentUpon>LedgerParaView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Para\OrdPara\RepOrderView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Para\OrdPara\RepOrderView.Designer.cs">
+      <DependentUpon>RepOrderView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Para\OrdPara\OrdParaMainView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -517,6 +529,36 @@
     <Compile Include="Wvs\UpdateJobRateView.Designer.cs">
       <DependentUpon>UpdateJobRateView.cs</DependentUpon>
     </Compile>
+    <Compile Include="XReport\XChallan\PurVsJobXRep.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="XReport\XChallan\PurVsJobXRep.Designer.cs">
+      <DependentUpon>PurVsJobXRep.cs</DependentUpon>
+    </Compile>
+    <Compile Include="XReport\XJobExp\JobOutwardVsInwardXRep.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="XReport\XJobExp\JobOutwardVsInwardXRep.Designer.cs">
+      <DependentUpon>JobOutwardVsInwardXRep.cs</DependentUpon>
+    </Compile>
+    <Compile Include="XReport\XJobExp\JobIssueSumryXRep.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="XReport\XJobExp\JobIssueSumryXRep.Designer.cs">
+      <DependentUpon>JobIssueSumryXRep.cs</DependentUpon>
+    </Compile>
+    <Compile Include="XReport\XJobExp\JobIssueDetailsXRep.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="XReport\XJobExp\JobIssueDetailsXRep.Designer.cs">
+      <DependentUpon>JobIssueDetailsXRep.cs</DependentUpon>
+    </Compile>
+    <Compile Include="XReport\XJobExp\JobIssueXRep.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="XReport\XJobExp\JobIssueXRep.Designer.cs">
+      <DependentUpon>JobIssueXRep.cs</DependentUpon>
+    </Compile>
     <Compile Include="XReport\XChallan\ChallanDetailsXRep.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -564,6 +606,24 @@
     </Compile>
     <Compile Include="XReport\XJobInc\JobIncomeXRep.Designer.cs">
       <DependentUpon>JobIncomeXRep.cs</DependentUpon>
+    </Compile>
+    <Compile Include="XReport\XOrd\OrderXRep.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="XReport\XOrd\OrderXRep.Designer.cs">
+      <DependentUpon>OrderXRep.cs</DependentUpon>
+    </Compile>
+    <Compile Include="XReport\XReg\RegDetailsXRep.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="XReport\XReg\RegDetailsXRep.Designer.cs">
+      <DependentUpon>RegDetailsXRep.cs</DependentUpon>
+    </Compile>
+    <Compile Include="XReport\XReg\RegSummaryXRep.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="XReport\XReg\RegSummaryXRep.Designer.cs">
+      <DependentUpon>RegSummaryXRep.cs</DependentUpon>
     </Compile>
     <Compile Include="XReport\XReg\RegXRep.cs">
       <SubType>Component</SubType>
@@ -633,17 +693,20 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Chal\RepSalesChallanView.resx">
-      <DependentUpon>RepSalesChallanView.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Chal\RepChallanView.resx">
       <DependentUpon>RepChallanView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Chal\RepSalesChallanView.resx">
+      <DependentUpon>RepSalesChallanView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CustomRep\CustomeRepWindow.resx">
       <DependentUpon>CustomeRepWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GE\RepGateEntryView.resx">
       <DependentUpon>RepGateEntryView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="JobInc\RepJobExpView.resx">
+      <DependentUpon>RepJobExpView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="JobInc\RepJobIncomeView.resx">
       <DependentUpon>RepJobIncomeView.cs</DependentUpon>
@@ -711,6 +774,9 @@
     <EmbeddedResource Include="Para\Ledger\LedgerParaView.resx">
       <DependentUpon>LedgerParaView.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Para\OrdPara\RepOrderView.resx">
+      <DependentUpon>RepOrderView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Para\OrdPara\OrdParaMainView.resx">
       <DependentUpon>OrdParaMainView.cs</DependentUpon>
     </EmbeddedResource>
@@ -767,6 +833,21 @@
     <EmbeddedResource Include="Wvs\UpdateJobRateView.resx">
       <DependentUpon>UpdateJobRateView.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="XReport\XChallan\PurVsJobXRep.resx">
+      <DependentUpon>PurVsJobXRep.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="XReport\XJobExp\JobOutwardVsInwardXRep.resx">
+      <DependentUpon>JobOutwardVsInwardXRep.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="XReport\XJobExp\JobIssueSumryXRep.resx">
+      <DependentUpon>JobIssueSumryXRep.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="XReport\XJobExp\JobIssueDetailsXRep.resx">
+      <DependentUpon>JobIssueDetailsXRep.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="XReport\XJobExp\JobIssueXRep.resx">
+      <DependentUpon>JobIssueXRep.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="XReport\XChallan\ChallanDetailsXRep.resx">
       <DependentUpon>ChallanDetailsXRep.cs</DependentUpon>
     </EmbeddedResource>
@@ -791,6 +872,15 @@
     <EmbeddedResource Include="XReport\XJobInc\JobIncomeXRep.resx">
       <DependentUpon>JobIncomeXRep.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="XReport\XOrd\OrderXRep.resx">
+      <DependentUpon>OrderXRep.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="XReport\XReg\RegDetailsXRep.resx">
+      <DependentUpon>RegDetailsXRep.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="XReport\XReg\RegSummaryXRep.resx">
+      <DependentUpon>RegSummaryXRep.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="XReport\XReg\RegXRep.resx">
       <DependentUpon>RegXRep.cs</DependentUpon>
     </EmbeddedResource>
@@ -801,9 +891,7 @@
       <DependentUpon>StockXRep.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="XReport\XOrd\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

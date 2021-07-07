@@ -118,6 +118,7 @@
             this.layoutControlItem9 = new DevExpress.XtraLayout.LayoutControlItem();
             this.gateLayoutControlItem = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem16 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.colIssueQty = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.tabControlAdv1)).BeginInit();
             this.tabControlAdv1.SuspendLayout();
             this.tabPageAdv1.SuspendLayout();
@@ -457,6 +458,7 @@
             this.colCops,
             this.colPcs,
             this.colQty,
+            this.colIssueQty,
             this.colUomId,
             this.colRate,
             this.colTotal,
@@ -845,7 +847,7 @@
             this.colNetTotal.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Total", "{0:F}")});
             this.colNetTotal.Visible = true;
-            this.colNetTotal.VisibleIndex = 23;
+            this.colNetTotal.VisibleIndex = 24;
             this.colNetTotal.Width = 110;
             // 
             // colRemark
@@ -853,7 +855,7 @@
             this.colRemark.FieldName = "Remark";
             this.colRemark.Name = "colRemark";
             this.colRemark.Visible = true;
-            this.colRemark.VisibleIndex = 20;
+            this.colRemark.VisibleIndex = 21;
             this.colRemark.Width = 233;
             // 
             // colRefVoucherId
@@ -869,7 +871,7 @@
             this.colOrdDate.OptionsColumn.AllowEdit = false;
             this.colOrdDate.OptionsColumn.TabStop = false;
             this.colOrdDate.Visible = true;
-            this.colOrdDate.VisibleIndex = 22;
+            this.colOrdDate.VisibleIndex = 23;
             // 
             // colOrdNo
             // 
@@ -878,7 +880,7 @@
             this.colOrdNo.Name = "colOrdNo";
             this.colOrdNo.OptionsColumn.TabStop = false;
             this.colOrdNo.Visible = true;
-            this.colOrdNo.VisibleIndex = 21;
+            this.colOrdNo.VisibleIndex = 22;
             // 
             // repositoryItemHyperLinkEdit1
             // 
@@ -1331,6 +1333,14 @@
             this.layoutControlItem16.Text = "Width:";
             this.layoutControlItem16.TextSize = new System.Drawing.Size(86, 17);
             // 
+            // colIssueQty
+            // 
+            this.colIssueQty.Caption = "Recv Qty";
+            this.colIssueQty.FieldName = "IssueQty";
+            this.colIssueQty.Name = "colIssueQty";
+            this.colIssueQty.Visible = true;
+            this.colIssueQty.VisibleIndex = 20;
+            // 
             // GRNIndex
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1493,5 +1503,6 @@
         private DevExpress.XtraEditors.ButtonEdit gateSrNoTextEdit;
         private DevExpress.XtraEditors.TextEdit widthtextEdit1;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem16;
+        private DevExpress.XtraGrid.Columns.GridColumn colIssueQty;
     }
 }

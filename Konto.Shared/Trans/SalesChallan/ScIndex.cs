@@ -16,6 +16,7 @@ using Konto.Data.Models.Transaction.Dtos;
 using Konto.Shared.Masters.Color;
 using Konto.Shared.Masters.Design;
 using Konto.Shared.Masters.Grade;
+using Konto.Shared.Masters.Haste;
 using Konto.Shared.Masters.Item;
 using Konto.Shared.Trans.Common;
 using Konto.Shared.Trans.Po;
@@ -84,8 +85,15 @@ namespace Konto.Shared.Trans.SalesChallan
             headerEdit.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             headerEdit.Leave += new EventHandler(headerEdit_Leave);
             voucherLookup1.SelectedValueChanged += VoucherLookup1_SelectedValueChanged;
-
+            screenRepositoryItemButtonEdit.ButtonClick += ScreenRepositoryItemButtonEdit_ButtonClick;
             this.FirstActiveControl = voucherLookup1;
+        }
+
+        private void ScreenRepositoryItemButtonEdit_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
+        {
+            var dr = PreOpenLookup();
+            if (dr != null)
+                OpenScreenLookup(dr.ScreenId, dr);
         }
 
         private void DelvLookup_SelectedValueChanged(object sender, EventArgs e)
@@ -158,7 +166,8 @@ namespace Konto.Shared.Trans.SalesChallan
             colFreight.Visible = SCPara.Freight_Required;
             colFreightRate.Visible = SCPara.Freight_Required;
             colLotNo.Visible = SCPara.LotNo_Required;
-            
+            colScreen.Visible = SCPara.Screen_Required;
+
             if (KontoGlobals.PackageId == 1)
             {
                 colCops.Caption = "Cut";
@@ -295,8 +304,31 @@ namespace Konto.Shared.Trans.SalesChallan
                             SCPara.Repeat_Product = (value == "Y") ? true : false;
                             break;
                         }
+
+                        case 323:
+                            {
+                                SCPara.Screen_Required = (value == "Y") ? true : false;
+                                break;
+                            }
                     }
                 }
+            }
+
+        }
+
+        private void OpenScreenLookup(int _selvalue, GrnTransDto er)
+        {
+            var frm = new ScreenLkpWindow();
+            //frm.Tag = MenuId.S;
+            frm.SelectedValue = _selvalue;
+            frm.ShowDialog();
+            if (frm.DialogResult == DialogResult.OK)
+            {
+                gridView1.BeginDataUpdate();
+                er.ScreenId = frm.SelectedValue;
+                er.Screen = frm.SelectedTex;
+                gridView1.EndDataUpdate();
+                gridView1.FocusedColumn = gridView1.GetVisibleColumn(colScreen.VisibleIndex + 1);
             }
 
         }
@@ -578,6 +610,8 @@ namespace Konto.Shared.Trans.SalesChallan
                                  from grd in join_grd.DefaultIfEmpty()
                                  join acc in _context.Accs on o.AccId equals acc.Id into join_acc
                                  from acc in join_acc.DefaultIfEmpty()
+                                 join hst in _context.Hastes on ct.ScreenId equals hst.Id into join_hst
+                                 from hst in join_hst.DefaultIfEmpty()
                                  orderby ct.Id
                                  where ct.IsActive == true && ct.IsDeleted == false &&
                                  ct.ChallanId == model.Id
@@ -620,7 +654,9 @@ namespace Konto.Shared.Trans.SalesChallan
                                      Total = ct.Total,
                                      UomId = (int)ct.UomId,
                                      OrdNo = o.VoucherNo,
-                                     ODate = o.VoucherDate
+                                     ODate = o.VoucherDate,
+                                     Screen= hst.HasteName,
+                                     ScreenId = ct.ScreenId.HasValue ? (int)ct.ScreenId : 0,
                                  }).ToList();
 
                     var spcol = _context.SpCollections.FirstOrDefault(k => k.Id ==
@@ -781,8 +817,8 @@ namespace Konto.Shared.Trans.SalesChallan
             if (!"Pcs,Qty,ProductName".Contains(gridView1.FocusedColumn.FieldName)) return;
             var itm = gridView1.GetFocusedRow() as GrnTransDto;
             if (itm == null) return;
-            if ("Pcs,Qty".Contains(gridView1.FocusedColumn.FieldName)  && this.prodDtos.Any(x => x.TransId == itm.Id))
-                e.Cancel = true;
+            //if ("Pcs,Qty".Contains(gridView1.FocusedColumn.FieldName)  && this.prodDtos.Any(x => x.TransId == itm.Id))
+            //    e.Cancel = true;
             else if (gridView1.FocusedColumn.FieldName == "ProductName" && Convert.ToInt32(itm.RefId) > 0) 
                 e.Cancel = true;
         }
@@ -893,7 +929,23 @@ namespace Konto.Shared.Trans.SalesChallan
                     }
                     else if (e.KeyCode == Keys.F1)
                     {
-                        OpenColorLookup(dr.ProductId, dr);
+                        OpenColorLookup(dr.ColorId, dr);
+                        e.Handled = true;
+                    }
+                }
+                else if (gridView1.FocusedColumn.FieldName == "Screen")
+                {
+                    if (e.KeyCode == Keys.Return)
+                    {
+                        if (dr.ColorId == 0)
+                        {
+                            OpenScreenLookup(dr.ScreenId, dr);
+                            // e.Handled = true;
+                        }
+                    }
+                    else if (e.KeyCode == Keys.F1)
+                    {
+                        OpenScreenLookup(dr.ScreenId, dr);
                         e.Handled = true;
                     }
                 }
@@ -939,7 +991,7 @@ namespace Konto.Shared.Trans.SalesChallan
             }
             catch (Exception ex)
             {
-                Log.Error(ex, "GRN GridControl KeyDown");
+                Log.Error(ex, "Sc GridControl KeyDown");
                 MessageBoxAdv.Show(this, "Error Lookup Setup !!", "Exception ", ex.ToString());
 
             }
@@ -1576,7 +1628,7 @@ namespace Konto.Shared.Trans.SalesChallan
                     catch (Exception ex)
                     {
                         _tran.Rollback();
-                        Log.Error(ex, "Grn Save");
+                        Log.Error(ex, "sc Save");
                         MessageBoxAdv.Show(this, "Error While Save !!", "Exception ", ex.ToString());
 
                     }

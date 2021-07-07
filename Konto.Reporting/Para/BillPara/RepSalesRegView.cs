@@ -54,9 +54,10 @@ namespace Konto.Reporting.Para.BillPara
 
         private void RepGridView1_FocusedRowChanged(object sender, DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventArgs e)
         {
-            var rw = repGridView1.GetRow(e.FocusedRowHandle) as ReportTypeModel;
+            var rw = repGridView1.GetRow(repGridView1.FocusedRowHandle) as ReportTypeModel;
             if (rw == null)
                 rw = repGridView1.GetRow(0) as ReportTypeModel;
+
             List<ComboBoxPairs> cbg = new List<ComboBoxPairs>();
             if (rw.Remarks != null)
             {
@@ -67,11 +68,25 @@ namespace Konto.Reporting.Para.BillPara
                     cbg.Add(new ComboBoxPairs(item, item));
                 }
             }
+
+
+            using (var db = new KontoContext())
+            {
+                var cols = db.RepCols.Where(x => x.FileName == rw.FileName).OrderBy(x => x.UserOrder).ToList();
+                colsGridControl.DataSource = cols;
+            }
             groupOnLookUpEdit.Properties.DataSource = cbg;
-            groupOnLookUpEdit.EditValue = "None";
 
             groupOn2lookUpEdit.Properties.DataSource = cbg;
-            groupOn2lookUpEdit.EditValue = "None";
+
+            if (!string.IsNullOrEmpty(rw.LastGroup1))
+                groupOnLookUpEdit.EditValue = rw.LastGroup1;
+            else
+                groupOnLookUpEdit.EditValue = "Month";
+            if (!string.IsNullOrEmpty(rw.LastGroup2))
+                groupOn2lookUpEdit.EditValue = rw.LastGroup2;
+            else
+                groupOn2lookUpEdit.EditValue = "None";
 
         }
 
@@ -101,34 +116,7 @@ namespace Konto.Reporting.Para.BillPara
 
         private void RepGridView1_RowClick(object sender, RowClickEventArgs e)
         {
-            var rw = repGridView1.GetRow(repGridView1.FocusedRowHandle) as ReportTypeModel;
-            if (rw == null)
-                rw = repGridView1.GetRow(0) as ReportTypeModel;
-
-            List<ComboBoxPairs> cbg = new List<ComboBoxPairs>();
-            if (rw.Remarks != null)
-            {
-                var _groupons = rw.Remarks.Split('-');
-
-                foreach (var item in _groupons)
-                {
-                    cbg.Add(new ComboBoxPairs(item, item));
-                }
-            }
-
-            
-            using (var db = new KontoContext())
-            {
-                var cols = db.RepCols.Where(x => x.ReportId == rw.Id).OrderBy(x=>x.UserOrder).ToList();
-                colsGridControl.DataSource = cols;
-            }
-            groupOnLookUpEdit.Properties.DataSource = cbg;
-
-            groupOn2lookUpEdit.Properties.DataSource = cbg;
-
-            
-            groupOnLookUpEdit.EditValue = rw.LastGroup1;
-            groupOn2lookUpEdit.EditValue = rw.LastGroup2;
+          
 
 
         }
@@ -501,43 +489,43 @@ namespace Konto.Reporting.Para.BillPara
                 typeGridControl.DataSource = ptyps;
 
             }
+          
 
+            //List<ComboBoxPairs> cbg = new List<ComboBoxPairs>
+            //{
+            //    new ComboBoxPairs("None", "None"),
+            //    new ComboBoxPairs("Date", "Date"),
+            //    new ComboBoxPairs("Month", "Month"),
+            //    new ComboBoxPairs("Qtr", "Qtr"),
+            //    new ComboBoxPairs("Branch", "Branch"),
+            //    new ComboBoxPairs("Party", "Party"),
+            //    new ComboBoxPairs("Voucher", "Voucher"),
+            //    new ComboBoxPairs("Book", "Books"),
+            //    new ComboBoxPairs("Process", "Process"),
+            //    new ComboBoxPairs("PartyGroup", "PartyGroup"),
+            //    new ComboBoxPairs("Agent", "Agent"),
+            //    new ComboBoxPairs("Product", "Product"),
+            //    new ComboBoxPairs("Design", "Design"),
+            //    new ComboBoxPairs("Category", "Category"),
+            //    new ComboBoxPairs("Brand", "Brand"),
+            //    new ComboBoxPairs("Color", "Color"),
+            //    new ComboBoxPairs("Size", "Size"),
+            //    new ComboBoxPairs("Group", "Group"),
+            //    new ComboBoxPairs("SubGroup", "SubGroup"),
+            //    new ComboBoxPairs("Vendor", "Vendor"),
+            //};
 
-            List<ComboBoxPairs> cbg = new List<ComboBoxPairs>
-            {
-                new ComboBoxPairs("None", "None"),
-                new ComboBoxPairs("Date", "Date"),
-                new ComboBoxPairs("Month", "Month"),
-                new ComboBoxPairs("Qtr", "Qtr"),
-                new ComboBoxPairs("Branch", "Branch"),
-                new ComboBoxPairs("Party", "Party"),
-                new ComboBoxPairs("Voucher", "Voucher"),
-                new ComboBoxPairs("Book", "Books"),
-                new ComboBoxPairs("Process", "Process"),
-                new ComboBoxPairs("PartyGroup", "PartyGroup"),
-                new ComboBoxPairs("Agent", "Agent"),
-                new ComboBoxPairs("Product", "Product"),
-                new ComboBoxPairs("Design", "Design"),
-                new ComboBoxPairs("Category", "Category"),
-                new ComboBoxPairs("Brand", "Brand"),
-                new ComboBoxPairs("Color", "Color"),
-                new ComboBoxPairs("Size", "Size"),
-                new ComboBoxPairs("Group", "Group"),
-                new ComboBoxPairs("SubGroup", "SubGroup"),
-                new ComboBoxPairs("Vendor", "Vendor"),
-            };
-
-            groupOnLookUpEdit.Properties.DataSource = cbg;
-            groupOnLookUpEdit.EditValue = "Month";
-
-
-            groupOn2lookUpEdit.Properties.DataSource = cbg;
-            groupOn2lookUpEdit.EditValue = "None";
+           
 
 
         }
 
         private void customGridControl1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void RepSalesRegView_Load(object sender, EventArgs e)
         {
 
         }

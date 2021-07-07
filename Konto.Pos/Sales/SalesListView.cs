@@ -36,7 +36,8 @@ namespace Konto.Pos.Sales
             this.customGridView1.FocusedRowChanged += CustomGridView1_FocusedRowChanged;
             this.ReportPrint = true;
             listAction1.EditDeleteDisabled(false);
-
+            if (!KontoGlobals.isSysAdm)
+                receiptSimpleButton.Visible = false;
             
         }
 
@@ -130,6 +131,11 @@ namespace Konto.Pos.Sales
                 MessageBox.Show("Not Implemented.. thank u");
                 return;
             }
+            var branchid = KontoGlobals.BranchId;
+
+            if (KontoGlobals.isSysAdm)
+                branchid = 0;
+
             this.GridLayoutFileName = listDateRange1.SelectedItem.LayoutFile;
             var DtCriterias = new DataTable();
             try
@@ -144,7 +150,7 @@ namespace Konto.Pos.Sales
                         cmd.Parameters.Add("@fromDate", SqlDbType.Int).Value = listDateRange1.FromDate;
                         cmd.Parameters.Add("@ToDate", SqlDbType.Int).Value = listDateRange1.ToDate;
                         cmd.Parameters.Add("@CompanyId", SqlDbType.Int).Value = KontoGlobals.CompanyId;
-                        cmd.Parameters.Add("@BranchId", SqlDbType.Int).Value = KontoGlobals.BranchId;
+                        cmd.Parameters.Add("@BranchId", SqlDbType.Int).Value = branchid;
                         cmd.Parameters.Add("@YearId", SqlDbType.Int).Value = KontoGlobals.YearId;
                         cmd.Parameters.Add("@VTypeId", SqlDbType.Int).Value = (int)VoucherTypeEnum.SaleInvoice;
                         if (listDateRange1.SelectedItem.Extra1 == "Deleted")
@@ -429,6 +435,46 @@ namespace Konto.Pos.Sales
                 DXMenuItem item = CreateMenuItemCancel(view, rowHandle);
                 item.BeginGroup = true;
                 e.Menu.Items.Add(item);
+            }
+        }
+
+        private void receiptSimpleButton_Click(object sender, EventArgs e)
+        {
+            if (customGridView1.FocusedRowHandle <0) return;
+            if (KontoView.Columns.ColumnByFieldName("Id") == null) return;
+            var id = Convert.ToInt32(this.KontoView.GetRowCellValue(this.KontoView.FocusedRowHandle, "Id"));
+            using (var db = new KontoContext())
+            {
+                var _find = db.Bills.Find(id);
+                var Trans = db.BillTrans.Where(x => x.BillId == _find.Id).ToList();
+                if (_find == null) return;
+                var frm = new SalesPayView();
+                frm.db = db;
+                frm.BillNo = _find.VoucherNo;
+                frm.BillAmt = _find.TotalAmount;
+                frm.BillId = _find.Id;
+                if (frm.ShowDialog() == DialogResult.OK)
+                {
+                    using(var tran = db.Database.BeginTransaction())
+                    {
+                        try
+                        {
+                            db.SaveChanges();
+                            LedgerEff.LedgerTransEntry("Debit", _find, db, Trans, frm.BP);
+                            db.SaveChanges();
+                            tran.Commit();
+                        }
+                        catch (Exception ex)
+                        {
+                            tran.Rollback();
+                            Log.Error(ex, "Bill Receipt Error");
+                            MessageBox.Show(ex.ToString());
+                            
+                        }
+                    }
+                   
+
+                }
             }
         }
     }

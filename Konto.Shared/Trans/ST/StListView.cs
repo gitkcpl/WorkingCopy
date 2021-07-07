@@ -13,6 +13,10 @@ using Konto.Shared.Reports;
 using Konto.Shared.Trans.Common;
 using DevExpress.XtraGrid.Views.Grid;
 using Konto.Data.Models.Transaction.Dtos;
+using GrapeCity.ActiveReports;
+using System.IO;
+using Syncfusion.Windows.Forms.Tools;
+using System.Drawing;
 
 namespace Konto.Shared.Trans.ST
 {
@@ -277,13 +281,38 @@ namespace Konto.Shared.Trans.ST
                         return;
                     }
                 }
-                var id = this.KontoView.GetRowCellValue(this.KontoView.FocusedRowHandle, "VoucherNo").ToString();
+              //  var id = this.KontoView.GetRowCellValue(this.KontoView.FocusedRowHandle, "VoucherNo").ToString();
+                var row = customGridView1.GetDataRow(this.customGridView1.FocusedRowHandle);
+                var _id = Convert.ToInt32(row["Id"]);
+                var _vid = Convert.ToInt32(row["VoucherId"]);
+                //var frm = new DocPrintParaView(VoucherTypeEnum.SalesChallan, "Challan Print",id,id, "challan", "ChallanId");
+                //frm.EditKey = Convert.ToInt32(this.KontoView.GetRowCellValue(this.KontoView.FocusedRowHandle, "Id"));
+                //frm.ShowDialog();
 
-                var frm = new DocPrintParaView(VoucherTypeEnum.SalesChallan, "Challan Print",id,id, "challan", "ChallanId");
-                frm.EditKey = Convert.ToInt32(this.KontoView.GetRowCellValue(this.KontoView.FocusedRowHandle, "Id"));
-                frm.ShowDialog();
+                PageReport rpt = new PageReport();
 
+                rpt.Load(new FileInfo("reg\\doc\\stock_transfer_challan.rdlx"));
 
+                rpt.Report.DataSources[0].ConnectionProperties.ConnectString = KontoGlobals.sqlConnectionString.ConnectionString;
+
+                GrapeCity.ActiveReports.Document.PageDocument doc = new GrapeCity.ActiveReports.Document.PageDocument(rpt);
+
+                doc.Parameters["id"].CurrentValue = _id;
+                doc.Parameters["challan"].CurrentValue = "N";
+                doc.Parameters["reportid"].CurrentValue = 0;
+                var frm = new KontoRepViewer(doc);
+                frm.Text = "Transfer Challan";
+                frm.WindowState = FormWindowState.Maximized;
+                //var _tab = this.Parent.Parent as TabControlAdv;
+                //if (_tab == null) return;
+                //var pg1 = new TabPageAdv();
+                //pg1.Text = "Transfer Challan Print";
+                //_tab.TabPages.Add(pg1);
+                //_tab.SelectedTab = pg1;
+                //frm.TopLevel = false;
+                //frm.Parent = pg1;
+                //frm.Location = new Point(pg1.Location.X + pg1.Width / 2 - frm.Width / 2, pg1.Location.Y + pg1.Height / 2 - frm.Height / 2);
+                frm.Show();// = true;
             }
 
         }

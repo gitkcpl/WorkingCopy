@@ -1610,13 +1610,102 @@ namespace Konto.Shared.Trans.JobIssue
                             // add subdetails item details
                             var prlist = prodDtos.Where(k => k.TransId == item.Id).ToList();
 
+                            //foreach (var p in prlist)
+                            //{
+                            //    ProdOutModel Out = db.ProdOuts.Find(p.ProdOutId);
+                            //    ProdModel pm = new ProdModel();
+
+                            //    pm = db.Prods.Find(p.Id);
+                            //    pm.ProdStatus = "ISSUE";
+
+                            //    if (Out == null)
+                            //        Out = new ProdOutModel();
+
+                            //    Out.ProductId = p.ProductId;
+                            //    Out.ColorId = p.ColorId;
+                            //    Out.GradeId = p.GradeId;
+                            //    Out.CompId = KontoGlobals.CompanyId;
+                            //    Out.YearId = KontoGlobals.YearId;
+                            //    Out.TakaStatus = "ISSUE";
+                            //    Out.SrNo = p.SrNo;
+                            //    Out.GrayMtr = (p.NetWt * -1);
+                            //    Out.Qty = (p.NetWt * -1);
+                            //    Out.ProdId = pm.Id;
+                            //    Out.RefId = model.Id;
+                            //    Out.VoucherId = model.VoucherId;
+                            //    Out.VoucherNo = p.VoucherNo;
+                            //    Out.TransId = tranModel.Id;
+
+                            //    if (Out.Id <= 0)
+                            //    {
+                            //        db.ProdOuts.Add(Out);
+                            //        db.SaveChanges();
+                            //    }
+                            //    ProdList.Add(Out);
+                            //}
+
                             foreach (var p in prlist)
                             {
                                 ProdOutModel Out = db.ProdOuts.Find(p.ProdOutId);
                                 ProdModel pm = new ProdModel();
 
-                                pm = db.Prods.Find(p.Id);
-                                pm.ProdStatus = "ISSUE";
+                                if (p.Id == 0)
+                                {
+                                    if (p.ProductId == 0)
+                                    {
+                                        pm.ProductId = item.ProductId;
+                                        pm.CProductId = item.ProductId;
+
+                                    }
+                                    else
+                                    {
+                                        pm.ProductId = p.ProductId;
+                                        pm.CProductId = p.ProductId;
+                                    }
+
+                                    pm.ProdStatus = "ISSUE";
+                                    pm.RefId = model.Id;
+                                    p.TransId = tranModel.Id;
+                                    pm.LotNo = tranModel.RefNo;
+                                    pm.NetWt = p.NetWt;
+                                    pm.Tops = p.Tops;
+                                    pm.YearId = KontoGlobals.YearId;
+                                    pm.CompId = KontoGlobals.CompanyId;
+                                    pm.BranchId = model.BranchId;
+                                    pm.VoucherDate = model.VoucherDate;
+                                    pm.VoucherNo = p.VoucherNo;
+                                    pm.VoucherId = p.VoucherId;
+                                    pm.TransId = p.TransId;
+                                    pm.SrNo = p.SrNo;
+                                    pm.CurrQty = p.NetWt;
+                                    pm.CProductId = p.ProductId;
+                                    if (p.ColorId != null && p.ColorId != 0)
+                                        pm.ColorId = p.ColorId;
+                                    else if (p.ColorId == 0)
+                                        p.ColorId = 1;
+
+                                    if (p.GradeId != null && p.GradeId != 0)
+                                        pm.GradeId = p.GradeId;
+                                    else if (p.GradeId == 0)
+                                        p.GradeId = 1;
+
+                                    if (tranModel.DesignId != null && tranModel.DesignId != 0)
+                                        pm.PlyProductId = tranModel.DesignId;
+                                    else if (pm.PlyProductId == 0)
+                                        pm.PlyProductId = 1;
+                                    pm.IsOk = true;
+                                    db.Prods.Add(pm);
+                                    db.SaveChanges();
+                                }
+                                else
+                                {
+                                    pm = db.Prods.Find(p.Id);
+                                    if (pm != null)
+                                        pm.ProdStatus = "ISSUE";
+                                }
+
+
+
 
                                 if (Out == null)
                                     Out = new ProdOutModel();
@@ -1641,17 +1730,19 @@ namespace Konto.Shared.Trans.JobIssue
                                     db.ProdOuts.Add(Out);
                                     db.SaveChanges();
                                 }
+
+
                                 ProdList.Add(Out);
                             }
                         }
                         //delete item fro trans table entry
-                        foreach (var ditem in DelTrans)
+                        foreach (var item in DelTrans)
                         {
-                            if (ditem.Id <= 0) continue;
-                            var _model = db.ChallanTranses.Find(ditem.Id);
+                            if (item.Id <= 0) continue;
+                            var _model = db.ChallanTranses.Find(item.Id);
                             _model.IsDeleted = true;
 
-                            var delProdOut = prodDtos.Where(k => k.TransId == ditem.Id).ToList();
+                            var delProdOut = prodDtos.Where(k => k.TransId == item.Id).ToList();
                             foreach (var poitem in delProdOut)
                             {
                                 if (poitem.ProdOutId > 0)
@@ -1659,8 +1750,17 @@ namespace Konto.Shared.Trans.JobIssue
                                     ProdOutModel pOut = db.ProdOuts.Find(poitem.ProdOutId);
                                     pOut.IsDeleted = true;
 
-                                    ProdModel pitem = db.Prods.Find(poitem.Id);
-                                    pitem.ProdStatus = "STOCK";
+                                    if (poitem.Id > 0)
+                                    {
+                                        ProdModel pitem = db.Prods.SingleOrDefault(x => x.Id == poitem.Id && x.RefId == poitem.RefId
+                                        && x.TransId == poitem.RefTransId);
+
+                                        if (pitem != null)
+                                        {
+                                            pitem.IsDeleted = true;
+                                        }
+
+                                    }
                                 }
                             }
                         }
@@ -1669,13 +1769,16 @@ namespace Konto.Shared.Trans.JobIssue
                         foreach (var p in DelProd)
                         {
                             if (p.ProdOutId <= 0) continue;
-                            var prd = db.Prods.Find(p.Id);
-                            if (prd != null)
-                            {
-                                prd.ProdStatus = "STOCK";
-                            }
                             var pout = db.ProdOuts.Find(p.ProdOutId);
-                            pout.IsDeleted = true;
+                            if (pout != null)
+                                pout.IsDeleted = true;
+
+                            if (p.Id == 0) continue;
+                            var prd = db.Prods.SingleOrDefault(x => x.Id == p.Id && x.RefId == p.RefId && x.TransId == p.TransId);
+                            if (prd != null)
+                                prd.IsDeleted = true;
+
+
                         }
 
                         //sotock effect

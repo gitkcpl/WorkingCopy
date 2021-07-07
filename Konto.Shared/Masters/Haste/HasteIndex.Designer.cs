@@ -70,6 +70,8 @@
             this.tabControlAdv1.BeforeTouchSize = new System.Drawing.Size(648, 365);
             this.tabControlAdv1.Size = new System.Drawing.Size(648, 365);
             this.tabControlAdv1.ThemeStyle.PrimitiveButtonStyle.DisabledNextPageImage = null;
+            this.tabControlAdv1.Controls.SetChildIndex(this.tabPageAdv4, 0);
+            this.tabControlAdv1.Controls.SetChildIndex(this.tabPageAdv3, 0);
             this.tabControlAdv1.Controls.SetChildIndex(this.tabPageAdv2, 0);
             this.tabControlAdv1.Controls.SetChildIndex(this.tabPageAdv1, 0);
             // 
@@ -124,6 +126,14 @@
             // 
             this.tabPageAdv2.Size = new System.Drawing.Size(623, 362);
             // 
+            // tabPageAdv3
+            // 
+            this.tabPageAdv3.Size = new System.Drawing.Size(623, 362);
+            // 
+            // tabPageAdv4
+            // 
+            this.tabPageAdv4.Size = new System.Drawing.Size(623, 362);
+            // 
             // autoLabel4
             // 
             this.autoLabel4.AutoSize = false;
@@ -145,7 +155,7 @@
             // 
             // remarkTextBox
             // 
-            this.remarkTextBox.BeforeTouchSize = new System.Drawing.Size(113, 25);
+            this.remarkTextBox.BeforeTouchSize = new System.Drawing.Size(184, 27);
             this.remarkTextBox.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(211)))), ((int)(((byte)(212)))));
             this.remarkTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.remarkTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
@@ -183,7 +193,7 @@
             // 
             // contactNoTextBox
             // 
-            this.contactNoTextBox.BeforeTouchSize = new System.Drawing.Size(113, 25);
+            this.contactNoTextBox.BeforeTouchSize = new System.Drawing.Size(184, 27);
             this.contactNoTextBox.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(211)))), ((int)(((byte)(212)))));
             this.contactNoTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.contactNoTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
@@ -235,7 +245,7 @@
             // 
             // nameTextBox
             // 
-            this.nameTextBox.BeforeTouchSize = new System.Drawing.Size(113, 25);
+            this.nameTextBox.BeforeTouchSize = new System.Drawing.Size(184, 27);
             this.nameTextBox.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(211)))), ((int)(((byte)(212)))));
             this.nameTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.nameTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
@@ -254,7 +264,7 @@
             // 
             // address1TextBoxExt
             // 
-            this.address1TextBoxExt.BeforeTouchSize = new System.Drawing.Size(113, 25);
+            this.address1TextBoxExt.BeforeTouchSize = new System.Drawing.Size(184, 27);
             this.address1TextBoxExt.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(211)))), ((int)(((byte)(212)))));
             this.address1TextBoxExt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.address1TextBoxExt.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
@@ -311,7 +321,7 @@
             // 
             // address2TextBoxExt
             // 
-            this.address2TextBoxExt.BeforeTouchSize = new System.Drawing.Size(113, 25);
+            this.address2TextBoxExt.BeforeTouchSize = new System.Drawing.Size(184, 27);
             this.address2TextBoxExt.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(211)))), ((int)(((byte)(212)))));
             this.address2TextBoxExt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.address2TextBoxExt.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
@@ -349,7 +359,7 @@
             // 
             // aadharTrextBoxExt
             // 
-            this.aadharTrextBoxExt.BeforeTouchSize = new System.Drawing.Size(113, 25);
+            this.aadharTrextBoxExt.BeforeTouchSize = new System.Drawing.Size(184, 27);
             this.aadharTrextBoxExt.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(211)))), ((int)(((byte)(212)))));
             this.aadharTrextBoxExt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.aadharTrextBoxExt.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
@@ -387,7 +397,7 @@
             // 
             // panNoTextBoxExt
             // 
-            this.panNoTextBoxExt.BeforeTouchSize = new System.Drawing.Size(113, 25);
+            this.panNoTextBoxExt.BeforeTouchSize = new System.Drawing.Size(184, 27);
             this.panNoTextBoxExt.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(211)))), ((int)(((byte)(212)))));
             this.panNoTextBoxExt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panNoTextBoxExt.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
@@ -425,7 +435,7 @@
             // 
             // emailTextBoxExt
             // 
-            this.emailTextBoxExt.BeforeTouchSize = new System.Drawing.Size(113, 25);
+            this.emailTextBoxExt.BeforeTouchSize = new System.Drawing.Size(184, 27);
             this.emailTextBoxExt.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(211)))), ((int)(((byte)(212)))));
             this.emailTextBoxExt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.emailTextBoxExt.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
@@ -487,6 +497,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(648, 391);
             this.Name = "HasteIndex";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Misc. Master";
             ((System.ComponentModel.ISupportInitialize)(this.tabControlAdv1)).EndInit();
             this.tabControlAdv1.ResumeLayout(false);

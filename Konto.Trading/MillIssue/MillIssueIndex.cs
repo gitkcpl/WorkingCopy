@@ -1039,6 +1039,7 @@ namespace Konto.Trading.MillIssue
                             ptrans.GradeId = _taka.GradeId;
                             ptrans.Id = _taka.Id;
                             ptrans.SrNo = _taka.SrNo;
+                             ptrans.Tops = Convert.ToInt32(_taka.Tops);
                             ptrans.ProdOutId = 0;
                             ptrans.NetWt = Convert.ToDecimal(_taka.Qty);
                             ptrans.VoucherNo = _taka.VoucherNo;
@@ -1085,6 +1086,7 @@ namespace Konto.Trading.MillIssue
                     ptrans.GradeId = _taka.GradeId;
                     ptrans.Id = _taka.Id;
                     ptrans.SrNo = _taka.SrNo;
+                    ptrans.Tops = Convert.ToInt32(_taka.Tops);
                     ptrans.ProdOutId = 0;
                     ptrans.NetWt = Convert.ToDecimal(_taka.Qty);
                     ptrans.VoucherNo = _taka.VoucherNo;
@@ -1343,7 +1345,7 @@ namespace Konto.Trading.MillIssue
                                
                                     if(p.Id <=0){
                                         
-                                        pm.ProductId = p.ProductId;
+                                        pm.ProductId =tranModel.ProductId;
                                         
                                         if(model.ChallanType == (int) ChallanTypeEnum.REFINISH_ISSUE)
                                             pm.ProdStatus = "REFISSUE";
@@ -1401,6 +1403,7 @@ namespace Konto.Trading.MillIssue
                                 Out.CompId = KontoGlobals.CompanyId;
                                 Out.YearId = KontoGlobals.YearId;
                                 Out.TakaStatus = "ISSUE";
+                                Out.GrayPcs = p.Tops;
                                 Out.SrNo = p.SrNo;
                                 Out.GrayMtr = (p.NetWt * -1);
                                 Out.Qty = (p.NetWt * -1);

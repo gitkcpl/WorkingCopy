@@ -90,6 +90,8 @@ namespace Konto.Data.Models.Transaction.Dtos
         public virtual string LotNo { get; set; }
 
         public virtual decimal PlainQty { get; set; }
+
+        public int? Tops { get; set; }
     }
 }
 

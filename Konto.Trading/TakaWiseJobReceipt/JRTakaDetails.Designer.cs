@@ -77,6 +77,9 @@
             this.colIpAddress = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colorRepositoryItemButtonEdit = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
             this.gradeRepositoryItemButtonEdit = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
+            this.autoLabel1 = new Syncfusion.Windows.Forms.Tools.AutoLabel();
+            this.colPlainQty = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colLotNo = new DevExpress.XtraGrid.Columns.GridColumn();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.prodOutModelBindingSource)).BeginInit();
@@ -92,6 +95,7 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel1.Controls.Add(this.autoLabel1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.cancelSimpleButton, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.okSimpleButton, 1, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -99,7 +103,7 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(818, 37);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(832, 37);
             this.tableLayoutPanel1.TabIndex = 9;
             // 
             // cancelSimpleButton
@@ -108,7 +112,7 @@
             this.cancelSimpleButton.Appearance.Options.UseFont = true;
             this.cancelSimpleButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cancelSimpleButton.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("cancelSimpleButton.ImageOptions.SvgImage")));
-            this.cancelSimpleButton.Location = new System.Drawing.Point(724, 3);
+            this.cancelSimpleButton.Location = new System.Drawing.Point(738, 3);
             this.cancelSimpleButton.Name = "cancelSimpleButton";
             this.cancelSimpleButton.Size = new System.Drawing.Size(91, 31);
             this.cancelSimpleButton.TabIndex = 1;
@@ -120,7 +124,7 @@
             this.okSimpleButton.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.okSimpleButton.Appearance.Options.UseFont = true;
             this.okSimpleButton.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("okSimpleButton.ImageOptions.SvgImage")));
-            this.okSimpleButton.Location = new System.Drawing.Point(632, 3);
+            this.okSimpleButton.Location = new System.Drawing.Point(646, 3);
             this.okSimpleButton.Name = "okSimpleButton";
             this.okSimpleButton.Size = new System.Drawing.Size(86, 31);
             this.okSimpleButton.TabIndex = 0;
@@ -139,7 +143,7 @@
             this.colorRepositoryItemButtonEdit,
             this.gradeRepositoryItemButtonEdit,
             this.repositoryItemTextEdit1});
-            this.gridControl1.Size = new System.Drawing.Size(818, 308);
+            this.gridControl1.Size = new System.Drawing.Size(832, 308);
             this.gridControl1.TabIndex = 10;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -175,6 +179,7 @@
             this.colGrayMtr,
             this.colGrayPcs,
             this.colFinMrt,
+            this.colPlainQty,
             this.colTP1,
             this.colTP2,
             this.colTP3,
@@ -190,6 +195,7 @@
             this.colvoucher,
             this.colChallanTrans,
             this.colChallan,
+            this.colLotNo,
             this.colId,
             this.colRowId,
             this.colIsActive,
@@ -273,13 +279,15 @@
             this.colVoucherNo.Name = "colVoucherNo";
             this.colVoucherNo.OptionsColumn.AllowEdit = false;
             this.colVoucherNo.OptionsColumn.AllowFocus = false;
+            this.colVoucherNo.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
+            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Custom)});
             this.colVoucherNo.Visible = true;
             this.colVoucherNo.VisibleIndex = 0;
-            this.colVoucherNo.Width = 79;
+            this.colVoucherNo.Width = 61;
             // 
             // colGrayMtr
             // 
-            this.colGrayMtr.Caption = "Grey Mtrs";
+            this.colGrayMtr.Caption = "IssueMtrs";
             this.colGrayMtr.ColumnEdit = this.repositoryItemTextEdit1;
             this.colGrayMtr.FieldName = "GrayMtr";
             this.colGrayMtr.Name = "colGrayMtr";
@@ -494,18 +502,45 @@
             new DevExpress.XtraEditors.Controls.EditorButton()});
             this.gradeRepositoryItemButtonEdit.Name = "gradeRepositoryItemButtonEdit";
             // 
-            // MrvTakaDetails
+            // autoLabel1
+            // 
+            this.autoLabel1.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.autoLabel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(22)))), ((int)(((byte)(91)))));
+            this.autoLabel1.Location = new System.Drawing.Point(3, 0);
+            this.autoLabel1.Name = "autoLabel1";
+            this.autoLabel1.Size = new System.Drawing.Size(88, 21);
+            this.autoLabel1.TabIndex = 4;
+            this.autoLabel1.Text = "autoLabel1";
+            // 
+            // colPlainQty
+            // 
+            this.colPlainQty.FieldName = "PlainQty";
+            this.colPlainQty.Name = "colPlainQty";
+            this.colPlainQty.Visible = true;
+            this.colPlainQty.VisibleIndex = 11;
+            // 
+            // colLotNo
+            // 
+            this.colLotNo.FieldName = "LotNo";
+            this.colLotNo.Name = "colLotNo";
+            this.colLotNo.OptionsColumn.AllowEdit = false;
+            this.colLotNo.OptionsColumn.AllowFocus = false;
+            this.colLotNo.Visible = true;
+            this.colLotNo.VisibleIndex = 12;
+            // 
+            // JRTakaDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cancelSimpleButton;
-            this.ClientSize = new System.Drawing.Size(818, 345);
+            this.ClientSize = new System.Drawing.Size(832, 345);
             this.Controls.Add(this.gridControl1);
             this.Controls.Add(this.tableLayoutPanel1);
-            this.Name = "MrvTakaDetails";
+            this.Name = "JRTakaDetails";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Taka Details";
             this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.prodOutModelBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
@@ -565,5 +600,8 @@
         private DevExpress.XtraGrid.Columns.GridColumn colIpAddress;
         private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit repositoryItemTextEdit1;
         public System.Windows.Forms.BindingSource prodOutModelBindingSource;
+        private Syncfusion.Windows.Forms.Tools.AutoLabel autoLabel1;
+        private DevExpress.XtraGrid.Columns.GridColumn colPlainQty;
+        private DevExpress.XtraGrid.Columns.GridColumn colLotNo;
     }
 }

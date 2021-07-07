@@ -27,5 +27,8 @@ namespace Konto.Data.Models.Reports
         public bool Show { get; set; }
 
         public  decimal Width { get; set; }
+
+        [MaxLength(200)]
+        public string FileName { get; set; }
     }
 }

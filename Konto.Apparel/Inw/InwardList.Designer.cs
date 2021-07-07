@@ -92,14 +92,17 @@
             // 
             // listDateRange1
             // 
+            this.listDateRange1.DfDate = new System.DateTime(((long)(0)));
             this.listDateRange1.FromDate = 0;
             this.listDateRange1.IsAnalysis = false;
             this.listDateRange1.KontoGrid = this.customGridControl1;
             this.listDateRange1.Location = new System.Drawing.Point(487, 4);
             this.listDateRange1.Name = "listDateRange1";
+            this.listDateRange1.ReportTypeNotRequired = true;
             this.listDateRange1.SelectedItem = null;
             this.listDateRange1.Size = new System.Drawing.Size(505, 25);
             this.listDateRange1.TabIndex = 4;
+            this.listDateRange1.TfDate = new System.DateTime(((long)(0)));
             this.listDateRange1.ToDate = 0;
             this.listDateRange1.VoucherType = Konto.App.Shared.VoucherTypeEnum.None;
             // 

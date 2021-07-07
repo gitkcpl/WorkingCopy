@@ -53,6 +53,7 @@ namespace Konto.Reporting.XReport.XChallan
             DevExpress.DataAccess.Sql.QueryParameter queryParameter20 = new DevExpress.DataAccess.Sql.QueryParameter();
             DevExpress.DataAccess.Sql.QueryParameter queryParameter21 = new DevExpress.DataAccess.Sql.QueryParameter();
             DevExpress.DataAccess.Sql.QueryParameter queryParameter22 = new DevExpress.DataAccess.Sql.QueryParameter();
+            DevExpress.DataAccess.Sql.QueryParameter queryParameter23 = new DevExpress.DataAccess.Sql.QueryParameter();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ChallanXRep));
             DevExpress.XtraReports.Parameters.StaticListLookUpSettings staticListLookUpSettings1 = new DevExpress.XtraReports.Parameters.StaticListLookUpSettings();
             DevExpress.XtraReports.Parameters.StaticListLookUpSettings staticListLookUpSettings2 = new DevExpress.XtraReports.Parameters.StaticListLookUpSettings();
@@ -201,6 +202,7 @@ namespace Konto.Reporting.XReport.XChallan
             this.Quarter = new DevExpress.XtraReports.UI.CalculatedField();
             this.categroy = new DevExpress.XtraReports.Parameters.Parameter();
             this.process = new DevExpress.XtraReports.Parameters.Parameter();
+            this.vtype = new DevExpress.XtraReports.Parameters.Parameter();
             ((System.ComponentModel.ISupportInitialize)(this.headXrTable)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.xrTable1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.xrTable3)).BeginInit();
@@ -280,6 +282,9 @@ namespace Konto.Reporting.XReport.XChallan
             queryParameter22.Name = "@category";
             queryParameter22.Type = typeof(DevExpress.DataAccess.Expression);
             queryParameter22.Value = new DevExpress.DataAccess.Expression("?categroy", typeof(string));
+            queryParameter23.Name = "@vtype";
+            queryParameter23.Type = typeof(DevExpress.DataAccess.Expression);
+            queryParameter23.Value = new DevExpress.DataAccess.Expression("?vtype", typeof(string));
             storedProcQuery1.Parameters.Add(queryParameter1);
             storedProcQuery1.Parameters.Add(queryParameter2);
             storedProcQuery1.Parameters.Add(queryParameter3);
@@ -302,6 +307,7 @@ namespace Konto.Reporting.XReport.XChallan
             storedProcQuery1.Parameters.Add(queryParameter20);
             storedProcQuery1.Parameters.Add(queryParameter21);
             storedProcQuery1.Parameters.Add(queryParameter22);
+            storedProcQuery1.Parameters.Add(queryParameter23);
             storedProcQuery1.StoredProcName = "challan_reg_rep";
             this.sqlDataSource1.Queries.AddRange(new DevExpress.DataAccess.Sql.SqlQuery[] {
             storedProcQuery1});
@@ -1651,6 +1657,14 @@ namespace Konto.Reporting.XReport.XChallan
             this.process.ValueInfo = "N";
             this.process.Visible = false;
             // 
+            // vtype
+            // 
+            this.vtype.Description = "Parameter1";
+            this.vtype.Name = "vtype";
+            this.vtype.Type = typeof(int);
+            this.vtype.ValueInfo = "0";
+            this.vtype.Visible = false;
+            // 
             // ChallanXRep
             // 
             this.Bands.AddRange(new DevExpress.XtraReports.UI.Band[] {
@@ -1705,7 +1719,8 @@ namespace Konto.Reporting.XReport.XChallan
             this.challan_type,
             this.report_cols,
             this.categroy,
-            this.process});
+            this.process,
+            this.vtype});
             this.Scripts.OnBeforePrint = "ChallanXRep_BeforePrint";
             this.StyleSheet.AddRange(new DevExpress.XtraReports.UI.XRControlStyle[] {
             this.Title,
@@ -1863,5 +1878,6 @@ namespace Konto.Reporting.XReport.XChallan
         private DevExpress.XtraReports.UI.CalculatedField Quarter;
         private DevExpress.XtraReports.Parameters.Parameter categroy;
         private DevExpress.XtraReports.Parameters.Parameter process;
+        private DevExpress.XtraReports.Parameters.Parameter vtype;
     }
 }

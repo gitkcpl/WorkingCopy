@@ -574,7 +574,7 @@ namespace Konto.Reporting.Para.ChlPara
                     typeLookUpEdit.EditValue = "SCHALLAN";
                 else if (this.Tag.ToString() == MenuId.Grey_Issue_To_Mill_Report.ToString())
                     typeLookUpEdit.EditValue = "MillIssue";
-                else if (this.Tag.ToString() == MenuId.Job_Issue.ToString())
+                else if (this.Tag.ToString() == MenuId.Job_Issue_Report.ToString())
                     typeLookUpEdit.EditValue = "JobIssue";
                 else if (this.Tag.ToString() == MenuId.Job_Receipt.ToString())
                     typeLookUpEdit.EditValue = "JobRec";

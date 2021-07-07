@@ -378,7 +378,10 @@ namespace Konto.Data
         public DbSet<EInv> EInvs { get; set; }
 
         public  DbSet<RepColumn> RepCols { get; set; }
+        public DbSet<HsnMaster> HsnMasters { get; set; }
+        public DbSet<HsnTrans> HsnTrans { get; set; }
 
+        public DbSet<BranchVoucher> BranchVouchers { get; set; }
         #endregion
     }
 

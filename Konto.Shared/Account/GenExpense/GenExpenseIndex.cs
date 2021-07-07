@@ -502,7 +502,9 @@ namespace Konto.Shared.Account.GenExpense
                 er.Igst = decimal.Round(gross * er.IgstPer / 100, 2, MidpointRounding.AwayFromZero);
             }
 
-            
+
+            if (er.CessPer > 0)
+                er.Cess = decimal.Round(er.Qty * er.CessPer, 2, MidpointRounding.AwayFromZero);
 
             //  er.Cess = decimal.Round(er.Qty * er.CessPer, 2, MidpointRounding.AwayFromZero);
             if (rcmLookUpEdit.EditValue.ToString() == "YES" || isImortOrSez)
@@ -523,8 +525,12 @@ namespace Konto.Shared.Account.GenExpense
             if (IsLoadData) return;
             var Trans = grnTransDtoBindingSource1.DataSource as List<ExpTransDto>;
             if (Trans == null) return;
+            
             var gross = Trans.Sum(x => x.NetTotal) - Trans.Sum(x => x.Cgst) - Trans.Sum(x => x.Sgst) -
                 Trans.Sum(x => x.Igst) - Trans.Sum(x => x.Cess);
+
+            if (rcmLookUpEdit.EditValue.ToString() == "YES")
+                gross = Trans.Sum(x => x.NetTotal);
 
             if (tdsPerTextEdit.Value > 0)
             {
@@ -628,7 +634,11 @@ namespace Konto.Shared.Account.GenExpense
                                     GenExpPara.Qty_Decimal = Convert.ToInt32(value);
                                 break;
                             }
-
+                        case 233:
+                            {
+                                GenExpPara.Tcs_Round_Off = (value == "Y") ? true : false;
+                                break;
+                            }
                         case 224:
                             {
 

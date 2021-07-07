@@ -764,4 +764,18 @@ Values('Grn Summary','PCHALLAN', 0,'Konto.Reporting.XReport.XChallan.ChallanSumr
 
 
 
+IF NOT EXISTS(SELECT 1 FROM dbo.ReportType WHERE FileName='Reg\\gray_to_sales.rdlx' AND ReportTypes='PCHALLAN')
+INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, CreateUser, IsActive, IsDeleted,RowId,SpName)
+Values('Purchase Vs Job','PCHALLAN', 0,'Reg\\gray_to_sales.rdlx',GETDATE(),'Admin',1,0,NEWID(),'DBO.gray_to_sales')
+
+IF NOT EXISTS(SELECT 1 FROM dbo.ReportType WHERE FileName='Konto.Reporting.XReport.JobExp.JobIssueXRep' AND ReportTypes='Job_Expense')
+INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, CreateUser, IsActive, IsDeleted,RowId,SpName,Remarks)
+Values('Date Wise Job Issue','Job_Expense', 37,'Konto.Reporting.XReport.JobExp.JobIssueXRep',GETDATE(),'Admin',1,0,NEWID(),'dbo.Job_work_expense',
+'None-Division-Branch-Party-Agent-PartyGroup-Item-Agent-Voucher-Date-Month-Qtr')
+
+IF NOT EXISTS(SELECT 1 FROM dbo.ReportType WHERE FileName='Konto.Reporting.XReport.XChallan.PurVsJobXRep' AND ReportTypes='PCHALLAN')
+INSERT INTO dbo.ReportType(ReportName,ReportTypes, VoucherTypeId,FileName,CreateDate, CreateUser, IsActive, IsDeleted,RowId,SpName,Remarks)
+Values('Purchase Vs Job Tacker','PCHALLAN', 0,'Konto.Reporting.XReport.XChallan.PurVsJobXRep',GETDATE(),'Admin',1,0,NEWID(),'dbo.pur_to_job_track',
+'None-Party-Item')
+
 Go

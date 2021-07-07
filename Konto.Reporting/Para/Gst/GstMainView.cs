@@ -352,7 +352,7 @@ namespace Konto.Reporting.Para.Gst
            
             var lst = new List<GstDto>();
             WorkbookDesigner wd = new WorkbookDesigner();
-            wd.Workbook = new Aspose.Cells.Workbook("Excel\\GSTR1_Excel_Workbook_Template_V1.7.xlsx");
+            wd.Workbook = new Aspose.Cells.Workbook("Excel\\GSTR1_Excel_Workbook_Template_V1.8.xlsx");
 
             Aspose.Cells.Worksheet w = wd.Workbook.Worksheets[1];
 

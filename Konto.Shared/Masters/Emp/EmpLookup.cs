@@ -70,14 +70,14 @@ namespace Konto.Shared.Masters.Emp
              }
              else if (keyData == Keys.Return)
              {
-                if (Convert.ToInt32(this.SelectedValue) == 0)
-                {
+                //if (Convert.ToInt32(this.SelectedValue) == 0)
+                //{
                     ShowList();
                     if (Convert.ToInt32(this.SelectedValue) == 0)
                         return false;
 
-                    return true;
-                }
+                    //return true;
+                //}
              }
              return base.ProcessCmdKey(ref msg, keyData);
         }

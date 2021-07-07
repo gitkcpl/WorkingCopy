@@ -293,7 +293,7 @@ namespace Konto.Shared.Trans.SReturn
             string type ="DEBIT";
             if (this.billAmtSpinEdit.Value == 0) return;
             var frm = new PendingBillViewWindow("SR", Convert.ToInt32(accLookup1.SelectedValue),
-                (int)VoucherTypeEnum.DebitCreditNote, type, this.PrimaryKey, this.PrimaryKey,
+                (int)VoucherTypeEnum.SaleReturn, type, this.PrimaryKey, this.PrimaryKey,
                 (int)voucherLookup1.SelectedValue);
 
             frm.AllBill.AddRange(this.AllBill);
@@ -1964,8 +1964,19 @@ namespace Konto.Shared.Trans.SReturn
 
             return true;
         }
-      
+
         #endregion
 
+        private void roundoffSpinEdit_EditValueChanged(object sender, EventArgs e)
+        {
+            if (!roundoffSpinEdit.ContainsFocus) return;
+            gridView1.UpdateTotalSummary();
+            var ntotal = Convert.ToDecimal(colNetTotal.SummaryItem.SummaryValue);
+
+            ntotal = ntotal + roundoffSpinEdit.Value;
+
+            billAmtSpinEdit.Value = ntotal;
+           
+        }
     }
 }

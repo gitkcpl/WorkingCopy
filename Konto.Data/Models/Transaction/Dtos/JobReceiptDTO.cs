@@ -62,5 +62,11 @@ namespace Konto.Data.Models.Transaction.Dtos
         public string Jobcardno { get; set; }
         public int? JobId { get; set; }
         public int PTypeId { get; set; }
+
+        public string Barcode { get; set; }
+
+        public decimal SaleRate { get; set; }
+        public decimal BulkRate { get; set; }
+        public decimal SemiBulkRate { get; set; }
     }
 }

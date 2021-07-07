@@ -79,6 +79,7 @@
             this.colIpAddress = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colorRepositoryItemButtonEdit = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
             this.gradeRepositoryItemButtonEdit = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
+            this.colTops = new DevExpress.XtraGrid.Columns.GridColumn();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.prodOutModelBindingSource)).BeginInit();
@@ -205,6 +206,7 @@
             this.colChallanTrans,
             this.colChallan,
             this.colId,
+            this.colTops,
             this.colRowId,
             this.colIsActive,
             this.colIsDeleted,
@@ -522,6 +524,15 @@
             new DevExpress.XtraEditors.Controls.EditorButton()});
             this.gradeRepositoryItemButtonEdit.Name = "gradeRepositoryItemButtonEdit";
             // 
+            // colTops
+            // 
+            this.colTops.Caption = "Pcs";
+            this.colTops.FieldName = "Tops";
+            this.colTops.Name = "colTops";
+            this.colTops.OptionsColumn.AllowFocus = false;
+            this.colTops.Visible = true;
+            this.colTops.VisibleIndex = 12;
+            // 
             // MrvTakaDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -596,5 +607,6 @@
         public System.Windows.Forms.BindingSource prodOutModelBindingSource;
         private DevExpress.XtraGrid.Columns.GridColumn colPlainQty;
         private Syncfusion.Windows.Forms.Tools.AutoLabel autoLabel1;
+        private DevExpress.XtraGrid.Columns.GridColumn colTops;
     }
 }

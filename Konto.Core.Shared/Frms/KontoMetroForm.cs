@@ -19,6 +19,7 @@ namespace Konto.Core.Shared.Frms
         public int PrimaryKey { get; set; }
         public bool OpenForLookup { get; set; }
 
+        public bool IsOpenFromLedger { get; set; }
         public long _SerialValue  { get; set;}
         public int TotalRecord { get; set; }
         

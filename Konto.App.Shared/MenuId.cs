@@ -24,7 +24,7 @@
         public const int Purchase_Order = 307;
         public const int Grey_Order = 373;
         public const int Mill_Issue = 310;
-        public const int Job_Issue = 823;
+        public const int Job_Issue_Report = 823;
         public const int Job_Receipt = 824;
 
         public const int Grey_Purchase = 808;

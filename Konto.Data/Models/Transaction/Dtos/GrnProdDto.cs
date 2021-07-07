@@ -54,9 +54,11 @@ namespace Konto.Data.Models.Transaction.Dtos
         }
         public string Weaver { get; set; }
 
+        public string ColorName { get; set; }
         public int RefTransId { get; set; }
 
         public string Extra1 { get; set; }
-      
+
+        public int IssueRefVoucherId { get; set; }
     }
 }

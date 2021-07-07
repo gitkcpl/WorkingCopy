@@ -47,6 +47,7 @@
             this.colYarnName = new Konto.Core.Shared.Libs.CustomGridColumn();
             this.colGradeId = new Konto.Core.Shared.Libs.CustomGridColumn();
             this.colColorId = new Konto.Core.Shared.Libs.CustomGridColumn();
+            this.colColorName = new Konto.Core.Shared.Libs.CustomGridColumn();
             this.colVoucherId = new Konto.Core.Shared.Libs.CustomGridColumn();
             this.colVoucherDate = new Konto.Core.Shared.Libs.CustomGridColumn();
             this.colVoucherNo = new Konto.Core.Shared.Libs.CustomGridColumn();
@@ -71,7 +72,9 @@
             this.colPlyProductId = new Konto.Core.Shared.Libs.CustomGridColumn();
             this.colVTypeId = new Konto.Core.Shared.Libs.CustomGridColumn();
             this.colLotNo = new Konto.Core.Shared.Libs.CustomGridColumn();
-            this.colColorName = new Konto.Core.Shared.Libs.CustomGridColumn();
+            this.colRefNo = new Konto.Core.Shared.Libs.CustomGridColumn();
+            this.colLastParty = new Konto.Core.Shared.Libs.CustomGridColumn();
+            this.colLastVoucher = new Konto.Core.Shared.Libs.CustomGridColumn();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.detailStockDtoBindingSource)).BeginInit();
@@ -164,6 +167,9 @@
             this.colRefId,
             this.colCops,
             this.colCopsWt,
+            this.colRefNo,
+            this.colLastVoucher,
+            this.colLastParty,
             this.colPly,
             this.colTops,
             this.colCopsRate,
@@ -242,7 +248,7 @@
             // 
             // colInwardNo
             // 
-            this.colInwardNo.Caption = "Challan No";
+            this.colInwardNo.Caption = "Lot/Inward No";
             this.colInwardNo.FieldName = "InwardNo";
             this.colInwardNo.Name = "colInwardNo";
             this.colInwardNo.Visible = true;
@@ -281,6 +287,14 @@
             this.colColorId.FieldName = "ColorId";
             this.colColorId.Name = "colColorId";
             // 
+            // colColorName
+            // 
+            this.colColorName.FieldName = "ColorName";
+            this.colColorName.Name = "colColorName";
+            this.colColorName.Visible = true;
+            this.colColorName.VisibleIndex = 10;
+            this.colColorName.Width = 92;
+            // 
             // colVoucherId
             // 
             this.colVoucherId.FieldName = "VoucherId";
@@ -299,8 +313,8 @@
             this.colVoucherNo.FieldName = "VoucherNo";
             this.colVoucherNo.Name = "colVoucherNo";
             this.colVoucherNo.Visible = true;
-            this.colVoucherNo.VisibleIndex = 9;
-            this.colVoucherNo.Width = 100;
+            this.colVoucherNo.VisibleIndex = 2;
+            this.colVoucherNo.Width = 70;
             // 
             // colRefId
             // 
@@ -347,7 +361,7 @@
             this.colGrossWt.FieldName = "GrossWt";
             this.colGrossWt.Name = "colGrossWt";
             this.colGrossWt.Visible = true;
-            this.colGrossWt.VisibleIndex = 10;
+            this.colGrossWt.VisibleIndex = 9;
             this.colGrossWt.Width = 79;
             // 
             // colTareWt
@@ -365,7 +379,7 @@
             this.colNetWt.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "NetWt", "{0:0.##}")});
             this.colNetWt.Visible = true;
-            this.colNetWt.VisibleIndex = 3;
+            this.colNetWt.VisibleIndex = 4;
             this.colNetWt.Width = 83;
             // 
             // colQty
@@ -378,7 +392,7 @@
             this.colQty.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Qty", "{0:F}", "")});
             this.colQty.Visible = true;
-            this.colQty.VisibleIndex = 2;
+            this.colQty.VisibleIndex = 3;
             this.colQty.Width = 79;
             // 
             // colDivId
@@ -411,8 +425,6 @@
             // 
             this.colRemark.FieldName = "Remark";
             this.colRemark.Name = "colRemark";
-            this.colRemark.Visible = true;
-            this.colRemark.VisibleIndex = 12;
             this.colRemark.Width = 136;
             // 
             // colPlyProductId
@@ -429,16 +441,30 @@
             // 
             this.colLotNo.FieldName = "LotNo";
             this.colLotNo.Name = "colLotNo";
-            this.colLotNo.Visible = true;
-            this.colLotNo.VisibleIndex = 4;
             this.colLotNo.Width = 81;
             // 
-            // colColorName
+            // colRefNo
             // 
-            this.colColorName.FieldName = "ColorName";
-            this.colColorName.Name = "colColorName";
-            this.colColorName.Visible = true;
-            this.colColorName.VisibleIndex = 11;
+            this.colRefNo.FieldName = "RefNo";
+            this.colRefNo.Name = "colRefNo";
+            this.colRefNo.Visible = true;
+            this.colRefNo.VisibleIndex = 11;
+            this.colRefNo.Width = 64;
+            // 
+            // colLastParty
+            // 
+            this.colLastParty.FieldName = "LastParty";
+            this.colLastParty.Name = "colLastParty";
+            this.colLastParty.Visible = true;
+            this.colLastParty.VisibleIndex = 13;
+            // 
+            // colLastVoucher
+            // 
+            this.colLastVoucher.FieldName = "LastVoucher";
+            this.colLastVoucher.Name = "colLastVoucher";
+            this.colLastVoucher.Visible = true;
+            this.colLastVoucher.VisibleIndex = 12;
+            this.colLastVoucher.Width = 96;
             // 
             // PendingStockView
             // 
@@ -503,5 +529,8 @@
         private Core.Shared.Libs.CustomGridColumn colLotNo;
         private Core.Shared.Libs.CustomGridColumn colVDate;
         private Core.Shared.Libs.CustomGridColumn colColorName;
+        private Core.Shared.Libs.CustomGridColumn colRefNo;
+        private Core.Shared.Libs.CustomGridColumn colLastVoucher;
+        private Core.Shared.Libs.CustomGridColumn colLastParty;
     }
 }

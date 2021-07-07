@@ -35,9 +35,18 @@
             this.cancelSimpleButton = new DevExpress.XtraEditors.SimpleButton();
             this.okSimpleButton = new DevExpress.XtraEditors.SimpleButton();
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
+            this.gradeLookup1 = new Konto.Shared.Masters.Grade.GradeLookup();
+            this.customGridControl2 = new Konto.Core.Shared.Libs.CustomGridControl();
+            this.acGroupDtoBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.customGridView2 = new Konto.Core.Shared.Libs.CustomGridView();
+            this.customGridColumn11 = new Konto.Core.Shared.Libs.CustomGridColumn();
+            this.customGridColumn12 = new Konto.Core.Shared.Libs.CustomGridColumn();
+            this.customGridControl1 = new Konto.Core.Shared.Libs.CustomGridControl();
+            this.customGridView1 = new Konto.Core.Shared.Libs.CustomGridView();
+            this.customGridColumn9 = new Konto.Core.Shared.Libs.CustomGridColumn();
+            this.customGridColumn10 = new Konto.Core.Shared.Libs.CustomGridColumn();
             this.challanTypeLookUpEdit = new DevExpress.XtraEditors.LookUpEdit();
             this.colorGridControl = new Konto.Core.Shared.Libs.CustomGridControl();
-            this.acGroupDtoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.colorGridView = new Konto.Core.Shared.Libs.CustomGridView();
             this.customGridColumn7 = new Konto.Core.Shared.Libs.CustomGridColumn();
             this.customGridColumn8 = new Konto.Core.Shared.Libs.CustomGridColumn();
@@ -146,6 +155,9 @@
             this.layoutControlGroup4 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem11 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem17 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlGroup5 = new DevExpress.XtraLayout.LayoutControlGroup();
+            this.layoutControlItem19 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem20 = new DevExpress.XtraLayout.LayoutControlItem();
             this.tabbedControlGroup2 = new DevExpress.XtraLayout.TabbedControlGroup();
             this.layoutControlGroup2 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
@@ -161,25 +173,17 @@
             this.layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem8 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem9 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.layoutControlGroup5 = new DevExpress.XtraLayout.LayoutControlGroup();
-            this.customGridControl1 = new Konto.Core.Shared.Libs.CustomGridControl();
-            this.customGridView1 = new Konto.Core.Shared.Libs.CustomGridView();
-            this.customGridColumn9 = new Konto.Core.Shared.Libs.CustomGridColumn();
-            this.customGridColumn10 = new Konto.Core.Shared.Libs.CustomGridColumn();
-            this.layoutControlItem19 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.customGridControl2 = new Konto.Core.Shared.Libs.CustomGridControl();
-            this.customGridView2 = new Konto.Core.Shared.Libs.CustomGridView();
-            this.customGridColumn11 = new Konto.Core.Shared.Libs.CustomGridColumn();
-            this.customGridColumn12 = new Konto.Core.Shared.Libs.CustomGridColumn();
-            this.layoutControlItem20 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.gradeLookup1 = new Konto.Shared.Masters.Grade.GradeLookup();
             this.layoutControlItem14 = new DevExpress.XtraLayout.LayoutControlItem();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.customGridControl2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.acGroupDtoBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.customGridView2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.customGridControl1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.customGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.challanTypeLookUpEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.colorGridControl)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.acGroupDtoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.colorGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.designGridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.designGridView1)).BeginInit();
@@ -221,6 +225,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem11)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem17)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem19)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem20)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabbedControlGroup2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
@@ -236,13 +243,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.customGridControl1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.customGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem19)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.customGridControl2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.customGridView2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem20)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem14)).BeginInit();
             this.SuspendLayout();
             // 
@@ -332,6 +332,153 @@
             this.layoutControl1.TabIndex = 0;
             this.layoutControl1.Text = "layoutControl1";
             // 
+            // gradeLookup1
+            // 
+            this.gradeLookup1.Location = new System.Drawing.Point(88, 409);
+            this.gradeLookup1.LookupTitle = null;
+            this.gradeLookup1.Name = "gradeLookup1";
+            this.gradeLookup1.PrimaryKey = null;
+            this.gradeLookup1.RequiredField = false;
+            this.gradeLookup1.SelectedText = null;
+            this.gradeLookup1.SelectedValue = null;
+            this.gradeLookup1.Size = new System.Drawing.Size(248, 20);
+            this.gradeLookup1.TabIndex = 36;
+            // 
+            // customGridControl2
+            // 
+            this.customGridControl2.DataSource = this.acGroupDtoBindingSource;
+            this.customGridControl2.Location = new System.Drawing.Point(395, 38);
+            this.customGridControl2.MainView = this.customGridView2;
+            this.customGridControl2.Name = "customGridControl2";
+            this.customGridControl2.Size = new System.Drawing.Size(381, 197);
+            this.customGridControl2.TabIndex = 35;
+            this.customGridControl2.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.customGridView2});
+            this.customGridControl2.Click += new System.EventHandler(this.customGridControl2_Click);
+            // 
+            // acGroupDtoBindingSource
+            // 
+            this.acGroupDtoBindingSource.DataSource = typeof(Konto.Reporting.Para.Ledger.AcGroupDto);
+            // 
+            // customGridView2
+            // 
+            this.customGridView2.Appearance.FocusedCell.BackColor = System.Drawing.Color.White;
+            this.customGridView2.Appearance.FocusedCell.Options.UseBackColor = true;
+            this.customGridView2.Appearance.FooterPanel.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
+            this.customGridView2.Appearance.FooterPanel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(22)))), ((int)(((byte)(91)))));
+            this.customGridView2.Appearance.FooterPanel.Options.UseFont = true;
+            this.customGridView2.Appearance.FooterPanel.Options.UseForeColor = true;
+            this.customGridView2.Appearance.HeaderPanel.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
+            this.customGridView2.Appearance.HeaderPanel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(22)))), ((int)(((byte)(91)))));
+            this.customGridView2.Appearance.HeaderPanel.Options.UseFont = true;
+            this.customGridView2.Appearance.HeaderPanel.Options.UseForeColor = true;
+            this.customGridView2.Appearance.Row.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            this.customGridView2.Appearance.Row.Options.UseFont = true;
+            this.customGridView2.Appearance.ViewCaption.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(22)))), ((int)(((byte)(91)))));
+            this.customGridView2.Appearance.ViewCaption.Options.UseForeColor = true;
+            this.customGridView2.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.customGridColumn11,
+            this.customGridColumn12});
+            this.customGridView2.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFullFocus;
+            this.customGridView2.GridControl = this.customGridControl2;
+            this.customGridView2.Name = "customGridView2";
+            this.customGridView2.OptionsBehavior.AllowIncrementalSearch = true;
+            this.customGridView2.OptionsBehavior.Editable = false;
+            this.customGridView2.OptionsBehavior.FocusLeaveOnTab = true;
+            this.customGridView2.OptionsCustomization.AllowGroup = false;
+            this.customGridView2.OptionsCustomization.QuickCustomizationIcons.Image = null;
+            this.customGridView2.OptionsCustomization.QuickCustomizationIcons.TransperentColor = System.Drawing.Color.Empty;
+            this.customGridView2.OptionsLayout.Columns.StoreAllOptions = true;
+            this.customGridView2.OptionsLayout.Columns.StoreAppearance = true;
+            this.customGridView2.OptionsLayout.StoreAllOptions = true;
+            this.customGridView2.OptionsLayout.StoreAppearance = true;
+            this.customGridView2.OptionsSelection.CheckBoxSelectorColumnWidth = 30;
+            this.customGridView2.OptionsSelection.MultiSelect = true;
+            this.customGridView2.OptionsSelection.MultiSelectMode = DevExpress.XtraGrid.Views.Grid.GridMultiSelectMode.CheckBoxRowSelect;
+            this.customGridView2.OptionsSelection.ShowCheckBoxSelectorInColumnHeader = DevExpress.Utils.DefaultBoolean.True;
+            this.customGridView2.OptionsView.ColumnAutoWidth = false;
+            this.customGridView2.OptionsView.ShowGroupPanel = false;
+            this.customGridView2.ViewCaption = "Ledger Group";
+            // 
+            // customGridColumn11
+            // 
+            this.customGridColumn11.Caption = "Product Types";
+            this.customGridColumn11.FieldName = "DisplayText";
+            this.customGridColumn11.Name = "customGridColumn11";
+            this.customGridColumn11.Visible = true;
+            this.customGridColumn11.VisibleIndex = 1;
+            this.customGridColumn11.Width = 291;
+            // 
+            // customGridColumn12
+            // 
+            this.customGridColumn12.FieldName = "Id";
+            this.customGridColumn12.Name = "customGridColumn12";
+            // 
+            // customGridControl1
+            // 
+            this.customGridControl1.DataSource = this.acGroupDtoBindingSource;
+            this.customGridControl1.Location = new System.Drawing.Point(11, 38);
+            this.customGridControl1.MainView = this.customGridView1;
+            this.customGridControl1.Name = "customGridControl1";
+            this.customGridControl1.Size = new System.Drawing.Size(380, 197);
+            this.customGridControl1.TabIndex = 34;
+            this.customGridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.customGridView1});
+            // 
+            // customGridView1
+            // 
+            this.customGridView1.Appearance.FocusedCell.BackColor = System.Drawing.Color.White;
+            this.customGridView1.Appearance.FocusedCell.Options.UseBackColor = true;
+            this.customGridView1.Appearance.FooterPanel.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
+            this.customGridView1.Appearance.FooterPanel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(22)))), ((int)(((byte)(91)))));
+            this.customGridView1.Appearance.FooterPanel.Options.UseFont = true;
+            this.customGridView1.Appearance.FooterPanel.Options.UseForeColor = true;
+            this.customGridView1.Appearance.HeaderPanel.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
+            this.customGridView1.Appearance.HeaderPanel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(22)))), ((int)(((byte)(91)))));
+            this.customGridView1.Appearance.HeaderPanel.Options.UseFont = true;
+            this.customGridView1.Appearance.HeaderPanel.Options.UseForeColor = true;
+            this.customGridView1.Appearance.Row.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            this.customGridView1.Appearance.Row.Options.UseFont = true;
+            this.customGridView1.Appearance.ViewCaption.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(22)))), ((int)(((byte)(91)))));
+            this.customGridView1.Appearance.ViewCaption.Options.UseForeColor = true;
+            this.customGridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.customGridColumn9,
+            this.customGridColumn10});
+            this.customGridView1.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFullFocus;
+            this.customGridView1.GridControl = this.customGridControl1;
+            this.customGridView1.Name = "customGridView1";
+            this.customGridView1.OptionsBehavior.AllowIncrementalSearch = true;
+            this.customGridView1.OptionsBehavior.Editable = false;
+            this.customGridView1.OptionsBehavior.FocusLeaveOnTab = true;
+            this.customGridView1.OptionsCustomization.AllowGroup = false;
+            this.customGridView1.OptionsCustomization.QuickCustomizationIcons.Image = null;
+            this.customGridView1.OptionsCustomization.QuickCustomizationIcons.TransperentColor = System.Drawing.Color.Empty;
+            this.customGridView1.OptionsLayout.Columns.StoreAllOptions = true;
+            this.customGridView1.OptionsLayout.Columns.StoreAppearance = true;
+            this.customGridView1.OptionsLayout.StoreAllOptions = true;
+            this.customGridView1.OptionsLayout.StoreAppearance = true;
+            this.customGridView1.OptionsSelection.CheckBoxSelectorColumnWidth = 30;
+            this.customGridView1.OptionsSelection.MultiSelect = true;
+            this.customGridView1.OptionsSelection.MultiSelectMode = DevExpress.XtraGrid.Views.Grid.GridMultiSelectMode.CheckBoxRowSelect;
+            this.customGridView1.OptionsSelection.ShowCheckBoxSelectorInColumnHeader = DevExpress.Utils.DefaultBoolean.True;
+            this.customGridView1.OptionsView.ColumnAutoWidth = false;
+            this.customGridView1.OptionsView.ShowGroupPanel = false;
+            this.customGridView1.ViewCaption = "Ledger Group";
+            // 
+            // customGridColumn9
+            // 
+            this.customGridColumn9.Caption = "Product Groups";
+            this.customGridColumn9.FieldName = "DisplayText";
+            this.customGridColumn9.Name = "customGridColumn9";
+            this.customGridColumn9.Visible = true;
+            this.customGridColumn9.VisibleIndex = 1;
+            this.customGridColumn9.Width = 291;
+            // 
+            // customGridColumn10
+            // 
+            this.customGridColumn10.FieldName = "Id";
+            this.customGridColumn10.Name = "customGridColumn10";
+            // 
             // challanTypeLookUpEdit
             // 
             this.challanTypeLookUpEdit.EnterMoveNextControl = true;
@@ -365,10 +512,6 @@
             this.colorGridControl.TabIndex = 32;
             this.colorGridControl.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.colorGridView});
-            // 
-            // acGroupDtoBindingSource
-            // 
-            this.acGroupDtoBindingSource.DataSource = typeof(Konto.Reporting.Para.Ledger.AcGroupDto);
             // 
             // colorGridView
             // 
@@ -1504,6 +1647,34 @@
             this.layoutControlItem17.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem17.TextVisible = false;
             // 
+            // layoutControlGroup5
+            // 
+            this.layoutControlGroup5.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.layoutControlItem19,
+            this.layoutControlItem20});
+            this.layoutControlGroup5.Location = new System.Drawing.Point(0, 0);
+            this.layoutControlGroup5.Name = "layoutControlGroup5";
+            this.layoutControlGroup5.Size = new System.Drawing.Size(769, 201);
+            this.layoutControlGroup5.Text = "Groups && Types";
+            // 
+            // layoutControlItem19
+            // 
+            this.layoutControlItem19.Control = this.customGridControl1;
+            this.layoutControlItem19.Location = new System.Drawing.Point(0, 0);
+            this.layoutControlItem19.Name = "layoutControlItem19";
+            this.layoutControlItem19.Size = new System.Drawing.Size(384, 201);
+            this.layoutControlItem19.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem19.TextVisible = false;
+            // 
+            // layoutControlItem20
+            // 
+            this.layoutControlItem20.Control = this.customGridControl2;
+            this.layoutControlItem20.Location = new System.Drawing.Point(384, 0);
+            this.layoutControlItem20.Name = "layoutControlItem20";
+            this.layoutControlItem20.Size = new System.Drawing.Size(385, 201);
+            this.layoutControlItem20.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem20.TextVisible = false;
+            // 
             // tabbedControlGroup2
             // 
             this.tabbedControlGroup2.AppearanceTabPage.HeaderActive.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1669,177 +1840,6 @@
             this.layoutControlItem9.Text = "Voucher:";
             this.layoutControlItem9.TextSize = new System.Drawing.Size(80, 17);
             // 
-            // layoutControlGroup5
-            // 
-            this.layoutControlGroup5.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
-            this.layoutControlItem19,
-            this.layoutControlItem20});
-            this.layoutControlGroup5.Location = new System.Drawing.Point(0, 0);
-            this.layoutControlGroup5.Name = "layoutControlGroup5";
-            this.layoutControlGroup5.Size = new System.Drawing.Size(769, 201);
-            this.layoutControlGroup5.Text = "Groups && Types";
-            // 
-            // customGridControl1
-            // 
-            this.customGridControl1.DataSource = this.acGroupDtoBindingSource;
-            this.customGridControl1.Location = new System.Drawing.Point(11, 38);
-            this.customGridControl1.MainView = this.customGridView1;
-            this.customGridControl1.Name = "customGridControl1";
-            this.customGridControl1.Size = new System.Drawing.Size(380, 197);
-            this.customGridControl1.TabIndex = 34;
-            this.customGridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
-            this.customGridView1});
-            // 
-            // customGridView1
-            // 
-            this.customGridView1.Appearance.FocusedCell.BackColor = System.Drawing.Color.White;
-            this.customGridView1.Appearance.FocusedCell.Options.UseBackColor = true;
-            this.customGridView1.Appearance.FooterPanel.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
-            this.customGridView1.Appearance.FooterPanel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(22)))), ((int)(((byte)(91)))));
-            this.customGridView1.Appearance.FooterPanel.Options.UseFont = true;
-            this.customGridView1.Appearance.FooterPanel.Options.UseForeColor = true;
-            this.customGridView1.Appearance.HeaderPanel.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
-            this.customGridView1.Appearance.HeaderPanel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(22)))), ((int)(((byte)(91)))));
-            this.customGridView1.Appearance.HeaderPanel.Options.UseFont = true;
-            this.customGridView1.Appearance.HeaderPanel.Options.UseForeColor = true;
-            this.customGridView1.Appearance.Row.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.customGridView1.Appearance.Row.Options.UseFont = true;
-            this.customGridView1.Appearance.ViewCaption.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(22)))), ((int)(((byte)(91)))));
-            this.customGridView1.Appearance.ViewCaption.Options.UseForeColor = true;
-            this.customGridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
-            this.customGridColumn9,
-            this.customGridColumn10});
-            this.customGridView1.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFullFocus;
-            this.customGridView1.GridControl = this.customGridControl1;
-            this.customGridView1.Name = "customGridView1";
-            this.customGridView1.OptionsBehavior.AllowIncrementalSearch = true;
-            this.customGridView1.OptionsBehavior.Editable = false;
-            this.customGridView1.OptionsBehavior.FocusLeaveOnTab = true;
-            this.customGridView1.OptionsCustomization.AllowGroup = false;
-            this.customGridView1.OptionsCustomization.QuickCustomizationIcons.Image = null;
-            this.customGridView1.OptionsCustomization.QuickCustomizationIcons.TransperentColor = System.Drawing.Color.Empty;
-            this.customGridView1.OptionsLayout.Columns.StoreAllOptions = true;
-            this.customGridView1.OptionsLayout.Columns.StoreAppearance = true;
-            this.customGridView1.OptionsLayout.StoreAllOptions = true;
-            this.customGridView1.OptionsLayout.StoreAppearance = true;
-            this.customGridView1.OptionsSelection.CheckBoxSelectorColumnWidth = 30;
-            this.customGridView1.OptionsSelection.MultiSelect = true;
-            this.customGridView1.OptionsSelection.MultiSelectMode = DevExpress.XtraGrid.Views.Grid.GridMultiSelectMode.CheckBoxRowSelect;
-            this.customGridView1.OptionsSelection.ShowCheckBoxSelectorInColumnHeader = DevExpress.Utils.DefaultBoolean.True;
-            this.customGridView1.OptionsView.ColumnAutoWidth = false;
-            this.customGridView1.OptionsView.ShowGroupPanel = false;
-            this.customGridView1.ViewCaption = "Ledger Group";
-            // 
-            // customGridColumn9
-            // 
-            this.customGridColumn9.Caption = "Product Groups";
-            this.customGridColumn9.FieldName = "DisplayText";
-            this.customGridColumn9.Name = "customGridColumn9";
-            this.customGridColumn9.Visible = true;
-            this.customGridColumn9.VisibleIndex = 1;
-            this.customGridColumn9.Width = 291;
-            // 
-            // customGridColumn10
-            // 
-            this.customGridColumn10.FieldName = "Id";
-            this.customGridColumn10.Name = "customGridColumn10";
-            // 
-            // layoutControlItem19
-            // 
-            this.layoutControlItem19.Control = this.customGridControl1;
-            this.layoutControlItem19.Location = new System.Drawing.Point(0, 0);
-            this.layoutControlItem19.Name = "layoutControlItem19";
-            this.layoutControlItem19.Size = new System.Drawing.Size(384, 201);
-            this.layoutControlItem19.TextSize = new System.Drawing.Size(0, 0);
-            this.layoutControlItem19.TextVisible = false;
-            // 
-            // customGridControl2
-            // 
-            this.customGridControl2.DataSource = this.acGroupDtoBindingSource;
-            this.customGridControl2.Location = new System.Drawing.Point(395, 38);
-            this.customGridControl2.MainView = this.customGridView2;
-            this.customGridControl2.Name = "customGridControl2";
-            this.customGridControl2.Size = new System.Drawing.Size(381, 197);
-            this.customGridControl2.TabIndex = 35;
-            this.customGridControl2.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
-            this.customGridView2});
-            this.customGridControl2.Click += new System.EventHandler(this.customGridControl2_Click);
-            // 
-            // customGridView2
-            // 
-            this.customGridView2.Appearance.FocusedCell.BackColor = System.Drawing.Color.White;
-            this.customGridView2.Appearance.FocusedCell.Options.UseBackColor = true;
-            this.customGridView2.Appearance.FooterPanel.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
-            this.customGridView2.Appearance.FooterPanel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(22)))), ((int)(((byte)(91)))));
-            this.customGridView2.Appearance.FooterPanel.Options.UseFont = true;
-            this.customGridView2.Appearance.FooterPanel.Options.UseForeColor = true;
-            this.customGridView2.Appearance.HeaderPanel.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
-            this.customGridView2.Appearance.HeaderPanel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(22)))), ((int)(((byte)(91)))));
-            this.customGridView2.Appearance.HeaderPanel.Options.UseFont = true;
-            this.customGridView2.Appearance.HeaderPanel.Options.UseForeColor = true;
-            this.customGridView2.Appearance.Row.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.customGridView2.Appearance.Row.Options.UseFont = true;
-            this.customGridView2.Appearance.ViewCaption.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(22)))), ((int)(((byte)(91)))));
-            this.customGridView2.Appearance.ViewCaption.Options.UseForeColor = true;
-            this.customGridView2.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
-            this.customGridColumn11,
-            this.customGridColumn12});
-            this.customGridView2.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFullFocus;
-            this.customGridView2.GridControl = this.customGridControl2;
-            this.customGridView2.Name = "customGridView2";
-            this.customGridView2.OptionsBehavior.AllowIncrementalSearch = true;
-            this.customGridView2.OptionsBehavior.Editable = false;
-            this.customGridView2.OptionsBehavior.FocusLeaveOnTab = true;
-            this.customGridView2.OptionsCustomization.AllowGroup = false;
-            this.customGridView2.OptionsCustomization.QuickCustomizationIcons.Image = null;
-            this.customGridView2.OptionsCustomization.QuickCustomizationIcons.TransperentColor = System.Drawing.Color.Empty;
-            this.customGridView2.OptionsLayout.Columns.StoreAllOptions = true;
-            this.customGridView2.OptionsLayout.Columns.StoreAppearance = true;
-            this.customGridView2.OptionsLayout.StoreAllOptions = true;
-            this.customGridView2.OptionsLayout.StoreAppearance = true;
-            this.customGridView2.OptionsSelection.CheckBoxSelectorColumnWidth = 30;
-            this.customGridView2.OptionsSelection.MultiSelect = true;
-            this.customGridView2.OptionsSelection.MultiSelectMode = DevExpress.XtraGrid.Views.Grid.GridMultiSelectMode.CheckBoxRowSelect;
-            this.customGridView2.OptionsSelection.ShowCheckBoxSelectorInColumnHeader = DevExpress.Utils.DefaultBoolean.True;
-            this.customGridView2.OptionsView.ColumnAutoWidth = false;
-            this.customGridView2.OptionsView.ShowGroupPanel = false;
-            this.customGridView2.ViewCaption = "Ledger Group";
-            // 
-            // customGridColumn11
-            // 
-            this.customGridColumn11.Caption = "Product Types";
-            this.customGridColumn11.FieldName = "DisplayText";
-            this.customGridColumn11.Name = "customGridColumn11";
-            this.customGridColumn11.Visible = true;
-            this.customGridColumn11.VisibleIndex = 1;
-            this.customGridColumn11.Width = 291;
-            // 
-            // customGridColumn12
-            // 
-            this.customGridColumn12.FieldName = "Id";
-            this.customGridColumn12.Name = "customGridColumn12";
-            // 
-            // layoutControlItem20
-            // 
-            this.layoutControlItem20.Control = this.customGridControl2;
-            this.layoutControlItem20.Location = new System.Drawing.Point(384, 0);
-            this.layoutControlItem20.Name = "layoutControlItem20";
-            this.layoutControlItem20.Size = new System.Drawing.Size(385, 201);
-            this.layoutControlItem20.TextSize = new System.Drawing.Size(0, 0);
-            this.layoutControlItem20.TextVisible = false;
-            // 
-            // gradeLookup1
-            // 
-            this.gradeLookup1.Location = new System.Drawing.Point(88, 409);
-            this.gradeLookup1.LookupTitle = null;
-            this.gradeLookup1.Name = "gradeLookup1";
-            this.gradeLookup1.PrimaryKey = null;
-            this.gradeLookup1.RequiredField = false;
-            this.gradeLookup1.SelectedText = null;
-            this.gradeLookup1.SelectedValue = null;
-            this.gradeLookup1.Size = new System.Drawing.Size(248, 20);
-            this.gradeLookup1.TabIndex = 36;
-            // 
             // layoutControlItem14
             // 
             this.layoutControlItem14.AppearanceItemCaption.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1868,9 +1868,13 @@
             this.tableLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.customGridControl2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.acGroupDtoBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.customGridView2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.customGridControl1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.customGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.challanTypeLookUpEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.colorGridControl)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.acGroupDtoBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.colorGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.designGridControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.designGridView1)).EndInit();
@@ -1912,6 +1916,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem11)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem17)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem19)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem20)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabbedControlGroup2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
@@ -1927,13 +1934,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.customGridControl1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.customGridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem19)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.customGridControl2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.customGridView2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem20)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem14)).EndInit();
             this.ResumeLayout(false);
 

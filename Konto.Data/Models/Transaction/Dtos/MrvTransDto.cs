@@ -113,7 +113,12 @@ namespace Konto.Data.Models.Transaction.Dtos
         public int PlainPcs { get; set; }
 
         public decimal PlainQty { get; set; }
-
+        public string Barcode { get; set; }
         public int? NProductId { get; set; }
+
+        public decimal SaleRate { get; set; }
+
+        public decimal BulkRate { get; set; }
+        public decimal SemiBulkRate { get; set; }
     }
 }

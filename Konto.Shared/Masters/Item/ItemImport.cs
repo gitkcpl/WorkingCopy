@@ -245,7 +245,26 @@ namespace Konto.Shared.Masters.Item
 
                                 price.IssueQty = 0;
                                 price.Qty = 0;
-                                price.BranchId = KontoGlobals.BranchId;
+                                var _div = item[20].ToString();
+
+                                if (!string.IsNullOrEmpty(_div))
+                                {
+                                    var _sz = db.Divisions.FirstOrDefault(x => x.DivisionName.ToUpper() == _div.ToUpper());
+                                    if (_sz == null)
+                                    {
+                                        _sz = new DivisionModel();
+                                        _sz.DivisionName = _div;
+                                        _sz.BranchId = KontoGlobals.BranchId;
+                                        db.Divisions.Add(_sz);
+                                        db.SaveChanges();
+                                    }
+                                    price.BranchId = _sz.Id;
+                                }
+
+                                if (Convert.ToInt32(price.BranchId) == 0)
+                                    price.BranchId = 1;
+
+                               // price.BranchId = KontoGlobals.BranchId;
                              //   price.CreateUser = KontoGlobals.UserName;
                             }
                         }
@@ -268,7 +287,7 @@ namespace Konto.Shared.Masters.Item
                                     itemname = item.ProductName;
                                     //var _Dt = _dataTable .Select("ProductName='" + item.ProductName + "'");
 
-                                    var _dt = _dataTable.AsEnumerable().Where(x => x.Field<string>("PRODUCTNAME") == item.ProductName).FirstOrDefault();
+                                    var _dt = _dataTable.AsEnumerable().Where(x => x.Field<string>("PRODUCTNAME").ToUpper() == item.ProductName.ToUpper()).FirstOrDefault();
                                     var price = new PriceModel();
                                     price.ProductId = item.Id;
                                     if (_dt != null)
@@ -278,11 +297,34 @@ namespace Konto.Shared.Masters.Item
                                         price.SaleRate = Convert.ToDecimal(_dt[11]);
                                         price.Rate1 = Convert.ToDecimal(_dt[13]);
                                         price.Rate2 = Convert.ToDecimal(_dt[14]);
+                                        var _div = _dt[20].ToString();
+                                        if (!string.IsNullOrEmpty(_div))
+                                        {
+                                            var _sz = db.Divisions.FirstOrDefault(x => x.DivisionName.ToUpper() == _div.ToUpper());
+                                            if (_sz == null)
+                                            {
+                                                _sz = new DivisionModel();
+                                                _sz.DivisionName = _div;
+                                                _sz.BranchId = KontoGlobals.BranchId;
+                                                db.Divisions.Add(_sz);
+                                                db.SaveChanges();
+                                            }
+                                            price.BranchId = _sz.Id;
+                                        }
                                     }
                                     price.IssueQty = 0;
                                     price.Qty = 0;
-                                    price.BranchId = KontoGlobals.BranchId;
+                                    //price.BranchId = KontoGlobals.BranchId;
                                     price.CreateUser = KontoGlobals.UserName;
+
+                                   
+
+                                    
+
+                                    if (Convert.ToInt32(price.BranchId) == 0)
+                                        price.BranchId = 1;
+
+
                                     PriceList.Add(price);
 
                                     //ProductBal

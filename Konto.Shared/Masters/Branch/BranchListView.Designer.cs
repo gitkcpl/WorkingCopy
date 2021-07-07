@@ -30,12 +30,19 @@
         {
             this.customGridControl1 = new Konto.Core.Shared.Libs.CustomGridControl();
             this.customGridView1 = new Konto.Core.Shared.Libs.CustomGridView();
+            this.voucherSimpleButton = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).BeginInit();
             this.panelControl2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.customGridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.customGridView1)).BeginInit();
             this.SuspendLayout();
+            // 
+            // panelControl2
+            // 
+            this.panelControl2.Controls.Add(this.voucherSimpleButton);
+            this.panelControl2.Controls.SetChildIndex(this.listAction1, 0);
+            this.panelControl2.Controls.SetChildIndex(this.voucherSimpleButton, 0);
             // 
             // customGridControl1
             // 
@@ -70,6 +77,16 @@
             this.customGridView1.OptionsView.ShowFooter = true;
             this.customGridView1.OptionsView.ShowGroupPanel = false;
             // 
+            // voucherSimpleButton
+            // 
+            this.voucherSimpleButton.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.voucherSimpleButton.Appearance.Options.UseFont = true;
+            this.voucherSimpleButton.Location = new System.Drawing.Point(476, 5);
+            this.voucherSimpleButton.Name = "voucherSimpleButton";
+            this.voucherSimpleButton.Size = new System.Drawing.Size(103, 23);
+            this.voucherSimpleButton.TabIndex = 2;
+            this.voucherSimpleButton.Text = "Voucher Setup";
+            // 
             // BranchListView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -94,5 +111,6 @@
 
         private Core.Shared.Libs.CustomGridControl customGridControl1;
         private Core.Shared.Libs.CustomGridView customGridView1;
+        private DevExpress.XtraEditors.SimpleButton voucherSimpleButton;
     }
 }
